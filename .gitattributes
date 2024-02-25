@@ -1,0 +1,2 @@
+Tesis/auxiliaries/vizualization.ovito filter=lfs diff=lfs merge=lfs -text
+Tesis/auxiliaries/vizualization_clusterPatches.ovito filter=lfs diff=lfs merge=lfs -text
