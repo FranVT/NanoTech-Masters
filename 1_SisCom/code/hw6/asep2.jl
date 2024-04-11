@@ -41,23 +41,22 @@ dt = 1e-2;
 Nt = 500;
 values = (dx,dt,Nt);
 
-# Physical space
-space = zeros(Np,1);
-
 # Save parameters and stuff 
 save(File(format"JLD",string(path,"/parameters.jld")),"parms",parms);
 save(File(format"JLD",string(path,"/values.jld")),"values",values);
+
+function propagation(Nb,η,Np,α,β,ϕ,dx,dt,Nt)
 
 # Initial position
 """
     σ:      State 
 """
 σ = wsample([0,1],[1-η,η],Nb);
-println(σ)
-
 save(File(format"JLD",string(path,"/state_0.jld")),"σ",σ);
 
-function propagation(Nb,η,Np,α,β,ϕ,dx,dt,Nt,σ)
+# Allocate mamory for the current
+j_p = zeros(Nt);
+j_n = zeros(Nt);
 
 for it = 1:Nt
 
@@ -132,9 +131,9 @@ ncmb[ncmb.<1].=Nb;
 ncm[ncm.>Nb].=1;
 ncm[ncm.<1].=Nb;
 
-# Count 
-cpmf = sum(isone.(Δ2)) + sum(isone.(Δ1));
-cpmb = (length(cmb)-sum(iszero.(Δ3))) + (length(cm)-sum(iszero.(Δ1))-sum(isone.(Δ1)));
+# Count the numer of particles that move.
+j_p[it] = sum(isone.(Δ2)) + sum(isone.(Δ1));
+j_n[it] = (length(cmb)-sum(iszero.(Δ3))) + (length(cm)-sum(iszero.(Δ1))-sum(isone.(Δ1)));
                                         
 # Update the state
 σ = copy(σ);
@@ -146,6 +145,10 @@ save(File(format"JLD",string(path,"/state_",it,".jld")),"σ",σ);
 
 end
 
+# Save the currents
+save(File(format"JLD",string(path,"/j_p.jld")),"j_p",j_p);
+save(File(format"JLD",string(path,"/j_n.jld")),"j_n",j_n);
+
 end
 
-propagation(parms...,values...,σ)
+propagation(parms...,values...)

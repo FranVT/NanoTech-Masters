@@ -1,5 +1,5 @@
 """
-    File t create the animation and plots require in the homework
+    File that create the animation
 """
 
 # Packages
@@ -12,13 +12,6 @@ path = "/home/Fran/gitRepos/NanoTech-Masters/1_SisCom/data/data_hk6";
 # Load the parameters
 parms = load(string(path,"/parameters.jld"),"parms");
 values = load(string(path,"/values.jld"),"values");
-
-# Load all the states
-states = zeros(parms[1],values[3]);
-
-for it = 1:values[3]
-    states[:,it] = load(string(path,"/state_",it,".jld"),"σ");
-end
 
 # Plots 
 function graph(states,Np,it)
@@ -39,7 +32,8 @@ scatter(states,
 )
 end
 
-for it = 1:values[3]
-    
+anim = @animate for it ∈ 1:1:values[3]
+    aux = load(string(path,"/state_",it*values[2],".jld"),"σ");
+    graph(aux,parms[1],it)
 end
-
+gif(anim,string(path,"/gifASEP.gif"),fps=24)
