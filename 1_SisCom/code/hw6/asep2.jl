@@ -4,7 +4,11 @@
 """
 
 # Packages and stuff
-using Plots, Random, Distributions
+using Random, Distributions
+using FileIO, JLD
+
+# Set the path to save the data
+path = "/home/Fran/gitRepos/NanoTech-Masters/1_SisCom/data/data_hk6";
 
 # Setting the sead and the random number generator
 Random.seed!(4321)
@@ -24,17 +28,25 @@ Np = ceil(Int64,η*Nb);
 α = 3;
 β = 2;
 ϕ = [-1,0,1];
+parms = (Nb,η,Np,α,β,ϕ);
 
 # Discretize the values
 """
-    dx:      Spatial interval (Can be interpreted as particle size)
-    dt:      Temporal intervlal
+    dx:     Spatial interval (Can be interpreted as particle size)
+    dt:     Temporal interval
+    Nt:     Time Steps
 """
 dx = 1;
 dt = 1e-2;
+Nt = 500;
+values = (dx,dt,Nt);
 
 # Physical space
 space = zeros(Np,1);
+
+# Save parameters and stuff 
+save(File(format"JLD",string(path,"/parameters.jld")),"parms",parms);
+save(File(format"JLD",string(path,"/values.jld")),"values",values);
 
 # Initial position
 """
@@ -42,6 +54,12 @@ space = zeros(Np,1);
 """
 σ = wsample([0,1],[1-η,η],Nb);
 println(σ)
+
+save(File(format"JLD",string(path,"/state_0.jld")),"σ",σ);
+
+function propagation(Nb,η,Np,α,β,ϕ,dx,dt,Nt,σ)
+
+for it = 1:Nt
 
 # Get location of the particles
 """
@@ -66,6 +84,11 @@ aux2[aux2.<1].=Nb;
 """
 cmf = setdiff(aux1,loc) .- 1;
 cmb = setdiff(aux2,loc) .+ 1;
+
+# Apply Boundary Conditions
+cmb[cmb.>Nb].=1;
+cmf[cmf.<1].=Nb;
+
 cm = cmf∩cmb;
 
 # Clear values
@@ -101,12 +124,28 @@ ncmf = cmf .+ Δ2;
 # Update particle position 
 ncmb = cmb .+ Δ3;
 
+# Apply Boundary Conditions
+ncmf[ncmf.>Nb].=1;
+ncmb[ncmb.<1].=Nb;
+
+# Apply Boundary Conditions
+ncm[ncm.>Nb].=1;
+ncm[ncm.<1].=Nb;
+
 # Count 
 cpmf = sum(isone.(Δ2)) + sum(isone.(Δ1));
 cpmb = (length(cmb)-sum(iszero.(Δ3))) + (length(cm)-sum(iszero.(Δ1))-sum(isone.(Δ1)));
                                         
 # Update the state
-η = copy(σ);
-η[loc].=0;
-η[union(ncm,ncmf,ncmb)].=1;
+σ = copy(σ);
+σ[union(cm,cmf,cmb)].=0;
+σ[union(ncm,ncmf,ncmb)].=1;
 
+# Save the new state
+save(File(format"JLD",string(path,"/state_",it,".jld")),"σ",σ);
+
+end
+
+end
+
+propagation(parms...,values...,σ)
