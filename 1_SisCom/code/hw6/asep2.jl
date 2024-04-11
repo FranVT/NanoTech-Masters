@@ -103,10 +103,10 @@ ncmb = cmb .+ Δ3;
 
 # Count 
 cpmf = sum(isone.(Δ2)) + sum(isone.(Δ1));
-cpmb = (length(cmb)-sum(iszero.(Δ3))) + (length(cm)-sum(iszero.(Δ1))-sum(isone.(Δ1));
-
+cpmb = (length(cmb)-sum(iszero.(Δ3))) + (length(cm)-sum(iszero.(Δ1))-sum(isone.(Δ1)));
+                                        
 # Update the state
-σn = copy(σ);
-σn[loc].=0;
-σn[union(ncm,ncmf,ncmb)].=1;
+η = copy(σ);
+η[loc].=0;
+η[union(ncm,ncmf,ncmb)].=1;
 
