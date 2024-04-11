@@ -7,7 +7,7 @@ using Plots, LaTeXStrings
 using FileIO, JLD 
 
 # Path to acces the information
-path = "/home/Fran/gitRepos/NanoTech-Masters/1_SisCom/data/data_hk6";
+path = "/home/Fran/gitRepos/NanoTech-Masters/1_SisCom/data/data_hk6_2";
 
 # Load the parameters
 parms = load(string(path,"/parameters.jld"),"parms");
@@ -33,7 +33,7 @@ scatter(states,
 end
 
 anim = @animate for it ∈ 1:1:values[3]
-    aux = load(string(path,"/state_",it*values[2],".jld"),"σ");
-    graph(aux,parms[1],it)
+    aux = load(string(path,"/state_",it,".jld"),"σ");
+    graph(aux,parms[1],it*values[2])
 end
 gif(anim,string(path,"/gifASEP.gif"),fps=24)
