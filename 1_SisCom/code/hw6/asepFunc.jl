@@ -2,7 +2,7 @@
     Script that has the function of the Poisson Process in particles
 """
 
-function propagation(Nb,η,Np,α,β,dx,dt,Nt,ne,s)
+function propagation(Nb,η,Np,α,β,dx,dt,Nt,ne,s,sj)
 """
     Function that exectue the temporal evoluction of a one dimensional system of particles that its movement is modeled by the Poisson Process.
 """
@@ -109,13 +109,14 @@ end
 
 end
 
+if sj == 1
 # Save the currents
 save(File(format"JLD",string(path,"/",Int(η*10000),"j_p",ne,".jld")),"j_p",j_p);
 save(File(format"JLD",string(path,"/",Int(η*10000),"j_n",ne,".jld")),"j_n",j_n);
-
+end
 end
 
-function experimentASEP(η)
+function experimentASEP(η,sd,sj)
 """
     Function that stablishes the parameters of the system.
 """
@@ -145,7 +146,7 @@ parms = (Nb,η,Np,α,β);
 dx = 1;
 dt = 1e-2;
 Nt = 500;
-Ne = 300;
+Ne = 1;
 values = (dx,dt,Nt,Ne);
 
 # Save parameters and stuff 
@@ -154,7 +155,7 @@ save(File(format"JLD",string(path,"/",Int(η*10000),"values.jld")),"values",valu
 
 # Make Ne experiments
 for ite ∈ 1:Ne
-    propagation(parms...,values[1:3]...,ite,0)
+    propagation(parms...,values[1:3]...,ite,sd,sj)
 end
 end
 

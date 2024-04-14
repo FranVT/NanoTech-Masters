@@ -15,9 +15,13 @@ path = "/home/Fran/gitRepos/NanoTech-Masters/1_SisCom/data/data_hk6_4";
 Random.seed!(4321)
 
 # Range of packing fractions
-ϕ = 1/80:1/80:1;
+ϕ = 20/80:20/80:1;
+
+# Save files options
+sd = 1;
+sj = 0;
 
 for itp = 1:length(ϕ) 
-    experimentASEP(ϕ[itp]);
+    experimentASEP(ϕ[itp],sd,sj);
 end
 
