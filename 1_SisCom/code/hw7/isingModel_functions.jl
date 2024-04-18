@@ -43,9 +43,21 @@ function computeEnergy(J,B,sys,part,Ng)
     """
         t1 = sum(map(r-> dot( sys[part[r][1]...].*ones(4) , map(s->sys[last.(part)[r][s]...],1:4) ), 1:Ng*Ng));
         t2 = sum(map(r->sys[part[r][1]...],1:Ng*Ng));
-        return -(J*t1 + B*t2)
+        return -(J*t1 + B*t2)/2
 end
-    
+
+# Compute the chanage of energy
+function computeDeltaE(J,B,sysn,syso,part,Ng,id)
+"""
+    Compute the changeof energy given the spin that changes.
+    sysn:       System with the change
+    syso:       Original system
+"""
+    info = part[id];
+    ΔE = J*2*syso[info[1]...]*sum(map(s->sysn[info[2][s]...],1:4));
+    return ΔE
+end
+
 # Create a change in the system
 function smallSysChange(sys,part,σs,Ng,id)
     """

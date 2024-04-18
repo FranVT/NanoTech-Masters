@@ -25,9 +25,10 @@ part = idNeighbors(Ng);
 energ = computeEnergy(J,B,sys,part,Ng);
 
 # Make an energy comparsion between systems
-nsys = map(s->smallSysChange(sys,part,σs,Ng,s),rand(1:Ng*Ng,10));
+idc = rand(1:Ng*Ng,10);
+nsys = map(s->smallSysChange(sys,part,σs,Ng,s),idc);
 
 nenerg = map(s->computeEnergy(J,B,nsys[s],part,Ng),1:length(nsys))
 
-denerg = energ .- nenerg
+denerg = nenerg .- energ
 

@@ -2,7 +2,7 @@
     Script for graphs
 """
 
-using Nord
+using Nord, LaTeXStrings
 
 splot = scatter(
         size = (460,460),
