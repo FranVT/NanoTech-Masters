@@ -108,31 +108,31 @@ denerg = energ .- nenerg
 mcss = [[] for s∈1:Nsteps ];
 
 for steps ∈ 1:100
-for trials ∈ 1:Ng*Ng
-    # Make tha change in the one particle
-    η = rsmallSysChange(sys,part,σ,Ng,trial);
-    
-    # Compute the difference in energy
-    ΔE = computeDeltaE(J,B,η,σ,part,Ng,trial);
-    
-    # Acceptance step 
-    if ΔE < 1 # Accepted
-        σ = copy(η);
-        append!(mcss[step],trial)
-        save(File(format"JLD",string(path,"/state",step,"_",trial,".jld")),"σ",σ)
-    else # Rejected, not yet
-        # Accpet or reject with probability of exp(-ΔE/kb T)
-        γ = exp(-ΔE/(kb*T));
-        aux = wsample([0,1],[1-γ,γ],(Ng,Ng));
-        if aux == 1 # Accepted
-            σ = copy(η)
+    for trials ∈ 1:Ng*Ng
+        # Make tha change in the one particle
+        η = rsmallSysChange(sys,part,σ,Ng,trial);
+        
+        # Compute the difference in energy
+        ΔE = computeDeltaE(J,B,η,σ,part,Ng,trial);
+        
+        # Acceptance step 
+        if ΔE < 1 # Accepted
+            σ = copy(η);
             append!(mcss[step],trial)
             save(File(format"JLD",string(path,"/state",step,"_",trial,".jld")),"σ",σ)
-        else # Rejected, now it is for real
-            σ = copy(σ)
+        else # Rejected, not yet
+            # Accpet or reject with probability of exp(-ΔE/kb T)
+            γ = exp(-ΔE/(kb*T));
+            aux = wsample([0,1],[1-γ,γ],(Ng,Ng));
+            if aux == 1 # Accepted
+                σ = copy(η)
+                append!(mcss[step],trial)
+                save(File(format"JLD",string(path,"/state",step,"_",trial,".jld")),"σ",σ)
+            else # Rejected, now it is for real
+                σ = copy(σ)
+            end
         end
     end
-end
 end
 
 function metropoliAlgorithm()
@@ -146,34 +146,35 @@ function metropoliAlgorithm()
     # Array that safes the step for acces the date later
 mcss = [[] for s∈1:Nsteps ];
 
-for steps ∈ 1:100
-for trials ∈ 1:Ng*Ng
-    # Make tha change in the one particle
-    η = rsmallSysChange(sys,part,σ,Ng,trial);
-    
-    # Compute the difference in energy
-    ΔE = computeDeltaE(J,B,η,σ,part,Ng,trial);
-    
-    # Acceptance step 
-    if ΔE < 1 # Accepted
-        σ = copy(η);
-        append!(mcss[step],trial)
-        save(File(format"JLD",string(path,"/state",step,"_",trial,".jld")),"σ",σ)
-    else # Rejected, not yet
-        # Accpet or reject with probability of exp(-ΔE/kb T)
-        γ = exp(-ΔE/(kb*T));
-        aux = wsample([0,1],[1-γ,γ],(Ng,Ng));
-        if aux == 1 # Accepted
-            σ = copy(η)
-            append!(mcss[step],trial)
-            save(File(format"JLD",string(path,"/state",step,"_",trial,".jld")),"σ",σ)
-        else # Rejected, now it is for real
-            σ = copy(σ)
+    for step ∈ 1:Nsteps
+        for trial ∈ 1:Ng*Ng
+            # Make tha change in the one particle
+            η = rsmallSysChange(sys,part,σ,Ng,trial);
+            
+            # Compute the difference in energy
+            ΔE = computeDeltaE(J,B,η,σ,part,Ng,trial);
+            
+            # Acceptance step 
+            if ΔE < 1 # Accepted
+                σ = copy(η);
+                append!(mcss[step],trial)
+                save(File(format"JLD",string(path,"/state",step,"_",trial,".jld")),"σ",σ)
+            else # Rejected, not yet
+                # Accpet or reject with probability of exp(-ΔE/kb T)
+                γ = exp(-ΔE/(kb*T));
+                aux = wsample([0,1],[1-γ,γ],(Ng,Ng));
+                if aux == 1 # Accepted
+                    σ = copy(η)
+                    append!(mcss[step],trial)
+                    save(File(format"JLD",string(path,"/state",step,"_",trial,".jld")),"σ",σ)
+                else # Rejected, now it is for real
+                    σ = copy(σ)
+                end
+            end
         end
     end
-end
-end
 
+end
 
 
 

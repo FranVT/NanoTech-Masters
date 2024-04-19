@@ -73,7 +73,7 @@ function computeDeltaE(J,B,sysn,syso,part,Ng,id)
 end
 
 # Create a change in the system
-function smallSysChange(sys,part,σs,Ng,id)
+function smallSysChange(sys,part,id)
 """
     Change one spin of the system
 """
@@ -83,7 +83,7 @@ function smallSysChange(sys,part,σs,Ng,id)
 end
 
 # Create a change in the system
-function rsmallSysChange(sys,part,σs,Ng,id)
+function rsmallSysChange(sys,part,id)
 """
     Change one spin of the system
 """
@@ -92,3 +92,47 @@ function rsmallSysChange(sys,part,σs,Ng,id)
         return nsys
 end
 
+function metropoliAlgorithm(σ)
+"""
+    Computes the metropoli 
+"""
+    # Includes parameters and auxiliary functions
+    include("isingModel_parameters.jl")
+    include("isingModel_functions.jl")
+
+    # Array that safes the step for acces the date later
+    mcss = [[] for s∈1:Nsteps ];
+    
+        for step ∈ 1:Nsteps
+            # Change the seed 
+            Random.seed!(setSeeds[step])
+            for trial ∈ 1:Ng*Ng
+                # Make tha change in the one particle
+                η = rsmallSysChange(σ,part,trial);
+                
+                # Compute the difference in energy
+                ΔE = computeDeltaE(J,B,η,σ,part,Ng,trial);
+                
+                # Acceptance step 
+                if ΔE < 1 # Accepted
+                    σ = copy(η);
+                    append!(mcss[step],trial)
+                    save(File(format"JLD",string(path,"/state",step,"_",trial,".jld")),"σ",σ)
+                else # Rejected, not yet
+                    # Accpet or reject with probability of exp(-ΔE/kb T)
+                    γ = exp(-ΔE/(kb*T));
+                    aux = wsample([0,1],[1-γ,γ],(Ng,Ng));
+                    if aux == 1 # Accepted
+                        σ = copy(η)
+                        append!(mcss[step],trial)
+                        save(File(format"JLD",string(path,"/state",step,"_",trial,".jld")),"σ",σ)
+                    else # Rejected, now it is for real
+                        σ = copy(σ)
+                    end
+                end
+            end
+        end
+    save(File(format"JLD",string(path,"/seeds",step,".jld")),"seeds",setSeeds)    
+    save(File(format"JLD",string(path,"/idsState",step,".jld")),"mcss",mcss)
+    return mcss
+end
