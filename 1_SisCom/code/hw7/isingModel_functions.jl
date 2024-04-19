@@ -2,6 +2,20 @@
     Script with usefull functions
 """
 
+function dictPBC(Ng)
+    # Range
+    dom = 1:Ng;
+
+    # Mapping stuff
+    relation = [(x,x) for x∈dom]
+
+    # Include boundary condition
+    append!(relation,[(0,Ng),(Ng+1,1)])
+
+    # Converted to dictionary
+    return Dict(relation);
+end
+
 # Construct the neighbor lists
 function idNeighbors(Ng)
     """
@@ -13,7 +27,7 @@ function idNeighbors(Ng)
                 3 -> Bottom
                 4 -> Top
     part:   List of nodes with its neighbors
-                ((xi,yi),((xi,yi+1),(xi,yi-1),(xi+1,yi),(xi-1,yi)))
+                ((xi,yi),((xi,yi+1),(x1,yi-1),(xi+1,yi),(xi-1,yi)))
     """
         id = [(x,y)  for y∈1:Ng, x∈1:Ng];
         auxn = ((0,1),(0,-1),(1,0),(-1,0));
@@ -41,7 +55,7 @@ function computeEnergy(J,B,sys,part,Ng)
     """
         Compute the energy given an arrange of a grid with spins and neigbor lists
     """
-        t1 = sum(map(r-> dot( sys[part[r][1]...].*ones(4) , map(s->sys[last.(part)[r][s]...],1:4) ), 1:Ng*Ng));
+        t1 = sum(map(r->sys[part[r][1]...]*sum(map(s->sys[last.(part)[r][s]...],1:4)),1:Ng*Ng));
         t2 = sum(map(r->sys[part[r][1]...],1:Ng*Ng));
         return -(J*t1 + B*t2)/2
 end
@@ -60,11 +74,21 @@ end
 
 # Create a change in the system
 function smallSysChange(sys,part,σs,Ng,id)
-    """
-        Change one spin of the system
-    """
+"""
+    Change one spin of the system
+"""
         nsys = copy(sys);
         nsys[first(part[id])...] = -sys[first(part[id])...]
         return nsys
 end
-    
+
+# Create a change in the system
+function rsmallSysChange(sys,part,σs,Ng,id)
+"""
+    Change one spin of the system
+"""
+        nsys = copy(sys);
+        nsys[first(part[id])...] = rand([-1,1])
+        return nsys
+end
+

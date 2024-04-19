@@ -68,7 +68,7 @@ part:   List of nodes with its neighbors
     return map(s->(id[s],(neigh[1][s],neigh[2][s],neigh[3][s],neigh[4][s])),1:Ng*Ng);
 end
 
-part = idNeighbors(Ng);
+#part = idNeighbors(Ng);
 
 # Compue the energy
 function computeEnergy(J,B,sys,part,Ng)
@@ -80,7 +80,7 @@ function computeEnergy(J,B,sys,part,Ng)
     return -(J*t1 + B*t2)
 end
 
-energ = computeEnergy(J,B,sys,part,Ng);
+#energ = computeEnergy(J,B,sys,part,Ng);
 
 # Create a change in the system
 function smallSysChange(sys,part,σs,Ng,id)
@@ -92,9 +92,94 @@ function smallSysChange(sys,part,σs,Ng,id)
     return nsys
 end
 
+"""
 # Make an energy comparsion between systems
 nsys = map(s->smallSysChange(sys,part,σs,Ng,s),rand(1:Ng*Ng,10));
 
 nenerg = map(s->computeEnergy(J,B,nsys[s],part,Ng),1:length(nsys))
 
 denerg = energ .- nenerg
+"""
+
+"""
+    Stuff for the Montecarlo Algorithm
+"""
+# Array that safes the step for acces the date later
+mcss = [[] for s∈1:Nsteps ];
+
+for steps ∈ 1:100
+for trials ∈ 1:Ng*Ng
+    # Make tha change in the one particle
+    η = rsmallSysChange(sys,part,σ,Ng,trial);
+    
+    # Compute the difference in energy
+    ΔE = computeDeltaE(J,B,η,σ,part,Ng,trial);
+    
+    # Acceptance step 
+    if ΔE < 1 # Accepted
+        σ = copy(η);
+        append!(mcss[step],trial)
+        save(File(format"JLD",string(path,"/state",step,"_",trial,".jld")),"σ",σ)
+    else # Rejected, not yet
+        # Accpet or reject with probability of exp(-ΔE/kb T)
+        γ = exp(-ΔE/(kb*T));
+        aux = wsample([0,1],[1-γ,γ],(Ng,Ng));
+        if aux == 1 # Accepted
+            σ = copy(η)
+            append!(mcss[step],trial)
+            save(File(format"JLD",string(path,"/state",step,"_",trial,".jld")),"σ",σ)
+        else # Rejected, now it is for real
+            σ = copy(σ)
+        end
+    end
+end
+end
+
+function metropoliAlgorithm()
+"""
+    Computes the metropoli 
+"""
+    # Includes parameters and auxiliary functions
+    include("isingModel_parameters")
+    include("isingModel_functions")
+
+    # Array that safes the step for acces the date later
+mcss = [[] for s∈1:Nsteps ];
+
+for steps ∈ 1:100
+for trials ∈ 1:Ng*Ng
+    # Make tha change in the one particle
+    η = rsmallSysChange(sys,part,σ,Ng,trial);
+    
+    # Compute the difference in energy
+    ΔE = computeDeltaE(J,B,η,σ,part,Ng,trial);
+    
+    # Acceptance step 
+    if ΔE < 1 # Accepted
+        σ = copy(η);
+        append!(mcss[step],trial)
+        save(File(format"JLD",string(path,"/state",step,"_",trial,".jld")),"σ",σ)
+    else # Rejected, not yet
+        # Accpet or reject with probability of exp(-ΔE/kb T)
+        γ = exp(-ΔE/(kb*T));
+        aux = wsample([0,1],[1-γ,γ],(Ng,Ng));
+        if aux == 1 # Accepted
+            σ = copy(η)
+            append!(mcss[step],trial)
+            save(File(format"JLD",string(path,"/state",step,"_",trial,".jld")),"σ",σ)
+        else # Rejected, now it is for real
+            σ = copy(σ)
+        end
+    end
+end
+end
+
+
+
+
+
+
+
+
+
+

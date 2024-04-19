@@ -20,13 +20,15 @@ splot = scatter(
 
 scatter!(splot,first.(part)[reshape(sys.==1,Ng*Ng)],
     mc = Nord.white,
-    markersize = 1.5,
+    markershape = :utriangle,
+    markersize = 2,
     markerstrokecolor = Nord.grey,
     label = L"\sigma = 1"
 )
 scatter!(splot,first.(part)[reshape(sys.==-1,Ng*Ng)],
     mc =Nord.black,
-    markersize = 1.5,
+    markershape = :dtriangle,
+    markersize = 2,
     markerstrokecolor = Nord.grey,
     label = L"\sigma = -1"
 )
