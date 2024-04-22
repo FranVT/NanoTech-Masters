@@ -134,5 +134,23 @@ function metropoliAlgorithm(σ)
         end
     save(File(format"JLD",string(path,"/seeds",step,".jld")),"seeds",setSeeds)    
     save(File(format"JLD",string(path,"/idsState",step,".jld")),"mcss",mcss)
-    return mcss
+    #return mcss
 end
+
+
+# Function to extract the information
+function getInfo(path,Ng,Nsteps)
+    saveStates = load(string(path,"/idsState",Nsteps,".jld"),"mcss");
+    frames = sum(first.(size.(saveStates)));
+    info = zeros(Int64,Ng,Ng,frames);
+    aux = append!([0],cumsum(first.(size.(saveStates))));
+    
+    for s∈1:Nsteps
+        for t∈1:length(saveStates[s])
+            info[:,:,t+aux[s]] = load(string(path,"/state",s,"_",saveStates[s][t],".jld"),"σ")
+        end
+    end
+    return (info, frames)
+end
+
+

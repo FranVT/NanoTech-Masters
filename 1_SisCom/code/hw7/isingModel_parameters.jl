@@ -29,4 +29,4 @@ Nsteps = 10;
 setSeeds = abs.(rand(Int,Nsteps));
 
 # Path to save the information
-path = "/home/Fran/gitRepos/NanoTech-Masters/1_SisCom/data/data_hk7";
+path = string("/home/Fran/gitRepos/NanoTech-Masters/1_SisCom/data/data_hk7/T_",Int(T)*100);

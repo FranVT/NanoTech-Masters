@@ -66,10 +66,7 @@ end
 include("isingModel_parameters.jl")
 
 # Retreive the information
-saveStates = load(string(path,"/idsState",step,".jld"),"mcss");
-frames = sum(first.(size.(saveStates)));
-
-#info = getInfo(frames,saveStates,Ng);
+#info = getInfo(path,Ng,Nsteps);
 
 # Compute the energy 
 @time begin
