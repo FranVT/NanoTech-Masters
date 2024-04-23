@@ -6,6 +6,9 @@ using Plots, LaTeXStrings
 using FileIO, JLD
 using Nord
 
+"""
+        Usefully functions
+"""
 function system(part,sys,Ng,mks)
 """
     Scatter plot for the system
@@ -49,26 +52,32 @@ function createAnimation(path,part,info,frames,Ng,mk)
     gif(anim,string(path,"/",frames,"gificing.gif"),fps=24)
 end
 
-function getInfo(frames,saveStates,Ng)
-    info = zeros(Int64,Ng,Ng,frames);
-    aux = append!([0],cumsum(first.(size.(saveStates))));
-    
-    for s∈1:Nsteps
-        for t∈1:length(saveStates[s])
-            info[:,:,t+aux[s]] = load(string(path,"/state",s,"_",saveStates[s][t],".jld"),"σ")
-        end
-    end
-    return info
-end
-
+"""
+    Data Analysis and graphs
+"""
 
 # Include the parameters of the simulation
 include("isingModel_parameters.jl")
 
-# Retreive the information
-#info = getInfo(path,Ng,Nsteps);
+nExp = 1;
 
-# Compute the energy 
+# Retreive the information
+(info, Nstates) = getInfo(T,nExp);
+
+# Compute the energy for all the states 
 @time begin
-energ = map(s->computeEnergy(J,B,info[:,:,s],part,Ng),1:frames);
+    energ = map(s->computeEnergy(J,B,info[s],part,Ng),1:Nstates);
 end
+
+# Compute the magnetization for all the states
+@time begin
+    mag = map(s->sum(Int64,info[:,:,s],sr),1:1:Nstates);
+end
+
+"""
+    Graphs
+"""
+system(part,info[:,:,end],Ng,3)
+
+pEnerg = plot(energ,title="Energy")
+pMag = plot(mag,title="Magnetization")

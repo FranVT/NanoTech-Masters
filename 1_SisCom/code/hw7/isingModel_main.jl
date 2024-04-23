@@ -22,23 +22,8 @@ sys = wsample(σs,[1-η,η],(Ng,Ng));
 part = idNeighbors(Ng);
 
 @time begin
-# Excecute the MonteCarlo algorithm
-metropoliAlgorithm(sys)
+    # Excecute the MonteCarlo algorithm N times
+    for nexp ∈ 1:5
+        metropoliAlgorithm(sys,nexp)
+    end
 end
-
-# Retreive the information
-(info, frames) = getInfo(path,Ng,Nsteps);
-
-# Compute the energy for all the states 
-@time begin
-    energ = map(s->computeEnergy(J,B,info[:,:,s],part,Ng),1:frames);
-end
-
-# Compute the magnetization for all the states
-@time begin
-    mag = map(s->sum(Int64,info[:,:,s],sr),1:1:frames);
-end
-
-
-
-

@@ -92,7 +92,7 @@ function rsmallSysChange(sys,part,id)
         return nsys
 end
 
-function metropoliAlgorithm(σ)
+function metropoliAlgorithm(σ,nExp)
 """
     Computes the metropoli 
 """
@@ -100,8 +100,9 @@ function metropoliAlgorithm(σ)
     include("isingModel_parameters.jl")
     include("isingModel_functions.jl")
 
-    # Array that safes the step for acces the date later
-    mcss = [[] for s∈1:Nsteps ];
+    # Array to save the sates
+    states = [zeros(Ng,Ng) for s∈1:Nsteps*Ng*Ng]
+    auxs = 1;
     
         for step ∈ 1:Nsteps
             # Change the seed 
@@ -116,30 +117,38 @@ function metropoliAlgorithm(σ)
                 # Acceptance step 
                 if ΔE < 1 # Accepted
                     σ = copy(η);
-                    append!(mcss[step],trial)
-                    save(File(format"JLD",string(path,"/state",step,"_",trial,".jld")),"σ",σ)
+                    states[auxs].= σ;
                 else # Rejected, not yet
                     # Accpet or reject with probability of exp(-ΔE/kb T)
                     γ = exp(-ΔE/(kb*T));
                     aux = wsample([0,1],[1-γ,γ],(Ng,Ng));
                     if aux == 1 # Accepted
                         σ = copy(η)
-                        append!(mcss[step],trial)
-                        save(File(format"JLD",string(path,"/state",step,"_",trial,".jld")),"σ",σ)
+                        states[auxs].= σ;
                     else # Rejected, now it is for real
                         σ = copy(σ)
                     end
                 end
+                auxs = auxs + 1;
             end
         end
-    save(File(format"JLD",string(path,"/seeds",step,".jld")),"seeds",setSeeds)    
-    save(File(format"JLD",string(path,"/idsState",step,".jld")),"mcss",mcss)
-    #return mcss
+    # Clean the data
+    states = filter(!iszero,states);
+
+    # Save the data
+    save(File(format"JLD",string(path,"/T_",T,nExp,"states.jld")),"states",states)
+    save(File(format"JLD",string(path,"/seeds",step,".jld")),"seeds",setSeeds)
+
 end
 
+# Function to extract the information
+function getInfo(T,nExp)
+    info = load(string(path,"/T_",T,nExp,"states.jld"),"states");
+    return (info,length(info))
+end
 
 # Function to extract the information
-function getInfo(path,Ng,Nsteps)
+function getInfoObs(path,Ng,Nsteps)
     saveStates = load(string(path,"/idsState",Nsteps,".jld"),"mcss");
     frames = sum(first.(size.(saveStates)));
     info = zeros(Int64,Ng,Ng,frames);

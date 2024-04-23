@@ -12,7 +12,7 @@
     kb:     Bolztamnn constant
     T:      Temperature
 """
-Ng = 2^4;
+Ng = 2^5;
 σs = [-1,1];
 η = 0.5;
 J = 1;
@@ -25,8 +25,8 @@ T = 1;
     Nsteps:   Number of cicles in the algorithm
     setSeeds: Set of seeds for every step  
 """
-Nsteps = 10;
+Nsteps = 100;
 setSeeds = abs.(rand(Int,Nsteps));
 
 # Path to save the information
-path = string("/home/Fran/gitRepos/NanoTech-Masters/1_SisCom/data/data_hk7/T_",Int(T)*100);
+path = string("/home/Fran/gitRepos/NanoTech-Masters/1_SisCom/data/data_hk7_1/");
