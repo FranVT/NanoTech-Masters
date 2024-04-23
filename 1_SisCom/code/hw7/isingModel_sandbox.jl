@@ -41,25 +41,6 @@ println("Compute difference of Energy")
 @time begin
 dfenerg = map(s->computeDeltaE(J,B,nsys[s],sys,part,Ng,idc[s]),1:length(nsys))
 end
- Make an energy comparsion between systems
-idc = rand(1:Ng*Ng,10);
-println("Small changes")
-@time begin
-nsys = map(s->smallSysChange(sys,part,σs,Ng,s),idc);
-end
-
-println("Compute N Energy")
-@time begin
-nenerg = map(s->computeEnergy(J,B,nsys[s],part,Ng),1:length(nsys))
-end
-
-println("Energy differences")
-denerg = nenerg .- energ
-
-println("Compute difference of Energy")
-@time begin
-dfenerg = map(s->computeDeltaE(J,B,nsys[s],sys,part,Ng,idc[s]),1:length(nsys))
-end
 
 
 
