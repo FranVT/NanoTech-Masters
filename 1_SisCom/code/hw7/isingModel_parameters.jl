@@ -18,7 +18,7 @@ Ng = 2^6;
 J = 1;
 B = 0;
 kb = 1;
-T = 1;
+T = 1.5;
 
 # Parameters for the Metropoli algorithm
 """
@@ -27,6 +27,9 @@ T = 1;
 """
 Nsteps = 100;
 setSeeds = abs.(rand(Int,Nsteps));
+
+# Parameter for the amount of simulations per termperature
+Nexp = 10;
 
 # Path to save the information
 path = string("/home/Fran/gitRepos/NanoTech-Masters/1_SisCom/data/data_hk7_1/");

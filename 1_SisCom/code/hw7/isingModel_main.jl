@@ -23,7 +23,7 @@ part = idNeighbors(Ng);
 
 @time begin
     # Excecute the MonteCarlo algorithm N times
-    for nexp ∈ 1:5
+    for nexp ∈ 1:Nexp
         metropoliAlgorithm(sys,nexp)
     end
 end

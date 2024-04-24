@@ -67,19 +67,18 @@ nExp = 1;
 psys = system(part,info[end],Ng,3)
 
 
-"""
 # Compute the energy for all the states 
 @time begin
     energ = map(s->computeEnergy(J,B,info[s],part,Ng),1:Nstates);
 end
+
 
 # Compute the magnetization for all the states
 @time begin
     mag = map(s->sum(Int64,info[:,:,s],sr),1:1:Nstates);
 end
 
-    Graphs
+# Graphs
 
 pEnerg = plot(energ,title="Energy")
 pMag = plot(mag,title="Magnetization")
-"""
