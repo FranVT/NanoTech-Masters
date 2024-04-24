@@ -12,7 +12,7 @@
     kb:     Bolztamnn constant
     T:      Temperature
 """
-Ng = 2^5;
+Ng = 2^6;
 σs = [-1,1];
 η = 0.5;
 J = 1;
