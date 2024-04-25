@@ -60,6 +60,47 @@ function computeEnergy(J,B,sys,part,Ng)
         return -(J*t1 + B*t2)/2
 end
 
+# Compute the Hamiltonian with a parallel scheme
+function computeHamiltonianP(J,B,sys,part,Ng,Nth)
+    """
+        Compute the Hamiltonian with parallel particles
+    """
+        # Auxiliary function
+        function sumPart(J,sys,part,dom)
+        """
+            Compute the Hamiltonian of a particle in the Ising model
+            Paralelizaition scheme: Particles
+            t1: Energy
+            t2: Magnetization
+        """
+            t1 = -J*sum(map(r->sys[part[r][1]...]*sum(map(s->sys[last.(part)[r][s]...],1:4)),dom))
+            t2 = -B*sum(map(r->sys[part[r][1]...],dom))
+            return (t1,t2)
+        end
+    
+        # Domain of particles
+        domPart = 1:Ng^2;
+        
+        # Chunks are the domains partitions
+        chunksPart = Iterators.partition(domPart, length(domPart) ÷ ((Threads.nthreads()-Nth)÷Nth));
+    
+        # Task of getting the values of the neighbors
+        taskPart = map(chunksPart) do s
+            Threads.@spawn sumPart(J,sys,part,s)
+        end
+    
+        # Fetch
+        fetch_sum = fetch.(taskPart)
+
+        # Energy and Magnetization
+        eneg = sum(first.(fetch_sum))÷2;
+        mag = sum(last.(fetch_sum))÷2;
+    
+        println("Done computeEnergyP")
+        # Compute the final Energy
+        return (energ,mag)
+    end
+
 # Compute the chanage of energy
 function computeDeltaE(J,B,sysn,syso,part,Ng,id)
 """
@@ -92,7 +133,7 @@ function rsmallSysChange(sys,part,id)
         return nsys
 end
 
-function metropoliAlgorithm(σ,nExp)
+function metropoliAlgorithm(σ,nExp,Nth)
 """
     Computes the metropoli 
 """
@@ -102,6 +143,8 @@ function metropoliAlgorithm(σ,nExp)
 
     # Array to save the sates
     states = [zeros(Ng,Ng) for s∈1:Nsteps*Ng*Ng]
+    energ = [0.0 for s∈1:Nsteps*Ng*Ng]
+    mag = [0.0 for s∈1:Nsteps*Ng*Ng]
     auxs = 1;
     
         for step ∈ 1:Nsteps
@@ -118,6 +161,9 @@ function metropoliAlgorithm(σ,nExp)
                 if ΔE < 1 # Accepted
                     σ = copy(η);
                     states[auxs].= σ;
+                    (t1, t2) = computeHamiltonianP(J,B,sys,part,Ng,Nth)
+                    energ[auxs] = t1
+                    mag[auxs] = t2
                 else # Rejected, not yet
                     # Accpet or reject with probability of exp(-ΔE/kb T)
                     γ = exp(-ΔE/(kb*T));
@@ -125,6 +171,9 @@ function metropoliAlgorithm(σ,nExp)
                     if aux == 1 # Accepted
                         σ = copy(η)
                         states[auxs].= σ;
+                        (t1, t2) = computeHamiltonianP(J,B,sys,part,Ng,Nth)
+                        energ[auxs] = t1
+                        mag[auxs] = t2
                     else # Rejected, now it is for real
                         σ = copy(σ)
                     end
@@ -134,10 +183,16 @@ function metropoliAlgorithm(σ,nExp)
         end
     # Clean the data
     states = filter(!iszero,states);
+    energ = filter(!iszero,energ);
+    mag = filter(!iszero,mag);
 
     # Save the data
     save(File(format"JLD",string(path,"/T_",T,nExp,"states.jld")),"states",states)
+    save(File(format"JLD",string(path,"/T_",T,nExp,"energ.jld")),"energ",energ)
+    save(File(format"JLD",string(path,"/T_",T,nExp,"mag.jld")),"mag",mag)
     save(File(format"JLD",string(path,"/seeds",step,".jld")),"seeds",setSeeds)
+
+    return (states,(energ,mag))
 
 end
 
