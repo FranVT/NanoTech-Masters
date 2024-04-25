@@ -93,10 +93,9 @@ function computeHamiltonianP(J,B,sys,part,Ng,Nth)
         fetch_sum = fetch.(taskPart)
 
         # Energy and Magnetization
-        eneg = sum(first.(fetch_sum))÷2;
+        energ = sum(first.(fetch_sum))÷2;
         mag = sum(last.(fetch_sum))÷2;
     
-        println("Done computeEnergyP")
         # Compute the final Energy
         return (energ,mag)
     end
@@ -138,8 +137,10 @@ function metropoliAlgorithm(σ,nExp,Nth)
     Computes the metropoli 
 """
     # Includes parameters and auxiliary functions
-    include("isingModel_parameters.jl")
-    include("isingModel_functions.jl")
+    include("isingModel_parameters_parallel.jl")
+
+    # Random Seeds for each 
+    setSeeds = abs.(rand(Int,Nsteps));
 
     # Array to save the sates
     states = [zeros(Ng,Ng) for s∈1:Nsteps*Ng*Ng]
@@ -181,17 +182,20 @@ function metropoliAlgorithm(σ,nExp,Nth)
                 auxs = auxs + 1;
             end
         end
+
+        println(nExp," Experiments done")
     # Clean the data
     states = filter(!iszero,states);
     energ = filter(!iszero,energ);
     mag = filter(!iszero,mag);
 
     # Save the data
-    save(File(format"JLD",string(path,"/T_",T,nExp,"states.jld")),"states",states)
-    save(File(format"JLD",string(path,"/T_",T,nExp,"energ.jld")),"energ",energ)
-    save(File(format"JLD",string(path,"/T_",T,nExp,"mag.jld")),"mag",mag)
-    save(File(format"JLD",string(path,"/seeds",step,".jld")),"seeds",setSeeds)
-
+    """
+    save(File(format"JLD",string(path,"/par_T_",T,"_",first(nExp),"_",last(nExp),"states.jld")),"states",states)
+    save(File(format"JLD",string(path,"/par_T_",T,"_",first(nExp),"_",last(nExp),"energ.jld")),"energ",energ)
+    save(File(format"JLD",string(path,"/par_T_",T,"_",first(nExp),"_",last(nExp),"mag.jld")),"mag",mag)
+    save(File(format"JLD",string(path,"/par_seeds",step,".jld")),"seeds",setSeeds)
+    """
     return (states,(energ,mag))
 
 end
