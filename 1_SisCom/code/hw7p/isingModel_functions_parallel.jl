@@ -61,7 +61,7 @@ function computeEnergy(J,B,sys,part,Ng)
 end
 
 # Compute the Hamiltonian with a parallel scheme
-function computeHamiltonianP(J,B,sys,part,Ng,Nth)
+function computeHamiltonianP(J,B,sys,part,Ng)
     """
         Compute the Hamiltonian with parallel particles
     """
@@ -75,15 +75,18 @@ function computeHamiltonianP(J,B,sys,part,Ng,Nth)
         """
             t1 = -J*sum(map(r->sys[part[r][1]...]*sum(map(s->sys[last.(part)[r][s]...],1:4)),dom))
             t2 = -B*sum(map(r->sys[part[r][1]...],dom))
+            #println(dom," finish")
             return (t1,t2)
         end
-    
+
         # Domain of particles
         domPart = 1:Ng^2;
         
         # Chunks are the domains partitions
-        chunksPart = Iterators.partition(domPart, length(domPart) ÷ ((Threads.nthreads()-Nth)÷Nth));
-    
+        println(Threads.nthreads())
+        chunksPart = Iterators.partition(domPart, length(domPart) ÷ Threads.nthreads());
+ 
+        #@time begin
         # Task of getting the values of the neighbors
         taskPart = map(chunksPart) do s
             Threads.@spawn sumPart(J,sys,part,s)
@@ -91,15 +94,16 @@ function computeHamiltonianP(J,B,sys,part,Ng,Nth)
     
         # Fetch
         fetch_sum = fetch.(taskPart)
-
+        #end
+        
         # Energy and Magnetization
         energ = sum(first.(fetch_sum))÷2;
         mag = sum(last.(fetch_sum))÷2;
-    
-        # Compute the final Energy
-        return (energ,mag)
-    end
-
+        
+        #println("One state")
+    return (energ,mag)
+end       
+   
 # Compute the chanage of energy
 function computeDeltaE(J,B,sysn,syso,part,Ng,id)
 """
@@ -144,8 +148,6 @@ function metropoliAlgorithm(σ,nExp,Nth)
 
     # Array to save the sates
     states = [zeros(Ng,Ng) for s∈1:Nsteps*Ng*Ng]
-    energ = [0.0 for s∈1:Nsteps*Ng*Ng]
-    mag = [0.0 for s∈1:Nsteps*Ng*Ng]
     auxs = 1;
     
         for step ∈ 1:Nsteps
@@ -162,9 +164,6 @@ function metropoliAlgorithm(σ,nExp,Nth)
                 if ΔE < 1 # Accepted
                     σ = copy(η);
                     states[auxs].= σ;
-                    (t1, t2) = computeHamiltonianP(J,B,sys,part,Ng,Nth)
-                    energ[auxs] = t1
-                    mag[auxs] = t2
                 else # Rejected, not yet
                     # Accpet or reject with probability of exp(-ΔE/kb T)
                     γ = exp(-ΔE/(kb*T));
@@ -172,9 +171,6 @@ function metropoliAlgorithm(σ,nExp,Nth)
                     if aux == 1 # Accepted
                         σ = copy(η)
                         states[auxs].= σ;
-                        (t1, t2) = computeHamiltonianP(J,B,sys,part,Ng,Nth)
-                        energ[auxs] = t1
-                        mag[auxs] = t2
                     else # Rejected, now it is for real
                         σ = copy(σ)
                     end
@@ -183,22 +179,31 @@ function metropoliAlgorithm(σ,nExp,Nth)
             end
         end
 
-        println(nExp," Experiments done")
+        println(nExp," Experiment done")
     # Clean the data
     states = filter(!iszero,states);
-    energ = filter(!iszero,energ);
-    mag = filter(!iszero,mag);
 
-    # Save the data
-    """
-    save(File(format"JLD",string(path,"/par_T_",T,"_",first(nExp),"_",last(nExp),"states.jld")),"states",states)
-    save(File(format"JLD",string(path,"/par_T_",T,"_",first(nExp),"_",last(nExp),"energ.jld")),"energ",energ)
-    save(File(format"JLD",string(path,"/par_T_",T,"_",first(nExp),"_",last(nExp),"mag.jld")),"mag",mag)
-    save(File(format"JLD",string(path,"/par_seeds",step,".jld")),"seeds",setSeeds)
-    """
-    return (states,(energ,mag))
+    return (states,(length(states),setSeeds))
 
 end
+
+function hamExpr(J,B,expr,part,Ng)
+"""
+    Compute the Hamiltonian for each state in a given expriment with N states
+"""
+    println("Inicio Calculo de energia de un experimento")
+    @time begin
+    chunksStates = Iterators.partition(expr,length(eachindex(expr)) ÷ Threads.nthreads())
+    task = map(chunksStates) do s
+        Threads.@spawn map(r->computeHamiltonianP(J,B,r,part,Ng),s)
+    end
+    fetch_ham = fetch.(task)
+    #println("One Experiment done")
+    end
+    println("Fin del Calculo de energia de un experimento")
+    return Iterators.flatten(fetch_ham)
+end
+    
 
 # Function to extract the information
 function getInfo(T,nExp)

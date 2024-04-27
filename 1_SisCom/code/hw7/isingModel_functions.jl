@@ -98,7 +98,6 @@ function metropoliAlgorithm(σ,nExp)
 """
     # Includes parameters and auxiliary functions
     include("isingModel_parameters.jl")
-    include("isingModel_functions.jl")
 
     # Array to save the sates
     states = [zeros(Ng,Ng) for s∈1:Nsteps*Ng*Ng]

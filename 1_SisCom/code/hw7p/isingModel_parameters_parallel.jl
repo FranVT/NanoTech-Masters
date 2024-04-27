@@ -12,7 +12,7 @@
     kb:     Bolztamnn constant
     T:      Temperature
 """
-Ng = 2^4;
+Ng = 2^6;
 σs = [-1,1];
 η = 0.5;
 J = 1;
@@ -28,8 +28,8 @@ T = 3;
 Nsteps = 100;
 
 # Parameter for the amount of simulations per termperature
-Nexp = 4;
-Nth = 2;
+Nexp = 2;
+Nth = 3;
 
 # Path to save the information
 path = string("/home/Fran/gitRepos/NanoTech-Masters/1_SisCom/data/data_hk7p/");
