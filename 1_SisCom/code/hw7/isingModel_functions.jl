@@ -85,7 +85,7 @@ end
 # Create a change in the system
 function rsmallSysChange(sys,part,id)
 """
-    Change one spin of the system
+    Random change on one spin of the system
 """
         nsys = copy(sys);
         nsys[first(part[id])...] = rand([-1,1])
