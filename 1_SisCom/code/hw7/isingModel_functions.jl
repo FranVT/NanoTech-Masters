@@ -55,9 +55,9 @@ function computeEnergy(J,B,sys,part,Ng)
     """
         Compute the energy given an arrange of a grid with spins and neigbor lists
     """
-        t1 = sum(map(r->sys[part[r][1]...]*sum(map(s->sys[last.(part)[r][s]...],1:4)),1:Ng*Ng));
+        t1 = sum(map(r->sys[part[r][1]...]*sum(map(s->sys[last.(part)[r][s]...],(1,3))),1:Ng*Ng));
         t2 = sum(map(r->sys[part[r][1]...],1:Ng*Ng));
-        return -(J*t1 + B*t2)/2
+        return -(J*t1 + B*t2)
 end
 
 # Compute the chanage of energy

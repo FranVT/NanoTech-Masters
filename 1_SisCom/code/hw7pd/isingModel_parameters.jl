@@ -29,7 +29,7 @@ Nsteps = 100;
 seed = 4321;
 
 # Parameter for the amount of simulations per termperature
-Nexp = 50;
+Nexp = 20;
 
 # Path to save the information
 path = string("/home/Fran/gitRepos/NanoTech-Masters/1_SisCom/data/data_hk7_1/");
