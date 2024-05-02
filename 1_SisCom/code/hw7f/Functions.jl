@@ -157,7 +157,7 @@ function metropoliAlgorithm(σ,Ng,Nsteps,part,J,B,kb,T,Eo)
             energ[auxs] = energy;
         end
     end
-    return (states,(energ,mag))
+    return (states,(energ./Nsteps,mag./Nsteps))
 end
 
 println("Loaded")

@@ -14,11 +14,6 @@ include("Functions.jl")
 σ = wsample(σs,[1-η,η],(Ng,Ng));
 part = Functions.idNeighbors(Ng);
 
-results = Functions.metropoliAlgorithm(σ,Nsteps,part,J,B,kb,T,Ng)
-
-# Clean the data
-#states = filter(!iszero,states);
-#energ = filter(!iszero,energ);
-#mag = filter(!iszero,mag);
+results = Functions.metropoliAlgorithm(σ,Ng,Nsteps,part,J,B,kb,T,Ng,Functions.computeHamiltonianThreads(J,B,σ,part,0))
 
 end

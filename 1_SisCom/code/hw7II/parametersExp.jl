@@ -18,18 +18,17 @@ Ng = 2^3;
 J = 1;
 B = 1;
 kb = 1; 
-T = 3;
+T = 1;#range(start=1.3,stop=3,length=50);
 
 # Parameters for the Metropoli algorithm
 """
     Nsteps:   Number of cicles in the algorithm
     setSeeds: Set of seeds for every step  
 """
-Nsteps = 25 ;
+Nsteps = 100;
 
 # Parameter for the amount of simulations per termperature
-Nexp = 2;
-Nth = 3;
+Nexp = 30;
 
 # Path to save the information
 path = string("/home/Fran/gitRepos/NanoTech-Masters/1_SisCom/data/data_hk7p/");
