@@ -13,6 +13,7 @@ energ = map(l->last.(ham[l]),eachindex(ham));
 expvalEnerg = map(l->mean(energ[l]),eachindex(energ));
 varEnerg = map(l->var(energ[l]),eachindex(energ));
 
+
 # Expected value of the bla bla
 #PHD to DTU
 plot(last.(expvalEnerg))

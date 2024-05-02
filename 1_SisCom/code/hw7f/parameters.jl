@@ -12,13 +12,13 @@
     kb:     Bolztamnn constant
     T:      Temperature
 """
-Ng = 2^2;
+Ng = 2^3;
 σs = [-1,1];
 η = 0.5;
 J = 1;
 B = 1;
 kb = 1; 
-T = range(start=1.3,stop=3,length=50);
+T = range(start=1.3,stop=3,length=100);
 
 # Parameters for the Metropoli algorithm
 """
@@ -28,7 +28,7 @@ T = range(start=1.3,stop=3,length=50);
 Nsteps = 100;
 
 # Parameter for the amount of simulations per termperature
-Nexp = 30;
+Nexp = 100;
 
 # Path to save the information
 path = string("/home/Fran/gitRepos/NanoTech-Masters/1_SisCom/data/data_hk7p/");
