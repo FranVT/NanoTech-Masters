@@ -143,7 +143,7 @@ function metropoliAlgorithm(σ,Ng,Nsteps,part,J,B,kb,T,Eo)
             else # Rejected, not yet
                 # Accpet or reject with probability of exp(-ΔE/kb T)
                 γ = exp(-ΔE/(kb*T));
-                aux = wsample([0,1],[1-γ,γ],1);
+                aux = wsample([0,1],[1-γ,γ]);
                 if aux == 1 # Accepted
                     σ = copy(η)
                     energy = energ[auxs-1] + 0.25*ΔE;

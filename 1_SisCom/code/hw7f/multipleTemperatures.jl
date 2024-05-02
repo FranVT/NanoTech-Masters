@@ -25,9 +25,9 @@ multTemp = map(eachindex(T)) do l
     part = Functions.idNeighbors(Ng);
 
     # Initial energies
-    chunkThreads = Iterators.partition(1:Nexp,div(Nexp,2,RoundUp))
+    chunkThreads = Iterators.partition(1:Nexp,div(Nexp,3,RoundUp))
     taskE = map(chunkThreads) do s
-        Threads.@spawn map(l->first(Functions.computeHamiltonianThreads(J,B,σ[l],part,2)),s)
+        Threads.@spawn map(l->first(Functions.computeHamiltonianThreads(J,B,σ[l],part,3)),s)
     end
 
     Eot = reduce(append!,fetch.(taskE));
