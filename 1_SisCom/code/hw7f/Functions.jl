@@ -139,14 +139,14 @@ function metropoliAlgorithm(σ,Ng,Nsteps,part,J,B,kb,T,Eo)
             # Acceptance step 
             if ΔE < 1 # Accepted
                 σ = copy(η);
-                energy = energ[auxs-1] + 0.25*ΔE;
+                energy = energ[auxs-1] + ΔE;
             else # Rejected, not yet
                 # Accpet or reject with probability of exp(-ΔE/kb T)
                 γ = exp(-ΔE/(kb*T));
                 aux = wsample([0,1],[1-γ,γ]);
                 if aux == 1 # Accepted
                     σ = copy(η)
-                    energy = energ[auxs-1] + 0.25*ΔE;
+                    energy = energ[auxs-1] + ΔE;
                 else # Rejected, now it is for real
                     σ = copy(σ);
                     energy = energ[auxs-1];
@@ -157,7 +157,7 @@ function metropoliAlgorithm(σ,Ng,Nsteps,part,J,B,kb,T,Eo)
             energ[auxs] = energy;
         end
     end
-    return (states,(energ./Nsteps,mag./Nsteps))
+    return (states,(energ./Ng^2,mag./Ng^2))
 end
 
 println("Loaded")

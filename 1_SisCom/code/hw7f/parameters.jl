@@ -18,7 +18,7 @@ Ng = 2^4;
 J = 1;
 B = 1;
 kb = 1; 
-T = range(start=1.3,stop=2,length=10);
+T = range(start=1.3,stop=3,length=16);
 
 # Parameters for the Metropoli algorithm
 """
@@ -28,7 +28,7 @@ T = range(start=1.3,stop=2,length=10);
 Nsteps = 100;
 
 # Parameter for the amount of simulations per termperature
-Nexp = 5;
+Nexp = 20;
 
 # Path to save the information
 path = string("/home/Fran/gitRepos/NanoTech-Masters/1_SisCom/data/data_hk7p/");

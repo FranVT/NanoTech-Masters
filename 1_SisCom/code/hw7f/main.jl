@@ -3,6 +3,7 @@ using Distributions
 using Plots
 using ProgressMeter
 
+include("parameters.jl")
 rmT = include("multipleTemperatures.jl")
 
 """
@@ -20,10 +21,16 @@ energ = first.(ham);
 
 energ = map(l->first.(last.(rmT.multTemp[l])),eachindex(rmT.multTemp));
 
-plot(energ,label=false)
+
+meanT1 = mean( mean.(map(nexp->energ[1][nexp][div(Ng*Ng*Nsteps,5):end],1:Nexp)))
 
 
-mediaE = map(l->mean(last.(energ[l])),eachindex(rmT.multTemp))
+#energ[st][nexp][]
+
+#plot(energ,label=false)
+
+
+#mediaE = map(l->mean(last.(energ[l])),eachindex(rmT.multTemp))
 
 """
 #states = map(s->first.(rmT.multTemp[l]),eachindex(rmT.multTemp));
