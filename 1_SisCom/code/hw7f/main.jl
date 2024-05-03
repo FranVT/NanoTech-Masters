@@ -49,3 +49,4 @@ varEnerg = map(l->var(energ[l]),eachindex(energ));
 #PHD to DTU
 plot(last.(expvalEnerg))
 """
+"""

@@ -2,7 +2,7 @@
 # Include the parameters
 
 include("Functions.jl")
-rMA = include("IsingMultipleExperiments.jl");
+rMA = include("MetropolisAlgorithmMultipleExp.jl");
 
 states = first.(rMA.results);
 ham = last.(rMA.results);

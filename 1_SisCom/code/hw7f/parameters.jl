@@ -13,6 +13,7 @@
     T:      Temperature
 """
 Ng = 2^4;
+Ng = 2^4;
 σs = [-1,1];
 η = 0.5;
 J = 1;
@@ -25,7 +26,7 @@ T = range(start=1.3,stop=3,length=25);
     Nsteps:   Number of cicles in the algorithm
     setSeeds: Set of seeds for every step  
 """
-Nsteps = 100;
+Nsteps = 20;
 
 # Parameter for the amount of simulations per termperature
 Nexp = 25;
