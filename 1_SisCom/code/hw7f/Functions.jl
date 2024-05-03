@@ -102,10 +102,26 @@ function computeHamiltonianThreads(J,B,sys,part,N)
     return (sum(first.(fetch_sum)),sum(last.(fetch_sum)))
 end
 
-function computeAllHam(states)
-    include("parameters.jl")
-    part = Functions.idNeighbors(Ng);
-    return map(s->Functions.computeHamiltonianThreads(J,B,states[s],part,Ng),eachindex(states))
+function computeHamiltonian(J,B,sys,part)
+    """
+        Compute the Hamiltonian with "parallel particles"
+    """
+        # Auxiliary function
+        function sumPart(J,sys,part,dom)
+        """
+            Compute the Hamiltonian of a particle in the Ising model
+            Paralelizaition scheme: Particles
+            t1: Energy
+            t2: Magnetization
+        """
+            t1 = -J*mapreduce(r->sys[part[r][1]...]*mapreduce(s->sys[last.(part)[r][s]...],+,(1,3)),+,dom)
+            t2 = -B*mapreduce(r->sys[part[r][1]...],+,dom)
+            return (t1,t2)
+        end
+
+        ham = map(s->sumPart(J,sys,part,s),eachindex(sys));
+
+    return (sum(first.(ham))/last(eachindex(sys)),sum(last.(ham))/last(eachindex(sys)))
 end
 
 function metropoliAlgorithm(σ,Ng,Nsteps,part,J,B,kb,T,Eo)
@@ -115,8 +131,8 @@ function metropoliAlgorithm(σ,Ng,Nsteps,part,J,B,kb,T,Eo)
 
     # Array to save the sates
     states = [zeros(Ng,Ng) for s∈1:Nsteps*Ng*Ng+1];
-    energ = zeros(Int64,Nsteps*Ng*Ng+1);
-    mag = zeros(Int64,Nsteps*Ng*Ng+1);
+    energ = zeros(Nsteps*Ng*Ng+1);
+    mag = zeros(Nsteps*Ng*Ng+1);
     auxs = 1;
 
     # Start the energy array
@@ -157,8 +173,8 @@ function metropoliAlgorithm(σ,Ng,Nsteps,part,J,B,kb,T,Eo)
             energ[auxs] = energy;
         end
     end
-    return (states,(energ./Ng^2,mag./Ng^2))
+    return (nothing,(energ./Ng^2,mag./Ng^2))
 end
 
-println("Loaded")
+println("Loaded functions")
 end

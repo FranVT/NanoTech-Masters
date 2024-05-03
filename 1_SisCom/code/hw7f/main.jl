@@ -21,9 +21,13 @@ energ = first.(ham);
 
 energ = map(l->first.(last.(rmT.multTemp[l])),eachindex(rmT.multTemp));
 
+meanT = map(nT->mean( mean.(map(nexp->energ[1][nexp][div(Ng*Ng*Nsteps,5):end],1:Nexp))),eachindex(energ));
+varT = map(nT->var( var.(map(nexp->energ[1][nexp][div(Ng*Ng*Nsteps,5):end],1:Nexp))),eachindex(energ));
 
-meanT1 = mean( mean.(map(nexp->energ[1][nexp][div(Ng*Ng*Nsteps,5):end],1:Nexp)))
-
+pm = scatter(T,meanT,label=false)
+        plot!(pm,T,meanT,label=false)
+vm = scatter(T,varT,label=false)
+    plot!(vm,T,varT,label=false)
 
 #energ[st][nexp][]
 
