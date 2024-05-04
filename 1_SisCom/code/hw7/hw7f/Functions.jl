@@ -40,140 +40,97 @@ function idNeighbors(Ng)
 end
 
 # Create a change in the system
-function rsmallSysChange(sys,part,id)
+function smallSysChange(sys,part,id)
     """
         Change one spin of the system
     """
         nsys = copy(sys);
-        nsys[first(part[id])...] = rand([-1,1])
+        nsys[first(part[id])...] = -nsys[first(part[id])...]
         return nsys
 end
 
 # Compute the chanage of energy
-function computeDeltaE(J,B,sysn,syso,part,Ng,id)
+function computeDeltaE(J,syso,part,id)
     """
         Compute the changeof energy given the spin that changes.
         sysn:       System with the change
         syso:       Original system
     """
         info = part[id];
-        ΔE = J*2*syso[info[1]...]*sum(map(s->sysn[info[2][s]...],1:4));
-        return ΔE
-end
-    
-
-# Compue the energy
-function computeEnergyPmap(J,B,sys,part,Ng)
-    """
-        Compute the energy given an arrange of a grid with spins and neigbor lists
-    """
-        dom = eachindex(sys);
-        t1 = sum(map(r->sys[part[r][1]...]*sum(map(s->sys[last.(part)[r][s]...],(1,3))),dom));
-        t2 = sum(map(r->sys[part[r][1]...],dom));
-        return (-J*t1, B*t2)
-end
-
-function computeHamiltonianThreads(J,B,sys,part,N)
-    """
-        Compute the Hamiltonian with parallel particles
-    """
-        # Auxiliary function
-        function sumPart(J,sys,part,dom)
-        """
-            Compute the Hamiltonian of a particle in the Ising model
-            Paralelizaition scheme: Particles
-            t1: Energy
-            t2: Magnetization
-        """
-            t1 = -J*mapreduce(r->sys[part[r][1]...]*mapreduce(s->sys[last.(part)[r][s]...],+,(1,3)),+,dom)
-            t2 = -B*mapreduce(r->sys[part[r][1]...],+,dom)
-            #println(dom," finish")
-            return (t1,t2)
-        end
-
-        domPart = eachindex(sys);
-        chunksPart = Iterators.partition(domPart, length(domPart) ÷ (Threads.nthreads()-N));
-        taskPart = map(chunksPart) do s
-            Threads.@spawn sumPart(J,sys,part,s)
-        end
-
-        fetch_sum = fetch.(taskPart)
-        
-    return (sum(first.(fetch_sum)),sum(last.(fetch_sum)))
+        ΔE = J*2*syso[info[1]...]*mapreduce(s->syso[info[2][s]...],+,1:4);
+        return ΔE #/last(eachindex(syso))
 end
 
 function computeHamiltonian(J,B,sys,part)
     """
         Compute the Hamiltonian with "parallel particles"
-    """
-        # Auxiliary function
-        function sumPart(J,sys,part,dom)
-        """
-            Compute the Hamiltonian of a particle in the Ising model
+        Compute the Hamiltonian of a particle in the Ising model
             Paralelizaition scheme: Particles
             t1: Energy
             t2: Magnetization
-        """
-            t1 = -J*mapreduce(r->sys[part[r][1]...]*mapreduce(s->sys[last.(part)[r][s]...],+,(1,3)),+,dom)
-            t2 = -B*mapreduce(r->sys[part[r][1]...],+,dom)
-            return (t1,t2)
-        end
+    """
 
-        ham = map(s->sumPart(J,sys,part,s),eachindex(sys));
+        t1 = -J*mapreduce(r->sys[part[r][1]...]*mapreduce(s->sys[last.(part)[r][s]...],+,(1,3)),+,eachindex(sys))
+        t2 = -B*sum(sys)
 
-    return (sum(first.(ham))/last(eachindex(sys)),sum(last.(ham))/last(eachindex(sys)))
+    return (t1,t2)#(t1/last(eachindex(sys)),t2/last(eachindex(sys)))
 end
 
-function metropoliAlgorithm(σ,Ng,Nsteps,part,J,B,kb,T,Eo)
+function metropoliAlgorithm(σ,Ng,Nsteps,part,J,kb,T,Eo)
     
     # Create a set of random seed for each step
     setSeeds = abs.(rand(Int,Nsteps));
 
     # Array to save the sates
-    states = [zeros(Ng,Ng) for s∈1:Nsteps*Ng*Ng+1];
+    states = [zeros(Int64,Ng,Ng) for s∈1:Nsteps*Ng*Ng+1];
     energ = zeros(Nsteps*Ng*Ng+1);
     mag = zeros(Nsteps*Ng*Ng+1);
     auxs = 1;
 
     # Start the energy array
+    
     energy = copy(Eo);
     energ[auxs] = energy;
-    mag[auxs] = sum(σ);
+    mag[auxs] = -sum(σ); #/Ng^2;
+    states[auxs].= σ
 
     for step ∈ 1:Nsteps
         # Change the seed 
         Random.seed!(setSeeds[step])
         for trial ∈ eachindex(σ)
             auxs += 1;
-
-            # Make tha change in the one particle
-            η = Functions.rsmallSysChange(σ,part,trial);
             
             # Compute the difference in energy
-            ΔE = Functions.computeDeltaE(J,B,η,σ,part,Ng,trial);
+            ΔE = Functions.computeDeltaE(J,σ,part,trial);
 
             # Acceptance step 
-            if ΔE < 1 # Accepted
-                σ = copy(η);
-                energy = energ[auxs-1] + ΔE;
+            if energy+ΔE < energy #ΔE < 1/Ng^2 # Accepted
+                # Make tha change in the one particle
+                σ = Functions.smallSysChange(σ,part,trial);
+                energy += ΔE;
             else # Rejected, not yet
                 # Accpet or reject with probability of exp(-ΔE/kb T)
                 γ = exp(-ΔE/(kb*T));
                 aux = wsample([0,1],[1-γ,γ]);
                 if aux == 1 # Accepted
-                    σ = copy(η)
-                    energy = energ[auxs-1] + ΔE;
+                    # Make tha change in the one particle
+                    σ = Functions.smallSysChange(σ,part,trial);
+                    energy += ΔE;
                 else # Rejected, now it is for real
                     σ = copy(σ);
-                    energy = energ[auxs-1];
                 end
             end
             states[auxs].= σ;
-            mag[auxs] = sum(σ);
+            mag[auxs] = -sum(σ); #/Ng^2;
             energ[auxs] = energy;
+            #println(energy)
+            #states[auxs].= σ;
+            #mag[auxs] = sum(σ);
+            #energ[1,auxs] = energy;
+            #energ[2,auxs] = ΔE
         end
     end
-    return (nothing,(energ./Ng^2,mag./Ng^2))
+    return (nothing,(energ,mag))
 end
 
 println("Loaded functions")

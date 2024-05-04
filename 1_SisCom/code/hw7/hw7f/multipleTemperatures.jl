@@ -20,6 +20,9 @@ using ProgressMeter
 include("parameters.jl")
 include("Functions.jl")
 
+# Set the seed
+Random.seed!(seed)
+
 multTemp = @showprogress(map(eachindex(T)) do l
 
     # Initial state
@@ -36,7 +39,7 @@ multTemp = @showprogress(map(eachindex(T)) do l
 
     # Use Threads 
     task = map(chunkThreads) do s
-        Threads.@spawn map(r->Functions.metropoliAlgorithm(σ[r],Ng,Nsteps,part,J,B,kb,T[r],Eot[r]),s)
+        Threads.@spawn map(r->Functions.metropoliAlgorithm(σ[r],Ng,Nsteps,part,J,kb,T[l],Eot[r]),s)
     end
 
     results = reduce(append!,fetch.(task));
