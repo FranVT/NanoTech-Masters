@@ -130,7 +130,7 @@ function metropoliAlgorithm(σ,Ng,Nsteps,part,J,kb,T,Eo)
             #energ[2,auxs] = ΔE
         end
     end
-    return (nothing,(energ,mag))
+    return (states,(energ,mag))
 end
 
 println("Loaded functions")
