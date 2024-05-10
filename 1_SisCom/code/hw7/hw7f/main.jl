@@ -69,6 +69,6 @@ function system(part,sys,Ng,mks)
         anim = @animate for it ∈ 1:1:frames
             system(part,info[it],Ng,mk)
         end
-        gif(anim,string(path,"/",frames,"gificing.gif"),fps=24)
+        gif(anim,string(path,"/",frames,"gificing.gif"),fps=12)
     end
     

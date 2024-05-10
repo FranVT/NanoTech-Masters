@@ -82,7 +82,7 @@ function metropoliAlgorithm(σ,Ng,Nsteps,part,J,kb,T,Eo)
     setSeeds = abs.(rand(Int,Nsteps));
 
     # Array to save the sates
-    states = [zeros(Int64,Ng,Ng) for s∈1:Nsteps*Ng*Ng+1];
+    states = [zeros(Int64,Ng,Ng) for s∈1:Nsteps];
     energ = zeros(Nsteps*Ng*Ng+1);
     mag = zeros(Nsteps*Ng*Ng+1);
     auxs = 1;
@@ -120,7 +120,7 @@ function metropoliAlgorithm(σ,Ng,Nsteps,part,J,kb,T,Eo)
                     σ = copy(σ);
                 end
             end
-            states[auxs].= σ;
+            
             mag[auxs] = -sum(σ); #/Ng^2;
             energ[auxs] = energy;
             #println(energy)
@@ -129,6 +129,7 @@ function metropoliAlgorithm(σ,Ng,Nsteps,part,J,kb,T,Eo)
             #energ[1,auxs] = energy;
             #energ[2,auxs] = ΔE
         end
+        states[step].= σ;
     end
     return (states,(energ,mag))
 end

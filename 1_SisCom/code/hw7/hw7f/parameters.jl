@@ -12,7 +12,7 @@
     kb:     Bolztamnn constant
     T:      Temperature
 """
-Ng = 25;
+Ng = 2^5;
 σs = [-1,1];
 η = 0.1;
 J = 1;
@@ -25,7 +25,7 @@ T = [2.3]; #range(start=1.3,stop=3,length=100);
     Nsteps:   Number of cicles in the algorithm
     setSeeds: Set of seeds for every step  
 """
-Nsteps = 100;
+Nsteps = 150;
 
 # Parameter for the amount of simulations per termperature
 Nexp = 1;
