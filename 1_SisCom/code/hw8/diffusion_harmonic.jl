@@ -4,7 +4,6 @@
 
 # Packages
 using LinearAlgebra
-using Plots
 
 # Physical parameters
 """
@@ -16,7 +15,7 @@ using Plots
 D = 0.1;
 κ = 100;
 rl = 100e-6;
-tf = 10e-12;
+tf = 1e-12;
 
 # Numerical parameters
 """
@@ -54,7 +53,6 @@ m2 = aux2.*Tridiagonal(ones(Nr-1),-2*ones(Nr),ones(Nr-1));
 sol[Nr÷2,1] = 10;
 sol[Nr÷2+100,1] = 10;
 sol[Nr÷2-100,1] = 10;
-
 
 # Propagation
 map(it->sol[:,it+1] = aux1.*(sol[:,it] + r.*m1*sol[:,it] ) + m2*sol[:,it] + sol[:,it],1:Nt-1)
