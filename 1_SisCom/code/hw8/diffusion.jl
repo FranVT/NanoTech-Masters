@@ -15,7 +15,6 @@ D = 1;
 rl = 100e-6;
 tf = 2.5e-12;
 
-
 # Numerical parameters
 """
     CDL:    Courant-Lvdfv coefficient 
@@ -23,12 +22,12 @@ tf = 2.5e-12;
     dt:     Temporal differential
 """
 CDL = 0.1;
-dr = 0.5e-6;
+dr = 0.2e-6;
 dt = (CDL*dr^2)/D;
 
 # Spatial and temporal domain
 r = range(start=-rl/2,stop=rl/2,step=dr);
-t = range(start=0,stop=tf,step=dt);
+t = range(start=0,step=dt,length=100);
 
 # Computaitonal parameters
 """

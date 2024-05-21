@@ -11,13 +11,13 @@ using Plots
     rl:     Spatial limit           [mts]
     tf:     Final time              [seg]
 """
-rl = 2.5;
-tf = 10;
+rl = 10;
+tf = 25;
 xl = rl/2;
 yl = rl/2;
 f = 0.5;
-υ1 = 0.3;
-υ2 = 0.1;
+υ1 = 1;
+υ2 = 0.0;
 
 
 # Numerical parameters
@@ -27,7 +27,7 @@ f = 0.5;
     dt:     Temporal differential
 """
 CFL = 0.2;
-dr = 1e-2;
+dr = 0.5e-1;
 dt = (CFL*dr)/maximum((υ1,υ2));
 
 # Spatial and temporal domain
