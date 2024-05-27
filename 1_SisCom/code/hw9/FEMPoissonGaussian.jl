@@ -6,17 +6,19 @@ using SparseArrays
 using LinearAlgebra
 
 ## Input Paremeters
-W = 1e-6;               # Width of simulation domain
-H = 1e-6;               # Hight of simulation domain
-XB = 30;                 # Number of bricks in x-direction
-YB = 30;                 # Number of bricks in y-direction
+W = 100;               # Width of simulation domain
+H = 100;               # Hight of simulation domain
+XB = 50;                 # Number of bricks in x-direction
+YB = 50;                 # Number of bricks in y-direction
 # Define the electric potential on the each wall
-Vup = 1;
-Vdo = 1;
-Vl = 2;
-Vr = 2;
-# constant RHS
-f = 1;
+Vup = 0;
+Vdo = 0;
+Vl = 0;
+Vr = 0;
+
+function source(x,y,xo,yo,σ)
+    return exp.(-(sqrt.((x.-xo).^2+(y.-yo).^2).^2)./(2*σ^2))  
+end
 
 ##
 # Generate the triangular mesh
@@ -54,6 +56,10 @@ map(1:TB) do s
     n[2*s,3] = n[2*s,1]+1+(XB+1);
 end
 
+# constant RHS
+f = zeros(size(X));
+map(s->f[s] = source(X[s],Y[s],30,25,3),eachindex(f));
+
 ## Boundary conditions
 BCNOD = append!( findall(isequal(a),X), findall(isequal(b),X), findall(isequal(c),Y), findall(isequal(d),Y) )
 BCVAL = append!( Vl*ones(length(findall(isequal(a),X))), Vr*ones(length(findall(isequal(b),X))), Vdo*ones(length(findall(isequal(c),Y))), Vup*ones(length(findall(isequal(d),Y))) )
@@ -88,9 +94,9 @@ for l ∈ eachindex(1:TE)
 
     # The S vector
     S = zeros(3);
-    S[1] = f*Ae/3;
-    S[2] = f*Ae/3;
-    S[3] = f*Ae/3;
+    S[1] = f[n[l,1]]*Ae/3;
+    S[2] = f[n[l,2]]*Ae/3;
+    S[3] = f[n[l,3]]*Ae/3;
 
     # Create the K matrix and RHS vector
     for i = 1:3
@@ -119,46 +125,51 @@ V = K\RHS;
 
 # Generate the solution over a grid 
 #[Xgrid,Ygrid] = meshgrid(a:0.01*(b-a):b, c:0.01*(d-c):d);
-Xgrid = ones(101).*(a:0.01*(b-a):b)';
-Ygrid = ones(1,101).*(c:0.01*(d-c):d);
-Vgrid = zeros(101,101);
-for i = 1:101
-    for j = 1:101
-        for e = 1:TE
-            x2p = X[n[e,2]]-Xgrid[i,j];
-            x3p = X[n[e,3]]-Xgrid[i,j];
-            y2p = Y[n[e,2]]-Ygrid[i,j];
-            y3p = Y[n[e,3]]-Ygrid[i,j];
-            A1 = 0.5*abs(x2p*y3p-x3p*y2p);
-                
-            x2p = X[n[e,2]]-Xgrid[i,j];
-            x1p = X[n[e,1]]-Xgrid[i,j];
-            y2p = Y[n[e,2]]-Ygrid[i,j];
-            y1p = Y[n[e,1]]-Ygrid[i,j];
-            A2 = 0.5*abs(x2p*y1p-x1p*y2p);
-                
-            x1p = X[n[e,1]]-Xgrid[i,j];
-            x3p = X[n[e,3]]-Xgrid[i,j];
-            y1p = Y[n[e,1]]-Ygrid[i,j];
-            y3p = Y[n[e,3]]-Ygrid[i,j];
-            A3 = 0.5*abs(x1p*y3p-x3p*y1p);
-                
-            x21 = X[n[e,2]]-X[n[e,1]];
-            x31 = X[n[e,3]]-X[n[e,1]];
-            y21 = Y[n[e,2]]-Y[n[e,1]];
-            y31 = Y[n[e,3]]-Y[n[e,1]];
-            Ae = 0.5*(x21*y31-x31*y21);
-                
-            if abs(Ae-(A1+A2+A3)) < 1e-6*Ae   
-                 zeta = (y31*(Xgrid[i,j]-X[n[e,1]])-x31*(Ygrid[i,j]-Y[n[e,1]]))/(2*Ae);
-                 eta = (-y21*(Xgrid[i,j]-X[n[e,1]])+x21*(Ygrid[i,j]-Y[n[e,1]]))/(2*Ae);
-                 sai1=  1-zeta-eta;
-                 sai2 = zeta;
-                 sai3 = eta;
-                 Vgrid[i,j] = sai1*V[n[e,1]]+sai2*V[n[e,2]]+sai3*V[n[e,3]];
+
+
+function vgrid(a,b,c,d,X,Y,V)
+    xgrid = (a:0.005*(b-a):b);
+    ygrid = (c:0.005*(d-c):d);
+    Xgrid = ones(length(xgrid)).*xgrid';
+    Ygrid = ones(1,length(ygrid)).*ygrid;
+    Vgrid = zeros(size(Xgrid));
+    for i = eachindex(xgrid)
+        for j = eachindex(ygrid)
+            for e = 1:TE
+                x2p = X[n[e,2]]-Xgrid[i,j];
+                x3p = X[n[e,3]]-Xgrid[i,j];
+                y2p = Y[n[e,2]]-Ygrid[i,j];
+                y3p = Y[n[e,3]]-Ygrid[i,j];
+                A1 = 0.5*abs(x2p*y3p-x3p*y2p);
+                    
+                x2p = X[n[e,2]]-Xgrid[i,j];
+                x1p = X[n[e,1]]-Xgrid[i,j];
+                y2p = Y[n[e,2]]-Ygrid[i,j];
+                y1p = Y[n[e,1]]-Ygrid[i,j];
+                A2 = 0.5*abs(x2p*y1p-x1p*y2p);
+                    
+                x1p = X[n[e,1]]-Xgrid[i,j];
+                x3p = X[n[e,3]]-Xgrid[i,j];
+                y1p = Y[n[e,1]]-Ygrid[i,j];
+                y3p = Y[n[e,3]]-Ygrid[i,j];
+                A3 = 0.5*abs(x1p*y3p-x3p*y1p);
+                    
+                x21 = X[n[e,2]]-X[n[e,1]];
+                x31 = X[n[e,3]]-X[n[e,1]];
+                y21 = Y[n[e,2]]-Y[n[e,1]];
+                y31 = Y[n[e,3]]-Y[n[e,1]];
+                Ae = 0.5*(x21*y31-x31*y21);
+                    
+                if abs(Ae-(A1+A2+A3)) < 1e-6*Ae   
+                     zeta = (y31*(Xgrid[i,j]-X[n[e,1]])-x31*(Ygrid[i,j]-Y[n[e,1]]))/(2*Ae);
+                     eta = (-y21*(Xgrid[i,j]-X[n[e,1]])+x21*(Ygrid[i,j]-Y[n[e,1]]))/(2*Ae);
+                     sai1=  1-zeta-eta;
+                     sai2 = zeta;
+                     sai3 = eta;
+                     Vgrid[i,j] = sai1*V[n[e,1]]+sai2*V[n[e,2]]+sai3*V[n[e,3]];
+                end
             end
         end
     end
+    return (Vgrid,xgrid,ygrid)
 end
- 
-
