@@ -1,3 +1,4 @@
+"""
 type Mesh
     n_nodes::Int64
     n_elements::Int64
@@ -21,6 +22,7 @@ type Mesh
                 elements
                )
 end
+"""
 
 # Quadrature points & weight
 const xi = 1/3
