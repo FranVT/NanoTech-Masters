@@ -1,6 +1,11 @@
 *.jld
 *.gif
-*.png
-*.jpeg
-*.jpg
-*.pdf
+*.aux
+*.log
+*.bbl
+*.toc
+*.fls
+*.gz
+*.out
+*.fdb_latexmk
+*.blg
