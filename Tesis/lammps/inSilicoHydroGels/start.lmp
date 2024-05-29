@@ -1,0 +1,13 @@
+# Script to create a Polymer using Patchy Particles (PP)
+# Types of Particles:
+#   Cross linker:   PPA
+#   Monomer:        PPB
+
+# Initialization
+units lj
+dimension 3
+boundary p p p
+
+# Types of atoms and that stuff
+atom_style atomic
+pair_style lj/cut 2.5
