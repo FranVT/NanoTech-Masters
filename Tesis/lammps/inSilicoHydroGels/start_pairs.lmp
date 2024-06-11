@@ -11,20 +11,21 @@ boundary p p p
 # Types of atoms and that stuff
 atom_style full
 bond_style zero nocoeff
+pair_style hybrid lj/cut 2.5 cosine/squared 2.5 zero 2.5
 
 # Get data for box and particles
-read_data data.patchyP1.lmp group CL
-read_data data.patchyP2.lmp add append group Mo1
-read_data data.patchyP2.lmp add append group Mo2
+read_data data.patchyP1.lmp group CL1
+read_data data.patchyP2.lmp add merge group Mo1
 
-displace_atoms Mo1 move 5.0 5.0 5.0 units box
-displace_atoms Mo2 move -5.0 -5.0 -5.0 units box
+displace_atoms Mo1 move 0.0 0.0 3.0 units box
 
 # Set the patchy particle interaction
-fix CLfix CL rigid single
-fix Mofix1 Mo1 rigid single
-fix Mofix2 Mo2 rigid single
+fix CLfix CL1 rigid single
+fix Mofix Mo1 rigid single
 
+pair_coeff 1 1 lj/cut 1.0 1.0 1.12 # i-type j-type eps sigma cutoff
+pair_coeff 2 2 cosine/squared 10.0 0.5 0.56 wca # i-type j-type eps sigma cutoff wca
+pair_coeff 1 2 zero 1.68
 
 # Get data for box and particles
 #read_data data.patchyP2.lmp add append shift 0.0 5.0 0.0
@@ -49,7 +50,7 @@ compute ep all pe
 compute ek all ke
 compute tm all momentum
 
-dump 1 all atom 50 dump.patchy1
+dump 1 all atom 50 dump.patchy_pairs1
 
-timestep 0.001
+timestep 0.005
 run 100000
