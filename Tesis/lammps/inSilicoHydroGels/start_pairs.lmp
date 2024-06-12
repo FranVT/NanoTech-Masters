@@ -31,8 +31,8 @@ pair_coeff 1 4 zero 1.68
 pair_coeff 2 3 zero 1.68
 pair_coeff 2 4 zero 1.68
 pair_coeff 1 2 lj/cut 1.0 1.0 2.24 # i-type j-type eps sigma cutoff
-pair_coeff 3 4 cosine/squared 10.0 0.5 0.56 wca # i-type j-type eps sigma cutoff wca
-pair_coeff 4 4 cosine/squared 10.0 0.5 0.56 wca # i-type j-type eps sigma cutoff wca
+pair_coeff 3 4 cosine/squared 5.0 0.5 0.56 wca # i-type j-type eps sigma cutoff wca
+pair_coeff 4 4 cosine/squared 5.0 0.5 0.56 wca # i-type j-type eps sigma cutoff wca
 
 # Neighbor list
 neighbor 0.3 bin # extra-distance style
@@ -49,7 +49,7 @@ compute ep all pe
 compute ek all ke
 compute tm all momentum
 
-dump 1 all atom 50 dump.patchy_pairs1
+dump 1 all atom 50 dump.patchy_pairs1_ng
 
 timestep 0.005
 run 100000

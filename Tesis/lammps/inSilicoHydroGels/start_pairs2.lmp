@@ -30,7 +30,7 @@ displace_atoms Mo5 move 3.5 0.0 0.0 units box
 displace_atoms Mo6 move -3.5 0.0 0.0 units box
 
 # Set the patchy particle interaction
-fix CLfix CL1 rigid single
+fix CLfix CL1 rigid single # ID group-ID style args
 fix Mofix1 Mo1 rigid single
 fix Mofix2 Mo2 rigid single
 fix Mofix3 Mo3 rigid single
@@ -38,15 +38,22 @@ fix Mofix4 Mo4 rigid single
 fix Mofix5 Mo5 rigid single
 fix Mofix6 Mo6 rigid single
 
-pair_coeff 1 1 lj/cut 1.0 1.0 1.12 # i-type j-type eps sigma cutoff
-pair_coeff 2 2 cosine/squared 10.0 0.5 0.56 wca # i-type j-type eps sigma cutoff wca
-pair_coeff 1 2 zero 1.68
+pair_coeff 1 1 zero 2.24
+pair_coeff 2 2 zero 2.24
+pair_coeff 3 3 zero 2.24
+pair_coeff 1 3 zero 1.68
+pair_coeff 1 4 zero 1.68
+pair_coeff 2 3 zero 1.68
+pair_coeff 2 4 zero 1.68
+pair_coeff 1 2 lj/cut 1.0 1.0 2.24 # i-type j-type eps sigma cutoff
+pair_coeff 3 4 cosine/squared 10.0 0.5 0.56 wca # i-type j-type eps sigma cutoff wca
+pair_coeff 4 4 cosine/squared 10.0 0.5 0.56 wca # i-type j-type eps sigma cutoff wca
 
 # Neighbor list
-neighbor 0.3 nsq
-neigh_modify delay 5
+neighbor 0.3 bin # extra-distance style
+#neigh_modify delay 5
 
-minimize 1.0e-4 1.0e-6 1000 10000
+minimize 1.0e-4 1.0e-6 1000 10000 # etol ftol maxiter maxeval
 
 fix 1 all langevin 1.0 1.0 50.0 12345
 fix 2 all nve
