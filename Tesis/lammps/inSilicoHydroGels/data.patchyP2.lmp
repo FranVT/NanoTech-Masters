@@ -6,7 +6,7 @@
 0 dihedrals
 0 impropers
 
-2 atom types
+4 atom types
 1 bond types
 0 angle types
 0 dihedral types
@@ -19,13 +19,15 @@
 Masses # atom-type mass-value
 
 1 2.0
-2 1.0
+2 2.0
+3 1.0
+4 1.0
 
 Atoms # atom-ID molecule-ID atom-type q x y z
 
-5 2 1 0.00 0.0 0.0 0.0
-6 2 2 0.00 1.0 0.0 0.0
-7 2 2 0.00 -1.0 0.0 0.0
+5 2 2 0.00 0.0 0.0 0.0
+6 2 4 0.00 1.0 0.0 0.0
+7 2 4 0.00 -1.0 0.0 0.0
 
 Bonds # ID type atom1,atom2
 
