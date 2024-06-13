@@ -11,7 +11,7 @@ boundary p p p
 # Types of atoms and that stuff
 atom_style full
 bond_style zero nocoeff
-pair_style hybrid lj/cut 2.5 cosine/squared 2.5 zero 2.5
+pair_style hybrid lj/cut 2.5 sw threebody off zero 2.5
 
 # Get data for box and particles
 read_data data.patchyP1.lmp group CL1
@@ -23,16 +23,20 @@ displace_atoms Mo1 move 0.0 0.0 3.0 units box
 fix CLfix CL1 rigid single
 fix Mofix Mo1 rigid single
 
+pair_coeff 3 4 sw Patchy.ws NULL NULL PA PB # i-type j-type pair-style
+pair_coeff 4 4 sw Patchy.ws NULL NULL PB PB # i-type j-type pair-style
 pair_coeff 1 1 zero 2.24
 pair_coeff 2 2 zero 2.24
+pair_coeff 1 2 lj/cut 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
 pair_coeff 3 3 zero 2.24
 pair_coeff 1 3 zero 1.68
 pair_coeff 1 4 zero 1.68
 pair_coeff 2 3 zero 1.68
 pair_coeff 2 4 zero 1.68
-pair_coeff 1 2 lj/cut 1.0 1.0 1.12 # i-type j-type eps sigma cutoff
-pair_coeff 3 4 cosine/squared 5.0 0.5 0.56 wca # i-type j-type eps sigma cutoff wca
-pair_coeff 4 4 cosine/squared 5.0 0.5 0.56 wca # i-type j-type eps sigma cutoff wca
+#pair_coeff 3 4 sw 3 Patchy.ws PA PB # i-type j-type pair-style 
+#pair_coeff 4 4 sw 3 Patchy.ws PB PB # i-type j-type eps sigma cutoff wca
+#pair_coeff 1 2 sw Patchy.ws CL MO NULL NULL# i-type j-type pair-style
+
 
 # Neighbor list
 neighbor 0.3 bin # extra-distance style
