@@ -9,7 +9,7 @@ dimension 3
 boundary p p p
 
 # Types of atoms and that stuff
-atom_style full
+atom_style bond
 bond_style zero nocoeff
 pair_style hybrid/overlay lj/cut 2.5 sw threebody off
 newton on
@@ -24,7 +24,7 @@ displace_atoms Mo1 move 0.0 0.0 3.0 units box
 fix CLfix CL1 rigid single
 fix Mofix Mo1 rigid single
 
-pair_coeff * * sw Patchy.ws CL MO PA PB # i-type j-type pair-style
+#pair_coeff * * sw Patchy.ws CL MO PA PB # i-type j-type pair-style
 pair_coeff 1 1 lj/cut 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
 pair_coeff 2 2 lj/cut 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
 pair_coeff 1 2 lj/cut 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
@@ -33,12 +33,9 @@ pair_coeff 1 3 none
 pair_coeff 1 4 none
 pair_coeff 2 3 none
 pair_coeff 2 4 none
-#
-#pair_coeff 4 4 sw Patchy.ws NULL NULL NULL PB # i-type j-type pair-style
-#pair_coeff 3 4 sw 3 Patchy.ws PA PB # i-type j-type pair-style 
-#pair_coeff 4 4 sw 3 Patchy.ws PB PB # i-type j-type eps sigma cutoff wca
-#pair_coeff 1 2 sw Patchy.ws CL MO NULL NULL# i-type j-type pair-style
-
+pair_coeff 3 4 sw Patchy.ws NULL NULL PA PB # i-type j-type pair-style 
+pair_coeff 4 4 sw Patchy.ws NULL NULL NULL PB # i-type j-type eps sigma cutoff wca
+pair_modify shift yes
 
 # Neighbor list
 neighbor 0.3 bin # extra-distance style
@@ -55,7 +52,7 @@ compute ep all pe
 compute ek all ke
 compute tm all momentum
 
-dump 1 all atom 50 dump.patchy_pairs1_ng
+dump 1 all atom 50 dump.patchy_pairs1_ng_proofs
 
 timestep 0.005
-run 1000
+run 100000

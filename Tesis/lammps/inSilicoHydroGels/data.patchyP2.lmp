@@ -16,24 +16,24 @@
 -5 5 ylo yhi
 -5 5 zlo zhi
 
-Masses # atom-type mass-value
+Masses
 
 1 2.0
 2 2.0
 3 1.0
 4 1.0
 
-Atoms # atom-ID molecule-ID atom-type q x y z
+Atoms
 
-5 2 2 0.00 0.0 0.0 0.0
-6 2 4 0.00 1.0 0.0 0.0
-7 2 4 0.00 -1.0 0.0 0.0
+1 1 2 0.00 0.00 0.00
+2 1 4 1.0 0.0 0.0
+3 1 4 -1.0 0.0 0.0
 
-Bonds # ID type atom1,atom2
+Bonds
 
-1 1 5 6
-1 1 5 7
+1 1 1 2
+1 1 1 3
 
-Bond Coeffs # ID parameters
+Bond Coeffs
 
-1 nocoeff
+1 *
