@@ -1,0 +1,31 @@
+# Script to create a Polymer using Patchy Particles (PP)
+# Types of Particles:
+#   Cross linker:   PPA
+#   Monomer:        PPB
+
+# Initialization
+units lj
+dimension 3
+boundary p p p
+
+# Types of atoms and that stuff
+atom_style bond
+bond_style zero nocoeff
+pair_style hybrid/overlay lj/cut 2.5 sw threebody off
+newton on
+
+# Varaibles
+variable L equal 5
+
+# Create simulaiton box
+region simulation_box block -$L $L -$L $L -$L $L
+create_box 4 simulation_box bond/types 1
+
+# Atom types
+mass 1 1.0      # CL 
+mass 2 0.5      # PA
+mass 3 1.0      # MO
+mass 4 0.5      # PB
+
+molecule 1 molecule.patchy.CL
+molecule 2 molecule.patchy.MO
