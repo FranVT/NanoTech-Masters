@@ -8,9 +8,9 @@ units lj
 dimension 3
 boundary p p p
 
-# Types of atoms and that stuff
+# Styles of atoms and that stuff
 atom_style bond
-bond_style zero nocoeff
+bond_style zero
 pair_style hybrid/overlay lj/cut 2.5 sw threebody off
 newton on
 
@@ -19,13 +19,20 @@ variable L equal 5
 
 # Create simulaiton box
 region simulation_box block -$L $L -$L $L -$L $L
-create_box 4 simulation_box bond/types 1
+# N-atom-types region-ID keyword value Is necesesary the extra/special/per/atom (# of special neighbors per atom)
+create_box 4 simulation_box &
+    bond/types 1 &
+    extra/bond/per/atom 2 &
+    extra/special/per/atom 3
 
 # Atom types
 mass 1 1.0      # CL 
 mass 2 0.5      # PA
 mass 3 1.0      # MO
 mass 4 0.5      # PB
+
+# Coefficints
+bond_coeff *
 
 molecule 1 molecule.patchy.CL
 molecule 2 molecule.patchy.MO

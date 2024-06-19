@@ -12,9 +12,9 @@ units lj
 dimension 3
 boundary p p p
 
-# Types of atoms and that stuff
+# Styles of atoms and that stuff
 atom_style bond
-bond_style zero nocoeff
+bond_style zero
 pair_style hybrid/overlay lj/cut 2.5 sw threebody off
 newton on
 
@@ -29,7 +29,8 @@ region simulation_box block -5 5 -5 $L -$L $L
 region simulation_box block -5 5 -5 5 -$L $L
 region simulation_box block -5 5 -5 5 -5 $L
 region simulation_box block -5 5 -5 5 -5 5
-create_box 4 simulation_box bond/types 1
+# N-atom-types region-ID keyword value Is necesesary the extra/special/per/atom (# of special neighbors per atom)
+create_box 4 simulation_box     bond/types 1     extra/bond/per/atom 2     extra/special/per/atom 3
 Created orthogonal box = (-5 -5 -5) to (5 5 5)
   1 by 1 by 1 MPI processor grid
 
@@ -39,6 +40,25 @@ mass 2 0.5      # PA
 mass 3 1.0      # MO
 mass 4 0.5      # PB
 
+# Coefficints
+bond_coeff *
+
 molecule 1 molecule.patchy.CL
-ERROR: Molecule auto special bond generation overflow (src/molecule.cpp:1497)
-Last command: molecule 1 molecule.patchy.CL
+Read molecule template 1:
+  1 molecules
+  0 fragments
+  5 atoms with max type 2
+  4 bonds with max type 1
+  0 angles with max type 0
+  0 dihedrals with max type 0
+  0 impropers with max type 0
+molecule 2 molecule.patchy.MO
+Read molecule template 2:
+  1 molecules
+  0 fragments
+  3 atoms with max type 2
+  2 bonds with max type 1
+  0 angles with max type 0
+  0 dihedrals with max type 0
+  0 impropers with max type 0
+Total wall time: 0:00:00

@@ -15,11 +15,11 @@ Coords
 
 Types
 
-1        1   # CL
-2        2   # PA
-3        2   # PA
-4        2   # PA
-5        2   # PA
+1 1   # CL
+2 2   # PA
+3 2   # PA
+4 2   # PA
+5 2   # PA
 
 Bonds
 
