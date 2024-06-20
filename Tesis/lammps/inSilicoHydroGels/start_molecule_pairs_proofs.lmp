@@ -10,20 +10,22 @@ boundary p p p
 
 # Styles of atoms and that stuff
 atom_style bond
-bond_style zero
+bond_style zero nocoeff
 pair_style hybrid/overlay lj/cut 2.5 sw threebody off
 newton on
 
 # Varaibles
 variable L equal 5
+variable seed1 equal 1234
+variable seed2 equal 4321
 
 # Create simulaiton box
 region simulation_box block -$L $L -$L $L -$L $L
 # N-atom-types region-ID keyword value Is necesesary the extra/special/per/atom (# of special neighbors per atom)
 create_box 4 simulation_box &
     bond/types 1 &
-    extra/bond/per/atom 2 &
-    extra/special/per/atom 3
+    extra/bond/per/atom 4 &
+    extra/special/per/atom 5
 
 # Atom types
 mass 1 1.0      # CL 
@@ -31,8 +33,65 @@ mass 2 0.5      # PA
 mass 3 1.0      # MO
 mass 4 0.5      # PB
 
-# Coefficints
-bond_coeff *
+# Coefficients
+bond_coeff * 2.14
+pair_coeff 1 1 lj/cut 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
+pair_coeff 2 2 lj/cut 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
+pair_coeff 1 2 lj/cut 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
+pair_coeff 3 3 none
+pair_coeff 1 3 none
+pair_coeff 1 4 none
+pair_coeff 2 3 none
+pair_coeff 2 4 none
+pair_coeff 3 4 sw Patchy.ws NULL NULL PA PB # i-type j-type pair-style 
+pair_coeff 4 4 sw Patchy.ws NULL NULL NULL PB # i-type j-type eps sigma cutoff wca
+pair_modify shift yes
 
-molecule 1 molecule.patchy.CL
-molecule 2 molecule.patchy.MO
+# Molecules
+molecule CL molecule.patchy.CL
+molecule MO molecule.patchy.MO
+
+
+# Introduce the molecules
+# ID style args keyword arg
+region spawn_box block -$L $L -$L $L -$L $L
+
+# create_atoms type style args keyword values
+# style_random: N seed region-ID
+# keyword_mol: template-ID seed
+# keyword_overlap: overlap value = only insert if at least this distance from all existing atoms
+# keyword_maxtry: maxtry value = number of attempts to insert a particle before failure
+create_atoms 0 random 1 ${seed1} spawn_box mol CL ${seed1} #overlap 3 maxtry 5000 #xls
+#create_atoms 0 random 1 118394 spawn_box mol 2 ${seed2} overlap 1.13 maxtry 5000 #mon
+
+# Create patchy particles
+#group CrossLinker molecule <> 1 1# group polyA molecule <> 50 250
+#group Monomer molecule <> 2 2# group polyA molecule <> 50 250
+group CrossLinker empty
+group Monomer empty
+# fix		1 addatoms rigid/small molecule mol dimer
+fix pCl CrossLinker rigid/small molecule mol CL
+fix pMO Monomer rigid/small molecule mol MO
+#fix pCL CrossLinker rigid/small molecule # ID group-ID style bodystyle args keyword values
+#fix pCL Monomer rigid/small molecule # ID group-ID style bodystyle args keyword values
+
+# Neighbor list
+neighbor 0.3 bin # extra-distance style
+#neigh_modify delay 5
+# neigh_modify exclude molecule/intra
+
+minimize 1.0e-4 1.0e-6 1000 10000 # etol ftol maxiter maxeval
+
+fix 1 all langevin 1.0 1.0 50.0 12345
+fix 2 all nve
+
+thermo 50
+compute t all temp
+compute ep all pe
+compute ek all ke
+compute tm all momentum
+
+dump 1 all atom 50 dump.patchy_molecules_pairs_proofs
+
+timestep 0.005
+run 100000
