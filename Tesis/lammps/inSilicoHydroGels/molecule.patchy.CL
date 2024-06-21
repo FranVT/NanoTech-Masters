@@ -16,10 +16,10 @@ Coords
 Types
 
 1 1   # CL
-2 2   # PA
-3 2   # PA
-4 2   # PA
-5 2   # PA
+2 3   # PA
+3 3   # PA
+4 3   # PA
+5 3   # PA
 
 Bonds
 

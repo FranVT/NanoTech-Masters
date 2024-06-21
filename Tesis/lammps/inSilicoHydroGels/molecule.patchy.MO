@@ -12,9 +12,9 @@ Coords
 
 Types
 
-1        1   # MO
-2        2   # PB
-3        2   # PB
+1        2   # MO
+2        4   # PB
+3        4   # PB
 
 Bonds
 

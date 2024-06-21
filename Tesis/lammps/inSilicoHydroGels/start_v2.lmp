@@ -18,7 +18,7 @@ variable seed2 equal 4321
 # Types of atoms and that stuff
 atom_style bond
 bond_style zero nocoeff
-pair_style hybrid/overlay lj/cut 2.5 sw threebody off
+pair_style hybrid/overlay wf/cut 2.0 sw threebody off
 newton on
 
 # Get data for box and particles
@@ -39,9 +39,9 @@ fix fMO MO rigid/small molecule #mol MO
 
 # Coefficients
 bond_coeff * 2.14
-pair_coeff 1 1 lj/cut 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
-pair_coeff 2 2 lj/cut 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
-pair_coeff 1 2 lj/cut 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
+pair_coeff 1 1 wf/cut 1.0 1.0 1 1 2.0 # i-type j-type pair-style eps sigma up mu cutoff
+pair_coeff 2 2 wf/cut 1.0 1.0 1 1 2.0 # i-type j-type pair-style eps sigma cutoff
+pair_coeff 1 2 wf/cut 1.0 1.0 1 1 2.0 # i-type j-type pair-style eps sigma cutoff
 pair_coeff 3 3 none
 pair_coeff 1 3 none
 pair_coeff 1 4 none
@@ -49,26 +49,27 @@ pair_coeff 2 3 none
 pair_coeff 2 4 none
 pair_coeff 3 4 sw Patchy.ws NULL NULL PA PB # i-type j-type pair-style 
 pair_coeff 4 4 sw Patchy.ws NULL NULL NULL PB # i-type j-type eps sigma cutoff wca
-pair_modify shift yes
 
 # Neighbor list
-neighbor 0.3 bin # extra-distance style
+neighbor 1 bin # extra-distance style
 #neigh_modify delay 5
+neigh_modify exclude molecule/intra CL
+neigh_modify exclude molecule/intra MO
 
-minimize 1.0e-4 1.0e-6 1000 10000 # etol ftol maxiter maxeval
+#minimize 1.0e-4 1.0e-6 1000 10000 # etol ftol maxiter maxeval
 
-fix fLangevin all langevin 1.0 1.0 100.0 12345
+fix fLangevin all langevin 10.0 10.0 100.0 12345 # ID group-ID langevin Tstart Tstop damp seed
 #fix nve all nve
 #fix mynve all nve #Dinamica NVE
-
+compute Temp CL temp
 
 thermo 50
-compute t all temp
-compute ep all pe
-compute ek all ke
-compute tm all momentum
+#compute t all temp
+#compute ep all pe
+#compute ek all ke
+#compute tm all momentum
 
-dump 1 all atom 50 dump.start_v2
+dump 1 all atom 100 dump.start_v2
 
 timestep 0.001
-run 100000
+run 1000000

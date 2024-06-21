@@ -4,89 +4,156 @@ OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:98
 Loaded 1 plugins from F:\LAMMPS\LAMMPS 64-bit 2Aug2023\plugins
 # Script to create a Polymer using Patchy Particles (PP)
 # Types of Particles:
-# 1:    Cross Linker
-# 2:    Patchy A (Cross Linker)
-# 3:    Monomer
-# 4:    PAtchy B (Monomer)
+#   Cross linker:   PPA
+#   Monomer:        PPB
 
 # Initialization
 units lj
 dimension 3
 boundary p p p
 
-# Varaibles
-variable L equal 5
-variable seed1 equal 1234
-variable seed2 equal 4321
-
-# Types of atoms and that stuff
+# Styles of atoms and that stuff
 atom_style bond
 bond_style zero nocoeff
 pair_style hybrid/overlay lj/cut 2.5 sw threebody off
 newton on
 
-# Get data for box and particles
-read_data data.patchyParticles.lmp
-Reading data file ...
-  orthogonal box = (-5 -5 -5) to (5 5 5)
+# Varaibles
+variable L equal 5
+variable seed1 equal 1234
+variable seed2 equal 4321
+variable seed3 equal 3124
+
+# Create simulaiton box
+region simulation_box block -$L $L -$L $L -$L $L
+region simulation_box block -5 $L -$L $L -$L $L
+region simulation_box block -5 5 -$L $L -$L $L
+region simulation_box block -5 5 -5 $L -$L $L
+region simulation_box block -5 5 -5 5 -$L $L
+region simulation_box block -5 5 -5 5 -5 $L
+region simulation_box block -5 5 -5 5 -5 5
+# N-atom-types region-ID keyword value Is necesesary the extra/special/per/atom (# of special neighbors per atom)
+create_box 4 simulation_box     bond/types 1     extra/bond/per/atom 4     extra/special/per/atom 5
+Created orthogonal box = (-5 -5 -5) to (5 5 5)
   1 by 1 by 1 MPI processor grid
-  reading atoms ...
-  8 atoms
-  scanning bonds ...
-  4 = max bonds/atom
-  reading bonds ...
-  6 bonds
-Finding 1-2 1-3 1-4 neighbors ...
-  special bond factors lj:    0        0        0       
-  special bond factors coul:  0        0        0       
-     4 = max # of 1-2 neighbors
-     3 = max # of 1-3 neighbors
-     3 = max # of 1-4 neighbors
-     4 = max # of special neighbors
-  special bonds CPU = 0.001 seconds
-  read_data CPU = 0.005 seconds
 
-# Group the atmos into molecules group polyA molecul
-group CL molecule 1
-5 atoms in group CL
-group MO molecule 2
-3 atoms in group MO
-
-#fix ID group-ID style args
-#    ID = user-assigned name for the fix
-#    group-ID = ID of the group of atoms to apply the fix to
-#    style = one of a long list of possible style names (see below)
-#    args = arguments used by a particular style
-
-fix fCl CL rigid/small molecule #mol CL
-  create bodies CPU = 0.000 seconds
-  1 rigid bodies with 5 atoms
-  1 = max distance from body owner to body atom
-fix fMO MO rigid/small molecule #mol MO
-  create bodies CPU = 0.000 seconds
-  1 rigid bodies with 3 atoms
-  1 = max distance from body owner to body atom
+# Atom types
+mass 1 1.0      # CL
+mass 2 1.0      # MO
+mass 3 0.5      # PA
+mass 4 0.5      # PB
 
 # Coefficients
 bond_coeff * 2.14
-pair_coeff 1 1 lj/cut 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
-pair_coeff 2 2 lj/cut 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
-pair_coeff 1 2 lj/cut 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
-pair_coeff 3 3 none
-pair_coeff 1 3 none
-pair_coeff 1 4 none
-pair_coeff 2 3 none
-pair_coeff 2 4 none
-pair_coeff 3 4 sw Patchy.ws NULL NULL PA PB # i-type j-type pair-style
+pair_coeff 1 1 lj/cut 3.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
+pair_coeff 2 2 lj/cut 3.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
+pair_coeff 1 2 lj/cut 3.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
+pair_coeff 1 3 lj/cut 3.0 1.0 1.12
+pair_coeff 1 4 lj/cut 3.0 1.0 1.12
+pair_coeff 2 3 lj/cut 3.0 1.0 1.12
+pair_coeff 2 4 lj/cut 3.0 1.0 1.12
+#pair_coeff 3 4 sw Patchy.ws NULL NULL PA PB # i-type j-type pair-style
+#pair_coeff 3 3 sw Patchy.ws NULL NULL PA NULL
+#pair_coeff 4 4 sw Patchy.ws NULL NULL NULL PB # i-type j-type eps sigma cutoff wca
+pair_coeff 3 4 sw Patchy2.ws NULL NULL PA PB # i-type j-type pair-style
   disabling sw potential three-body terms
-pair_coeff 4 4 sw Patchy.ws NULL NULL NULL PB # i-type j-type eps sigma cutoff wca
+pair_coeff 3 3 sw Patchy2.ws NULL NULL PA NULL
+pair_coeff 4 4 sw Patchy2.ws NULL NULL NULL PB # i-type j-type eps sigma cutoff wca
+
 pair_modify shift yes
+
+# Molecules
+molecule CL molecule.patchy.CL
+Read molecule template CL:
+  1 molecules
+  0 fragments
+  5 atoms with max type 3
+  4 bonds with max type 1
+  0 angles with max type 0
+  0 dihedrals with max type 0
+  0 impropers with max type 0
+molecule MO molecule.patchy.MO
+Read molecule template MO:
+  1 molecules
+  0 fragments
+  3 atoms with max type 4
+  2 bonds with max type 1
+  0 angles with max type 0
+  0 dihedrals with max type 0
+  0 impropers with max type 0
+
+# Introduce the molecules
+# ID style args keyword arg
+region spawn_box block -$L $L -$L $L -$L $L
+region spawn_box block -5 $L -$L $L -$L $L
+region spawn_box block -5 5 -$L $L -$L $L
+region spawn_box block -5 5 -5 $L -$L $L
+region spawn_box block -5 5 -5 5 -$L $L
+region spawn_box block -5 5 -5 5 -5 $L
+region spawn_box block -5 5 -5 5 -5 5
+
+# create_atoms type style args keyword values
+# style_random: N seed region-ID
+# keyword_mol: template-ID seed
+# keyword_overlap: overlap value = only insert if at least this distance from all existing atoms
+# keyword_maxtry: maxtry value = number of attempts to insert a particle before failure
+create_atoms 0 random 1 ${seed1} spawn_box mol CL ${seed1} overlap 3 maxtry 5000 #xls
+create_atoms 0 random 1 1234 spawn_box mol CL ${seed1} overlap 3 maxtry 5000 
+create_atoms 0 random 1 1234 spawn_box mol CL 1234 overlap 3 maxtry 5000 
+Created 5 atoms
+  using lattice units in orthogonal box = (-5 -5 -5) to (5 5 5)
+  create_atoms CPU = 0.001 seconds
+create_atoms 0 random 8 ${seed2} spawn_box mol MO ${seed2} overlap 1.13 maxtry 5000 #mon
+create_atoms 0 random 8 4321 spawn_box mol MO ${seed2} overlap 1.13 maxtry 5000 
+create_atoms 0 random 8 4321 spawn_box mol MO 4321 overlap 1.13 maxtry 5000 
+Created 24 atoms
+  using lattice units in orthogonal box = (-5 -5 -5) to (5 5 5)
+  create_atoms CPU = 0.001 seconds
+
+# Create patchy particles
+#group CrossLinker molecule <> 1 1# group polyA molecule <> 50 250
+#group Monomer molecule <> 2 2# group polyA molecule <> 50 250
+group CrossLinker type 1 3
+5 atoms in group CrossLinker
+group Monomer type 2 4
+24 atoms in group Monomer
+# fix		1 addatoms rigid/small molecule mol dimer
+#fix pCl CrossLinker rigid/small molecule mol CL
+#fix pMO Monomer rigid/small molecule mol MO
+#fix pCL CrossLinker rigid/small molecule # ID group-ID style bodystyle args keyword values
+#fix pCL Monomer rigid/small molecule # ID group-ID style bodystyle args keyword values
+fix pCL CrossLinker rigid/small molecule #langevin 1.0 1.0 100.0 ${seed3}
+  create bodies CPU = 0.000 seconds
+  1 rigid bodies with 5 atoms
+  1 = max distance from body owner to body atom
+fix pMO Monomer rigid/small molecule #langevin 1.0 1.0 100.0 ${seed3}
+  create bodies CPU = 0.000 seconds
+  8 rigid bodies with 24 atoms
+  1 = max distance from body owner to body atom
+
 
 # Neighbor list
 neighbor 0.3 bin # extra-distance style
 #neigh_modify delay 5
+neigh_modify exclude molecule/intra CrossLinker
+neigh_modify exclude molecule/intra Monomer
 
-minimize 1.0e-4 1.0e-6 1000 10000 # etol ftol maxiter maxeval
+#minimize 1.0e-4 1.0e-6 1000 10000 # etol ftol maxiter maxeval
+
+fix langevinFix all langevin 0.1 0.1 10000.0 12345 # ID group-ID langevin Tstart Tstop damp seed
+#fix nve all nve
+#fix 2 all nve
+
+thermo 1000
+compute t all temp
+compute ep all pe
+compute ek all ke
+compute tm all momentum
+
+dump 1 all atom 500 dump.patchy_molecules_pairs_proofs
+
+timestep 0.002
+run 100000
 WARNING: Using a manybody potential with bonds/angles/dihedrals and special_bond exclusions (src/pair.cpp:242)
 WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
 WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
@@ -112,2097 +179,135 @@ Neighbor list info ...
       pair build: half/bin/newton
       stencil: half/bin/3d
       bin: standard
-WARNING: Cannot count rigid body degrees-of-freedom before bodies are fully initialized (src/RIGID/fix_rigid_small.cpp:1134)
-WARNING: Cannot count rigid body degrees-of-freedom before bodies are fully initialized (src/RIGID/fix_rigid_small.cpp:1134)
-Per MPI rank memory allocation (min/avg/max) = 17.14 | 17.14 | 17.14 Mbytes
+Per MPI rank memory allocation (min/avg/max) = 16.14 | 16.14 | 16.14 Mbytes
    Step          Temp          E_pair         E_mol          TotEng         Press     
-         0   0              0              0              0              0.0016666667 
-         1   0              0              0              0              0.0016666667 
-Loop time of 0.000133 on 1 procs for 1 steps with 8 atoms
+         0   0              0              0              0              0            
+      1000   4.5546518e-05  0              0              3.3767246e-05 -7.4771126e-05
+      2000   5.8774033e-05  0              0              4.3573852e-05 -1.8432813e-05
+      3000   9.8472498e-05  0              0              7.3005472e-05 -1.8257832e-05
+      4000   0.00012736921  0              0              9.4428894e-05 -4.1761035e-05
+      5000   0.0001602708   0              0              0.00011882145  5.0941231e-05
+      6000   0.0002348695   0              0              0.00017412739  5.1096403e-05
+      7000   0.00023450693  0              0              0.00017385859  7.083378e-05 
+      8000   0.00027978062  0              0              0.00020742357 -0.00011973525
+      9000   0.00034388091  0              0              0.00025494619 -4.5277977e-05
+     10000   0.00037629596  0              0              0.00027897804 -3.646288e-05 
+     11000   0.00043753273  0              0              0.00032437771 -6.6623163e-05
+     12000   0.00041390615  0              0              0.00030686145  2.7404334e-05
+     13000   0.00053761023  0              0              0.0003985731  -5.6902881e-05
+     14000   0.00059840317  0              0              0.00044364373 -2.2880725e-05
+     15000   0.00060717474  0              0              0.00045014679  7.4329777e-05
+     16000   0.00060763385  0              0              0.00045048716 -6.8051428e-05
+     17000   0.00062438329  0              0              0.00046290485 -4.6221063e-05
+     18000   0.0006298464   0              0              0.00046695509 -8.248839e-05 
+     19000   0.0007338865   0              0              0.00054408827 -3.4109313e-05
+     20000   0.00070796985  0              0              0.0005248742  -8.6405522e-05
+     21000   0.00082850331  0              0              0.00061423521  2.8476076e-05
+     22000   0.00086762663  0              0              0.00064324044 -1.1872141e-05
+     23000   0.00088388384  0              0              0.0006552932  -2.3506599e-05
+     24000   0.00091891089  0              0              0.00068126152  3.0124115e-05
+     25000   0.0010551189   0              0              0.00078224329 -9.829114e-05 
+     26000   0.001047878    0              0              0.0007768751   5.6634172e-05
+     27000   0.0012171415   0              0              0.0009023635  -9.7915623e-05
+     28000   0.0012580192   0              0              0.00093266939  3.2230785e-05
+     29000   0.0012418201   0              0              0.00092065976  7.1850151e-05
+     30000   0.001343273    0              0              0.0009958748  -7.5545325e-05
+     31000   0.00141184     0              0              0.001046709    2.8493679e-05
+     32000   0.0014415085   0              0              0.0010687046  -2.3334894e-05
+     33000   0.0015254129   0              0              0.0011309095   0.00016575295
+     34000   0.0016216987   0              0              0.0012022939   4.1198406e-05
+     35000   0.0016983687   0              0              0.0012591354   5.1591969e-05
+     36000   0.0017090328   0              0              0.0012670415   8.8922612e-05
+     37000   0.0016388195   0              0              0.0012149869   8.6755369e-05
+     38000   0.0017064816   0              0              0.0012651501  -5.1680642e-05
+     39000   0.0016480106   0              0              0.001221801    8.575108e-05 
+     40000   0.0016372799   0              0              0.0012138455   0.00016523523
+     41000   0.001592492    0              0              0.0011806407   5.4889532e-05
+     42000   0.001680846    0              0              0.0012461445   0.000216124  
+     43000   0.0017362286   0              0              0.0012872039  -5.5463535e-05
+     44000   0.0017850946   0              0              0.0013234322   0.00016243941
+     45000   0.0017704134   0              0              0.0013125478   0.00014358501
+     46000   0.001823041    0              0              0.0013515649  -6.3649436e-05
+     47000   0.0018430511   0              0              0.0013664      7.6158705e-05
+     48000   0.0017273242   0              0              0.0012806024   0.00010144126
+     49000   0.0018368777   0              0              0.0013618231  -4.5601178e-05
+     50000   0.0018264253   0              0              0.0013540739  -8.8885234e-05
+     51000   0.0018794846   0              0              0.001393411    6.5919685e-05
+     52000   0.0018328598   0              0              0.0013588444   5.4355954e-05
+     53000   0.0017712316   0              0              0.0013131545  -7.563477e-05 
+     54000   0.0018344731   0              0              0.0013600404  -8.8773007e-06
+     55000   0.0019004371   0              0              0.0014089447   1.0059646e-05
+     56000   0.0017071925   0              0              0.0012656772   8.5707849e-05
+     57000   0.001748985    0              0              0.0012966613   4.986874e-05 
+     58000   0.0018936437   0              0              0.0014039083   4.285296e-05 
+     59000   0.0018669228   0              0              0.001384098    0.0001929576 
+     60000   0.0021677956   0              0              0.0016071588  -1.8178718e-05
+     61000   0.0020861819   0              0              0.0015466521   1.3527456e-06
+     62000   0.0022010609   0              0              0.001631821   -5.4400257e-05
+     63000   0.0022521972   0              0              0.0016697324   0.00011916408
+     64000   0.0022332944   0              0              0.0016557182  -4.2971594e-05
+     65000   0.0024038259   0              0              0.0017821468   7.9439669e-05
+     66000   0.0023317256   0              0              0.0017286931  -4.5924724e-05
+     67000   0.0024798895   0              0              0.0018385388   0.0001505019 
+     68000   0.0026851898   0              0              0.0019907442   1.663214e-05 
+     69000   0.0029451288   0              0              0.0021834576  -9.7226382e-05
+     70000   0.0029993186   0              0              0.0022236328   0.00016215408
+     71000   0.0030969874   0              0              0.0022960424   8.8297095e-05
+     72000   0.0032033154   0              0              0.0023748718   9.7917131e-05
+     73000   0.0030656221   0              0              0.0022727888  -3.0508728e-05
+     74000   0.003196214    0              0              0.0023696069   8.3302451e-05
+     75000   0.0032357381   0              0              0.0023989092   0.00010144223
+     76000   0.0033967881   0              0              0.0025183084   0.00010181532
+     77000   0.0034357274   0              0              0.0025471772   1.9385455e-05
+     78000   0.0035550152   0              0              0.0026356147   9.5239143e-06
+     79000   0.0034762755   0              0              0.0025772388  -9.4120216e-05
+     80000   0.0035400975   0              0              0.002624555    4.5493593e-05
+     81000   0.003586175    0              0              0.002658716    3.4566544e-05
+     82000   0.0037176489   0              0              0.002756188    7.0496887e-05
+     83000   0.0038989607   0              0              0.0028906088   3.4226299e-05
+     84000   0.0039407759   0              0              0.0029216097   5.053794e-05 
+     85000   0.0040858392   0              0              0.0030291567   0.00010692343
+     86000   0.0040662318   0              0              0.0030146201  -6.7871918e-05
+     87000   0.003998807    0              0              0.0029646328  -3.2961946e-05
+     88000   0.0040513257   0              0              0.003003569   -3.231823e-05 
+     89000   0.0041374585   0              0              0.0030674261  -7.1469389e-05
+     90000   0.0042647961   0              0              0.0031618316  -7.6007631e-05
+     91000   0.004468178    0              0              0.0033126147  -2.9213205e-05
+     92000   0.004713613    0              0              0.0034945751  -0.00019677231
+     93000   0.0047372487   0              0              0.0035120982   0.00010162688
+     94000   0.0049506208   0              0              0.0036702878  -1.8076396e-05
+     95000   0.0047964528   0              0              0.0035559909   0.00011935232
+     96000   0.0048967275   0              0              0.0036303325   3.0503926e-05
+     97000   0.0049372159   0              0              0.0036603497   8.0397767e-05
+     98000   0.0048503744   0              0              0.0035959672   3.0814824e-05
+     99000   0.0049778002   0              0              0.0036904381   4.6298529e-05
+    100000   0.0050577297   0              0              0.0037496962   6.2498415e-05
+Loop time of 0.68244 on 1 procs for 100000 steps with 29 atoms
 
-0.0% CPU use with 1 MPI tasks x 1 OpenMP threads
-
-Minimization stats:
-  Stopping criterion = search direction is not downhill
-  Energy initial, next-to-last, final = 
-                     0                  0                  0
-  Force two-norm initial, final = 0 0
-  Force max component initial, final = 0 0
-  Final line search alpha, max atom move = 0 0
-  Iterations, force evaluations = 1 0
+Performance: 25320907.333 tau/day, 146533.029 timesteps/s, 4.249 Matom-step/s
+87.0% CPU use with 1 MPI tasks x 1 OpenMP threads
 
 MPI task timing breakdown:
 Section |  min time  |  avg time  |  max time  |%varavg| %total
 ---------------------------------------------------------------
-Pair    | 2e-06      | 2e-06      | 2e-06      |   0.0 |  1.50
-Bond    | 1e-06      | 1e-06      | 1e-06      |   0.0 |  0.75
-Neigh   | 0          | 0          | 0          |   0.0 |  0.00
-Comm    | 0          | 0          | 0          |   0.0 |  0.00
-Output  | 0          | 0          | 0          |   0.0 |  0.00
-Modify  | 0          | 0          | 0          |   0.0 |  0.00
-Other   |            | 0.00013    |            |       | 97.74
+Pair    | 0.049542   | 0.049542   | 0.049542   |   0.0 |  7.26
+Bond    | 0.006111   | 0.006111   | 0.006111   |   0.0 |  0.90
+Neigh   | 0.002754   | 0.002754   | 0.002754   |   0.0 |  0.40
+Comm    | 0.031708   | 0.031708   | 0.031708   |   0.0 |  4.65
+Output  | 0.088236   | 0.088236   | 0.088236   |   0.0 | 12.93
+Modify  | 0.46898    | 0.46898    | 0.46898    |   0.0 | 68.72
+Other   |            | 0.03511    |            |       |  5.14
 
-Nlocal:              8 ave           8 max           8 min
+Nlocal:             29 ave          29 max          29 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
-Nghost:              0 ave           0 max           0 min
+Nghost:             38 ave          38 max          38 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
 Neighs:              0 ave           0 max           0 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
 
 Total # of neighbors = 0
 Ave neighs/atom = 0
-Ave special neighs/atom = 3.25
-Neighbor list builds = 0
-Dangerous builds = 0
-
-fix fLangevin all langevin 1.0 1.0 100.0 12345
-#fix nve all nve
-#fix mynve all nve #Dinamica NVE
-
-
-thermo 50
-compute t all temp
-compute ep all pe
-compute ek all ke
-compute tm all momentum
-
-dump 1 all atom 50 dump.start_v2
-
-timestep 0.001
-run 100000
-WARNING: Using a manybody potential with bonds/angles/dihedrals and special_bond exclusions (src/pair.cpp:242)
-WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
-WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
-Per MPI rank memory allocation (min/avg/max) = 16.02 | 16.02 | 16.02 Mbytes
-   Step          Temp          E_pair         E_mol          TotEng         Press     
-         1   0              0              0              0              0            
-        50   0.0012516197   0              0              0.00062580983  0.0032499694 
-       100   0.0032112823   0              0              0.0016056412  -0.0019799695 
-       150   0.0044372343   0              0              0.0022186171   0.0030774755 
-       200   0.0047598603   0              0              0.0023799302  -0.0041451864 
-       250   0.008075999    0              0              0.0040379995  -0.0031551979 
-       300   0.0088902509   0              0              0.0044451254  -0.0041124536 
-       350   0.0095332772   0              0              0.0047666386  -0.0011451171 
-       400   0.0070460405   0              0              0.0035230202  -0.0043235486 
-       450   0.0076536186   0              0              0.0038268093  -0.0029140759 
-       500   0.007008103    0              0              0.0035040515   0.0022479119 
-       550   0.0069760548   0              0              0.0034880274  -0.0019207622 
-       600   0.0055978347   0              0              0.0027989173  -0.00016861068
-       650   0.0074708544   0              0              0.0037354272   0.0017301554 
-       700   0.0074776231   0              0              0.0037388115   0.0023783397 
-       750   0.0089100083   0              0              0.0044550042  -0.0026309962 
-       800   0.0092198168   0              0              0.0046099084   0.0024760391 
-       850   0.010893495    0              0              0.0054467477  -0.0027764166 
-       900   0.010553145    0              0              0.0052765727  -0.00031007021
-       950   0.011953584    0              0              0.0059767921   0.0027074638 
-      1000   0.013829085    0              0              0.0069145426   0.0012894431 
-      1050   0.017641266    0              0              0.0088206328  -0.0047514963 
-      1100   0.015849816    0              0              0.0079249079   0.0023704053 
-      1150   0.016622889    0              0              0.0083114446   0.00059189091
-      1200   0.017619718    0              0              0.0088098588   0.00047879773
-      1250   0.013559138    0              0              0.006779569    0.00085514757
-      1300   0.015247353    0              0              0.0076236765   0.002319657  
-      1350   0.017910314    0              0              0.0089551568   0.00025481944
-      1400   0.022617252    0              0              0.011308626   -0.0011170513 
-      1450   0.019265901    0              0              0.0096329506  -0.0022738922 
-      1500   0.02147323     0              0              0.010736615    0.0015662496 
-      1550   0.026531692    0              0              0.013265846    0.0015668876 
-      1600   0.029551675    0              0              0.014775838   -3.4933955e-05
-      1650   0.02777991     0              0              0.013889955   -0.002821401  
-      1700   0.034081013    0              0              0.017040506    0.0060976497 
-      1750   0.037889946    0              0              0.018944973   -0.0004367969 
-      1800   0.040702063    0              0              0.020351031   -0.0029076834 
-      1850   0.040920251    0              0              0.020460125    0.0016876338 
-      1900   0.041830374    0              0              0.020915187    0.0035246744 
-      1950   0.052475175    0              0              0.026237588   -0.0024656782 
-      2000   0.055495301    0              0              0.027747651    0.0018686353 
-      2050   0.054256808    0              0              0.027128404    0.0009553827 
-      2100   0.056671296    0              0              0.028335648    0.0013719428 
-      2150   0.069743806    0              0              0.034871903   -0.0014575637 
-      2200   0.071027552    0              0              0.035513776    0.001085451  
-      2250   0.067097064    0              0              0.033548532   -0.0010708688 
-      2300   0.071298424    0              0              0.035649212    0.0023496328 
-      2350   0.073414305    0              0              0.036707153   -0.0012339268 
-      2400   0.064460484    0              0              0.032230242    0.00045752935
-      2450   0.057455288    0              0              0.028727644    0.0016012613 
-      2500   0.047161036    0              0              0.023580518    0.0012723708 
-      2550   0.053020453    0              0              0.026510226    0.0014594328 
-      2600   0.052767606    0              0              0.026383803   -0.0014775366 
-      2650   0.058005086    0              0              0.029002543   -0.00082936967
-      2700   0.067226118    0              0              0.033613059    0.0028642924 
-      2750   0.058281225    0              0              0.029140613   -0.0048286696 
-      2800   0.053428906    0              0              0.026714453   -0.0029678739 
-      2850   0.052229734    0              0              0.026114867   -0.0028413549 
-      2900   0.048373835    0              0              0.024186917    0.003765629  
-      2950   0.052526968    0              0              0.026263484    0.0029404205 
-      3000   0.053395291    0              0              0.026697646   -0.0016953385 
-      3050   0.052795422    0              0              0.026397711   -0.0040109393 
-      3100   0.059874833    0              0              0.029937417   -0.0012534368 
-      3150   0.054622577    0              0              0.027311289   -0.0016494183 
-      3200   0.048803611    0              0              0.024401805    0.0005458476 
-      3250   0.048591155    0              0              0.024295578   -0.0024731644 
-      3300   0.053907408    0              0              0.026953704    0.0010276952 
-      3350   0.053018446    0              0              0.026509223   -0.0049054083 
-      3400   0.052373564    0              0              0.026186782   -8.7938763e-05
-      3450   0.064565293    0              0              0.032282647   -0.0042750929 
-      3500   0.078119577    0              0              0.039059788    0.0029287256 
-      3550   0.068384428    0              0              0.034192214   -0.00049376784
-      3600   0.073819497    0              0              0.036909748    0.0027522231 
-      3650   0.071598852    0              0              0.035799426    0.0042162771 
-      3700   0.077930736    0              0              0.038965368    0.00031461911
-      3750   0.080655237    0              0              0.040327619    0.0039202796 
-      3800   0.069283517    0              0              0.034641758   -0.0004564049 
-      3850   0.078162002    0              0              0.039081001    0.0029107152 
-      3900   0.083398853    0              0              0.041699427    0.00085586431
-      3950   0.081336704    0              0              0.040668352   -0.0023474678 
-      4000   0.084440066    0              0              0.042220033    0.0026626416 
-      4050   0.09003394     0              0              0.04501697    -0.00037247888
-      4100   0.099534382    0              0              0.049767191   -0.00049812833
-      4150   0.10446239     0              0              0.052231194    0.00064991772
-      4200   0.094821615    0              0              0.047410807    0.00079413171
-      4250   0.1038897      0              0              0.051944851    0.0015269678 
-      4300   0.11627635     0              0              0.058138177    0.0027536019 
-      4350   0.1291657      0              0              0.064582851   -0.0015010779 
-      4400   0.12945577     0              0              0.064727883    9.6991216e-05
-      4450   0.1362555      0              0              0.068127749    0.00088391434
-      4500   0.13373285     0              0              0.066866426   -0.0024417391 
-      4550   0.1514619      0              0              0.075730951   -0.001626714  
-      4600   0.14756891     0              0              0.073784455    0.0011056355 
-      4650   0.15498603     0              0              0.077493015   -0.0024598455 
-      4700   0.16596627     0              0              0.082983136   -0.0025145516 
-      4750   0.15498072     0              0              0.07749036     0.00061129358
-      4800   0.15438424     0              0              0.077192118    0.0062584363 
-      4850   0.16495251     0              0              0.082476256    0.0062382112 
-      4900   0.15669135     0              0              0.078345676   -0.00089602588
-      4950   0.13587819     0              0              0.067939096    0.00066011908
-      5000   0.12782861     0              0              0.063914307    0.0011868292 
-      5050   0.12708637     0              0              0.063543185   -0.0021059791 
-      5100   0.12186235     0              0              0.060931173   -0.0014613195 
-      5150   0.13196436     0              0              0.065982182    0.0013219273 
-      5200   0.14588678     0              0              0.072943388   -0.0012348208 
-      5250   0.14038471     0              0              0.070192353   -0.0010725849 
-      5300   0.14882411     0              0              0.074412056   -0.0033639223 
-      5350   0.1311214      0              0              0.065560701   -0.00039714393
-      5400   0.12215182     0              0              0.06107591     0.002231215  
-      5450   0.12526516     0              0              0.062632579    0.00042965895
-      5500   0.11894858     0              0              0.059474292    0.00013538986
-      5550   0.1212112      0              0              0.0606056     -0.0026814939 
-      5600   0.12925425     0              0              0.064627125    0.0010533892 
-      5650   0.13132431     0              0              0.065662157    0.0021306404 
-      5700   0.13187666     0              0              0.065938331   -0.00014794336
-      5750   0.14150111     0              0              0.070750555   -3.2793727e-05
-      5800   0.13779309     0              0              0.068896547   -0.0013350008 
-      5850   0.13678181     0              0              0.068390906    0.00078353138
-      5900   0.13480621     0              0              0.067403105    0.0013382528 
-      5950   0.1324108      0              0              0.0662054      0.003524238  
-      6000   0.13451852     0              0              0.067259258    0.0030447226 
-      6050   0.13538975     0              0              0.067694875   -0.0009878541 
-      6100   0.13867318     0              0              0.069336589   -0.00078541115
-      6150   0.12888008     0              0              0.064440038    0.0029047238 
-      6200   0.11902211     0              0              0.059511055   -4.5177323e-07
-      6250   0.12073        0              0              0.060365002   -0.0013351836 
-      6300   0.12556462     0              0              0.062782311    0.0022954655 
-      6350   0.13765072     0              0              0.068825362   -0.0020372429 
-      6400   0.13639666     0              0              0.068198332   -0.0020664287 
-      6450   0.13948282     0              0              0.06974141    -0.0011147218 
-      6500   0.1381841      0              0              0.06909205    -0.0015768205 
-      6550   0.12368171     0              0              0.061840856    0.0033682954 
-      6600   0.14189495     0              0              0.070947473    0.00063612601
-      6650   0.14402717     0              0              0.072013587    0.0030201481 
-      6700   0.14039994     0              0              0.070199971   -0.0035261047 
-      6750   0.1297913      0              0              0.064895652   -0.0025119909 
-      6800   0.13372641     0              0              0.066863203   -0.0018301112 
-      6850   0.12431976     0              0              0.062159882   -0.0022535164 
-      6900   0.13764861     0              0              0.068824304    0.00098818243
-      6950   0.12836707     0              0              0.064183533   -0.00082565206
-      7000   0.12587512     0              0              0.062937559    0.0035096492 
-      7050   0.12758864     0              0              0.063794322   -0.0041341422 
-      7100   0.1335827      0              0              0.066791348    0.0017464399 
-      7150   0.13213536     0              0              0.066067682    0.00077326776
-      7200   0.1274275      0              0              0.063713752    0.0014338488 
-      7250   0.14396642     0              0              0.071983211   -0.0022720443 
-      7300   0.14354803     0              0              0.071774016    0.0077659612 
-      7350   0.14969633     0              0              0.074848165    0.0020510382 
-      7400   0.1446432      0              0              0.072321598   -0.00066505679
-      7450   0.15891658     0              0              0.079458291    0.0020850713 
-      7500   0.15868859     0              0              0.079344295    0.0039471671 
-      7550   0.17679675     0              0              0.088398373   -0.0023472426 
-      7600   0.16540684     0              0              0.082703421    0.001745036  
-      7650   0.18404048     0              0              0.092020242   -0.0022013196 
-      7700   0.18252174     0              0              0.091260872    0.002268536  
-      7750   0.20230936     0              0              0.10115468    -0.0014429485 
-      7800   0.20682178     0              0              0.10341089     0.00075414124
-      7850   0.219768       0              0              0.109884       0.0027155402 
-      7900   0.22156891     0              0              0.11078446    -0.00016343887
-      7950   0.23289407     0              0              0.11644704     0.0015301591 
-      8000   0.21124932     0              0              0.10562466    -0.00060281735
-      8050   0.22658553     0              0              0.11329277    -0.00022357353
-      8100   0.24490949     0              0              0.12245474     0.0005452352 
-      8150   0.26814415     0              0              0.13407208     0.0025210662 
-      8200   0.27935904     0              0              0.13967952    -0.0016512364 
-      8250   0.27469033     0              0              0.13734516    -0.0015651892 
-      8300   0.2602994      0              0              0.1301497      0.00034246214
-      8350   0.26160662     0              0              0.13080331     0.0027860476 
-      8400   0.24878324     0              0              0.12439162     0.0023346461 
-      8450   0.26008362     0              0              0.13004181    -0.0057126337 
-      8500   0.28138847     0              0              0.14069424    -0.005735691  
-      8550   0.27061141     0              0              0.13530571     0.0022907499 
-      8600   0.28615382     0              0              0.14307691     0.00073896561
-      8650   0.28989799     0              0              0.144949       7.6211423e-05
-      8700   0.29372883     0              0              0.14686441     0.0023899895 
-      8750   0.30039321     0              0              0.15019661    -0.0018728892 
-      8800   0.2990798      0              0              0.1495399      0.0022880649 
-      8850   0.29351656     0              0              0.14675828     0.00040012812
-      8900   0.29332812     0              0              0.14666406     0.00039548552
-      8950   0.30261107     0              0              0.15130553    -0.0023475679 
-      9000   0.32476852     0              0              0.16238426     0.0016683258 
-      9050   0.3320946      0              0              0.1660473      0.0010904419 
-      9100   0.33746736     0              0              0.16873368    -0.00068324469
-      9150   0.35255191     0              0              0.17627595     0.0028576236 
-      9200   0.36557126     0              0              0.18278563     0.0020385428 
-      9250   0.35299381     0              0              0.17649691    -0.0033701112 
-      9300   0.35949624     0              0              0.17974812    -0.0035893768 
-      9350   0.36718339     0              0              0.18359169    -0.00384154   
-      9400   0.36966493     0              0              0.18483246     0.0017197892 
-      9450   0.38093591     0              0              0.19046795     0.0013618817 
-      9500   0.40405772     0              0              0.20202886     0.00044960965
-      9550   0.41193777     0              0              0.20596889     0.0063426481 
-      9600   0.42674005     0              0              0.21337003     0.0010679345 
-      9650   0.4471462      0              0              0.2235731     -0.0021612327 
-      9700   0.42937919     0              0              0.21468959    -0.0024521199 
-      9750   0.41636782     0              0              0.20818391     0.0021324706 
-      9800   0.41113286     0              0              0.20556643     0.0013379347 
-      9850   0.40040436     0              0              0.20020218    -0.00083071714
-      9900   0.41165257     0              0              0.20582629    -0.00017183584
-      9950   0.43400885     0              0              0.21700443    -0.0034897233 
-     10000   0.44013388     0              0              0.22006694     0.0011397611 
-     10050   0.4695621      0              0              0.23478105     0.0018596597 
-     10100   0.49165689     0              0              0.24582845     0.0046805004 
-     10150   0.45219296     0              0              0.22609648     0.0010910518 
-     10200   0.47397096     0              0              0.23698548     0.0049557757 
-     10250   0.4736009      0              0              0.23680045     0.00065459228
-     10300   0.50806515     0              0              0.25403258    -0.0024483753 
-     10350   0.50481119     0              0              0.25240559     0.0049063478 
-     10400   0.49989118     0              0              0.24994559    -0.0042011354 
-     10450   0.49799201     0              0              0.248996       0.0048029257 
-     10500   0.48551485     0              0              0.24275742     0.0026703243 
-     10550   0.51156305     0              0              0.25578153    -0.00036532865
-     10600   0.53003536     0              0              0.26501768     0.0020935159 
-     10650   0.52283444     0              0              0.26141722    -0.0023874282 
-     10700   0.54185325     0              0              0.27092663     0.0054221641 
-     10750   0.53121037     0              0              0.26560518    -0.00034499652
-     10800   0.52863884     0              0              0.26431942     0.0035794619 
-     10850   0.52570785     0              0              0.26285392     0.0025072177 
-     10900   0.50693314     0              0              0.25346657     0.0033088145 
-     10950   0.46182466     0              0              0.23091233    -0.0020924598 
-     11000   0.46164129     0              0              0.23082064     0.00079325962
-     11050   0.45067422     0              0              0.22533711     0.0002204499 
-     11100   0.44761093     0              0              0.22380547    -0.0049295153 
-     11150   0.42583222     0              0              0.21291611     0.00043777406
-     11200   0.4227475      0              0              0.21137375    -0.0019842045 
-     11250   0.43209652     0              0              0.21604826    -0.0014519203 
-     11300   0.42435456     0              0              0.21217728     0.0016587755 
-     11350   0.41572331     0              0              0.20786166     0.0024857853 
-     11400   0.42082022     0              0              0.21041011    -0.0021864316 
-     11450   0.41144823     0              0              0.20572411    -0.00076141724
-     11500   0.44203589     0              0              0.22101794     0.00088543326
-     11550   0.43191357     0              0              0.21595679     0.0023642108 
-     11600   0.41889523     0              0              0.20944761    -0.0011300842 
-     11650   0.41414196     0              0              0.20707098     0.004672665  
-     11700   0.40386991     0              0              0.20193495     0.0059586346 
-     11750   0.3883223      0              0              0.19416115    -0.0026669189 
-     11800   0.39131355     0              0              0.19565677    -0.0041820112 
-     11850   0.40630359     0              0              0.2031518      0.00027210265
-     11900   0.42603799     0              0              0.213019       0.0037803587 
-     11950   0.43108982     0              0              0.21554491     0.0020164161 
-     12000   0.42012776     0              0              0.21006388     0.0047753296 
-     12050   0.41679318     0              0              0.20839659    -0.0047054523 
-     12100   0.41878329     0              0              0.20939164    -0.00068576567
-     12150   0.41824972     0              0              0.20912486    -0.00061463314
-     12200   0.40558187     0              0              0.20279094     0.0014508772 
-     12250   0.40767777     0              0              0.20383889    -0.00031988923
-     12300   0.37399655     0              0              0.18699828     0.0058692477 
-     12350   0.37356535     0              0              0.18678268     0.0010116862 
-     12400   0.38014614     0              0              0.19007307     0.0012100507 
-     12450   0.39817145     0              0              0.19908573    -6.9667849e-05
-     12500   0.41295814     0              0              0.20647907    -0.0025511347 
-     12550   0.40385153     0              0              0.20192577    -0.0059051614 
-     12600   0.41121529     0              0              0.20560765     0.0036214478 
-     12650   0.38504298     0              0              0.19252149    -0.00015464774
-     12700   0.39057932     0              0              0.19528966     0.0009029489 
-     12750   0.41444829     0              0              0.20722415    -0.00035805075
-     12800   0.41211911     0              0              0.20605956    -0.0024165335 
-     12850   0.41898901     0              0              0.2094945      0.0047107007 
-     12900   0.42323107     0              0              0.21161553    -0.003081191  
-     12950   0.43737091     0              0              0.21868545    -0.0014063551 
-     13000   0.43715127     0              0              0.21857563    -0.0011333716 
-     13050   0.4113096      0              0              0.2056548      0.0039739575 
-     13100   0.40918708     0              0              0.20459354     0.0021082881 
-     13150   0.3942826      0              0              0.1971413     -0.0019081117 
-     13200   0.41274161     0              0              0.20637081     0.0027770543 
-     13250   0.43212134     0              0              0.21606067    -0.00042786781
-     13300   0.43556655     0              0              0.21778327     0.0047432799 
-     13350   0.42298343     0              0              0.21149172    -0.002513355  
-     13400   0.45152348     0              0              0.22576174     0.00074455921
-     13450   0.42604632     0              0              0.21302316    -0.0014715553 
-     13500   0.41002282     0              0              0.20501141     0.0042205122 
-     13550   0.41271825     0              0              0.20635913     0.0018960032 
-     13600   0.42552684     0              0              0.21276342     0.00055706501
-     13650   0.44721264     0              0              0.22360632    -0.00095513074
-     13700   0.43163129     0              0              0.21581564     0.0014263459 
-     13750   0.45960503     0              0              0.22980251     0.00060415474
-     13800   0.44930822     0              0              0.22465411     0.0023969768 
-     13850   0.43533597     0              0              0.21766798     0.0042240598 
-     13900   0.41596652     0              0              0.20798326     0.00198306   
-     13950   0.41597071     0              0              0.20798536     0.0042441362 
-     14000   0.41898299     0              0              0.20949149    -0.002306975  
-     14050   0.41865137     0              0              0.20932568     0.0011492908 
-     14100   0.42756477     0              0              0.21378238    -0.0014285568 
-     14150   0.42061083     0              0              0.21030541     0.0027961197 
-     14200   0.39962187     0              0              0.19981094     0.00037631815
-     14250   0.41359498     0              0              0.20679749    -0.0016972486 
-     14300   0.42241356     0              0              0.21120678     0.00092263288
-     14350   0.4181951      0              0              0.20909755     0.00096936251
-     14400   0.39764584     0              0              0.19882292     0.0021255806 
-     14450   0.38194572     0              0              0.19097286     0.0036976675 
-     14500   0.36147435     0              0              0.18073718    -0.0016961845 
-     14550   0.36808339     0              0              0.1840417     -0.00082100174
-     14600   0.35429957     0              0              0.17714979    -7.9436985e-05
-     14650   0.34689259     0              0              0.1734463      0.0018809606 
-     14700   0.32776528     0              0              0.16388264    -0.0031950909 
-     14750   0.30230615     0              0              0.15115308    -0.0005640685 
-     14800   0.31357152     0              0              0.15678576     0.0018348907 
-     14850   0.31247076     0              0              0.15623538     0.0029427834 
-     14900   0.31240737     0              0              0.15620368     0.0026137251 
-     14950   0.30010225     0              0              0.15005113     0.0051785498 
-     15000   0.29378992     0              0              0.14689496     0.0017595337 
-     15050   0.29811439     0              0              0.14905719    -0.0012561762 
-     15100   0.2735508      0              0              0.1367754     -0.00020693624
-     15150   0.28730686     0              0              0.14365343     0.0014787788 
-     15200   0.29272283     0              0              0.14636141     0.0034079044 
-     15250   0.29858036     0              0              0.14929018     0.00065024004
-     15300   0.29909454     0              0              0.14954727    -0.0010056449 
-     15350   0.32270827     0              0              0.16135414     0.0035183928 
-     15400   0.31639545     0              0              0.15819772    -0.0022220403 
-     15450   0.3197509      0              0              0.15987545    -0.0019237577 
-     15500   0.32527146     0              0              0.16263573     0.0012074062 
-     15550   0.33377388     0              0              0.16688694     0.002111886  
-     15600   0.31940951     0              0              0.15970476     0.0019993963 
-     15650   0.32542533     0              0              0.16271267     0.0032510163 
-     15700   0.33725352     0              0              0.16862676    -0.001455782  
-     15750   0.32076463     0              0              0.16038232     0.0069888809 
-     15800   0.32887577     0              0              0.16443788     0.00050965579
-     15850   0.32164997     0              0              0.16082498    -0.00023264133
-     15900   0.33495718     0              0              0.16747859    -0.002176909  
-     15950   0.31940898     0              0              0.15970449    -0.0014311669 
-     16000   0.31621059     0              0              0.1581053      0.0019501382 
-     16050   0.30099555     0              0              0.15049778    -0.0014492661 
-     16100   0.30473688     0              0              0.15236844    -0.0015661324 
-     16150   0.28114551     0              0              0.14057275    -0.0046940787 
-     16200   0.28376654     0              0              0.14188327    -0.0029393674 
-     16250   0.2672133      0              0              0.13360665     8.0442974e-05
-     16300   0.27882157     0              0              0.13941079     0.0020027226 
-     16350   0.25296945     0              0              0.12648473    -0.0031012613 
-     16400   0.26415349     0              0              0.13207675     0.0052011893 
-     16450   0.27645965     0              0              0.13822982    -0.0031530986 
-     16500   0.27487451     0              0              0.13743726    -0.00090238423
-     16550   0.26603011     0              0              0.13301506    -0.0040043083 
-     16600   0.28984776     0              0              0.14492388    -0.0020700376 
-     16650   0.29156794     0              0              0.14578397     0.00087262787
-     16700   0.27642194     0              0              0.13821097     0.0036884614 
-     16750   0.28487837     0              0              0.14243919    -0.0017955468 
-     16800   0.29534158     0              0              0.14767079     0.0050144145 
-     16850   0.29074595     0              0              0.14537298     0.00049865265
-     16900   0.31185852     0              0              0.15592926     0.0015172428 
-     16950   0.31836372     0              0              0.15918186    -0.0021065645 
-     17000   0.33753569     0              0              0.16876784     0.00072143717
-     17050   0.34057905     0              0              0.17028952     0.0026492398 
-     17100   0.33522689     0              0              0.16761344    -0.00060054724
-     17150   0.33701338     0              0              0.16850669    -0.00073430488
-     17200   0.33019004     0              0              0.16509502    -0.0026404431 
-     17250   0.33233211     0              0              0.16616606     0.0031362634 
-     17300   0.32212313     0              0              0.16106156    -0.0015876338 
-     17350   0.3230673      0              0              0.16153365    -0.0034096332 
-     17400   0.31648481     0              0              0.1582424     -0.0017551867 
-     17450   0.30853722     0              0              0.15426861    -0.0013964404 
-     17500   0.32908649     0              0              0.16454324     0.0027871629 
-     17550   0.33114449     0              0              0.16557225     0.0014554378 
-     17600   0.34759965     0              0              0.17379982     0.0036714754 
-     17650   0.35095224     0              0              0.17547612    -0.0028000205 
-     17700   0.35721591     0              0              0.17860795    -0.0030256581 
-     17750   0.33291972     0              0              0.16645986     0.0025892516 
-     17800   0.31438545     0              0              0.15719272     0.0060592595 
-     17850   0.32856638     0              0              0.16428319     0.0019399858 
-     17900   0.3357393      0              0              0.16786965     0.0022595372 
-     17950   0.33295311     0              0              0.16647656     0.0056346876 
-     18000   0.35911733     0              0              0.17955867     0.0024039264 
-     18050   0.3485141      0              0              0.17425705    -0.0036055813 
-     18100   0.33392911     0              0              0.16696455     0.0018663876 
-     18150   0.33089236     0              0              0.16544618    -0.0021977629 
-     18200   0.3370549      0              0              0.16852745     0.0024176383 
-     18250   0.31382599     0              0              0.156913      -0.0021762982 
-     18300   0.32001248     0              0              0.16000624    -0.00265443   
-     18350   0.34832708     0              0              0.17416354    -0.0061891268 
-     18400   0.36105236     0              0              0.18052618     0.0014412424 
-     18450   0.37119279     0              0              0.1855964      0.0037501207 
-     18500   0.37195789     0              0              0.18597895     0.0026520543 
-     18550   0.35858169     0              0              0.17929085    -0.00044081754
-     18600   0.36054566     0              0              0.18027283     0.00066224066
-     18650   0.36512489     0              0              0.18256245     0.00015595394
-     18700   0.35738703     0              0              0.17869352    -0.0045079789 
-     18750   0.35141001     0              0              0.175705       0.0012506585 
-     18800   0.37852002     0              0              0.18926001     0.0031844835 
-     18850   0.37856054     0              0              0.18928027    -0.00031452763
-     18900   0.35458983     0              0              0.17729491     0.00018548803
-     18950   0.3694185      0              0              0.18470925     0.0030751061 
-     19000   0.38840935     0              0              0.19420468     0.0044136173 
-     19050   0.3792824      0              0              0.1896412      0.00024935685
-     19100   0.37924746     0              0              0.18962373    -0.0035697137 
-     19150   0.35798251     0              0              0.17899125    -0.0038632336 
-     19200   0.34221555     0              0              0.17110777    -0.00049700551
-     19250   0.34773763     0              0              0.17386881    -0.0049172443 
-     19300   0.36643352     0              0              0.18321676    -0.0023797698 
-     19350   0.37359213     0              0              0.18679606     0.0057500462 
-     19400   0.3289869      0              0              0.16449345     0.0022723101 
-     19450   0.33947821     0              0              0.16973911    -0.00033053212
-     19500   0.34550873     0              0              0.17275437    -0.001450468  
-     19550   0.31714105     0              0              0.15857052    -0.00039759751
-     19600   0.31633565     0              0              0.15816782    -0.00014085924
-     19650   0.30624497     0              0              0.15312249    -0.0001300738 
-     19700   0.32116712     0              0              0.16058356     0.0033063661 
-     19750   0.32998782     0              0              0.16499391     0.0026054246 
-     19800   0.32254055     0              0              0.16127027     0.0038515293 
-     19850   0.31294159     0              0              0.1564708      0.0024495725 
-     19900   0.32060346     0              0              0.16030173     0.00081489368
-     19950   0.32005755     0              0              0.16002878    -0.003501612  
-     20000   0.31788623     0              0              0.15894312    -0.0024939974 
-     20050   0.3129021      0              0              0.15645105     0.00094512484
-     20100   0.30023711     0              0              0.15011855     0.0022681845 
-     20150   0.29801415     0              0              0.14900707    -0.0021170558 
-     20200   0.26961728     0              0              0.13480864    -0.0027811404 
-     20250   0.26768561     0              0              0.13384281     0.003715454  
-     20300   0.26624419     0              0              0.1331221      0.0016683077 
-     20350   0.27827852     0              0              0.13913926    -0.0031675477 
-     20400   0.27035869     0              0              0.13517934    -0.00087231156
-     20450   0.27421264     0              0              0.13710632    -0.0027006845 
-     20500   0.28920987     0              0              0.14460493     7.5746276e-05
-     20550   0.29998419     0              0              0.14999209    -0.002039519  
-     20600   0.27791306     0              0              0.13895653     0.0034548685 
-     20650   0.28318619     0              0              0.1415931      0.00031217416
-     20700   0.28522879     0              0              0.1426144      0.0038654863 
-     20750   0.29281211     0              0              0.14640606     0.0052154794 
-     20800   0.28360105     0              0              0.14180052    -0.002770946  
-     20850   0.28466631     0              0              0.14233315     0.0017731841 
-     20900   0.26089273     0              0              0.13044636     0.00096394111
-     20950   0.26257244     0              0              0.13128622     0.0007901896 
-     21000   0.26418249     0              0              0.13209124     0.0047453443 
-     21050   0.26637374     0              0              0.13318687     0.004116938  
-     21100   0.27290214     0              0              0.13645107     0.00068219795
-     21150   0.25800185     0              0              0.12900092     5.7331161e-05
-     21200   0.26948499     0              0              0.13474249     0.0045556544 
-     21250   0.27947685     0              0              0.13973843     0.0020081468 
-     21300   0.28612688     0              0              0.14306344    -0.00038511295
-     21350   0.29190534     0              0              0.14595267     0.0024723864 
-     21400   0.2750205      0              0              0.13751025    -0.0010241659 
-     21450   0.26474984     0              0              0.13237492     0.0024536214 
-     21500   0.26301346     0              0              0.13150673    -0.0018280242 
-     21550   0.25434197     0              0              0.12717098    -0.00031160561
-     21600   0.23781101     0              0              0.11890551    -0.0028664213 
-     21650   0.23926368     0              0              0.11963184     0.0016028552 
-     21700   0.22106        0              0              0.11053        0.00075645972
-     21750   0.22037712     0              0              0.11018856    -0.0014244649 
-     21800   0.22248706     0              0              0.11124353    -0.0013046279 
-     21850   0.20766968     0              0              0.10383484    -0.0038289716 
-     21900   0.19465027     0              0              0.097325136    0.0017969695 
-     21950   0.21649281     0              0              0.10824641    -0.00023229668
-     22000   0.22334875     0              0              0.11167438    -0.0028013746 
-     22050   0.21621374     0              0              0.10810687     0.0021107279 
-     22100   0.23361452     0              0              0.11680726     0.0019532287 
-     22150   0.23134615     0              0              0.11567307    -0.0024748164 
-     22200   0.24678014     0              0              0.12339007     0.0015048282 
-     22250   0.22515663     0              0              0.11257831    -0.00028649783
-     22300   0.24124951     0              0              0.12062475    -0.0025729656 
-     22350   0.25305933     0              0              0.12652967    -0.0040131293 
-     22400   0.27481482     0              0              0.13740741    -0.0006935487 
-     22450   0.30350819     0              0              0.1517541     -0.00091458555
-     22500   0.27302991     0              0              0.13651495     0.00028407921
-     22550   0.25985184     0              0              0.12992592    -0.0045200324 
-     22600   0.25502943     0              0              0.12751472     0.0020698789 
-     22650   0.23601617     0              0              0.11800808     0.0036821324 
-     22700   0.23525467     0              0              0.11762733     0.0046413368 
-     22750   0.2268813      0              0              0.11344065     0.0010252274 
-     22800   0.22204955     0              0              0.11102477    -0.0035175824 
-     22850   0.20306007     0              0              0.10153003     0.00071978464
-     22900   0.20050732     0              0              0.10025366    -0.0035671178 
-     22950   0.1861778      0              0              0.093088899    0.0020221549 
-     23000   0.19713698     0              0              0.098568489    0.00064334021
-     23050   0.20197149     0              0              0.10098575    -0.0021097323 
-     23100   0.2097909      0              0              0.10489545     0.0015072254 
-     23150   0.2117188      0              0              0.1058594     -0.0013031143 
-     23200   0.20118321     0              0              0.1005916      0.00253876   
-     23250   0.20467853     0              0              0.10233927     0.0020438082 
-     23300   0.22566991     0              0              0.11283496    -0.0033201989 
-     23350   0.23935928     0              0              0.11967964    -0.0026489728 
-     23400   0.25218302     0              0              0.12609151     0.00035800329
-     23450   0.24320525     0              0              0.12160263    -5.8925171e-05
-     23500   0.23086829     0              0              0.11543415    -0.0024262557 
-     23550   0.23568202     0              0              0.11784101    -0.0029338984 
-     23600   0.21280791     0              0              0.10640395    -0.0026952468 
-     23650   0.20885027     0              0              0.10442514    -0.0019102561 
-     23700   0.19940856     0              0              0.099704279    0.00062696311
-     23750   0.19605172     0              0              0.098025862    0.0027505779 
-     23800   0.20490016     0              0              0.10245008    -0.0055381077 
-     23850   0.21536471     0              0              0.10768235     0.0067818434 
-     23900   0.1983175      0              0              0.09915875    -0.0028003995 
-     23950   0.1938841      0              0              0.096942049    0.0013601201 
-     24000   0.18336756     0              0              0.09168378     0.0020244536 
-     24050   0.19392567     0              0              0.096962833    0.0058069598 
-     24100   0.20244356     0              0              0.10122178     0.0011395887 
-     24150   0.19005254     0              0              0.09502627    -0.0025889845 
-     24200   0.16922408     0              0              0.084612042   -0.0012760596 
-     24250   0.17558044     0              0              0.087790219    0.0025989768 
-     24300   0.17057639     0              0              0.085288197    0.0039649062 
-     24350   0.17207503     0              0              0.086037514   -0.00023225924
-     24400   0.18001685     0              0              0.090008425    0.0023711747 
-     24450   0.18779731     0              0              0.093898654    0.0020052906 
-     24500   0.19965032     0              0              0.099825158   -0.001274221  
-     24550   0.19867656     0              0              0.099338282    0.0044515742 
-     24600   0.19607054     0              0              0.098035271    1.3453523e-05
-     24650   0.20782864     0              0              0.10391432    -0.00012308401
-     24700   0.20841972     0              0              0.10420986    -0.0010180802 
-     24750   0.20289121     0              0              0.1014456     -0.00051156456
-     24800   0.20319926     0              0              0.10159963     0.00015093228
-     24850   0.2054535      0              0              0.10272675    -0.0035377626 
-     24900   0.2051758      0              0              0.1025879     -0.0029859963 
-     24950   0.20703767     0              0              0.10351884     0.0023691537 
-     25000   0.22445538     0              0              0.11222769     0.0026157243 
-     25050   0.22154854     0              0              0.11077427    -0.0053770199 
-     25100   0.20275994     0              0              0.10137997     0.003231486  
-     25150   0.20537097     0              0              0.10268549    -0.00015361675
-     25200   0.20193029     0              0              0.10096514    -0.0022830224 
-     25250   0.18275413     0              0              0.091377063    0.0018954592 
-     25300   0.17941492     0              0              0.08970746     0.0016090272 
-     25350   0.19952485     0              0              0.099762423    0.0036280799 
-     25400   0.19761125     0              0              0.098805623   -0.0017290085 
-     25450   0.19012079     0              0              0.095060393    0.00074779647
-     25500   0.19778702     0              0              0.098893508   -0.0025221329 
-     25550   0.18210601     0              0              0.091053005   -0.00274385   
-     25600   0.18665304     0              0              0.093326518   -0.0013549209 
-     25650   0.19072392     0              0              0.09536196    -0.00048800769
-     25700   0.1902678      0              0              0.0951339      0.0010667799 
-     25750   0.1900882      0              0              0.095044102    0.00092220397
-     25800   0.19564318     0              0              0.097821591    0.00088598718
-     25850   0.17647438     0              0              0.088237188   -0.00035749162
-     25900   0.1647603      0              0              0.082380149   -0.0037097406 
-     25950   0.177812       0              0              0.088906       0.0043445893 
-     26000   0.17882793     0              0              0.089413966   -0.0018170988 
-     26050   0.17642607     0              0              0.088213036    0.00089524596
-     26100   0.17677395     0              0              0.088386973   -7.1734738e-05
-     26150   0.16562117     0              0              0.082810585    0.00029867992
-     26200   0.1699499      0              0              0.084974948    0.0041188837 
-     26250   0.172946       0              0              0.086473      -0.0018612187 
-     26300   0.16851695     0              0              0.084258477   -1.3819627e-05
-     26350   0.18237942     0              0              0.091189708    0.00036182772
-     26400   0.19225698     0              0              0.096128491    0.0047519457 
-     26450   0.1877219      0              0              0.093860948   -0.0043494752 
-     26500   0.18755794     0              0              0.093778968    0.0021246331 
-     26550   0.19687023     0              0              0.098435114   -0.00087702583
-     26600   0.1996182      0              0              0.099809098   -0.0018436013 
-     26650   0.19969364     0              0              0.099846822    0.0014509781 
-     26700   0.19697684     0              0              0.098488418   -0.0011793911 
-     26750   0.21241875     0              0              0.10620937    -0.00049653071
-     26800   0.21224731     0              0              0.10612366     0.0011397066 
-     26850   0.20714291     0              0              0.10357145     0.0028814449 
-     26900   0.20507981     0              0              0.1025399      0.00054784531
-     26950   0.19006304     0              0              0.095031519    0.0033360992 
-     27000   0.18694344     0              0              0.09347172     0.0034464319 
-     27050   0.19103598     0              0              0.09551799     0.0023914534 
-     27100   0.21118263     0              0              0.10559131    -0.0017222618 
-     27150   0.24286406     0              0              0.12143203    -0.0019212508 
-     27200   0.24327152     0              0              0.12163576    -0.00071452197
-     27250   0.23624668     0              0              0.11812334     0.0031062925 
-     27300   0.23706041     0              0              0.11853021     0.0041550297 
-     27350   0.23957724     0              0              0.11978862    -0.0003919417 
-     27400   0.24255372     0              0              0.12127686     0.0019123519 
-     27450   0.23761778     0              0              0.11880889     0.00086810647
-     27500   0.23338121     0              0              0.11669061    -0.00019349535
-     27550   0.22581322     0              0              0.11290661    -0.0021809258 
-     27600   0.22664525     0              0              0.11332262     0.0026157782 
-     27650   0.22236593     0              0              0.11118296     0.0023308673 
-     27700   0.22636739     0              0              0.11318369     0.0022006098 
-     27750   0.21275193     0              0              0.10637597     0.0020372869 
-     27800   0.22259701     0              0              0.1112985     -0.001823684  
-     27850   0.25911359     0              0              0.12955679     0.0052560252 
-     27900   0.24818998     0              0              0.12409499    -3.6836018e-05
-     27950   0.24137914     0              0              0.12068957     0.0011075835 
-     28000   0.233442       0              0              0.116721       0.0011992969 
-     28050   0.23417184     0              0              0.11708592     0.0032471915 
-     28100   0.2303009      0              0              0.11515045     0.00015219443
-     28150   0.22723776     0              0              0.11361888     0.0010033478 
-     28200   0.2277743      0              0              0.11388715    -0.0042247621 
-     28250   0.22727644     0              0              0.11363822     0.0053144675 
-     28300   0.22828052     0              0              0.11414026    -0.00083486396
-     28350   0.22661327     0              0              0.11330663     0.0013828319 
-     28400   0.22950066     0              0              0.11475033     0.0012664714 
-     28450   0.23400951     0              0              0.11700475     0.0030190007 
-     28500   0.24217028     0              0              0.12108514     0.0045046896 
-     28550   0.25317942     0              0              0.12658971    -0.00022394605
-     28600   0.28336404     0              0              0.14168202     0.00091460874
-     28650   0.29406974     0              0              0.14703487     0.00070571349
-     28700   0.29632653     0              0              0.14816327    -0.0016351888 
-     28750   0.30179149     0              0              0.15089575     0.0031545663 
-     28800   0.31182014     0              0              0.15591007     0.0022495807 
-     28850   0.31557259     0              0              0.15778629     0.0020226191 
-     28900   0.3095348      0              0              0.1547674     -0.0029819008 
-     28950   0.33008232     0              0              0.16504116     0.00081536233
-     29000   0.34101692     0              0              0.17050846     0.0033258809 
-     29050   0.33413553     0              0              0.16706776     0.0010275221 
-     29100   0.3560909      0              0              0.17804545    -0.00063959481
-     29150   0.35333939     0              0              0.17666969     0.0036715185 
-     29200   0.36661652     0              0              0.18330826    -0.0012747053 
-     29250   0.37899449     0              0              0.18949725    -0.00092287973
-     29300   0.39180554     0              0              0.19590277     0.00094359664
-     29350   0.39388307     0              0              0.19694153     0.0017597857 
-     29400   0.41700288     0              0              0.20850144    -0.0015067527 
-     29450   0.43798889     0              0              0.21899445    -0.00030832666
-     29500   0.41123503     0              0              0.20561751     0.0024543835 
-     29550   0.41572849     0              0              0.20786424     0.00180908   
-     29600   0.41372325     0              0              0.20686163    -0.0020039538 
-     29650   0.42574188     0              0              0.21287094     0.0020458457 
-     29700   0.4075325      0              0              0.20376625    -0.00081418786
-     29750   0.41642576     0              0              0.20821288    -0.00016105019
-     29800   0.43389725     0              0              0.21694863    -0.00044090201
-     29850   0.43009002     0              0              0.21504501    -0.00061064121
-     29900   0.40802619     0              0              0.20401309    -0.0015949513 
-     29950   0.39182244     0              0              0.19591122     0.00068497415
-     30000   0.39297811     0              0              0.19648905    -0.0017273164 
-     30050   0.40819892     0              0              0.20409946    -0.00075972711
-     30100   0.41358706     0              0              0.20679353    -0.00050737341
-     30150   0.40748954     0              0              0.20374477     0.0034194472 
-     30200   0.40970225     0              0              0.20485113     0.0025561797 
-     30250   0.41552395     0              0              0.20776197     0.00019091619
-     30300   0.41676371     0              0              0.20838185     0.0019308368 
-     30350   0.40824017     0              0              0.20412009     0.0009950914 
-     30400   0.38724976     0              0              0.19362488    -9.3671967e-05
-     30450   0.38379732     0              0              0.19189866    -0.0011515867 
-     30500   0.39256092     0              0              0.19628046    -0.0019941097 
-     30550   0.37819124     0              0              0.18909562     0.00029305113
-     30600   0.3742753      0              0              0.18713765    -0.0024149707 
-     30650   0.3876698      0              0              0.1938349     -0.0016890347 
-     30700   0.40633808     0              0              0.20316904     0.0064171146 
-     30750   0.41354573     0              0              0.20677286     0.002599966  
-     30800   0.40382587     0              0              0.20191294     0.0021179389 
-     30850   0.40212573     0              0              0.20106287     0.00024213019
-     30900   0.40911714     0              0              0.20455857     0.0025107794 
-     30950   0.3982613      0              0              0.19913065    -0.0001667952 
-     31000   0.39675859     0              0              0.19837929     3.2909282e-05
-     31050   0.40435398     0              0              0.20217699     0.003255992  
-     31100   0.40404011     0              0              0.20202006    -0.0001224016 
-     31150   0.388142       0              0              0.194071       0.0055499777 
-     31200   0.39830569     0              0              0.19915285    -0.0024317477 
-     31250   0.43053761     0              0              0.21526881     0.0034970148 
-     31300   0.43803596     0              0              0.21901798     0.00066931917
-     31350   0.40859943     0              0              0.20429972     0.0020701878 
-     31400   0.40228146     0              0              0.20114073     0.00024476752
-     31450   0.39328119     0              0              0.19664059     0.0010129889 
-     31500   0.39359828     0              0              0.19679914     0.0079034426 
-     31550   0.37822783     0              0              0.18911391    -0.0034979668 
-     31600   0.35971955     0              0              0.17985977    -0.0022134256 
-     31650   0.37507741     0              0              0.18753871     0.0025793473 
-     31700   0.36787089     0              0              0.18393544     0.0050856629 
-     31750   0.34385885     0              0              0.17192943    -0.0025741351 
-     31800   0.34096624     0              0              0.17048312     0.0019086689 
-     31850   0.34190094     0              0              0.17095047    -0.0020363884 
-     31900   0.32012853     0              0              0.16006427     0.0012211992 
-     31950   0.31807016     0              0              0.15903508    -0.0003342192 
-     32000   0.32193762     0              0              0.16096881     0.00028055363
-     32050   0.33821791     0              0              0.16910896    -0.00015143161
-     32100   0.35244332     0              0              0.17622166    -0.0033627331 
-     32150   0.36121964     0              0              0.18060982     0.0016502252 
-     32200   0.38060241     0              0              0.19030121    -0.0032503113 
-     32250   0.3813312      0              0              0.1906656      0.0036039108 
-     32300   0.36965541     0              0              0.18482771     0.0027900979 
-     32350   0.37160394     0              0              0.18580197    -0.0020117221 
-     32400   0.36546775     0              0              0.18273387    -0.0055058553 
-     32450   0.36978631     0              0              0.18489316     0.00086965065
-     32500   0.35917803     0              0              0.17958902     0.0028510368 
-     32550   0.35891036     0              0              0.17945518    -0.0017126128 
-     32600   0.37581322     0              0              0.18790661    -0.00020099241
-     32650   0.392619       0              0              0.1963095      0.0037962864 
-     32700   0.39079986     0              0              0.19539993    -3.0512439e-05
-     32750   0.36376804     0              0              0.18188402    -0.0018055847 
-     32800   0.38099447     0              0              0.19049724     0.0016442754 
-     32850   0.40704347     0              0              0.20352173     0.0015868929 
-     32900   0.39285401     0              0              0.196427       0.0014076472 
-     32950   0.39855557     0              0              0.19927779     0.0015184893 
-     33000   0.40415679     0              0              0.20207839    -0.00068938718
-     33050   0.40548417     0              0              0.20274209    -0.00063890791
-     33100   0.42412813     0              0              0.21206406    -0.001009525  
-     33150   0.41535556     0              0              0.20767778     0.00045797934
-     33200   0.41217069     0              0              0.20608534    -0.002881155  
-     33250   0.40423142     0              0              0.20211571     0.0026374063 
-     33300   0.38445675     0              0              0.19222838    -0.00011780485
-     33350   0.40312209     0              0              0.20156104     0.0038065958 
-     33400   0.41257053     0              0              0.20628526     0.0021844932 
-     33450   0.42130394     0              0              0.21065197     0.0020928842 
-     33500   0.40852298     0              0              0.20426149     0.003208979  
-     33550   0.42144424     0              0              0.21072212    -0.0029814541 
-     33600   0.42906269     0              0              0.21453134     0.00041764029
-     33650   0.41965505     0              0              0.20982753     0.0051835182 
-     33700   0.39421034     0              0              0.19710517     0.0010609045 
-     33750   0.38714635     0              0              0.19357317     0.00046185053
-     33800   0.36411168     0              0              0.18205584    -0.0017637273 
-     33850   0.37010512     0              0              0.18505256     0.002282041  
-     33900   0.36985056     0              0              0.18492528     0.0028297863 
-     33950   0.36127513     0              0              0.18063756    -0.0020697376 
-     34000   0.33811778     0              0              0.16905889    -0.0018748727 
-     34050   0.35247279     0              0              0.17623639    -0.00065446737
-     34100   0.34816021     0              0              0.17408011    -0.0010316705 
-     34150   0.35542894     0              0              0.17771447    -0.0022548123 
-     34200   0.34718918     0              0              0.17359459     0.00064754643
-     34250   0.34092848     0              0              0.17046424    -0.0016220661 
-     34300   0.33138896     0              0              0.16569448     0.0013415688 
-     34350   0.32406104     0              0              0.16203052    -0.00032637462
-     34400   0.31431845     0              0              0.15715923     0.0015702611 
-     34450   0.30619888     0              0              0.15309944     0.0020130168 
-     34500   0.307156       0              0              0.153578       0.0012522883 
-     34550   0.31443559     0              0              0.1572178      0.00048956137
-     34600   0.31015741     0              0              0.15507871     0.00025861895
-     34650   0.31981366     0              0              0.15990683    -0.003544041  
-     34700   0.32029678     0              0              0.16014839    -0.0026027704 
-     34750   0.3212214      0              0              0.1606107      0.0008248258 
-     34800   0.3181089      0              0              0.15905445    -0.00061641461
-     34850   0.30558258     0              0              0.15279129    -0.0023583126 
-     34900   0.28750429     0              0              0.14375214    -0.00094133117
-     34950   0.276365       0              0              0.1381825      0.0020946572 
-     35000   0.28846221     0              0              0.1442311      0.0016608678 
-     35050   0.27909101     0              0              0.1395455      0.0048289395 
-     35100   0.26478407     0              0              0.13239204    -0.0037604808 
-     35150   0.2565594      0              0              0.1282797      0.0014037455 
-     35200   0.26325027     0              0              0.13162513    -0.00097702774
-     35250   0.27715808     0              0              0.13857904     0.0032540955 
-     35300   0.28950915     0              0              0.14475458     0.0047440239 
-     35350   0.27239462     0              0              0.13619731     0.00027452686
-     35400   0.25781929     0              0              0.12890965     0.0024509808 
-     35450   0.27439684     0              0              0.13719842    -0.0010272479 
-     35500   0.26866953     0              0              0.13433476    -0.0004948474 
-     35550   0.28721339     0              0              0.14360669     0.0012077198 
-     35600   0.28628723     0              0              0.14314362    -0.0015519871 
-     35650   0.29065957     0              0              0.14532978     0.002924694  
-     35700   0.28946725     0              0              0.14473362    -0.0042451694 
-     35750   0.26222931     0              0              0.13111466     0.00046882684
-     35800   0.28024613     0              0              0.14012306    -0.00091842548
-     35850   0.28515243     0              0              0.14257622     0.0021185619 
-     35900   0.2840323      0              0              0.14201615    -0.00030876901
-     35950   0.28810768     0              0              0.14405384     0.002060373  
-     36000   0.284919       0              0              0.1424595     -0.0027827011 
-     36050   0.29431397     0              0              0.14715698     0.00026007791
-     36100   0.30614541     0              0              0.1530727      0.0021543143 
-     36150   0.32976558     0              0              0.16488279    -0.0028557431 
-     36200   0.34479859     0              0              0.17239929     0.0037986564 
-     36250   0.3432609      0              0              0.17163045     0.00043434896
-     36300   0.35763583     0              0              0.17881792    -0.0043428969 
-     36350   0.36679289     0              0              0.18339644    -0.0046253258 
-     36400   0.39311572     0              0              0.19655786     0.0028276068 
-     36450   0.37703567     0              0              0.18851784    -9.5738598e-05
-     36500   0.37587381     0              0              0.18793691     0.0003918452 
-     36550   0.38840983     0              0              0.19420492     0.0012878459 
-     36600   0.38677994     0              0              0.19338997    -0.00044191959
-     36650   0.37966185     0              0              0.18983092     0.0033539413 
-     36700   0.3764861      0              0              0.18824305    -0.00028991   
-     36750   0.38442821     0              0              0.1922141     -5.5483718e-05
-     36800   0.36573123     0              0              0.18286561    -0.00056067633
-     36850   0.37936511     0              0              0.18968255     0.0052949805 
-     36900   0.36884048     0              0              0.18442024    -0.0036383941 
-     36950   0.37042775     0              0              0.18521387     0.0019841967 
-     37000   0.3490288      0              0              0.1745144      0.0027037284 
-     37050   0.35136082     0              0              0.17568041     0.0039667049 
-     37100   0.35647404     0              0              0.17823702     0.002996846  
-     37150   0.35455927     0              0              0.17727964    -0.002523738  
-     37200   0.35474579     0              0              0.17737289    -0.00084643662
-     37250   0.33670644     0              0              0.16835322     0.0011869273 
-     37300   0.32242938     0              0              0.16121469    -0.00067344715
-     37350   0.33075645     0              0              0.16537823    -0.0039780123 
-     37400   0.33558418     0              0              0.16779209     0.0026037173 
-     37450   0.31553123     0              0              0.15776561     0.0019623133 
-     37500   0.32155314     0              0              0.16077657     0.00025981042
-     37550   0.32688744     0              0              0.16344372     0.00071108965
-     37600   0.34038851     0              0              0.17019425     0.0011229431 
-     37650   0.33026283     0              0              0.16513141    -0.0026636126 
-     37700   0.32535205     0              0              0.16267602    -0.0016646092 
-     37750   0.33390552     0              0              0.16695276     0.00045498798
-     37800   0.34244119     0              0              0.1712206      0.0041035218 
-     37850   0.33377227     0              0              0.16688613    -0.0029648296 
-     37900   0.33283468     0              0              0.16641734     0.0027460164 
-     37950   0.32999436     0              0              0.16499718     0.0050643264 
-     38000   0.31956832     0              0              0.15978416    -0.0023620506 
-     38050   0.33573217     0              0              0.16786608     0.00722841   
-     38100   0.32650165     0              0              0.16325082    -0.00068248262
-     38150   0.31756174     0              0              0.15878087     0.0026476716 
-     38200   0.31682709     0              0              0.15841354     0.0023261549 
-     38250   0.32305079     0              0              0.1615254      0.0030761286 
-     38300   0.32632274     0              0              0.16316137     0.0016245066 
-     38350   0.3570828      0              0              0.1785414      0.0017460778 
-     38400   0.38112406     0              0              0.19056203     0.0015060801 
-     38450   0.3677938      0              0              0.1838969      0.0020903404 
-     38500   0.3898262      0              0              0.1949131      0.0033336487 
-     38550   0.38036155     0              0              0.19018078     0.0014766438 
-     38600   0.38959889     0              0              0.19479944    -0.0016817899 
-     38650   0.39052394     0              0              0.19526197     0.00016893434
-     38700   0.39825904     0              0              0.19912952     0.0016395285 
-     38750   0.38796794     0              0              0.19398397     0.001342269  
-     38800   0.37810391     0              0              0.18905196    -0.0039992338 
-     38850   0.35998603     0              0              0.17999301     0.003223199  
-     38900   0.36255144     0              0              0.18127572     2.6639961e-05
-     38950   0.36915615     0              0              0.18457808     0.0073583341 
-     39000   0.3671416      0              0              0.1835708      0.0084248772 
-     39050   0.36583277     0              0              0.18291639     0.0025397501 
-     39100   0.37597304     0              0              0.18798652    -0.0055587531 
-     39150   0.37495498     0              0              0.18747749     0.0034336213 
-     39200   0.35978877     0              0              0.17989439     0.0051608909 
-     39250   0.35360029     0              0              0.17680014    -0.00090630765
-     39300   0.35206657     0              0              0.17603329     0.00050362943
-     39350   0.34676174     0              0              0.17338087    -0.0047958091 
-     39400   0.36734515     0              0              0.18367257    -0.0017142524 
-     39450   0.36228509     0              0              0.18114255     0.0039180098 
-     39500   0.35765115     0              0              0.17882557    -0.0011182449 
-     39550   0.36861933     0              0              0.18430966    -0.00059156188
-     39600   0.35627594     0              0              0.17813797    -0.00032151172
-     39650   0.36125143     0              0              0.18062571    -0.0042436775 
-     39700   0.354427       0              0              0.1772135      0.0012309946 
-     39750   0.36514698     0              0              0.18257349     0.0010920574 
-     39800   0.36155159     0              0              0.1807758      0.0032542864 
-     39850   0.36795301     0              0              0.1839765     -0.0036119395 
-     39900   0.36721857     0              0              0.18360928    -0.0032755902 
-     39950   0.36036284     0              0              0.18018142     0.0033562923 
-     40000   0.34723977     0              0              0.17361988    -0.0064567817 
-     40050   0.38012852     0              0              0.19006426     0.00027527029
-     40100   0.36346616     0              0              0.18173308     0.0059660653 
-     40150   0.37054597     0              0              0.18527298     0.0036374481 
-     40200   0.36986155     0              0              0.18493078     0.00048300363
-     40250   0.36743836     0              0              0.18371918     0.0063788492 
-     40300   0.38735767     0              0              0.19367883     0.0030206429 
-     40350   0.40026023     0              0              0.20013011    -0.0013908457 
-     40400   0.38787334     0              0              0.19393667    -0.0037535474 
-     40450   0.39150664     0              0              0.19575332    -0.0026676168 
-     40500   0.36774082     0              0              0.18387041     0.0042619535 
-     40550   0.36544679     0              0              0.18272339     0.0047687201 
-     40600   0.36510172     0              0              0.18255086    -0.0014053958 
-     40650   0.3864124      0              0              0.1932062     -0.0007565925 
-     40700   0.38552556     0              0              0.19276278     0.0048254116 
-     40750   0.37081404     0              0              0.18540702    -0.00032973625
-     40800   0.3572695      0              0              0.17863475     0.0014919458 
-     40850   0.35787735     0              0              0.17893867    -0.0017378042 
-     40900   0.35667059     0              0              0.1783353      0.00043154436
-     40950   0.36656149     0              0              0.18328074     0.0071148392 
-     41000   0.3573699      0              0              0.17868495    -0.0036434013 
-     41050   0.36861438     0              0              0.18430719     0.0040673234 
-     41100   0.35933472     0              0              0.17966736    -0.00077971897
-     41150   0.38941168     0              0              0.19470584    -0.0025578961 
-     41200   0.36928107     0              0              0.18464053    -0.0021522543 
-     41250   0.38321927     0              0              0.19160964     0.00075830684
-     41300   0.37366594     0              0              0.18683297    -0.00016948731
-     41350   0.36867668     0              0              0.18433834     0.0017354933 
-     41400   0.34628955     0              0              0.17314477    -0.0036528284 
-     41450   0.3521609      0              0              0.17608045     0.0054158809 
-     41500   0.35089183     0              0              0.17544592     0.00029572411
-     41550   0.35408269     0              0              0.17704135     0.00097532273
-     41600   0.37029641     0              0              0.18514821     0.00049398209
-     41650   0.38827902     0              0              0.19413951     0.0053871641 
-     41700   0.43049049     0              0              0.21524524     0.0019935677 
-     41750   0.42909673     0              0              0.21454837     0.0012331988 
-     41800   0.44241273     0              0              0.22120637    -0.00097815313
-     41850   0.44939688     0              0              0.22469844     0.0051266372 
-     41900   0.46773037     0              0              0.23386518     0.00095912577
-     41950   0.4655851      0              0              0.23279255    -0.00088054873
-     42000   0.47254657     0              0              0.23627328     0.0036829976 
-     42050   0.48406186     0              0              0.24203093    -0.0017687155 
-     42100   0.48151845     0              0              0.24075923    -0.0045177592 
-     42150   0.49921681     0              0              0.24960841    -0.0013393799 
-     42200   0.52555426     0              0              0.26277713     0.001264146  
-     42250   0.5341207      0              0              0.26706035     0.00045477573
-     42300   0.53946664     0              0              0.26973332     0.00075758011
-     42350   0.53082377     0              0              0.26541188     0.0015372723 
-     42400   0.52764869     0              0              0.26382435     0.0038466184 
-     42450   0.54833886     0              0              0.27416943     0.0034928935 
-     42500   0.54896207     0              0              0.27448103     0.00238188   
-     42550   0.55027439     0              0              0.2751372      0.0073211493 
-     42600   0.51961922     0              0              0.25980961     0.0055664472 
-     42650   0.52033309     0              0              0.26016654     0.0032089771 
-     42700   0.49814894     0              0              0.24907447     0.0045249102 
-     42750   0.49014239     0              0              0.2450712      0.0027021992 
-     42800   0.53412425     0              0              0.26706212     0.00090400107
-     42850   0.5274582      0              0              0.2637291      0.00049188292
-     42900   0.55340757     0              0              0.27670379     0.0028909956 
-     42950   0.57863938     0              0              0.28931969    -0.0013930852 
-     43000   0.56679314     0              0              0.28339657     0.0041886308 
-     43050   0.60862155     0              0              0.30431077    -0.00047642786
-     43100   0.61833713     0              0              0.30916857     0.00059889622
-     43150   0.60235452     0              0              0.30117726     0.001352098  
-     43200   0.61538031     0              0              0.30769016    -0.0020858238 
-     43250   0.59129365     0              0              0.29564682     0.0051097636 
-     43300   0.58869687     0              0              0.29434844     0.0038876618 
-     43350   0.57812273     0              0              0.28906137     0.0044107499 
-     43400   0.58996067     0              0              0.29498034     0.0056263698 
-     43450   0.56350724     0              0              0.28175362     0.0023562004 
-     43500   0.5894135      0              0              0.29470675    -0.0009431996 
-     43550   0.59490615     0              0              0.29745307     0.0020962442 
-     43600   0.59161843     0              0              0.29580921     0.0019593031 
-     43650   0.59080677     0              0              0.29540339     0.0020988932 
-     43700   0.60310444     0              0              0.30155222     0.0020113798 
-     43750   0.61899969     0              0              0.30949984    -5.1217791e-05
-     43800   0.61622615     0              0              0.30811307     0.00028536034
-     43850   0.63065709     0              0              0.31532855     0.0022821448 
-     43900   0.6392429      0              0              0.31962145     0.0021368016 
-     43950   0.63928496     0              0              0.31964248     0.0015816712 
-     44000   0.61880174     0              0              0.30940087    -0.0024145491 
-     44050   0.60063894     0              0              0.30031947     0.00055083799
-     44100   0.59344925     0              0              0.29672463    -0.0016657198 
-     44150   0.59925557     0              0              0.29962778    -9.6607916e-05
-     44200   0.58447124     0              0              0.29223562     0.0035559382 
-     44250   0.59474148     0              0              0.29737074     0.0031641151 
-     44300   0.61296854     0              0              0.30648427     0.0028204929 
-     44350   0.63229311     0              0              0.31614655     0.0038442802 
-     44400   0.62827523     0              0              0.31413761     0.00020026112
-     44450   0.61887342     0              0              0.30943671     0.0050687896 
-     44500   0.6267861      0              0              0.31339305     0.00072484432
-     44550   0.6164143      0              0              0.30820715     0.0016213673 
-     44600   0.63421556     0              0              0.31710778    -1.92238e-05  
-     44650   0.61971248     0              0              0.30985624     0.0046263305 
-     44700   0.58766286     0              0              0.29383143     0.0040000403 
-     44750   0.58004768     0              0              0.29002384    -0.0025413782 
-     44800   0.57732746     0              0              0.28866373     0.0056951344 
-     44850   0.58210858     0              0              0.29105429    -0.00045487509
-     44900   0.58378552     0              0              0.29189276     0.0054713634 
-     44950   0.58942018     0              0              0.29471009     0.0015468453 
-     45000   0.57936342     0              0              0.28968171    -0.00061729067
-     45050   0.5683064      0              0              0.2841532      0.0012575062 
-     45100   0.59562356     0              0              0.29781178     0.0018461449 
-     45150   0.59562185     0              0              0.29781093    -0.0018341714 
-     45200   0.63672417     0              0              0.31836209    -0.0035538844 
-     45250   0.65193501     0              0              0.32596751    -0.00067303237
-     45300   0.63600275     0              0              0.31800137    -0.0010944389 
-     45350   0.6299789      0              0              0.31498945    -0.00020584634
-     45400   0.61569285     0              0              0.30784643     0.00056809237
-     45450   0.62431022     0              0              0.31215511    -0.0023191328 
-     45500   0.60248717     0              0              0.30124358     0.0008529304 
-     45550   0.60453496     0              0              0.30226748     0.0018915527 
-     45600   0.61892923     0              0              0.30946462     0.00093162535
-     45650   0.59909446     0              0              0.29954723     0.00045833947
-     45700   0.58704256     0              0              0.29352128     0.001859591  
-     45750   0.5612998      0              0              0.2806499     -0.0066439663 
-     45800   0.58658398     0              0              0.29329199     0.0011642468 
-     45850   0.57427265     0              0              0.28713632    -0.0010260785 
-     45900   0.5718053      0              0              0.28590265     0.00054817327
-     45950   0.55067957     0              0              0.27533979     0.002476167  
-     46000   0.53319299     0              0              0.2665965     -0.0038388514 
-     46050   0.54224041     0              0              0.27112021     0.0017934126 
-     46100   0.55274727     0              0              0.27637363     0.00085531588
-     46150   0.53733476     0              0              0.26866738    -0.0067786143 
-     46200   0.5518908      0              0              0.2759454      0.00010802152
-     46250   0.57369223     0              0              0.28684612     0.0018953776 
-     46300   0.59150466     0              0              0.29575233     0.0041426144 
-     46350   0.59896539     0              0              0.29948269    -0.005094425  
-     46400   0.61990238     0              0              0.30995119     0.00071873634
-     46450   0.61213269     0              0              0.30606635    -0.00068689457
-     46500   0.64787888     0              0              0.32393944     0.0010051468 
-     46550   0.64075168     0              0              0.32037584     0.001354369  
-     46600   0.66774839     0              0              0.3338742     -0.0028676763 
-     46650   0.63921047     0              0              0.31960524    -0.0025660923 
-     46700   0.62478462     0              0              0.31239231     0.0041173643 
-     46750   0.62229017     0              0              0.31114508    -0.0010592723 
-     46800   0.63936626     0              0              0.31968313    -0.00054400972
-     46850   0.65286071     0              0              0.32643035    -0.0010060239 
-     46900   0.66959242     0              0              0.33479621     0.0042407379 
-     46950   0.6718152      0              0              0.3359076     -0.0013504102 
-     47000   0.63452433     0              0              0.31726216     0.0033621733 
-     47050   0.64192289     0              0              0.32096144     0.0027788367 
-     47100   0.63799062     0              0              0.31899531     0.0011314148 
-     47150   0.63619867     0              0              0.31809934     4.4579342e-05
-     47200   0.64743871     0              0              0.32371935     0.0030033742 
-     47250   0.68199398     0              0              0.34099699     0.0010980757 
-     47300   0.66130554     0              0              0.33065277     0.00086765007
-     47350   0.61025489     0              0              0.30512744     0.0070261997 
-     47400   0.61080574     0              0              0.30540287     0.00064151864
-     47450   0.58751733     0              0              0.29375866     0.00053374707
-     47500   0.56405711     0              0              0.28202855     0.00060048785
-     47550   0.54945116     0              0              0.27472558     0.0017005984 
-     47600   0.55993239     0              0              0.27996619     0.00311605   
-     47650   0.56524861     0              0              0.28262431     0.0027850587 
-     47700   0.5462008      0              0              0.2731004      0.00010939293
-     47750   0.56597178     0              0              0.28298589     0.0038037684 
-     47800   0.57835427     0              0              0.28917713     0.0044481941 
-     47850   0.58629641     0              0              0.29314821     0.0015161329 
-     47900   0.554332       0              0              0.277166       0.0019065938 
-     47950   0.57005123     0              0              0.28502561     0.0041161215 
-     48000   0.60288801     0              0              0.30144401     0.0042715706 
-     48050   0.60779423     0              0              0.30389711    -0.00014840332
-     48100   0.60500779     0              0              0.30250389    -0.00076512401
-     48150   0.60761137     0              0              0.30380569     0.0039068732 
-     48200   0.60106467     0              0              0.30053234     0.0031170414 
-     48250   0.5907788      0              0              0.2953894      0.0036680883 
-     48300   0.60935768     0              0              0.30467884    -0.00091350689
-     48350   0.60988962     0              0              0.30494481     0.0039710044 
-     48400   0.6301631      0              0              0.31508155     0.0050254468 
-     48450   0.63955091     0              0              0.31977546     0.001532861  
-     48500   0.6439389      0              0              0.32196945     0.0021109565 
-     48550   0.65146458     0              0              0.32573229     0.0036864929 
-     48600   0.64959468     0              0              0.32479734     0.001361129  
-     48650   0.65148945     0              0              0.32574473     0.0016714038 
-     48700   0.63745008     0              0              0.31872504     0.0041890057 
-     48750   0.66606243     0              0              0.33303121     0.0018169184 
-     48800   0.67338841     0              0              0.3366942     -0.0012546691 
-     48850   0.66974133     0              0              0.33487066     0.0072257334 
-     48900   0.68713397     0              0              0.34356699     0.0041790871 
-     48950   0.69742817     0              0              0.34871409    -0.0015166642 
-     49000   0.66642206     0              0              0.33321103    -0.0035994865 
-     49050   0.68024371     0              0              0.34012186    -0.001480494  
-     49100   0.65599596     0              0              0.32799798    -0.0023216956 
-     49150   0.66156934     0              0              0.33078467     0.00078884029
-     49200   0.6571818      0              0              0.3285909      0.0038308512 
-     49250   0.66141611     0              0              0.33070806     0.002336565  
-     49300   0.65665772     0              0              0.32832886     0.0015618217 
-     49350   0.64898042     0              0              0.32449021     0.0016122807 
-     49400   0.60669825     0              0              0.30334913     0.0017892099 
-     49450   0.58184422     0              0              0.29092211     0.0044459761 
-     49500   0.59791767     0              0              0.29895883     0.0038483953 
-     49550   0.59178054     0              0              0.29589027     0.0047850503 
-     49600   0.57745293     0              0              0.28872646     0.0023315062 
-     49650   0.55696567     0              0              0.27848283    -0.0015685183 
-     49700   0.58132266     0              0              0.29066133     0.00408142   
-     49750   0.55908202     0              0              0.27954101     0.0067617465 
-     49800   0.54545294     0              0              0.27272647     0.00012222219
-     49850   0.52361071     0              0              0.26180536     0.0038136706 
-     49900   0.51683428     0              0              0.25841714    -0.0010394003 
-     49950   0.50038536     0              0              0.25019268     0.0052170337 
-     50000   0.52000561     0              0              0.2600028      0.0012615596 
-     50050   0.52076072     0              0              0.26038036    -0.001419152  
-     50100   0.54436896     0              0              0.27218448     0.00725797   
-     50150   0.52287334     0              0              0.26143667     0.00039625582
-     50200   0.50013286     0              0              0.25006643     0.0023515204 
-     50250   0.48099415     0              0              0.24049707     0.0022973581 
-     50300   0.4917087      0              0              0.24585435     0.0041539952 
-     50350   0.46699808     0              0              0.23349904     0.0062505186 
-     50400   0.47470394     0              0              0.23735197     0.0019547368 
-     50450   0.43601338     0              0              0.21800669     0.0037072645 
-     50500   0.45599701     0              0              0.2279985     -0.0017038722 
-     50550   0.47298344     0              0              0.23649172     0.0052700736 
-     50600   0.44785096     0              0              0.22392548    -0.0044041765 
-     50650   0.47786025     0              0              0.23893012     0.00075113834
-     50700   0.46545865     0              0              0.23272933     0.0058254862 
-     50750   0.45873009     0              0              0.22936504    -0.0019986915 
-     50800   0.45184368     0              0              0.22592184     0.0034104209 
-     50850   0.47842092     0              0              0.23921046     0.0018948462 
-     50900   0.49820467     0              0              0.24910233    -0.0028083945 
-     50950   0.51900924     0              0              0.25950462     0.0028948267 
-     51000   0.49844583     0              0              0.24922291     0.0030195433 
-     51050   0.51063808     0              0              0.25531904     0.00071777245
-     51100   0.51565888     0              0              0.25782944    -0.00035196939
-     51150   0.50575276     0              0              0.25287638     0.0013785501 
-     51200   0.50578743     0              0              0.25289371     0.0035368352 
-     51250   0.53384019     0              0              0.2669201      0.00012373981
-     51300   0.5123636      0              0              0.2561818     -0.00073325748
-     51350   0.53562164     0              0              0.26781082     0.0027100879 
-     51400   0.56082448     0              0              0.28041224    -0.0024761912 
-     51450   0.5653998      0              0              0.2826999      0.00081959906
-     51500   0.54011268     0              0              0.27005634    -0.00061886285
-     51550   0.55217023     0              0              0.27608512    -0.0019624056 
-     51600   0.54991298     0              0              0.27495649    -0.00093827999
-     51650   0.57555949     0              0              0.28777975     0.002706579  
-     51700   0.5998476      0              0              0.2999238      0.0023238127 
-     51750   0.60201085     0              0              0.30100543    -0.00012083311
-     51800   0.61278826     0              0              0.30639413    -0.00067687117
-     51850   0.61675952     0              0              0.30837976    -0.0040686902 
-     51900   0.63158585     0              0              0.31579293    -0.0013231655 
-     51950   0.62800943     0              0              0.31400471     0.0038264306 
-     52000   0.60393108     0              0              0.30196554     0.0038969722 
-     52050   0.60430365     0              0              0.30215183     3.9490779e-05
-     52100   0.60610974     0              0              0.30305487     0.0043873048 
-     52150   0.59778187     0              0              0.29889094     0.00084889675
-     52200   0.58905458     0              0              0.29452729     0.0035235151 
-     52250   0.60926173     0              0              0.30463087    -0.0010601676 
-     52300   0.60054925     0              0              0.30027463     0.0048694856 
-     52350   0.57689077     0              0              0.28844539     0.002317269  
-     52400   0.5753591      0              0              0.28767955     0.0019512692 
-     52450   0.58412048     0              0              0.29206024     0.0045231809 
-     52500   0.56021392     0              0              0.28010696     0.0046247041 
-     52550   0.56754533     0              0              0.28377267     0.0020009675 
-     52600   0.56875562     0              0              0.28437781     0.0016483969 
-     52650   0.58624188     0              0              0.29312094    -4.7874661e-05
-     52700   0.55777905     0              0              0.27888952     0.0021367646 
-     52750   0.55892768     0              0              0.27946384     0.0038958757 
-     52800   0.57392014     0              0              0.28696007     0.0026335767 
-     52850   0.59883636     0              0              0.29941818     0.0056061513 
-     52900   0.61616877     0              0              0.30808439     0.003918761  
-     52950   0.60395791     0              0              0.30197895    -1.867176e-05 
-     53000   0.60627389     0              0              0.30313694    -0.0005360333 
-     53050   0.61374118     0              0              0.30687059     0.004104735  
-     53100   0.62595411     0              0              0.31297706     0.0015106006 
-     53150   0.61688991     0              0              0.30844495     0.008012849  
-     53200   0.58570856     0              0              0.29285428     0.0052256297 
-     53250   0.56703417     0              0              0.28351708     0.002448184  
-     53300   0.55049058     0              0              0.27524529     0.0029334095 
-     53350   0.53891976     0              0              0.26945988    -0.0046724893 
-     53400   0.51970167     0              0              0.25985083    -0.0011224656 
-     53450   0.51982294     0              0              0.25991147    -0.0056526296 
-     53500   0.49776674     0              0              0.24888337     0.0042988682 
-     53550   0.52970009     0              0              0.26485005     0.0017956069 
-     53600   0.54151412     0              0              0.27075706    -0.00018259234
-     53650   0.56481529     0              0              0.28240765     0.0039766664 
-     53700   0.56872506     0              0              0.28436253    -0.0018750513 
-     53750   0.55238553     0              0              0.27619276    -0.0010637121 
-     53800   0.55059317     0              0              0.27529659     0.0013136764 
-     53850   0.53923397     0              0              0.26961698     0.0048343826 
-     53900   0.57527929     0              0              0.28763965     0.0036299924 
-     53950   0.59015404     0              0              0.29507702    -0.0018161992 
-     54000   0.60500959     0              0              0.30250479     0.00041784199
-     54050   0.58313942     0              0              0.29156971     8.4023022e-05
-     54100   0.57454516     0              0              0.28727258    -0.0033886291 
-     54150   0.57645597     0              0              0.28822799    -0.00079009437
-     54200   0.58798635     0              0              0.29399317    -0.00088754081
-     54250   0.57868192     0              0              0.28934096     0.0056971822 
-     54300   0.57423604     0              0              0.28711802    -0.00078146479
-     54350   0.56398295     0              0              0.28199147     0.0014318449 
-     54400   0.56481801     0              0              0.282409       0.0042881742 
-     54450   0.55670152     0              0              0.27835076     0.0012590836 
-     54500   0.57421613     0              0              0.28710806     0.0010758639 
-     54550   0.57401613     0              0              0.28700807     0.00048727724
-     54600   0.58111076     0              0              0.29055538    -0.0014578591 
-     54650   0.55637506     0              0              0.27818753     0.00041674156
-     54700   0.55715195     0              0              0.27857597     0.0010761556 
-     54750   0.57007525     0              0              0.28503763     0.0018051666 
-     54800   0.56767453     0              0              0.28383726     0.0031691433 
-     54850   0.57039607     0              0              0.28519804     0.0023516961 
-     54900   0.56489202     0              0              0.28244601    -0.00078276225
-     54950   0.55749292     0              0              0.27874646    -0.0037485753 
-     55000   0.55291197     0              0              0.27645599     0.0025120376 
-     55050   0.55481689     0              0              0.27740844     0.0040437943 
-     55100   0.55945276     0              0              0.27972638    -0.0025711015 
-     55150   0.55069186     0              0              0.27534593     0.00078459401
-     55200   0.5286807      0              0              0.26434035     0.002217905  
-     55250   0.521594       0              0              0.260797       0.00072517008
-     55300   0.5381518      0              0              0.2690759      0.0025512769 
-     55350   0.53625662     0              0              0.26812831     0.0059038913 
-     55400   0.53839228     0              0              0.26919614     0.004767206  
-     55450   0.52506566     0              0              0.26253283     0.0019184018 
-     55500   0.52702202     0              0              0.26351101     0.00038753266
-     55550   0.53347702     0              0              0.26673851    -0.0024156941 
-     55600   0.55256501     0              0              0.2762825     -0.001162148  
-     55650   0.54531453     0              0              0.27265727     0.00080358954
-     55700   0.55129429     0              0              0.27564715     0.0050089346 
-     55750   0.55984367     0              0              0.27992184    -0.0012576526 
-     55800   0.57634027     0              0              0.28817014     0.0021078102 
-     55850   0.56907317     0              0              0.28453658     0.00034739117
-     55900   0.59340983     0              0              0.29670492    -0.0013176519 
-     55950   0.61060913     0              0              0.30530457    -0.00044601819
-     56000   0.59607766     0              0              0.29803883    -0.0019251324 
-     56050   0.56647114     0              0              0.28323557    -0.00027059375
-     56100   0.57396429     0              0              0.28698215     0.0041389609 
-     56150   0.55566939     0              0              0.27783469    -0.0035505437 
-     56200   0.54441363     0              0              0.27220682    -0.00078519356
-     56250   0.55284989     0              0              0.27642495     4.5869539e-05
-     56300   0.5630744      0              0              0.2815372      0.00058179641
-     56350   0.55969248     0              0              0.27984624     0.0042606768 
-     56400   0.52896247     0              0              0.26448123     0.00047117599
-     56450   0.52549937     0              0              0.26274968     0.00060893785
-     56500   0.52926104     0              0              0.26463052     0.0026801038 
-     56550   0.52790753     0              0              0.26395376     0.00098613647
-     56600   0.52985057     0              0              0.26492529    -0.0016385515 
-     56650   0.52846016     0              0              0.26423008     0.003572462  
-     56700   0.51238501     0              0              0.25619251     0.0010350957 
-     56750   0.51458078     0              0              0.25729039     0.0041451001 
-     56800   0.48505558     0              0              0.24252779     0.0030673032 
-     56850   0.5098672      0              0              0.2549336     -0.0020923283 
-     56900   0.52022654     0              0              0.26011327     0.0031722041 
-     56950   0.5282202      0              0              0.2641101     -2.6909142e-05
-     57000   0.51582506     0              0              0.25791253     0.0034959894 
-     57050   0.51833309     0              0              0.25916655    -0.0012900316 
-     57100   0.52250492     0              0              0.26125246    -0.0022019878 
-     57150   0.53972789     0              0              0.26986394    -0.0022491947 
-     57200   0.56241026     0              0              0.28120513    -0.00046292163
-     57250   0.52621962     0              0              0.26310981    -0.0031208963 
-     57300   0.51181157     0              0              0.25590579     0.0021688498 
-     57350   0.50694214     0              0              0.25347107     0.0044605889 
-     57400   0.52584367     0              0              0.26292184    -0.0035350993 
-     57450   0.54692756     0              0              0.27346378    -0.00084254287
-     57500   0.54057467     0              0              0.27028733     0.0046485298 
-     57550   0.56425419     0              0              0.2821271     -0.0023448135 
-     57600   0.56326449     0              0              0.28163225    -0.00036296867
-     57650   0.53195343     0              0              0.26597671     0.00035024695
-     57700   0.51341034     0              0              0.25670517    -0.002343968  
-     57750   0.53621293     0              0              0.26810647    -0.00041965938
-     57800   0.53824526     0              0              0.26912263    -0.00027966569
-     57850   0.54309899     0              0              0.2715495     -0.00063337488
-     57900   0.53547157     0              0              0.26773579    -0.0012971844 
-     57950   0.55918849     0              0              0.27959425     0.0024746059 
-     58000   0.56910274     0              0              0.28455137     0.002144465  
-     58050   0.57702028     0              0              0.28851014     0.0030899083 
-     58100   0.5762504      0              0              0.2881252      0.00024727853
-     58150   0.55922285     0              0              0.27961143     0.00032863592
-     58200   0.56237971     0              0              0.28118985    -0.0024200792 
-     58250   0.55634878     0              0              0.27817439    -0.0020236645 
-     58300   0.55619269     0              0              0.27809634     0.001579461  
-     58350   0.57258624     0              0              0.28629312     0.0026775831 
-     58400   0.56949107     0              0              0.28474554     0.0048935063 
-     58450   0.576162       0              0              0.288081      -0.00026102039
-     58500   0.58442163     0              0              0.29221082    -0.0011788459 
-     58550   0.56035127     0              0              0.28017564     0.0006079642 
-     58600   0.56552344     0              0              0.28276172    -0.0036826587 
-     58650   0.56677        0              0              0.283385       0.00088201619
-     58700   0.58309379     0              0              0.2915469      0.0045981968 
-     58750   0.60570876     0              0              0.30285438    -0.0010863355 
-     58800   0.59794942     0              0              0.29897471    -0.0017114734 
-     58850   0.62079723     0              0              0.31039861    -0.0044915894 
-     58900   0.64100226     0              0              0.32050113    -0.00072948677
-     58950   0.62521574     0              0              0.31260787    -0.001895073  
-     59000   0.62129709     0              0              0.31064855     0.0019181518 
-     59050   0.64050865     0              0              0.32025433    -0.00046406516
-     59100   0.63869072     0              0              0.31934536     0.0021801478 
-     59150   0.61157294     0              0              0.30578647    -0.0022269017 
-     59200   0.62464187     0              0              0.31232093    -0.0033908873 
-     59250   0.59808096     0              0              0.29904048    -0.00011308011
-     59300   0.59379729     0              0              0.29689865     0.00053479688
-     59350   0.59095878     0              0              0.29547939    -0.0035718747 
-     59400   0.59373673     0              0              0.29686837     0.0016274504 
-     59450   0.58578495     0              0              0.29289248    -0.0031337614 
-     59500   0.61225328     0              0              0.30612664     0.0050042325 
-     59550   0.60327277     0              0              0.30163638     0.0065685508 
-     59600   0.60544751     0              0              0.30272376     0.00010636626
-     59650   0.61610168     0              0              0.30805084     0.0034984765 
-     59700   0.64302948     0              0              0.32151474     0.0018896666 
-     59750   0.64408715     0              0              0.32204357     0.0037512648 
-     59800   0.66517722     0              0              0.33258861     0.0049004745 
-     59850   0.67315927     0              0              0.33657964     0.00025906166
-     59900   0.6596878      0              0              0.3298439      0.0034995073 
-     59950   0.69943258     0              0              0.34971629     0.0033453269 
-     60000   0.71766288     0              0              0.35883144     0.00011325945
-     60050   0.706364       0              0              0.353182       0.0011637827 
-     60100   0.73503277     0              0              0.36751638     0.0010385815 
-     60150   0.72705936     0              0              0.36352968     0.00047106858
-     60200   0.72870185     0              0              0.36435092     0.0033285591 
-     60250   0.7509667      0              0              0.37548335     0.0023244886 
-     60300   0.73116228     0              0              0.36558114     5.7495387e-05
-     60350   0.73982169     0              0              0.36991084     0.0044219042 
-     60400   0.74129147     0              0              0.37064573     0.00011258509
-     60450   0.71375244     0              0              0.35687622     0.00093513208
-     60500   0.70263244     0              0              0.35131622     0.0048544023 
-     60550   0.71912409     0              0              0.35956205    -0.0023253052 
-     60600   0.7129171      0              0              0.35645855    -0.0025356164 
-     60650   0.69490619     0              0              0.34745309     0.0043631213 
-     60700   0.68658941     0              0              0.34329471    -0.0021500173 
-     60750   0.69538914     0              0              0.34769457    -0.0028724922 
-     60800   0.72668694     0              0              0.36334347     0.0023544346 
-     60850   0.71789685     0              0              0.35894842     0.0017506001 
-     60900   0.7368054      0              0              0.3684027     -0.00071639087
-     60950   0.72423379     0              0              0.36211689    -0.00092332155
-     61000   0.70917219     0              0              0.35458609     0.0012684056 
-     61050   0.71538532     0              0              0.35769266    -0.0011225078 
-     61100   0.74554845     0              0              0.37277423     0.0012493908 
-     61150   0.72289604     0              0              0.36144802     0.0041684667 
-     61200   0.71673411     0              0              0.35836706    -0.0010760548 
-     61250   0.74686179     0              0              0.3734309      0.0002405148 
-     61300   0.75224057     0              0              0.37612029     0.0033499242 
-     61350   0.69906276     0              0              0.34953138     0.0023031835 
-     61400   0.66748582     0              0              0.33374291    -0.001020299  
-     61450   0.69239388     0              0              0.34619694    -0.00067731943
-     61500   0.68670009     0              0              0.34335005     0.0058384603 
-     61550   0.68590809     0              0              0.34295404     0.0016754755 
-     61600   0.66234329     0              0              0.33117164    -0.0042012691 
-     61650   0.6704061      0              0              0.33520305     0.0008777253 
-     61700   0.67489041     0              0              0.33744521    -0.0027598663 
-     61750   0.65921878     0              0              0.32960939    -0.0037838552 
-     61800   0.62774113     0              0              0.31387057     0.0042837853 
-     61850   0.62672526     0              0              0.31336263     0.0024773738 
-     61900   0.61937834     0              0              0.30968917    -0.0022061529 
-     61950   0.59987058     0              0              0.29993529     0.0025967321 
-     62000   0.55704802     0              0              0.27852401    -0.0015329105 
-     62050   0.55366846     0              0              0.27683423    -0.0041141812 
-     62100   0.5280708      0              0              0.2640354      2.4175896e-05
-     62150   0.5351598      0              0              0.2675799     -0.0012593265 
-     62200   0.54554419     0              0              0.27277209     0.0030075662 
-     62250   0.57706626     0              0              0.28853313    -0.0032244548 
-     62300   0.58340625     0              0              0.29170312     0.0011382845 
-     62350   0.60195534     0              0              0.30097767    -0.0014187014 
-     62400   0.60162099     0              0              0.30081049    -0.00041961639
-     62450   0.58837171     0              0              0.29418586     0.00095467277
-     62500   0.58432062     0              0              0.29216031     0.001119917  
-     62550   0.60094457     0              0              0.30047229    -0.00044576501
-     62600   0.60844912     0              0              0.30422456    -0.0023081398 
-     62650   0.65030912     0              0              0.32515456    -0.0057333905 
-     62700   0.63589035     0              0              0.31794517     0.0066108191 
-     62750   0.65405085     0              0              0.32702543    -0.0030637018 
-     62800   0.65215612     0              0              0.32607806     0.00017849407
-     62850   0.64940491     0              0              0.32470246     0.0032183234 
-     62900   0.64029996     0              0              0.32014998     0.0045296934 
-     62950   0.61642331     0              0              0.30821166     0.0030067954 
-     63000   0.59673909     0              0              0.29836954    -5.8044831e-05
-     63050   0.58330099     0              0              0.2916505      5.3905481e-05
-     63100   0.56435657     0              0              0.28217828     0.00052834475
-     63150   0.61435972     0              0              0.30717986    -0.0011206319 
-     63200   0.60615623     0              0              0.30307812    -0.00124651   
-     63250   0.61360887     0              0              0.30680443     0.0011676165 
-     63300   0.6225659      0              0              0.31128295    -0.0021335213 
-     63350   0.62150921     0              0              0.3107546      0.0021588465 
-     63400   0.625568       0              0              0.312784      -0.00071698406
-     63450   0.63480579     0              0              0.31740289     0.0036774879 
-     63500   0.66832681     0              0              0.3341634      0.0022556084 
-     63550   0.67090101     0              0              0.3354505      0.0034609093 
-     63600   0.65917608     0              0              0.32958804    -0.0037638503 
-     63650   0.63779241     0              0              0.3188962      0.001026729  
-     63700   0.65920771     0              0              0.32960386     8.4660423e-05
-     63750   0.66221234     0              0              0.33110617    -0.0010619547 
-     63800   0.6737523      0              0              0.33687615     0.00067854658
-     63850   0.69833345     0              0              0.34916673     0.0066747946 
-     63900   0.69885974     0              0              0.34942987     1.5004829e-05
-     63950   0.69241958     0              0              0.34620979     0.0026699571 
-     64000   0.68933149     0              0              0.34466574     0.0029671552 
-     64050   0.70987936     0              0              0.35493968     0.00082192276
-     64100   0.71054828     0              0              0.35527414     0.0018999005 
-     64150   0.72220889     0              0              0.36110444    -0.0059338207 
-     64200   0.74655408     0              0              0.37327704     0.0053920634 
-     64250   0.77607475     0              0              0.38803737    -0.0010005311 
-     64300   0.82245086     0              0              0.41122543    -0.0052750343 
-     64350   0.79103485     0              0              0.39551742     0.0029154341 
-     64400   0.82884089     0              0              0.41442045     0.0034043987 
-     64450   0.84668522     0              0              0.42334261     0.0095250411 
-     64500   0.84934399     0              0              0.42467199     0.00096556602
-     64550   0.83764487     0              0              0.41882244    -0.0043110188 
-     64600   0.84744605     0              0              0.42372302     0.0062892972 
-     64650   0.85108493     0              0              0.42554246    -0.0010050314 
-     64700   0.81188441     0              0              0.4059422      0.00083552981
-     64750   0.83076838     0              0              0.41538419     0.00092288631
-     64800   0.79162191     0              0              0.39581096     0.0025124785 
-     64850   0.79570632     0              0              0.39785316    -0.0026420746 
-     64900   0.78939992     0              0              0.39469996    -0.00067789232
-     64950   0.83930845     0              0              0.41965422     0.0039851215 
-     65000   0.85592686     0              0              0.42796343     0.0035043218 
-     65050   0.84961776     0              0              0.42480888     0.003895449  
-     65100   0.86091764     0              0              0.43045882    -0.00017389918
-     65150   0.86705465     0              0              0.43352733     0.0034360056 
-     65200   0.86928239     0              0              0.43464119     0.0049890428 
-     65250   0.87931526     0              0              0.43965763     0.00088318322
-     65300   0.83465798     0              0              0.41732899     0.00015236557
-     65350   0.87351341     0              0              0.4367567     -0.0021771605 
-     65400   0.91632145     0              0              0.45816072     0.0019522044 
-     65450   0.93749878     0              0              0.46874939    -0.001744696  
-     65500   0.93960232     0              0              0.46980116    -0.0022424641 
-     65550   0.9602972      0              0              0.4801486      0.0030687774 
-     65600   0.91327255     0              0              0.45663628     0.00086806152
-     65650   0.88349916     0              0              0.44174958    -1.8805593e-05
-     65700   0.89527959     0              0              0.44763979    -0.0041510712 
-     65750   0.86463526     0              0              0.43231763     0.0042082516 
-     65800   0.85525402     0              0              0.42762701     0.0054681703 
-     65850   0.8198081      0              0              0.40990405     0.0089198786 
-     65900   0.78679321     0              0              0.3933966     -0.001888981  
-     65950   0.78017844     0              0              0.39008922     0.0004217119 
-     66000   0.79975484     0              0              0.39987742     0.005396726  
-     66050   0.81075591     0              0              0.40537796     0.00077337418
-     66100   0.82922435     0              0              0.41461218     0.0054933038 
-     66150   0.8478882      0              0              0.4239441      0.0012337753 
-     66200   0.87244652     0              0              0.43622326    -0.0018768892 
-     66250   0.88810996     0              0              0.44405498     0.0019205055 
-     66300   0.86546167     0              0              0.43273083    -0.00041408934
-     66350   0.87831364     0              0              0.43915682     0.0017302079 
-     66400   0.86848452     0              0              0.43424226     0.0030180658 
-     66450   0.84924348     0              0              0.42462174     0.00038220812
-     66500   0.82421681     0              0              0.4121084     -0.0021708727 
-     66550   0.79775459     0              0              0.3988773     -0.00082421556
-     66600   0.76883672     0              0              0.38441836     0.0018295758 
-     66650   0.75359034     0              0              0.37679517     0.0043657908 
-     66700   0.77044356     0              0              0.38522178     0.002967991  
-     66750   0.79519668     0              0              0.39759834     0.0020048407 
-     66800   0.7930181      0              0              0.39650905     0.00033873957
-     66850   0.81762921     0              0              0.40881461     0.0039134038 
-     66900   0.81259005     0              0              0.40629503     0.0025529258 
-     66950   0.77921509     0              0              0.38960755     0.0031476269 
-     67000   0.76167772     0              0              0.38083886     0.002091873  
-     67050   0.75762739     0              0              0.3788137      0.0031593242 
-     67100   0.77958283     0              0              0.38979142     0.00066289975
-     67150   0.78025559     0              0              0.39012779     0.0018618102 
-     67200   0.80976345     0              0              0.40488173     0.0012888131 
-     67250   0.80426004     0              0              0.40213002    -0.00011212003
-     67300   0.78855824     0              0              0.39427912     4.891167e-05 
-     67350   0.82173639     0              0              0.4108682      0.0041867308 
-     67400   0.81010054     0              0              0.40505027    -0.0025619037 
-     67450   0.82061984     0              0              0.41030992     0.0055124795 
-     67500   0.8440395      0              0              0.42201975    -0.00021865822
-     67550   0.84937069     0              0              0.42468535     0.00064158393
-     67600   0.87207267     0              0              0.43603633     0.0014375725 
-     67650   0.90234585     0              0              0.45117293     0.00071600397
-     67700   0.888644       0              0              0.444322       0.0073988529 
-     67750   0.83601668     0              0              0.41800834     0.00078253712
-     67800   0.81952497     0              0              0.40976248     0.0001989618 
-     67850   0.79357798     0              0              0.39678899     0.0013969953 
-     67900   0.79085731     0              0              0.39542866     0.0049549945 
-     67950   0.7661426      0              0              0.3830713      0.0051161016 
-     68000   0.76736564     0              0              0.38368282    -0.0017496044 
-     68050   0.76844179     0              0              0.3842209     -0.00085300572
-     68100   0.74325237     0              0              0.37162618     0.0032423918 
-     68150   0.77096771     0              0              0.38548385     0.0041669904 
-     68200   0.77877754     0              0              0.38938877     0.0041668813 
-     68250   0.75395931     0              0              0.37697965     0.0037393084 
-     68300   0.77381831     0              0              0.38690916     0.00027199887
-     68350   0.7883923      0              0              0.39419615     0.0017814214 
-     68400   0.79786269     0              0              0.39893135    -0.0027494688 
-     68450   0.80749822     0              0              0.40374911     0.0012973083 
-     68500   0.8136766      0              0              0.4068383      0.00063097478
-     68550   0.82288492     0              0              0.41144246    -0.0035587015 
-     68600   0.81824607     0              0              0.40912303     0.0015595096 
-     68650   0.85704808     0              0              0.42852404    -0.0057358386 
-     68700   0.8102608      0              0              0.4051304     -0.0026413097 
-     68750   0.80674003     0              0              0.40337001    -0.00078365494
-     68800   0.79039611     0              0              0.39519805     0.0010102876 
-     68850   0.790739       0              0              0.3953695      0.0014425018 
-     68900   0.81609038     0              0              0.40804519     0.00022372936
-     68950   0.80299101     0              0              0.4014955      0.0010837458 
-     69000   0.83378323     0              0              0.41689161     0.0025878877 
-     69050   0.83022715     0              0              0.41511357     0.0013351605 
-     69100   0.84207699     0              0              0.4210385     -0.0013567297 
-     69150   0.81555776     0              0              0.40777888    -3.8420634e-05
-     69200   0.82117444     0              0              0.41058722    -0.0023448037 
-     69250   0.83241847     0              0              0.41620924     0.0049419743 
-     69300   0.82343252     0              0              0.41171626     0.0011326178 
-     69350   0.82892627     0              0              0.41446313     0.0032803396 
-     69400   0.86611347     0              0              0.43305674     0.00015510448
-     69450   0.88848132     0              0              0.44424066     0.0078424078 
-     69500   0.910006       0              0              0.455003       0.0016345892 
-     69550   0.88376034     0              0              0.44188017     0.0027788401 
-     69600   0.87221605     0              0              0.43610803     0.0032808912 
-     69650   0.84869681     0              0              0.4243484     -0.0017077129 
-     69700   0.85849074     0              0              0.42924537     0.0013061718 
-     69750   0.83175135     0              0              0.41587567     0.0035161178 
-     69800   0.86272012     0              0              0.43136006     0.0019841887 
-     69850   0.8473597      0              0              0.42367985    -0.0010443995 
-     69900   0.87593961     0              0              0.43796981    -0.00014162835
-     69950   0.90843528     0              0              0.45421764     0.00088980826
-     70000   0.90528143     0              0              0.45264072    -0.0030324982 
-     70050   0.91068779     0              0              0.45534389     0.0023902809 
-     70100   0.93758411     0              0              0.46879205     0.0052713832 
-     70150   0.90987314     0              0              0.45493657     0.0020030582 
-     70200   0.89751663     0              0              0.44875831     0.00089133818
-     70250   0.91534436     0              0              0.45767218     0.0014057494 
-     70300   0.92343985     0              0              0.46171992     0.0025571164 
-     70350   0.94687102     0              0              0.47343551    -0.0010318673 
-     70400   0.93684971     0              0              0.46842486     0.0024021091 
-     70450   1.001554       0              0              0.50077701    -0.00050172021
-     70500   0.99372552     0              0              0.49686276     0.0045538224 
-     70550   0.98932487     0              0              0.49466243     0.0025487604 
-     70600   1.0618579      0              0              0.53092897     0.0003882386 
-     70650   1.0780261      0              0              0.53901303     0.00071813616
-     70700   1.0590549      0              0              0.52952744    -0.0020263779 
-     70750   1.0463769      0              0              0.52318844     0.0027381477 
-     70800   1.0763938      0              0              0.53819689    -0.0010494312 
-     70850   1.0746904      0              0              0.53734521     0.00071493357
-     70900   1.0760698      0              0              0.53803489    -0.0025498079 
-     70950   1.0858971      0              0              0.54294857     0.0013739508 
-     71000   1.0656625      0              0              0.53283126     0.00092949634
-     71050   1.091481       0              0              0.54574049     0.0010692044 
-     71100   1.0204645      0              0              0.51023223     0.00016734952
-     71150   1.0499961      0              0              0.52499803     0.0010406037 
-     71200   1.0527153      0              0              0.52635764     0.004904887  
-     71250   1.0364051      0              0              0.51820257    -0.0029770742 
-     71300   1.0688984      0              0              0.53444919     0.00026651981
-     71350   1.0779372      0              0              0.5389686      0.004291155  
-     71400   1.0533283      0              0              0.52666417     0.00037412909
-     71450   1.0771687      0              0              0.53858436     0.00053577531
-     71500   1.1024428      0              0              0.55122139     0.0019056638 
-     71550   1.1304947      0              0              0.56524736     0.0011899801 
-     71600   1.1272074      0              0              0.56360369    -0.00048415367
-     71650   1.1269349      0              0              0.56346747    -0.00042505112
-     71700   1.0719691      0              0              0.53598455    -0.0017466869 
-     71750   1.0531408      0              0              0.52657038    -2.9560827e-05
-     71800   1.0356412      0              0              0.51782062    -0.00060969115
-     71850   1.0459693      0              0              0.52298467     0.0018518286 
-     71900   1.03209        0              0              0.51604498    -0.00071625745
-     71950   1.0424905      0              0              0.52124527     0.0028757451 
-     72000   1.0936678      0              0              0.54683389    -0.0020575621 
-     72050   1.1178142      0              0              0.55890711    -0.004882331  
-     72100   1.118447       0              0              0.55922349    -0.00027614131
-     72150   1.0988354      0              0              0.54941771     0.0025113555 
-     72200   1.0719669      0              0              0.53598344     0.00077270752
-     72250   1.0824642      0              0              0.54123208     0.0042764204 
-     72300   1.1062834      0              0              0.55314169     0.0018075748 
-     72350   1.1302561      0              0              0.56512806     0.0015440294 
-     72400   1.136852       0              0              0.56842598    -0.00043246359
-     72450   1.1383703      0              0              0.56918513    -0.00056017636
-     72500   1.1522059      0              0              0.57610297    -0.0034688422 
-     72550   1.1342286      0              0              0.5671143      0.001667342  
-     72600   1.0975204      0              0              0.54876021     0.0006814562 
-     72650   1.1019849      0              0              0.55099243    -0.00039877147
-     72700   1.0852753      0              0              0.54263766    -0.0042180682 
-     72750   1.0720185      0              0              0.53600924     0.0017742929 
-     72800   1.0608358      0              0              0.53041792    -0.0012736668 
-     72850   1.0864441      0              0              0.54322205     0.001310574  
-     72900   1.0990212      0              0              0.54951058     0.0013482286 
-     72950   1.1114453      0              0              0.55572267    -0.0024895172 
-     73000   1.0453305      0              0              0.52266524    -0.0019633869 
-     73050   1.0649236      0              0              0.53246178     0.00019252367
-     73100   1.0629186      0              0              0.53145931     0.0008882582 
-     73150   1.0254866      0              0              0.51274331    -0.00076008555
-     73200   1.0219277      0              0              0.51096386     0.0009746469 
-     73250   0.99455186     0              0              0.49727593    -0.0020220806 
-     73300   1.0292737      0              0              0.51463687     0.0074680619 
-     73350   1.0176674      0              0              0.50883369     0.0028083358 
-     73400   1.0400426      0              0              0.52002131     0.0035131197 
-     73450   1.0396724      0              0              0.5198362      0.0093104489 
-     73500   1.0386681      0              0              0.51933405    -0.0045156226 
-     73550   1.0412657      0              0              0.52063286     0.0022543283 
-     73600   1.0276295      0              0              0.51381473     0.0037960196 
-     73650   1.028574       0              0              0.51428701     0.0038623149 
-     73700   1.0029675      0              0              0.50148373     0.0045411069 
-     73750   1.0096356      0              0              0.50481781    -0.00074063652
-     73800   1.0032548      0              0              0.50162742     0.0022026113 
-     73850   1.0032713      0              0              0.50163564     0.0060399174 
-     73900   0.9723481      0              0              0.48617405    -0.0042544471 
-     73950   0.94503561     0              0              0.4725178     -0.00079104619
-     74000   0.91587259     0              0              0.45793629    -0.0017217005 
-     74050   0.93576223     0              0              0.46788111    -0.0011569074 
-     74100   0.94556462     0              0              0.47278231     0.0030621979 
-     74150   0.94459781     0              0              0.4722989     -0.0030212086 
-     74200   0.93801931     0              0              0.46900966     0.0030164367 
-     74250   0.97168781     0              0              0.4858439     -0.0042876227 
-     74300   1.0098184      0              0              0.5049092     -0.0034538795 
-     74350   1.02232        0              0              0.51116        0.0019847659 
-     74400   1.0082237      0              0              0.50411184     0.0012005729 
-     74450   1.0113694      0              0              0.50568469     0.00047155527
-     74500   1.0124259      0              0              0.50621294     0.0003929734 
-     74550   1.0253106      0              0              0.5126553     -0.0049480958 
-     74600   1.019394       0              0              0.50969701     0.003382013  
-     74650   1.0241665      0              0              0.51208323     0.0016850958 
-     74700   1.0268244      0              0              0.51341221    -0.0018662401 
-     74750   0.97162295     0              0              0.48581147     0.0032337989 
-     74800   1.0030752      0              0              0.50153758     0.0021582878 
-     74850   1.041012       0              0              0.52050598     0.00026422451
-     74900   1.047813       0              0              0.52390648    -0.0022712535 
-     74950   1.0313892      0              0              0.51569462     0.0030781713 
-     75000   1.056219       0              0              0.52810952     0.0013418846 
-     75050   1.0632471      0              0              0.53162354     0.0026643105 
-     75100   1.086022       0              0              0.543011       0.0023751524 
-     75150   1.0804296      0              0              0.5402148      0.004821462  
-     75200   1.0664814      0              0              0.53324071     0.00059910323
-     75250   1.0873944      0              0              0.54369721     0.0051624018 
-     75300   1.0749494      0              0              0.53747472     0.0042655796 
-     75350   1.0264582      0              0              0.51322908     0.00056775887
-     75400   1.0272115      0              0              0.51360575     0.00032714764
-     75450   1.0474003      0              0              0.52370013    -0.0026442179 
-     75500   1.0245077      0              0              0.51225385     0.0040451427 
-     75550   1.0126583      0              0              0.50632913    -0.0038411218 
-     75600   1.0569483      0              0              0.52847414     0.003403192  
-     75650   1.0453804      0              0              0.52269022     0.00055216605
-     75700   1.0329009      0              0              0.51645045     0.0041596663 
-     75750   1.0310287      0              0              0.51551436     0.0039430508 
-     75800   1.0728067      0              0              0.53640335     0.0014823934 
-     75850   1.0902366      0              0              0.54511831     0.00091089713
-     75900   1.0642538      0              0              0.5321269     -0.0033225604 
-     75950   1.0850837      0              0              0.54254183    -0.0013533289 
-     76000   1.0995206      0              0              0.54976029     0.0038519649 
-     76050   1.1180216      0              0              0.55901082    -0.0025563524 
-     76100   1.1015297      0              0              0.55076483     0.00047833814
-     76150   1.086932       0              0              0.54346601    -0.0041229775 
-     76200   1.1077318      0              0              0.55386588    -0.0029480248 
-     76250   1.1110188      0              0              0.55550942    -0.0027414767 
-     76300   1.0912215      0              0              0.54561074     0.0027789503 
-     76350   1.0989363      0              0              0.54946817    -0.003016777  
-     76400   1.1206683      0              0              0.56033414     0.00055132029
-     76450   1.130688       0              0              0.56534402    -0.00086685898
-     76500   1.134526       0              0              0.56726299     0.0037869995 
-     76550   1.1131487      0              0              0.55657433     0.00070091613
-     76600   1.1089892      0              0              0.55449461     0.00031570416
-     76650   1.0905189      0              0              0.54525943     0.0006967752 
-     76700   1.0800082      0              0              0.54000408    -0.0029369252 
-     76750   1.1102612      0              0              0.55513062     0.0067196801 
-     76800   1.1266131      0              0              0.56330655    -0.0030413229 
-     76850   1.1018744      0              0              0.5509372     -0.0017416668 
-     76900   1.0913383      0              0              0.54566914     0.0028294434 
-     76950   1.0617387      0              0              0.53086936     0.0018631826 
-     77000   1.0829658      0              0              0.5414829      0.0041238711 
-     77050   1.0633365      0              0              0.53166826     0.00089090742
-     77100   1.0719356      0              0              0.53596779     0.011552278  
-     77150   1.0711675      0              0              0.53558373     0.00084010729
-     77200   1.0394444      0              0              0.51972221     0.0030149186 
-     77250   1.0157648      0              0              0.50788242     0.01081196   
-     77300   0.9938117      0              0              0.49690585     0.00081802223
-     77350   0.97951986     0              0              0.48975993     0.00085372265
-     77400   1.0046801      0              0              0.50234003     0.0016287463 
-     77450   0.99470105     0              0              0.49735053     0.0037001847 
-     77500   1.0236027      0              0              0.51180134     0.0021545114 
-     77550   1.0435658      0              0              0.5217829      0.0015501368 
-     77600   1.0414908      0              0              0.5207454      0.0060727941 
-     77650   1.0284269      0              0              0.51421344     0.0034776323 
-     77700   1.0442146      0              0              0.52210732     0.0043273849 
-     77750   1.0567211      0              0              0.52836057     0.0028904763 
-     77800   1.0684735      0              0              0.53423677     0.0014262994 
-     77850   1.0638757      0              0              0.53193785     0.003508642  
-     77900   1.0978725      0              0              0.54893624     0.0025067879 
-     77950   1.0804849      0              0              0.54024247     9.8464248e-05
-     78000   1.0400335      0              0              0.52001675     0.00045012035
-     78050   1.0364802      0              0              0.5182401      0.0026615581 
-     78100   1.0306232      0              0              0.51531159     0.0030769698 
-     78150   1.0286707      0              0              0.51433534     0.00084248872
-     78200   1.0449385      0              0              0.52246923     0.0021007897 
-     78250   1.0182697      0              0              0.50913486    -0.00035914372
-     78300   1.0152753      0              0              0.50763766    -0.0020664522 
-     78350   1.0326207      0              0              0.51631035     0.0026164078 
-     78400   1.050024       0              0              0.52501199    -0.0035827768 
-     78450   1.0468813      0              0              0.52344063     0.0012487643 
-     78500   1.0350496      0              0              0.5175248      0.00035450218
-     78550   1.0702874      0              0              0.53514371    -0.005846096  
-     78600   1.0448044      0              0              0.52240221     0.0042762112 
-     78650   1.0789996      0              0              0.53949978     0.00024208841
-     78700   1.0845128      0              0              0.54225638     0.0017218963 
-     78750   1.0606456      0              0              0.53032279     0.0029480767 
-     78800   1.1001979      0              0              0.55009894     0.0032574231 
-     78850   1.0881407      0              0              0.54407033    -1.39346e-05  
-     78900   1.0922943      0              0              0.54614713     0.0021817751 
-     78950   1.0921571      0              0              0.54607857    -0.00029791148
-     79000   1.0643546      0              0              0.5321773      0.0024037178 
-     79050   1.0935886      0              0              0.54679429     0.0017854287 
-     79100   1.1063811      0              0              0.55319054     0.0062693829 
-     79150   1.1007105      0              0              0.55035523     0.0030909697 
-     79200   1.1096114      0              0              0.55480572    -0.00049796233
-     79250   1.1215741      0              0              0.56078704    -0.0015745635 
-     79300   1.1200349      0              0              0.56001745     0.0023588816 
-     79350   1.0980289      0              0              0.54901447     0.0031668101 
-     79400   1.1235255      0              0              0.56176273    -0.000305813  
-     79450   1.1196008      0              0              0.5598004     -0.00041133574
-     79500   1.0788161      0              0              0.53940803    -0.0016659533 
-     79550   1.0589034      0              0              0.52945169    -0.00231555   
-     79600   1.1229672      0              0              0.5614836      4.9135778e-05
-     79650   1.1034909      0              0              0.55174543    -0.0023124951 
-     79700   1.1122909      0              0              0.55614543     0.002552088  
-     79750   1.1204129      0              0              0.56020645    -0.00027753396
-     79800   1.1076558      0              0              0.55382791    -0.0040390521 
-     79850   1.123772       0              0              0.561886       0.0026820066 
-     79900   1.1275437      0              0              0.56377186    -0.0029738801 
-     79950   1.0922509      0              0              0.54612544     0.0048001219 
-     80000   1.068225       0              0              0.53411248     0.0030688895 
-     80050   1.0805571      0              0              0.54027856     0.0020490863 
-     80100   1.115376       0              0              0.557688       0.0028015421 
-     80150   1.14882        0              0              0.57440998     6.19976e-05  
-     80200   1.1646285      0              0              0.58231427    -0.0024673001 
-     80250   1.1464772      0              0              0.57323861    -0.00040891681
-     80300   1.1114985      0              0              0.55574927    -0.0033448603 
-     80350   1.0938891      0              0              0.54694454    -0.0032940226 
-     80400   1.1106354      0              0              0.5553177      0.0029881239 
-     80450   1.115392       0              0              0.55769599     0.0029438546 
-     80500   1.0927948      0              0              0.5463974     -0.00072048224
-     80550   1.084985       0              0              0.54249248     0.001410814  
-     80600   1.0443587      0              0              0.52217936     0.00047629228
-     80650   1.0273295      0              0              0.51366473     0.0009145289 
-     80700   1.0018598      0              0              0.50092988    -0.0017423164 
-     80750   0.97645653     0              0              0.48822826     0.0016682404 
-     80800   0.9864228      0              0              0.4932114      0.0048223799 
-     80850   1.0149029      0              0              0.50745143     0.0023110484 
-     80900   1.0237018      0              0              0.51185089     0.0080680593 
-     80950   1.0289052      0              0              0.51445261     0.0045224543 
-     81000   1.0439881      0              0              0.52199407     0.001378438  
-     81050   1.071109       0              0              0.53555451     0.0010962964 
-     81100   1.0534033      0              0              0.52670167    -0.0050339547 
-     81150   1.0678539      0              0              0.53392695     0.0014912226 
-     81200   1.0612559      0              0              0.53062797     0.0014049851 
-     81250   1.0518679      0              0              0.52593396     0.00087914554
-     81300   1.0917258      0              0              0.54586288     0.00258346   
-     81350   1.0919614      0              0              0.5459807     -0.0020919429 
-     81400   1.0790454      0              0              0.53952268    -0.0015289538 
-     81450   1.0288638      0              0              0.51443192     0.0015258346 
-     81500   1.0361346      0              0              0.5180673      0.005804438  
-     81550   1.0532461      0              0              0.52662307     0.00098659259
-     81600   1.0592708      0              0              0.52963542     0.00089283015
-     81650   1.0936282      0              0              0.5468141      0.00355002   
-     81700   1.0959351      0              0              0.54796756     0.00063196707
-     81750   1.0713078      0              0              0.5356539      0.0011948316 
-     81800   1.0821947      0              0              0.54109735    -0.0037139149 
-     81850   1.0411684      0              0              0.52058421     0.0026210573 
-     81900   1.0219213      0              0              0.51096064    -0.0015353196 
-     81950   1.0357521      0              0              0.51787606     0.0021155482 
-     82000   1.0297562      0              0              0.51487812    -0.0031782024 
-     82050   1.0432954      0              0              0.5216477      0.0040354794 
-     82100   1.0459922      0              0              0.52299608     0.002089392  
-     82150   1.0249748      0              0              0.5124874     -0.0051437533 
-     82200   1.0622901      0              0              0.53114505    -0.0019066611 
-     82250   1.039505       0              0              0.51975248     0.00047855427
-     82300   1.0579836      0              0              0.52899181    -0.00027300919
-     82350   1.0697201      0              0              0.53486004     0.0010739353 
-     82400   1.0538805      0              0              0.52694024     0.0019988138 
-     82450   1.0382319      0              0              0.51911594     0.00025226001
-     82500   1.0241475      0              0              0.51207377     0.0026427718 
-     82550   1.009597       0              0              0.50479848     0.0033348003 
-     82600   1.0368729      0              0              0.51843646     0.00012004343
-     82650   1.0371217      0              0              0.51856084    -0.0016831648 
-     82700   1.0211756      0              0              0.5105878      0.00024196216
-     82750   1.0379581      0              0              0.51897903     0.0025377264 
-     82800   1.043648       0              0              0.52182399    -0.0018270092 
-     82850   1.0559444      0              0              0.5279722      0.00057563424
-     82900   1.0275803      0              0              0.51379013    -0.0029611842 
-     82950   0.97595487     0              0              0.48797743     0.0042777295 
-     83000   1.0134431      0              0              0.50672154     0.0015934094 
-     83050   1.0368487      0              0              0.51842435    -0.00033803947
-     83100   1.0795834      0              0              0.53979171     0.0050281235 
-     83150   1.0967769      0              0              0.54838844     0.0032568172 
-     83200   1.0826573      0              0              0.54132865     0.0033522057 
-     83250   1.0796219      0              0              0.53981093     0.0031018891 
-     83300   1.0685326      0              0              0.53426632     0.0030747477 
-     83350   1.0620362      0              0              0.53101808     0.00053801783
-     83400   1.0383929      0              0              0.51919643     0.00094894936
-     83450   1.0483975      0              0              0.52419873     0.0066957559 
-     83500   1.0291718      0              0              0.51458589    -0.0040091838 
-     83550   1.0492807      0              0              0.52464037     0.0010397789 
-     83600   1.0316559      0              0              0.51582797     0.00098918213
-     83650   1.0260605      0              0              0.51303025     0.0048465551 
-     83700   1.0368115      0              0              0.51840577     0.0034520009 
-     83750   1.0152164      0              0              0.5076082     -0.0017280718 
-     83800   1.0358679      0              0              0.51793394    -3.1451009e-05
-     83850   1.0586953      0              0              0.52934765     0.0054787659 
-     83900   1.0516902      0              0              0.52584509     1.9917966e-05
-     83950   1.0349967      0              0              0.51749834    -5.3502592e-06
-     84000   1.0061156      0              0              0.50305779    -0.00033247403
-     84050   0.98915195     0              0              0.49457598     0.0015636278 
-     84100   0.99083572     0              0              0.49541786     0.0041965069 
-     84150   0.97214719     0              0              0.4860736      0.0022286628 
-     84200   1.0069416      0              0              0.50347078     0.0030489868 
-     84250   1.0126172      0              0              0.50630858     0.0013237754 
-     84300   1.0043009      0              0              0.50215047     0.0042795506 
-     84350   1.0156368      0              0              0.50781838     0.002608597  
-     84400   1.0113706      0              0              0.5056853     -0.0038882654 
-     84450   0.97701169     0              0              0.48850585     4.8674523e-05
-     84500   0.97226823     0              0              0.48613411     0.0034051011 
-     84550   0.96706478     0              0              0.48353239    -0.00097120354
-     84600   0.96679123     0              0              0.48339562     0.001926772  
-     84650   0.95990168     0              0              0.47995084     0.0019043085 
-     84700   0.94606402     0              0              0.47303201    -0.00074292191
-     84750   0.96948881     0              0              0.48474441    -0.0060959767 
-     84800   0.9831561      0              0              0.49157805     0.0055452065 
-     84850   0.98384245     0              0              0.49192123     0.0016735098 
-     84900   0.99912089     0              0              0.49956045    -3.7224071e-05
-     84950   1.0291368      0              0              0.5145684      0.00071152013
-     85000   1.0371139      0              0              0.51855696    -0.0021534427 
-     85050   1.0173463      0              0              0.50867316    -0.0016633937 
-     85100   1.008745       0              0              0.50437248    -0.0029444694 
-     85150   0.99371264     0              0              0.49685632    -3.2051932e-05
-     85200   1.00508        0              0              0.50254        0.0035015541 
-     85250   1.0157736      0              0              0.50788682     0.0044349596 
-     85300   1.0072664      0              0              0.5036332      0.0017164795 
-     85350   0.97293196     0              0              0.48646598    -0.0036360314 
-     85400   0.96404178     0              0              0.48202089     0.0025063354 
-     85450   0.97323141     0              0              0.48661571     0.0035704009 
-     85500   0.98275685     0              0              0.49137843     0.0028319991 
-     85550   0.96869276     0              0              0.48434638     0.0013541663 
-     85600   0.98333429     0              0              0.49166715     0.0029837157 
-     85650   1.0165156      0              0              0.5082578      0.0045073644 
-     85700   1.0233388      0              0              0.51166941     0.0024740489 
-     85750   1.0523027      0              0              0.52615135     0.00079942311
-     85800   1.0665279      0              0              0.53326393     0.0021209042 
-     85850   1.0637277      0              0              0.53186384     0.0032118424 
-     85900   1.061528       0              0              0.53076401     0.0039708122 
-     85950   1.0843337      0              0              0.54216683    -0.0012376949 
-     86000   1.1033797      0              0              0.55168984     0.0050899563 
-     86050   1.1008173      0              0              0.55040867    -0.0018832358 
-     86100   1.1124308      0              0              0.55621539    -0.0028468719 
-     86150   1.1176564      0              0              0.5588282      0.004301888  
-     86200   1.1124905      0              0              0.55624523     0.0060024188 
-     86250   1.1137136      0              0              0.55685682     0.003711595  
-     86300   1.1462239      0              0              0.57311196     0.0061626819 
-     86350   1.1322318      0              0              0.56611592     0.0014746765 
-     86400   1.1297577      0              0              0.56487883     0.0030518397 
-     86450   1.1325522      0              0              0.56627608     0.0041625279 
-     86500   1.1385151      0              0              0.56925756     0.0029619422 
-     86550   1.1597086      0              0              0.57985429    -0.002482823  
-     86600   1.1616746      0              0              0.58083732     0.0036547798 
-     86650   1.1487077      0              0              0.57435384     0.0012246225 
-     86700   1.1627789      0              0              0.58138947     0.0030224603 
-     86750   1.1375084      0              0              0.56875421     0.0019521663 
-     86800   1.0944757      0              0              0.54723786    -0.0031352217 
-     86850   1.1455656      0              0              0.57278282    -0.0015594391 
-     86900   1.1277032      0              0              0.56385161     0.0027236489 
-     86950   1.0951656      0              0              0.54758278     0.0023099719 
-     87000   1.1138801      0              0              0.55694005     0.00021094154
-     87050   1.1222728      0              0              0.56113638     0.0027514192 
-     87100   1.0725052      0              0              0.5362526     -0.0020395079 
-     87150   1.0601101      0              0              0.53005503     0.00093155025
-     87200   1.0378295      0              0              0.51891473    -0.00049069145
-     87250   1.0670844      0              0              0.53354219     0.0050185478 
-     87300   1.0416075      0              0              0.52080374     2.9647211e-05
-     87350   1.0656342      0              0              0.53281711     0.0023755309 
-     87400   1.0635325      0              0              0.53176625     0.0041996194 
-     87450   1.0656039      0              0              0.53280194     0.0021900251 
-     87500   1.0642824      0              0              0.5321412     -0.0018471316 
-     87550   1.0362735      0              0              0.51813677    -0.0016882625 
-     87600   1.0381838      0              0              0.51909192     0.003768929  
-     87650   1.059738       0              0              0.52986901     0.0019724356 
-     87700   1.0783449      0              0              0.53917244    -0.00065990763
-     87750   1.0738414      0              0              0.53692071     0.00069809856
-     87800   1.0672222      0              0              0.5336111      0.0095484921 
-     87850   1.0653115      0              0              0.53265577     0.00078989172
-     87900   1.0670814      0              0              0.53354068     0.002954757  
-     87950   1.0935984      0              0              0.54679918    -0.0021429268 
-     88000   1.0781331      0              0              0.53906657     0.0064969768 
-     88050   1.0513376      0              0              0.52566879     0.0034058234 
-     88100   1.0669671      0              0              0.53348355     0.0083088484 
-     88150   1.0643338      0              0              0.5321669      0.0014749906 
-     88200   1.0621657      0              0              0.53108287    -0.0016259169 
-     88250   1.0879399      0              0              0.54396994     0.0015379801 
-     88300   1.1258929      0              0              0.56294645    -0.0013689578 
-     88350   1.1349527      0              0              0.56747635     0.00020523532
-     88400   1.1521213      0              0              0.57606063     0.0032511704 
-     88450   1.129663       0              0              0.56483151     9.816899e-05 
-     88500   1.1509054      0              0              0.57545269     0.003466572  
-     88550   1.1437283      0              0              0.57186414     0.0033703954 
-     88600   1.1270575      0              0              0.56352874     0.0024065267 
-     88650   1.1356768      0              0              0.56783841     0.0028702643 
-     88700   1.0903173      0              0              0.54515866     0.0020301477 
-     88750   1.1117247      0              0              0.55586235     0.0048351452 
-     88800   1.118534       0              0              0.559267       0.0045430294 
-     88850   1.1137301      0              0              0.55686503    -0.0012554718 
-     88900   1.1196134      0              0              0.55980672     0.0022923116 
-     88950   1.1017261      0              0              0.55086307    -0.0018337039 
-     89000   1.0773986      0              0              0.53869932     0.0014103556 
-     89050   1.088055       0              0              0.54402752     0.0024872698 
-     89100   1.1251174      0              0              0.5625587      0.0014930603 
-     89150   1.1034373      0              0              0.55171863    -9.2240369e-05
-     89200   1.162076       0              0              0.58103799     0.0015083772 
-     89250   1.167914       0              0              0.58395699     0.0033160237 
-     89300   1.1867442      0              0              0.5933721      0.0026977672 
-     89350   1.1878133      0              0              0.59390665     0.0038151158 
-     89400   1.200004       0              0              0.60000202    -0.00011729851
-     89450   1.2030319      0              0              0.60151594     0.0030423377 
-     89500   1.1812817      0              0              0.59064086    -0.0013318482 
-     89550   1.1715229      0              0              0.58576147     0.0026934857 
-     89600   1.2246825      0              0              0.61234125     0.0050234738 
-     89650   1.2522624      0              0              0.62613121     0.0020184917 
-     89700   1.3105751      0              0              0.65528756     0.0023581542 
-     89750   1.3232984      0              0              0.66164922     0.0051707969 
-     89800   1.3535249      0              0              0.67676246     0.0077642207 
-     89850   1.3526498      0              0              0.67632489     0.001606373  
-     89900   1.3372272      0              0              0.66861358    -0.0008789798 
-     89950   1.3636134      0              0              0.6818067     -0.0003901381 
-     90000   1.3558398      0              0              0.6779199     -0.0030209218 
-     90050   1.3369216      0              0              0.66846081     0.0005250497 
-     90100   1.3435348      0              0              0.67176739     0.00035444586
-     90150   1.4064076      0              0              0.70320379    -0.0026356027 
-     90200   1.3862145      0              0              0.69310724     0.0028265921 
-     90250   1.3878277      0              0              0.69391387     0.0039637644 
-     90300   1.3835446      0              0              0.69177231     0.005704074  
-     90350   1.4080204      0              0              0.70401021     0.00032394914
-     90400   1.4115882      0              0              0.70579409     0.0045704528 
-     90450   1.4258473      0              0              0.71292365     0.0014656599 
-     90500   1.4177516      0              0              0.70887581     0.0016051037 
-     90550   1.4059719      0              0              0.70298594     0.0046268264 
-     90600   1.4037262      0              0              0.70186309     0.004686243  
-     90650   1.4220576      0              0              0.7110288      0.0054270897 
-     90700   1.446693       0              0              0.72334649     0.0044080383 
-     90750   1.4288129      0              0              0.71440643    -0.00091096682
-     90800   1.3669211      0              0              0.68346057     0.001543136  
-     90850   1.3835172      0              0              0.69175862    -0.00080102753
-     90900   1.4087235      0              0              0.70436175     0.00036398764
-     90950   1.3806785      0              0              0.69033923     0.0033867509 
-     91000   1.395581       0              0              0.69779048     0.00098441691
-     91050   1.354505       0              0              0.67725252     0.00058691909
-     91100   1.3282992      0              0              0.66414959     0.0015520444 
-     91150   1.3132825      0              0              0.65664124    -0.0014370719 
-     91200   1.3362747      0              0              0.66813733     0.0014889431 
-     91250   1.3665249      0              0              0.68326244     0.002154787  
-     91300   1.35799        0              0              0.67899501     0.00052094675
-     91350   1.3440557      0              0              0.67202783     0.0014499233 
-     91400   1.3580375      0              0              0.67901876     0.0019785654 
-     91450   1.3464846      0              0              0.67324231     0.0048060723 
-     91500   1.2752552      0              0              0.63762762     0.0023556712 
-     91550   1.2651651      0              0              0.63258253     0.0035701624 
-     91600   1.2799114      0              0              0.63995569     0.0011768414 
-     91650   1.2886607      0              0              0.64433037     0.0057431475 
-     91700   1.3289272      0              0              0.66446358     0.0026257105 
-     91750   1.327377       0              0              0.66368851    -0.0013687098 
-     91800   1.3344929      0              0              0.66724644     0.0018670879 
-     91850   1.3222578      0              0              0.6611289      0.0063220439 
-     91900   1.3237328      0              0              0.6618664      0.00013900092
-     91950   1.3300165      0              0              0.66500825     0.0039217514 
-     92000   1.3311369      0              0              0.66556845    -0.0019750915 
-     92050   1.2766006      0              0              0.63830028     0.00053011895
-     92100   1.2399381      0              0              0.61996904    -0.0043467551 
-     92150   1.2481657      0              0              0.62408284     0.0027326514 
-     92200   1.2414406      0              0              0.6207203      0.0030348616 
-     92250   1.2407854      0              0              0.62039271     0.0057590011 
-     92300   1.2609837      0              0              0.63049183     0.00096124459
-     92350   1.2618555      0              0              0.63092774    -0.00062282551
-     92400   1.2383019      0              0              0.61915097    -0.0015359053 
-     92450   1.3001139      0              0              0.65005695     0.0046217092 
-     92500   1.2843873      0              0              0.64219364     0.0017532427 
-     92550   1.2772429      0              0              0.63862144     0.0018540357 
-     92600   1.315378       0              0              0.65768901     0.0024765376 
-     92650   1.3526106      0              0              0.6763053      0.0012347601 
-     92700   1.3725271      0              0              0.68626357     0.00062674599
-     92750   1.3881315      0              0              0.69406576     0.0027564345 
-     92800   1.3516417      0              0              0.67582086     0.0036249267 
-     92850   1.3885851      0              0              0.69429254    -0.00010685968
-     92900   1.3612652      0              0              0.68063261     0.0030863871 
-     92950   1.4266113      0              0              0.71330563     0.0049455113 
-     93000   1.4262829      0              0              0.71314144     0.0019524076 
-     93050   1.4057197      0              0              0.70285985     0.0022119736 
-     93100   1.3991863      0              0              0.69959317     0.0028920776 
-     93150   1.3810694      0              0              0.69053468     0.0035847299 
-     93200   1.3462779      0              0              0.67313893     0.0023559307 
-     93250   1.3900105      0              0              0.69500525     0.0036229333 
-     93300   1.363435       0              0              0.68171752     0.004218777  
-     93350   1.3533797      0              0              0.67668986     0.0064973679 
-     93400   1.3318076      0              0              0.66590378     0.0052275459 
-     93450   1.348493       0              0              0.6742465     -0.0011735709 
-     93500   1.339674       0              0              0.669837       0.0010264163 
-     93550   1.3478587      0              0              0.67392933     0.0010177904 
-     93600   1.3651738      0              0              0.68258689     0.0021574941 
-     93650   1.3701222      0              0              0.6850611      0.001981511  
-     93700   1.4137099      0              0              0.70685493    -0.0025532669 
-     93750   1.463825       0              0              0.73191249     0.0053690532 
-     93800   1.4541245      0              0              0.72706226     0.0042715503 
-     93850   1.4677295      0              0              0.73386475     0.0036641371 
-     93900   1.4918174      0              0              0.74590869     5.8701723e-05
-     93950   1.460378       0              0              0.73018899     0.0014358273 
-     94000   1.404981       0              0              0.70249051     0.0024034694 
-     94050   1.4087595      0              0              0.70437975     0.0037657859 
-     94100   1.4034233      0              0              0.70171165    -0.0050327281 
-     94150   1.3885286      0              0              0.69426429     0.0012454449 
-     94200   1.3391512      0              0              0.66957561     0.0050884015 
-     94250   1.3623225      0              0              0.68116124    -0.00053126412
-     94300   1.3622217      0              0              0.68111087     0.0035728037 
-     94350   1.3611092      0              0              0.68055462    -0.0018478905 
-     94400   1.3656444      0              0              0.68282222     0.00077052997
-     94450   1.3636117      0              0              0.68180584     0.0063155194 
-     94500   1.3946363      0              0              0.69731815    -0.0011845022 
-     94550   1.3770439      0              0              0.68852194     0.0019831433 
-     94600   1.4308539      0              0              0.71542695    -0.00018734581
-     94650   1.4315097      0              0              0.71575485     0.0010005089 
-     94700   1.4321869      0              0              0.71609345     0.0031363872 
-     94750   1.4560637      0              0              0.72803186     0.00099923872
-     94800   1.4376984      0              0              0.7188492      0.006509304  
-     94850   1.4394642      0              0              0.71973209     0.0027516471 
-     94900   1.4489245      0              0              0.72446224     0.0037252617 
-     94950   1.4510686      0              0              0.72553429     0.006129696  
-     95000   1.5051313      0              0              0.75256564    -0.0031157368 
-     95050   1.4781117      0              0              0.73905585     0.0049945259 
-     95100   1.5614714      0              0              0.7807357      0.0052950016 
-     95150   1.5813166      0              0              0.79065832     0.0019238063 
-     95200   1.599728       0              0              0.79986398    -0.0017230171 
-     95250   1.5830924      0              0              0.7915462     -0.0024894947 
-     95300   1.606016       0              0              0.80300798     0.0058413426 
-     95350   1.595805       0              0              0.79790249     0.0010002842 
-     95400   1.6187771      0              0              0.80938857     0.004059176  
-     95450   1.6008541      0              0              0.80042705    -0.00096895699
-     95500   1.5896151      0              0              0.79480755     0.0030754228 
-     95550   1.5853221      0              0              0.79266105     0.00055356296
-     95600   1.5299407      0              0              0.76497035    -0.00028158037
-     95650   1.5308414      0              0              0.76542069     0.003835561  
-     95700   1.5421373      0              0              0.77106867     0.001982437  
-     95750   1.5264374      0              0              0.76321868     0.0023556055 
-     95800   1.5465435      0              0              0.77327175     0.0048818417 
-     95850   1.5720775      0              0              0.78603876     0.00043039488
-     95900   1.58283        0              0              0.79141502    -0.0026275454 
-     95950   1.5812584      0              0              0.79062922     0.00015929976
-     96000   1.5554444      0              0              0.77772218    -0.0016254687 
-     96050   1.5951747      0              0              0.79758735     0.0023679172 
-     96100   1.5980703      0              0              0.79903513     0.0025475276 
-     96150   1.5929374      0              0              0.79646871     0.0084380146 
-     96200   1.610177       0              0              0.80508852     1.9636172e-05
-     96250   1.5569652      0              0              0.7784826      0.0028373499 
-     96300   1.5264593      0              0              0.76322964     0.0048980422 
-     96350   1.5524206      0              0              0.77621032     0.0012396567 
-     96400   1.5442567      0              0              0.77212836    -0.00014199096
-     96450   1.5430472      0              0              0.77152362     0.0039606271 
-     96500   1.5535708      0              0              0.77678539     0.0021376025 
-     96550   1.5825392      0              0              0.79126962     0.0072824792 
-     96600   1.6474009      0              0              0.82370043     0.0078698227 
-     96650   1.6549573      0              0              0.82747863     0.00064170833
-     96700   1.6375208      0              0              0.8187604      0.0038518562 
-     96750   1.6124968      0              0              0.80624841     0.0025084215 
-     96800   1.6012323      0              0              0.80061617     0.0018482896 
-     96850   1.5719413      0              0              0.78597067    -0.0027886875 
-     96900   1.5724057      0              0              0.78620285    -0.0021967313 
-     96950   1.6026387      0              0              0.80131937     0.0014980022 
-     97000   1.6412377      0              0              0.82061885     0.0031476725 
-     97050   1.6540402      0              0              0.82702012     0.0027154544 
-     97100   1.6103138      0              0              0.80515688     0.0016943989 
-     97150   1.5635098      0              0              0.78175489    -0.002931416  
-     97200   1.5754492      0              0              0.7877246      5.4795728e-05
-     97250   1.6100868      0              0              0.80504339     0.0084169037 
-     97300   1.6160486      0              0              0.80802432     0.0027302212 
-     97350   1.6498672      0              0              0.82493362    -1.0254415e-05
-     97400   1.6186244      0              0              0.8093122      0.0046332472 
-     97450   1.6759638      0              0              0.8379819      0.0068397389 
-     97500   1.6531029      0              0              0.82655143     0.0039406451 
-     97550   1.6649661      0              0              0.83248306     4.4524906e-05
-     97600   1.6980946      0              0              0.84904731    -8.8049828e-05
-     97650   1.7015625      0              0              0.85078124     0.0032215762 
-     97700   1.6930647      0              0              0.84653233     0.0039130855 
-     97750   1.6901689      0              0              0.84508444     0.0082349987 
-     97800   1.7248879      0              0              0.86244393     0.0025599342 
-     97850   1.7058531      0              0              0.85292656    -0.0034469752 
-     97900   1.7096522      0              0              0.85482611     0.0011586778 
-     97950   1.7030238      0              0              0.85151191     0.0030288913 
-     98000   1.7621075      0              0              0.88105377     0.0010134425 
-     98050   1.7572916      0              0              0.8786458      0.0041727123 
-     98100   1.7336633      0              0              0.86683165     0.0080399572 
-     98150   1.7196401      0              0              0.85982004     0.0077550843 
-     98200   1.7036352      0              0              0.85181762     0.0015312924 
-     98250   1.6959049      0              0              0.84795245     0.0018137313 
-     98300   1.7042025      0              0              0.85210125     0.004308798  
-     98350   1.7103196      0              0              0.85515978     0.0027691056 
-     98400   1.6549504      0              0              0.82747518    -0.0021850031 
-     98450   1.6674485      0              0              0.83372423     0.0017390203 
-     98500   1.6374832      0              0              0.8187416      0.0016001371 
-     98550   1.6182985      0              0              0.80914927     0.0060604754 
-     98600   1.5631828      0              0              0.7815914      0.002367648  
-     98650   1.559219       0              0              0.77960948     0.0032649135 
-     98700   1.5271906      0              0              0.76359531    -0.0025599629 
-     98750   1.5608443      0              0              0.78042213     0.0045574515 
-     98800   1.5007772      0              0              0.75038858     0.0039236254 
-     98850   1.4726808      0              0              0.73634041     0.0072309232 
-     98900   1.4671925      0              0              0.73359627    -0.00029715372
-     98950   1.4166473      0              0              0.70832363     0.0032602494 
-     99000   1.4404644      0              0              0.72023221     0.004084783  
-     99050   1.4161395      0              0              0.70806974     0.0032243992 
-     99100   1.4253939      0              0              0.71269695     0.00056947247
-     99150   1.3802573      0              0              0.69012866     0.0067391528 
-     99200   1.4142708      0              0              0.70713541     0.0025327225 
-     99250   1.3832199      0              0              0.69160995     0.00090432674
-     99300   1.3567385      0              0              0.67836923     0.0029099897 
-     99350   1.3996847      0              0              0.69984237    -0.00062974091
-     99400   1.3806432      0              0              0.69032159    -0.0021773375 
-     99450   1.3496341      0              0              0.67481703     0.0087505091 
-     99500   1.3603046      0              0              0.68015229     0.0013343729 
-     99550   1.3921858      0              0              0.6960929      0.0010680927 
-     99600   1.4216029      0              0              0.71080145     0.0032404876 
-     99650   1.4483247      0              0              0.72416235     0.0053887817 
-     99700   1.4416932      0              0              0.7208466     -0.0011175277 
-     99750   1.4664769      0              0              0.73323844     0.0061287299 
-     99800   1.4795887      0              0              0.73979433     0.0023157097 
-     99850   1.4396098      0              0              0.7198049      0.0023753333 
-     99900   1.4396008      0              0              0.7198004     -0.00028282557
-     99950   1.4907183      0              0              0.74535914     0.0015505789 
-    100000   1.490616       0              0              0.745308       0.0028539007 
-    100001   1.4908024      0              0              0.74540119     0.0023788977 
-Loop time of 0.520131 on 1 procs for 100000 steps with 8 atoms
-
-Performance: 16611199.871 tau/day, 192259.258 timesteps/s, 1.538 Matom-step/s
-60.1% CPU use with 1 MPI tasks x 1 OpenMP threads
-
-MPI task timing breakdown:
-Section |  min time  |  avg time  |  max time  |%varavg| %total
----------------------------------------------------------------
-Pair    | 0.02542    | 0.02542    | 0.02542    |   0.0 |  4.89
-Bond    | 0.006495   | 0.006495   | 0.006495   |   0.0 |  1.25
-Neigh   | 0.004083   | 0.004083   | 0.004083   |   0.0 |  0.78
-Comm    | 0.018637   | 0.018637   | 0.018637   |   0.0 |  3.58
-Output  | 0.28904    | 0.28904    | 0.28904    |   0.0 | 55.57
-Modify  | 0.14937    | 0.14937    | 0.14937    |   0.0 | 28.72
-Other   |            | 0.02708    |            |       |  5.21
-
-Nlocal:              8 ave           8 max           8 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-Nghost:             25 ave          25 max          25 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-Neighs:              0 ave           0 max           0 min
-Histogram: 1 0 0 0 0 0 0 0 0 0
-
-Total # of neighbors = 0
-Ave neighs/atom = 0
-Ave special neighs/atom = 3.25
-Neighbor list builds = 813
+Ave special neighs/atom = 2.3448276
+Neighbor list builds = 201
 Dangerous builds = 0
 Total wall time: 0:00:00

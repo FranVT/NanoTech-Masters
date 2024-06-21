@@ -6,6 +6,7 @@
 # Define the file path
 file_path = "output.txt"
 aux = vec(Iterators.product(Iterators.repeated(("PA ","PB ","CL ","MO "),3)...)|>collect);
+#aux = vec(Iterators.product(Iterators.repeated(("PA ","PB "),3)...)|>collect);
 aux2 = map(s->(*(aux[s]...))*"\n",eachindex(aux))
 
 
