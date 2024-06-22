@@ -15,9 +15,9 @@ pair_style hybrid/overlay lj/cut 2.5 sw threebody off
 newton on
 
 # Varaibles
-variable L equal 3
-variable NCL equal 2
-variable NMO equal 8
+variable L equal 1.2
+variable NCL equal 0
+variable NMO equal 2
 variable seed1 equal 1234
 variable seed2 equal 4321
 variable seed3 equal 3124
@@ -38,19 +38,19 @@ mass 4 0.5      # PB
 
 # Coefficients
 bond_coeff * 2.14
-pair_coeff 1 1 lj/cut 3.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
-pair_coeff 2 2 lj/cut 3.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
-pair_coeff 1 2 lj/cut 3.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
-pair_coeff 1 3 lj/cut 3.0 1.0 1.12
-pair_coeff 1 4 lj/cut 3.0 1.0 1.12
-pair_coeff 2 3 lj/cut 3.0 1.0 1.12
-pair_coeff 2 4 lj/cut 3.0 1.0 1.12
+pair_coeff 1 1 lj/cut 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
+pair_coeff 2 2 lj/cut 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
+pair_coeff 1 2 lj/cut 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
+pair_coeff 1 3 none
+pair_coeff 1 4 none
+pair_coeff 2 3 none
+pair_coeff 2 4 none
 #pair_coeff 3 4 sw Patchy.ws NULL NULL PA PB # i-type j-type pair-style 
 #pair_coeff 3 3 sw Patchy.ws NULL NULL PA NULL
 #pair_coeff 4 4 sw Patchy.ws NULL NULL NULL PB # i-type j-type eps sigma cutoff wca
 pair_coeff 3 4 sw Patchy2.ws NULL NULL PA PB # i-type j-type pair-style 
-pair_coeff 3 3 sw Patchy2.ws NULL NULL PA NULL
-pair_coeff 4 4 sw Patchy2.ws NULL NULL NULL PB # i-type j-type eps sigma cutoff wca
+pair_coeff 3 3 sw Patchy2.ws NULL NULL PA PA
+pair_coeff 4 4 sw Patchy2.ws NULL NULL PB PB # i-type j-type eps sigma cutoff wca
 
 pair_modify shift yes
 
@@ -96,7 +96,7 @@ fix langevinFix all langevin 0.1 0.1 10000.0 12345 # ID group-ID langevin Tstart
 #fix nve all nve
 #fix 2 all nve
 
-thermo 1000
+thermo 1500
 compute t all temp
 compute ep all pe
 compute ek all ke
@@ -104,5 +104,5 @@ compute tm all momentum
 
 dump 1 all atom 500 dump.patchyParticles_clean
 
-timestep 0.002
-run 100000
+timestep 0.001
+run 1000000
