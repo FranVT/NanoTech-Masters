@@ -15,7 +15,7 @@ pair_style hybrid/overlay lj/cut 1.12 sw threebody off
 newton on
 
 # Varaibles
-variable L equal 6
+variable L equal 4.5
 variable NCL equal 50
 variable NMO equal 100
 variable seed1 equal 1234
@@ -64,8 +64,8 @@ region spawn_box block -$L $L -$L $L -$L $L
 # keyword_mol: template-ID seed
 # keyword_overlap: overlap value = only insert if at least this distance from all existing atoms
 # keyword_maxtry: maxtry value = number of attempts to insert a particle before failure
-create_atoms 0 random ${NCL} ${seed1} spawn_box mol CL ${seed1} overlap 1.13 maxtry 5000 #xls
-create_atoms 0 random ${NMO} ${seed2} spawn_box mol MO ${seed2} overlap 1.13 maxtry 5000 #mon
+create_atoms 0 random ${NCL} ${seed1} spawn_box mol CL ${seed1} overlap 0.5 maxtry 5000 #xls
+create_atoms 0 random ${NMO} ${seed2} spawn_box mol MO ${seed2} overlap 0.5 maxtry 5000 #mon
 
 # Create patchy particles
 group CrossLinker type 1 3
@@ -91,4 +91,4 @@ dump dumpID all atom 500 dump.patchyParticles_clean
 dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
 
 timestep 0.001
-run 1000000
+run 2000000

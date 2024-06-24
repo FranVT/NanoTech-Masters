@@ -15,9 +15,9 @@ pair_style hybrid/overlay lj/cut 1.12 sw threebody off
 newton on
 
 # Varaibles
-variable L equal 3
-variable NCL equal 1
-variable NMO equal 2
+variable L equal 4.5
+variable NCL equal 50
+variable NMO equal 100
 variable seed1 equal 1234
 variable seed2 equal 4321
 variable seed3 equal 3124
@@ -67,8 +67,8 @@ region spawn_box block -$L $L -$L $L -$L $L
 # keyword_mol: template-ID seed
 # keyword_overlap: overlap value = only insert if at least this distance from all existing atoms
 # keyword_maxtry: maxtry value = number of attempts to insert a particle before failure
-create_atoms 0 random ${NCL} ${seed1} spawn_box mol CL ${seed1} overlap 1.13 maxtry 5000 #xls
-create_atoms 0 random ${NMO} ${seed2} spawn_box mol MO ${seed2} overlap 1.13 maxtry 5000 #mon
+create_atoms 0 random ${NCL} ${seed1} spawn_box mol CL ${seed1} overlap 0.5 maxtry 5000 #xls
+create_atoms 0 random ${NMO} ${seed2} spawn_box mol MO ${seed2} overlap 0.5 maxtry 5000 #mon
 
 # Create patchy particles
 #group CrossLinker molecule <> 1 1# group polyA molecule <> 50 250
@@ -97,13 +97,60 @@ fix langevinFix all langevin 0.1 0.1 10000.0 12345 # ID group-ID langevin Tstart
 #fix 2 all nve
 
 thermo 1500
-compute t all temp
-compute ep all pe
-compute ek all ke
-compute tm all momentum
 
-dump dumpID all atom 500 dump.patchyParticles_clean
+compute T all temp
+compute Ke all ke/atom
+compute Pe all pe/atom
+compute VorAll all voronoi/atom neighbors yes
+
+#compute ID group-ID pair pstyle [nstyle] [evalue]
+compute PairljCL CrossLinker pair lj/cut
+compute PairswCL CrossLinker pair sw
+compute PairljMO Monomer pair lj/cut
+compute PairswMO Monomer pair sw
+
+# compute ID group-ID cluster/atom cutoff
+  compute cluster all cluster/atom 0.5
+
+# compute ID group-ID chunk/atom style args keyword value
+  compute cc1 all chunk/atom c_cluster compress yes
+
+# compute ID group-ID property/chunk chunkID input1 input2
+  compute size all property/chunk cc1 count
+
+# This computes takes into consideration that the patchy particles are defined via fix rigid.
+#compute KerigidCL CrossLinker ke/rigid pCL
+#compute KerigidMO Monomer ke/rigid pMO
+#compute ID group-ID chunk/atom style args keyword
+#compute chunk_CL CrossLinker chunk/atom molecule pbc yes
+#compute chunk_MO Monomer chunk/atom molecule pbc yes
+
+#compute ID group-ID reduce/chunk chunkID mode
+#compute chunk_rCL CrossLinker chunk/atom c_Ke pbc yes
+#compute chunk_rCL CrossLinker reduce/chunk chunk_CL sum c_Ke
+
+dump dumpID all atom 500 dump.patchyParticles
 dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
+dump dumpVoronio all local 1 dump.voronoipatchyParticles index c_VorAll[1] c_VorAll[2] c_VorAll[3]
+dump dumpEnergy all custom 500 dump.Energy id type c_Ke c_Pe
 
-timestep 0.001
-run 1000000
+
+#fix ID group-ID ave/time Nevery Nrepeat Nfreq
+#fix Ke CrossLinker ave/time 1 1 1 c_chunk_rCL file fix.Ke
+group PAIRScomputes empty
+fix Pair_c PAIRScomputes ave/time 1 1 1 c_PairljCL c_PairswCL c_PairljMO c_PairswMO file fix.pairenergy
+
+# fix ID group-ID style Nevery Nrepeat Nfreq lo hi Nbin value1 value2
+fix 1 all ave/histo 1 1 1 0 20 20 c_size mode vector ave running beyond ignore file tmp.histo
+
+
+#fix ID group-ID ave/chunk Nevery Nrepeat Nfreq chunkID
+#fix TCL CrossLinker ave/chunk 1 1 1 chunk_CL temp norm none file fix.TempCL
+
+#fix KeCL CrossLinker ave/chunk 1 1 1 chunk_CL c_Ke file fix.KeCL
+#fix PeCL CrossLinker ave/chunk 1 1 1 chunk_CL c_Pe file fix.PeCL
+
+#fix KeCL CrossLinker ave/chunk 1 1 1 chunkR_Ke c_chunkR_Ke file fix.KeCL
+
+timestep 0.1
+run 10
