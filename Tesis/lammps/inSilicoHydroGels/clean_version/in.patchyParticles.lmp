@@ -11,13 +11,13 @@ boundary p p p
 # Styles of atoms and that stuff
 atom_style bond
 bond_style zero nocoeff
-pair_style hybrid/overlay lj/cut 2.5 sw threebody off
+pair_style hybrid/overlay lj/cut 0.56 sw threebody off
 newton on
 
 # Varaibles
-variable L equal 1.2
-variable NCL equal 0
-variable NMO equal 2
+variable L equal 2
+variable NCL equal 2
+variable NMO equal 1
 variable seed1 equal 1234
 variable seed2 equal 4321
 variable seed3 equal 3124
@@ -37,7 +37,7 @@ mass 3 0.5      # PA
 mass 4 0.5      # PB
 
 # Coefficients
-bond_coeff * 2.14
+bond_coeff * nocoeff
 pair_coeff 1 1 lj/cut 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
 pair_coeff 2 2 lj/cut 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
 pair_coeff 1 2 lj/cut 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
@@ -67,7 +67,7 @@ region spawn_box block -$L $L -$L $L -$L $L
 # keyword_mol: template-ID seed
 # keyword_overlap: overlap value = only insert if at least this distance from all existing atoms
 # keyword_maxtry: maxtry value = number of attempts to insert a particle before failure
-create_atoms 0 random ${NCL} ${seed1} spawn_box mol CL ${seed1} overlap 3 maxtry 5000 #xls
+create_atoms 0 random ${NCL} ${seed1} spawn_box mol CL ${seed1} overlap 1.13 maxtry 5000 #xls
 create_atoms 0 random ${NMO} ${seed2} spawn_box mol MO ${seed2} overlap 1.13 maxtry 5000 #mon
 
 # Create patchy particles
