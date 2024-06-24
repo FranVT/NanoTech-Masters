@@ -102,7 +102,8 @@ compute ep all pe
 compute ek all ke
 compute tm all momentum
 
-dump 1 all atom 500 dump.patchyParticles_clean
+dump dumpID all atom 500 dump.patchyParticles_clean
+dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
 
 timestep 0.001
 run 1000000
