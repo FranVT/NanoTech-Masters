@@ -54,9 +54,6 @@ pair_coeff 1 3 none
 pair_coeff 1 4 none
 pair_coeff 2 3 none
 pair_coeff 2 4 none
-#pair_coeff 3 4 sw Patchy.ws NULL NULL PA PB # i-type j-type pair-style
-#pair_coeff 3 3 sw Patchy.ws NULL NULL PA NULL
-#pair_coeff 4 4 sw Patchy.ws NULL NULL NULL PB # i-type j-type eps sigma cutoff wca
 pair_coeff 3 4 sw Patchy2.ws NULL NULL PA PB # i-type j-type pair-style
   disabling sw potential three-body terms
 pair_coeff 3 3 sw Patchy2.ws NULL NULL PA PA
@@ -105,27 +102,20 @@ create_atoms 0 random 50 1234 spawn_box mol CL ${seed1} overlap 0.5 maxtry 5000
 create_atoms 0 random 50 1234 spawn_box mol CL 1234 overlap 0.5 maxtry 5000 
 Created 250 atoms
   using lattice units in orthogonal box = (-4.5 -4.5 -4.5) to (4.5 4.5 4.5)
-  create_atoms CPU = 0.002 seconds
+  create_atoms CPU = 0.006 seconds
 create_atoms 0 random ${NMO} ${seed2} spawn_box mol MO ${seed2} overlap 0.5 maxtry 5000 #mon
 create_atoms 0 random 100 ${seed2} spawn_box mol MO ${seed2} overlap 0.5 maxtry 5000 
 create_atoms 0 random 100 4321 spawn_box mol MO ${seed2} overlap 0.5 maxtry 5000 
 create_atoms 0 random 100 4321 spawn_box mol MO 4321 overlap 0.5 maxtry 5000 
 Created 300 atoms
   using lattice units in orthogonal box = (-4.5 -4.5 -4.5) to (4.5 4.5 4.5)
-  create_atoms CPU = 0.010 seconds
+  create_atoms CPU = 0.003 seconds
 
 # Create patchy particles
-#group CrossLinker molecule <> 1 1# group polyA molecule <> 50 250
-#group Monomer molecule <> 2 2# group polyA molecule <> 50 250
 group CrossLinker type 1 3
 250 atoms in group CrossLinker
 group Monomer type 2 4
 300 atoms in group Monomer
-# fix		1 addatoms rigid/small molecule mol dimer
-#fix pCl CrossLinker rigid/small molecule mol CL
-#fix pMO Monomer rigid/small molecule mol MO
-#fix pCL CrossLinker rigid/small molecule # ID group-ID style bodystyle args keyword values
-#fix pCL Monomer rigid/small molecule # ID group-ID style bodystyle args keyword values
 fix pCL CrossLinker rigid/small molecule #langevin 1.0 1.0 100.0 ${seed3}
   create bodies CPU = 0.000 seconds
   50 rigid bodies with 250 atoms
@@ -135,35 +125,26 @@ fix pMO Monomer rigid/small molecule #langevin 1.0 1.0 100.0 ${seed3}
   100 rigid bodies with 300 atoms
   0.5 = max distance from body owner to body atom
 
-
 # Neighbor list
 neighbor 0.3 bin # extra-distance style
-#neigh_modify delay 5
 neigh_modify exclude molecule/intra CrossLinker
 neigh_modify exclude molecule/intra Monomer
 
-#minimize 1.0e-4 1.0e-6 1000 10000 # etol ftol maxiter maxeval
-
 fix langevinFix all langevin 0.1 0.1 10000.0 12345 # ID group-ID langevin Tstart Tstop damp seed
-#fix nve all nve
-#fix 2 all nve
 
 thermo 1500
 
-compute T all temp
-compute Ke all ke/atom
-compute Pe all pe/atom
-compute VorAll all voronoi/atom neighbors yes
+# Compute global kinetic and potential energy and temperature
+compute t all temp
+compute ep all pe
+compute ek all ke
 
+# Compute energy due to pair interactions
 #compute ID group-ID pair pstyle [nstyle] [evalue]
 compute PairljCL CrossLinker pair lj/cut
 compute PairswCL CrossLinker pair sw
 compute PairljMO Monomer pair lj/cut
 compute PairswMO Monomer pair sw
-
-compute chunkEnergy all chunk/atom type pbc yes
-compute KeA all reduce/chunk chunkEnergy sum c_Ke
-compute PeA all reduce/chunk chunkEnergy sum c_Pe
 
 # Compute Cluster sizes
 # compute ID group-ID cluster/atom cutoff
@@ -173,38 +154,23 @@ compute cc1 all chunk/atom c_cluster compress yes pbc yes
 # compute ID group-ID property/chunk chunkID input1 input2
 compute size all property/chunk cc1 count
 
-dump dumpID all atom 500 info/patchyParticles.dumpf
+# Save atom positions
+dump dumpID all atom 100 info/patchyParticles_clean.dumpf
 dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
 
-# Compute Vornoi tesselation
-dump dumpVoronio all local 1 info/voronoipatchyParticles.dumpf index c_VorAll[1] c_VorAll[2] c_VorAll[3]
-dump dumpEnergy all custom 1 info/Energy.dumpf id type c_Ke c_Pe
-
-#fix ID group-ID ave/time Nevery Nrepeat Nfreq
-#fix Ke CrossLinker ave/time 1 1 1 c_chunk_rCL file fix.Ke
-group PAIRScomputes empty
-0 atoms in group PAIRScomputes
+# Save global energies and temperature
 group Energy empty
 0 atoms in group Energy
-fix dumpPair PAIRScomputes ave/time 1 1 1 c_PairljCL c_PairswCL c_PairljMO c_PairswMO file info/pairenergy.fixf
-fix dumpEnerg Energy ave/time 1 1 1 c_KeA c_PeA file info/Kenergy.fixf mode vector
-#fix dumpEnerg Energy ave/chunk 1 1 1 chunkEnergy c_Ke c_Pe file info/Kenergy.fixf
+fix fixEng Energy ave/time 1 1 1 c_t c_ep c_ek c_PairljCL c_PairswCL c_PairljMO c_PairswMO file info/energy_clean.fixf
 
 # Save the histogram of cluster sizes
 # fix ID group-ID style Nevery Nrepeat Nfreq lo hi Nbin value1 value2
-fix 1 all ave/histo 1 1 1 0 20 20 c_size mode vector ave running beyond ignore file info/histoCluster.fixf
+fix 1 all ave/histo 1 1 1 3 15 101 c_size mode vector ave running beyond ignore file info/histoCluster_clean.fixf
 
 
-#fix ID group-ID ave/chunk Nevery Nrepeat Nfreq chunkID
-#fix TCL CrossLinker ave/chunk 1 1 1 chunk_CL temp norm none file fix.TempCL
 
-#fix KeCL CrossLinker ave/chunk 1 1 1 chunk_CL c_Ke file fix.KeCL
-#fix PeCL CrossLinker ave/chunk 1 1 1 chunk_CL c_Pe file fix.PeCL
-
-#fix KeCL CrossLinker ave/chunk 1 1 1 chunkR_Ke c_chunkR_Ke file fix.KeCL
-
-timestep 0.1
-run 10
+timestep 0.001
+run 5000
 WARNING: Using a manybody potential with bonds/angles/dihedrals and special_bond exclusions (src/pair.cpp:242)
 WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
 WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
@@ -240,38 +206,41 @@ Neighbor list info ...
       pair build: trim
       stencil: none
       bin: none
-Per MPI rank memory allocation (min/avg/max) = 19.54 | 19.54 | 19.54 Mbytes
+Per MPI rank memory allocation (min/avg/max) = 18.66 | 18.66 | 18.66 Mbytes
    Step          Temp          E_pair         E_mol          TotEng         Press     
          0   0              0.0030799165   0              0.0030799165   0.011655762  
-        10   0.0045415656  -0.00097592152  0              0.0023146492   0.0024574678 
-Loop time of 0.279561 on 1 procs for 10 steps with 550 atoms
+      1500   0.0053200704  -0.00074015891  0              0.0031144739   0.0039169655 
+      3000   0.0053731993  -0.00077598688  0              0.0031171403   0.003160759  
+      4500   0.0056781697  -0.00097869332  0              0.0031353987   0.0021062333 
+      5000   0.0052077207  -0.00062353354  0              0.0031496968   0.0083041158 
+Loop time of 2.30022 on 1 procs for 5000 steps with 550 atoms
 
-Performance: 309055.984 tau/day, 35.770 timesteps/s, 19.674 katom-step/s
-95.0% CPU use with 1 MPI tasks x 1 OpenMP threads
+Performance: 187808.449 tau/day, 2173.709 timesteps/s, 1.196 Matom-step/s
+95.8% CPU use with 1 MPI tasks x 1 OpenMP threads
 
 MPI task timing breakdown:
 Section |  min time  |  avg time  |  max time  |%varavg| %total
 ---------------------------------------------------------------
-Pair    | 0.000204   | 0.000204   | 0.000204   |   0.0 |  0.07
-Bond    | 1.9e-05    | 1.9e-05    | 1.9e-05    |   0.0 |  0.01
-Neigh   | 0.000962   | 0.000962   | 0.000962   |   0.0 |  0.34
-Comm    | 0.000104   | 0.000104   | 0.000104   |   0.0 |  0.04
-Output  | 0.27181    | 0.27181    | 0.27181    |   0.0 | 97.23
-Modify  | 0.006281   | 0.006281   | 0.006281   |   0.0 |  2.25
-Other   |            | 0.000184   |            |       |  0.07
+Pair    | 0.046032   | 0.046032   | 0.046032   |   0.0 |  2.00
+Bond    | 0.000594   | 0.000594   | 0.000594   |   0.0 |  0.03
+Neigh   | 0.005953   | 0.005953   | 0.005953   |   0.0 |  0.26
+Comm    | 0.013992   | 0.013992   | 0.013992   |   0.0 |  0.61
+Output  | 0.04247    | 0.04247    | 0.04247    |   0.0 |  1.85
+Modify  | 2.1797     | 2.1797     | 2.1797     |   0.0 | 94.76
+Other   |            | 0.01146    |            |       |  0.50
 
 Nlocal:            550 ave         550 max         550 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
-Nghost:            685 ave         685 max         685 min
+Nghost:            723 ave         723 max         723 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
 Neighs:              0 ave           0 max           0 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
-FullNghs:          546 ave         546 max         546 min
+FullNghs:          580 ave         580 max         580 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
 
-Total # of neighbors = 546
-Ave neighs/atom = 0.99272727
+Total # of neighbors = 580
+Ave neighs/atom = 1.0545455
 Ave special neighs/atom = 2.9090909
-Neighbor list builds = 3
+Neighbor list builds = 18
 Dangerous builds = 0
-Total wall time: 0:00:00
+Total wall time: 0:00:02

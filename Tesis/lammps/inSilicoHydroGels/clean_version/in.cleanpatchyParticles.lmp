@@ -73,7 +73,6 @@ group Monomer type 2 4
 fix pCL CrossLinker rigid/small molecule #langevin 1.0 1.0 100.0 ${seed3}
 fix pMO Monomer rigid/small molecule #langevin 1.0 1.0 100.0 ${seed3}
 
-
 # Neighbor list
 neighbor 0.3 bin # extra-distance style
 neigh_modify exclude molecule/intra CrossLinker
@@ -82,13 +81,40 @@ neigh_modify exclude molecule/intra Monomer
 fix langevinFix all langevin 0.1 0.1 10000.0 12345 # ID group-ID langevin Tstart Tstop damp seed
 
 thermo 1500
+
+# Compute global kinetic and potential energy and temperature
 compute t all temp
 compute ep all pe
 compute ek all ke
-compute tm all momentum
 
-dump dumpID all atom 500 dump.patchyParticles_clean
+# Compute energy due to pair interactions
+#compute ID group-ID pair pstyle [nstyle] [evalue]
+compute PairljCL CrossLinker pair lj/cut
+compute PairswCL CrossLinker pair sw
+compute PairljMO Monomer pair lj/cut
+compute PairswMO Monomer pair sw
+
+# Compute Cluster sizes
+# compute ID group-ID cluster/atom cutoff
+compute cluster all cluster/atom 0.55
+# compute ID group-ID chunk/atom style args keyword value
+compute cc1 all chunk/atom c_cluster compress yes pbc yes
+# compute ID group-ID property/chunk chunkID input1 input2
+compute size all property/chunk cc1 count
+
+# Save atom positions
+dump dumpID all atom 100 info/patchyParticles_clean.dumpf
 dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
 
+# Save global energies and temperature
+group Energy empty
+fix fixEng Energy ave/time 1 1 1 c_t c_ep c_ek c_PairljCL c_PairswCL c_PairljMO c_PairswMO file info/energy_clean.fixf
+
+# Save the histogram of cluster sizes
+# fix ID group-ID style Nevery Nrepeat Nfreq lo hi Nbin value1 value2
+fix 1 all ave/histo 1 1 1 3 15 101 c_size mode vector ave running beyond ignore file info/histoCluster_clean.fixf
+
+
+
 timestep 0.001
-run 2000000
+run 5000

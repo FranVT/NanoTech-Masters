@@ -121,13 +121,17 @@ compute cc1 all chunk/atom c_cluster compress yes pbc yes
 # compute ID group-ID property/chunk chunkID input1 input2
 compute size all property/chunk cc1 count
 
+# Dumps
+
+# Position of the atoms
 dump dumpID all atom 500 info/patchyParticles.dumpf
 dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
 
-# Compute Vornoi tesselation
+# Dump Vornoi tesselation
 dump dumpVoronio all local 1 info/voronoipatchyParticles.dumpf index c_VorAll[1] c_VorAll[2] c_VorAll[3]
 dump dumpEnergy all custom 1 info/Energy.dumpf id type c_Ke c_Pe
 
+# Save the energy per type
 #fix ID group-ID ave/time Nevery Nrepeat Nfreq
 #fix Ke CrossLinker ave/time 1 1 1 c_chunk_rCL file fix.Ke
 group PAIRScomputes empty
