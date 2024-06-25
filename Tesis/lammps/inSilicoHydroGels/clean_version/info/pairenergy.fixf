@@ -1,4 +1,4 @@
-# Time-averaged data for fix Pair_c
+# Time-averaged data for fix dumpPair
 # TimeStep c_PairljCL c_PairswCL c_PairljMO c_PairswMO
 0 2.01981 -0.325856 2.01981 -0.325856
 1 0.152085 -0.354175 0.152085 -0.354175

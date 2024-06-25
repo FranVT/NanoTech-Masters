@@ -105,14 +105,14 @@ create_atoms 0 random 50 1234 spawn_box mol CL ${seed1} overlap 0.5 maxtry 5000
 create_atoms 0 random 50 1234 spawn_box mol CL 1234 overlap 0.5 maxtry 5000 
 Created 250 atoms
   using lattice units in orthogonal box = (-4.5 -4.5 -4.5) to (4.5 4.5 4.5)
-  create_atoms CPU = 0.001 seconds
+  create_atoms CPU = 0.002 seconds
 create_atoms 0 random ${NMO} ${seed2} spawn_box mol MO ${seed2} overlap 0.5 maxtry 5000 #mon
 create_atoms 0 random 100 ${seed2} spawn_box mol MO ${seed2} overlap 0.5 maxtry 5000 
 create_atoms 0 random 100 4321 spawn_box mol MO ${seed2} overlap 0.5 maxtry 5000 
 create_atoms 0 random 100 4321 spawn_box mol MO 4321 overlap 0.5 maxtry 5000 
 Created 300 atoms
   using lattice units in orthogonal box = (-4.5 -4.5 -4.5) to (4.5 4.5 4.5)
-  create_atoms CPU = 0.006 seconds
+  create_atoms CPU = 0.010 seconds
 
 # Create patchy particles
 #group CrossLinker molecule <> 1 1# group polyA molecule <> 50 250
@@ -161,40 +161,38 @@ compute PairswCL CrossLinker pair sw
 compute PairljMO Monomer pair lj/cut
 compute PairswMO Monomer pair sw
 
+compute chunkEnergy all chunk/atom type pbc yes
+compute KeA all reduce/chunk chunkEnergy sum c_Ke
+compute PeA all reduce/chunk chunkEnergy sum c_Pe
+
+# Compute Cluster sizes
 # compute ID group-ID cluster/atom cutoff
-  compute cluster all cluster/atom 0.5
-
+compute cluster all cluster/atom 0.55
 # compute ID group-ID chunk/atom style args keyword value
-  compute cc1 all chunk/atom c_cluster compress yes
-
+compute cc1 all chunk/atom c_cluster compress yes pbc yes
 # compute ID group-ID property/chunk chunkID input1 input2
-  compute size all property/chunk cc1 count
+compute size all property/chunk cc1 count
 
-# This computes takes into consideration that the patchy particles are defined via fix rigid.
-#compute KerigidCL CrossLinker ke/rigid pCL
-#compute KerigidMO Monomer ke/rigid pMO
-#compute ID group-ID chunk/atom style args keyword
-#compute chunk_CL CrossLinker chunk/atom molecule pbc yes
-#compute chunk_MO Monomer chunk/atom molecule pbc yes
-
-#compute ID group-ID reduce/chunk chunkID mode
-#compute chunk_rCL CrossLinker chunk/atom c_Ke pbc yes
-#compute chunk_rCL CrossLinker reduce/chunk chunk_CL sum c_Ke
-
-dump dumpID all atom 500 dump.patchyParticles
+dump dumpID all atom 500 info/patchyParticles.dumpf
 dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
-dump dumpVoronio all local 1 dump.voronoipatchyParticles index c_VorAll[1] c_VorAll[2] c_VorAll[3]
-dump dumpEnergy all custom 500 dump.Energy id type c_Ke c_Pe
 
+# Compute Vornoi tesselation
+dump dumpVoronio all local 1 info/voronoipatchyParticles.dumpf index c_VorAll[1] c_VorAll[2] c_VorAll[3]
+dump dumpEnergy all custom 1 info/Energy.dumpf id type c_Ke c_Pe
 
 #fix ID group-ID ave/time Nevery Nrepeat Nfreq
 #fix Ke CrossLinker ave/time 1 1 1 c_chunk_rCL file fix.Ke
 group PAIRScomputes empty
 0 atoms in group PAIRScomputes
-fix Pair_c PAIRScomputes ave/time 1 1 1 c_PairljCL c_PairswCL c_PairljMO c_PairswMO file fix.pairenergy
+group Energy empty
+0 atoms in group Energy
+fix dumpPair PAIRScomputes ave/time 1 1 1 c_PairljCL c_PairswCL c_PairljMO c_PairswMO file info/pairenergy.fixf
+fix dumpEnerg Energy ave/time 1 1 1 c_KeA c_PeA file info/Kenergy.fixf mode vector
+#fix dumpEnerg Energy ave/chunk 1 1 1 chunkEnergy c_Ke c_Pe file info/Kenergy.fixf
 
+# Save the histogram of cluster sizes
 # fix ID group-ID style Nevery Nrepeat Nfreq lo hi Nbin value1 value2
-fix 1 all ave/histo 1 1 1 0 20 20 c_size mode vector ave running beyond ignore file tmp.histo
+fix 1 all ave/histo 1 1 1 0 20 20 c_size mode vector ave running beyond ignore file info/histoCluster.fixf
 
 
 #fix ID group-ID ave/chunk Nevery Nrepeat Nfreq chunkID
@@ -242,25 +240,25 @@ Neighbor list info ...
       pair build: trim
       stencil: none
       bin: none
-Per MPI rank memory allocation (min/avg/max) = 19.16 | 19.16 | 19.16 Mbytes
+Per MPI rank memory allocation (min/avg/max) = 19.54 | 19.54 | 19.54 Mbytes
    Step          Temp          E_pair         E_mol          TotEng         Press     
          0   0              0.0030799165   0              0.0030799165   0.011655762  
         10   0.0045415656  -0.00097592152  0              0.0023146492   0.0024574678 
-Loop time of 0.280779 on 1 procs for 10 steps with 550 atoms
+Loop time of 0.279561 on 1 procs for 10 steps with 550 atoms
 
-Performance: 307715.321 tau/day, 35.615 timesteps/s, 19.588 katom-step/s
-94.6% CPU use with 1 MPI tasks x 1 OpenMP threads
+Performance: 309055.984 tau/day, 35.770 timesteps/s, 19.674 katom-step/s
+95.0% CPU use with 1 MPI tasks x 1 OpenMP threads
 
 MPI task timing breakdown:
 Section |  min time  |  avg time  |  max time  |%varavg| %total
 ---------------------------------------------------------------
-Pair    | 0.000259   | 0.000259   | 0.000259   |   0.0 |  0.09
-Bond    | 8e-06      | 8e-06      | 8e-06      |   0.0 |  0.00
-Neigh   | 0.001278   | 0.001278   | 0.001278   |   0.0 |  0.46
-Comm    | 0.000116   | 0.000116   | 0.000116   |   0.0 |  0.04
-Output  | 0.27202    | 0.27202    | 0.27202    |   0.0 | 96.88
-Modify  | 0.006758   | 0.006758   | 0.006758   |   0.0 |  2.41
-Other   |            | 0.000343   |            |       |  0.12
+Pair    | 0.000204   | 0.000204   | 0.000204   |   0.0 |  0.07
+Bond    | 1.9e-05    | 1.9e-05    | 1.9e-05    |   0.0 |  0.01
+Neigh   | 0.000962   | 0.000962   | 0.000962   |   0.0 |  0.34
+Comm    | 0.000104   | 0.000104   | 0.000104   |   0.0 |  0.04
+Output  | 0.27181    | 0.27181    | 0.27181    |   0.0 | 97.23
+Modify  | 0.006281   | 0.006281   | 0.006281   |   0.0 |  2.25
+Other   |            | 0.000184   |            |       |  0.07
 
 Nlocal:            550 ave         550 max         550 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
