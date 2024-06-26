@@ -11,3 +11,6 @@
 *.blg
 *.mp4
 clusterOvito/
+*.dumpf
+*.fixf
+*dump.
