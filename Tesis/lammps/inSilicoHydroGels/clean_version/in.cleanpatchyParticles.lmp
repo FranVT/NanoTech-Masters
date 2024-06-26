@@ -15,9 +15,9 @@ pair_style hybrid/overlay lj/cut 1.12 sw threebody off
 newton on
 
 # Varaibles
-variable L equal 4.5
-variable NCL equal 1
-variable NMO equal 5
+variable L equal 2.5
+variable NCL equal 2
+variable NMO equal 10
 variable seed1 equal 1234
 variable seed2 equal 4321
 variable seed3 equal 3124
@@ -99,7 +99,7 @@ compute ek all ke
 
 # Compute Cluster sizes
 # compute ID group-ID cluster/atom cutoff
-compute cluster all aggregate/atom 1.12
+compute cluster all aggregate/atom 0.625
 # compute ID group-ID chunk/atom style args keyword value
 compute cc1 all chunk/atom c_cluster compress yes pbc yes
 # compute ID group-ID property/chunk chunkID input1 input2
@@ -122,4 +122,4 @@ fix 1 all ave/time 1 1 1 c_size file info/sizeCluster_clean.fixf mode vector
 
 
 timestep 0.001
-run 1000000
+run 5000000
