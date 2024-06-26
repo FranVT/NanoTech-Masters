@@ -20,8 +20,8 @@ newton on
 
 # Varaibles
 variable L equal 4.5
-variable NCL equal 50
-variable NMO equal 100
+variable NCL equal 1
+variable NMO equal 5
 variable seed1 equal 1234
 variable seed2 equal 4321
 variable seed3 equal 3124
@@ -97,32 +97,32 @@ region spawn_box block -4.5 4.5 -4.5 4.5 -4.5 4.5
 # keyword_overlap: overlap value = only insert if at least this distance from all existing atoms
 # keyword_maxtry: maxtry value = number of attempts to insert a particle before failure
 create_atoms 0 random ${NCL} ${seed1} spawn_box mol CL ${seed1} overlap 0.5 maxtry 5000 #xls
-create_atoms 0 random 50 ${seed1} spawn_box mol CL ${seed1} overlap 0.5 maxtry 5000 
-create_atoms 0 random 50 1234 spawn_box mol CL ${seed1} overlap 0.5 maxtry 5000 
-create_atoms 0 random 50 1234 spawn_box mol CL 1234 overlap 0.5 maxtry 5000 
-Created 250 atoms
+create_atoms 0 random 1 ${seed1} spawn_box mol CL ${seed1} overlap 0.5 maxtry 5000 
+create_atoms 0 random 1 1234 spawn_box mol CL ${seed1} overlap 0.5 maxtry 5000 
+create_atoms 0 random 1 1234 spawn_box mol CL 1234 overlap 0.5 maxtry 5000 
+Created 5 atoms
   using lattice units in orthogonal box = (-4.5 -4.5 -4.5) to (4.5 4.5 4.5)
   create_atoms CPU = 0.006 seconds
 create_atoms 0 random ${NMO} ${seed2} spawn_box mol MO ${seed2} overlap 0.5 maxtry 5000 #mon
-create_atoms 0 random 100 ${seed2} spawn_box mol MO ${seed2} overlap 0.5 maxtry 5000 
-create_atoms 0 random 100 4321 spawn_box mol MO ${seed2} overlap 0.5 maxtry 5000 
-create_atoms 0 random 100 4321 spawn_box mol MO 4321 overlap 0.5 maxtry 5000 
-Created 300 atoms
+create_atoms 0 random 5 ${seed2} spawn_box mol MO ${seed2} overlap 0.5 maxtry 5000 
+create_atoms 0 random 5 4321 spawn_box mol MO ${seed2} overlap 0.5 maxtry 5000 
+create_atoms 0 random 5 4321 spawn_box mol MO 4321 overlap 0.5 maxtry 5000 
+Created 15 atoms
   using lattice units in orthogonal box = (-4.5 -4.5 -4.5) to (4.5 4.5 4.5)
-  create_atoms CPU = 0.003 seconds
+  create_atoms CPU = 0.002 seconds
 
 # Create patchy particles
 group CrossLinker type 1 3
-250 atoms in group CrossLinker
+5 atoms in group CrossLinker
 group Monomer type 2 4
-300 atoms in group Monomer
+15 atoms in group Monomer
 fix pCL CrossLinker rigid/small molecule #langevin 1.0 1.0 100.0 ${seed3}
   create bodies CPU = 0.000 seconds
-  50 rigid bodies with 250 atoms
+  1 rigid bodies with 5 atoms
   0.46400431 = max distance from body owner to body atom
 fix pMO Monomer rigid/small molecule #langevin 1.0 1.0 100.0 ${seed3}
   create bodies CPU = 0.000 seconds
-  100 rigid bodies with 300 atoms
+  5 rigid bodies with 15 atoms
   0.5 = max distance from body owner to body atom
 
 # Neighbor list
@@ -132,23 +132,26 @@ neigh_modify exclude molecule/intra Monomer
 
 fix langevinFix all langevin 0.1 0.1 10000.0 12345 # ID group-ID langevin Tstart Tstop damp seed
 
-thermo 1500
+thermo 10000
 
 # Compute global kinetic and potential energy and temperature
 compute t all temp
 compute ep all pe
 compute ek all ke
+#compute eplj1 all pair lj/cut 1 epair
+#compute epsw1 all pair sw 1 epair
+
 
 # Compute energy due to pair interactions
 #compute ID group-ID pair pstyle [nstyle] [evalue]
-compute PairljCL CrossLinker pair lj/cut
-compute PairswCL CrossLinker pair sw
-compute PairljMO Monomer pair lj/cut
-compute PairswMO Monomer pair sw
+#compute PairljCL CrossLinker pair lj/cut
+#compute PairswCL CrossLinker pair sw
+#compute PairljMO Monomer pair lj/cut
+#compute PairswMO Monomer pair sw
 
 # Compute Cluster sizes
 # compute ID group-ID cluster/atom cutoff
-compute cluster all cluster/atom 0.55
+compute cluster all aggregate/atom 1.12
 # compute ID group-ID chunk/atom style args keyword value
 compute cc1 all chunk/atom c_cluster compress yes pbc yes
 # compute ID group-ID property/chunk chunkID input1 input2
@@ -161,16 +164,18 @@ dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
 # Save global energies and temperature
 group Energy empty
 0 atoms in group Energy
-fix fixEng Energy ave/time 1 1 1 c_t c_ep c_ek c_PairljCL c_PairswCL c_PairljMO c_PairswMO file info/energy_clean.fixf
+#fix fixEng Energy ave/time 1 1 1 c_t c_ep c_ek c_PairljCL c_PairswCL c_PairljMO c_PairswMO c_eplj1 c_epsw1 file info/energy_clean.fixf
+fix fixEng Energy ave/time 1 1 1 c_t c_ep c_ek file info/energy_clean.fixf
+
 
 # Save the histogram of cluster sizes
-# fix ID group-ID style Nevery Nrepeat Nfreq lo hi Nbin value1 value2
-fix 1 all ave/histo 1 1 1 3 15 101 c_size mode vector ave running beyond ignore file info/histoCluster_clean.fixf
-
+#fix ID group-ID style Nevery Nrepeat Nfreq lo hi Nbin value1 value2
+#fix 1 all ave/histo 1 1 1 3 15 101 c_size mode vector ave running beyond ignore file info/histoCluster_clean.fixf
+fix 1 all ave/time 1 1 1 c_size file info/sizeCluster_clean.fixf mode vector
 
 
 timestep 0.001
-run 5000
+run 1000000
 WARNING: Using a manybody potential with bonds/angles/dihedrals and special_bond exclusions (src/pair.cpp:242)
 WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
 WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
@@ -191,7 +196,7 @@ Neighbor list info ...
       pair build: skip
       stencil: none
       bin: none
-  (3) compute cluster/atom, occasional
+  (3) compute aggregate/atom, occasional
       attributes: full, newton on
       pair build: full/bin
       stencil: full/bin/3d
@@ -206,41 +211,137 @@ Neighbor list info ...
       pair build: trim
       stencil: none
       bin: none
-Per MPI rank memory allocation (min/avg/max) = 18.66 | 18.66 | 18.66 Mbytes
+Per MPI rank memory allocation (min/avg/max) = 18.47 | 18.47 | 18.47 Mbytes
    Step          Temp          E_pair         E_mol          TotEng         Press     
-         0   0              0.0030799165   0              0.0030799165   0.011655762  
-      1500   0.0053200704  -0.00074015891  0              0.0031144739   0.0039169655 
-      3000   0.0053731993  -0.00077598688  0              0.0031171403   0.003160759  
-      4500   0.0056781697  -0.00097869332  0              0.0031353987   0.0021062333 
-      5000   0.0052077207  -0.00062353354  0              0.0031496968   0.0083041158 
-Loop time of 2.30022 on 1 procs for 5000 steps with 550 atoms
+         0   0              0              0              0              0            
+     10000   0.00024059174  0              0              0.00016841421  5.2967592e-05
+     20000   0.00041012983  0              0              0.00028709088  1.8777445e-07
+     30000   0.00073853991  0              0              0.00051697794 -5.8195896e-05
+     40000   0.001134767    0              0              0.00079433688  2.3522531e-05
+     50000   0.0015451538   0              0              0.0010816077  -1.6815977e-05
+     60000   0.0015732742   0              0              0.0011012919  -1.5844615e-07
+     70000   0.0014318628   0              0              0.0010023039  -3.2283142e-05
+     80000   0.0017310161   0              0              0.0012117113   2.8126585e-05
+     90000   0.0041787033  -0.0018815211   0              0.0010435712  -0.0011737856 
+    100000   0.0015046908   0              0              0.0010532836   9.1182392e-05
+    110000   0.0017936921   0              0              0.0012555845  -4.5044706e-05
+    120000   0.0019772295   0              0              0.0013840606   4.4179689e-05
+    130000   0.0018945186   0              0              0.001326163    0.00014226573
+    140000   0.0021345826   0              0              0.0014942078   1.7643153e-05
+    150000   0.0023304565   0              0              0.0016313195   0.00010612379
+    160000   0.0028069702   0              0              0.0019648792   5.1350364e-05
+    170000   0.0028375129   0              0              0.001986259    7.7245164e-05
+    180000   0.0032906722   0              0              0.0023034706   3.0397173e-05
+    190000   0.0038043628   0              0              0.002663054    8.0363051e-05
+    200000   0.0041077421   0              0              0.0028754195  -4.1400501e-05
+    210000   0.0045915737   0              0              0.0032141016   0.00013590593
+    220000   0.0047111436   0              0              0.0032978005   2.8377837e-05
+    230000   0.0050193809   0              0              0.0035135666   7.5192716e-05
+    240000   0.0056753986   0              0              0.003972779    2.8974762e-05
+    250000   0.0059830121   0              0              0.0041881085   4.5674709e-05
+    260000   0.0059852791   0              0              0.0041896954   0.00019057326
+    270000   0.0057523611   0              0              0.0040266528   1.1485214e-05
+    280000   0.0063108517   0              0              0.0044175962   0.00013010471
+    290000   0.0074690493   0              0              0.0052283345   2.8801054e-05
+    300000   0.0080810976   0              0              0.0056567683   8.4310394e-05
+    310000   0.0081993876   0              0              0.0057395713   1.9830492e-05
+    320000   0.008537664    0              0              0.0059763648   0.00015426404
+    330000   0.0087065435   0              0              0.0060945805   0.00014823588
+    340000   0.0084191053   0              0              0.0058933737   0.00016662451
+    350000   0.034437673   -0.018226278    0              0.0058800925   0.0023524408 
+    360000   0.034931278   -0.019445719    0              0.0050061759   0.00054153156
+    370000   0.049487894   -0.029891692    0              0.0047498335   0.0015494069 
+    380000   0.035417458   -0.019392636    0              0.0053995849   0.0010729407 
+    390000   0.015168939   -0.0052500662   0              0.0053681908  -0.00181012   
+    400000   0.026371072   -0.013179804    0              0.005279946    0.0048941821 
+    410000   0.024521529   -0.011800191    0              0.0053648796  -0.0031399582 
+    420000   0.023400578   -0.010585459    0              0.0057949453  -0.0019164735 
+    430000   0.027820924   -0.014240293    0              0.0052343536  -0.0020657891 
+    440000   0.027331736   -0.01385242     0              0.0052797948   0.0043967481 
+    450000   0.031692599   -0.015412608    0              0.0067722114   0.0038659922 
+    460000   0.036024777   -0.017151421    0              0.0080659226  -0.0013048366 
+    470000   0.037342964   -0.019519698    0              0.0066203767  -0.00042344746
+    480000   0.033298906   -0.016311579    0              0.0069976553   0.0024294169 
+    490000   0.038922057   -0.020472453    0              0.0067729869  -0.0010116082 
+    500000   0.038921299   -0.020879456    0              0.0063654529   0.0072389024 
+    510000   0.053372071   -0.031403297    0              0.0059571531  -0.002053684  
+    520000   0.060510752   -0.036358859    0              0.0059986672  -0.0028165191 
+    530000   0.0522257     -0.030210621    0              0.0063473687  -0.00098056898
+    540000   0.060501815   -0.037539418    0              0.0048118525  -0.0020328252 
+    550000   0.05642779    -0.033699632    0              0.0057998217  -0.0032483813 
+    560000   0.060257974   -0.036950081    0              0.0052305004   0.00077565619
+    570000   0.059167306   -0.036409523    0              0.0050075914  -0.0046661996 
+    580000   0.059847125   -0.038540774    0              0.0033522135   0.0013734515 
+    590000   0.057358388   -0.036215034    0              0.0039358379  -0.0014221249 
+    600000   0.062555043   -0.037234245    0              0.0065542845  -0.00095625658
+    610000   0.067616538   -0.039411972    0              0.0079196053   0.00078222436
+    620000   0.092230255   -0.055146897    0              0.0094142815  -0.0014501338 
+    630000   0.062956569   -0.033088903    0              0.010980696    0.0061026971 
+    640000   0.064770044   -0.033453134    0              0.011885897    0.0045322685 
+    650000   0.069967036   -0.036597146    0              0.012379779   -0.0016776966 
+    660000   0.07871151    -0.043341168    0              0.011756888   -0.0057587512 
+    670000   0.057397109   -0.028249788    0              0.011928189   -6.7055272e-05
+    680000   0.071433778   -0.037529732    0              0.012473912   -0.0028910982 
+    690000   0.07442989    -0.038755614    0              0.013345309   -0.00063241598
+    700000   0.067927183   -0.034612001    0              0.012937028   -0.0018904342 
+    710000   0.062471908   -0.030268394    0              0.013461942    0.00080514491
+    720000   0.07349692    -0.036344015    0              0.015103829    0.0029963935 
+    730000   0.065451329   -0.02981734     0              0.01599859    -0.0020418463 
+    740000   0.079924474   -0.038411795    0              0.017535337   -0.0001215435 
+    750000   0.06921634    -0.032160261    0              0.016291177    0.0041697943 
+    760000   0.073760359   -0.036146754    0              0.015485498   -0.0019248311 
+    770000   0.094729055   -0.050292065    0              0.016018273    0.00046562742
+    780000   0.09820952    -0.053779662    0              0.014967003   -0.0028535281 
+    790000   0.10351466    -0.056692492    0              0.015767772    0.0018321277 
+    800000   0.102291      -0.057306931    0              0.014296767   -0.00011774097
+    810000   0.092352052   -0.054181516    0              0.010464921   -0.0029431611 
+    820000   0.09972935    -0.060069655    0              0.00974089     0.002156737  
+    830000   0.090793692   -0.053644165    0              0.009911419   -0.0032371546 
+    840000   0.077125249   -0.046664992    0              0.007322682   -0.001783266  
+    850000   0.073683895   -0.043878294    0              0.0077004326   0.0031727139 
+    860000   0.07534344    -0.044606053    0              0.0081343556  -0.0044000397 
+    870000   0.076028524   -0.045718843    0              0.0075011235  -0.001573403  
+    880000   0.088291303   -0.055975029    0              0.005828883   -0.0012466716 
+    890000   0.071875001   -0.043988279    0              0.0063242224  -0.0023850889 
+    900000   0.091254183   -0.056447123    0              0.0074308056  -0.00060621408
+    910000   0.070318151   -0.042197228    0              0.0070254784  -0.0022446684 
+    920000   0.082123922   -0.051142567    0              0.0063441786  -0.00074630995
+    930000   0.072884639   -0.04758316     0              0.0034360877  -0.00084613128
+    940000   0.064614892   -0.041936795    0              0.0032936291   0.0028427594 
+    950000   0.07966002    -0.052653882    0              0.0031081319  -0.0025983953 
+    960000   0.096093179   -0.063101979    0              0.0041632466  -0.0015482905 
+    970000   0.077533471   -0.050021339    0              0.0042520915   0.0015983142 
+    980000   0.084181686   -0.054301333    0              0.0046258476  -0.0032254863 
+    990000   0.10509369    -0.070118965    0              0.0034466176   0.001561585  
+   1000000   0.10677512    -0.071833011    0              0.0029095725  -0.00058780174
+Loop time of 19.7036 on 1 procs for 1000000 steps with 20 atoms
 
-Performance: 187808.449 tau/day, 2173.709 timesteps/s, 1.196 Matom-step/s
-95.8% CPU use with 1 MPI tasks x 1 OpenMP threads
+Performance: 4384992.829 tau/day, 50752.232 timesteps/s, 1.015 Matom-step/s
+62.8% CPU use with 1 MPI tasks x 1 OpenMP threads
 
 MPI task timing breakdown:
 Section |  min time  |  avg time  |  max time  |%varavg| %total
 ---------------------------------------------------------------
-Pair    | 0.046032   | 0.046032   | 0.046032   |   0.0 |  2.00
-Bond    | 0.000594   | 0.000594   | 0.000594   |   0.0 |  0.03
-Neigh   | 0.005953   | 0.005953   | 0.005953   |   0.0 |  0.26
-Comm    | 0.013992   | 0.013992   | 0.013992   |   0.0 |  0.61
-Output  | 0.04247    | 0.04247    | 0.04247    |   0.0 |  1.85
-Modify  | 2.1797     | 2.1797     | 2.1797     |   0.0 | 94.76
-Other   |            | 0.01146    |            |       |  0.50
+Pair    | 0.66538    | 0.66538    | 0.66538    |   0.0 |  3.38
+Bond    | 0.074936   | 0.074936   | 0.074936   |   0.0 |  0.38
+Neigh   | 0.035246   | 0.035246   | 0.035246   |   0.0 |  0.18
+Comm    | 0.29692    | 0.29692    | 0.29692    |   0.0 |  1.51
+Output  | 0.56998    | 0.56998    | 0.56998    |   0.0 |  2.89
+Modify  | 17.738     | 17.738     | 17.738     |   0.0 | 90.03
+Other   |            | 0.3226     |            |       |  1.64
 
-Nlocal:            550 ave         550 max         550 min
+Nlocal:             20 ave          20 max          20 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
-Nghost:            723 ave         723 max         723 min
+Nghost:             23 ave          23 max          23 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
 Neighs:              0 ave           0 max           0 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
-FullNghs:          580 ave         580 max         580 min
+FullNghs:           18 ave          18 max          18 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
 
-Total # of neighbors = 580
-Ave neighs/atom = 1.0545455
-Ave special neighs/atom = 2.9090909
-Neighbor list builds = 18
+Total # of neighbors = 18
+Ave neighs/atom = 0.9
+Ave special neighs/atom = 2.5
+Neighbor list builds = 3745
 Dangerous builds = 0
-Total wall time: 0:00:02
+Total wall time: 0:00:23

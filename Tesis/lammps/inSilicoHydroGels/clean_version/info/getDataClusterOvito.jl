@@ -1,7 +1,6 @@
 module getDataClusterOvito
 """
-    Script to get the energies of the simulation given by
-    fix fixEng Energy ave/time 1 1 1 c_t c_ep c_ek c_PairljCL c_PairswCL c_PairljMO c_PairswMO file info/energy_clean.fixf
+    Script to get the data for cluster given by ovito
 """
 
 export clusterOvito
@@ -33,7 +32,7 @@ function getInfo(filename,totallines)
 end
 
 
-filename = "clusterOvito/clusterOvito.50000";
+filename = "clusterOvito/clusterOvito";
 
 totaltime, totallinesovito = open(filename) do f
     linecounter = 0
