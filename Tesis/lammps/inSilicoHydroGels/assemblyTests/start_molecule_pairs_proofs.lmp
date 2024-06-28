@@ -1,0 +1,106 @@
+# Script to create a Polymer using Patchy Particles (PP)
+# Types of Particles:
+#   Cross linker:   PPA
+#   Monomer:        PPB
+
+# Initialization
+units lj
+dimension 3
+boundary p p p
+
+# Styles of atoms and that stuff
+atom_style bond
+bond_style zero nocoeff
+pair_style hybrid/overlay lj/cut 2.5 sw threebody off
+newton on
+
+# Varaibles
+variable L equal 5
+variable seed1 equal 1234
+variable seed2 equal 4321
+variable seed3 equal 3124
+
+# Create simulaiton box
+region simulation_box block -$L $L -$L $L -$L $L
+# N-atom-types region-ID keyword value Is necesesary the extra/special/per/atom (# of special neighbors per atom)
+create_box 4 simulation_box &
+    bond/types 1 &
+    extra/bond/per/atom 4 &
+    extra/special/per/atom 5
+
+# Atom types
+mass 1 1.0      # CL 
+mass 2 1.0      # MO
+mass 3 0.5      # PA
+mass 4 0.5      # PB
+
+# Coefficients
+bond_coeff * 2.14
+pair_coeff 1 1 lj/cut 3.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
+pair_coeff 2 2 lj/cut 3.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
+pair_coeff 1 2 lj/cut 3.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
+pair_coeff 1 3 lj/cut 3.0 1.0 1.12
+pair_coeff 1 4 lj/cut 3.0 1.0 1.12
+pair_coeff 2 3 lj/cut 3.0 1.0 1.12
+pair_coeff 2 4 lj/cut 3.0 1.0 1.12
+#pair_coeff 3 4 sw Patchy.ws NULL NULL PA PB # i-type j-type pair-style 
+#pair_coeff 3 3 sw Patchy.ws NULL NULL PA NULL
+#pair_coeff 4 4 sw Patchy.ws NULL NULL NULL PB # i-type j-type eps sigma cutoff wca
+pair_coeff 3 4 sw Patchy2.ws NULL NULL PA PB # i-type j-type pair-style 
+pair_coeff 3 3 sw Patchy2.ws NULL NULL PA NULL
+pair_coeff 4 4 sw Patchy2.ws NULL NULL NULL PB # i-type j-type eps sigma cutoff wca
+
+pair_modify shift yes
+
+# Molecules
+molecule CL molecule.patchy.CL
+molecule MO molecule.patchy.MO
+
+# Introduce the molecules
+# ID style args keyword arg
+region spawn_box block -$L $L -$L $L -$L $L
+
+# create_atoms type style args keyword values
+# style_random: N seed region-ID
+# keyword_mol: template-ID seed
+# keyword_overlap: overlap value = only insert if at least this distance from all existing atoms
+# keyword_maxtry: maxtry value = number of attempts to insert a particle before failure
+create_atoms 0 random 1 ${seed1} spawn_box mol CL ${seed1} overlap 3 maxtry 5000 #xls
+create_atoms 0 random 8 ${seed2} spawn_box mol MO ${seed2} overlap 1.13 maxtry 5000 #mon
+
+# Create patchy particles
+#group CrossLinker molecule <> 1 1# group polyA molecule <> 50 250
+#group Monomer molecule <> 2 2# group polyA molecule <> 50 250
+group CrossLinker type 1 3
+group Monomer type 2 4
+# fix		1 addatoms rigid/small molecule mol dimer
+#fix pCl CrossLinker rigid/small molecule mol CL
+#fix pMO Monomer rigid/small molecule mol MO
+#fix pCL CrossLinker rigid/small molecule # ID group-ID style bodystyle args keyword values
+#fix pCL Monomer rigid/small molecule # ID group-ID style bodystyle args keyword values
+fix pCL CrossLinker rigid/small molecule #langevin 1.0 1.0 100.0 ${seed3}
+fix pMO Monomer rigid/small molecule #langevin 1.0 1.0 100.0 ${seed3}
+
+
+# Neighbor list
+neighbor 0.3 bin # extra-distance style
+#neigh_modify delay 5
+neigh_modify exclude molecule/intra CrossLinker
+neigh_modify exclude molecule/intra Monomer
+
+#minimize 1.0e-4 1.0e-6 1000 10000 # etol ftol maxiter maxeval
+
+fix langevinFix all langevin 0.1 0.1 10000.0 12345 # ID group-ID langevin Tstart Tstop damp seed
+#fix nve all nve
+#fix 2 all nve
+
+thermo 1000
+compute t all temp
+compute ep all pe
+compute ek all ke
+compute tm all momentum
+
+dump 1 all atom 500 dump.patchy_molecules_pairs_proofs
+
+timestep 0.002
+run 100000

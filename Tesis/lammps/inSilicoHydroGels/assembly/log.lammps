@@ -1,0 +1,275 @@
+LAMMPS (2 Aug 2023 - Update 3)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+Loaded 1 plugins from F:\LAMMPS\LAMMPS 64-bit 2Aug2023\plugins
+# Script to create a Polymer using Patchy Particles (PP)
+# It saves the last position of the particles with a cluster ID
+# Types of Particles:
+#   Cross linker:   PPA
+#   Monomer:        PPB
+
+# Initialization
+units lj
+dimension 3
+boundary p p p
+
+# Styles of atoms and that stuff
+atom_style bond
+bond_style zero nocoeff
+pair_style hybrid/overlay lj/cut 1.12 sw threebody off
+newton on
+
+# Varaibles
+variable L equal 2
+variable NCL equal 5
+variable NMO equal 10
+variable seed1 equal 1234
+variable seed2 equal 4321
+variable seed3 equal 3124
+variable steps equal 250000
+
+# Create simulaiton box
+region simulation_box block -$L $L -$L $L -$L $L
+region simulation_box block -2 $L -$L $L -$L $L
+region simulation_box block -2 2 -$L $L -$L $L
+region simulation_box block -2 2 -2 $L -$L $L
+region simulation_box block -2 2 -2 2 -$L $L
+region simulation_box block -2 2 -2 2 -2 $L
+region simulation_box block -2 2 -2 2 -2 2
+# N-atom-types region-ID keyword value Is necesesary the extra/special/per/atom (# of special neighbors per atom)
+create_box 4 simulation_box     bond/types 1     extra/bond/per/atom 4     extra/special/per/atom 5
+Created orthogonal box = (-2 -2 -2) to (2 2 2)
+  1 by 1 by 1 MPI processor grid
+
+# Atom types
+mass 1 1.0      # CL
+mass 2 1.0      # MO
+mass 3 0.5      # PA
+mass 4 0.5      # PB
+
+# Coefficients
+bond_coeff * nocoeff
+pair_coeff 1 1 lj/cut 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
+pair_coeff 2 2 lj/cut 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
+pair_coeff 1 2 lj/cut 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
+pair_coeff 1 3 none
+pair_coeff 1 4 none
+pair_coeff 2 3 none
+pair_coeff 2 4 none
+pair_coeff 3 4 sw patchyPot.ws NULL NULL PA PB # i-type j-type pair-style
+  disabling sw potential three-body terms
+pair_coeff 3 3 sw patchyPot.ws NULL NULL PA PA
+pair_coeff 4 4 sw patchyPot.ws NULL NULL PB PB # i-type j-type eps sigma cutoff wca
+
+pair_modify shift yes
+
+# Molecules
+molecule CL molecule.patchy.CL
+Read molecule template CL:
+  1 molecules
+  0 fragments
+  5 atoms with max type 3
+  4 bonds with max type 1
+  0 angles with max type 0
+  0 dihedrals with max type 0
+  0 impropers with max type 0
+molecule MO molecule.patchy.MO
+Read molecule template MO:
+  1 molecules
+  0 fragments
+  3 atoms with max type 4
+  2 bonds with max type 1
+  0 angles with max type 0
+  0 dihedrals with max type 0
+  0 impropers with max type 0
+
+# Introduce the molecules
+# ID style args keyword arg
+region spawn_box block -$L $L -$L $L -$L $L
+region spawn_box block -2 $L -$L $L -$L $L
+region spawn_box block -2 2 -$L $L -$L $L
+region spawn_box block -2 2 -2 $L -$L $L
+region spawn_box block -2 2 -2 2 -$L $L
+region spawn_box block -2 2 -2 2 -2 $L
+region spawn_box block -2 2 -2 2 -2 2
+
+# create_atoms type style args keyword values
+# style_random: N seed region-ID
+# keyword_mol: template-ID seed
+# keyword_overlap: overlap value = only insert if at least this distance from all existing atoms
+# keyword_maxtry: maxtry value = number of attempts to insert a particle before failure
+create_atoms 0 random ${NCL} ${seed1} spawn_box mol CL ${seed1} overlap 0.5 maxtry 5000 #xls
+create_atoms 0 random 5 ${seed1} spawn_box mol CL ${seed1} overlap 0.5 maxtry 5000 
+create_atoms 0 random 5 1234 spawn_box mol CL ${seed1} overlap 0.5 maxtry 5000 
+create_atoms 0 random 5 1234 spawn_box mol CL 1234 overlap 0.5 maxtry 5000 
+Created 25 atoms
+  using lattice units in orthogonal box = (-2 -2 -2) to (2 2 2)
+  create_atoms CPU = 0.003 seconds
+create_atoms 0 random ${NMO} ${seed2} spawn_box mol MO ${seed2} overlap 0.5 maxtry 5000 #mon
+create_atoms 0 random 10 ${seed2} spawn_box mol MO ${seed2} overlap 0.5 maxtry 5000 
+create_atoms 0 random 10 4321 spawn_box mol MO ${seed2} overlap 0.5 maxtry 5000 
+create_atoms 0 random 10 4321 spawn_box mol MO 4321 overlap 0.5 maxtry 5000 
+Created 30 atoms
+  using lattice units in orthogonal box = (-2 -2 -2) to (2 2 2)
+  create_atoms CPU = 0.002 seconds
+
+# Create patchy particles
+group CrossLinker type 1 3
+25 atoms in group CrossLinker
+group Monomer type 2 4
+30 atoms in group Monomer
+fix pCL CrossLinker rigid/small molecule #langevin 1.0 1.0 100.0 ${seed3}
+  create bodies CPU = 0.000 seconds
+  5 rigid bodies with 25 atoms
+  0.46400431 = max distance from body owner to body atom
+fix pMO Monomer rigid/small molecule #langevin 1.0 1.0 100.0 ${seed3}
+  create bodies CPU = 0.000 seconds
+  10 rigid bodies with 30 atoms
+  0.5 = max distance from body owner to body atom
+
+# Neighbor list
+neighbor 0.3 bin # extra-distance style
+neigh_modify exclude molecule/intra CrossLinker
+neigh_modify exclude molecule/intra Monomer
+
+fix langevinFix all langevin 0.05 0.05 10000.0 12345 # ID group-ID langevin Tstart Tstop damp seed
+
+thermo 10000
+
+# COMPUTES
+
+# Compute global kinetic and potential energy and temperature
+compute t all temp
+compute ep all pe
+compute ek all ke
+
+# Compute Cluster sizes
+# compute ID group-ID cluster/atom cutoff
+# compute ID group-ID chunk/atom style args keyword value
+# compute ID group-ID property/chunk chunkID input1 input2
+compute cluster all aggregate/atom 0.625
+compute cc1 all chunk/atom c_cluster compress yes pbc yes
+compute size all property/chunk cc1 count
+
+# DUMPS and FIXES
+
+# Save atom positions
+dump dumpID all atom 100 info/patchyParticles_assembly.dumpf
+dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
+dump dumpCID all custom 100 info/patchyParticlesCluster_assembly.dumpf id type mol xs ys zs c_cluster
+dump_modify dumpCID pbc yes # remap atoms via periodic boundary conditions
+
+# Write dump file of the last configuration
+dump dumpNew all custom ${steps} newdata_assembly.dumpf id type mol xs ys zs c_cluster
+dump dumpNew all custom 250000 newdata_assembly.dumpf id type mol xs ys zs c_cluster
+dump_modify dumpNew delay ${steps}
+dump_modify dumpNew delay 250000
+
+# Save global energies and temperature
+group Energy empty
+0 atoms in group Energy
+fix fixEng Energy ave/time 1 1 1 c_t c_ep c_ek file info/energy_assembly.fixf
+
+# Save the cluster sizes
+#fix ID group-ID style Nevery Nrepeat Nfreq lo hi Nbin value1 value2
+fix 1 all ave/time 1 1 1 c_size file info/sizeCluster_assembly.fixf mode vector
+
+# RUN SIMULATION
+
+timestep 0.001
+run ${steps}
+run 250000
+WARNING: Using a manybody potential with bonds/angles/dihedrals and special_bond exclusions (src/pair.cpp:242)
+WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
+WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
+Neighbor list info ...
+  update: every = 1 steps, delay = 0 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 1.42
+  ghost atom cutoff = 1.42
+  binsize = 0.71, bins = 6 6 6
+  5 neighbor lists, perpetual/occasional/extra = 4 1 0
+  (1) pair lj/cut, perpetual, skip from (4)
+      attributes: half, newton on
+      pair build: skip
+      stencil: none
+      bin: none
+  (2) pair sw, perpetual, skip from (5)
+      attributes: half, newton on, cut 1.05
+      pair build: skip
+      stencil: none
+      bin: none
+  (3) compute aggregate/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin
+      stencil: full/bin/3d
+      bin: standard
+  (4) neighbor class addition, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d
+      bin: standard
+  (5) neighbor class addition, perpetual, trim from (4)
+      attributes: half, newton on, cut 1.05
+      pair build: trim
+      stencil: none
+      bin: none
+Per MPI rank memory allocation (min/avg/max) = 19.33 | 19.33 | 19.33 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   0              0.00086506628  0              0.00086506628 -0.024404555  
+     10000   0.048080557   -0.032648571    0              0.0010078186   0.12295801   
+     20000   0.077837484   -0.053849649    0              0.00063658981  0.045118726  
+     30000   0.14640822    -0.102233       0              0.00025275043  0.1396303    
+     40000   0.12262491    -0.086617785    0             -0.00078034805  0.082780853  
+     50000   0.13824963    -0.096871804    0             -9.7064271e-05  0.067484971  
+     60000   0.11774987    -0.082201908    0              0.00022300191  0.20331497   
+     70000   0.11205922    -0.077006123    0              0.0014353301   0.038785813  
+     80000   0.11027486    -0.076894138    0              0.00029826137  0.098340034  
+     90000   0.10612002    -0.07465395     0             -0.00036993401  0.15350916   
+    100000   0.11479038    -0.080467432    0             -0.00011416528  0.084667782  
+    110000   0.12262737    -0.086514708    0             -0.00067554899 -0.092108645  
+    120000   0.15979008    -0.11309979     0             -0.0012467376   0.16630553   
+    130000   0.1112451     -0.078787015    0             -0.00091544398 -0.0017975601 
+    140000   0.11807188    -0.083236297    0             -0.00058597948  0.077634407  
+    150000   0.12672229    -0.08928501     0             -0.00057940816  0.020472384  
+    160000   0.10471358    -0.073610273    0             -0.00031076909 -0.13537463   
+    170000   0.12417825    -0.086523373    0              0.00040140425  0.23072002   
+    180000   0.13721197    -0.09493567     0              0.0011127068   0.038169064  
+    190000   0.14383484    -0.10012293     0              0.0005614562   0.12016429   
+    200000   0.12317773    -0.085552225    0              0.00067218941  0.022975313  
+    210000   0.11771288    -0.08131346     0              0.0010855533  -0.038943082  
+    220000   0.12682908    -0.087959332    0              0.0008210223   0.12417544   
+    230000   0.14039022    -0.096935055    0              0.0013380963   0.19080735   
+    240000   0.10408567    -0.071517726    0              0.0013422398   0.026782456  
+    250000   0.15270482    -0.10595342     0              0.00093995379 -0.13840484   
+Loop time of 9.87419 on 1 procs for 250000 steps with 55 atoms
+
+Performance: 2187522.090 tau/day, 25318.543 timesteps/s, 1.393 Matom-step/s
+83.6% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.6352     | 0.6352     | 0.6352     |   0.0 |  6.43
+Bond    | 0.018343   | 0.018343   | 0.018343   |   0.0 |  0.19
+Neigh   | 0.087307   | 0.087307   | 0.087307   |   0.0 |  0.88
+Comm    | 0.262      | 0.262      | 0.262      |   0.0 |  2.65
+Output  | 0.62464    | 0.62464    | 0.62464    |   0.0 |  6.33
+Modify  | 8.1044     | 8.1044     | 8.1044     |   0.0 | 82.08
+Other   |            | 0.1423     |            |       |  1.44
+
+Nlocal:             55 ave          55 max          55 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:            244 ave         244 max         244 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:              0 ave           0 max           0 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:          120 ave         120 max         120 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 120
+Ave neighs/atom = 2.1818182
+Ave special neighs/atom = 2.9090909
+Neighbor list builds = 1834
+Dangerous builds = 0
+Total wall time: 0:00:10
