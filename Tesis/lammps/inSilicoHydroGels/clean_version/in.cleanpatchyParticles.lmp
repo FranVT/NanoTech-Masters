@@ -15,9 +15,9 @@ pair_style hybrid/overlay lj/cut 1.12 sw threebody off
 newton on
 
 # Varaibles
-variable L equal 5
-variable NCL equal 50
-variable NMO equal 200
+variable L equal 2
+variable NCL equal 5
+variable NMO equal 10
 variable seed1 equal 1234
 variable seed2 equal 4321
 variable seed3 equal 3124
@@ -78,7 +78,7 @@ neighbor 0.3 bin # extra-distance style
 neigh_modify exclude molecule/intra CrossLinker
 neigh_modify exclude molecule/intra Monomer
 
-fix langevinFix all langevin 0.1 0.1 10000.0 12345 # ID group-ID langevin Tstart Tstop damp seed
+fix langevinFix all langevin 0.05 0.05 10000.0 12345 # ID group-ID langevin Tstart Tstop damp seed
 
 thermo 10000
 
@@ -108,6 +108,8 @@ compute size all property/chunk cc1 count
 # Save atom positions
 dump dumpID all atom 100 info/patchyParticles_clean.dumpf
 dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
+dump dumpCID all custom 100 info/patchyParticlesCluster_clean.dumpf id type mol xs ys zs c_cluster
+dump_modify dumpCID pbc yes # remap atoms via periodic boundary conditions
 
 # Save global energies and temperature
 group Energy empty
