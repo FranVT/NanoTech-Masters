@@ -104,20 +104,26 @@ create_atoms 0 random 5 1234 spawn_box mol CL ${seed1} overlap 0.5 maxtry 5000
 create_atoms 0 random 5 1234 spawn_box mol CL 1234 overlap 0.5 maxtry 5000 
 Created 25 atoms
   using lattice units in orthogonal box = (-2 -2 -2) to (2 2 2)
-  create_atoms CPU = 0.003 seconds
+  create_atoms CPU = 0.001 seconds
 create_atoms 0 random ${NMO} ${seed2} spawn_box mol MO ${seed2} overlap 0.5 maxtry 5000 #mon
 create_atoms 0 random 10 ${seed2} spawn_box mol MO ${seed2} overlap 0.5 maxtry 5000 
 create_atoms 0 random 10 4321 spawn_box mol MO ${seed2} overlap 0.5 maxtry 5000 
 create_atoms 0 random 10 4321 spawn_box mol MO 4321 overlap 0.5 maxtry 5000 
 Created 30 atoms
   using lattice units in orthogonal box = (-2 -2 -2) to (2 2 2)
-  create_atoms CPU = 0.002 seconds
+  create_atoms CPU = 0.001 seconds
 
 # Create patchy particles
 group CrossLinker type 1 3
 25 atoms in group CrossLinker
 group Monomer type 2 4
 30 atoms in group Monomer
+group Patches type 3 4
+40 atoms in group Patches
+group CL type 1
+5 atoms in group CL
+group MO type 2
+10 atoms in group MO
 fix pCL CrossLinker rigid/small molecule #langevin 1.0 1.0 100.0 ${seed3}
   create bodies CPU = 0.000 seconds
   5 rigid bodies with 25 atoms
@@ -128,7 +134,7 @@ fix pMO Monomer rigid/small molecule #langevin 1.0 1.0 100.0 ${seed3}
   0.5 = max distance from body owner to body atom
 
 # Neighbor list
-neighbor 0.3 bin # extra-distance style
+neighbor 1.8 bin # extra-distance style
 neigh_modify exclude molecule/intra CrossLinker
 neigh_modify exclude molecule/intra Monomer
 
@@ -160,8 +166,8 @@ dump dumpCID all custom 100 info/patchyParticlesCluster_assembly.dumpf id type m
 dump_modify dumpCID pbc yes # remap atoms via periodic boundary conditions
 
 # Write dump file of the last configuration
-dump dumpNew all custom ${steps} newdata_assembly.dumpf id type mol xs ys zs c_cluster
-dump dumpNew all custom 250000 newdata_assembly.dumpf id type mol xs ys zs c_cluster
+dump dumpNew all custom ${steps} newdata_assembly.dumpf id type mol x y z c_cluster
+dump dumpNew all custom 250000 newdata_assembly.dumpf id type mol x y z c_cluster
 dump_modify dumpNew delay ${steps}
 dump_modify dumpNew delay 250000
 
@@ -185,9 +191,9 @@ WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
 Neighbor list info ...
   update: every = 1 steps, delay = 0 steps, check = yes
   max neighbors/atom: 2000, page size: 100000
-  master list distance cutoff = 1.42
-  ghost atom cutoff = 1.42
-  binsize = 0.71, bins = 6 6 6
+  master list distance cutoff = 2.92
+  ghost atom cutoff = 2.92
+  binsize = 1.46, bins = 3 3 3
   5 neighbor lists, perpetual/occasional/extra = 4 1 0
   (1) pair lj/cut, perpetual, skip from (4)
       attributes: half, newton on
@@ -195,7 +201,7 @@ Neighbor list info ...
       stencil: none
       bin: none
   (2) pair sw, perpetual, skip from (5)
-      attributes: half, newton on, cut 1.05
+      attributes: half, newton on, cut 2.55
       pair build: skip
       stencil: none
       bin: none
@@ -210,66 +216,159 @@ Neighbor list info ...
       stencil: half/bin/3d
       bin: standard
   (5) neighbor class addition, perpetual, trim from (4)
-      attributes: half, newton on, cut 1.05
+      attributes: half, newton on, cut 2.55
       pair build: trim
       stencil: none
       bin: none
-Per MPI rank memory allocation (min/avg/max) = 19.33 | 19.33 | 19.33 Mbytes
+Per MPI rank memory allocation (min/avg/max) = 19.56 | 19.56 | 19.56 Mbytes
    Step          Temp          E_pair         E_mol          TotEng         Press     
          0   0              0.00086506628  0              0.00086506628 -0.024404555  
-     10000   0.048080557   -0.032648571    0              0.0010078186   0.12295801   
-     20000   0.077837484   -0.053849649    0              0.00063658981  0.045118726  
-     30000   0.14640822    -0.102233       0              0.00025275043  0.1396303    
-     40000   0.12262491    -0.086617785    0             -0.00078034805  0.082780853  
-     50000   0.13824963    -0.096871804    0             -9.7064271e-05  0.067484971  
-     60000   0.11774987    -0.082201908    0              0.00022300191  0.20331497   
-     70000   0.11205922    -0.077006123    0              0.0014353301   0.038785813  
-     80000   0.11027486    -0.076894138    0              0.00029826137  0.098340034  
-     90000   0.10612002    -0.07465395     0             -0.00036993401  0.15350916   
-    100000   0.11479038    -0.080467432    0             -0.00011416528  0.084667782  
-    110000   0.12262737    -0.086514708    0             -0.00067554899 -0.092108645  
-    120000   0.15979008    -0.11309979     0             -0.0012467376   0.16630553   
-    130000   0.1112451     -0.078787015    0             -0.00091544398 -0.0017975601 
-    140000   0.11807188    -0.083236297    0             -0.00058597948  0.077634407  
-    150000   0.12672229    -0.08928501     0             -0.00057940816  0.020472384  
-    160000   0.10471358    -0.073610273    0             -0.00031076909 -0.13537463   
-    170000   0.12417825    -0.086523373    0              0.00040140425  0.23072002   
-    180000   0.13721197    -0.09493567     0              0.0011127068   0.038169064  
-    190000   0.14383484    -0.10012293     0              0.0005614562   0.12016429   
-    200000   0.12317773    -0.085552225    0              0.00067218941  0.022975313  
-    210000   0.11771288    -0.08131346     0              0.0010855533  -0.038943082  
-    220000   0.12682908    -0.087959332    0              0.0008210223   0.12417544   
-    230000   0.14039022    -0.096935055    0              0.0013380963   0.19080735   
-    240000   0.10408567    -0.071517726    0              0.0013422398   0.026782456  
-    250000   0.15270482    -0.10595342     0              0.00093995379 -0.13840484   
-Loop time of 9.87419 on 1 procs for 250000 steps with 55 atoms
+     10000   0.069223976   -0.047370734    0              0.0010860493   0.098582816  
+     20000   0.088914126   -0.061360781    0              0.0008791067   0.053559637  
+     30000   0.12510421    -0.08681533     0              0.00075761869  0.044667313  
+     40000   0.11056438    -0.07676748     0              0.00062758438  0.082884734  
+     50000   0.12968657    -0.090336131    0              0.00044446445  0.034580068  
+     60000   0.11844356    -0.082431354    0              0.00047913854 -0.036121953  
+     70000   0.11616797    -0.081111417    0              0.0002061604   0.089383529  
+     80000   0.11327446    -0.079319324    0             -2.7201236e-05  0.017965479  
+     90000   0.10367222    -0.072192277    0              0.00037828027 -0.047900941  
+    100000   0.12161573    -0.084080623    0              0.0010503887   0.051890177  
+    110000   0.10496423    -0.072384443    0              0.0010905185  -0.070820169  
+    120000   0.087742194   -0.0598279      0              0.0015916352   0.0045601107 
+    130000   0.091755066   -0.062589669    0              0.0016388768   0.055548296  
+    140000   0.14173944    -0.097286576    0              0.0019310353   0.13188952   
+    150000   0.12882222    -0.087653516    0              0.0025220392   0.12056926   
+    160000   0.11883892    -0.081028805    0              0.0021584406   0.018436686  
+    170000   0.12607895    -0.086407271    0              0.0018479928   0.032223899  
+    180000   0.14680443    -0.10125179     0              0.0015113115   0.099890813  
+    190000   0.173828      -0.12076742     0              0.00091218133  0.092297624  
+    200000   0.12401779    -0.086125039    0              0.0006874153   0.035351462  
+    210000   0.10929291    -0.075893542    0              0.00061149742  0.055861557  
+    220000   0.096916774   -0.066777571    0              0.0010641708   0.044077207  
+    230000   0.091987609   -0.063100731    0              0.0012905952   0.011343131  
+    240000   0.10627695    -0.073075505    0              0.0013183613  -0.017472978  
+    250000   0.1178726     -0.081913053    0              0.00059776613 -0.092244332  
+Loop time of 34.1674 on 1 procs for 250000 steps with 55 atoms
 
-Performance: 2187522.090 tau/day, 25318.543 timesteps/s, 1.393 Matom-step/s
-83.6% CPU use with 1 MPI tasks x 1 OpenMP threads
+Performance: 632181.109 tau/day, 7316.911 timesteps/s, 402.430 katom-step/s
+94.3% CPU use with 1 MPI tasks x 1 OpenMP threads
 
 MPI task timing breakdown:
 Section |  min time  |  avg time  |  max time  |%varavg| %total
 ---------------------------------------------------------------
-Pair    | 0.6352     | 0.6352     | 0.6352     |   0.0 |  6.43
-Bond    | 0.018343   | 0.018343   | 0.018343   |   0.0 |  0.19
-Neigh   | 0.087307   | 0.087307   | 0.087307   |   0.0 |  0.88
-Comm    | 0.262      | 0.262      | 0.262      |   0.0 |  2.65
-Output  | 0.62464    | 0.62464    | 0.62464    |   0.0 |  6.33
-Modify  | 8.1044     | 8.1044     | 8.1044     |   0.0 | 82.08
-Other   |            | 0.1423     |            |       |  1.44
+Pair    | 1.4092     | 1.4092     | 1.4092     |   0.0 |  4.12
+Bond    | 0.022325   | 0.022325   | 0.022325   |   0.0 |  0.07
+Neigh   | 0.054061   | 0.054061   | 0.054061   |   0.0 |  0.16
+Comm    | 0.70007    | 0.70007    | 0.70007    |   0.0 |  2.05
+Output  | 0.83926    | 0.83926    | 0.83926    |   0.0 |  2.46
+Modify  | 30.913     | 30.913     | 30.913     |   0.0 | 90.47
+Other   |            | 0.2297     |            |       |  0.67
 
 Nlocal:             55 ave          55 max          55 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
-Nghost:            244 ave         244 max         244 min
+Nghost:            685 ave         685 max         685 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
 Neighs:              0 ave           0 max           0 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
-FullNghs:          120 ave         120 max         120 min
+FullNghs:         1926 ave        1926 max        1926 min
 Histogram: 1 0 0 0 0 0 0 0 0 0
 
-Total # of neighbors = 120
-Ave neighs/atom = 2.1818182
+Total # of neighbors = 1926
+Ave neighs/atom = 35.018182
 Ave special neighs/atom = 2.9090909
-Neighbor list builds = 1834
+Neighbor list builds = 243
 Dangerous builds = 0
-Total wall time: 0:00:10
+
+delete_atoms group Patches compress yes bond yes
+WARNING: Attempting to delete atoms in rigid bodies (src/delete_atoms.cpp:94)
+WARNING: Ignoring 'compress yes' for molecular system (src/delete_atoms.cpp:140)
+Deleted 40 atoms, new total = 15
+Deleted 40 bonds, new total = 0
+create_bonds many CL MO 1 0.0 1.56
+WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
+WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
+Neighbor list info ...
+  update: every = 1 steps, delay = 0 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 2.92
+  ghost atom cutoff = 2.92
+  binsize = 1.46, bins = 3 3 3
+  6 neighbor lists, perpetual/occasional/extra = 4 2 0
+  (1) command create_bonds, occasional
+      attributes: full, newton on
+      pair build: full/bin
+      stencil: full/bin/3d
+      bin: standard
+  (2) pair lj/cut, perpetual, skip from (5)
+      attributes: half, newton on
+      pair build: skip
+      stencil: none
+      bin: none
+  (3) pair sw, perpetual, skip from (6)
+      attributes: half, newton on, cut 2.55
+      pair build: skip
+      stencil: none
+      bin: none
+  (4) compute aggregate/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin
+      stencil: full/bin/3d
+      bin: standard
+  (5) neighbor class addition, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d
+      bin: standard
+  (6) neighbor class addition, perpetual, trim from (5)
+      attributes: half, newton on, cut 2.55
+      pair build: trim
+      stencil: none
+      bin: none
+WARNING: Create_bonds max distance > minimum neighbor cutoff (src/create_bonds.cpp:198)
+Added 11 bonds, new total = 11
+Finding 1-2 1-3 1-4 neighbors ...
+  special bond factors lj:    0        0        0       
+  special bond factors coul:  0        0        0       
+     3 = max # of 1-2 neighbors
+     4 = max # of 1-3 neighbors
+     6 = max # of 1-4 neighbors
+    12 = max # of special neighbors
+  special bonds CPU = 0.001 seconds
+write_data data.test
+System init for write_data ...
+WARNING: Using a manybody potential with bonds/angles/dihedrals and special_bond exclusions (src/pair.cpp:242)
+WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
+WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
+Neighbor list info ...
+  update: every = 1 steps, delay = 0 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 2.92
+  ghost atom cutoff = 2.92
+  binsize = 1.46, bins = 3 3 3
+  5 neighbor lists, perpetual/occasional/extra = 4 1 0
+  (1) pair lj/cut, perpetual, skip from (4)
+      attributes: half, newton on
+      pair build: skip
+      stencil: none
+      bin: none
+  (2) pair sw, perpetual, skip from (5)
+      attributes: half, newton on, cut 2.55
+      pair build: skip
+      stencil: none
+      bin: none
+  (3) compute aggregate/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin
+      stencil: full/bin/3d
+      bin: standard
+  (4) neighbor class addition, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d
+      bin: standard
+  (5) neighbor class addition, perpetual, trim from (4)
+      attributes: half, newton on, cut 2.55
+      pair build: trim
+      stencil: none
+      bin: none
+Total wall time: 0:00:34
