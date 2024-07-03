@@ -7,7 +7,7 @@
 """
 
 # Path to the file and file name
-pathf = "assembly\\";
+pathf = "assembly//";
 filename = "data.test";
 
 # Extract information

@@ -16,13 +16,13 @@ pair_style hybrid/overlay lj/cut 1.12 sw threebody off
 newton on
 
 # Varaibles
-variable L equal 2
-variable NCL equal 5
-variable NMO equal 10
+variable L equal 5
+variable NCL equal 10
+variable NMO equal 90
 variable seed1 equal 1234
 variable seed2 equal 4321
 variable seed3 equal 3124
-variable steps equal 250000
+variable steps equal 25000000
 
 # Create simulaiton box
 region simulation_box block -$L $L -$L $L -$L $L
@@ -85,7 +85,7 @@ neigh_modify exclude molecule/intra Monomer
 
 fix langevinFix all langevin 0.05 0.05 10000.0 12345 # ID group-ID langevin Tstart Tstop damp seed
 
-thermo 10000
+thermo 500000
 
 # COMPUTES
 
@@ -105,9 +105,9 @@ compute size all property/chunk cc1 count
 # DUMPS and FIXES
 
 # Save atom positions
-dump dumpID all atom 100 info/patchyParticles_assembly.dumpf
+dump dumpID all atom 1 info/patchyParticles_assembly.dumpf
 dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
-dump dumpCID all custom 100 info/patchyParticlesCluster_assembly.dumpf id type mol xs ys zs c_cluster
+dump dumpCID all custom 1 info/patchyParticlesCluster_assembly.dumpf id type mol xs ys zs c_cluster
 dump_modify dumpCID pbc yes # remap atoms via periodic boundary conditions
 
 # Write dump file of the last configuration
@@ -127,6 +127,8 @@ fix 1 all ave/time 1 1 1 c_size file info/sizeCluster_assembly.fixf mode vector
 timestep 0.001
 run ${steps}
 
-delete_atoms group Patches compress yes bond yes
-create_bonds many CL MO 1 0.0 1.56
-write_data data.test 
+#delete_atoms group Patches compress yes bond yes
+#create_bonds many CL MO 1 0.0 1.56
+#reset_atoms id
+#resete_atoms mol all
+#write_data data.test 
