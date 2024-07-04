@@ -22,7 +22,8 @@ variable NMO equal 90
 variable seed1 equal 1234
 variable seed2 equal 4321
 variable seed3 equal 3124
-variable steps equal 25000000
+variable steps equal 40000000
+variable tstep equal 0.005
 
 # Create simulaiton box
 region simulation_box block -$L $L -$L $L -$L $L
@@ -105,10 +106,10 @@ compute size all property/chunk cc1 count
 # DUMPS and FIXES
 
 # Save atom positions
-dump dumpID all atom 1 info/patchyParticles_assembly.dumpf
-dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
-dump dumpCID all custom 1 info/patchyParticlesCluster_assembly.dumpf id type mol xs ys zs c_cluster
-dump_modify dumpCID pbc yes # remap atoms via periodic boundary conditions
+#dump dumpID all atom 1 info/patchyParticles_assembly.dumpf
+#dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
+#dump dumpCID all custom 1 info/patchyParticlesCluster_assembly.dumpf id type mol xs ys zs c_cluster
+#dump_modify dumpCID pbc yes # remap atoms via periodic boundary conditions
 
 # Write dump file of the last configuration
 dump dumpNew all custom ${steps} newdata_assembly.dumpf id type mol x y z c_cluster
@@ -124,7 +125,7 @@ fix 1 all ave/time 1 1 1 c_size file info/sizeCluster_assembly.fixf mode vector
 
 # RUN SIMULATION
 
-timestep 0.001
+timestep ${tstep}
 run ${steps}
 
 #delete_atoms group Patches compress yes bond yes

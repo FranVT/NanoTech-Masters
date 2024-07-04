@@ -25,7 +25,8 @@ variable NMO equal 90
 variable seed1 equal 1234
 variable seed2 equal 4321
 variable seed3 equal 3124
-variable steps equal 25000000
+variable steps equal 40000000
+variable tstep equal 0.005
 
 # Create simulaiton box
 region simulation_box block -$L $L -$L $L -$L $L
@@ -112,4 +113,228 @@ create_atoms 0 random 90 4321 spawn_box mol MO ${seed2} overlap 0.5 maxtry 5000
 create_atoms 0 random 90 4321 spawn_box mol MO 4321 overlap 0.5 maxtry 5000 
 Created 270 atoms
   using lattice units in orthogonal box = (-5 -5 -5) to (5 5 5)
-  create_atoms CPU = 0.001 secon
+  create_atoms CPU = 0.001 seconds
+
+# Create patchy particles
+group CrossLinker type 1 3
+50 atoms in group CrossLinker
+group Monomer type 2 4
+270 atoms in group Monomer
+group Patches type 3 4
+220 atoms in group Patches
+group CL type 1
+10 atoms in group CL
+group MO type 2
+90 atoms in group MO
+fix pCL CrossLinker rigid/small molecule #langevin 1.0 1.0 100.0 ${seed3}
+  create bodies CPU = 0.000 seconds
+  10 rigid bodies with 50 atoms
+  0.46400431 = max distance from body owner to body atom
+fix pMO Monomer rigid/small molecule #langevin 1.0 1.0 100.0 ${seed3}
+  create bodies CPU = 0.000 seconds
+  90 rigid bodies with 270 atoms
+  0.5 = max distance from body owner to body atom
+
+# Neighbor list
+neighbor 1.8 bin # extra-distance style
+neigh_modify exclude molecule/intra CrossLinker
+neigh_modify exclude molecule/intra Monomer
+
+fix langevinFix all langevin 0.05 0.05 10000.0 12345 # ID group-ID langevin Tstart Tstop damp seed
+
+thermo 500000
+
+# COMPUTES
+
+# Compute global kinetic and potential energy and temperature
+compute t all temp
+compute ep all pe
+compute ek all ke
+
+# Compute Cluster sizes
+# compute ID group-ID cluster/atom cutoff
+# compute ID group-ID chunk/atom style args keyword value
+# compute ID group-ID property/chunk chunkID input1 input2
+compute cluster all aggregate/atom 0.625
+compute cc1 all chunk/atom c_cluster compress yes pbc yes
+compute size all property/chunk cc1 count
+
+# DUMPS and FIXES
+
+# Save atom positions
+#dump dumpID all atom 1 info/patchyParticles_assembly.dumpf
+#dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
+#dump dumpCID all custom 1 info/patchyParticlesCluster_assembly.dumpf id type mol xs ys zs c_cluster
+#dump_modify dumpCID pbc yes # remap atoms via periodic boundary conditions
+
+# Write dump file of the last configuration
+dump dumpNew all custom ${steps} newdata_assembly.dumpf id type mol x y z c_cluster
+dump dumpNew all custom 40000000 newdata_assembly.dumpf id type mol x y z c_cluster
+dump_modify dumpNew delay ${steps}
+dump_modify dumpNew delay 40000000
+
+# Save global energies and temperature
+group Energy empty
+0 atoms in group Energy
+fix fixEng Energy ave/time 1 1 1 c_t c_ep c_ek file info/energy_assembly.fixf
+
+# Save the cluster sizes
+#fix ID group-ID style Nevery Nrepeat Nfreq lo hi Nbin value1 value2
+fix 1 all ave/time 1 1 1 c_size file info/sizeCluster_assembly.fixf mode vector
+
+# RUN SIMULATION
+
+timestep ${tstep}
+timestep 0.005
+run ${steps}
+run 40000000
+Generated 0 of 6 mixed pair_coeff terms from geometric mixing rule
+WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
+WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
+Neighbor list info ...
+  update: every = 1 steps, delay = 0 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 2.92
+  ghost atom cutoff = 2.92
+  binsize = 1.46, bins = 7 7 7
+  4 neighbor lists, perpetual/occasional/extra = 3 1 0
+  (1) pair lj/cut, perpetual, skip from (4)
+      attributes: half, newton on
+      pair build: skip
+      stencil: none
+      bin: none
+  (2) pair sw, perpetual, skip from (4)
+      attributes: half, newton on, cut 2.55
+      pair build: skip
+      stencil: none
+      bin: none
+  (3) compute aggregate/atom, occasional
+      attributes: full, newton on
+      pair build: full/bin
+      stencil: full/bin/3d
+      bin: standard
+  (4) neighbor class addition, perpetual
+      attributes: half, newton on
+      pair build: half/bin/newton
+      stencil: half/bin/3d
+      bin: standard
+Per MPI rank memory allocation (min/avg/max) = 17.29 | 17.29 | 17.29 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   0              2.6298151      0              2.6298151      22.611792    
+    500000   1.8186129      0.016681882    0              1.4573643      0.21719366   
+   1000000   1.1436549      0.0042142476   0              0.91020336     0.12870312   
+   1500000   0.70713653     0.007835808    0              0.56802053     0.11290674   
+   2000000   0.45849725    -0.00078090515  0              0.36243489     0.058957601  
+   2500000   0.30259802    -0.013861355    0              0.22585301     0.014077355  
+   3000000   0.22186281    -0.027277176    0              0.14847977     0.01730736   
+   3500000   0.164041      -0.03049372     0              0.099457509    0.023728133  
+   4000000   0.14045499    -0.037984766    0              0.073281921    0.014104765  
+   4500000   0.12243465    -0.053666679    0              0.043324524    0.023780771  
+   5000000   0.10385627    -0.06517737     0              0.01709627     0.0063514716 
+   5500000   0.10063514    -0.085595802    0             -0.0058739007  -0.0065236333 
+   6000000   0.091660131   -0.096580974    0             -0.023968964    0.0031316719 
+   6500000   0.093461522   -0.11869884     0             -0.044659792    0.0078083631 
+   7000000   0.092169227   -0.13156032     0             -0.058545009    0.0035901448 
+   7500000   0.092299879   -0.14780074     0             -0.074681929   -0.0089661163 
+   8000000   0.084313076   -0.16247818     0             -0.09568642    -0.0086592895 
+   8500000   0.089573826   -0.18209057     0             -0.1111313     -0.0066324421 
+   9000000   0.094686298   -0.19892759     0             -0.12391829    -0.013664409  
+   9500000   0.099090282   -0.21175244     0             -0.13325435     0.0010589976 
+  10000000   0.080866389   -0.21076302     0             -0.14670168     0.019162419  
+  10500000   0.091146374   -0.2368756      0             -0.16467058    -0.016077643  
+  11000000   0.091386254   -0.24803809     0             -0.17564305    -0.027085057  
+  11500000   0.089054636   -0.258713       0             -0.18816504    -0.0035170005 
+  12000000   0.077059438   -0.26035348     0             -0.19930796    -0.0075680226 
+  12500000   0.084803449   -0.28291019     0             -0.21572996    -0.022960354  
+  13000000   0.08258965    -0.28862359     0             -0.2231971      0.016305531  
+  13500000   0.073109602   -0.29886203     0             -0.24094552    -0.0076629104 
+  14000000   0.066856275   -0.31010682     0             -0.25714411     0.051697981  
+  14500000   0.082483078   -0.33092        0             -0.26557793     0.0051586273 
+  15000000   0.07015417    -0.3328903      0             -0.27731504     0.038033419  
+  15500000   0.073111624   -0.34722123     0             -0.28930311     0.028104122  
+  16000000   0.070037526   -0.35746304     0             -0.30198019     0.046763495  
+  16500000   0.061425694   -0.36408135     0             -0.31542068    -0.065730466  
+  17000000   0.070735849   -0.37461937     0             -0.31858332    -0.030643598  
+  17500000   0.062669363   -0.37905026     0             -0.32940438     0.0020835293 
+  18000000   0.065183652   -0.38520661     0             -0.33356894    -0.011784722  
+  18500000   0.064056577   -0.39062004     0             -0.33987522     0.052512359  
+  19000000   0.060854375   -0.39312036     0             -0.34491228    -0.0076912198 
+  19500000   0.055737045   -0.3947459      0             -0.35059171     0.010167906  
+  20000000   0.062241444   -0.40162669     0             -0.3523198      0.022092364  
+  20500000   0.05841203    -0.40243202     0             -0.35615874    -0.007471742  
+  21000000   0.056478008   -0.40712843     0             -0.36238726     0.010577496  
+  21500000   0.061083648   -0.41210621     0             -0.36371651    -0.007068622  
+  22000000   0.04942933    -0.40436424     0             -0.36520695    -0.006111835  
+  22500000   0.050384304   -0.40581303     0             -0.36589922    -0.049789947  
+  23000000   0.055023446   -0.40959085     0             -0.36600197     0.0057581254 
+  23500000   0.052556883   -0.40802777     0             -0.36639286     0.015648726  
+  24000000   0.05503878    -0.41225923     0             -0.3686582     -0.022558909  
+  24500000   0.046880964   -0.40511141     0             -0.36797289    -0.016930291  
+  25000000   0.049740963   -0.40671826     0             -0.36731409    -0.0063407098 
+  25500000   0.049988921   -0.40555624     0             -0.36595564    -0.021601418  
+  26000000   0.0547656     -0.40955306     0             -0.36616843    -0.023318712  
+  26500000   0.052457281   -0.41092933     0             -0.36937333     0.0038901877 
+  27000000   0.049513102   -0.41055372     0             -0.37133005    -0.00039782621
+  27500000   0.047464328   -0.41066663     0             -0.37306599     0.0031603765 
+  28000000   0.055729666   -0.41390504     0             -0.36975669     0.013186198  
+  28500000   0.053744727   -0.40927057     0             -0.36669467     0.031025209  
+  29000000   0.052538825   -0.40818463     0             -0.36656403     0.00031454009
+  29500000   0.052379475   -0.4091985      0             -0.36770414     0.016535896  
+  30000000   0.047720986   -0.40844197     0             -0.370638       0.0044535123 
+  30500000   0.053970726   -0.40723733     0             -0.36448239     0.0044103783 
+  31000000   0.052333311   -0.40768514     0             -0.36622734    -0.010435439  
+  31500000   0.049090874   -0.40627841     0             -0.36738923     0.030964936  
+  32000000   0.053205953   -0.41390212     0             -0.37175303    -0.013737808  
+  32500000   0.052663661   -0.41057425     0             -0.36885476    -0.0064980188 
+  33000000   0.049436002   -0.41466023     0             -0.37549765     0.019129223  
+  33500000   0.051607382   -0.4171984      0             -0.37631567     0.058420026  
+  34000000   0.051223034   -0.41560804     0             -0.37502979     0.02327982   
+  34500000   0.053808      -0.41437961     0             -0.37175359    -0.018019013  
+  35000000   0.05031252    -0.41989707     0             -0.38004012     0.043571326  
+  35500000   0.051327463   -0.41962619     0             -0.37896522     0.022338863  
+  36000000   0.052680951   -0.42336764     0             -0.38163445     0.0041977442 
+  36500000   0.046182036   -0.4177085      0             -0.38112367    -0.006865788  
+  37000000   0.04836831    -0.42251023     0             -0.38419346    -0.0063693678 
+  37500000   0.045320354   -0.41975405     0             -0.38385183     0.024479828  
+  38000000   0.047524433   -0.42409997     0             -0.3864517     -0.017978593  
+  38500000   0.052020395   -0.42572463     0             -0.38451473    -0.018479563  
+  39000000   0.048243085   -0.42295506     0             -0.38473749     0.019278367  
+  39500000   0.047782053   -0.42391634     0             -0.38606399     0.0027919186 
+  40000000   0.042579844   -0.41639418     0             -0.38266296    -0.017015737  
+Loop time of 16154.3 on 1 procs for 40000000 steps with 320 atoms
+
+Performance: 1069687.271 tau/day, 2476.128 timesteps/s, 792.361 katom-step/s
+98.7% CPU use with 1 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 1226.7     | 1226.7     | 1226.7     |   0.0 |  7.59
+Bond    | 2.3136     | 2.3136     | 2.3136     |   0.0 |  0.01
+Neigh   | 73.39      | 73.39      | 73.39      |   0.0 |  0.45
+Comm    | 88.845     | 88.845     | 88.845     |   0.0 |  0.55
+Output  | 0.0029618  | 0.0029618  | 0.0029618  |   0.0 |  0.00
+Modify  | 14728      | 14728      | 14728      |   0.0 | 91.17
+Other   |            | 34.49      |            |       |  0.21
+
+Nlocal:            320 ave         320 max         320 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Nghost:           1546 ave        1546 max        1546 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+Neighs:              0 ave           0 max           0 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+FullNghs:        17538 ave       17538 max       17538 min
+Histogram: 1 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 17538
+Ave neighs/atom = 54.80625
+Ave special neighs/atom = 2.3125
+Neighbor list builds = 208126
+Dangerous builds = 0
+
+#delete_atoms group Patches compress yes bond yes
+#create_bonds many CL MO 1 0.0 1.56
+#reset_atoms id
+#resete_atoms mol all
+#write_data data.test
+Total wall time: 4:29:14

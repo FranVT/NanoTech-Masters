@@ -63,7 +63,8 @@ function graphs(info)
         xminorgridvisible = true,
         xminorticks = IntervalsBetween(5),
         xscale = log10,
-        limits = (10e1,10e6,nothing,nothing)
+        limits = (10e0,exp10(1+round(log10(length(timestep)))),nothing,nothing)
+        #limits = (10e0,10e8,nothing,nothing)
     )
 
     lines!(ax_e,timestep,Eng_pot,label="U", color = :red)
