@@ -4,6 +4,9 @@
 #   Cross linker:   PPA
 #   Monomer:        PPB
 
+# Parallel configuration with pacakge OPENMP
+# RUN: env OMP_NUM_THREADS=Nthreads mpirun -np NProcs lmp -sf omp -in
+
 # Initialization
 units lj
 dimension 3
@@ -12,7 +15,8 @@ boundary p p p
 # Styles of atoms and that stuff
 atom_style bond
 bond_style zero nocoeff
-pair_style hybrid/overlay lj/cut 1.12 sw threebody off
+#pair_style hybrid/overlay lj/cut 1.12 sw threebody off
+pair_style hybrid/overlay/omp lj/cut/omp 1.12 sw/omp threebody off
 newton on
 
 # Varaibles
@@ -22,8 +26,9 @@ variable NMO equal 90
 variable seed1 equal 1234
 variable seed2 equal 4321
 variable seed3 equal 3124
-variable steps equal 40000000
+variable steps equal 60000000
 variable tstep equal 0.005
+variable sstep equal 10000
 
 # Create simulaiton box
 region simulation_box block -$L $L -$L $L -$L $L
@@ -41,16 +46,16 @@ mass 4 0.5      # PB
 
 # Coefficients
 bond_coeff * nocoeff
-pair_coeff 1 1 lj/cut 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
-pair_coeff 2 2 lj/cut 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
-pair_coeff 1 2 lj/cut 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
+pair_coeff 1 1 lj/cut/omp 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
+pair_coeff 2 2 lj/cut/omp 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
+pair_coeff 1 2 lj/cut/omp 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
 pair_coeff 1 3 none
 pair_coeff 1 4 none
 pair_coeff 2 3 none
 pair_coeff 2 4 none
-pair_coeff 3 4 sw patchyPot.ws NULL NULL PA PB # i-type j-type pair-style 
-pair_coeff 3 3 sw patchyPot.ws NULL NULL PA PA
-pair_coeff 4 4 sw patchyPot.ws NULL NULL PB PB # i-type j-type eps sigma cutoff wca
+pair_coeff 3 4 sw/omp patchyPot.ws NULL NULL PA PB # i-type j-type pair-style 
+pair_coeff 3 3 sw/omp patchyPot.ws NULL NULL PA PA
+pair_coeff 4 4 sw/omp patchyPot.ws NULL NULL PB PB # i-type j-type eps sigma cutoff wca
 
 pair_modify shift yes
 
@@ -76,17 +81,17 @@ group Monomer type 2 4
 group Patches type 3 4
 group CL type 1
 group MO type 2
-fix pCL CrossLinker rigid/small molecule #langevin 1.0 1.0 100.0 ${seed3}
-fix pMO Monomer rigid/small molecule #langevin 1.0 1.0 100.0 ${seed3}
+fix pCL CrossLinker rigid/small/omp molecule #langevin 1.0 1.0 100.0 ${seed3}
+fix pMO Monomer rigid/small/omp molecule #langevin 1.0 1.0 100.0 ${seed3}
 
 # Neighbor list
 neighbor 1.8 bin # extra-distance style
 neigh_modify exclude molecule/intra CrossLinker
 neigh_modify exclude molecule/intra Monomer
 
-fix langevinFix all langevin 0.05 0.05 10000.0 12345 # ID group-ID langevin Tstart Tstop damp seed
+fix langevinFix all langevin 0.05 0.05 0.5 12345 # ID group-ID langevin Tstart Tstop damp seed
 
-thermo 500000
+thermo ${sstep}
 
 # COMPUTES
 
@@ -106,8 +111,8 @@ compute size all property/chunk cc1 count
 # DUMPS and FIXES
 
 # Save atom positions
-#dump dumpID all atom 1 info/patchyParticles_assembly.dumpf
-#dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
+dump dumpID all atom ${sstep} info/patchyParticles_assembly.dumpf
+dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
 #dump dumpCID all custom 1 info/patchyParticlesCluster_assembly.dumpf id type mol xs ys zs c_cluster
 #dump_modify dumpCID pbc yes # remap atoms via periodic boundary conditions
 
@@ -117,11 +122,11 @@ dump_modify dumpNew delay ${steps}
 
 # Save global energies and temperature
 group Energy empty
-fix fixEng Energy ave/time 1 1 1 c_t c_ep c_ek file info/energy_assembly.fixf
+fix fixEng Energy ave/time 1 1 10 c_t c_ep c_ek file info/energy_assembly.fixf
 
 # Save the cluster sizes
 #fix ID group-ID style Nevery Nrepeat Nfreq lo hi Nbin value1 value2
-fix 1 all ave/time 1 1 1 c_size file info/sizeCluster_assembly.fixf mode vector
+fix 1 all ave/time 1 1 ${sstep} c_size file info/sizeCluster_assembly.fixf mode vector
 
 # RUN SIMULATION
 
