@@ -15,8 +15,8 @@ boundary p p p
 # Styles of atoms and that stuff
 atom_style bond
 bond_style zero nocoeff
-#pair_style hybrid/overlay lj/cut 1.12 sw threebody off
-pair_style hybrid/overlay/omp lj/cut/omp 1.12 sw/omp threebody off
+#pair_style hybrid/overlay lj/cut 1.12 sw threebody off threebody/table
+pair_style hybrid/overlay/omp lj/cut/omp 1.12 sw/omp threebody off threebody/table
 newton on
 
 # Varaibles
@@ -46,6 +46,7 @@ mass 4 0.5      # PB
 
 # Coefficients
 bond_coeff * nocoeff
+pair_coeff * * threebody/table swapMech.3b NULL NULL PA PB
 pair_coeff 1 1 lj/cut/omp 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
 pair_coeff 2 2 lj/cut/omp 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
 pair_coeff 1 2 lj/cut/omp 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
@@ -104,7 +105,7 @@ compute ek all ke
 # compute ID group-ID cluster/atom cutoff
 # compute ID group-ID chunk/atom style args keyword value
 # compute ID group-ID property/chunk chunkID input1 input2
-compute cluster all aggregate/atom 0.625
+compute cluster all aggregate/atom 0.75
 compute cc1 all chunk/atom c_cluster compress yes pbc yes
 compute size all property/chunk cc1 count
 

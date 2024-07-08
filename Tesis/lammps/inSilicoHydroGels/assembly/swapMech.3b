@@ -1,0 +1,38 @@
+# Fco. Vazquez vazqueztfj@proton.me
+#
+# Potential file for Swap Mechanism parameters for hydrogel 
+# Include this potential in LAMMPS input script as follows,
+#     pair_tyle     threebody/table
+#     pair_coeff    * * threebody/table swapMech.3b NULL NULL PA PB
+#
+# Particles type 1 and 2 are for CrossLinker and Monomer.
+#
+# LJ units
+# format of a single entry (one or more lines):
+#   element 1, element 2, element 3, 
+#   cut(distance units) filename keyword style N
+# style = linear, N = 4 (Atom types in the simulation)
+# cut = 0 => No interaction is calculted for this element triplet
+#
+# Parameters for Patch - Patch interaction:
+# Macromolecules2017, 50, 8777-8786 
+#
+#
+# Allow interactions:
+#    el1 el2 el3 cut filename kewyword style N
+
+# No interaction between CrossLinker Patches
+PA PA PA 0 swapMechTab.table SEC1 linear 12
+PA PA PB 0 swapMechTab.table SEC1 linear 12
+PA PB PA 0 swapMechTab.table SEC1 linear 12
+
+# Monomer - Monomer
+PB PB PB 0.625 swapMechTab.table SEC1 linear 12
+
+# CrossLinker - Monomer
+PA PB PB 0.625 swapMechTab.table SEC1 linear 12
+
+# Monomer - CrossLinker
+PB PB PA 0.625 swapMechTab.table SEC1 linear 12
+PB PA PB 0.625 swapMechTab.table SEC1 linear 12
+PB PA PA 0.625 swapMechTab.table SEC1 linear 12
