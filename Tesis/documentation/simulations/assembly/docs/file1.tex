@@ -10,30 +10,29 @@ The other type of patchy particle represent a Monomer and is define with 3 parti
 Prior to describe with detail the methodology, it is important mention that to from now on I will refer to the center particle of the Crosslinker patchy particle as ``CL'' and the particles around CL as ``PA''.
 Naturally, the center particle of the Monomer patchy particle as ``MO'' and the particles around MO as ``PB''.
 
+The proposed methodology to create hydro-gels considers that the geometry of the position of the PA and PB are the same in all the patchy particles and does not change during the simulation.
+Also, takes into account the following interactions: CL$\longleftrightarrow$MO, PA$\longleftrightarrow$PB, PB$\longleftrightarrow$PB.
+The CL$\longleftrightarrow$MO interaction is repulsive, and the PA$\longleftrightarrow$PB, PB$\longleftrightarrow$PB interactions are attractive.
+However, the main difference between the articles cited and the simulations implemented is the absence of FENE bonds and Swelling potential.
 
-
-In the articles mentioned above, 
-
-However, in the articles, it is assumed that interaction between polymers
-
-The main difference between the articles cited and the simulations implemented is the absence of FENE bonds and Swelling potential, because part of the exploration is to analyze what happen in the deformation if the interactions between crosslinker and monomer can swap.
+% because part of the exploration is to analyze what happen in the deformation if the interactions between crosslinker and monomer can swap.
 
 \subsection{Potentials}
 
 \begin{gather}
-		U_{WCA}(r) = 4\epsilon\left[\qty(\frac{\sigma}{r})^12-\qty(\frac{\sigma}{r})^6\right]+\epsilon,\quad r\in[0,2^{1/6}\sigma]
+		U_{WCA}(r) = 4\epsilon\left[\qty(\frac{\sigma}{r})^12-\qty(\frac{\sigma}{r})^6\right]+\epsilon,\quad r\in[0,2^{1/6}\sigma]\label{eqn:CL-MO_interaction}
 \end{gather}
 
 \begin{gather}
-	U_{\mathrm{patchy}}\qty(r_{\mu\upsilon}) = 2\epsilon_{\mu\upsilon}\left(\frac{\sigma_p^4}{2 r_{\mu\upsilon}^4}-1\right)\exp\left[\frac{\sigma_p}{\qty(r_{\mu\upsilon}-r_{c})+2}\right],\quad r_{\mu\upsilon}\leq r_c
+	U_{\mathrm{patchy}}\qty(r_{\mu\upsilon}) = 2\epsilon_{\mu\upsilon}\left(\frac{\sigma_p^4}{2 r_{\mu\upsilon}^4}-1\right)\exp\left[\frac{\sigma_p}{\qty(r_{\mu\upsilon}-r_{c})+2}\right],\quad r_{\mu\upsilon}\leq r_c \label{eqn:patch-patch_interaction}
 \end{gather}
 
 \begin{gather}
-	U_{\mathrm{swap}}(r) = w\sum_{\lambda,\mu,\upsilon}\epsilon_{\mu\upsilon}U_3\qty(r_{\lambda,\mu})U_3\qty(r_{\lambda,\upsilon})
+	U_{\mathrm{swap}}(r) = w\sum_{\lambda,\mu,\upsilon}\epsilon_{\mu\upsilon}U_3\qty(r_{\lambda,\mu})U_3\qty(r_{\lambda,\upsilon})\label{eqn:swap_interaction}
 \end{gather}
 
 \begin{gather}
-	U_{3} = -U_{\mathrm{patchy}}\qty(r)/\epsilon_{\mu\upsilon}
+	U_{3} = -U_{\mathrm{patchy}}\qty(r)/\epsilon_{\mu\upsilon}\label{eqn:swapmod_interaction}
 \end{gather}
 
 \subsection{LAMMPS implementation}
