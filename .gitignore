@@ -14,3 +14,4 @@ clusterOvito/
 *.dumpf
 *.fixf
 *dump.
+*.table

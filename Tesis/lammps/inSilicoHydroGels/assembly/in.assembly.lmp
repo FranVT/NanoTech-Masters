@@ -15,20 +15,20 @@ boundary p p p
 # Styles of atoms and that stuff
 atom_style bond
 bond_style zero nocoeff
-#pair_style hybrid/overlay lj/cut 1.12 sw threebody off threebody/table
-pair_style hybrid/overlay/omp lj/cut/omp 1.12 sw/omp threebody off threebody/table
+#pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 1.12 sw/omp threebody off threebody/table
+pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 1.12 table/omp linear 5000000 threebody/table
 newton on
 
 # Varaibles
-variable L equal 5
-variable NCL equal 10
-variable NMO equal 90
+variable L equal 15
+variable NCL equal 500
+variable NMO equal 4500
 variable seed1 equal 1234
 variable seed2 equal 4321
 variable seed3 equal 3124
 variable steps equal 60000000
 variable tstep equal 0.005
-variable sstep equal 10000
+variable sstep equal 50000
 
 # Create simulaiton box
 region simulation_box block -$L $L -$L $L -$L $L
@@ -46,19 +46,21 @@ mass 4 0.5      # PB
 
 # Coefficients
 bond_coeff * nocoeff
-pair_coeff * * threebody/table swapMech.3b NULL NULL PA PB
+pair_coeff 1 3 zero
+pair_coeff 1 4 zero
+pair_coeff 2 3 zero
+pair_coeff 2 4 zero
+pair_coeff 3 3 zero
 pair_coeff 1 1 lj/cut/omp 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
 pair_coeff 2 2 lj/cut/omp 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
 pair_coeff 1 2 lj/cut/omp 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
-pair_coeff 1 3 none
-pair_coeff 1 4 none
-pair_coeff 2 3 none
-pair_coeff 2 4 none
-pair_coeff 3 4 sw/omp patchyPot.ws NULL NULL PA PB # i-type j-type pair-style 
-pair_coeff 3 3 sw/omp patchyPot.ws NULL NULL PA PA
-pair_coeff 4 4 sw/omp patchyPot.ws NULL NULL PB PB # i-type j-type eps sigma cutoff wca
-
 pair_modify shift yes
+pair_coeff 3 4 table/omp pachTab.table POT 0.6 #0.75 
+pair_coeff 4 4 table/omp pachTab.table POT 0.6 #0.75 
+#pair_coeff 3 4 sw/omp patchyPot.ws NULL NULL PA PB # i-type j-type pair-style 
+#pair_coeff 4 4 sw/omp patchyPot.ws NULL NULL NULL PB # i-type j-type eps sigma cutoff wca
+pair_coeff * * threebody/table swapMech.3b NULL NULL PA PB
+
 
 # Molecules
 molecule CL molecule.patchy.CL
@@ -73,8 +75,8 @@ region spawn_box block -$L $L -$L $L -$L $L
 # keyword_mol: template-ID seed
 # keyword_overlap: overlap value = only insert if at least this distance from all existing atoms
 # keyword_maxtry: maxtry value = number of attempts to insert a particle before failure
-create_atoms 0 random ${NCL} ${seed1} spawn_box mol CL ${seed1} overlap 0.5 maxtry 5000 #xls
-create_atoms 0 random ${NMO} ${seed2} spawn_box mol MO ${seed2} overlap 0.5 maxtry 5000 #mon
+create_atoms 0 random ${NCL} ${seed1} spawn_box mol CL ${seed1} overlap 1.0 maxtry 5000 #xls
+create_atoms 0 random ${NMO} ${seed2} spawn_box mol MO ${seed2} overlap 1.0 maxtry 5000 #mon
 
 # Create patchy particles
 group CrossLinker type 1 3
@@ -134,8 +136,3 @@ fix 1 all ave/time 1 1 ${sstep} c_size file info/sizeCluster_assembly.fixf mode 
 timestep ${tstep}
 run ${steps}
 
-#delete_atoms group Patches compress yes bond yes
-#create_bonds many CL MO 1 0.0 1.56
-#reset_atoms id
-#resete_atoms mol all
-#write_data data.test 
