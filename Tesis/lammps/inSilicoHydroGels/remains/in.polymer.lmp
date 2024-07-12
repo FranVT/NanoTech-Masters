@@ -1,0 +1,59 @@
+# Script of lammps that simulates a polymer of Patchy Particles
+
+neighbor 0.3 nsq
+neigh_modify delay 5
+
+# Initialization
+units lj
+dimension 3
+boundary p p p
+
+# Styles of atoms and that stuff
+atom_style bond
+bond_style fene/nm
+pair_style sw threebody off
+newton on
+
+# Insert the polymers synthesized
+read_data data.polymer
+
+# Coefficients
+#pair_coeff 1 1 polymerPot.ws PA NULL # i-type j-type pair-style 
+pair_coeff * * polymerPot.ws PA PB
+#pair_coeff 2 2 polymerPot.ws NULL PB # i-type j-type eps sigma cutoff wca
+
+
+# Varaibles
+variable seed1 equal 1234
+variable seed2 equal 4321
+variable seed3 equal 3124
+variable steps equal 250000
+variable temp1 equal 0.05
+variable temp2 equal 0.05
+
+# Energy minimization
+minimize 1.0e-4 1.0e-6 1000 10000
+
+# Configuration of the Molecular dynamics
+fix langevinFix all langevin ${temp1} ${temp2} 10000.0 ${seed2} # ID group-ID langevin Tstart Tstop damp seed
+
+# Output in termal every N steps
+thermo 10000
+
+# COMPUTES
+
+# Compute global kinetic and potential energy and temperature
+compute t all temp
+compute ep all pe
+compute ek all ke
+
+# DUMPS and FIXES
+
+# Save atom positions
+dump dumpID all atom 100 info/position_polymer.dumpf
+dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
+
+# RUN SIMULATION
+
+timestep 0.001
+run ${steps}
