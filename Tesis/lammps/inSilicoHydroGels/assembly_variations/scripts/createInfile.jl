@@ -2,48 +2,9 @@
     Script to create in.assembly.lmp file
 """
 
-## Parameters of the system
-L_box = 10;
-N_CL = 50;
-N_MO = 450;
-T_sys = 0.05;
-damp_lg = 0.5;
-N_steps = 10000000;
-N_saves = 1000;
-N_energ = 10;
 
-## Parameters for Lammps commands
-L_overlap = 1.0;
-N_tries = 5000;
-L_neighbor = 1.8;
-seed_langevin = 12345;
-seed1 = 34512;
-seed2 = 31245;
-vor_edge = 18;
-vor_edgemin = 0;
-t_step = 0.005;
+include("parameters.jl")
 
-## Parameters for table scripts
-N_Swap = 50;
-N_Patch = 5000000;
-
-## Parameters for the potentials
-"""
-   m: (CL, MO, PA, PB)
-"""
-# General
-m = (1.0,1.0,0.5,0.5);
-diam = (1.0,1.0,0.4,0.4);
-
-# LJ
-rcut_CL = round(diam[1]*2^(1/6),digits=2);
-rcut_MO = round(diam[2]*2^(1/6),digits=2);
-
-# Patch - Patch
-rcut_patch = round(1.5*diam[3],digits=2);
-
-## Start to create the file
-workdir = cd("/home/franvtdebian/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/assembly_variations/")
 filename = "in.assembly.lmp";
 
 # Create stuff
@@ -60,7 +21,13 @@ a_st = "atom_style bond\n";
 b_st = "bond_style zero nocoeff\n"
 p_st = "pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 1.12 table/omp linear 5000000 threebody/table\nnewton on\n\n"
 
-region = string("region simulation_box block ",-L_box," ",L_box," ",-L_box," ",L_box," ",-L_box," ",L_box,"\n");
+# Variables
+var_names = ("L","NCL","NMO","seed1","seed2","seed3","steps","tstep","sstep");
+var_values = (L_box,N_CL,N_MO,seed1,seed2,N_steps,t_step,N_saves);
+
+vars = map(s->string("variable ",var_names[s]," equal ",var_values),eachindex(var_names));
+
+region = "region simulation_box block -$L $L -$L $L -$L $L";
 box = string("create_box ",length(m)," simulation_box bond/types 1 extra/bond/per/atom 4 extra/special/per/atom 5\n\n")
 
 a_types = map(t->string("mass ",t," ",m[t],"\n"),eachindex(m));
@@ -70,7 +37,7 @@ coeffs = map(t->t*"\n",coeffs);
 molCL = "molecule CL molecule.patchy.CL\n";
 molMO = "molecule MO molecule.patchy.MO\n\n";
 
-spawn = string("region spawn_box block ",-L_box," ",L_box," ",-L_box," ",L_box," ",-L_box," ",L_box,"\n\n");
+spawn = "region spawn_box block -$L $L -$L $L -$L $L";
 
 cr_CL = string("create_atoms 0 random ",N_CL," ",seed1," spawn_box mol CL ",seed1," overlap ",L_overlap," maxtry ",N_tries,"\n");
 cr_MO = string("create_atoms 0 random ",N_MO," ",seed2," spawn_box mol MO ",seed2," overlap ",L_overlap," maxtry ",N_tries,"\n\n");

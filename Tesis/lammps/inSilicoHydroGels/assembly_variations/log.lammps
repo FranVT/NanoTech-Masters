@@ -1,0 +1,247 @@
+LAMMPS (27 Jun 2024)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+package omp 0
+using multi-threaded neighbor list subroutines
+units lj
+dimension 3
+boundary p p p
+
+atom_style bond
+bond_style zero nocoeff
+pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 1.12 table/omp linear 5000000 threebody/table
+newton on
+
+variable L equal 10
+variable NCL equal 50
+variable NMO equal 450
+variable seed1 equal 34512
+variable seed2 equal 31245
+
+region simulation_box block -$L $L -$L $L -$L $L
+region simulation_box block -10 $L -$L $L -$L $L
+region simulation_box block -10 10 -$L $L -$L $L
+region simulation_box block -10 10 -10 $L -$L $L
+region simulation_box block -10 10 -10 10 -$L $L
+region simulation_box block -10 10 -10 10 -10 $L
+region simulation_box block -10 10 -10 10 -10 10
+create_box 4 simulation_box bond/types 1 extra/bond/per/atom 4 extra/special/per/atom 5
+Created orthogonal box = (-10 -10 -10) to (10 10 10)
+  1 by 2 by 2 MPI processor grid
+
+mass 1 1.0
+mass 2 1.0
+mass 3 0.5
+mass 4 0.5
+
+bond_coeff * nocoeff
+pair_coeff 1 3 zero
+pair_coeff 1 4 zero
+pair_coeff 2 3 zero
+pair_coeff 2 4 zero
+pair_coeff 3 3 zero
+pair_coeff 1 1 lj/cut/omp 1.0 1.0 1.12
+pair_coeff 2 2 lj/cut/omp 1.0 1.0 1.12
+pair_coeff 1 2 lj/cut/omp 1.0 1.0 1.12
+pair_modify shift yes
+pair_coeff 3 4 table/omp pachTab.table POT 0.6
+Reading pair table potential file pachTab.table with DATE: 2024-07-08
+WARNING: 2 of 5000000 force values in table POT are inconsistent with -dE/dr.
+WARNING:  Should only be flagged at inflection points (src/pair_table.cpp:466)
+pair_coeff 4 4 table/omp pachTab.table POT 0.6
+Reading pair table potential file pachTab.table with DATE: 2024-07-08
+WARNING: 2 of 5000000 force values in table POT are inconsistent with -dE/dr.
+WARNING:  Should only be flagged at inflection points (src/pair_table.cpp:466)
+pair_coeff * * threebody/table swapMech.3b NULL NULL PA PB
+
+molecule CL molecule.patchy.CL
+Read molecule template CL:
+# Patchy Cross-Linker
+  1 molecules
+  0 fragments
+  5 atoms with max type 3
+  4 bonds with max type 1
+  0 angles with max type 0
+  0 dihedrals with max type 0
+  0 impropers with max type 0
+molecule MO molecule.patchy.MO
+Read molecule template MO:
+# Patchy Monomer
+  1 molecules
+  0 fragments
+  3 atoms with max type 4
+  2 bonds with max type 1
+  0 angles with max type 0
+  0 dihedrals with max type 0
+  0 impropers with max type 0
+
+region spawn_box block -$L $L -$L $L -$L $L
+region spawn_box block -10 $L -$L $L -$L $L
+region spawn_box block -10 10 -$L $L -$L $L
+region spawn_box block -10 10 -10 $L -$L $L
+region spawn_box block -10 10 -10 10 -$L $L
+region spawn_box block -10 10 -10 10 -10 $L
+region spawn_box block -10 10 -10 10 -10 10
+
+create_atoms 0 random ${NCL} ${seed1} spawn_box mol CL ${seed1} overlap 1.0 maxtry 5000
+create_atoms 0 random 50 ${seed1} spawn_box mol CL ${seed1} overlap 1.0 maxtry 5000
+create_atoms 0 random 50 34512 spawn_box mol CL ${seed1} overlap 1.0 maxtry 5000
+create_atoms 0 random 50 34512 spawn_box mol CL 34512 overlap 1.0 maxtry 5000
+Created 250 atoms
+  using lattice units in orthogonal box = (-10 -10 -10) to (10 10 10)
+  create_atoms CPU = 0.004 seconds
+create_atoms 0 random ${NMO} ${seed2} spawn_box mol MO ${seed2} overlap 1.0 maxtry 5000
+create_atoms 0 random 450 ${seed2} spawn_box mol MO ${seed2} overlap 1.0 maxtry 5000
+create_atoms 0 random 450 31245 spawn_box mol MO ${seed2} overlap 1.0 maxtry 5000
+create_atoms 0 random 450 31245 spawn_box mol MO 31245 overlap 1.0 maxtry 5000
+Created 1350 atoms
+  using lattice units in orthogonal box = (-10 -10 -10) to (10 10 10)
+  create_atoms CPU = 0.006 seconds
+
+group CrossLinker type 1 3
+250 atoms in group CrossLinker
+group Monomer type 2 4
+1350 atoms in group Monomer
+group Patches type 3 4
+1100 atoms in group Patches
+group CL type 1
+50 atoms in group CL
+group MO type 2
+450 atoms in group MO
+group CM type 1 2
+500 atoms in group CM
+group Energy empty
+0 atoms in group Energy
+
+fix pCL CrossLinker rigid/small/omp molecule
+  create bodies CPU = 0.000 seconds
+  50 rigid bodies with 250 atoms
+  0.46400431 = max distance from body owner to body atom
+fix pMO Monomer rigid/small/omp molecule
+  create bodies CPU = 0.000 seconds
+  450 rigid bodies with 1350 atoms
+  0.5 = max distance from body owner to body atom
+
+neighbor 1.8 bin
+neigh_modify exclude molecule/intra CrossLinker
+neigh_modify exclude molecule/intra Monomer
+
+fix langevinFix all langevin 0.05 0.05 0.5 12345
+thermo ${sstep}
+thermo 500
+
+compute t all temp
+compute ep all pe
+compute ek all ke
+compute cluster all aggregate/atom 0.6
+compute cc1 all chunk/atom c_cluster compress yes pbc yes
+compute size all property/chunk cc1 count
+compute vorCompSimple CM voronoi/atom only_group
+compute vorCompHisto CM voronoi/atom only_group edge_histo 18 edge_threshold 0
+
+dump dumpID all atom ${sstep} info/patchyParticles_assembly.dumpf
+dump dumpID all atom 500 info/patchyParticles_assembly.dumpf
+dump_modify dumpID pbc yes
+dump dumpNew all custom ${steps} info/newdata_assembly.dumpf id type mol x y z c_cluster
+dump dumpNew all custom 1000 info/newdata_assembly.dumpf id type mol x y z c_cluster
+dump_modify dumpNew delay ${steps}
+dump_modify dumpNew delay 1000
+dump dumpVor CM custom ${steps} info/voronoiSimple_assembly.dumpf c_vorCompSimple[1] c_vorCompSimple[2]
+dump dumpVor CM custom 1000 info/voronoiSimple_assembly.dumpf c_vorCompSimple[1] c_vorCompSimple[2]
+dump_modify dumpVor delay ${steps}
+dump_modify dumpVor delay 1000
+
+fix fixvorHisto CM ave/time 1 1 ${steps} c_vorCompHisto file info/vorHisto_assembly.fixf mode vector
+fix fixvorHisto CM ave/time 1 1 1000 c_vorCompHisto file info/vorHisto_assembly.fixf mode vector
+fix fixEng Energy ave/time 1 1 10 c_t c_ep c_ek file info/energy_assembly.fixf
+fix 1 all ave/time 1 1 ${steps} c_size file info/sizeCluster_assembly.fixf mode vector
+fix 1 all ave/time 1 1 1000 c_size file info/sizeCluster_assembly.fixf mode vector
+
+timestep ${tstep}
+timestep 0.005
+ run ${steps}
+ run 1000
+WARNING: Using a manybody potential with bonds/angles/dihedrals and special_bond exclusions (src/pair.cpp:242)
+Hybrid pair style last /omp style table/omp
+Last active /omp style is pair_style table/omp
+WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
+WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
+Neighbor list info ...
+  update: every = 1 steps, delay = 0 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 2.92
+  ghost atom cutoff = 2.92
+  binsize = 1.46, bins = 14 14 14
+  7 neighbor lists, perpetual/occasional/extra = 6 1 0
+  (1) pair zero, perpetual, skip from (6)
+      attributes: half, newton on, omp
+      pair build: skip/omp
+      stencil: none
+      bin: none
+  (2) pair lj/cut/omp, perpetual, skip from (6)
+      attributes: half, newton on, omp
+      pair build: skip/omp
+      stencil: none
+      bin: none
+  (3) pair table/omp, perpetual, skip from (6)
+      attributes: half, newton on, omp, cut 2.4
+      pair build: skip/omp
+      stencil: none
+      bin: none
+  (4) pair threebody/table, perpetual, skip from (7)
+      attributes: full, newton on, omp, cut 2.4
+      pair build: skip/omp
+      stencil: none
+      bin: none
+  (5) compute aggregate/atom, occasional
+      attributes: full, newton on, omp
+      pair build: full/bin/omp
+      stencil: full/bin/3d
+      bin: standard
+  (6) neighbor class addition, perpetual
+      attributes: half, newton on, omp
+      pair build: half/bin/newton/omp
+      stencil: half/bin/3d
+      bin: standard
+  (7) neighbor class addition, perpetual
+      attributes: full, newton on, omp, cut 2.4
+      pair build: full/bin/omp
+      stencil: full/bin/3d
+      bin: standard
+WARNING: Dump dumpVor includes no atom IDs and is not sorted by ID. This may complicate post-processing tasks or visualization (src/dump.cpp:219)
+Per MPI rank memory allocation (min/avg/max) = 20.29 | 20.3 | 20.3 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   0              4.7648482e-05  0              4.7648482e-05  0.0023423259 
+       500   0.049851591   -0.0013529354   0              0.038325815    0.0028726144 
+      1000   0.051112892   -0.0089011285   0              0.031781539    0.0057203282 
+Loop time of 0.153593 on 4 procs for 1000 steps with 1600 atoms
+
+Performance: 2812634.259 tau/day, 6510.727 timesteps/s, 10.417 Matom-step/s
+94.8% CPU use with 4 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 0.0094271  | 0.011316   | 0.012791   |   1.4 |  7.37
+Bond    | 5.6104e-05 | 5.8743e-05 | 6.1182e-05 |   0.0 |  0.04
+Neigh   | 0.0035772  | 0.0035826  | 0.003591   |   0.0 |  2.33
+Comm    | 0.021923   | 0.023236   | 0.024869   |   0.9 | 15.13
+Output  | 0.0065276  | 0.0065531  | 0.0065827  |   0.0 |  4.27
+Modify  | 0.10523    | 0.10568    | 0.1061     |   0.1 | 68.81
+Other   |            | 0.003164   |            |       |  2.06
+
+Nlocal:            400 ave         411 max         381 min
+Histogram: 1 0 0 0 0 0 0 1 1 1
+Nghost:         883.75 ave         904 max         852 min
+Histogram: 1 0 0 0 0 1 0 0 1 1
+Neighs:              0 ave           0 max           0 min
+Histogram: 4 0 0 0 0 0 0 0 0 0
+FullNghs:         2578 ave        2662 max        2442 min
+Histogram: 1 0 0 0 0 1 0 0 0 2
+
+Total # of neighbors = 10312
+Ave neighs/atom = 6.445
+Ave special neighs/atom = 2.3125
+Neighbor list builds = 4
+Dangerous builds = 0
+Total wall time: 0:00:14
