@@ -7,11 +7,8 @@ bond_style zero nocoeff
 pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 1.12 table/omp linear 5000000 threebody/table
 newton on
 
-variable L equal 10
-variable NCL equal 50
-variable NMO equal 450
-variable seed1 equal 34512
-variable seed2 equal 31245
+variable tstep equal 0.005
+variable sstep equal 10000
 
 region simulation_box block -$L $L -$L $L -$L $L
 create_box 4 simulation_box bond/types 1 extra/bond/per/atom 4 extra/special/per/atom 5
@@ -70,16 +67,16 @@ compute size all property/chunk cc1 count
 compute vorCompSimple CM voronoi/atom only_group
 compute vorCompHisto CM voronoi/atom only_group edge_histo 18 edge_threshold 0
 
-dump dumpID all atom ${sstep} info/patchyParticles_assembly.dumpf
+dump dumpID all atom ${sstep} patchyParticles_assembly.dumpf
 dump_modify dumpID pbc yes
-dump dumpNew all custom ${steps} info/newdata_assembly.dumpf id type mol x y z c_cluster
+dump dumpNew all custom ${steps} newdata_assembly.dumpf id type mol x y z c_cluster
 dump_modify dumpNew delay ${steps}
-dump dumpVor CM custom ${steps} info/voronoiSimple_assembly.dumpf c_vorCompSimple[1] c_vorCompSimple[2]
+dump dumpVor CM custom ${steps} voronoiSimple_assembly.dumpf c_vorCompSimple[1] c_vorCompSimple[2]
 dump_modify dumpVor delay ${steps}
 
-fix fixvorHisto CM ave/time 1 1 ${steps} c_vorCompHisto file info/vorHisto_assembly.fixf mode vector
-fix fixEng Energy ave/time 1 1 10 c_t c_ep c_ek file info/energy_assembly.fixf
-fix 1 all ave/time 1 1 ${steps} c_size file info/sizeCluster_assembly.fixf mode vector
+fix fixvorHisto CM ave/time 1 1 ${steps} c_vorCompHisto file vorHisto_assembly.fixf mode vector
+fix fixEng Energy ave/time 1 1 10 c_t c_ep c_ek file energy_assembly.fixf
+fix 1 all ave/time 1 1 ${steps} c_size file sizeCluster_assembly.fixf mode vector
 
 timestep ${tstep}
  run ${steps}

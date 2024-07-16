@@ -39,8 +39,8 @@ p_st = "pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 1.12 table/omp linear 
 ("L","NCL","NMO","seed1","seed2","steps","tstep","sstep")
 (L_box,N_CL,N_MO,seed1,seed2,N_steps,t_step,N_saves)
 """
-var_names = ("L","NCL","NMO","seed1","seed2","tstep","sstep");
-var_values = (L_box,N_CL,N_MO,seed1,seed2,t_step,N_saves);
+var_names = ("tstep","sstep");
+var_values = (t_step,N_saves);
 
 vars = map(s->string("variable ",var_names[s]," equal ",var_values[s],"\n"),eachindex(var_names));
 
@@ -59,9 +59,6 @@ spawn = "region spawn_box block -\$L \$L -\$L \$L -\$L \$L\n\n";
 
 cr_CL = string("create_atoms 0 random \${NCL} \${seed1} spawn_box mol CL \${seed1} overlap ",L_overlap," maxtry ",N_tries,"\n");
 cr_MO = string("create_atoms 0 random \${NMO} \${seed2} spawn_box mol MO \${seed2} overlap ",L_overlap," maxtry ",N_tries,"\n\n");
-
-#cr_CL = string("create_atoms 0 random ",N_CL," ",seed1," spawn_box mol CL ",seed1," overlap ",L_overlap," maxtry ",N_tries,"\n");
-#cr_MO = string("create_atoms 0 random ",N_MO," ",seed2," spawn_box mol MO ",seed2," overlap ",L_overlap," maxtry ",N_tries,"\n\n");
 
 gr_1 = "group CrossLinker type 1 3\n";
 gr_2 = "group Monomer type 2 4\n";
@@ -85,13 +82,13 @@ com_cluster = ("compute cluster all aggregate/atom "*string(rcut_patch)*"\n","co
 com_voro = ("compute vorCompSimple CM voronoi/atom only_group\n","compute vorCompHisto CM voronoi/atom only_group edge_histo "*string(vor_edge)*" edge_threshold "*string(vor_edgemin)*"\n");
 
 
-dp_1 = "dump dumpID all atom \${sstep} info/patchyParticles_assembly.dumpf\ndump_modify dumpID pbc yes\n";
-dp_2 = "dump dumpNew all custom \${steps} info/newdata_assembly.dumpf id type mol x y z c_cluster\ndump_modify dumpNew delay \${steps}\n";
-dp_3 = "dump dumpVor CM custom \${steps} info/voronoiSimple_assembly.dumpf c_vorCompSimple[1] c_vorCompSimple[2]\ndump_modify dumpVor delay \${steps}\n";
+dp_1 = "dump dumpID all atom \${sstep} patchyParticles_assembly.dumpf\ndump_modify dumpID pbc yes\n";
+dp_2 = "dump dumpNew all custom \${steps} newdata_assembly.dumpf id type mol x y z c_cluster\ndump_modify dumpNew delay \${steps}\n";
+dp_3 = "dump dumpVor CM custom \${steps} voronoiSimple_assembly.dumpf c_vorCompSimple[1] c_vorCompSimple[2]\ndump_modify dumpVor delay \${steps}\n";
 
-fx_1 = "fix fixvorHisto CM ave/time 1 1 \${steps} c_vorCompHisto file info/vorHisto_assembly.fixf mode vector\n";
-fx_2 = string("fix fixEng Energy ave/time 1 1 ",N_energ," c_t c_ep c_ek file info/energy_assembly.fixf\n");
-fx_3 = "fix 1 all ave/time 1 1 \${steps} c_size file info/sizeCluster_assembly.fixf mode vector\n";
+fx_1 = "fix fixvorHisto CM ave/time 1 1 \${steps} c_vorCompHisto file vorHisto_assembly.fixf mode vector\n";
+fx_2 = string("fix fixEng Energy ave/time 1 1 ",N_energ," c_t c_ep c_ek file energy_assembly.fixf\n");
+fx_3 = "fix 1 all ave/time 1 1 \${steps} c_size file sizeCluster_assembly.fixf mode vector\n";
 
 run = "timestep \${tstep}\n run \${steps}";
 

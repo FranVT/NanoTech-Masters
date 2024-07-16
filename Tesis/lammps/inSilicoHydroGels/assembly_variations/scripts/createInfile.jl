@@ -64,13 +64,13 @@ com_cluster = ("compute cluster all aggregate/atom "*string(rcut_patch)*"\n","co
 com_voro = ("compute vorCompSimple CM voronoi/atom only_group\n","compute vorCompHisto CM voronoi/atom only_group edge_histo "*string(vor_edge)*" edge_threshold "*string(vor_edgemin)*"\n");
 
 
-dp_1 = string("dump dumpID all atom ",N_saves," info/patchyParticles_assembly.dumpf\ndump_modify dumpID pbc yes\n");
-dp_2 = string("dump dumpNew all custom ",N_steps," info/newdata_assembly.dumpf id type mol x y z c_cluster\ndump_modify dumpNew delay ",N_steps,"\n");
-dp_3 = string("dump dumpVor CM custom ",N_steps," info/voronoiSimple_assembly.dumpf c_vorCompSimple[1] c_vorCompSimple[2]\ndump_modify dumpVor delay ",N_steps,"\n");
+dp_1 = string("dump dumpID all atom ",N_saves," patchyParticles_assembly.dumpf\ndump_modify dumpID pbc yes\n");
+dp_2 = string("dump dumpNew all custom ",N_steps," newdata_assembly.dumpf id type mol x y z c_cluster\ndump_modify dumpNew delay ",N_steps,"\n");
+dp_3 = string("dump dumpVor CM custom ",N_steps," voronoiSimple_assembly.dumpf c_vorCompSimple[1] c_vorCompSimple[2]\ndump_modify dumpVor delay ",N_steps,"\n");
 
-fx_1 = string("fix fixvorHisto CM ave/time 1 1 ",N_steps," c_vorCompHisto file info/vorHisto_assembly.fixf mode vector\n");
-fx_2 = string("fix fixEng Energy ave/time 1 1 ",N_energ," c_t c_ep c_ek file info/energy_assembly.fixf\n");
-fx_3 = string("fix 1 all ave/time 1 1 ",N_steps," c_size file info/sizeCluster_assembly.fixf mode vector\n");
+fx_1 = string("fix fixvorHisto CM ave/time 1 1 ",N_steps," c_vorCompHisto file vorHisto_assembly.fixf mode vector\n");
+fx_2 = string("fix fixEng Energy ave/time 1 1 ",N_energ," c_t c_ep c_ek file energy_assembly.fixf\n");
+fx_3 = string("fix 1 all ave/time 1 1 ",N_steps," c_size file sizeCluster_assembly.fixf mode vector\n");
 
 run = string("timestep ",t_step,"\n run ",N_steps);
 
@@ -99,40 +99,4 @@ open(filename,"w") do f
     write(f,"\n")
     write(f,run)
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

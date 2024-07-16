@@ -7,15 +7,15 @@
 """
 
 ## Parameters to vary
-L_box = 10;
-N_CL = 50;
-N_MO = 450;
+#L_box = 10;
+#N_CL = 50;
+#N_MO = 450;
 
 ## Parameters of the system
 T_sys = 0.05;
 damp_lg = 0.5;
 N_steps = 10000000;
-N_saves = 1000;
+N_saves = 10000;
 N_energ = 10;
 
 ## Parameters for Lammps commands
