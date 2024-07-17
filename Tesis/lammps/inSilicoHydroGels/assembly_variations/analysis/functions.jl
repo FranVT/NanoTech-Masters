@@ -92,8 +92,6 @@ function getInfoVoroHisto(filename)
     # Clean the array
     ids = deleteat!(itt[:],itt[:].==0);
 
-    println(ids)
-
     # Extract the rows corresponds to the last time step
     info_voro = info_voro[ids[end-1]:end];
 
