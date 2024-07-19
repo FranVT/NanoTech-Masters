@@ -38,7 +38,7 @@
 \newday{2023-03-03} References are dealt with using \verb|biblatex|. You can add your own my modifying the file \verb|bib.bib|.
 
 \newday{2024-07-16} About Voronoi tessellation and characterization techniques in softmatter.
-In the article \cite{yangVoronoiTessellationPacking2002} 
+In the article \textcite{yangVoronoiTessellationPacking2002} 
 
 They analyse a system with 5000 particles and vary the radius from $100$ to $0.1\mathrm{\mu m}$ and analyse the number of edges for each polyhedron face, number of faces for each polyhedron face, perimeter, area of a polyhedron face and perimeter, area and volume of a polyhedron.
 In a nutshell, they said that the topological and metric properties of Voronoi polyhedra are quantified as a function of particles size and packing density.
@@ -55,13 +55,12 @@ They mention the following laws: Aboav-Weaire's law and Lewis's law.
 
 \rule{\textwidth}{0.4pt}
 
-In the article \cite{lazarVoronoiCellAnalysis2022} in the section of Stability they state that:
+In the article \cite{lazarVoronoiCellAnalysis2022} 
+in the section of Stability they state that:
 When geometric quantities are used for classification purposes, thresholds for the range of possible values must be chosen, on the other hand, topological ones can change abruptly under small perturbations of particle coordinates.
 
 
-
 \rule{\textwidth}{0.4pt}
-
 
 How we can relate the topological and metric properties with rehological properties?
 
@@ -74,7 +73,7 @@ It can be computed the pressure in a plane that intersect that sphere.
 I think that, that relation, between the potential and the intersecte plane, will help to create a conecction between rehological properties and structural stuff.
 
 \begin{align*}
-	\vec{P}_{VC} = -\dv{r}\mathrm{LJ}\qty(r)|_{r\in R^{2}}\frac{1}{A_{VC}}\hat{e}_{r},
+	\vec{P}_{VC} = -\dv{r}\mathrm{LJ}(r)|_{r\in R^{2}}\frac{1}{A_{VC}}\hat{e}_{r},
 \end{align*}
 where $A_{VC}$ is the area of the shared plane between two voronoi cells and the force is evaluated at that plane.
 The $VC$ indicates, "Voronoi Cell".
@@ -97,7 +96,38 @@ About packing density: Using the volumen of voronoi polyhedra.
 It can be said that a system is jammed, when the mean of the volumens of the voronoi polyhedra tends to a minimum.
 
 % https://www.nature.com/articles/nmat4674
+\rule{\textwidth}{0.4pt}
 
-\printbibliography
+About the simulations.
+50 simulations with 500 patchy particles took 24 hrs.
+This is 500 Monomers and Crosslinker. 
+All of them has 50 CL and 450 MO, hence, 200 patches for the 50 CL and 900 patches for MO, hence, 1600 particles in total.
+
+I have no idea how to improve the time of the simulation.
+Each simulation takes between 27-28 mins. 
+
+\newday*{2024-07-17}
+Key point of the reunion:
+\begin{itemize}
+	\item Start the script for shear deformation
+	\item Keep in mind to vary the following parameters:
+	\begin{enumerate}
+		\item Cross-Linker concentration
+		\item Size of the box (Packing density)
+		\item The energy of the Patch-Patch interaction.
+	\end{enumerate}
+	\item Analyze the density distibution of the voronoi parameters
+	\item Make and animation, where the color of the particle represent the volume of the voronoi cell and share the script.
+	\item Hint: Directores
+\end{itemize}
+
+About the idea of the normla vector: They do not sees a great future.
+
+\rule{\textwidth}{0.4pt}
+
+The deformation script is done, basically I copy the code from Felipe.
+
+
+%\printbibliography
 
 \end{document} % this will automatically generate a references chapter if you cited any references throughout the text

@@ -8,6 +8,16 @@
 
 %% PACKAGES
 
+\RequirePackage{amsmath,amsthm,amsfonts,amssymb,amscd,latexsym}
+\RequirePackage{physics}
+\RequirePackage{siunitx} 		% Permite utilizar el sistema internacional de unidades
+\RequirePackage{mathptmx}
+\RequirePackage{mathtools}
+\RequirePackage{cancel}
+\RequirePackage{centernot} 		% Notacion matematica
+\RequirePackage{empheq}			% Recuadros para ecuaciones
+
+
 \RequirePackage[svgnames]{xcolor}
 
 %% Encoding
