@@ -15,15 +15,15 @@ pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 1.12 table/omp linear 5000000 
 newton on
 
 # Varaibles
-variable L equal 8
-variable NCL equal 50
-variable NMO equal 450
+variable L equal 15
+variable NCL equal 500
+variable NMO equal 4500
 variable seed1 equal 1234
 variable seed2 equal 4321
 variable seed3 equal 3124
 variable steps equal 1500000
 variable tstep equal 0.005
-variable sstep equal 10000
+variable sstep equal 5000
 
 # Create simulaiton box
 region simulation_box block -$L $L -$L $L -$L $L
@@ -86,6 +86,12 @@ neighbor 1.8 bin # extra-distance style
 neigh_modify exclude molecule/intra CrossLinker
 neigh_modify exclude molecule/intra Monomer
 
+# Introduce bounce wall with periodic boundayr condition
+#fix wallB1 all wall/reflect xlo EDGE xhi EDGE
+#fix wallB2 all wall/reflect xhi EDGE
+#fix wallB1 all wall/lj126 xlo EDGE 1.0 0.5 0.56 pbc yes
+#fix wallB2 all wall/lj126 xhi EDGE 1.0 0.5 0.56 pbc yes
+
 fix langevinFix all langevin 0.05 0.05 0.5 12345 # ID group-ID langevin Tstart Tstop damp seed
 
 thermo ${sstep}
@@ -107,6 +113,9 @@ compute vorCompSimple CM voronoi/atom only_group
 compute vorCompHisto CM voronoi/atom only_group edge_histo 30 edge_threshold 0
 
 # DUMPS and FIXES
+
+dump dumpC all atom ${sstep} info/patchyParticlesbounce_assembly.dumpf
+dump_modify dumpC pbc yes
 
 # Save atom positions
 dump dumpID all atom ${steps} info/patchyParticles_assembly.dumpf

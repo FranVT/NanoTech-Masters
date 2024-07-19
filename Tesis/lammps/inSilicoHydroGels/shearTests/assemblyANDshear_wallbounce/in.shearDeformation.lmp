@@ -31,7 +31,7 @@ variable Nsave equal 1000
 
 read_data data.hydrogel extra/bond/per/atom 4 extra/special/per/atom 5
 
-change_box all triclinic 
+change_box all triclinic
 
 # Coefficients
 bond_coeff * nocoeff
@@ -72,6 +72,14 @@ fix langevinFix all langevin 0.05 0.05 0.5 12345 # ID group-ID langevin Tstart T
 
 # Introduce the deformation
 fix shear all deform ${shear_every} xy erate ${shear_rate} remap x flip no
+#fix shear all deform ${shear_every} xy erate ${shear_rate} remap v flip no
+#variable aux equal ramp(xlo,xhi)
+
+# Create a Bounce wall
+#fix wallB1 all wall/reflect xlo EDGE
+#fix wallB2 all wall/reflect xhi EDGE
+#fix wallB1 all wall/lj126 xlo v_aux 10.0 0.1 0.112 pbc yes
+#fix wallB2 all wall/lj126 xhi v_aux 10.0 0.1 0.112 pbc yes
 
 thermo ${sstep}
 

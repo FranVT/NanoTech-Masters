@@ -1,0 +1,503 @@
+LAMMPS (27 Jun 2024)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+package omp 0
+using multi-threaded neighbor list subroutines
+# Script to create a shear deformationgiven a data file
+
+units lj
+dimension 3
+boundary p p p
+
+# Styles of atoms and that stuff
+atom_style bond
+bond_style zero nocoeff
+pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 1.12 table/omp linear 5000000 threebody/table
+newton on
+
+# Varaibles
+variable seed3 equal 3124
+variable tstep equal 0.005
+variable sstep equal 10000
+
+# Variables for the shear deformation
+variable shear_rate equal 1e-4
+variable max_strain equal 1
+variable delta_gamma equal 0.01
+variable zh equal zhi
+variable zl equal zlo
+variable l equal v_zh-v_zl
+variable xy equal xy
+variable n_def equal v_max_strain/v_delta_gamma
+variable relax_time equal v_delta_gamma/v_shear_rate
+variable shear_every equal v_relax_time/v_tstep
+variable shear_it equal v_n_def*v_shear_every
+variable Nsave equal 1000
+
+read_data data.hydrogel extra/bond/per/atom 4 extra/special/per/atom 5
+Reading data file ...
+  orthogonal box = (-15 -15 -15) to (15 15 15)
+  2 by 2 by 2 MPI processor grid
+  reading atoms ...
+  16000 atoms
+  reading velocities ...
+  16000 velocities
+  scanning bonds ...
+  8 = max bonds/atom
+  orthogonal box = (-15 -15 -15) to (15 15 15)
+  2 by 2 by 2 MPI processor grid
+  reading bonds ...
+  11000 bonds
+Finding 1-2 1-3 1-4 neighbors ...
+  special bond factors lj:    0        0        0       
+  special bond factors coul:  0        0        0       
+     4 = max # of 1-2 neighbors
+     3 = max # of 1-3 neighbors
+     3 = max # of 1-4 neighbors
+     9 = max # of special neighbors
+  special bonds CPU = 0.001 seconds
+  read_data CPU = 0.101 seconds
+
+change_box all triclinic
+Changing box ...
+  triclinic box = (-15 -15 -15) to (15 15 15) with tilt (0 0 0)
+
+# Coefficients
+bond_coeff * nocoeff
+pair_coeff 1 3 zero
+pair_coeff 1 4 zero
+pair_coeff 2 3 zero
+pair_coeff 2 4 zero
+pair_coeff 3 3 zero
+pair_coeff 1 1 lj/cut/omp 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
+pair_coeff 2 2 lj/cut/omp 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
+pair_coeff 1 2 lj/cut/omp 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
+pair_modify shift yes
+pair_coeff 3 4 table/omp pachTab.table POT 0.6 #0.75
+Reading pair table potential file pachTab.table with DATE: 2024-07-08
+WARNING: 2 of 5000000 force values in table POT are inconsistent with -dE/dr.
+WARNING:  Should only be flagged at inflection points (src/pair_table.cpp:466)
+pair_coeff 4 4 table/omp pachTab.table POT 0.6 #0.75
+Reading pair table potential file pachTab.table with DATE: 2024-07-08
+WARNING: 2 of 5000000 force values in table POT are inconsistent with -dE/dr.
+WARNING:  Should only be flagged at inflection points (src/pair_table.cpp:466)
+pair_coeff * * threebody/table swapMech.3b NULL NULL PA PB
+
+
+# Molecules
+molecule CL molecule.patchy.CL
+Read molecule template CL:
+# Patchy Cross-Linker
+  1 molecules
+  0 fragments
+  5 atoms with max type 3
+  4 bonds with max type 1
+  0 angles with max type 0
+  0 dihedrals with max type 0
+  0 impropers with max type 0
+molecule MO molecule.patchy.MO
+Read molecule template MO:
+# Patchy Monomer
+  1 molecules
+  0 fragments
+  3 atoms with max type 4
+  2 bonds with max type 1
+  0 angles with max type 0
+  0 dihedrals with max type 0
+  0 impropers with max type 0
+
+# Create patchy particles
+group CrossLinker type 1 3
+2500 atoms in group CrossLinker
+group Monomer type 2 4
+13500 atoms in group Monomer
+group Patches type 3 4
+11000 atoms in group Patches
+group CL type 1
+500 atoms in group CL
+group MO type 2
+4500 atoms in group MO
+group CM type 1 2
+5000 atoms in group CM
+fix pCL CrossLinker rigid/small/omp molecule #langevin 1.0 1.0 100.0 ${seed3}
+  create bodies CPU = 0.000 seconds
+  500 rigid bodies with 2500 atoms
+  0.46400431 = max distance from body owner to body atom
+fix pMO Monomer rigid/small/omp molecule #langevin 1.0 1.0 100.0 ${seed3}
+  create bodies CPU = 0.001 seconds
+  4500 rigid bodies with 13500 atoms
+  0.5 = max distance from body owner to body atom
+
+# Neighbor list
+neighbor 1.8 bin # extra-distance style
+neigh_modify exclude molecule/intra CrossLinker
+neigh_modify exclude molecule/intra Monomer
+
+fix langevinFix all langevin 0.05 0.05 0.5 12345 # ID group-ID langevin Tstart Tstop damp seed
+
+# Introduce the deformation
+fix shear all deform ${shear_every} xy erate ${shear_rate} remap x flip no
+fix shear all deform 20000 xy erate ${shear_rate} remap x flip no
+fix shear all deform 20000 xy erate 0.0001 remap x flip no
+#fix shear all deform ${shear_every} xy erate ${shear_rate} remap v flip no
+#variable aux equal ramp(xlo,xhi)
+
+# Create a Bounce wall
+#fix wallB1 all wall/reflect xlo EDGE
+#fix wallB2 all wall/reflect xhi EDGE
+#fix wallB1 all wall/lj126 xlo v_aux 10.0 0.1 0.112 pbc yes
+#fix wallB2 all wall/lj126 xhi v_aux 10.0 0.1 0.112 pbc yes
+
+thermo ${sstep}
+thermo 10000
+
+# Compute global kinetic and potential energy and temperature
+compute t all temp
+compute ep all pe
+compute ek all ke
+
+# Compute Cluster sizes
+compute cluster all aggregate/atom 0.6
+compute cc1 all chunk/atom c_cluster compress yes pbc yes
+compute size all property/chunk cc1 count
+
+# Compute Voronoi/atom
+compute vorCompSimple CM voronoi/atom only_group
+compute vorCompHisto CM voronoi/atom only_group edge_histo 30 edge_threshold 0
+
+# DUMPS and FIXES
+
+# Save atom positions
+dump dumpID all atom ${Nsave} info/patchyParticles_shear.dumpf
+dump dumpID all atom 1000 info/patchyParticles_shear.dumpf
+dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
+#dump_modify dumpID delay ${steps}
+
+# Write dump file of voronoi analysis of the last configuration
+dump dumpVor CM custom ${shear_it} info/voronoiSimple_shear.dumpf c_vorCompSimple[1] c_vorCompSimple[2]
+dump dumpVor CM custom 2000000 info/voronoiSimple_shear.dumpf c_vorCompSimple[1] c_vorCompSimple[2]
+dump_modify dumpVor delay ${shear_it}
+dump_modify dumpVor delay 2000000
+
+# Write fix file of voronoi histogram: Number of edges on the faces of the Voronoi cells
+fix fixvorHisto CM ave/time 1 1 ${shear_it} c_vorCompHisto file info/vorHisto_shear.fixf mode vector
+fix fixvorHisto CM ave/time 1 1 2000000 c_vorCompHisto file info/vorHisto_shear.fixf mode vector
+
+# Save global energies and temperature
+group Energy empty
+0 atoms in group Energy
+fix fixEng Energy ave/time 1 1 10 c_t c_ep c_ek file info/energy_shear.fixf
+
+# Save the cluster sizes
+#fix ID group-ID style Nevery Nrepeat Nfreq lo hi Nbin value1 value2
+fix 1 all ave/time 1 1 ${shear_it} c_size file info/sizeCluster_shear.fixf mode vector
+fix 1 all ave/time 1 1 2000000 c_size file info/sizeCluster_shear.fixf mode vector
+
+# RUN SIMULATION
+
+timestep ${tstep}
+timestep 0.005
+run ${shear_it}
+run 2000000
+
+CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
+
+Your simulation uses code contributions which should be cited:
+
+- Type Label Framework: https://doi.org/10.1021/acs.jpcb.3c08419
+
+@Article{Gissinger24,
+ author = {Jacob R. Gissinger, Ilia Nikiforov, Yaser Afshar, Brendon Waters, Moon-ki Choi, Daniel S. Karls, Alexander Stukowski, Wonpil Im, Hendrik Heinz, Axel Kohlmeyer, and Ellad B. Tadmor},
+ title = {Type Label Framework for Bonded Force Fields in LAMMPS},
+ journal = {J. Phys. Chem. B},
+ year =    2024,
+ volume =  128,
+ number =  13,
+ pages =   {3282–-3297}
+}
+
+CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
+
+WARNING: Using a manybody potential with bonds/angles/dihedrals and special_bond exclusions (src/pair.cpp:242)
+Hybrid pair style last /omp style table/omp
+Last active /omp style is pair_style table/omp
+WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
+WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
+Neighbor list info ...
+  update: every = 1 steps, delay = 0 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 2.92
+  ghost atom cutoff = 2.92
+  binsize = 1.46, bins = 21 21 21
+  7 neighbor lists, perpetual/occasional/extra = 6 1 0
+  (1) pair zero, perpetual, skip from (6)
+      attributes: half, newton on, omp
+      pair build: skip/omp
+      stencil: none
+      bin: none
+  (2) pair lj/cut/omp, perpetual, skip from (6)
+      attributes: half, newton on, omp
+      pair build: skip/omp
+      stencil: none
+      bin: none
+  (3) pair table/omp, perpetual, skip from (6)
+      attributes: half, newton on, omp, cut 2.4
+      pair build: skip/omp
+      stencil: none
+      bin: none
+  (4) pair threebody/table, perpetual, skip from (7)
+      attributes: full, newton on, omp, cut 2.4
+      pair build: skip/omp
+      stencil: none
+      bin: none
+  (5) compute aggregate/atom, occasional
+      attributes: full, newton on, omp
+      pair build: full/bin/omp
+      stencil: full/bin/3d
+      bin: standard
+  (6) neighbor class addition, perpetual
+      attributes: half, newton on, omp
+      pair build: half/bin/newton/tri/omp
+      stencil: half/bin/3d/tri
+      bin: standard
+  (7) neighbor class addition, perpetual
+      attributes: full, newton on, omp, cut 2.4
+      pair build: full/bin/omp
+      stencil: full/bin/3d
+      bin: standard
+WARNING: Dump dumpVor includes no atom IDs and is not sorted by ID. This may complicate post-processing tasks or visualization (src/dump.cpp:219)
+Per MPI rank memory allocation (min/avg/max) = 21.68 | 21.7 | 21.72 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press          Volume    
+         0   0.050038194   -0.31235363     0             -0.27248414     0.030672624    27000        
+     10000   0.050008703   -0.31301247     0             -0.27316648     0.0051080163   27000        
+     20000   0.050376825   -0.31294356     0             -0.27280425    -0.00063189595  27000        
+     30000   0.050638143   -0.31065514     0             -0.27030762     0.0021458495   27000        
+     40000   0.050158811   -0.31104185     0             -0.27107625     0.0050686059   27000        
+     50000   0.050430084   -0.31122576     0             -0.27104401     0.0055208123   27000        
+     60000   0.050144161   -0.31203617     0             -0.27208224     0.0056728098   27000        
+     70000   0.050618748   -0.3112545      0             -0.27092243    -0.0019198945   27000        
+     80000   0.050630642   -0.31015903     0             -0.26981748    -0.0025714441   27000        
+     90000   0.050527075   -0.31330516     0             -0.27304614     0.00081273306  27000        
+    100000   0.050402986   -0.31286055     0             -0.2727004      0.0036856353   27000        
+    110000   0.051040487   -0.31209821     0             -0.27143011     0.00064170284  27000        
+    120000   0.049794788   -0.31374104     0             -0.27406548     0.0018164281   27000        
+    130000   0.05060148    -0.31464117     0             -0.27432286    -0.004122656    27000        
+    140000   0.049788951   -0.31272669     0             -0.27305579     0.0016851477   27000        
+    150000   0.049695057   -0.31225994     0             -0.27266385     0.0085023511   27000        
+    160000   0.050286405   -0.31040042     0             -0.27033315     0.0013565254   27000        
+    170000   0.050630292   -0.31320804     0             -0.27286678     0.0041540917   27000        
+    180000   0.051601865   -0.31159738     0             -0.27048199     0.0080725886   27000        
+    190000   0.049894241   -0.31162502     0             -0.27187022    -0.0091220855   27000        
+    200000   0.050841849   -0.3107622      0             -0.27025237     0.00036377198  27000        
+    210000   0.050462428   -0.30947101     0             -0.26926349     0.0062233063   27000        
+    220000   0.050160919   -0.31397532     0             -0.27400804     0.0060810279   27000        
+    230000   0.050734382   -0.31275128     0             -0.27232708     0.0069282683   27000        
+    240000   0.050479491   -0.31277788     0             -0.27255676     0.0034979107   27000        
+    250000   0.050792919   -0.31347184     0             -0.273001       0.002383724    27000        
+    260000   0.050677786   -0.31244591     0             -0.2720668     -0.0021013695   27000        
+    270000   0.050706808   -0.31295813     0             -0.2725559      0.0010067331   27000        
+    280000   0.049782262   -0.3130107      0             -0.27334512     0.00096852639  27000        
+    290000   0.049177155   -0.31355819     0             -0.27437476     0.0003348424   27000        
+    300000   0.050538389   -0.31494342     0             -0.27467538     0.00098053045  27000        
+    310000   0.051081536   -0.31384598     0             -0.27314517     0.0010324617   27000        
+    320000   0.050550927   -0.31466331     0             -0.27438528     0.010739818    27000        
+    330000   0.051265686   -0.31188879     0             -0.27104125     0.0016369144   27000        
+    340000   0.050584926   -0.31387728     0             -0.27357216     0.0070543204   27000        
+    350000   0.050458287   -0.31197503     0             -0.27177081     0.0040893003   27000        
+    360000   0.050655655   -0.31140693     0             -0.27104545    -0.00017319836  27000        
+    370000   0.050773243   -0.31294834     0             -0.27249318     0.0040900015   27000        
+    380000   0.049916362   -0.31378104     0             -0.27400862    -0.0010065845   27000        
+    390000   0.050925149   -0.31379495     0             -0.27321874     0.0074382184   27000        
+    400000   0.049981012   -0.31383833     0             -0.2740144     -0.012100953    27000        
+    410000   0.050053114   -0.31189306     0             -0.27201167     0.0089762291   27000        
+    420000   0.051498829   -0.31017566     0             -0.26914236     0.002072236    27000        
+    430000   0.050555913   -0.3107059      0             -0.27042389     0.0013094028   27000        
+    440000   0.049502557   -0.31440686     0             -0.27496415    -0.00054450625  27000        
+    450000   0.05036262    -0.31249482     0             -0.27236683     0.0057801781   27000        
+    460000   0.05078172    -0.31206516     0             -0.27160323     0.0046336694   27000        
+    470000   0.050996266   -0.31326227     0             -0.2726294     -0.00089742604  27000        
+    480000   0.050282624   -0.31173993     0             -0.27167567     0.0032075976   27000        
+    490000   0.050660279   -0.31116941     0             -0.27080425     0.0038884202   27000        
+    500000   0.050920605   -0.31227909     0             -0.27170651     0.0077214521   27000        
+    510000   0.050105084   -0.31158032     0             -0.27165753    -0.00073617055  27000        
+    520000   0.050862461   -0.31237901     0             -0.27185275     0.0076396566   27000        
+    530000   0.050703484   -0.30937727     0             -0.26897768     0.0061111838   27000        
+    540000   0.050411785   -0.31285436     0             -0.27268719     0.010053406    27000        
+    550000   0.050722446   -0.31244992     0             -0.27203523     0.0010979586   27000        
+    560000   0.050626795   -0.30888534     0             -0.26854686     0.0072162649   27000        
+    570000   0.05005466    -0.30954691     0             -0.26966429     0.0043578238   27000        
+    580000   0.050610114   -0.30929258     0             -0.26896739     0.0065778336   27000        
+    590000   0.04973548    -0.31225973     0             -0.27263144    -0.0048366684   27000        
+    600000   0.050408577   -0.31168497     0             -0.27152036     0.0072570952   27000        
+    610000   0.051176936   -0.31153853     0             -0.27076171     0.0045616019   27000        
+    620000   0.04967395    -0.30992332     0             -0.27034405     0.003646       27000        
+    630000   0.051057684   -0.31063083     0             -0.26994902    -0.0016038397   27000        
+    640000   0.051006427   -0.31059665     0             -0.26995568     0.0075372612   27000        
+    650000   0.050466775   -0.31034025     0             -0.27012927     0.004014717    27000        
+    660000   0.050416155   -0.31243634     0             -0.27226569     0.0028827992   27000        
+    670000   0.050432929   -0.3119653      0             -0.27178129     0.0034256737   27000        
+    680000   0.050915074   -0.31344553     0             -0.27287736    -0.0040892432   27000        
+    690000   0.050067417   -0.31297806     0             -0.27308528     0.0019737473   27000        
+    700000   0.050208979   -0.31308527     0             -0.2730797      0.011916779    27000        
+    710000   0.051109181   -0.31265796     0             -0.27193512     0.011131959    27000        
+    720000   0.050374881   -0.31388732     0             -0.27374956    -0.00092669134  27000        
+    730000   0.050271093   -0.3113288      0             -0.27127374     0.0053490532   27000        
+    740000   0.049652072   -0.31114579     0             -0.27158395     0.000134329    27000        
+    750000   0.049900065   -0.31212975     0             -0.27237031     0.0051624279   27000        
+    760000   0.050377585   -0.31357117     0             -0.27343126     0.0044116991   27000        
+    770000   0.050159207   -0.31317788     0             -0.27321196    -0.00085827585  27000        
+    780000   0.049780833   -0.31262165     0             -0.27295722    -0.0011567816   27000        
+    790000   0.050831058   -0.312663       0             -0.27216177    -0.00089856682  27000        
+    800000   0.050263502   -0.31336997     0             -0.27332095     0.0051780687   27000        
+    810000   0.050410054   -0.31261461     0             -0.27244882    -0.00057032658  27000        
+    820000   0.050970484   -0.31308619     0             -0.27247386     0.0094499838   27000        
+    830000   0.049641594   -0.31358525     0             -0.27403176     0.0066074794   27000        
+    840000   0.051627978   -0.31246189     0             -0.27132569     0.0040057641   27000        
+    850000   0.051025448   -0.31143892     0             -0.27078279     0.001167989    27000        
+    860000   0.049433159   -0.31339215     0             -0.27400474    -0.0023834427   27000        
+    870000   0.050948783   -0.31531328     0             -0.27471825     0.011899084    27000        
+    880000   0.051331379   -0.31264339     0             -0.27174351     0.0019764614   27000        
+    890000   0.050892285   -0.31140309     0             -0.27085307     0.0011064909   27000        
+    900000   0.05017237    -0.31248418     0             -0.27250777     0.0057998875   27000        
+    910000   0.049374057   -0.31294353     0             -0.2736032      0.0081307396   27000        
+    920000   0.050620283   -0.31103025     0             -0.27069696     0.012657456    27000        
+    930000   0.051803012   -0.30989032     0             -0.26861466    -0.001113009    27000        
+    940000   0.049690368   -0.31254473     0             -0.27295238     0.0084904033   27000        
+    950000   0.05065871    -0.31144437     0             -0.27108046     0.014548094    27000        
+    960000   0.050286532   -0.31337507     0             -0.2733077     -0.0024441946   27000        
+    970000   0.05015447    -0.31126591     0             -0.27130377     0.0030938339   27000        
+    980000   0.050663106   -0.31301022     0             -0.27264281     0.0025815041   27000        
+    990000   0.050082269   -0.31235917     0             -0.27245455     0.0061299549   27000        
+   1000000   0.050425074   -0.31269222     0             -0.27251447     0.0094247143   27000        
+   1010000   0.049283294   -0.31325044     0             -0.27398243     0.0028807479   27000        
+   1020000   0.050249607   -0.31450473     0             -0.27446679     0.0026584704   27000        
+   1030000   0.050931051   -0.30961642     0             -0.26903552     0.0044269833   27000        
+   1040000   0.051344502   -0.31183864     0             -0.27092831     0.0008152723   27000        
+   1050000   0.050133089   -0.3126397      0             -0.2726946     -0.0022373716   27000        
+   1060000   0.050584162   -0.30893687     0             -0.26863236     0.0021978979   27000        
+   1070000   0.050206988   -0.31446837     0             -0.27446438     0.0048704759   27000        
+   1080000   0.050481707   -0.31491727     0             -0.27469439     0.0040946413   27000        
+   1090000   0.049602475   -0.31388105     0             -0.27435873     0.0015652864   27000        
+   1100000   0.050470917   -0.31226881     0             -0.27205453     0.0012219521   27000        
+   1110000   0.049408238   -0.31356243     0             -0.27419487     0.0019395766   27000        
+   1120000   0.050271232   -0.31365407     0             -0.2735989      0.002371326    27000        
+   1130000   0.050131645   -0.3106594      0             -0.27071545     0.0018705892   27000        
+   1140000   0.050979323   -0.31261853     0             -0.27199916     0.0017906463   27000        
+   1150000   0.050380877   -0.31180394     0             -0.27166141     0.0091777166   27000        
+   1160000   0.051667771   -0.3103284      0             -0.26916048    -0.0028352779   27000        
+   1170000   0.050923783   -0.31178131     0             -0.27120619     0.003479354    27000        
+   1180000   0.050831053   -0.31137153     0             -0.2708703      0.0047169287   27000        
+   1190000   0.049650415   -0.3114161      0             -0.27185558     0.006031223    27000        
+   1200000   0.049871089   -0.31280999     0             -0.27307364     0.0064613766   27000        
+   1210000   0.050730603   -0.31262877     0             -0.27220757     0.007279056    27000        
+   1220000   0.051018156   -0.31183076     0             -0.27118045    -0.00069069345  27000        
+   1230000   0.050054435   -0.31187131     0             -0.27198888     0.0041134818   27000        
+   1240000   0.050185962   -0.31372558     0             -0.27373835     0.0062759503   27000        
+   1250000   0.050076646   -0.31296219     0             -0.27306205    -0.0028846836   27000        
+   1260000   0.050359763   -0.31225274     0             -0.27212703     0.0039570253   27000        
+   1270000   0.05018138    -0.31249814     0             -0.27251456     0.006388188    27000        
+   1280000   0.050296594   -0.31321284     0             -0.27313746     0.0035849513   27000        
+   1290000   0.050041177   -0.31382497     0             -0.2739531      0.0034746604   27000        
+   1300000   0.051043738   -0.31190811     0             -0.27123742     0.0063963107   27000        
+   1310000   0.050016527   -0.31466317     0             -0.27481094     0.0071995395   27000        
+   1320000   0.049686162   -0.31297246     0             -0.27338346     0.00076320041  27000        
+   1330000   0.050462824   -0.31340566     0             -0.27319783     0.0032541163   27000        
+   1340000   0.050383267   -0.31338115     0             -0.27323671     0.0058996208   27000        
+   1350000   0.051089578   -0.31320638     0             -0.27249916     0.001509967    27000        
+   1360000   0.050443798   -0.31524047     0             -0.2750478     -0.0032731796   27000        
+   1370000   0.050256596   -0.31354819     0             -0.27350467     0.0073113897   27000        
+   1380000   0.050616876   -0.31084537     0             -0.27051479     0.00081197004  27000        
+   1390000   0.050337368   -0.3130846      0             -0.27297672     0.0015664228   27000        
+   1400000   0.050854569   -0.3144675      0             -0.27394753     0.0060470721   27000        
+   1410000   0.050487927   -0.31392849     0             -0.27370065     0.0054890863   27000        
+   1420000   0.050729332   -0.31173635     0             -0.27131617     0.0032167928   27000        
+   1430000   0.049928231   -0.31265849     0             -0.27287661     0.001106399    27000        
+   1440000   0.051250955   -0.31203247     0             -0.27119667    -0.0051699633   27000        
+   1450000   0.050650683   -0.31196213     0             -0.27160462    -0.0030129038   27000        
+   1460000   0.05029223    -0.30996365     0             -0.26989175     0.0027053628   27000        
+   1470000   0.050744693   -0.30911837     0             -0.26868595     0.0083844586   27000        
+   1480000   0.050103277   -0.3113021      0             -0.27138074     0.0071853528   27000        
+   1490000   0.050048058   -0.31293844     0             -0.27306108     0.00056104482  27000        
+   1500000   0.05105288    -0.3105511      0             -0.26987312     0.0044456581   27000        
+   1510000   0.050214045   -0.30970243     0             -0.26969282    -0.0022241259   27000        
+   1520000   0.050659949   -0.30745489     0             -0.26708999     0.0029961559   27000        
+   1530000   0.050838959   -0.31148563     0             -0.2709781      0.004871041    27000        
+   1540000   0.050064858   -0.31139349     0             -0.27150275    -0.00014034518  27000        
+   1550000   0.050723833   -0.31168019     0             -0.27126439     0.0107382      27000        
+   1560000   0.050070321   -0.31225644     0             -0.27236135    -0.0011304736   27000        
+   1570000   0.051448693   -0.31150667     0             -0.27051332     0.0027639261   27000        
+   1580000   0.050533022   -0.31178724     0             -0.27152347    -0.0024203144   27000        
+   1590000   0.050959671   -0.31038579     0             -0.26978208     0.0025704552   27000        
+   1600000   0.049582933   -0.31356376     0             -0.27405701    -0.0046207642   27000        
+   1610000   0.051006725   -0.3140095      0             -0.27336829     0.0036608572   27000        
+   1620000   0.05067675    -0.31164424     0             -0.27126595     0.0083315454   27000        
+   1630000   0.050331706   -0.31279628     0             -0.27269292    -0.00083387783  27000        
+   1640000   0.050052428   -0.31318931     0             -0.27330847     0.0096097118   27000        
+   1650000   0.050614491   -0.31120206     0             -0.27087339     0.0037033869   27000        
+   1660000   0.050176418   -0.31304959     0             -0.27306996     0.0074302157   27000        
+   1670000   0.050191477   -0.31214314     0             -0.27215151     0.011058628    27000        
+   1680000   0.050051936   -0.3132518      0             -0.27337136     0.0043241278   27000        
+   1690000   0.050555267   -0.31185651     0             -0.27157502     0.00058400573  27000        
+   1700000   0.051684866   -0.31274383     0             -0.2715623      0.0033893602   27000        
+   1710000   0.050080985   -0.31045727     0             -0.27055368     0.010304961    27000        
+   1720000   0.050449335   -0.31308281     0             -0.27288572     0.0054854898   27000        
+   1730000   0.050428824   -0.31308091     0             -0.27290017     0.00023880532  27000        
+   1740000   0.051718338   -0.31225902     0             -0.27105082     0.0049008495   27000        
+   1750000   0.050563307   -0.31201729     0             -0.27172939     0.0087841675   27000        
+   1760000   0.050648226   -0.3125488      0             -0.27219324     0.013963092    27000        
+   1770000   0.050956805   -0.31357374     0             -0.27297231     0.0050593847   27000        
+   1780000   0.050720134   -0.3137479      0             -0.27333505    -0.0015592001   27000        
+   1790000   0.050310108   -0.3134522      0             -0.27336605     0.0075439248   27000        
+   1800000   0.050313932   -0.31171718     0             -0.27162798     0.0026480316   27000        
+   1810000   0.050391513   -0.3129423      0             -0.27279129     0.0010021541   27000        
+   1820000   0.050494141   -0.31191364     0             -0.27168085     0.0077677575   27000        
+   1830000   0.050116496   -0.3128852      0             -0.27295332     0.0076739059   27000        
+   1840000   0.050713831   -0.3133634      0             -0.27295557     0.0035897692   27000        
+   1850000   0.049795427   -0.31233358     0             -0.27265752    -0.0032495889   27000        
+   1860000   0.050036335   -0.31380784     0             -0.27393982     0.001354794    27000        
+   1870000   0.05023514    -0.31195222     0             -0.2719258      9.2844856e-05  27000        
+   1880000   0.050220179   -0.31262389     0             -0.2726094      0.003715011    27000        
+   1890000   0.050228347   -0.31093072     0             -0.27090972     0.00040306368  27000        
+   1900000   0.050965134   -0.31386451     0             -0.27325645    -4.706901e-05   27000        
+   1910000   0.050806979   -0.31357916     0             -0.27309711     0.0071503871   27000        
+   1920000   0.049809605   -0.31463016     0             -0.27494281     0.0049964692   27000        
+   1930000   0.050765409   -0.3115189      0             -0.27106998     0.0055941212   27000        
+   1940000   0.049672048   -0.31232536     0             -0.2727476      0.0048801212   27000        
+   1950000   0.050463145   -0.31351325     0             -0.27330516     0.0010112676   27000        
+   1960000   0.050915252   -0.31307648     0             -0.27250816    -0.00022207774  27000        
+   1970000   0.050539966   -0.31218583     0             -0.27191653     0.0033048485   27000        
+   1980000   0.050250138   -0.31108524     0             -0.27104688     0.0024005217   27000        
+   1990000   0.050040494   -0.31146226     0             -0.27159094    -0.00067276695  27000        
+   2000000   0.050649339   -0.30998124     0             -0.26962479     0.0054228144   27000        
+Loop time of 2179.67 on 8 procs for 2000000 steps with 16000 atoms
+
+Performance: 396390.831 tau/day, 917.571 timesteps/s, 14.681 Matom-step/s
+92.6% CPU use with 8 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 574.43     | 593.56     | 610.21     |  46.0 | 27.23
+Bond    | 0.37683    | 0.51192    | 0.72725    |  14.8 |  0.02
+Neigh   | 114.29     | 114.31     | 114.33     |   0.1 |  5.24
+Comm    | 274.83     | 291.45     | 309.79     |  64.4 | 13.37
+Output  | 3.3598     | 3.7972     | 4.1562     |  14.2 |  0.17
+Modify  | 1130.1     | 1131.6     | 1134       |   3.6 | 51.92
+Other   |            | 44.39      |            |       |  2.04
+
+Nlocal:           2000 ave        2175 max        1853 min
+Histogram: 1 0 1 2 0 2 1 0 0 1
+Nghost:        4031.12 ave        4127 max        3958 min
+Histogram: 2 0 0 1 3 0 1 0 0 1
+Neighs:              0 ave           0 max           0 min
+Histogram: 8 0 0 0 0 0 0 0 0 0
+FullNghs:      44401.2 ave       51180 max       38678 min
+Histogram: 1 0 1 1 2 1 1 0 0 1
+
+Total # of neighbors = 355210
+Ave neighs/atom = 22.200625
+Ave special neighs/atom = 2.3125
+Neighbor list builds = 8405
+Dangerous builds = 0
+
+Total wall time: 0:36:37
