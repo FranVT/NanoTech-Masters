@@ -21,24 +21,10 @@
 \definecolor{LinkColor}{HTML}{a3be8c} %color for links
 
 \begin{document} % this will automatically generate a simple cover
-\newday{2022-12-25} \verb|\newday| is the main command provided by the \verb|researchjournal| class. It receives a single argument: a date in the \verb|yyyy-mm-dd| format. Issuing it will automatically generate the necessary chapter and sections for the year and month, respectively. This happens in addition to issuing a subsection for the specific day. The command creates the new chapter and section by comparing the date it received to the previous date issued by the user. It also checks for chronological order and for repeated days, but it can't do much about it. At most, you will get a class warning to let you know your entries are out of order. The chapter and section creation facilities do assume you are typing your entries in chronological order, so you might not get a new chapter if you type a previous year. % newday is the main command provided by the class. It inserts a daily entry and automatically checks whether it is necessary to create a new chapter (due to a new year) or a new section (due to a new month). Its sole argument is a date in the format yyyy-mm-dd. Issue the command, then write as you will in front of it.
 
-\newday{2023-01-27} Notice how writing a new day on a different year automatically creates a new chapter. Below this entry, I'm showing an example of the \verb|daybib| command. It simply prints ``References:'' in a cute manner, without any other fancy functionalities. I use it to list some references that I used throughout the day, but didn't want to list in the main paragraph (perhaps because I barely checked them, or just didn't have much to comment about them). I like to keep a comprehensive list of references so I can later check on them if I ever get a feeling like ``I once read a paper that discussed this, but what was it called again?'' % notice how a new year automatically creates a new chapter
-\daybib\cite{weinberg1995Foundations,weinberg1996ModernApplications}. %daybib adds the text "References: " underneath the entry. It just prints text without doing anything fancy. I use it to list references that I used on some given day, but didn't make it to the main paragraph. Notice I manually added a period at the end of the line.
-
-\newday{2023-01-28} Let us add a bit more text in here just to have a larger paragraph to work as an example. Most of my personal entries typically describe what I did in that particular day in general terms, such as ``I finished writing Section 2.3 of my thesis'', or ``Read the paper by \textcite{hawking1975ParticleCreationBlack} and really enjoyed it''. The idea is mostly to have a short and general description of how the day went so that I can recall it later when, for example, writing a report.
-
-\newday{2023-02-12} New day, new text. Notice how the new month automatically generates a new section. 
-\daybib\cite{wald1984GeneralRelativity}.
-
-\newday*{2023-02-13} If you type \verb|\newday*{yyyy-mm-dd}| (with an asterisk), the output will also include a star. I typically use this feature to tag the days in which I had meetings with my advisor, but at the end of the day it is completely up to you. Maybe you use to tag happy days or something. 
-
-\newday{2023-03-02} Notice how the headers work as a dictionary guide. The left header indicates the first entry on the page, while the right header indicates the last. 
-
-\newday{2023-03-03} References are dealt with using \verb|biblatex|. You can add your own my modifying the file \verb|bib.bib|.
 
 \newday{2024-07-16} About Voronoi tessellation and characterization techniques in softmatter.
-In the article \cite{yangVoronoiTessellationPacking2002} 
+In the article \textcite{yangVoronoiTessellationPacking2002} 
 
 They analyse a system with 5000 particles and vary the radius from $100$ to $0.1\mathrm{\mu m}$ and analyse the number of edges for each polyhedron face, number of faces for each polyhedron face, perimeter, area of a polyhedron face and perimeter, area and volume of a polyhedron.
 In a nutshell, they said that the topological and metric properties of Voronoi polyhedra are quantified as a function of particles size and packing density.
@@ -55,13 +41,12 @@ They mention the following laws: Aboav-Weaire's law and Lewis's law.
 
 \rule{\textwidth}{0.4pt}
 
-In the article \cite{lazarVoronoiCellAnalysis2022} in the section of Stability they state that:
+In the article \cite{lazarVoronoiCellAnalysis2022} 
+in the section of Stability they state that:
 When geometric quantities are used for classification purposes, thresholds for the range of possible values must be chosen, on the other hand, topological ones can change abruptly under small perturbations of particle coordinates.
 
 
-
 \rule{\textwidth}{0.4pt}
-
 
 How we can relate the topological and metric properties with rehological properties?
 
@@ -74,7 +59,7 @@ It can be computed the pressure in a plane that intersect that sphere.
 I think that, that relation, between the potential and the intersecte plane, will help to create a conecction between rehological properties and structural stuff.
 
 \begin{align*}
-	\vec{P}_{VC} = -\dv{r}\mathrm{LJ}\qty(r)|_{r\in R^{2}}\frac{1}{A_{VC}}\hat{e}_{r},
+	\vec{P}_{VC} = -\dv{r}\mathrm{LJ}(r)|_{r\in R^{2}}\frac{1}{A_{VC}}\hat{e}_{r},
 \end{align*}
 where $A_{VC}$ is the area of the shared plane between two voronoi cells and the force is evaluated at that plane.
 The $VC$ indicates, "Voronoi Cell".
@@ -97,7 +82,119 @@ About packing density: Using the volumen of voronoi polyhedra.
 It can be said that a system is jammed, when the mean of the volumens of the voronoi polyhedra tends to a minimum.
 
 % https://www.nature.com/articles/nmat4674
+\rule{\textwidth}{0.4pt}
 
-\printbibliography
+About the simulations.
+50 simulations with 500 patchy particles took 24 hrs.
+This is 500 Monomers and Crosslinker. 
+All of them has 50 CL and 450 MO, hence, 200 patches for the 50 CL and 900 patches for MO, hence, 1600 particles in total.
+
+I have no idea how to improve the time of the simulation.
+Each simulation takes between 27-28 mins. 
+
+\newday*{2024-07-17}
+Key point of the reunion:
+\begin{itemize}
+	\item Start the script for shear deformation
+	\item Keep in mind to vary the following parameters:
+	\begin{enumerate}
+		\item Cross-Linker concentration
+		\item Size of the box (Packing density)
+		\item The energy of the Patch-Patch interaction.
+	\end{enumerate}
+	\item Analyze the density distibution of the voronoi parameters
+	\item Make and animation, where the color of the particle represent the volume of the voronoi cell and share the script.
+	\item Hint: Directores
+\end{itemize}
+
+About the idea of the normla vector: They do not sees a great future.
+
+\rule{\textwidth}{0.4pt}
+
+The deformation script is done, basically I copy the code from Felipe.
+
+\newday{2024-07-19}
+Yesterday I finich the scripts for the shear deformation and investigate some papers that help me to understad what I'm trying to do for the thesis project.
+
+I found the artilce by \cite{sheikoArchitecturalCodeRubber2019} and here are some ``main'' points:
+\begin{itemize}
+	\item Materials response to deformation is expressed by a stress-strain curve measured art controlled strain rate and temperature.
+	\item A set of stres-strain curves constitue the ``mechanical phenotype''.
+	\item The dependcy of those curves help us to understand the molecular relacation processes, such as conformational tranformation, bond scission and molecule displacement.
+	\item In the article, they classify a material, based on their stress-strain curves, in three categories: Thermoplastics, Biological networks and  Synthetic network.
+	\item Feature of interset for the article: Firmness is the stiffeness enhancement in response to deformationa and is one of nature's defense mechanisms preventig accidental organ rupture.
+	\item Solif thermoplastics, the mechanical properties are predominantly controlled by molecular interactions.
+	\item Elastomers, the mechanical properties are controlled by the changes in the system configuration,by unravelling network strands at nearly constant mass density.
+	\item A network architecture is defined by: Connectivity, dimensions and flexibility of network strands.
+	\item The weak dependence on chemical compositions helps to manipulate the mechanical response.
+	\item In the article they focues in the Shear modulus.
+	\item Topological defects: Chain entranglements, dandling chain ends, loops, multiple strands and side chains.
+	\item Search of definitions:
+		\begin{enumerate}
+			\item Shear modulus:
+			\item Cross-link functionality:
+			\item Degree of polymerization: Number of monomeric units (MO and CL)
+			\item Kuhn length:  A theoretical treatment, developed by Werner Kuhn, in which a real polymer chain is considered as a collection of N Kuhn segments each with a Kuhn length b. Each Kuhn segment can be thought of as if they are freely jointed with each other.
+		\end{enumerate}
+	\item The softness at small deformations is manipulated by changing the cross-link density.
+	\item Linear chain Networks
+	\begin{itemize}
+		\item The cross-linnk density is THE control parameter
+		\item The Young's modulus can be tune by introducing loops and dangles.
+		\item Modify the junctions can controll the network topology
+		\item The cross-link functionality can be increased by adding dendrimes, colloidal particles and microphase domains.
+		\item Their equilibrium characteristics are mostly determined by the degree of polymerization of the chemical network strand.
+		\item Strand entanglements can create a loweer limit for the shear modulus and upper limit for the elongation-at-break.
+		\item Softness can be achieved by solvent swelling.
+		\item Swelling leads to strand extensions and therefore firmness enhacement.
+	\end{itemize}
+	\item Dual Networks
+	\begin{itemize}
+		\item Networks with permanent cross-links  and dynamic cross-links.
+		\item Permamnent cross-link are responsible for elastic properties and sample shape
+		\item Dynamic cross-link regulate energy dissipation and strain-rate response.
+		\item Dynamic networks depen on strain rate, permanent network does not depend on strain rate.
+			\item At higher rates, physical cross-links do not have enough time to break and behave as permanent cross-links, resulting in high modulus and strength.
+		\item \textbf{To characterize the dynamic mechanical properties of the dual networks at small deformations, evolution of the stress relaxation Young’s modulus E(t) during uniaxial extension at a constant temperature is calculated by using a linear viscoelasticity approximation.}
+	\end{itemize}
+	\item Network with Brush-Like strands: I didn't read it with detail, beacuse it is out of my scope/comprehension/interest at the moment. It will be great to read it with more knowledge in the area.
+\end{itemize}
+
+Need to check \cite{dealyStructureRheologyMolten2006} for more information about polymer structures and their characterization.
+
+Now, in the sense, that the curve of strain-stress is essential to characterize the material, I search in lammps how to compute the stres and strin in the simulation.
+What I found is an page where there explain how to \href{https://docs.lammps.org/Howto_elastic.html}{Calculate elastic constants} and according to that page, the elastic constants (strain and stress) are related as follows:
+\begin{gather*}
+	s_{ij} = C_{ijkl} e_{kl},
+\end{gather*}
+where the repeates indices impley summation.$s_{ij}$ are the elemnts of the symmetric stress tensor, $e_{kl}$ are the elements of the symmetric strain tensor and $C_{ijkl}$ are the elemnts of the foruth rank tensor of elastic constants.
+
+Then, they state that the elastic constant can be computed at \textit{zero temperature} or \textit{finite temperature} and metiond the following methods for doing it in LAMMPS,
+\begin{itemize}
+	\item At zero temperature
+		\begin{enumerate}
+			\item The $C_{ijkl}$ are estimated by deforming the simulaiton box in one of the six directions using \verb|change_box| command. Then compute the chanfes in the stress tensor.
+		\end{enumerate}
+	\item At finite temperature
+		\begin{enumerate}
+				\item Exploit the relation between elastic constants, stress fluctuations, and the Born matrix. \cite{rayStatisticalEnsemblesMolecular1984}
+				\item Measure the change in average stress tensor in an NVT simulations when the cell volume undergoes a finite deformation.
+				\item Sample the triclinic cell fluctuations that occur in an NPT simulation. 
+			\end{enumerate}
+\end{itemize}
+
+Finally, in the article \cite{clavierComputationElasticConstants2017} a nice review of the advantages and disadvantages of all of these methods is provided.
+
+So the next week I will check those articles and the examples cripts in lammps.
+
+Possibly, during the weekend's I transfer old entries of multiple daily log in Obsdian, notesbooks, Git and Discord.
+
+%Dealy, J. M.; Larson, R. G. Structure and Rheology of Molten Polymers: From Structure to Flow Behavior and Back Again; Hanser Gardner: Cincinnati, OH, 2006. [It's a book]
+
+% Ferry, J. D. Viscoelastic Properties of Polymers, 3rd ed.; John Wiley: NewYork, 1980.
+
+
+
+%\printbibliography
 
 \end{document} % this will automatically generate a references chapter if you cited any references throughout the text

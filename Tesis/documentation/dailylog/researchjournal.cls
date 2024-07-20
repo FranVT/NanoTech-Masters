@@ -8,6 +8,16 @@
 
 %% PACKAGES
 
+\RequirePackage{amsmath,amsthm,amsfonts,amssymb,amscd,latexsym}
+\RequirePackage{physics}
+\RequirePackage{siunitx} 		% Permite utilizar el sistema internacional de unidades
+\RequirePackage{mathptmx}
+\RequirePackage{mathtools}
+\RequirePackage{cancel}
+\RequirePackage{centernot} 		% Notacion matematica
+\RequirePackage{empheq}			% Recuadros para ecuaciones
+
+
 \RequirePackage[svgnames]{xcolor}
 
 %% Encoding
@@ -91,7 +101,7 @@
                 doi        = true, 
                 dashed     = true]{biblatex} %Custom bibliography
 \renewcommand*{\bibnamedash}{\rule[.4ex]{3em}{.5pt} \,}
-\addbibresource{bib.bib} %Load references
+\addbibresource{MaestriaNano.bib} %Load references
 \DeclareFieldFormat[article,periodical]{volume}{\mkbibbold{#1}}
 
 %% Cross references
