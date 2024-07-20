@@ -101,7 +101,7 @@
                 doi        = true, 
                 dashed     = true]{biblatex} %Custom bibliography
 \renewcommand*{\bibnamedash}{\rule[.4ex]{3em}{.5pt} \,}
-\addbibresource{bib.bib} %Load references
+\addbibresource{MaestriaNano.bib} %Load references
 \DeclareFieldFormat[article,periodical]{volume}{\mkbibbold{#1}}
 
 %% Cross references
