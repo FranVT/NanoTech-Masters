@@ -1,0 +1,25 @@
+LAMMPS (27 Jun 2024)
+OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:98)
+  using 1 OpenMP thread(s) per MPI task
+# Compute elastic constant tensor for a crystal at finite temperature
+# These settings replicate the 1477~K benchmark of
+# Kluge, Ray, and Rahman (1986) that is Ref.[15] in:
+# Y. Zhen, C. Chu, Computer Physics Communications 183(2012) 261-265
+
+# here: Y. Zhen, C. Chu, Computer Physics Communications 183(2012) 261-265
+
+include init.in
+# NOTE: This script can be modified for different atomic structures,
+# units, etc. See in.elastic for more info.
+#
+# Define MD parameters
+# These can be modified by the user
+# These settings replicate the 1477~K benchmark of
+# Kluge, Ray, and Rahman (1986) that is Ref.[15] in:
+# Y. Zhen, C. Chu, Computer Physics Communications 183(2012) 261-265
+
+# set log file
+
+variable logsuffix index ortho
+log log.elastic.${logsuffix}
+log log.elastic.ortho
