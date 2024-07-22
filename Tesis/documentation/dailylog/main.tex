@@ -193,7 +193,100 @@ Possibly, during the weekend's I transfer old entries of multiple daily log in O
 
 % Ferry, J. D. Viscoelastic Properties of Polymers, 3rd ed.; John Wiley: NewYork, 1980.
 
+\newday{2024-07-22}
 
+Today I check the examples scripts form \href{https://docs.lammps.org/Howto_elastic.html}{Calculate elastic constants}, specifficly the \textit{Zero temperature} and \textit{Born\_Matrix} examples.
+I understud the methodology.
+The scripts create a set of particles, then in minimize the system and save that state.
+Then, a set of 12 deformations are applied, a pair of deformation per basis: $xx$, $yy$, $zz$, $xz$, $yz$, $xy$, with positive and negative sign, to change the direction. 
+Then, the stress and pressure tensors are used to compute the strain tensor.
+
+In the \textit{zero} temperature scheme, this is the end of the simulation, meanwhile, this procedure is repeted thru an interval of time for the \textit{Born\_Matrix} example.
+
+I want to applied that methodology to characterize the hydrogel, but first, the scripts needs to be converted from reduce units to real units.
+Also, I want/need to undertad the relations between stres-strain parameters, preassure, stress, the derivatives of the potential energy with stress and strain.
+Furthermore, I need to seek information about an order parameter to propose.
+
+\rule{\textwidth}{0.4pt}
+
+Taking into account, that temperature is the mean of the velocity of system of particles, we can create a vague relation betweent the ``structure'' and the temperature.
+Assuming that a solid or fluid has more bonds between particles than a gas, a gas has a greater temperature than the others.
+However, how can we stablish a range of temperature o a temperutre in which occurs a transition between solid, to liquid to gas.
+
+If we think that the temperature is a mean, hence we can use the standrd deviation as a tool to identify a transition.
+When the standard deviation of the temperature is localize, then is in a state, but when the standard deviation is broader, we can stipulate that is happening a phase transition.
+
+Now, here are few point that need to be clarify:
+\begin{itemize}
+	\item The temperature is a mean of the particle velocities in a system. To analyze the standard deviation of the temperature, that means to take into account $N$ systems at constant number of particles, volume and energy (NVE).
+	\item The other points I dont remebebr becuase I take another line of thought.
+\end{itemize}
+
+\rule{\textwidth}{0.4pt}
+
+About viscosity, temperature and rheological properties.
+
+The viscosity, temperature and rheological properties are consquence of the composition of the material.
+The temperature is more related with the internal velocity of the particles, meanwhile, the viscosoty and rehological properties are more related with the relative position between particles.
+
+I undertand the structure of the material, as the relative position of the particles between the, hence, the viscosity and the rhological properties are observables of the strucutre of the material.
+On the other hand, the temperature is an observable of the velocity of the particles.
+
+It is important to take into account, that the velocity of the particles is affected by the position of the particles and the position of the particles is affected by the velocity of them.
+Hence, twe can use the hree of them to state phase changes.
+
+In a broad sens, the temperature will help to diffiriantiet between solids and liquid with gasses.
+The viscosity between solids and gases with liquids and rhologicla properties between liquids and gasses with solids.
+
+Now, with all that in mind, How we can related those properties with specific structures?
+That a set of parameters will help to kwon that a material has chains in ``U'' or will form vessicles or chains.
+
+To be honest, I infer that to crespond that, we also need to take into account the compounds and the electronic proporties of their compounds.
+Becuases, that will help to connect the macro with the micro properties.
+
+About Pressure.
+Preassure is an external variable.
+Pressure is the change of momentum over time per area.
+Now, the temperature is the expected value of the kinetic energy, which is related with the mometum of the particles.
+So pressure, will help to understad the change of preperties thru time.
+
+The pressure will help to observed the change of temperature over time.
+This is, because the temperature is directly related with the velocity and mass, such as the momeutm.
+However, the mass is assume to be constant, even in deformationn, there is no change in mass, only in the surface area at constant volume.
+So, when the temprature changes, then the preassure register that change in time, because the velocity changes.
+
+However, under deformation, the area also changes, hence, the preassure changes.
+
+Now I need more basic information about SoftMatter stuff, hence I will watching the following videos:  \href{https://www.youtube.com/watch?v=fwratvdgoT4&list=PL7B_29ynGKv3v81zK9C9AcTNtGDCvbojV}{Kent State 2020 course on Statistical Mechanics of SoftMatter}
+
+\rule{\textwidth}{0.4pt}
+
+some stuff of definitions:
+\begin{itemize}
+	\item Shear Strain: The engineering shear strain ($\gamma xy$) is defined as the change in angle between lines $\bar{AC}$ and $\bar{AB}$.
+	\item Shear stress (often denoted by $\tau$) is the component of stress coplanar with a material cross section.
+	\item In materials science, shear modulus or modulus of rigidity, denoted by $G$, or sometimes $S$ or $\mu$, is a measure of the elastic shear stiffness of a material and is defined as the ratio of shear stress to the shear strain.
+	\item  Young's modulus E describes the material's strain response to uniaxial stress in the direction of this stress (like pulling on the ends of a wire or putting a weight on top of a column, with the wire getting longer and the column losing height),
+    \item The Poisson's ratio $\upsilon$ describes the response in the directions orthogonal to this uniaxial stress (the wire getting thinner and the column thicker),
+    \item The bulk modulus $K$ describes the material's response to (uniform) hydrostatic pressure (like the pressure at the bottom of the ocean or a deep swimming pool),
+    \item The shear modulus $G$ describes the material's response to shear stress (like cutting it with dull scissors).
+\end{itemize}
+
+\rule{\textwidth}{0.4pt}
+
+REcomendtions of Dr. Tensor, jsjs
+
+\begin{itemize}
+	\item Statistical Physics, A Guenault (Chapman and Hall)
+	\item Introductory Statistical Mechanics, DS Betts and RE Turner (Addison Wesley)
+	\item Introductory statistical Mechanics, Bowley and Sanchez (Oxford)
+	\item Introduction to Statistical Physics, K Huang (Taylor and Francis)
+	\item Statistical Mechanics: A Survival Guide, A. M. Glazer and J. S. Wark (Oxford University Press)
+\end{itemize}
+
+Other references: 
+\href{https://link.springer.com/book/10.1007/978-3-540-28606-6}{Statistical Physics, Daijiro Yoshioka}, 
+\href{https://link.springer.com/book/10.1007/978-3-319-21054-4}{Introduction to the Theory of Soft Matter, Jonathan V. Selinger}
 
 %\printbibliography
 
