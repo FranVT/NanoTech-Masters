@@ -290,7 +290,7 @@ Other references:
 
 \newday*{2024-07-24}
 
-Imporant point of the reunion:
+Important points of the reunion:
 \begin{itemize}
 	\item We are more interested in the curve behaviour.
 	\item Changes in the code: Flip yes, remap x
@@ -310,6 +310,58 @@ Imporant point of the reunion:
 	\item First we are going to center in the macroscopic propoerties.
 	\item Daniel Bonn.
 \end{itemize}
+
+\newday{2024-08-05}
+
+Last week I was on vacation.
+
+Important changes: I added the nve fix to create Brownian Dynamics
+Other stuff: The pressure command gives the components of the stress tensor of a collection of atoms.
+
+Sutff about tensors: 
+\href{https://www.quora.com/What-is-a-fourth-rank-tensor}{What is a fourth rank tensro} 
+\href{https://www.quora.com/?signup_answer_page=17479694}{Answer N}
+\href{https://www.quora.com/In-laymans-terms-what-is-a-Tensor-Field}{In layman's terms, what is a Tensor Field?}
+
+About fluctuations in Stress in Young's Modulus: \href{https://matsci.org/t/fluctuations-in-stress-youngs-modulus/33483}{LAMMPS forum}.
+Basically: They use moving average over the \verb|ave/time| command in lammps to smotth the curves.
+
+
+Some stuff to take into account:
+\begin{itemize}
+	\item \verb|fix nvt/sllod|
+\end{itemize}
+
+Observations/questions:
+The strain-rate vs stress curves means that the stress at each strain rate is the final stress of the deformation or is like an average of a steady state?
+
+The strain vs stress curves means that the stress at each strain is the final stress or the average of the stress?
+
+When the deformation is applied, there is a strain, which is the ratio of the initial position with the final position of the deformation.
+You can create that deformation at different rhythms, hence the strain-rate/strain vs stress curves.
+
+For me, those kinds of graphs makes sense if the stress at each strain is the average with the standard deviation of the deformation process at a constant strain-rate.
+
+Now... in LAMMPS the pressure command gives a 6 elements for the stress tensor, so... I need to take de dot product with that?
+I guess, because in all articles they report a scalar.
+Also, makes sense to report the stress tensor component that ir parallel to the deformation.
+
+
+Idea for Tesis keywords?: Characterization of hydrogels \textit{In silico}
+
+Need to finish the reading og the Entropy based fingerprint for local crystaline order article.
+
+Next articles to read:
+\begin{itemize}
+	\item Importance of many-body correlations in glass trnasition: An example from polydisperse hard spheres
+	\item Enhancing Entropy and Enthalpy Fluctuations to Drive Crystallization in Atomistic Simulations
+	\item Well-Tempered Metadynamics: A Smoothly Converging and Tunable Free-Energy Method
+	\item Escaping free-energy minima
+\end{itemize}
+
+
+So... this is intersting. How a deformation can start a phase transition-
+
 
 
 %\printbibliography

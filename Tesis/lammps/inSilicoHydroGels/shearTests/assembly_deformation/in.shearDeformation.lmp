@@ -1,0 +1,126 @@
+# Script to create a shear deformationgiven a data file
+
+units lj
+dimension 3
+boundary p p p
+
+# Styles of atoms and that stuff
+atom_style bond
+bond_style zero nocoeff
+pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 1.12 table/omp linear 5000000 threebody/table
+newton on
+
+# Varaibles
+variable seed3 equal 3124
+variable tstep equal 0.005
+variable sstep equal 10000
+
+# Variables for the shear deformation
+variable shear_rate equal 1e-4
+variable max_strain equal 1
+variable delta_gamma equal 0.01
+variable zh equal zhi
+variable zl equal zlo
+variable l equal v_zh-v_zl
+variable xy equal xy
+variable n_def equal v_max_strain/v_delta_gamma
+variable relax_time equal v_delta_gamma/v_shear_rate
+variable shear_every equal v_relax_time/v_tstep
+variable shear_it equal v_n_def*v_shear_every
+variable Nsave equal 1000
+
+read_data data.hydrogel extra/bond/per/atom 4 extra/special/per/atom 5
+
+change_box all triclinic 
+
+# Coefficients
+include potential.in
+#bond_coeff * nocoeff
+#pair_coeff 1 3 zero
+#pair_coeff 1 4 zero
+#pair_coeff 2 3 zero
+#pair_coeff 2 4 zero
+#pair_coeff 3 3 zero
+#pair_coeff 1 1 lj/cut/omp 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
+#pair_coeff 2 2 lj/cut/omp 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
+#pair_coeff 1 2 lj/cut/omp 1.0 1.0 1.12 # i-type j-type pair-style eps sigma cutoff
+#pair_modify shift yes
+#pair_coeff 3 4 table/omp pachTab.table POT 0.6 #0.75 
+#pair_coeff 4 4 table/omp pachTab.table POT 0.6 #0.75 
+#pair_coeff * * threebody/table swapMech.3b NULL NULL PA PB
+
+
+# Molecules
+include molecules.in
+#molecule CL molecule.patchy.CL
+#molecule MO molecule.patchy.MO
+
+# Create patchy particles
+#group CrossLinker type 1 3
+#group Monomer type 2 4
+#group Patches type 3 4
+#group CL type 1
+#group MO type 2
+#group CM type 1 2
+#fix pCL CrossLinker rigid/small/omp molecule #langevin 1.0 1.0 100.0 ${seed3}
+#fix pMO Monomer rigid/small/omp molecule #langevin 1.0 1.0 100.0 ${seed3}
+
+# Neighbor list
+#neighbor 1.8 bin # extra-distance style
+#neigh_modify exclude molecule/intra CrossLinker
+#neigh_modify exclude molecule/intra Monomer
+
+fix langevinFix all langevin 0.05 0.05 0.5 12345 # ID group-ID langevin Tstart Tstop damp seed
+fix BrDy all nve    # Brownian Dynamics: langevin + nve
+
+# Introduce the deformation
+fix shear all deform ${shear_every} xy erate ${shear_rate} remap x flip yes
+
+thermo ${sstep}
+
+# Compute global kinetic and potential energy and temperature
+compute t all temp
+compute ep all pe
+compute ek all ke
+compute stress all pressure
+
+# Compute Cluster sizes
+compute cluster all aggregate/atom 0.6
+compute cc1 all chunk/atom c_cluster compress yes pbc yes
+compute size all property/chunk cc1 count
+
+# Compute Voronoi/atom
+compute vorCompSimple CM voronoi/atom only_group
+compute vorCompHisto CM voronoi/atom only_group edge_histo 30 edge_threshold 0
+
+# DUMPS and FIXES
+
+# Save atom positions
+dump dumpID all atom ${Nsave} info/patchyParticles_shear.dumpf
+dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
+#dump_modify dumpID delay ${steps}
+
+# Write dump file of voronoi analysis of the last configuration
+dump dumpVor CM custom ${shear_it} info/voronoiSimple_shear.dumpf c_vorCompSimple[1] c_vorCompSimple[2]
+dump_modify dumpVor delay ${shear_it}
+
+# Write fix file of voronoi histogram: Number of edges on the faces of the Voronoi cells
+fix fixvorHisto CM ave/time 1 1 ${shear_it} c_vorCompHisto file info/vorHisto_shear.fixf mode vector
+
+# Save global energies and temperature
+group Energy empty
+fix fixEng Energy ave/time 1 1 10 c_t c_ep c_ek file info/energy_shear.fixf
+
+# Save Stress tensor
+group Stress empty
+fix fixStress Stress ave/time 1 1 10 c_stress file info/stress_shear.fixf
+
+# Save the cluster sizes
+#fix ID group-ID style Nevery Nrepeat Nfreq lo hi Nbin value1 value2
+fix 1 all ave/time 1 1 ${shear_it} c_size file info/sizeCluster_shear.fixf mode vector
+
+# RUN SIMULATION
+
+timestep ${tstep}
+run ${shear_it}
+
