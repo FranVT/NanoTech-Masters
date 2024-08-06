@@ -1,5 +1,17 @@
-molecule CL molecule.patchy.CL
-molecule MO molecule.patchy.MO
+molecule CL sysFiles/molecule.patchy.CL
+molecule MO sysFiles/molecule.patchy.MO
+
+# Introduce the molecules
+# ID style args keyword arg
+region spawn_box block -$L $L -$L $L -$L $L
+
+# create_atoms type style args keyword values
+# style_random: N seed region-ID
+# keyword_mol: template-ID seed
+# keyword_overlap: overlap value = only insert if at least this distance from all existing atoms
+# keyword_maxtry: maxtry value = number of attempts to insert a particle before failure
+create_atoms 0 random ${NCL} ${seed1} spawn_box mol CL ${seed1} overlap 1.0 maxtry 5000 #xls
+create_atoms 0 random ${NMO} ${seed2} spawn_box mol MO ${seed2} overlap 1.0 maxtry 5000 #mon
 
 # Create patchy particles
 group CrossLinker type 1 3
