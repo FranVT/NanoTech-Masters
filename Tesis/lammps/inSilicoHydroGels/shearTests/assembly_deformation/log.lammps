@@ -18,12 +18,12 @@ newton on
 # Varaibles
 variable seed3 equal 3124
 variable tstep equal 0.001
-variable sstep equal 100000
+variable sstep equal 50000
 
 # Variables for the shear deformation
-variable shear_rate equal 1e-6
+variable shear_rate equal 1e-4
 variable max_strain equal 1
-variable delta_gamma equal 0.01
+variable delta_gamma equal 0.001
 variable zh equal zhi
 variable zl equal zlo
 variable l equal v_zh-v_zl
@@ -32,7 +32,7 @@ variable n_def equal v_max_strain/v_delta_gamma
 variable relax_time equal v_delta_gamma/v_shear_rate
 variable shear_every equal v_relax_time/v_tstep
 variable shear_it equal v_n_def*v_shear_every
-variable Nsave equal 1
+variable Nsave equal 1000
 read_data data.hydrogel extra/bond/per/atom 4 extra/special/per/atom 5
 Reading data file ...
   orthogonal box = (-8 -8 -8) to (8 8 8)
@@ -55,7 +55,7 @@ Finding 1-2 1-3 1-4 neighbors ...
      3 = max # of 1-4 neighbors
      9 = max # of special neighbors
   special bonds CPU = 0.000 seconds
-  read_data CPU = 0.010 seconds
+  read_data CPU = 0.013 seconds
 
 change_box all triclinic
 Changing box ...
@@ -133,16 +133,17 @@ neighbor 1.8 bin # extra-distance style
 neigh_modify exclude molecule/intra CrossLinker
 neigh_modify exclude molecule/intra Monomer
 
-fix langevinFix all langevin 0.05 0.05 0.5 12345 # ID group-ID langevin Tstart Tstop damp seed
+fix nvtFix all nvt/sllod/omp temp 0.05 0.05 0.5 # Tstart Tstop Tdamp
+#fix langevinFix all langevin 0.05 0.05 0.5 12345 # ID group-ID langevin Tstart Tstop damp seed
 #fix BrDy all nve    # Brownian Dynamics: langevin + nve
 
 # Introduce the deformation
-fix shear all deform ${shear_every} xy erate ${shear_rate} remap x flip yes
-fix shear all deform 10000000 xy erate ${shear_rate} remap x flip yes
-fix shear all deform 10000000 xy erate 1e-06 remap x flip yes
+fix shear all deform ${shear_every} xy erate ${shear_rate} remap v flip yes
+fix shear all deform 10000 xy erate ${shear_rate} remap v flip yes
+fix shear all deform 10000 xy erate 0.0001 remap v flip yes
 
 thermo ${sstep}
-thermo 100000
+thermo 50000
 
 # Compute global kinetic and potential energy and temperature
 compute t all temp
@@ -163,19 +164,19 @@ compute vorCompHisto CM voronoi/atom only_group edge_histo 30 edge_threshold 0
 
 # Save atom positions
 dump dumpID all atom ${Nsave} info/patchyParticles_shear.dumpf
-dump dumpID all atom 1 info/patchyParticles_shear.dumpf
+dump dumpID all atom 1000 info/patchyParticles_shear.dumpf
 dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
 #dump_modify dumpID delay ${steps}
 
 # Write dump file of voronoi analysis of the last configuration
 dump dumpVor CM custom ${shear_it} info/voronoiSimple_shear.dumpf c_vorCompSimple[1] c_vorCompSimple[2]
-dump dumpVor CM custom 1000000000 info/voronoiSimple_shear.dumpf c_vorCompSimple[1] c_vorCompSimple[2]
+dump dumpVor CM custom 10000000 info/voronoiSimple_shear.dumpf c_vorCompSimple[1] c_vorCompSimple[2]
 dump_modify dumpVor delay ${shear_it}
-dump_modify dumpVor delay 1000000000
+dump_modify dumpVor delay 10000000
 
 # Write fix file of voronoi histogram: Number of edges on the faces of the Voronoi cells
 fix fixvorHisto CM ave/time 1 1 ${shear_it} c_vorCompHisto file info/vorHisto_shear.fixf mode vector
-fix fixvorHisto CM ave/time 1 1 1000000000 c_vorCompHisto file info/vorHisto_shear.fixf mode vector
+fix fixvorHisto CM ave/time 1 1 10000000 c_vorCompHisto file info/vorHisto_shear.fixf mode vector
 
 # Save global energies and temperature
 group Energy empty
@@ -185,19 +186,19 @@ fix fixEng Energy ave/time 1 1 10 c_t c_ep c_ek file info/energy_shear.fixf
 # Save Stress tensor
 group Stress empty
 0 atoms in group Stress
-fix fixStress Stress ave/time 1 1 10 c_stress file info/stress_shear.fixf
+fix fixStress Stress ave/time 1 1 10 c_stress[*] file info/stress_shear.fixf
 
 # Save the cluster sizes
 #fix ID group-ID style Nevery Nrepeat Nfreq lo hi Nbin value1 value2
 fix 1 all ave/time 1 1 ${shear_it} c_size file info/sizeCluster_shear.fixf mode vector
-fix 1 all ave/time 1 1 1000000000 c_size file info/sizeCluster_shear.fixf mode vector
+fix 1 all ave/time 1 1 10000000 c_size file info/sizeCluster_shear.fixf mode vector
 
 # RUN SIMULATION
 
 timestep ${tstep}
 timestep 0.001
 run ${shear_it}
-run 1000000000
+run 10000000
 
 CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
 
@@ -222,6 +223,7 @@ Hybrid pair style last /omp style table/omp
 Last active /omp style is pair_style table/omp
 WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
 WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
+WARNING: One or more atoms are time integrated more than once (src/modify.cpp:296)
 Neighbor list info ...
   update: every = 1 steps, delay = 0 steps, check = yes
   max neighbors/atom: 2000, page size: 100000
@@ -233,4 +235,104 @@ Neighbor list info ...
       attributes: half, newton on, omp
       pair build: skip/omp
       stencil: none
-      bin: no
+      bin: none
+  (2) pair lj/cut/omp, perpetual, skip from (6)
+      attributes: half, newton on, omp
+      pair build: skip/omp
+      stencil: none
+      bin: none
+  (3) pair table/omp, perpetual, skip from (6)
+      attributes: half, newton on, omp, cut 2.4
+      pair build: skip/omp
+      stencil: none
+      bin: none
+  (4) pair threebody/table, perpetual, skip from (7)
+      attributes: full, newton on, omp, cut 2.4
+      pair build: skip/omp
+      stencil: none
+      bin: none
+  (5) compute aggregate/atom, occasional
+      attributes: full, newton on, omp
+      pair build: full/bin/omp
+      stencil: full/bin/3d
+      bin: standard
+  (6) neighbor class addition, perpetual
+      attributes: half, newton on, omp
+      pair build: half/bin/newton/tri/omp
+      stencil: half/bin/3d/tri
+      bin: standard
+  (7) neighbor class addition, perpetual
+      attributes: full, newton on, omp, cut 2.4
+      pair build: full/bin/omp
+      stencil: full/bin/3d
+      bin: standard
+WARNING: Dump dumpVor includes no atom IDs and is not sorted by ID. This may complicate post-processing tasks or visualization (src/dump.cpp:219)
+Per MPI rank memory allocation (min/avg/max) = 20.97 | 20.98 | 21 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press          Volume    
+         0   0.042821369   -0.32584358     0             -0.29107799    -0.11344562     4096         
+     50000   3.4099476e-07 -0.30405023     0             -0.30404996    -29.883809      4096         
+    100000   3.278251e-07  -0.21561738     0             -0.21561711    -11.645059      4096         
+    150000   3.4160915e-07 -0.063208535    0             -0.063208258   -4.9638118      4096         
+    200000   3.7824594e-07 -0.012709889    0             -0.012709582    40.994029      4096         
+    250000   3.873882e-07  -0.0069896832   0             -0.0069893687  -18.962252      4096         
+    300000   3.9457893e-07 -0.0065544562   0             -0.0065541358  -37.991425      4096         
+    350000   4.2838698e-07 -0.0056618407   0             -0.0056614929  -102.83224      4096         
+    400000   4.4789384e-07  0.0025714477   0              0.0025718114  -57.816248      4096         
+    450000   4.5915815e-07  0.0073932068   0              0.0073935796  -1.0912408      4096         
+    500000   4.5905818e-07  0.0095779988   0              0.0095783715   18.538996      4096         
+    550000   4.6582314e-07  0.016519319    0              0.016519697   -37.158753      4096         
+    600000   4.5220003e-07  0.01621245     0              0.016212817    33.689008      4096         
+    650000   4.7404488e-07  0.018549498    0              0.018549883   -25.142932      4096         
+    700000   4.9707284e-07  0.01148275     0              0.011483154   -50.289969      4096         
+    750000   5.1496441e-07  0.014424957    0              0.014425375    22.966991      4096         
+    800000   5.3105823e-07  0.012604437    0              0.012604868    70.640744      4096         
+    850000   5.065133e-07   0.006938936    0              0.0069393472   17.729309      4096         
+    900000   4.3037824e-07  0.024466567    0              0.024466917   -43.626665      4096         
+    950000   4.7117978e-07  0.023702444    0              0.023702827   -34.768459      4096         
+   1000000   5.4561765e-07  0.025865281    0              0.025865724    58.26313       4096         
+   1050000   6.1727633e-07  0.022319026    0              0.022319527    141.92381      4096         
+   1100000   6.3406399e-07  0.029187232    0              0.029187747    65.25182       4096         
+   1150000   6.2835868e-07  0.033272566    0              0.033273076   -10.81071       4096         
+   1200000   6.1578801e-07  0.026603003    0              0.026603503   -159.60644      4096         
+   1250000   5.9091489e-07  0.03322987     0              0.033230349    46.929031      4096         
+   1300000   5.6889769e-07  0.029112022    0              0.029112484   -18.17522       4096         
+   1350000   5.5992427e-07  0.018650357    0              0.018650812    29.630185      4096         
+   1400000   5.4364616e-07  0.040038204    0              0.040038646    196.50227      4096         
+   1450000   6.3676046e-07  0.03981876     0              0.039819277   -23.314638      4096         
+   1500000   7.1883853e-07  0.030899778    0              0.030900362   -23.082571      4096         
+   1550000   7.0938105e-07  0.041036605    0              0.041037181    129.23941      4096         
+   1600000   6.0753173e-07  0.05175742     0              0.051757913   -43.00906       4096         
+   1650000   5.898102e-07   0.031803131    0              0.03180361     105.61168      4096         
+   1700000   6.5859151e-07  0.038574984    0              0.038575518   -53.803486      4096         
+   1750000   7.0334858e-07  0.024354898    0              0.024355469   -55.998437      4096         
+   1800000   6.7776308e-07  0.040200742    0              0.040201293    207.42535      4096         
+   1850000   6.554166e-07   0.037020473    0              0.037021005   -70.952344      4096         
+   1900000   7.2885945e-07  0.038320087    0              0.038320678    79.245338      4096         
+   1950000   7.9672158e-07  0.07375365     0              0.073754297   -68.072674      4096         
+   2000000   7.1714607e-07  0.042312899    0              0.042313482   -178.61114      4096         
+   2050000   6.7512309e-07  0.054445257    0              0.054445805    17.355501      4096         
+   2100000   6.943616e-07   0.05605453     0              0.056055093   -11.91745       4096         
+   2150000   7.1541201e-07  0.035606409    0              0.035606989    28.227038      4096         
+   2200000   7.3485945e-07  0.059016496    0              0.059017093   -177.72268      4096         
+   2250000   7.8642655e-07  0.055868931    0              0.05586957     73.450669      4096         
+   2300000   8.1840053e-07  0.054908615    0              0.054909279    19.831975      4096         
+   2350000   8.2550812e-07  0.07348199     0              0.07348266    -12.497095      4096         
+   2400000   7.5831318e-07  0.058607767    0              0.058608383   -13.402136      4096         
+   2450000   7.4400655e-07  0.046605466    0              0.04660607     3.0031728      4096         
+   2500000   8.6787482e-07  0.063411738    0              0.063412442   -77.909557      4096         
+   2550000   9.3295347e-07  0.066697786    0              0.066698543   -76.445819      4096         
+   2600000   8.3311668e-07  0.044087885    0              0.044088561   -164.7821       4096         
+   2650000   6.6338692e-07  0.045141305    0              0.045141844    137.79539      4096         
+   2700000   7.496296e-07   0.075401339    0              0.075401947   -96.717135      4096         
+   2750000   9.2455994e-07  0.075085313    0              0.075086064   -291.34485      4096         
+   2800000   9.8608387e-07  0.074889045    0              0.074889846   -229.14022      4096         
+   2850000   8.7553147e-07  0.073058743    0              0.073059454   -126.84628      4096         
+   2900000   7.8392227e-07  0.050506849    0              0.050507486    3.4864419      4096         
+   2950000   7.9781847e-07  0.095297992    0              0.09529864    -107.45727      4096         
+   3000000   9.0027199e-07  0.094140934    0              0.094141665   -43.481207      4096         
+   3050000   8.7949742e-07  0.05904577     0              0.059046484   -105.804        4096         
+   3100000   8.9577085e-07  0.088959696    0              0.088960423    62.191326      4096         
+   3150000   9.3856817e-07  0.090401469    0              0.090402231    90.723852      4096         
+   3200000   9.4727734e-07  0.055734905    0              0.055735674    8.2115181      4096         
+   3250000   9.2299536e-07  0.067822967    0              0.067823717   -167.89329      4096         
+   3300000   9.38132

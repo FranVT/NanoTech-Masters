@@ -13,12 +13,12 @@ newton on
 # Varaibles
 variable seed3 equal 3124
 variable tstep equal 0.001
-variable sstep equal 100000
+variable sstep equal 50000
 
 # Variables for the shear deformation
-variable shear_rate equal 1e-6
+variable shear_rate equal 1e-4
 variable max_strain equal 1
-variable delta_gamma equal 0.01
+variable delta_gamma equal 0.001
 variable zh equal zhi
 variable zl equal zlo
 variable l equal v_zh-v_zl
@@ -27,7 +27,7 @@ variable n_def equal v_max_strain/v_delta_gamma
 variable relax_time equal v_delta_gamma/v_shear_rate
 variable shear_every equal v_relax_time/v_tstep
 variable shear_it equal v_n_def*v_shear_every
-variable Nsave equal 1
+variable Nsave equal 1000
 read_data data.hydrogel extra/bond/per/atom 4 extra/special/per/atom 5
 
 change_box all triclinic 
@@ -38,11 +38,12 @@ include potential.in
 # Molecules
 include molDeform.in
 
-fix langevinFix all langevin 0.05 0.05 0.5 12345 # ID group-ID langevin Tstart Tstop damp seed
+fix nvtFix all nvt/sllod/omp temp 0.05 0.05 0.5 # Tstart Tstop Tdamp 
+#fix langevinFix all langevin 0.05 0.05 0.5 12345 # ID group-ID langevin Tstart Tstop damp seed
 #fix BrDy all nve    # Brownian Dynamics: langevin + nve
 
 # Introduce the deformation
-fix shear all deform ${shear_every} xy erate ${shear_rate} remap x flip yes
+fix shear all deform ${shear_every} xy erate ${shear_rate} remap v flip yes
 
 thermo ${sstep}
 
@@ -81,7 +82,7 @@ fix fixEng Energy ave/time 1 1 10 c_t c_ep c_ek file info/energy_shear.fixf
 
 # Save Stress tensor
 group Stress empty
-fix fixStress Stress ave/time 1 1 10 c_stress file info/stress_shear.fixf
+fix fixStress Stress ave/time 1 1 10 c_stress[*] file info/stress_shear.fixf
 
 # Save the cluster sizes
 #fix ID group-ID style Nevery Nrepeat Nfreq lo hi Nbin value1 value2
