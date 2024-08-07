@@ -12,11 +12,11 @@ include("functions.jl")
 
 # Parameters
 N_sim = 1;
-pwdDir = "/home/franvtdebian/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/shearTests/assemblyANDshear/info/";
+pwdDir = "/home/franvtdebian/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/shearTests/assembly_deformation/info/";
 workdir = cd(pwdDir);
 
 assemblyFiles_names = ("patchyParticles_assembly.dumpf", "newdata_assembly.dumpf", "voronoiSimple_assembly.dumpf", "vorHisto_assembly.fixf", "energy_assembly.fixf", "sizeCluster_assembly.fixf");
-shearFiles_names = ("patchyParticles_shear.dumpf", "newdata_shear.dumpf", "voronoiSimple_shear.dumpf", "vorHisto_shear.fixf", "energy_shear.fixf", "sizeCluster_shear.fixf");
+shearFiles_names = ("patchyParticles_shear.dumpf", "newdata_shear.dumpf", "voronoiSimple_shear.dumpf", "vorHisto_shear.fixf", "energy_shear.fixf", "sizeCluster_shear.fixf","stress_shear.fixf");
 
 files = (assemblyFiles_names,shearFiles_names);
 
@@ -39,6 +39,9 @@ Nfaces_voroSimple = reduce(hcat,map(s->s[2,:],data_voroSimple));
 data_voroHisto = map(s->getInfoVoroHisto(pwdDir*s[4]),files);
 aux_edges = reduce(hcat,map(s->data_voroHisto[s][:,2],eachindex(data_voroHisto)));
 voroHisto_mean = reduce(vcat,mean(aux_edges,dims=2));
+
+# Stress
+stress_info = getInfoStress(pwdDir*shearFiles_names[end]);
 
 ## Figures
 
