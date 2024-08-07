@@ -1,12 +1,12 @@
 \documentclass[main.tex]{subfiles}
 
 \begin{document}
-\section{Description of the simulation}
+\section{Assembly of the network}\label{sec:descriptionSimulation}
 
 The simulation methodology is based on \cite{gnanSilicoSynthesisMicrogel2017} and \cite{sorichettiStructureElasticityModel2023}, with the objective of create a polymer structure of a hydro-gel and characterize its rheological properties.
-This methodology creates a hydro-gel structure by creating a interaction between two types of patchy particles.
+This methodology creates the desire structure by creating an interaction between two types of patchy particles.
 One type of patchy particle represent a Crosslinker and is define with 5 particles, one at the center and the rest are placed in the vertices of a tetrahedron that circumscribes the center particle.
-The other type of patchy particle represent a Monomer and is define with 3 particles, on at the center and the rest are placed at the poles of the center particle with an 180 degrees between them.
+The other type of patchy particle represent a Monomer and is define with 3 particles, one at the center and the rest are placed at the poles of the center particle with an 180 degrees between them.
 Prior to describe with detail the methodology, it is important mention that to from now on I will refer to the center particle of the Crosslinker patchy particle as ``CL'' and the particles around CL as ``PA''.
 Naturally, the center particle of the Monomer patchy particle as ``MO'' and the particles around MO as ``PB''.
 
@@ -17,7 +17,10 @@ However, the main difference between the articles cited and the simulations impl
 
 % because part of the exploration is to analyze what happen in the deformation if the interactions between crosslinker and monomer can swap.
 
-\subsection{Potentials}
+\subsection{Potentials}\label{subsec:Potentials}
+
+The potentials that describes the interactions mentioned above are a WCA and a threebodody potential.
+The threbody helps to swap interaction between patchy particles and the WCA to add repulsive behaviour of CL and MO.
 
 \begin{gather}
 		U_{WCA}(r) = 4\epsilon\left[\qty(\frac{\sigma}{r})^12-\qty(\frac{\sigma}{r})^6\right]+\epsilon,\quad r\in[0,2^{1/6}\sigma]\label{eqn:CL-MO_interaction}
@@ -36,6 +39,32 @@ However, the main difference between the articles cited and the simulations impl
 \end{gather}
 
 \subsection{LAMMPS implementation}
+
+We use reduce units, Lennard-Jones units.
+
+To create the patchy particles, the \verb|zero| bond style is used.
+The reason to use this, is because bond forces and energies are not computed, but the geometry of bond pairs is accessible to other commands (\href{https://docs.lammps.org/bond_zero.html}{Ref}).
+
+The pair styles used in the simulation are: \verb|hybrid/overlay|, \verb|zero|, \verb|lj/cut|, \verb|table| and \verb|threebody/table|.
+The \verb|hybrid/overlay| style is used because superimposed multiple potentials in an additive fashion (\href{https://docs.lammps.org/pair_hybrid.html}{Ref}).
+The rest of pair styles are to implement the potentials described in \ref{subsec:Potentials}.
+
+The length of the box is set, such that the desire Monomers and Cross-Linkers can be spawn.
+The mass of the patches are set to be the half mass of the CL and MO.
+
+The \verb|pair_coeff| commands where set to accomplish the simulation describe in \ref{sec:descriptionSimulation}.
+With respect the \verb|create_atoms| command, the \textit{overlap} keyword was assign to a value of the diameter of CL and MO.
+
+Then, the \verb|rigid/small| fix command is used to create the Monomers and Cross-Linkers particles.
+This is because, this command is typucally best for a system with large number of small rigid bodies\href{https://docs.lammps.org/fix_rigid.html}{Ref}.
+
+The \verb|neighbor| command was set of type bin with a value of 1.8 and the \verb|neigh_modify| command with the exclude keyword was added to save needless computation due to the rigid bodies (\href{https://docs.lammps.org/neigh_modify.html}{Ref}).
+
+Then, a Langevin thermostat is used with a velocity-Verlet time integration algorithm to perform Brownian dynamics with the commands \verb|fix lagevin| and \verb|fix nve|.
+The Langevin thermostat is implemented to models an interaction with a background implicit solvent, in this case water.
+Meanwhile, the \verb|fix nve| help to create a system trajectory consistent with the microcanonical ensemble, in which the number of particles, volume and energy remains constant.
+
+finally, multiple \verb|computes| are used to get the potential, kinetic and total energies, temperature and voronoi analysis.
 
 
 

@@ -362,6 +362,86 @@ Next articles to read:
 
 So... this is intersting. How a deformation can start a phase transition-
 
+\newday{2024-08-06}
+
+Entropy based fingerprint for local crystalline order 
+Metadynamics to enhance the probability of inducing the crystal formation un an accessible computer time.
+Metadynamics relies on the identification of appropiate collective variables.
+They found that enthalpy and an approximate expression for entropy based on the two body correlation function, were useful collective variables in this constext.
+The main thing is that Enthalpy and entropy are global properties and in order to be able to use them as local parmeters we have to project them onto each atom.
+
+The pair correlation function accounts for about 90\% of the configurational entropy, and is given by,
+$$S_2 = -2\pi\rho k_B\int_{0}^{\infty}\left[g(r)\ln g(r)-g(r)+1\right]r^2 dr,$$
+$\rho$ is the system's density, and $g(r)$ is the radial distribution function.
+
+The projection on atom $i$ can be achieved using the xpression:
+$$s_s^i = -2\pi\rho k_B\int_{0}^{r_m}\left[g_m^i(r)\ln g_m^i(r)-g_m^i(r)+1\right]r^2 dr.$$
+The radial distribution function is defined as 
+$$ g_m^i(r) = \frac{1}{4\pi\rho r^2}\sum_{j}\frac{1}{\sqrt{2\pi\sigma^2}}\exp\left[-\frac{(r-r_j)^2}{2\sigma^2}\right],$$
+$j$ are the neighbors of atom $i$,
+$r_{ij}$ is the distance between atoms $i$, $j$, 
+and $\sigma$ is a broadening parameter.
+$\sigma$ shall be so small such that $g_m(r)\approx g(r)$, yet large enough for the derivatives relative to the atomic positions to be manageable.
+
+To distinct the distributions more clearly, they define an average local entropy:
+$$\bar{s}_S^i = \frac{\sum_j s_S^j f(r_{ij})+s_S^i}{\sum_j f(r_{ij}) +1}$$,
+$j$ runs over the neighbors of atom $i$ and $f(r_{ij})$ is a switching function with cutoff $r_a$:
+$$ f(r_{ij}) = \frac{1-(r_{ij}/r_a)^N}{1-(r_{ij}/r_a)^M}, $$
+$N=6,~M = 12$.
+
+$\bar{s}_S$ is the entropy fingerprint.
+The ability to distinguish sharply between solid.like and liquid-like molecules depend on a wise choice of the parameters $r_m$ and $r_a$.
+As $r_m$ is increased the difference beteen liquid and solid more and more evident.
+By increasing $r_a$ eventually the locality of the entropy finger print is lost.
+
+The entropy fingerprint is able to distinguish liquid-like from solid-like atomic enviroments and is best achieve if we acompany the definition of local entropy with a measure of local enthalphy.
+
+To distiguish between the phases, it is neede to calculate the joint probability distribution of the enthalpy and entropy finger prints $(P(\bar{s}_H,\bar{s}_S))$.
+
+\rule{\textwidth}{0.4pt}
+
+About the simulations
+
+So... the assembly still wokrs and has been upgraded. 
+However, the deformation simulation still broking :).
+I decrement the time step and improve a little bit: instead of broking at 600 steps, it brokes at 20 000 steps.
+
+Need to search another technique in LAMMPS for the shear deformation.
+
+\href{https://mattermodeling.stackexchange.com/questions/9374/langevin-vs-nos%C3%A9-hoover-thermostat}{Hoover thermostat vs Langevin thermostat}
+\href{https://mattermodeling.stackexchange.com/questions/4245/selection-of-appropriate-langevin-damping-parameter-for-md-of-solid-metal?noredirect=1&lq=1}{Damping in Langevin thermostat}
+
+So ... I change the langevin thermostat for a Hoose-Nosee thermostat, and the soimultion does not longer breaks.
+
+So... new changes in the shear rate, gamma delta and other stuff improves the simulation.
+
+\newday{2024-08-07}
+
+So ... the langevin impelementation is still breaking, but the nvt integration works.
+
+In the Langevin thermostat, when I increment the damp parameter, it helps to create more iterations, but eventually it borkes due to missing particles.
+With the nvt assemble, the velocities of the particles gos crazy.
+
+So... I change the shear rate, beccuase I think that I'm trying to force some results.
+I want to see a slow deformation.
+Also, due to the change of units, my intuition can not be trusted.
+
+So, I will stop to force results, follow the recomendations of the documentation and change the rate of deformation and the maximum strain.
+
+
+The next step, is to create the graph of the stress components over time.
+Then I want to add the computes of the entropy and entalphy.
+
+\rule{\textwidth}{0.4pt}
+
+Well, it's like magic.
+As expected, I reduce the shear rate, and the velocities of the particles slow down and the clusters are preserved.
+At higher shear rates, the velocities of the particles goes high, and the clusters are no longer preserved.
+
+Now, taking that into account, the number of clusters will help to now if there is a reconfiguration of the system or no.
+Also, when the number of clusters decrese at a faster rate, we can say that is in a liqud phase o something like that.
+
+Maybe it will be wise to see how to calculate the elastic constants.
 
 
 %\printbibliography
