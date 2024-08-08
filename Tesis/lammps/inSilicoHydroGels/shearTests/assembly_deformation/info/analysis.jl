@@ -106,7 +106,7 @@ fig_Energy[1,2] = Legend(fig_Energy,ax_e,"Legends",framevisible=true)
 fig_Energy[1,4] = Legend(fig_Energy,ax_t,"Legends",framevisible=true)
 
 # Stress stuff
-labels_stress = ("trace","xx","yy","zz","xy","xz","yz");
+labels_stress = ("trace","|trace|","xx","yy","zz","xy","xz","yz");
 fig_Stress = Figure();
 ax_s = Axis(fig_Stress[1,1],
         title = "Stress components",
@@ -124,10 +124,11 @@ ax_s = Axis(fig_Stress[1,1],
         limits = (10e0,exp10(1+round(log10( stress_info[1,end] ))),nothing,nothing)
     )
 
-    map(s->lines!(ax_s,stress_info[1,:],stress_info[s,:],label=labels_stress[s],color=Makie.wong_colors()[s]),2:length(labels_stress))
-    lines!(ax_s,stress_info[1,:],reduce(vcat,sum(stress_info[2:4,:],dims=1)),label=labels_stress[1],color=Makie.wong_colors()[1])
-
+    series!(ax_s,stress_info[1,:],stress_info[2:end,:],labels=labels_stress[3:end])
+    lines!(ax_s,stress_info[1,:],reduce(vcat,sum(stress_info[2:4,:],dims=1)),label=labels_stress[1])
+    lines!(ax_s,stress_info[1,:],sqrt.(reduce(vcat,sum((stress_info[2:4,:]).^2,dims=1))),label=labels_stress[2])
 fig_Stress[1,2] = Legend(fig_Stress,ax_s,"Legends",framevisible=true)
+
 
 # Voronoi Stuff
 labels_volume = ("Assembly","Shear");

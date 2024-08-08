@@ -13,12 +13,12 @@ newton on
 # Varaibles
 variable seed3 equal 3124
 variable tstep equal 0.001
-variable sstep equal 50000
+variable sstep equal 1000
 
 # Variables for the shear deformation
 variable shear_rate equal 100e-4
-variable max_strain equal 1
-variable delta_gamma equal 0.001
+variable max_strain equal 10
+variable delta_gamma equal 1e-3
 variable zh equal zhi
 variable zl equal zlo
 variable l equal v_zh-v_zl
@@ -27,10 +27,10 @@ variable n_def equal v_max_strain/v_delta_gamma
 variable relax_time equal v_delta_gamma/v_shear_rate
 variable shear_every equal v_relax_time/v_tstep
 variable shear_it equal v_n_def*v_shear_every
-variable Nsave equal 100
+variable Nsave equal 1000
 read_data data.hydrogel extra/bond/per/atom 4 extra/special/per/atom 5
 
-change_box all triclinic 
+change_box all triclinic
 
 # Coefficients
 include potential.in
@@ -38,12 +38,12 @@ include potential.in
 # Molecules
 include molDeform.in
 
-fix nvtFix all nvt/sllod/omp temp 0.05 0.05 $(100.0*dt) # Tstart Tstop Tdamp 
-#fix langevinFix all langevin 0.05 0.05 150 12345 # ID group-ID langevin Tstart Tstop damp seed
-#fix BrDy all nve    # Brownian Dynamics: langevin + nve
+#fix nvtFix all nvt/sllod/omp temp 0.05 0.05 $(100.0*dt) # Tstart Tstop Tdamp 
+fix langevinFix all langevin 0.05 0.05 10 12345 # ID group-ID langevin Tstart Tstop damp seed
+fix BrDy all rigid/nve/omp molecule # Brownian Dynamics: langevin + nve
 
 # Introduce the deformation
-fix shear all deform ${shear_every} xy erate ${shear_rate} remap v flip yes
+fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
 
 thermo ${sstep}
 
