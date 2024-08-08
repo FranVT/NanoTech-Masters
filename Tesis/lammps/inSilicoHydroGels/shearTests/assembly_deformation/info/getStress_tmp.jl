@@ -35,3 +35,6 @@ filename = "stress_shear.fixf";
 
     # Reshape the information
     info_stress = reduce(hcat,info)
+
+# Get the dot product of the matrix
+

@@ -17,7 +17,7 @@ variable sstep equal 50000
 
 # Variables for the shear deformation
 variable shear_rate equal 100e-4
-variable max_strain equal 0.25
+variable max_strain equal 1
 variable delta_gamma equal 0.001
 variable zh equal zhi
 variable zl equal zlo

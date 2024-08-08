@@ -105,6 +105,30 @@ ax_t = Axis(fig_Energy[1,3],
 fig_Energy[1,2] = Legend(fig_Energy,ax_e,"Legends",framevisible=true)
 fig_Energy[1,4] = Legend(fig_Energy,ax_t,"Legends",framevisible=true)
 
+# Stress stuff
+labels_stress = ("trace","xx","yy","zz","xy","xz","yz");
+fig_Stress = Figure();
+ax_s = Axis(fig_Stress[1,1],
+        title = "Stress components",
+        xlabel = "Time steps",
+        ylabel = L"\sigma_{nn}",
+        titlesize = 24.0f0,
+        xticklabelsize = 18.0f0,
+        yticklabelsize = 18.0f0,
+        xlabelsize = 20.0f0,
+        ylabelsize = 20.0f0,
+        xminorticksvisible = true, 
+        xminorgridvisible = true,
+        xminorticks = IntervalsBetween(5),
+        xscale = log10,
+        limits = (10e0,exp10(1+round(log10( stress_info[1,end] ))),nothing,nothing)
+    )
+
+    map(s->lines!(ax_s,stress_info[1,:],stress_info[s,:],label=labels_stress[s],color=Makie.wong_colors()[s]),2:length(labels_stress))
+    lines!(ax_s,stress_info[1,:],reduce(vcat,sum(stress_info[2:4,:],dims=1)),label=labels_stress[1],color=Makie.wong_colors()[1])
+
+fig_Stress[1,2] = Legend(fig_Stress,ax_s,"Legends",framevisible=true)
+
 # Voronoi Stuff
 labels_volume = ("Assembly","Shear");
 bins_volume = 15;
@@ -133,3 +157,5 @@ map(s->barplot!(ax_edges,eachindex(voroHisto_mean),aux_edges[:,s],label=labels_v
 fig_Voronoi[1,2] = Legend(fig_Voronoi,ax_vol,"Legends",framevisible=true)
 fig_Voronoi[2,2] = Legend(fig_Voronoi,ax_Nfac,"Legends",framevisible=true)
 fig_Voronoi[3,2] = Legend(fig_Voronoi,ax_edges,"Legends",framevisible=true)
+
+

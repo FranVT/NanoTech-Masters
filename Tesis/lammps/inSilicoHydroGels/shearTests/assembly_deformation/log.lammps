@@ -22,7 +22,7 @@ variable sstep equal 50000
 
 # Variables for the shear deformation
 variable shear_rate equal 100e-4
-variable max_strain equal 0.25
+variable max_strain equal 1
 variable delta_gamma equal 0.001
 variable zh equal zhi
 variable zl equal zlo
@@ -55,7 +55,7 @@ Finding 1-2 1-3 1-4 neighbors ...
      3 = max # of 1-4 neighbors
      9 = max # of special neighbors
   special bonds CPU = 0.000 seconds
-  read_data CPU = 0.009 seconds
+  read_data CPU = 0.010 seconds
 
 change_box all triclinic
 Changing box ...
@@ -171,13 +171,13 @@ dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
 
 # Write dump file of voronoi analysis of the last configuration
 dump dumpVor CM custom ${shear_it} info/voronoiSimple_shear.dumpf c_vorCompSimple[1] c_vorCompSimple[2]
-dump dumpVor CM custom 25000 info/voronoiSimple_shear.dumpf c_vorCompSimple[1] c_vorCompSimple[2]
+dump dumpVor CM custom 100000 info/voronoiSimple_shear.dumpf c_vorCompSimple[1] c_vorCompSimple[2]
 dump_modify dumpVor delay ${shear_it}
-dump_modify dumpVor delay 25000
+dump_modify dumpVor delay 100000
 
 # Write fix file of voronoi histogram: Number of edges on the faces of the Voronoi cells
 fix fixvorHisto CM ave/time 1 1 ${shear_it} c_vorCompHisto file info/vorHisto_shear.fixf mode vector
-fix fixvorHisto CM ave/time 1 1 25000 c_vorCompHisto file info/vorHisto_shear.fixf mode vector
+fix fixvorHisto CM ave/time 1 1 100000 c_vorCompHisto file info/vorHisto_shear.fixf mode vector
 
 # Save global energies and temperature
 group Energy empty
@@ -192,14 +192,14 @@ fix fixStress Stress ave/time 1 1 10 c_stress[*] file info/stress_shear.fixf
 # Save the cluster sizes
 #fix ID group-ID style Nevery Nrepeat Nfreq lo hi Nbin value1 value2
 fix 1 all ave/time 1 1 ${shear_it} c_size file info/sizeCluster_shear.fixf mode vector
-fix 1 all ave/time 1 1 25000 c_size file info/sizeCluster_shear.fixf mode vector
+fix 1 all ave/time 1 1 100000 c_size file info/sizeCluster_shear.fixf mode vector
 
 # RUN SIMULATION
 
 timestep ${tstep}
 timestep 0.001
 run ${shear_it}
-run 25000
+run 100000
 
 CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
 
@@ -271,36 +271,37 @@ WARNING: Dump dumpVor includes no atom IDs and is not sorted by ID. This may com
 Per MPI rank memory allocation (min/avg/max) = 20.97 | 20.98 | 21 Mbytes
    Step          Temp          E_pair         E_mol          TotEng         Press          Volume    
          0   0.042821369   -0.32584358     0             -0.29107799    -0.11344562     4096         
-     25000   0.004071453   -0.30924513     0             -0.30593962    -31.469478      4096         
-Loop time of 4.46699 on 8 procs for 25000 steps with 1600 atoms
+     50000   0.0039051175  -0.29021959     0             -0.28704912    -52.968199      4096         
+    100000   0.0034521595  -0.18733605     0             -0.18453333    -38.995167      4096         
+Loop time of 17.6862 on 8 procs for 100000 steps with 1600 atoms
 
-Performance: 483547.185 tau/day, 5596.611 timesteps/s, 8.955 Matom-step/s
-88.6% CPU use with 8 MPI tasks x 1 OpenMP threads
+Performance: 488515.153 tau/day, 5654.111 timesteps/s, 9.047 Matom-step/s
+89.6% CPU use with 8 MPI tasks x 1 OpenMP threads
 
 MPI task timing breakdown:
 Section |  min time  |  avg time  |  max time  |%varavg| %total
 ---------------------------------------------------------------
-Pair    | 0.37868    | 0.5569     | 0.69484    |  12.8 | 12.47
-Bond    | 0.0015172  | 0.0016681  | 0.001787   |   0.2 |  0.04
-Neigh   | 0.053268   | 0.053306   | 0.053344   |   0.0 |  1.19
-Comm    | 0.71163    | 0.83709    | 1.0018     |   9.7 | 18.74
-Output  | 0.053626   | 0.063604   | 0.07335    |   2.7 |  1.42
-Modify  | 2.7301     | 2.782      | 2.8233     |   1.7 | 62.28
-Other   |            | 0.1724     |            |       |  3.86
+Pair    | 1.671      | 2.1207     | 2.6869     |  23.5 | 11.99
+Bond    | 0.0061243  | 0.0063363  | 0.0065622  |   0.2 |  0.04
+Neigh   | 0.27163    | 0.27203    | 0.27242    |   0.1 |  1.54
+Comm    | 2.8843     | 3.3975     | 3.8477     |  17.7 | 19.21
+Output  | 0.18959    | 0.22824    | 0.26496    |   5.2 |  1.29
+Modify  | 10.863     | 11.018     | 11.152     |   3.0 | 62.30
+Other   |            | 0.6437     |            |       |  3.64
 
-Nlocal:            200 ave         241 max         139 min
-Histogram: 1 1 0 1 1 0 0 0 1 3
-Nghost:            886 ave         938 max         838 min
-Histogram: 1 0 1 2 1 1 0 0 1 1
+Nlocal:            200 ave         237 max         163 min
+Histogram: 2 1 0 0 0 0 3 1 0 1
+Nghost:        869.625 ave         898 max         841 min
+Histogram: 1 1 0 1 2 0 1 0 0 2
 Neighs:              0 ave           0 max           0 min
 Histogram: 8 0 0 0 0 0 0 0 0 0
-FullNghs:      3466.25 ave        4693 max        1914 min
-Histogram: 1 0 0 2 1 0 1 1 0 2
+FullNghs:         3058 ave        4180 max        2097 min
+Histogram: 2 1 0 0 0 0 4 0 0 1
 
-Total # of neighbors = 27730
-Ave neighs/atom = 17.33125
+Total # of neighbors = 24464
+Ave neighs/atom = 15.29
 Ave special neighs/atom = 2.3125
-Neighbor list builds = 42
-Dangerous builds = 0
+Neighbor list builds = 213
+Dangerous builds = 1
 
-Total wall time: 0:00:21
+Total wall time: 0:00:35
