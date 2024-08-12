@@ -17,7 +17,7 @@ variable sstep equal 10000
 
 # Variables for the shear deformation
 variable shear_rate equal 0.05    # Add 5% of the total lenght each time step
-variable max_strain equal 20
+variable max_strain equal 5
 variable Nstep_per_strain equal (1/v_shear_rate)*1/v_tstep
 variable shear_it equal v_max_strain*v_Nstep_per_strain 
 variable Nsave equal 1000
@@ -45,6 +45,7 @@ compute t all temp
 compute ep all pe
 compute ek all ke
 compute stress all pressure t
+variable tilt equal xy 
 
 # Compute Cluster sizes
 compute cluster all aggregate/atom 0.6
@@ -75,7 +76,7 @@ fix fixEng Energy ave/time 1 1 10 c_t c_ep c_ek file info/energy_shear.fixf
 
 # Save Stress tensor
 group Stress empty
-fix fixStress Stress ave/time 1 1 10 c_stress[*] file info/stress_shear.fixf
+fix fixStress Stress ave/time 1 1 10 v_tilt c_stress[*] file info/stress_shear.fixf
 
 # Save the cluster sizes
 #fix ID group-ID style Nevery Nrepeat Nfreq lo hi Nbin value1 value2

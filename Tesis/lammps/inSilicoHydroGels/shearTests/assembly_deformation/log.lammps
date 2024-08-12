@@ -22,7 +22,7 @@ variable sstep equal 10000
 
 # Variables for the shear deformation
 variable shear_rate equal 0.05    # Add 5% of the total lenght each time step
-variable max_strain equal 20
+variable max_strain equal 5
 variable Nstep_per_strain equal (1/v_shear_rate)*1/v_tstep
 variable shear_it equal v_max_strain*v_Nstep_per_strain
 variable Nsave equal 1000
@@ -145,6 +145,7 @@ compute t all temp
 compute ep all pe
 compute ek all ke
 compute stress all pressure t
+variable tilt equal xy
 
 # Compute Cluster sizes
 compute cluster all aggregate/atom 0.6
@@ -165,13 +166,13 @@ dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
 
 # Write dump file of voronoi analysis of the last configuration
 dump dumpVor CM custom ${shear_it} info/voronoiSimple_shear.dumpf c_vorCompSimple[1] c_vorCompSimple[2]
-dump dumpVor CM custom 400000 info/voronoiSimple_shear.dumpf c_vorCompSimple[1] c_vorCompSimple[2]
+dump dumpVor CM custom 100000 info/voronoiSimple_shear.dumpf c_vorCompSimple[1] c_vorCompSimple[2]
 dump_modify dumpVor delay ${shear_it}
-dump_modify dumpVor delay 400000
+dump_modify dumpVor delay 100000
 
 # Write fix file of voronoi histogram: Number of edges on the faces of the Voronoi cells
 fix fixvorHisto CM ave/time 1 1 ${shear_it} c_vorCompHisto file info/vorHisto_shear.fixf mode vector
-fix fixvorHisto CM ave/time 1 1 400000 c_vorCompHisto file info/vorHisto_shear.fixf mode vector
+fix fixvorHisto CM ave/time 1 1 100000 c_vorCompHisto file info/vorHisto_shear.fixf mode vector
 
 # Save global energies and temperature
 group Energy empty
@@ -181,19 +182,19 @@ fix fixEng Energy ave/time 1 1 10 c_t c_ep c_ek file info/energy_shear.fixf
 # Save Stress tensor
 group Stress empty
 0 atoms in group Stress
-fix fixStress Stress ave/time 1 1 10 c_stress[*] file info/stress_shear.fixf
+fix fixStress Stress ave/time 1 1 10 v_tilt c_stress[*] file info/stress_shear.fixf
 
 # Save the cluster sizes
 #fix ID group-ID style Nevery Nrepeat Nfreq lo hi Nbin value1 value2
 fix 1 all ave/time 1 1 ${shear_it} c_size file info/sizeCluster_shear.fixf mode vector
-fix 1 all ave/time 1 1 400000 c_size file info/sizeCluster_shear.fixf mode vector
+fix 1 all ave/time 1 1 100000 c_size file info/sizeCluster_shear.fixf mode vector
 
 # RUN SIMULATION
 
 timestep ${tstep}
 timestep 0.001
 run ${shear_it}
-run 400000
+run 100000
 
 CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
 
@@ -271,70 +272,40 @@ Per MPI rank memory allocation (min/avg/max) = 26 | 26.01 | 26.02 Mbytes
      30000   0.44462217    -0.30678756     0             -0.26552107    -1.4196404      4096         
      40000   0.46807566    -0.30481606     0             -0.26137279    -1.8035042      4096         
      50000   0.46942824    -0.30364653     0             -0.26007772     0.84345265     4096         
-     60000   0.4680138     -0.30269802     0             -0.25926048    -0.91508254     4096         
-     70000   0.46160318    -0.30122129     0             -0.25837874    -1.2028451      4096         
-     80000   0.41952937    -0.30300052     0             -0.26406295     3.7976523      4096         
-     90000   0.44383942    -0.30215372     0             -0.26095987    -2.0272101      4096         
-    100000   0.42634233    -0.30232564     0             -0.26275574    -6.2474437      4096         
-    110000   0.4648926     -0.30218976     0             -0.25904191    -1.3288054      4096         
-    120000   0.43855316    -0.30376474     0             -0.26306153    -3.6790017      4096         
-    130000   0.42947537    -0.30576182     0             -0.26590114    -2.1316938      4096         
-    140000   0.45935659    -0.30544921     0             -0.26281518     2.7682907      4096         
-    150000   0.43561352    -0.30377006     0             -0.26333968    -0.020528058    4096         
-    160000   0.44510944    -0.30497624     0             -0.26366452    -5.7280651      4096         
-    170000   0.45231774    -0.29872137     0             -0.25674063     1.2707638      4096         
-    180000   0.45052928    -0.30449979     0             -0.26268504    -4.2168084      4096         
-    190000   0.43360693    -0.30524054     0             -0.2649964     -1.8514924      4096         
-    200000   0.46084935    -0.30530703     0             -0.26253445    -1.6130637      4096         
-    210000   0.47573382    -0.30876043     0             -0.26460638     9.3241593      4096         
-    220000   0.43869071    -0.30794053     0             -0.26722455    -11.410899      4096         
-    230000   0.43817915    -0.3086524      0             -0.26798389    -2.1560797      4096         
-    240000   0.4214604     -0.30589962     0             -0.26678282     6.6783686      4096         
-    250000   0.43014517    -0.30943623     0             -0.26951338    -1.9526433      4096         
-    260000   0.40309664    -0.30846392     0             -0.27105151     3.8790062      4096         
-    270000   0.44302412    -0.30826139     0             -0.26714321    -13.238486      4096         
-    280000   0.44638052    -0.30832242     0             -0.26689273     1.5685569      4096         
-    290000   0.43037061    -0.30719737     0             -0.2672536     -7.3601784      4096         
-    300000   0.46058418    -0.30573126     0             -0.26298329    -2.7095031      4096         
-    310000   0.42346274    -0.30760224     0             -0.2682996     -2.8236235      4096         
-    320000   0.44422366    -0.30268832     0             -0.26145881     12.16359       4096         
-    330000   0.43972493    -0.30943967     0             -0.2686277      11.165197      4096         
-    340000   0.45547397    -0.30556993     0             -0.26329625    -19.953024      4096         
-    350000   0.4425579     -0.31000253     0             -0.26892763     4.3598674      4096         
-    360000   0.42874376    -0.30919648     0             -0.2694037     -26.90831       4096         
-    370000   0.44007271    -0.30981584     0             -0.26897159    -7.8361547      4096         
-    380000   0.45693564    -0.31013959     0             -0.26773025     12.090372      4096         
-    390000   0.46615134    -0.30915188     0             -0.26588721    -7.5700325      4096         
-    400000   0.43479113    -0.30946141     0             -0.26910736    -12.639804      4096         
-Loop time of 108.538 on 8 procs for 400000 steps with 1600 atoms
+     60000   0.47627397    -0.28824136     0             -0.24403718    -1.4281899      4096         
+     70000   0.4661418     -0.30217845     0             -0.25891467    -3.1322341      4096         
+     80000   0.47967404    -0.28588294     0             -0.2413632      0.27096028     4096         
+     90000   0.4659551     -0.30356984     0             -0.26032338    -1.340939       4096         
+    100000   0.4366215     -0.30329849     0             -0.26277456    -2.6856447      4096         
+Loop time of 26.2058 on 8 procs for 100000 steps with 1600 atoms
 
-Performance: 318414.818 tau/day, 3685.357 timesteps/s, 5.897 Matom-step/s
-88.5% CPU use with 8 MPI tasks x 1 OpenMP threads
+Performance: 329697.568 tau/day, 3815.944 timesteps/s, 6.106 Matom-step/s
+88.1% CPU use with 8 MPI tasks x 1 OpenMP threads
 
 MPI task timing breakdown:
 Section |  min time  |  avg time  |  max time  |%varavg| %total
 ---------------------------------------------------------------
-Pair    | 7.832      | 9.6775     | 13.126     |  64.5 |  8.92
-Bond    | 0.027751   | 0.029096   | 0.032949   |   1.0 |  0.03
-Neigh   | 1.2664     | 1.2671     | 1.2678     |   0.0 |  1.17
-Comm    | 12.256     | 15.238     | 17.329     |  47.1 | 14.04
-Output  | 0.088912   | 0.10548    | 0.12079    |   3.3 |  0.10
-Modify  | 79.212     | 79.56      | 80.076     |   3.7 | 73.30
-Other   |            | 2.661      |            |       |  2.45
+Pair    | 1.7211     | 2.3051     | 2.9252     |  25.8 |  8.80
+Bond    | 0.0058188  | 0.0066595  | 0.0071809  |   0.5 |  0.03
+Neigh   | 0.3126     | 0.31289    | 0.31312    |   0.0 |  1.19
+Comm    | 3.0439     | 3.5604     | 4.067      |  18.0 | 13.59
+Output  | 0.025507   | 0.029406   | 0.033275   |   1.5 |  0.11
+Modify  | 19.238     | 19.319     | 19.444     |   1.5 | 73.72
+Other   |            | 0.6722     |            |       |  2.57
 
-Nlocal:            200 ave         294 max         135 min
-Histogram: 1 1 2 1 0 1 1 0 0 1
-Nghost:            830 ave         914 max         751 min
-Histogram: 1 1 1 0 0 2 1 0 1 1
+Nlocal:            200 ave         278 max          72 min
+Histogram: 1 0 0 0 1 1 2 1 1 1
+Nghost:          807.5 ave         898 max         756 min
+Histogram: 4 0 0 0 0 2 1 0 0 1
 Neighs:              0 ave           0 max           0 min
 Histogram: 8 0 0 0 0 0 0 0 0 0
-FullNghs:       3748.5 ave        6403 max        2661 min
-Histogram: 5 0 0 0 1 0 1 0 0 1
+FullNghs:         3905 ave        6240 max         840 min
+Histogram: 1 0 0 1 1 1 0 2 1 1
 
-Total # of neighbors = 29988
-Ave neighs/atom = 18.7425
+Total # of neighbors = 31240
+Ave neighs/atom = 19.525
 Ave special neighs/atom = 2.3125
-Neighbor list builds = 958
-Dangerous builds = 20
+Neighbor list builds = 245
+Dangerous builds = 5
 
-Total wall time: 0:02:05
+Total wall time: 0:00:43

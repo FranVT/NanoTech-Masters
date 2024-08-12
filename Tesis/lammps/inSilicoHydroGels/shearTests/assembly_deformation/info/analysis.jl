@@ -110,7 +110,7 @@ labels_stress = ("trace","|trace|","xx","yy","zz","xy","xz","yz");
 fig_Stress = Figure();
 ax_s = Axis(fig_Stress[1,1],
         title = "Stress components",
-        xlabel = "Time steps",
+        xlabel = "Tilt deformation",
         ylabel = L"\sigma_{nn}",
         titlesize = 24.0f0,
         xticklabelsize = 18.0f0,
@@ -120,13 +120,13 @@ ax_s = Axis(fig_Stress[1,1],
         xminorticksvisible = true, 
         xminorgridvisible = true,
         xminorticks = IntervalsBetween(5),
-        xscale = log10,
-        limits = (10e0,exp10(1+round(log10( stress_info[1,end] ))),nothing,nothing)
+        #xscale = log10,
+        #limits = (10e0,exp10(1+round(log10( stress_info[1,end] ))),nothing,nothing)
     )
 
-    series!(ax_s,stress_info[1,:],stress_info[2:end,:],labels=labels_stress[3:end])
-    lines!(ax_s,stress_info[1,:],reduce(vcat,sum(stress_info[2:4,:],dims=1)),label=labels_stress[1])
-    lines!(ax_s,stress_info[1,:],sqrt.(reduce(vcat,sum((stress_info[2:4,:]).^2,dims=1))),label=labels_stress[2])
+    series!(ax_s,cumsum(abs.(stress_info[2,:])),stress_info[3:end,:],labels=labels_stress[3:end])
+    lines!(ax_s,cumsum(abs.(stress_info[2,:])),reduce(vcat,sum(stress_info[3:5,:],dims=1)),label=labels_stress[1])
+    lines!(ax_s,cumsum(abs.(stress_info[2,:])),sqrt.(reduce(vcat,sum((stress_info[3:5,:]).^2,dims=1))),label=labels_stress[2])
 fig_Stress[1,2] = Legend(fig_Stress,ax_s,"Legends",framevisible=true)
 
 
