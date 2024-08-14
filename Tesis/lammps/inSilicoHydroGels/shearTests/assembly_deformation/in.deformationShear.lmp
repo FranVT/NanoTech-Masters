@@ -15,13 +15,6 @@ variable seed3 equal 3124
 variable tstep equal 0.001
 variable sstep equal 10000
 
-# Variables for the shear deformation
-variable shear_rate equal 0.05    # Add 5% of the total lenght each time step
-variable max_strain equal 5
-variable Nstep_per_strain equal (1/v_shear_rate)*1/v_tstep
-variable shear_it equal v_max_strain*v_Nstep_per_strain 
-variable Nsave equal 1000
-
 read_data data.hydrogel extra/bond/per/atom 4 extra/special/per/atom 5
 
 change_box all triclinic
@@ -35,6 +28,13 @@ include molDeform.in
 fix langevinFix all langevin 0.05 0.05 1 12345 # ID group-ID langevin Tstart Tstop damp seed
 fix BrDy all rigid/nve/small molecule # Brownian Dynamics: langevin + nve
 
+# Variables for the shear deformation
+variable shear_rate equal 0.02    # Add 0.1% of the total lenght each time unit
+variable max_strain equal 15
+variable Nstep_per_strain equal (1/v_shear_rate)*(1/v_tstep)
+variable shear_it equal v_max_strain*v_Nstep_per_strain 
+variable Nsave equal v_Nstep_per_strain/1000
+
 # Introduce the deformation
 fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
 
@@ -45,16 +45,19 @@ compute t all temp
 compute ep all pe
 compute ek all ke
 compute stress all pressure t
-variable tilt equal xy 
+compute stressKe all pressure t ke
+compute stressPair all pressure NULL pair
+compute stressVirial all pressure NULL virial
+variable tilt equal v_shear_rate*step*dt 
 
 # Compute Cluster sizes
-compute cluster all aggregate/atom 0.6
-compute cc1 all chunk/atom c_cluster compress yes pbc yes
-compute size all property/chunk cc1 count
+#compute cluster all aggregate/atom 0.6
+#compute cc1 all chunk/atom c_cluster compress yes pbc yes
+#compute size all property/chunk cc1 count
 
 # Compute Voronoi/atom
-compute vorCompSimple CM voronoi/atom only_group
-compute vorCompHisto CM voronoi/atom only_group edge_histo 30 edge_threshold 0
+#compute vorCompSimple CM voronoi/atom only_group
+#compute vorCompHisto CM voronoi/atom only_group edge_histo 30 edge_threshold 0
 
 # DUMPS and FIXES
 
@@ -64,11 +67,11 @@ dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
 #dump_modify dumpID delay ${steps}
 
 # Write dump file of voronoi analysis of the last configuration
-dump dumpVor CM custom ${shear_it} info/voronoiSimple_shear.dumpf c_vorCompSimple[1] c_vorCompSimple[2]
-dump_modify dumpVor delay ${shear_it}
+#dump dumpVor CM custom ${shear_it} info/voronoiSimple_shear.dumpf c_vorCompSimple[1] c_vorCompSimple[2]
+#dump_modify dumpVor delay ${shear_it}
 
 # Write fix file of voronoi histogram: Number of edges on the faces of the Voronoi cells
-fix fixvorHisto CM ave/time 1 1 ${shear_it} c_vorCompHisto file info/vorHisto_shear.fixf mode vector
+#fix fixvorHisto CM ave/time 1 1 ${shear_it} c_vorCompHisto file info/vorHisto_shear.fixf mode vector
 
 # Save global energies and temperature
 group Energy empty
@@ -76,14 +79,16 @@ fix fixEng Energy ave/time 1 1 10 c_t c_ep c_ek file info/energy_shear.fixf
 
 # Save Stress tensor
 group Stress empty
-fix fixStress Stress ave/time 1 1 10 v_tilt c_stress[*] file info/stress_shear.fixf
+fix fixStress1 Stress ave/time 1000 1 1000 v_tilt c_stress[*] file info/stress_shear.fixf
+fix fixStress2 Stress ave/time 1000 1 1000 v_tilt c_stressKe[*] file info/stressKe_shear.fixf
+fix fixStress3 Stress ave/time 1000 1 1000 v_tilt c_stressPair[*] file info/stressPair_shear.fixf
+fix fixStress4 Stress ave/time 1000 1 1000 v_tilt c_stressVirial[*] file info/stressVirial_shear.fixf
 
 # Save the cluster sizes
 #fix ID group-ID style Nevery Nrepeat Nfreq lo hi Nbin value1 value2
-fix 1 all ave/time 1 1 ${shear_it} c_size file info/sizeCluster_shear.fixf mode vector
+#fix 1 all ave/time 1 1 ${shear_it} c_size file info/sizeCluster_shear.fixf mode vector
 
 # RUN SIMULATION
-
 timestep ${tstep}
 run ${shear_it}
 

@@ -20,16 +20,9 @@ variable seed3 equal 3124
 variable tstep equal 0.001
 variable sstep equal 10000
 
-# Variables for the shear deformation
-variable shear_rate equal 0.05    # Add 5% of the total lenght each time step
-variable max_strain equal 5
-variable Nstep_per_strain equal (1/v_shear_rate)*1/v_tstep
-variable shear_it equal v_max_strain*v_Nstep_per_strain
-variable Nsave equal 1000
-
 read_data data.hydrogel extra/bond/per/atom 4 extra/special/per/atom 5
 Reading data file ...
-  orthogonal box = (-8 -8 -8) to (8 8 8)
+  orthogonal box = (-7 -7 -7) to (7 7 7)
   2 by 2 by 2 MPI processor grid
   reading atoms ...
   1600 atoms
@@ -37,7 +30,7 @@ Reading data file ...
   1600 velocities
   scanning bonds ...
   8 = max bonds/atom
-  orthogonal box = (-8 -8 -8) to (8 8 8)
+  orthogonal box = (-7 -7 -7) to (7 7 7)
   2 by 2 by 2 MPI processor grid
   reading bonds ...
   1100 bonds
@@ -49,11 +42,11 @@ Finding 1-2 1-3 1-4 neighbors ...
      3 = max # of 1-4 neighbors
      9 = max # of special neighbors
   special bonds CPU = 0.000 seconds
-  read_data CPU = 0.011 seconds
+  read_data CPU = 0.008 seconds
 
 change_box all triclinic
 Changing box ...
-  triclinic box = (-8 -8 -8) to (8 8 8) with tilt (0 0 0)
+  triclinic box = (-7 -7 -7) to (7 7 7) with tilt (0 0 0)
 
 # Coefficients
 include potential.in
@@ -133,9 +126,16 @@ fix BrDy all rigid/nve/small molecule # Brownian Dynamics: langevin + nve
   500 rigid bodies with 1600 atoms
   0.5 = max distance from body owner to body atom
 
+# Variables for the shear deformation
+variable shear_rate equal 0.02    # Add 0.1% of the total lenght each time unit
+variable max_strain equal 15
+variable Nstep_per_strain equal (1/v_shear_rate)*(1/v_tstep)
+variable shear_it equal v_max_strain*v_Nstep_per_strain
+variable Nsave equal v_Nstep_per_strain/1000
+
 # Introduce the deformation
 fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
-fix shear all deform 1 xy erate 0.05 remap x flip yes
+fix shear all deform 1 xy erate 0.02 remap x flip yes
 
 thermo ${sstep}
 thermo 10000
@@ -145,34 +145,34 @@ compute t all temp
 compute ep all pe
 compute ek all ke
 compute stress all pressure t
-variable tilt equal xy
+compute stressKe all pressure t ke
+compute stressPair all pressure NULL pair
+compute stressVirial all pressure NULL virial
+variable tilt equal v_shear_rate*step*dt
 
 # Compute Cluster sizes
-compute cluster all aggregate/atom 0.6
-compute cc1 all chunk/atom c_cluster compress yes pbc yes
-compute size all property/chunk cc1 count
+#compute cluster all aggregate/atom 0.6
+#compute cc1 all chunk/atom c_cluster compress yes pbc yes
+#compute size all property/chunk cc1 count
 
 # Compute Voronoi/atom
-compute vorCompSimple CM voronoi/atom only_group
-compute vorCompHisto CM voronoi/atom only_group edge_histo 30 edge_threshold 0
+#compute vorCompSimple CM voronoi/atom only_group
+#compute vorCompHisto CM voronoi/atom only_group edge_histo 30 edge_threshold 0
 
 # DUMPS and FIXES
 
 # Save atom positions
 dump dumpID all atom ${Nsave} info/patchyParticles_shear.dumpf
-dump dumpID all atom 1000 info/patchyParticles_shear.dumpf
+dump dumpID all atom 50 info/patchyParticles_shear.dumpf
 dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
 #dump_modify dumpID delay ${steps}
 
 # Write dump file of voronoi analysis of the last configuration
-dump dumpVor CM custom ${shear_it} info/voronoiSimple_shear.dumpf c_vorCompSimple[1] c_vorCompSimple[2]
-dump dumpVor CM custom 100000 info/voronoiSimple_shear.dumpf c_vorCompSimple[1] c_vorCompSimple[2]
-dump_modify dumpVor delay ${shear_it}
-dump_modify dumpVor delay 100000
+#dump dumpVor CM custom ${shear_it} info/voronoiSimple_shear.dumpf c_vorCompSimple[1] c_vorCompSimple[2]
+#dump_modify dumpVor delay ${shear_it}
 
 # Write fix file of voronoi histogram: Number of edges on the faces of the Voronoi cells
-fix fixvorHisto CM ave/time 1 1 ${shear_it} c_vorCompHisto file info/vorHisto_shear.fixf mode vector
-fix fixvorHisto CM ave/time 1 1 100000 c_vorCompHisto file info/vorHisto_shear.fixf mode vector
+#fix fixvorHisto CM ave/time 1 1 ${shear_it} c_vorCompHisto file info/vorHisto_shear.fixf mode vector
 
 # Save global energies and temperature
 group Energy empty
@@ -182,19 +182,20 @@ fix fixEng Energy ave/time 1 1 10 c_t c_ep c_ek file info/energy_shear.fixf
 # Save Stress tensor
 group Stress empty
 0 atoms in group Stress
-fix fixStress Stress ave/time 1 1 10 v_tilt c_stress[*] file info/stress_shear.fixf
+fix fixStress1 Stress ave/time 1000 1 1000 v_tilt c_stress[*] file info/stress_shear.fixf
+fix fixStress2 Stress ave/time 1000 1 1000 v_tilt c_stressKe[*] file info/stressKe_shear.fixf
+fix fixStress3 Stress ave/time 1000 1 1000 v_tilt c_stressPair[*] file info/stressPair_shear.fixf
+fix fixStress4 Stress ave/time 1000 1 1000 v_tilt c_stressVirial[*] file info/stressVirial_shear.fixf
 
 # Save the cluster sizes
 #fix ID group-ID style Nevery Nrepeat Nfreq lo hi Nbin value1 value2
-fix 1 all ave/time 1 1 ${shear_it} c_size file info/sizeCluster_shear.fixf mode vector
-fix 1 all ave/time 1 1 100000 c_size file info/sizeCluster_shear.fixf mode vector
+#fix 1 all ave/time 1 1 ${shear_it} c_size file info/sizeCluster_shear.fixf mode vector
 
 # RUN SIMULATION
-
 timestep ${tstep}
 timestep 0.001
 run ${shear_it}
-run 100000
+run 750000
 
 CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
 
@@ -226,86 +227,97 @@ Neighbor list info ...
   max neighbors/atom: 2000, page size: 100000
   master list distance cutoff = 2.92
   ghost atom cutoff = 2.92
-  binsize = 1.46, bins = 11 11 11
-  7 neighbor lists, perpetual/occasional/extra = 6 1 0
-  (1) pair zero, perpetual, skip from (6)
+  binsize = 1.46, bins = 10 10 10
+  6 neighbor lists, perpetual/occasional/extra = 6 0 0
+  (1) pair zero, perpetual, skip from (5)
       attributes: half, newton on, omp
       pair build: skip/omp
       stencil: none
       bin: none
-  (2) pair lj/cut/omp, perpetual, skip from (6)
+  (2) pair lj/cut/omp, perpetual, skip from (5)
       attributes: half, newton on, omp
       pair build: skip/omp
       stencil: none
       bin: none
-  (3) pair table/omp, perpetual, skip from (6)
+  (3) pair table/omp, perpetual, skip from (5)
       attributes: half, newton on, omp, cut 2.4
       pair build: skip/omp
       stencil: none
       bin: none
-  (4) pair threebody/table, perpetual, skip from (7)
+  (4) pair threebody/table, perpetual, skip from (6)
       attributes: full, newton on, omp, cut 2.4
       pair build: skip/omp
       stencil: none
       bin: none
-  (5) compute aggregate/atom, occasional
-      attributes: full, newton on, omp
-      pair build: full/bin/omp
-      stencil: full/bin/3d
-      bin: standard
-  (6) neighbor class addition, perpetual
+  (5) neighbor class addition, perpetual
       attributes: half, newton on, omp
       pair build: half/bin/newton/tri/omp
       stencil: half/bin/3d/tri
       bin: standard
-  (7) neighbor class addition, perpetual
+  (6) neighbor class addition, perpetual
       attributes: full, newton on, omp, cut 2.4
       pair build: full/bin/omp
       stencil: full/bin/3d
       bin: standard
-WARNING: Dump dumpVor includes no atom IDs and is not sorted by ID. This may complicate post-processing tasks or visualization (src/dump.cpp:219)
-Per MPI rank memory allocation (min/avg/max) = 26 | 26.01 | 26.02 Mbytes
+Per MPI rank memory allocation (min/avg/max) = 24.92 | 24.93 | 24.94 Mbytes
    Step          Temp          E_pair         E_mol          TotEng         Press          Volume    
-         0   0.43089052    -0.31233456     0             -0.27234254     0.020628961    4096         
-     10000   0.42855951    -0.30667926     0             -0.26690358    -0.19851453     4096         
-     20000   0.43654811    -0.30862985     0             -0.26811273    -0.84017541     4096         
-     30000   0.44462217    -0.30678756     0             -0.26552107    -1.4196404      4096         
-     40000   0.46807566    -0.30481606     0             -0.26137279    -1.8035042      4096         
-     50000   0.46942824    -0.30364653     0             -0.26007772     0.84345265     4096         
-     60000   0.47627397    -0.28824136     0             -0.24403718    -1.4281899      4096         
-     70000   0.4661418     -0.30217845     0             -0.25891467    -3.1322341      4096         
-     80000   0.47967404    -0.28588294     0             -0.2413632      0.27096028     4096         
-     90000   0.4659551     -0.30356984     0             -0.26032338    -1.340939       4096         
-    100000   0.4366215     -0.30329849     0             -0.26277456    -2.6856447      4096         
-Loop time of 26.2058 on 8 procs for 100000 steps with 1600 atoms
-
-Performance: 329697.568 tau/day, 3815.944 timesteps/s, 6.106 Matom-step/s
-88.1% CPU use with 8 MPI tasks x 1 OpenMP threads
-
-MPI task timing breakdown:
-Section |  min time  |  avg time  |  max time  |%varavg| %total
----------------------------------------------------------------
-Pair    | 1.7211     | 2.3051     | 2.9252     |  25.8 |  8.80
-Bond    | 0.0058188  | 0.0066595  | 0.0071809  |   0.5 |  0.03
-Neigh   | 0.3126     | 0.31289    | 0.31312    |   0.0 |  1.19
-Comm    | 3.0439     | 3.5604     | 4.067      |  18.0 | 13.59
-Output  | 0.025507   | 0.029406   | 0.033275   |   1.5 |  0.11
-Modify  | 19.238     | 19.319     | 19.444     |   1.5 | 73.72
-Other   |            | 0.6722     |            |       |  2.57
-
-Nlocal:            200 ave         278 max          72 min
-Histogram: 1 0 0 0 1 1 2 1 1 1
-Nghost:          807.5 ave         898 max         756 min
-Histogram: 4 0 0 0 0 2 1 0 0 1
-Neighs:              0 ave           0 max           0 min
-Histogram: 8 0 0 0 0 0 0 0 0 0
-FullNghs:         3905 ave        6240 max         840 min
-Histogram: 1 0 0 1 1 1 0 2 1 1
-
-Total # of neighbors = 31240
-Ave neighs/atom = 19.525
-Ave special neighs/atom = 2.3125
-Neighbor list builds = 245
-Dangerous builds = 5
-
-Total wall time: 0:00:43
+         0   0.41992508    -0.31463104     0             -0.27565674     0.31257828     2744         
+     10000   0.43475651    -0.31440039     0             -0.27404955    -0.14318461     2744         
+     20000   0.43722001    -0.31433086     0             -0.27375137    -0.23055832     2744         
+     30000   0.44564367    -0.31222303     0             -0.27086172    -0.11942894     2744         
+     40000   0.45117356    -0.31558306     0             -0.27370851    -2.0069801      2744         
+     50000   0.44157725    -0.31026093     0             -0.26927704    -0.89669556     2744         
+     60000   0.44279267    -0.31362624     0             -0.27252954    -2.2869191      2744         
+     70000   0.4506449     -0.30951438     0             -0.2676889     -1.5280405      2744         
+     80000   0.44427966    -0.31418989     0             -0.27295519    -2.9425678      2744         
+     90000   0.43990282    -0.30882848     0             -0.268         -5.4630102      2744         
+    100000   0.45761722    -0.31542796     0             -0.27295537    -1.3248589      2744         
+    110000   0.42929859    -0.3105484      0             -0.27070412    -3.7581578      2744         
+    120000   0.45850526    -0.31166058     0             -0.26910556    -4.7800697      2744         
+    130000   0.45047182    -0.31288869     0             -0.27107927    -6.7377178      2744         
+    140000   0.42211456    -0.30807463     0             -0.26889712    -1.1208935      2744         
+    150000   0.42525379    -0.31086995     0             -0.27140109    -3.1210994      2744         
+    160000   0.42058268    -0.30401398     0             -0.26497865     2.5962467      2744         
+    170000   0.4181781     -0.31115993     0             -0.27234778    -3.6171287      2744         
+    180000   0.46614327    -0.30846014     0             -0.26519622    -3.2789331      2744         
+    190000   0.44004204    -0.31188481     0             -0.27104341    -8.7571245      2744         
+    200000   0.44848099    -0.31154424     0             -0.2699196      4.3694025      2744         
+    210000   0.44725756    -0.31245169     0             -0.2709406     -8.2528566      2744         
+    220000   0.45161135    -0.30744025     0             -0.26552508    -4.6691516      2744         
+    230000   0.43923413    -0.31124151     0             -0.27047509    -3.0386318      2744         
+    240000   0.43468787    -0.3125344      0             -0.27218994     0.32961836     2744         
+    250000   0.44862456    -0.31275932     0             -0.27112135    -0.39716976     2744         
+    260000   0.44281068    -0.31235704     0             -0.27125867    -10.310782      2744         
+    270000   0.43663632    -0.31212756     0             -0.27160225    -3.3256136      2744         
+    280000   0.4212627     -0.31117881     0             -0.27208037    -9.5218334      2744         
+    290000   0.40622081    -0.31125729     0             -0.27355492     1.6058621      2744         
+    300000   0.44247813    -0.31113372     0             -0.27006622     1.4911053      2744         
+    310000   0.43861756    -0.31124468     0             -0.27053549    -5.0558505      2744         
+    320000   0.45460076    -0.30839107     0             -0.26619844    -7.3554834      2744         
+    330000   0.44407904    -0.30723536     0             -0.26601927    -13.005288      2744         
+    340000   0.43120133    -0.30820791     0             -0.26818704    -1.1826112      2744         
+    350000   0.45234904    -0.3068953      0             -0.26491165     3.4826817      2744         
+    360000   0.45857935    -0.30258681     0             -0.26002492    -5.1056809      2744         
+    370000   0.45560698    -0.30629571     0             -0.26400968     4.3059766      2744         
+    380000   0.43422775    -0.29380851     0             -0.25350675     14.817383      2744         
+    390000   0.43377514    -0.30779736     0             -0.2675376     -1.765562       2744         
+    400000   0.41753617    -0.30687615     0             -0.26812358    -16.549268      2744         
+    410000   0.43542752    -0.30766447     0             -0.26725135    -1.8094462      2744         
+    420000   0.4333331     -0.30750699     0             -0.26728826     8.8921165      2744         
+    430000   0.41895609    -0.30801854     0             -0.26913418     6.9387885      2744         
+    440000   0.43764706    -0.30835909     0             -0.26773998    -0.41856477     2744         
+    450000   0.42738652    -0.3090914      0             -0.26942459    -10.192507      2744         
+    460000   0.42528667    -0.30914423     0             -0.26967231     22.050509      2744         
+    470000   0.47148776    -0.30795752     0             -0.26419756    -15.214404      2744         
+    480000   0.43248195    -0.31051171     0             -0.27037198    -14.624504      2744         
+    490000   0.43393908    -0.30965276     0             -0.26937779    -18.231031      2744         
+    500000   0.4513864     -0.30296419     0             -0.26106989    -5.1413514      2744         
+    510000   0.41599423    -0.309227       0             -0.27061754    -12.848113      2744         
+    520000   0.43446554    -0.30879427     0             -0.26847044    -23.571864      2744         
+    530000   0.4317697     -0.30512085     0             -0.26504723    -3.3262757      2744         
+    540000   0.43849598    -0.30781647     0             -0.26711856    -3.6150083      2744         
+    550000   0.43589585    -0.30929978     0             -0.26884319    -7.0628006      2744         
+    560000   0.46117161    -0.30742271     0             -0.26462022    -4.5468313      2744         
+    570000   0.44001299    -0.30767601     0             -0.26683731    -23.834106      2744         
+ERROR: Lost atoms: original 1600 current 1597 (src/thermo.cpp:494)
+Last command: run ${shear_it}

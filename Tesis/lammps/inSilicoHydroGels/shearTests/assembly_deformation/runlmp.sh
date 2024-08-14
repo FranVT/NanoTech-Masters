@@ -8,3 +8,7 @@
 echo -e 'Start the deformation process\n'
 echo -e '\n'
 env OMP_RUN_THREADS=2 mpirun -np 8 lmp -sf omp -in in.deformationShear.lmp
+echo -e '\n'
+echo -e 'Julia figures'
+cd info
+julia analysis.jl

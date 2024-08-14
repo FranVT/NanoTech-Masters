@@ -15,7 +15,7 @@ pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 1.12 table/omp linear 5000000 
 newton on
 
 # Varaibles
-variable L equal 8
+variable L equal 7
 variable NCL equal 50
 variable NMO equal 450
 variable seed1 equal 1234
