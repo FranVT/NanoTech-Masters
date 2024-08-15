@@ -10,8 +10,11 @@
 *.fdb_latexmk
 *.blg
 *.mp4
-**/clusterOvito/
-*.dumpf
-*.fixf
+*.3b
 *dump.
 *.table
+**/clusterOvito/
+**/assembly/
+**/assembly_variations/
+**/assebmlyTests/
+**/remains/
