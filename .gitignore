@@ -10,7 +10,7 @@
 *.fdb_latexmk
 *.blg
 *.mp4
-clusterOvito/
+**/clusterOvito/
 *.dumpf
 *.fixf
 *dump.
