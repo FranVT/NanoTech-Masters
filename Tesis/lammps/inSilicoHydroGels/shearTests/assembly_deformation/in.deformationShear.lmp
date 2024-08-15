@@ -25,18 +25,20 @@ include potential.in
 # Molecules
 include molDeform.in
 
-fix langevinFix all langevin 0.05 0.05 1 12345 # ID group-ID langevin Tstart Tstop damp seed
-fix BrDy all rigid/nve/small molecule # Brownian Dynamics: langevin + nve
+#fix langevinFix all langevin 0.05 0.05 0.5 12345 # ID group-ID langevin Tstart Tstop damp seed
+fix BrDy all rigid/nve/small molecule langevin 0.05 0.05 0.25 12345 # Brownian Dynamics: langevin + nve
+fix_modify BrDy virial no
 
 # Variables for the shear deformation
 variable shear_rate equal 0.02    # Add 0.1% of the total lenght each time unit
-variable max_strain equal 15
-variable Nstep_per_strain equal (1/v_shear_rate)*(1/v_tstep)
+variable max_strain equal 50
+variable Nstep_per_strain equal (1/v_shear_rate)*(1/v_tstep)+1000
 variable shear_it equal v_max_strain*v_Nstep_per_strain 
-variable Nsave equal v_Nstep_per_strain/1000
+variable Nsave equal 500
 
 # Introduce the deformation
 fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
+
 
 thermo ${sstep}
 
@@ -79,10 +81,10 @@ fix fixEng Energy ave/time 1 1 10 c_t c_ep c_ek file info/energy_shear.fixf
 
 # Save Stress tensor
 group Stress empty
-fix fixStress1 Stress ave/time 1000 1 1000 v_tilt c_stress[*] file info/stress_shear.fixf
-fix fixStress2 Stress ave/time 1000 1 1000 v_tilt c_stressKe[*] file info/stressKe_shear.fixf
-fix fixStress3 Stress ave/time 1000 1 1000 v_tilt c_stressPair[*] file info/stressPair_shear.fixf
-fix fixStress4 Stress ave/time 1000 1 1000 v_tilt c_stressVirial[*] file info/stressVirial_shear.fixf
+fix fixStress1 Stress ave/time 1 1000 1000 v_tilt c_stress[*] file info/stress_shear.fixf
+fix fixStress2 Stress ave/time 1 1000 1000 v_tilt c_stressKe[*] file info/stressKe_shear.fixf
+fix fixStress3 Stress ave/time 1 1000 1000 v_tilt c_stressPair[*] file info/stressPair_shear.fixf
+fix fixStress4 Stress ave/time 1 1000 1000 v_tilt c_stressVirial[*] file info/stressVirial_shear.fixf
 
 # Save the cluster sizes
 #fix ID group-ID style Nevery Nrepeat Nfreq lo hi Nbin value1 value2
