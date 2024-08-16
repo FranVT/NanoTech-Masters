@@ -443,6 +443,52 @@ Also, when the number of clusters decrese at a faster rate, we can say that is i
 
 Maybe it will be wise to see how to calculate the elastic constants.
 
+\newday*{2024-08-08}
+
+In the reunion Toño and Caludia said that the langevin and nve commands are correct and star checking at my code.
+Then, Toño change the integration command nve to nve\/rigid and the simulation dind't broke.
+
+
+\newday{2024-08-09}
+
+Now that the simulations are properly coded, it is time to change the parameters.
+
+The command \verb|deform| with the \textit{erate} keyword it adds a relative fraction of the total box length each time step.
+
+The parameters that we are going to chage are:
+\begin{itemize}
+	\item Shear rate
+	\item Number of CrossLinkers
+\end{itemize}
+
+I have some doubts about the damp parameter of the Lagevin thermostat.
+Because, it is always said that it represent a viscosity and the medium, hence, the rheological properties of the simultion will change, so... it will be interesting how the properties changes with the damp parameter.
+
+Well, also, the main objective is that we want to connect the macroscopic response with the structural properties of the chain.
+
+For that, It will be nice to change the mass of the system, to see if the behaviour changes or not.
+
+\rule{\textwidth}{0.4pt}
+
+Understanding the response of Polyethylene glycol diacrylate Hydrogel Networks: Astatistical Mechanics-Based Framework article.
+
+The derive a microstructurally motivated and energy-based model that captures the three essential features that enable deformation in PEGDA hydrogels:
+\begin{itemize}
+	\item Entropic contribution of the PEG chains
+	\item Deformation of rods
+	\item Mechanical PA-PA interactions.
+\end{itemize}
+
+The resume of the relations are:
+We demonstrate that in the limit of short PEG chains and long PA rods, the behavior is governed by PA−PA interactions, which we attribute to the mechanical restrictions due the high density grafting of PEG chains to the PA cores.
+In the case of long PEG chains and short PA rods, the hydrogel behaves entropically due to the deformation of the PEG chains.
+
+Those are the main ideas that I was interested.
+The advantage or the characteristic of that polymer is that is a brush like, such that, we can define a system of coordinate arround the principal chain, and then cansider the tranformation of the that system of coordinates after the compression.
+
+Read: A microscopically motivated model for the swelling-induced drastic softening of hydrogen-bond dominated biopolymer networks.
+
+Read: Swelling thermodnamics and phse transitions of polymer gels.
 
 %\printbibliography
 
