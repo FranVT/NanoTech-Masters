@@ -1,8 +1,8 @@
-PA PA PA 0.6 sysFiles/swapMechTab.table SEC1 linear 50
-PB PA PA 0.6 sysFiles/swapMechTab.table SEC1 linear 50
-PA PB PA 0.6 sysFiles/swapMechTab.table SEC1 linear 50
-PB PB PA 0.6 sysFiles/swapMechTab.table SEC1 linear 50
-PA PA PB 0.6 sysFiles/swapMechTab.table SEC1 linear 50
-PB PA PB 0.6 sysFiles/swapMechTab.table SEC1 linear 50
-PA PB PB 0.6 sysFiles/swapMechTab.table SEC1 linear 50
-PB PB PB 0.6 sysFiles/swapMechTab.table SEC1 linear 50
+PA PA PA 0.6 swapMechTab.table SEC1 linear 50
+PB PA PA 0.6 swapMechTab.table SEC1 linear 50
+PA PB PA 0.6 swapMechTab.table SEC1 linear 50
+PB PB PA 0.6 swapMechTab.table SEC1 linear 50
+PA PA PB 0.6 swapMechTab.table SEC1 linear 50
+PB PA PB 0.6 swapMechTab.table SEC1 linear 50
+PA PB PB 0.6 swapMechTab.table SEC1 linear 50
+PB PB PB 0.6 swapMechTab.table SEC1 linear 50
