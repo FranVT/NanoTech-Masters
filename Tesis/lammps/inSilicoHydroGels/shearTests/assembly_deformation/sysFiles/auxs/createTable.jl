@@ -2,7 +2,7 @@
     Script to create the threebody/table filename parameter
 """
 
-workdir = cd("/home/franvtdebian/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/shearTests/assembly_deformation/sysFiles/")
+workdir = cd("/home/franvtdebian/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/shearTests/assembly_deformation/")
 filename = "swapMechTab.table";
 
 # Create the functions

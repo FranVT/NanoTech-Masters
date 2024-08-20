@@ -57,13 +57,13 @@ compute ep all pe
 compute ek all ke
 
 # Compute Cluster sizes
-compute cluster all aggregate/atom 0.6
-compute cc1 all chunk/atom c_cluster compress yes pbc yes
-compute size all property/chunk cc1 count
+#compute cluster all aggregate/atom 0.6
+#compute cc1 all chunk/atom c_cluster compress yes pbc yes
+#compute size all property/chunk cc1 count
 
 # Compute Voronoi/atom
-compute vorCompSimple CM voronoi/atom only_group
-compute vorCompHisto CM voronoi/atom only_group edge_histo 30 edge_threshold 0
+#compute vorCompSimple CM voronoi/atom only_group
+#compute vorCompHisto CM voronoi/atom only_group edge_histo 30 edge_threshold 0
 
 # DUMPS and FIXES
 
@@ -73,11 +73,11 @@ dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
 dump_modify dumpID delay ${steps}
 
 # Write dump file of voronoi analysis of the last configuration
-dump dumpVor CM custom ${steps} info/voronoiSimple_assembly.dumpf c_vorCompSimple[1] c_vorCompSimple[2]
-dump_modify dumpVor delay ${steps}
+#dump dumpVor CM custom ${steps} info/voronoiSimple_assembly.dumpf c_vorCompSimple[1] c_vorCompSimple[2]
+#dump_modify dumpVor delay ${steps}
 
 # Write fix file of voronoi histogram: Number of edges on the faces of the Voronoi cells
-fix fixvorHisto CM ave/time 1 1 ${steps} c_vorCompHisto file info/vorHisto_assembly.fixf mode vector
+#fix fixvorHisto CM ave/time 1 1 ${steps} c_vorCompHisto file info/vorHisto_assembly.fixf mode vector
 
 # Save global energies and temperature
 group Energy empty
@@ -85,7 +85,7 @@ fix fixEng Energy ave/time 1 1 10 c_t c_ep c_ek file info/energy_assembly.fixf
 
 # Save the cluster sizes
 #fix ID group-ID style Nevery Nrepeat Nfreq lo hi Nbin value1 value2
-fix 1 all ave/time 1 1 ${sstep} c_size file info/sizeCluster_assembly.fixf mode vector
+#fix 1 all ave/time 1 1 ${sstep} c_size file info/sizeCluster_assembly.fixf mode vector
 
 # RUN SIMULATION
 

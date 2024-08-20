@@ -25,7 +25,6 @@ include potential.in
 # Molecules
 include molDeform.in
 
-#fix langevinFix all langevin 0.05 0.05 0.5 12345 # ID group-ID langevin Tstart Tstop damp seed
 fix BrDy all rigid/nve/small molecule langevin 0.05 0.05 0.25 12345 # Brownian Dynamics: langevin + nve
 fix_modify BrDy virial no
 
@@ -38,7 +37,6 @@ variable Nsave equal 500
 
 # Introduce the deformation
 fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
-
 
 thermo ${sstep}
 

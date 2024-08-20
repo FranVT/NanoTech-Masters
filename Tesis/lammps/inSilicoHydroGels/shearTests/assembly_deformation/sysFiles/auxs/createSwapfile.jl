@@ -2,7 +2,7 @@
     Script to create the Swap.3b file
 """
 
-workdir = cd("/home/franvtdebian/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/shearTests/assembly_deformation/sysFiles/")
+workdir = cd("/home/franvtdebian/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/shearTests/assembly_deformation/")
 filename = "swapMech.3b";
 
 # Create the permutation stuff
