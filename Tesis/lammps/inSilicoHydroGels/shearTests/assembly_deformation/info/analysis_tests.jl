@@ -48,6 +48,8 @@ stressPair_info = -getInfoStress(pwdDir*shearFiles_names[9]);
 stressFix_info = -getInfoStress(pwdDir*shearFiles_names[10]);
 stressVirial_info = -getInfoStress(pwdDir*shearFiles_names[11]);
 
+stressComp_info = stressVirial_info .- stressFix_info;
+
 ## Figures
 
 # Energy and temperature
@@ -158,7 +160,7 @@ ax_s2 = Axis(fig_Stress[1,2],
     rowsize!(fig_Stress.layout,2,Relative(1/3))
 
 function StressGraph(strain,stress_info,n)
-titles = ("Total Stress Components","Ke Stress Components","Pair Stress Components","Fix Stress Components","Virial Stress Components",);
+titles = ("Total Stress Components","Ke Stress Components","Pair Stress Components","Fix Stress Components","Virial Stress Components","Ke+Pair Stress Components","Virial-Fix Stress Components");
 labels_stress = ("trace","|trace|","xx","yy","zz","xy","xz","yz");
 fig_Stress = Figure(size=(1200,920));
 ax_s1 = Axis(fig_Stress[1,1],
@@ -213,6 +215,9 @@ stressKe_fig = StressGraph(strain,stressKe_info,2);
 stressPair_fig = StressGraph(strain,stressPair_info,3);
 stressFix_fig = StressGraph(strain,stressFix_info,4);
 stressVirial_fig = StressGraph(strain,stressVirial_info,5);
+stressKePair_fig = StressGraph(strain,stressKe_info.+stressPair_info,6);
+stressComp_fig = StressGraph(strain,stressComp_info,7);
+
 
 """
 # Voronoi Stuff
@@ -255,4 +260,9 @@ save("stressKe.png",stressKe_fig)
 save("stressPair.png",stressPair_fig)
 save("stressFix.png",stressFix_fig)
 save("stressVirial.png",stressVirial_fig)
+save("stressKePair.png",stressComp_fig)
+save("stressVirialNoFix.png",stressKePair_fig)
 
+# Restore the directory
+pwdDir = "/home/franvtdebian/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/shearTests/assembly_deformation/info/";
+workdir = cd(pwdDir);
