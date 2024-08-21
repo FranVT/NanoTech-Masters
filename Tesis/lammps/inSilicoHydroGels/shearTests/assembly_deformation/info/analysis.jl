@@ -11,7 +11,7 @@ include("functions.jl")
 
 # Directories
 
-compu = 2;
+compu = 1;
 
 if compu == 1
     # MiniForum
@@ -65,7 +65,7 @@ E_shear = U_shear .+ K_shear;
 
 tf = last(data_energy[1][1,:]) + last(data_energy[2][1,:]);
 
-fig_Energy = Figure(size(1200,980));
+fig_Energy = Figure(size=(1200,980));
 ax_e = Axis(fig_Energy[1,1],
         title = "Energy",
         xlabel = "Time steps [Log10]",
@@ -99,6 +99,8 @@ ax_t = Axis(fig_Energy[1,3],
 series!(ax_e,ta_step,data_energy[1][2:4,:])
 series!(ax_e,ts_step,data_energy[2][2:4,:])
 
+lines!(ax_t,ta_step,T_assembly,label="T_a",color = Makie.wong_colors()[1])
+lines!(ax_t,ts_step,T_shear,label="T_s",color = Makie.wong_colors()[2])
 
 
 

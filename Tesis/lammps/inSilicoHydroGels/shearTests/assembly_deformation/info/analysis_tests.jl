@@ -16,7 +16,7 @@ pwdDir = "/home/franvtdebian/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydr
 workdir = cd(pwdDir);
 
 assemblyFiles_names = ("patchyParticles_assembly.dumpf", "newdata_assembly.dumpf", "voronoiSimple_assembly.dumpf", "vorHisto_assembly.fixf", "energy_assembly.fixf", "sizeCluster_assembly.fixf");
-shearFiles_names = ("patchyParticles_shear.dumpf", "newdata_shear.dumpf", "voronoiSimple_shear.dumpf", "vorHisto_shear.fixf", "energy_shear.fixf", "sizeCluster_shear.fixf","stress_shear.fixf","stressKe_shear.fixf","stressPair_shear.fixf","stressVirial_shear.fixf");
+shearFiles_names = ("patchyParticles_shear.dumpf", "newdata_shear.dumpf", "voronoiSimple_shear.dumpf", "vorHisto_shear.fixf", "energy_shear.fixf", "sizeCluster_shear.fixf","stress_shear.fixf","stressKe_shear.fixf","stressPair_shear.fixf","stressFix_shear.fixf","stressVirial_shear.fixf");
 
 files = (assemblyFiles_names,shearFiles_names);
 
@@ -41,11 +41,12 @@ data_energy = map(s->getInfoEnergy(pwdDir*s[5]),files);
 #voroHisto_mean = reduce(vcat,mean(aux_edges,dims=2));
 
 # Stress
-stress_info = getInfoStress(pwdDir*shearFiles_names[7]);
-strain = stress_info[2,:]; #cumsum(abs.(stress_info[2,:]./7))./(stress_info[1,end]/100);
-stressKe_info = getInfoStress(pwdDir*shearFiles_names[8]);
-stressPair_info = getInfoStress(pwdDir*shearFiles_names[9]);
-stressVirial_info = getInfoStress(pwdDir*shearFiles_names[10]);
+stress_info = -getInfoStress(pwdDir*shearFiles_names[7]);
+strain = -stress_info[2,:]; #cumsum(abs.(stress_info[2,:]./7))./(stress_info[1,end]/100);
+stressKe_info = -getInfoStress(pwdDir*shearFiles_names[8]);
+stressPair_info = -getInfoStress(pwdDir*shearFiles_names[9]);
+stressFix_info = -getInfoStress(pwdDir*shearFiles_names[10]);
+stressVirial_info = -getInfoStress(pwdDir*shearFiles_names[11]);
 
 ## Figures
 
@@ -157,7 +158,7 @@ ax_s2 = Axis(fig_Stress[1,2],
     rowsize!(fig_Stress.layout,2,Relative(1/3))
 
 function StressGraph(strain,stress_info,n)
-titles = ("Total Stress Components","Ke Stress Components","Pair Stress Components","Virial Stress Components",);
+titles = ("Total Stress Components","Ke Stress Components","Pair Stress Components","Fix Stress Components","Virial Stress Components",);
 labels_stress = ("trace","|trace|","xx","yy","zz","xy","xz","yz");
 fig_Stress = Figure(size=(1200,920));
 ax_s1 = Axis(fig_Stress[1,1],
@@ -210,7 +211,8 @@ end
 stress_fig = StressGraph(strain,stress_info,1);
 stressKe_fig = StressGraph(strain,stressKe_info,2);
 stressPair_fig = StressGraph(strain,stressPair_info,3);
-stressVirial_fig = StressGraph(strain,stressVirial_info,4);
+stressFix_fig = StressGraph(strain,stressFix_info,4);
+stressVirial_fig = StressGraph(strain,stressVirial_info,5);
 
 """
 # Voronoi Stuff
@@ -251,5 +253,6 @@ save("energy.png",fig_Energy)
 save("stress.png",stress_fig)
 save("stressKe.png",stressKe_fig)
 save("stressPair.png",stressPair_fig)
+save("stressFix.png",stressFix_fig)
 save("stressVirial.png",stressVirial_fig)
 
