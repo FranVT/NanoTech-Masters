@@ -11,4 +11,4 @@ env OMP_RUN_THREADS=2 mpirun -np 8 lmp -sf omp -in in.deformationShear.lmp
 echo -e '\n'
 echo -e 'Julia figures'
 cd info
-julia analysis_tests.jl
+julia analysis.jl

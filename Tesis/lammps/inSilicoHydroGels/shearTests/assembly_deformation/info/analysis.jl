@@ -11,7 +11,7 @@ include("functions.jl")
 
 # Directories
 
-compu = 2;
+compu = 1;
 
 if compu == 1
     # MiniForum
