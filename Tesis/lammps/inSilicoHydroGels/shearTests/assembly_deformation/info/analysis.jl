@@ -37,7 +37,8 @@ shearFiles_names = (
                         "stressKe_shear.fixf",
                         "stressPair_shear.fixf",
                         "stressFix_shear.fixf",
-                        "stressVirial_shear.fixf"
+                        "stressVirial_shear.fixf",
+                        "stressModify_shear.fixf"
                     );
 
 files = (assemblyFiles_names,shearFiles_names);
@@ -169,6 +170,7 @@ fig_StressKe = StressGraph("Ke Stress Components",strain,-data_stress[2])
 fig_StressPair = StressGraph("Pair Stress Components",strain,-data_stress[3])
 fig_StressFix = StressGraph("Fix Stress Components",strain,-data_stress[4])
 fig_StressVirial = StressGraph("Virial Stress Components",strain,-data_stress[5])
+fig_StressModify = StressGraph("Ke+Pair Stress Components Lammps compute",strain,-data_stress[6])
 
 fig_StressFixtotal = StressGraph("Total - Fix Stress Components",strain,-(data_stress[1].-data_stress[4]))
 fig_StressKePair = StressGraph("Ke + Pair Stress Components",strain,-(data_stress[2].+data_stress[3]))
@@ -196,6 +198,7 @@ save("stressVirial.png",fig_StressVirial)
 save("stressKePair.png",fig_StressKePair)
 save("stressVirialNoFix.png",fig_StressVirialFix)
 save("stressTotalNoFix.png",fig_StressFixtotal)
+save("stressModify.png",fig_StressModify)
 
 ## Restore the working directory
 if compu == 1

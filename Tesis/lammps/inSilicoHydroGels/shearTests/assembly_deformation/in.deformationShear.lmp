@@ -49,6 +49,7 @@ compute stressKe all pressure t ke
 compute stressPair all pressure NULL pair
 compute stressFix all pressure NULL fix
 compute stressVirial all pressure NULL virial
+compute stressModify all pressure t ke pair 
 variable tilt equal v_shear_rate*step*dt 
 
 # Compute Cluster sizes
@@ -85,6 +86,8 @@ fix fixStress2 Stress ave/time 1 1000 1000 v_tilt c_stressKe[*] file info/stress
 fix fixStress3 Stress ave/time 1 1000 1000 v_tilt c_stressPair[*] file info/stressPair_shear.fixf
 fix fixStress4 Stress ave/time 1 1000 1000 v_tilt c_stressFix[*] file info/stressFix_shear.fixf
 fix fixStress5 Stress ave/time 1 1000 1000 v_tilt c_stressVirial[*] file info/stressVirial_shear.fixf
+fix fixStress6 Stress ave/time 1 1000 1000 v_tilt c_stressModify[*] file info/stressModify_shear.fixf
+
 
 # Save the cluster sizes
 #fix ID group-ID style Nevery Nrepeat Nfreq lo hi Nbin value1 value2

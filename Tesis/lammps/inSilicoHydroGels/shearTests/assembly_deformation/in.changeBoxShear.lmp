@@ -32,12 +32,13 @@ fix_modify BrDy virial no
 # Variables for the shear deformation
 variable shearDirection equal xy
 variable maxTilt equal 0.5*lx
-variable shear_rate equal 0.001    # 0.1 units box
+variable restoreTilt equal -v_maxTilt
+variable shear_rate equal 0.0001    # 0.1 units box
 variable max_strain equal 2
-variable Nstep_per_strain equal (1/v_shear_rate)*(1/v_tstep)+1000
-variable shear_it equal v_max_strain*v_Nstep_per_strain 
+variable Nstep_per_strain equal lx/(v_shear_rate*(1/v_tstep))
+variable shear_it equal v_max_strain*v_Nstep_per_strain*(1/v_tstep) 
 variable Nsave equal 500
-
+variable xref equal xhi
 
 thermo ${sstep}
 
@@ -51,6 +52,7 @@ compute stressPair all pressure NULL pair
 compute stressFix all pressure NULL fix
 compute stressVirial all pressure NULL virial
 variable tilt equal v_shear_rate*step*dt 
+variable stressNOFix equal c_stressVirial[4]-c_stressFix[4]
 
 # Compute Cluster sizes
 #compute cluster all aggregate/atom 0.6
@@ -75,6 +77,7 @@ fix fixStress2 Stress ave/time 1 1000 1000 v_tilt c_stressKe[*] file info/stress
 fix fixStress3 Stress ave/time 1 1000 1000 v_tilt c_stressPair[*] file info/stressPair_shear.fixf
 fix fixStress4 Stress ave/time 1 1000 1000 v_tilt c_stressFix[*] file info/stressFix_shear.fixf
 fix fixStress5 Stress ave/time 1 1000 1000 v_tilt c_stressVirial[*] file info/stressVirial_shear.fixf
+fix fixStress6 Stress ave/time 1 1000 1000 v_tilt v_stressNOFix[*] file info/stressModify_shear.fixf
 
 # Save the cluster sizes
 #fix ID group-ID style Nevery Nrepeat Nfreq lo hi Nbin value1 value2
@@ -83,9 +86,21 @@ fix fixStress5 Stress ave/time 1 1000 1000 v_tilt c_stressVirial[*] file info/st
 # RUN SIMULATION
 timestep ${tstep}
 
+#run 50000 post no every 1 &
+#  "change_box all xy delta ${shear_rate} remap units box" &
+#  "if '${shearDirection} == ${maxTilt}' then 'change_box all xy final -${maxTilt} units box'"
+
+#run ${shear_it} post no every 1 &
+#  "if '${shearDirection} <= ${maxTilt}' then 'change_box all xy delta ${shear_rate} remap units box'" &
+#  "if '${shearDirection} >= ${maxTilt}' then 'change_box all xy delta ${shear_rate} units box'"
+
 run ${shear_it} post no every 1 &
   "change_box all xy delta ${shear_rate} remap units box" &
-  "if '${shearDirection} == ${maxTilt}' then 'change_box all xy final -${maxTilt} units box'"
+  "if '${shearDirection} >= ${maxTilt}' then 'change_box all xy final ${restoreTilt} units box'"
+
+#run 100000 post no every 1 &
+#  "change_box all xy delta ${shear_rate} remap units box"
+#  "if '${shearDirection} >= ${maxTilt}' then 'change_box all xy final -${maxTilt} units box'"
 
 #variable loop_it loop ${shear_it}
 #label runloop
@@ -95,4 +110,4 @@ run ${shear_it} post no every 1 &
 #next loop_it
 #jump SELF runloop
 
-
+#run ${shear_it}
