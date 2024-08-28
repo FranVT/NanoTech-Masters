@@ -17,7 +17,10 @@ if compu == 1
     # MiniForum
     pwdDir = "/home/franvtdebian/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/shearTests/assembly_deformation/info/";
 elseif compu == 2
-    # LapTop
+    # Arch Laptop
+    pwdDir = "/home/franpad/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/shearTests/assembly_deformation/info/";
+elseif compu == 3
+    # Windows Laptop
     pwdDir = "F:/GitHub/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/shearTests/assembly_deformation/info/";
 else
     println("No valid directory")
@@ -181,7 +184,10 @@ if compu == 1
     # MiniForum
     pwdDir = "/home/franvtdebian/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/shearTests/assembly_deformation/info/imgs/";
 elseif compu == 2
-    # LapTop
+    # Arch Laptop
+    pwdDir = "/home/franpad/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/shearTests/assembly_deformation/info/imgs/";
+elseif compu == 3
+    # Windows Laptop
     pwdDir = "F:/GitHub/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/shearTests/assembly_deformation/info/imgs/";
 else
     println("No valid directory")
@@ -205,7 +211,10 @@ if compu == 1
     # MiniForum
     pwdDir = "/home/franvtdebian/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/shearTests/assembly_deformation/info/";
 elseif compu == 2
-    # LapTop
+    # Arch Laptop
+    pwdDir = "/home/franpad/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/shearTests/assembly_deformation/info/";
+elseif compu == 3
+    # Windows Laptop
     pwdDir = "F:/GitHub/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/shearTests/assembly_deformation/info/";
 else
     println("No valid directory")

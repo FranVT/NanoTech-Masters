@@ -1,0 +1,87 @@
+# Input script of lammps that creates a hydrogel and then creates a shear deformation.
+
+# Parallel configuration with pacakge OPENMP
+# RUN: env OMP_NUM_THREADS=Nthreads mpirun -np NProcs lmp -sf omp -in
+
+# Initialization
+units lj
+dimension 3
+boundary p p p
+
+# Styles of atoms and that stuff
+atom_style bond
+bond_style zero nocoeff
+pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 1.12 table/omp linear 5000000 threebody/table
+newton on
+
+# Varaibles
+variable L equal 12
+variable NCL equal 125
+variable NMO equal 1125
+variable seed1 equal 1234
+variable seed2 equal 4321
+variable seed3 equal 3124
+variable steps equal 1500000
+variable tstep equal 0.005
+variable sstep equal 10000
+
+# Create simulaiton box
+region simulation_box block -$L $L -$L $L -$L $L
+# N-atom-types region-ID keyword value Is necesesary the extra/special/per/atom (# of special neighbors per atom)
+create_box 4 simulation_box &
+    bond/types 1 &
+    extra/bond/per/atom 4 &
+    extra/special/per/atom 5
+
+# Atom types
+mass 1 1.0      # CL 
+mass 2 1.0      # MO
+mass 3 0.5      # PA
+mass 4 0.5      # PB
+
+# Coefficients
+include potential.in
+
+# Molecules
+include molecules.in
+
+fix BrDy all rigid/nve/small molecule langevin 0.05 0.05 1 12345 # Brownian Dynamics: langevin + nve
+
+thermo ${sstep}
+
+# COMPUTES
+
+# Compute global kinetic and potential energy and temperature
+compute t all temp
+compute ep all pe
+compute ek all ke
+
+# Compute Cluster sizes
+#compute cluster all aggregate/atom 0.6
+#compute cc1 all chunk/atom c_cluster compress yes pbc yes
+#compute size all property/chunk cc1 count
+
+# DUMPS and FIXES
+
+# Save atom positions
+dump dumpID all atom ${steps} info/patchyParticles_assembly.dumpf
+dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
+dump_modify dumpID delay ${steps}
+
+# Save global energies and temperature
+group Energy empty
+fix fixEng Energy ave/time 1 1 10 c_t c_ep c_ek file info/energy_assembly.fixf
+
+# Save the cluster sizes
+#fix ID group-ID style Nevery Nrepeat Nfreq lo hi Nbin value1 value2
+#fix 1 all ave/time 1 1 ${sstep} c_size file info/sizeCluster_assembly.fixf mode vector
+
+# RUN SIMULATION
+
+timestep ${tstep}
+run ${steps}
+
+# Write data for deformation
+
+write_data data.hydrogel
+
