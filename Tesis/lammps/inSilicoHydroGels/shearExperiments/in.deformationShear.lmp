@@ -44,7 +44,7 @@ dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
 
 # Save global energies and temperature
 group Energy empty
-fix fixEng Energy ave/time 1 1 10 c_t c_ep c_ek file info/energy_shear.fixf
+fix fixEng Energy ave/time 1 10 10 c_t c_ep c_ek file info/energy_shear.fixf
 
 # Save Stress tensor
 group Stress empty

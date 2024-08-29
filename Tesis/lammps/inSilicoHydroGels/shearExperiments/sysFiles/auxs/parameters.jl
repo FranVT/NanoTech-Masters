@@ -4,7 +4,7 @@
 
 ## Variables for assembly simulation
 
-N_particles = 10000;
+N_particles = 1250;
 CL_concentration = 0.10;
 
 L = 7;
@@ -24,7 +24,7 @@ tstep_defor = 0.001;
 sstep_defor = 10000;
 
 shear_rate = 0.02;
-max_strain = 50;
+max_strain = 15;
 Nstep_per_strain = round(Int,(1/shear_rate)*(1/tstep_defor)+1000);
 shear_it = max_strain*Nstep_per_strain;
 Nsave = 500;
