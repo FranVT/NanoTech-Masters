@@ -10,6 +10,8 @@ main_dir = pwd();
 dir = string(main_dir,"/info/",dir_system);
 mkdir(dir);
 
+println(string("createBashDeformation.jl Main directory: ",main_dir))
+
 ## Create the file
 # Variables 
 file_name = "deformationSimulation.sh";
@@ -41,7 +43,7 @@ open(file_name,"w") do f
     write(f,"## Computed Values\n")
     write(f,string("Box Volume [sigma^3]: ",Vol_box,"\n"))
     write(f,string("Cross-Linker Volume [sigma^3]: ",Vol_CL,"\n"))
-    write(f,string("Monomer Volume [sigma^3]: ",Vol_CL,"\n"))
+    write(f,string("Monomer Volume [sigma^3]: ",Vol_MO,"\n"))
     write(f,string("Total volume of patchy particles [sigma^3]: ",Vol_Ptot,"\n"))
     write(f,"\n")
     write(f,string("## Values for the simulation\n"))

@@ -12,7 +12,7 @@
 phi = 0.9;
 CL_concentration = 0.10;
 
-L = 1*9;
+L = 9.5;
 L_real = 2*L;
 Vol_box = L_real^3;
 
