@@ -21,7 +21,8 @@ if ARGS[1] == "1"
     arg = filter(!=(" "),Iterators.flatten(files)|>Tuple);
     path1 = map(s->joinpath(pwdDir,s),arg);
     path2 = map(s->joinpath(pwdDir,dir_system,s),arg);
-    map(s->mv(path1[s],path2[s]),eachindex(path1))
+
+    map(s->mv(path1[s],path2[s],force=true),eachindex(path1))
 else
     println("No se activo el comando mv")
 end

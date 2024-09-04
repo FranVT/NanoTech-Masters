@@ -8,6 +8,7 @@ include("parameters.jl");
 ## Create a directory to store the files
 main_dir = pwd();
 dir = string(main_dir,"/info/",dir_system);
+rm(dir,force=true,recursive=true)
 mkdir(dir);
 
 println(string("createBashDeformation.jl Main directory: ",main_dir))

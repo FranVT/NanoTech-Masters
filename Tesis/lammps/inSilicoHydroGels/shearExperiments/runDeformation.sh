@@ -7,7 +7,7 @@ julia sysFiles/auxs/createBashDeformation.jl
 echo -e 'Bash script created \n'
 echo -e 'Run the bash script \n'
 
-bash deformationSimulation.sh
+#bash deformationSimulation.sh
 
 echo -e 'Run the analysis script \n'
 
