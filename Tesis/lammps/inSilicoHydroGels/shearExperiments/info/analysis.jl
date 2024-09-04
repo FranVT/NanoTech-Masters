@@ -26,6 +26,8 @@ else
     println("No valid directory")
 end
 
+main_Dir = pwd();
+pwdDir = string(main_Dir,"/info/");
 workdir = cd(pwdDir);
 
 # Files names
@@ -180,6 +182,7 @@ else
     println("No valid directory")
 end
 
+pwdDir = string(main_Dir,"/info/",dir_system);
 workdir = cd(pwdDir);
 
 save("energy.png",fig_Energy)
@@ -199,4 +202,4 @@ else
     println("No valid directory")
 end
 
-workdir = cd(pwdDir);
+workdir = cd(string(main_Dir,));
