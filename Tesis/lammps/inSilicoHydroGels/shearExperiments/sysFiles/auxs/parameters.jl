@@ -56,5 +56,6 @@ Nsave = 500;
 Nave = round(Int,1/tstep_defor);
 
 ## Directory name
-dir_system = string("system",af*phi,af*CL_concentration,af*shear_rate,af*L)
+af = 100000;
+dir_system = string("system",round(Int64,af*phi),round(Int64,af*CL_concentration),round(Int64,af*shear_rate),round(Int64,af*L))
 
