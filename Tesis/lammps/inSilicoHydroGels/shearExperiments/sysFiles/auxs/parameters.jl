@@ -3,13 +3,38 @@
 """
 
 ## Variables for assembly simulation
+"""
+    |    |    |    |
+    phi:           Packing fraction
+    r_Parti:       Radius of central particle [sigma]
+"""
 
-N_particles = 2*1250;
+phi = 0.9;
 CL_concentration = 0.10;
 
-L = 2*9;
-N_CL = round(Int,CL_concentration*N_particles);
-N_MO = N_particles - N_CL;
+L = 1*9;
+L_real = 2*L;
+Vol_box = L_real^3;
+
+Vol_Ptot = phi*Vol_box;
+Vol_CLT = CL_concentration*Vol_Ptot;
+Vol_MOT = Vol_Ptot - Vol_CLT;
+
+r_Parti = 0.5;
+r_Patch = 0.4;
+r_separ = r_Parti;
+Vol_Parti = 4/3*pi*r_Parti^3;
+Vol_Patch = 4/3*pi*r_Patch^3;
+Vol_dif = pi/(12*r_separ)*(r_Parti+r_Patch-r_separ)^2*(r_separ^2+2*r_separ*r_Patch-3*r_Patch^2+2*r_separ*r_Parti+6*r_Patch*r_Parti-3*r_Parti^2); 
+
+Vol_CL = Vol_Parti + 4*(Vol_Patch - Vol_dif);
+Vol_MO = Vol_Parti + 2*(Vol_Patch - Vol_dif);
+
+N_CL = round(Int64,Vol_CLT/Vol_CL);
+N_MO = round(Int64,Vol_MOT/Vol_MO);
+N_particles = N_MO + N_CL;
+
+phi_N = (N_CL*Vol_CL + N_MO*Vol_MO)/Vol_box;
 
 steps = 1500000;
 tstep = 0.005;
@@ -30,5 +55,6 @@ shear_it = max_strain*Nstep_per_strain;
 Nsave = 500;
 Nave = round(Int,1/tstep_defor);
 
-
+## Directory name
+dir_system = string("system",af*phi,af*CL_concentration,af*shear_rate,af*L)
 
