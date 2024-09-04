@@ -5,7 +5,9 @@
 using Distributions
 using GLMakie
 
-include("/sysFiles/auxs/parameters.jl")
+main_Dir = pwd();
+
+include(string(main_Dir,"/sysFiles/auxs/parameters.jl"))
 include("functions.jl")
 
 ## Gather information
@@ -27,7 +29,6 @@ else
     println("No valid directory")
 end
 
-main_Dir = pwd();
 pwdDir = string(main_Dir,"/info/");
 workdir = cd(pwdDir);
 
