@@ -11,7 +11,7 @@ include("functions.jl")
 
 # Directories
 
-compu = 2;
+compu = 1;
 
 if compu == 1
     # MiniForum
@@ -108,8 +108,9 @@ normTensor = sum(abs.(stress_info[3:5,:]).^2,dims=1) .+ (2).*sum(abs.(stress_inf
 normTensor = Iterators.flatten(sqrt.(normTensor))|>collect;
 
 labels_stress = ("Norm","xx","yy","zz","Norm","xy","xz","yz");
+#labels_stress = ("Norm","xx","Norm","xy");
 fig_Stress = Figure(size=(1200,920));
-ax_s1 = Axis(fig_Stress[1,1],
+ax_s1 = Axis(fig_Stress[1,1:2],
         aspect = nothing,
         title = title_aux,
         xlabel = "Tilt deformation",
@@ -122,7 +123,7 @@ ax_s1 = Axis(fig_Stress[1,1],
         xminorticksvisible = true, 
         xminorgridvisible = true,
     )
-ax_s2 = Axis(fig_Stress[1,2],
+ax_s2 = Axis(fig_Stress[2,1:2],
         aspect = nothing,
         title = title_aux,
         xlabel = "Tilt deformation",
@@ -135,7 +136,7 @@ ax_s2 = Axis(fig_Stress[1,2],
         xminorticksvisible = true, 
         xminorgridvisible = true,
     )
-ax_s3 = Axis(fig_Stress[2,1:2],
+ax_s3 = Axis(fig_Stress[3,1:2],
         aspect = nothing,
         title = "Norm",
         xlabel = "Tilt deformation",

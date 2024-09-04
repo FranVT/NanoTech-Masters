@@ -23,9 +23,6 @@ include molDeform.in
 fix BrDy all rigid/nve/small molecule langevin 0.05 0.05 0.25 12345 # Brownian Dynamics: langevin + nve
 fix_modify BrDy virial no
 
-# Introduce the deformation
-fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
-
 thermo ${sstep}
 
 # Compute global kinetic and potential energy and temperature
@@ -51,6 +48,32 @@ group Stress empty
 fix fixStress5 Stress ave/time 1 ${Nave} ${Nave} v_tilt c_stressVirial[*] file info/stressVirial_shear.fixf
 
 # RUN SIMULATION
+
+# Introduce deformation
+fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
+
+# Run deformation
 timestep ${tstep}
 run ${shear_it}
 
+# Stop deformation
+unfix shear
+
+# Relax time
+run 150000
+
+# Introduce deformation
+fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
+
+# Reun deformation
+timestep ${tstep}
+run ${shear_it}
+
+
+#variable cycle loop 2
+#label runloop
+
+# Introduce the deformation
+
+#next cycle
+#jump SELF runloop
