@@ -5,6 +5,7 @@
 using Distributions
 using GLMakie
 
+include("/sysFiles/auxs/parameters.jl")
 include("functions.jl")
 
 ## Gather information
