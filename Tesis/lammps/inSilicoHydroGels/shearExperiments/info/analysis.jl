@@ -5,45 +5,31 @@
 using Distributions
 using GLMakie
 
+# Directories
 main_Dir = pwd();
+pwdDir = string(main_Dir,"/info/");
 
 include(string(main_Dir,"/sysFiles/auxs/parameters.jl"))
 include("functions.jl")
 
-## Gather information
+println("Main directory of analysis.jl: ", main_Dir)
 
-# Directories
 
-compu = 1;
-
-if compu == 1
-    # MiniForum
-    pwdDir = "/home/franvtdebian/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/shearExperiments/info/";
-elseif compu == 2
-    # Arch Laptop
-    pwdDir = "/home/franpad/Documents/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/shearExperiments/info/";
-elseif compu == 3
-    # Windows Laptop
-    pwdDir = "F:/GitHub/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/shearExperiments/info/";
+## Move .fixf files if necessary
+if ARGS[1] == "1"
+    println("Se activo el comando mv")
+    arg = filter(!=(" "),Iterators.flatten(files)|>Tuple);
+    path1 = map(s->joinpath(pwdDir,s),arg);
+    path2 = map(s->joinpath(pwdDir,dir_system,s),arg);
+    map(s->mv(path1[s],path2[s]),eachindex(path1))
 else
-    println("No valid directory")
+    println("No se activo el comando mv")
 end
 
-pwdDir = string(main_Dir,"/info/");
+
+## Gather information
+
 workdir = cd(pwdDir);
-
-# Files names
-assemblyFiles_names = (
-                       "energy_assembly.fixf",
-                       " "
-                      );
-
-shearFiles_names = (
-                        "energy_shear.fixf",
-                        "stressVirial_shear.fixf",
-                    );
-
-files = (assemblyFiles_names,shearFiles_names);
 
 # Get information
 data_energy = map(s->getInfoEnergy(pwdDir*s[1]),files);
@@ -171,19 +157,6 @@ strain = data_stress[2,:];
 fig_StressVirial = StressGraph("Ke + Pair Stress Components",strain,-data_stress)
 
 ### Save the figures
-if compu == 1
-    # MiniForum
-    pwdDir = "/home/franvtdebian/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/shearExperiments/info/imgs/";
-elseif compu == 2
-    # Arch Laptop
-    pwdDir = "/home/franpad/Documents/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/shearExperiments/info/imgs/";
-elseif compu == 3
-    # Windows Laptop
-    pwdDir = "F:/GitHub/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/shearExperiments/info/imgs/";
-else
-    println("No valid directory")
-end
-
 pwdDir = string(main_Dir,"/info/",dir_system);
 workdir = cd(pwdDir);
 
@@ -191,17 +164,5 @@ save("energy.png",fig_Energy)
 save("stressVirial.png",fig_StressVirial)
 
 ## Restore the working directory
-if compu == 1
-    # MiniForum
-    pwdDir = "/home/franvtdebian/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/shearExperiments/info/";
-elseif compu == 2
-    # Arch Laptop
-    pwdDir = "/home/franpad/Documents/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/shearExperiments/info/";
-elseif compu == 3
-    # Windows Laptop
-    pwdDir = "F:/GitHub/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/shearExperiments/info/";
-else
-    println("No valid directory")
-end
+workdir = cd(main_Dir);
 
-workdir = cd(string(main_Dir,));

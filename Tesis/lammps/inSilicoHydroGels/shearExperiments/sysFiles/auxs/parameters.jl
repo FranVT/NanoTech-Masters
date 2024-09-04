@@ -55,7 +55,19 @@ shear_it = max_strain*Nstep_per_strain;
 Nsave = 500;
 Nave = round(Int,1/tstep_defor);
 
-## Directory name
+## Directory and files names
 af = 100000;
 dir_system = string("system",round(Int64,af*phi),round(Int64,af*CL_concentration),round(Int64,af*shear_rate),round(Int64,af*L))
+
+assemblyFiles_names = (
+                       "energy_assembly.fixf",
+                       " "
+                      );
+
+shearFiles_names = (
+                        "energy_shear.fixf",
+                        "stressVirial_shear.fixf",
+                    );
+
+files = (assemblyFiles_names,shearFiles_names);
 
