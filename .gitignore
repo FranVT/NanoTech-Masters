@@ -16,9 +16,9 @@
 *.table
 *.dumpf
 #*.fixf
-**/clusterOvito/
-**/assembly/
-**/assembly_variations/
-**/assemblyTests/
-**/remains/
-**/try1/
+#**/clusterOvito/
+#**/assembly/
+#**/assembly_variations/
+#**/assemblyTests/
+#**/remains/
+#**/try1/
