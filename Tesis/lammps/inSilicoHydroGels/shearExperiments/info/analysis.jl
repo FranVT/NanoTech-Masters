@@ -15,18 +15,26 @@ include("functions.jl")
 println("Main directory of analysis.jl: ", main_Dir)
 
 
+println(ARGS)
+
 ## Move .fixf files if necessary
-if ARGS[1] == "1"
-    println("Se activo el comando mv")
+if ARGS[1] == "1" && ARGS[2] == "1"
+    println("Moving assembly and shear files to directory")
     arg = filter(!=(" "),Iterators.flatten(files)|>Tuple);
     path1 = map(s->joinpath(pwdDir,s),arg);
     path2 = map(s->joinpath(pwdDir,dir_system,s),arg);
 
     map(s->mv(path1[s],path2[s],force=true),eachindex(path1))
-else
-    println("No se activo el comando mv")
-end
+elseif ARGS[1] == "0" && ARGS[2] == "1"
+    println("Moving shear files to directory")
+    arg = filter(!=(" "),files[2]);
+    path1 = map(s->joinpath(pwdDir,s),arg);
+    path2 = map(s->joinpath(pwdDir,dir_system,s),arg);
 
+    map(s->mv(path1[s],path2[s],force=true),eachindex(path1))
+else
+    println("All files in directory, running analysis")
+end
 
 ## Gather information
 
