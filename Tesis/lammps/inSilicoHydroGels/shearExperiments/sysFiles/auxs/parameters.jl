@@ -25,8 +25,8 @@ Vol_Parti = 4/3*pi*r_Parti^3;
 Vol_Patch = 4/3*pi*r_Patch^3;
 Vol_dif = pi/(12*r_separ)*(r_Parti+r_Patch-r_separ)^2*(r_separ^2+2*r_separ*r_Patch-3*r_Patch^2+2*r_separ*r_Parti+6*r_Patch*r_Parti-3*r_Parti^2); 
 
-Vol_CL = Vol_Parti + 4*(Vol_Patch - Vol_dif);
-Vol_MO = Vol_Parti + 2*(Vol_Patch - Vol_dif);
+Vol_CL = 4/3*pi*(r_Parti + r_Patch/2); #Vol_Parti + 4*(Vol_Patch - Vol_dif);
+Vol_MO = 4/3*pi*(r_Parti + r_Patch/2); #Vol_Parti + 2*(Vol_Patch - Vol_dif);
 
 #Vol_Ptot = phi*Vol_box;
 Vol_CLT = N_CL*Vol_CL; #CL_concentration*Vol_Ptot;
