@@ -4,6 +4,6 @@
 
 echo -e 'Run analysis.jl'
 
-julia info/analysis.jl
+julia info/analysis.jl 0 0
 
 

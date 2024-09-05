@@ -7,7 +7,9 @@ julia sysFiles/auxs/createBashDeformation.jl
 echo -e 'Bash script created \n'
 echo -e 'Run the bash script \n'
 
-#bash deformationSimulation.sh
+bash deformationSimulation.sh
+
+bash runAnalysis.sh
 
 #echo -e 'Move the files into directory: \n'
 
@@ -44,4 +46,4 @@ echo -e 'Run the bash script \n'
     #julia info/analysis.jl 0 0
 #fi
 
-cd ..;
+#cd ..;
