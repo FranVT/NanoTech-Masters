@@ -9,7 +9,7 @@
     r_Parti:       Radius of central particle [sigma]
 """
 
-phi = 0.8;
+phi = 0.6;
 CL_concentration = 0.10;
 
 N_particles = 2000;
