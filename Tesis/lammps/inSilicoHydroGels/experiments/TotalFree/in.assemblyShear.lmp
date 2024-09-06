@@ -44,8 +44,8 @@ thermo ${sstep}
 compute t all temp
 compute ep all pe
 compute ek all ke
-compute blAll Patches pair/local dist eng
-compute blCl PA pair/local dist eng
+compute blAll Patches pair table/omp 3 epair
+compute blCl PA pair table/omp 3 epair
 
 # DUMPS and FIXES
 
@@ -56,13 +56,15 @@ dump_modify dumpID delay ${steps}
 
 # Save global energies and temperature
 group Energy empty
-group BL1 empty
-group BL2 empty
 fix fixEng Energy ave/time 1 10 10 c_t c_ep c_ek file info/energy_assembly.fixf
 
-fix fixBLg BL1 ave/time 1 10 10 c_blAll file info/bondlenPatch_assembly.fixf
+group BL1 empty
+group BL2 empty
 
-fix fixBLc BL2 ave/time 1 10 10 c_blCl file info/bondlenCL_assembly.fixf 
+fix fixBLg BL1 ave/time 1 10 10 c_blAll file info/bondlenPatch_assembly.fixf
+fix fixBLc BL2 ave/time 1 10 10 c_blCl file info/bondlenCL_assembly.fixf
+
+
 
 # RUN SIMULATION
 
