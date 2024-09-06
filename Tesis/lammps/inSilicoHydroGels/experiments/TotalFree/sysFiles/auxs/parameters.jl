@@ -61,22 +61,29 @@ Nstep_per_strain = round(Int,(1/shear_rate)*(1/tstep_defor));
 shear_it = max_strain*Nstep_per_strain;
 Nsave = 500;
 Nave = round(Int,1/tstep_defor);
-
 cycles = 4;
+relaxTime1 = round(Int64,Nstep_per_strain/2);
+relaxTime2 = Nstep_per_strain;
+relaxTime3 = round(Int64,1.5*Nstep_per_strain);
+relaxTime4 = round(Int64,2*Nstep_per_strain);
+
 
 ## Directory and files names
 af = 100000;
-dir_system = string("systemCL",round(Int64,N_CL),"MO",round(Int64,N_MO),"ShearRate",round(Int64,af*shear_rate),"Cyles",round(Int64,cycles))
+dir_system = string("systemCL",round(Int64,N_CL),"MO",round(Int64,N_MO),"ShearRate",round(Int64,af*shear_rate),"Cycles",round(Int64,cycles))
 
 assemblyFiles_names = (
                        "energy_assembly.fixf",
-                       " "
+                       "bondlenPatch_shear.fixf",
+                       "bondlenPatch_shear.fixf"
                       );
 
 shearFiles_names = (
                         "energy_shear.fixf",
                         "stressVirial_shear.fixf",
-                    );
+                        "bondlenPatch_shear.fixf",
+                        "bondlenPatch_shear.fixf" 
+                      );
 
 files = (assemblyFiles_names,shearFiles_names);
 

@@ -19,6 +19,7 @@ group Monomer type 2 4
 group Patches type 3 4
 group CL type 1
 group MO type 2
+group PA type 3
 group CM type 1 2
 fix pCL CrossLinker rigid/small/omp molecule #langevin 1.0 1.0 100.0 ${seed3}
 fix pMO Monomer rigid/small/omp molecule #langevin 1.0 1.0 100.0 ${seed3}
