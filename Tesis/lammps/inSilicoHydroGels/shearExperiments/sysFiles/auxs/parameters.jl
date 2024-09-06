@@ -12,7 +12,7 @@
 phi = 0.6;
 CL_concentration = 0.10;
 
-N_particles = 6000;
+N_particles = 8000;
 N_CL = round(Int64,CL_concentration*N_particles); #round(Int64,Vol_CLT/Vol_CL);
 N_MO = round(Int64,N_particles - N_CL); #round(Int64,Vol_MOT/Vol_MO);
 #N_particles = N_MO + N_CL;
