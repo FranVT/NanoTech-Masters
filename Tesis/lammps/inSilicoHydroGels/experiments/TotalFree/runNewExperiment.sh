@@ -15,3 +15,5 @@ bash runDeformation.sh
 echo -e 'Move files Bash script running \n'
 
 bash moveAux.sh
+
+git pull; git add *; git commit -m "Experiment done"; git push
