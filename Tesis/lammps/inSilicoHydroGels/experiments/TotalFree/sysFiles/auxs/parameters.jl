@@ -74,15 +74,15 @@ dir_system = string("systemCL",round(Int64,N_CL),"MO",round(Int64,N_MO),"ShearRa
 
 assemblyFiles_names = (
                        "energy_assembly.fixf",
-                       "bondlenPatch_shear.fixf",
-                       "bondlenPatch_shear.fixf"
+                       "bondlenPatch_assembly.fixf",
+                       "bondlenCL_assembly.fixf"
                       );
 
 shearFiles_names = (
                         "energy_shear.fixf",
                         "stressVirial_shear.fixf",
                         "bondlenPatch_shear.fixf",
-                        "bondlenPatch_shear.fixf" 
+                        "bondlenCL_shear.fixf" 
                       );
 
 files = (assemblyFiles_names,shearFiles_names);

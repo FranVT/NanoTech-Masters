@@ -53,7 +53,7 @@ datanames = filter(!=(" "),Iterators.flatten(files)|>collect);
 touch(file_name);
 open(file_name,"w") do f
     write(f,"#!/bin/bash\n\n # Move data files to system directory\n\n")
-    write(f,"cd sysFiles/auxs")
+    write(f,"cd sysFiles/auxs;\n")
     write(f,string("cp parameters.jl parameters_copy.jl; mv parameters_copy.jl ",dir,";\n"))
     write(f,string("cd ",dir,"; mv parameters_copy.jl parameters.jl;\n"))
     write(f,string("cd ",main_dir,";\n"))
