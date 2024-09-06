@@ -65,15 +65,39 @@ run 150000
 # Introduce deformation
 fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
 
-# Reun deformation
+# Re-run deformation
 timestep ${tstep}
 run ${shear_it}
 
+# Stop deformation
+unfix shear
 
-#variable cycle loop 2
-#label runloop
+# Relax time
+run 300000
 
-# Introduce the deformation
+# Introduce deformation
+fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
 
-#next cycle
-#jump SELF runloop
+# Re-run deformation
+timestep ${tstep}
+run ${shear_it}
+
+# Stop deformation
+unfix shear
+
+# Relax time
+run 600000
+
+# Introduce deformation
+fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
+
+# Re-run deformation
+timestep ${tstep}
+run ${shear_it}
+
+# Stop deformation
+unfix shear
+
+# Relax time
+run 1200000
+
