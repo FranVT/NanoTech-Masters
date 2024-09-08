@@ -10,7 +10,7 @@
 """
 
 phi = 0.6;
-CL_concentration = 0.10;
+CL_concentration = 0.15;
 
 N_particles = 2000;
 N_CL = round(Int64,CL_concentration*N_particles); #round(Int64,Vol_CLT/Vol_CL);
