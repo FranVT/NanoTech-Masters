@@ -15,3 +15,6 @@ mv energy_shear.fixf /home/franvtdebian/GitRepos/NanoTech-Masters/Tesis/lammps/i
 mv stressVirial_shear.fixf /home/franvtdebian/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/experiments/TotalFree/dataFiles/systemCL200MO1800ShearRate2000Cycles4;
 mv bondlenPatch_shear.fixf /home/franvtdebian/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/experiments/TotalFree/dataFiles/systemCL200MO1800ShearRate2000Cycles4;
 mv bondlenCL_shear.fixf /home/franvtdebian/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/experiments/TotalFree/dataFiles/systemCL200MO1800ShearRate2000Cycles4;
+mv patchyParticles_assembly.dumpf /home/franvtdebian/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/experiments/TotalFree/dataFiles/systemCL200MO1800ShearRate2000Cycles4;
+mv patchyParticles_shear.dumpf /home/franvtdebian/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/experiments/TotalFree/dataFiles/systemCL200MO1800ShearRate2000Cycles4;
+cd /home/franvtdebian/GitRepos/NanoTech-Masters/Tesis/lammps/inSilicoHydroGels/experiments/TotalFree;

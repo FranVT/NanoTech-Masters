@@ -60,7 +60,9 @@ open(file_name,"w") do f
     write(f,string("mv data.hydrogel ",dir,";\n"))
     write(f,"cd info;\n")
     map(s->write(f,string("mv ",s," ",dir,";\n")),datanames)
-
+    write(f,string("mv patchyParticles_assembly.dumpf ",dir,";\n"))
+    write(f,string("mv patchyParticles_shear.dumpf ",dir,";\n"))
+    write(f,string("cd ",main_dir,";\n"))
     #map(s->write(f,s),(file_intro,file_stuff))
 end
 
