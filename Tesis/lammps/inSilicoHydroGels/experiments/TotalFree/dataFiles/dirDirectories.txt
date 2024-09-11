@@ -1,0 +1,6 @@
+Dircetories of simulations
+
+systemCL100MO1900ShearRate2000Cycles4
+systemCL200MO1800ShearRate2000Cycles4
+systemCL300MO1700ShearRate2000Cycles4
+systemCL400MO1600ShearRate2000Cycles4

@@ -1,80 +1,216 @@
 """
-   Script for graphs and other stuff
+    Script to create graphs and stuff
 """
 
 using GLMakie
-using Distributions
 
-# Directories
-main_Dir = pwd();
-pwdDir = string(main_Dir,"/dataFiles/",);
-
-include(string(main_Dir,"/sysFiles/auxs/parameters.jl"))
 include("functions.jl")
 
-## Gather information
+start_dir=pwd();
 
-workdir = cd(pwdDir);
+# Directories with information
+dirs = (
+        "systemCL100MO1900ShearRate2000Cycles4",
+        "systemCL200MO1800ShearRate2000Cycles4",
+        "systemCL300MO1700ShearRate2000Cycles4",
+        "systemCL400MO1600ShearRate2000Cycles4"
+      );
 
-# Get information
-data_energy = map(s->getInfoEnergy(pwdDir*s[1]),files);
-data_stress = getInfoStress(pwdDir*shearFiles_names[2]);
 
-### Figures
+function getData(pwdDir,dir)
+    pwdDir = joinpath(pwdDir,dir);
+    
+assemblyFiles_names = (
+                       "energy_assembly.fixf",
+                       "bondlenPatch_assembly.fixf",
+                       "bondlenCL_assembly.fixf"
+                      );
 
-## Energy
-ta_step = data_energy[1][1,:];
-T_assembly = data_energy[1][2,:];
-U_assembly = data_energy[1][3,:];
-K_assembly = data_energy[1][4,:];
+shearFiles_names = (
+                        "energy_shear.fixf",
+                        "bondlenPatch_shear.fixf",
+                        "bondlenCL_shear.fixf",
+                        "stressVirial_shear.fixf"
+                      );
+
+files = (assemblyFiles_names,shearFiles_names);
+
+
+    data_energy = map(s->getFixInfo(joinpath(pwdDir,s[1])),files);
+    data_blPatch = map(s->getFixInfo(joinpath(pwdDir,s[2])),files);
+    data_blCL = map(s->getFixInfo(joinpath(pwdDir,s[3])),files);
+    data_stress = getFixInfo(joinpath(pwdDir,shearFiles_names[4])); 
+    return (data_energy,data_blPatch,data_blCL,data_stress)
+end
+
+info = map(s->getData(start_dir,s),dirs);
+
+ids=(L"0.05%~\mathrm{CL}",L"0.10%~\mathrm{CL}",L"0.15%~\mathrm{CL}",L"0.20%~\mathrm{CL}");
+color_id=(:orange,:darkgreen,:midnightblue,:gray0)
+
+t_assembly = map(s->0.005.*only.(info[s][1][1][1,:]),eachindex(info));
+T_assembly = map(s->only.(info[s][1][1][2,:]),eachindex(info));
+U_assembly = map(s->only.(info[s][1][1][3,:]),eachindex(info));
+K_assembly = map(s->only.(info[s][1][1][4,:]),eachindex(info));
 E_assembly = U_assembly .+ K_assembly;
 
-ts_step = last(data_energy[1][1,:]) .+ data_energy[2][1,:];
-T_shear = data_energy[2][2,:];
-U_shear = data_energy[2][3,:];
-K_shear = data_energy[2][4,:];
+t_shear = map(s->last(t_assembly[s]) .+ 0.001.*only.(info[s][1][2][1,:]),eachindex(info));
+T_shear = map(s->only.(info[s][1][2][2,:]),eachindex(info));
+U_shear = map(s->only.(info[s][1][2][3,:]),eachindex(info));
+K_shear = map(s->only.(info[s][1][2][4,:]),eachindex(info));
 E_shear = U_shear .+ K_shear;
 
-tf = last(data_energy[1][1,:]) + last(data_energy[2][1,:]);
+tf = maximum(last.(t_shear));
 
-labels_energy = ("U","K","U+K");
-fig_Energy = Figure(size=(1200,980));
-ax_e = Axis(fig_Energy[1,1],
-        title = "Energy",
-        xlabel = "Time steps [Log10]",
-        ylabel = "Energy",
-        titlesize = 24.0f0,
-        xticklabelsize = 18.0f0,
-        yticklabelsize = 18.0f0,
-        xlabelsize = 20.0f0,
-        ylabelsize = 20.0f0,
-        xminorticksvisible = true, 
-        xminorgridvisible = true,
-        xminorticks = IntervalsBetween(5),
-        xscale = log10,
-        limits = (10e0,exp10(1+round(log10(tf))),nothing,nothing)
-    )
-ax_t = Axis(fig_Energy[1,2],
-        title = "Temperature",
-        xlabel = "Time steps [Log10]",
-        ylabel = "Energy",
-        titlesize = 24.0f0,
-        xticklabelsize = 18.0f0,
-        yticklabelsize = 18.0f0,
-        xlabelsize = 20.0f0,
-        ylabelsize = 20.0f0,
-        xminorticksvisible = true, 
-        xminorgridvisible = true,
-        xminorticks = IntervalsBetween(5),
-        xscale = log10,
-        limits = (10e0,exp10(1+round(log10(tf))),nothing,nothing)
-    )
-series!(ax_e,ta_step,[U_assembly'; K_assembly'; E_assembly'],labels=labels_energy,color=:lighttest)
-series!(ax_e,ts_step,[U_shear'; K_shear'; E_shear'],labels=labels_energy,color=:roma10)
-axislegend(ax_e,"Legends",position=:lb)
+fig_Energy = Figure(size=(1080,980));
+ax_T = Axis(fig_Energy[1,1:2],
+                   title = L"\mathrm{Temperature}",
+                   xlabel = L"\mathrm{Time~[tau]~log10}",
+                   ylabel = L"\mathrm{T}",
+                   titlesize = 24.0f0,
+                   xticklabelsize = 18.0f0,
+                   yticklabelsize = 18.0f0,
+                   xlabelsize = 20.0f0,
+                   ylabelsize = 20.0f0,
+                   xminorticksvisible = true, 
+                   xminorgridvisible = true,
+                   xminorticks = IntervalsBetween(5),
+                   xscale = log10,
+                   limits = (10e0,exp10(1+round(log10(tf))),nothing,nothing)
+                  )
+ax_E = Axis(fig_Energy[2,1:2],
+                   title = L"\mathrm{Energy}",
+                   xlabel = L"\mathrm{Time~[tau]~log10}",
+                   ylabel = L"\mathrm{E}",
+                   titlesize = 24.0f0,
+                   xticklabelsize = 18.0f0,
+                   yticklabelsize = 18.0f0,
+                   xlabelsize = 20.0f0,
+                   ylabelsize = 20.0f0,
+                   xminorticksvisible = true, 
+                   xminorgridvisible = true,
+                   xminorticks = IntervalsBetween(5),
+                   xscale = log10,
+                   limits = (10e0,exp10(1+round(log10(tf))),nothing,nothing)
+                  )
 
-lines!(ax_t,ta_step,T_assembly,label="T_a",color = Makie.wong_colors()[1])
-lines!(ax_t,ts_step,T_shear,label="T_s",color = Makie.wong_colors()[2])
-axislegend("Legends",position=:lb)
+map(s->lines!(ax_T,t_assembly[s],T_assembly[s],label=ids[s],color=color_id[s]),eachindex(T_assembly))
+map(s->lines!(ax_T,t_shear[s],T_shear[s],label=ids[s],color=color_id[s]),eachindex(T_shear))
+map(s->vlines!(ax_T,last(t_assembly[s])),eachindex(ids))
+axislegend(ax_T,position=:rb,unique=true)
+
+map(s->lines!(ax_E,t_assembly[s],E_assembly[s],label=ids[s],color=color_id[s]),eachindex(T_assembly))
+map(s->lines!(ax_E,t_shear[s],E_shear[s],label=ids[s],color=color_id[s]),eachindex(T_shear))
+map(s->vlines!(ax_E,last(t_assembly[s])),eachindex(ids))
+axislegend(ax_E,position=:rb,unique=true)
+
+## Bond lengths
+tbp_assembly = map(s->0.005.*only.(info[s][2][1][1,:]),eachindex(info));
+ebp_assembly = map(s->only.(info[s][2][1][2,:]),eachindex(info));
+
+tbcl_assembly = map(s->0.005.*only.(info[s][3][1][1,:]),eachindex(info));
+ebcl_assembly = map(s->only.(info[s][3][1][2,:]),eachindex(info));
+
+
+tbp_shear = map(s-> last(tbp_assembly[s]) .+ 0.001.*only.(info[s][2][2][1,:]),eachindex(info));
+ebp_shear = map(s->only.(info[s][2][2][2,:]),eachindex(info));
+
+tbcl_shear = map(s-> last(tbcl_assembly[s]) .+ 0.001.*only.(info[s][3][2][1,:]),eachindex(info));
+ebcl_shear = map(s->only.(info[s][3][2][2,:]),eachindex(info));
+
+fig_Bond = Figure(size=(1080,980));
+ax_Bond = Axis(fig_Bond[1,1:2],
+                   title = L"\mathrm{Enegy~bond~from~patches}",
+                   xlabel = L"\mathrm{Time~[tau]~log10}",
+                   ylabel = L"\mathrm{E}",
+                   titlesize = 24.0f0,
+                   xticklabelsize = 18.0f0,
+                   yticklabelsize = 18.0f0,
+                   xlabelsize = 20.0f0,
+                   ylabelsize = 20.0f0,
+                   xminorticksvisible = true, 
+                   xminorgridvisible = true,
+                   xminorticks = IntervalsBetween(5),
+                   xscale = log10,
+                   limits = (10e0,exp10(1+round(log10(tf))),nothing,nothing)
+                  )
+ax_CL = Axis(fig_Bond[2,1:2],
+                   title = L"\mathrm{Energy~bond~from~Patches~of~CL}",
+                   xlabel = L"\mathrm{Time~[tau]~log10}",
+                   ylabel = L"\mathrm{E}",
+                   titlesize = 24.0f0,
+                   xticklabelsize = 18.0f0,
+                   yticklabelsize = 18.0f0,
+                   xlabelsize = 20.0f0,
+                   ylabelsize = 20.0f0,
+                   xminorticksvisible = true, 
+                   xminorgridvisible = true,
+                   xminorticks = IntervalsBetween(5),
+                   xscale = log10,
+                   limits = (10e0,exp10(1+round(log10(tf))),nothing,nothing)
+                  )
+
+
+map(s->lines!(ax_Bond,tbp_assembly[s],ebp_assembly[s],label=ids[s],color=color_id[s]),eachindex(ids))
+map(s->lines!(ax_Bond,tbp_shear[s],ebp_shear[s],label=ids[s],color=color_id[s]),eachindex(ids))
+map(s->vlines!(ax_Bond,last(tbp_assembly[s])),eachindex(ids))
+axislegend(ax_Bond,position=:rb,unique=true)
+
+
+map(s->lines!(ax_CL,tbcl_assembly[s],ebcl_assembly[s],label=ids[s],color=color_id[s]),eachindex(ids))
+map(s->lines!(ax_CL,tbcl_shear[s],ebcl_shear[s],label=ids[s],color=color_id[s]),eachindex(ids))
+map(s->vlines!(ax_CL,last(tbcl_assembly[s])),eachindex(ids))
+axislegend(ax_CL,position=:rb,unique=true)
+
+## Stress 
+
+tstress_shear = map(s-> (0.001).*only.(info[s][4][1,:]),eachindex(info));
+stressXX_shear = map(s->only.(-info[s][4][3,:]),eachindex(info));
+stressXY_shear = map(s->only.(-info[s][4][6,:]),eachindex(info));
+
+fig_Stress = Figure(size=(1080,980));
+ax_stressXX = Axis(fig_Stress[1,1:2],
+                   title = L"\mathrm{Stress}~xx",
+                   xlabel = L"\mathrm{Time [tau]}",
+                   ylabel = L"\sigma",
+                   titlesize = 24.0f0,
+                   xticklabelsize = 18.0f0,
+                   yticklabelsize = 18.0f0,
+                   xlabelsize = 20.0f0,
+                   ylabelsize = 20.0f0,
+                   xminorticksvisible = true, 
+                   xminorgridvisible = true,
+                   xminorticks = IntervalsBetween(5),
+                   #xscale = log10,
+                   #limits = (10e0,exp10(1+round(log10(tf))),nothing,nothing)
+                  )
+ax_stressXY = Axis(fig_Stress[2,1:2],
+                   title = L"\mathrm{Stress}~xy",
+                   xlabel = L"\mathrm{Time [tau]}",
+                   ylabel = L"\sigma",
+                   titlesize = 24.0f0,
+                   xticklabelsize = 18.0f0,
+                   yticklabelsize = 18.0f0,
+                   xlabelsize = 20.0f0,
+                   ylabelsize = 20.0f0,
+                   xminorticksvisible = true, 
+                   xminorgridvisible = true,
+                   xminorticks = IntervalsBetween(5),
+                   #xscale = log10,
+                   #limits = (10e0,exp10(1+round(log10(tf))),nothing,nothing)
+                  )
+
+map(s->lines!(ax_stressXX,tstress_shear[s],stressXX_shear[s],label=ids[s],color=color_id[s]),eachindex(ids))
+axislegend(ax_stressXX,position=:rb)
+
+map(s->lines!(ax_stressXY,tstress_shear[s],stressXY_shear[s],label=ids[s],color=color_id[s]),eachindex(ids))
+axislegend(ax_stressXY,position=:rb)
+
+## Save the figures
+
+save("Temp_Energ.png",fig_Energy)
+save("BondEnerg.png",fig_Bond)
+save("Stress.png",fig_Stress)
+
 
 
