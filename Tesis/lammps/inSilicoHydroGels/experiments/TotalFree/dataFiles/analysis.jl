@@ -201,10 +201,10 @@ ax_stressXY = Axis(fig_Stress[2,1:2],
                   )
 
 map(s->lines!(ax_stressXX,tstress_shear[s],stressXX_shear[s],label=ids[s],color=color_id[s]),eachindex(ids))
-axislegend(ax_stressXX,position=:rb)
+axislegend(ax_stressXX,position=:rt)
 
 map(s->lines!(ax_stressXY,tstress_shear[s],stressXY_shear[s],label=ids[s],color=color_id[s]),eachindex(ids))
-axislegend(ax_stressXY,position=:rb)
+axislegend(ax_stressXY,position=:rt)
 
 ## Save the figures
 
