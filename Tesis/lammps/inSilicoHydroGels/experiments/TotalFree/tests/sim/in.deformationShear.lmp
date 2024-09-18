@@ -1,0 +1,112 @@
+# Script to create a shear deformationgiven a data file
+
+units lj
+dimension 3
+boundary p p p
+
+# Styles of atoms and that stuff
+atom_style bond
+bond_style zero nocoeff
+pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 1.12 table/omp linear 5000000 threebody/table
+newton on
+
+read_data data.hydrogel extra/bond/per/atom 4 extra/special/per/atom 5
+
+change_box all triclinic
+
+# Coefficients
+include potential.in
+
+# Molecules
+include molDeform.in
+
+fix BrDy all rigid/nve/small molecule langevin 0.05 0.05 0.25 12345 # Brownian Dynamics: langevin + nve
+fix_modify BrDy virial no
+
+thermo ${sstep}
+
+# Compute global kinetic and potential energy and temperature
+compute t all temp
+compute ep all pe
+compute ek all ke
+compute stressVirial all pressure t ke pair
+variable tilt equal v_shear_rate*step*dt
+compute blAll Patches pair table/omp 3 epair
+compute blCl PA pair table/omp 3 epair
+
+
+# DUMPS and FIXES
+
+# Save atom positions
+dump dumpID all atom ${Nsave} info/patchyParticles_shear.dumpf
+dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
+#dump_modify dumpID delay ${steps}
+
+# Save global energies and temperature
+group Energy empty
+group BL1 empty
+group BL2 empty
+fix fixEng Energy ave/time 1 10 10 c_t c_ep c_ek file info/energy_shear.fixf
+
+fix fixBLg BL1 ave/time 1 10 10 c_blAll file info/bondlenPatch_shear.fixf
+fix fixBLc BL2 ave/time 1 10 10 c_blCl file info/bondlenCL_shear.fixf
+
+
+# Save Stress tensor
+group Stress empty
+fix fixStress5 Stress ave/time 1 ${Nave} ${Nave} v_tilt c_stressVirial[*] file info/stressVirial_shear.fixf
+
+# RUN SIMULATION
+
+# Introduce deformation
+fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
+
+# Run deformation
+timestep ${tstep}
+run ${shear_it}
+
+# Stop deformation
+unfix shear
+
+# Relax time
+run ${rlxT1}
+
+# Introduce deformation
+fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
+
+# Re-run deformation
+timestep ${tstep}
+run ${shear_it}
+
+# Stop deformation
+unfix shear
+
+# Relax time
+run ${rlxT2}
+
+# Introduce deformation
+fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
+
+# Re-run deformation
+timestep ${tstep}
+run ${shear_it}
+
+# Stop deformation
+unfix shear
+
+# Relax time
+run ${rlxT3}
+
+# Introduce deformation
+fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
+
+# Re-run deformation
+timestep ${tstep}
+run ${shear_it}
+
+# Stop deformation
+unfix shear
+
+# Relax time
+run ${rlxT4}
+
