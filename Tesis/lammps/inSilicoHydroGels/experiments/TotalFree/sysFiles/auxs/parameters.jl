@@ -17,7 +17,6 @@ N_CL = round(Int64,CL_concentration*N_particles); #round(Int64,Vol_CLT/Vol_CL);
 N_MO = round(Int64,N_particles - N_CL); #round(Int64,Vol_MOT/Vol_MO);
 #N_particles = N_MO + N_CL;
 
-
 r_Parti = 0.5;
 r_Patch = 0.4;
 r_separ = r_Parti;
