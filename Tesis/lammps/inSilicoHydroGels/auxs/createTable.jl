@@ -26,7 +26,7 @@ function SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik)
     return w.*eps_jk.*U3(eps_ij,eps_jk,sig_p,r_ij).*U3(eps_ik,eps_jk,sig_p,r_ik)
 end
 
-function Forceij(eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik)
+function Forceij(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik)
 """
     -d/drij SwapU
 """
@@ -37,11 +37,11 @@ function Forceij(eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik)
     else 
         t1 = (eps_ij*eps_ik/eps_jk)*( (sig_p^4/r_ij^5)*((sig_p^4/(2*r_ik^4))-1) )*( 8*exp(4+(sig_p/(r_ij-1.5*sig_p))+(sig_p/(r_ik-1.5*sig_p))) )
         t2 = (eps_ij*eps_ik/eps_jk)*( (sig_p/(r_ij-1.5*sig_p)^2)*((sig_p^4/(2*r_ij^4))-1)*((sig_p^4/(2*r_ik^4))-1) )*( 4*exp(4+(sig_p/(r_ij-1.5*sig_p))+(sig_p/(r_ik-1.5*sig_p))) )
-        return t1+t2
+        return w*(t1+t2)
     end
 end
 
-function Forceik(eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik)
+function Forceik(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik)
 """
     -d/drij SwapU
 """
@@ -52,7 +52,7 @@ function Forceik(eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik)
     else
         t1 = (eps_ij*eps_ik/eps_jk)*( (sig_p^4/r_ik^5)*((sig_p^4/(2*r_ij^4))-1) )*( 8*exp(4+(sig_p/(r_ij-1.5*sig_p))+(sig_p/(r_ik-1.5*sig_p))) )
         t2 = (eps_ij*eps_ik/eps_jk)*( (sig_p/(r_ik-1.5*sig_p)^2)*((sig_p^4/(2*r_ij^4))-1)*((sig_p^4/(2*r_ik^4))-1) )*( 4*exp(4+(sig_p/(r_ij-1.5*sig_p))+(sig_p/(r_ik-1.5*sig_p))) )
-        return t1+t2
+        return w*(t1+t2)
     end
 end
 
@@ -65,10 +65,11 @@ eps_ij = 1.0;
 eps_ik = 1.0;
 eps_jk = 1.0;
 sig = 0.4;
-rmin = sig-sig/10;
+rmin = sig-sig/2;
 rmax = 1.499*sig;
 thi = 180/(4*N)
 thf = 180 - thi;
+w=0.5;
 
 # Create the domains of evaluation according filename nessetities
 th_dom = range(thi,thf,2*N);
@@ -81,13 +82,13 @@ docs =  map(eachindex(doms)) do s
             (
                  s,
                  doms[s]...,
-                 -Forceij(eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]),
-                 -Forceik(eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]),
-                 Forceij(eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]),
+                 -Forceij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]),
+                 -Forceik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]),
+                 Forceij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]),
                  0.0,
-                 Forceik(eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]),
+                 Forceik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]),
                  0.0,
-                 SwapU(1.0,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2])
+                 SwapU(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2])
             )
         end
 
