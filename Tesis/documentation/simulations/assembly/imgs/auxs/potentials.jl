@@ -1,72 +1,100 @@
 """
-    Scripts to create figures of the potentials
+    Script for correction in the potentials
 """
 
 using GLMakie
 
-## Parameters of the potentials
-sigma_parti = 0.5; 
-sigma_patch = 0.4;
-eps = 1;
-rc = 1.5*sigma_patch;
-
-## Parameters for the graphs
-N = 1000;
-df = 3*sigma_parti;
-
-## Spatial range
-dist = range(1e-12,df,length=N);
-
-## Potentials
-
-function potCLMO(eps,sigma,r)
-    r = collect(r);
-    r[r.>2^(1/6)*sigma].=2^(1/6)*sigma;
-    return 4*eps.*( (sigma./r).^(12) .- (sigma./r).^(6) ).+eps
+# Create the functions
+function Upatch(eps_pair,sig_p,r)
+"""
+    Auxiliary potential to create Swap Mechanism based in Patch-Patch interaction
+"""
+    if r < 1.5*sig_p 
+        return 2*eps_pair*( ((sig_p^4)./((2).*r.^4)) .-1).*exp.((sig_p)./(r.-(1.5*sig_p)).+2) 
+    else
+        return 0.0
+    end
 end
 
-function potPatchPatch(eps,sigma,r,rc)
-    r = collect(r);
-    r[r.>=rc].=rc;
-    return 2*eps*(((sigma./(2*r)).^4).-1).*exp.(sigma./(r.-rc).+2)
+# Create the functions
+function U3(eps_pair,eps_3,sig_p,r)
+"""
+    Auxiliary potential to create Swap Mechanism based in Patch-Patch interaction
+"""
+    if r < sig_p 
+        return 1.0
+    elseif r >= 1.5*sig_p
+        return 0.0 
+    else 
+        return -( 2*eps_pair*( ((sig_p^4)./((2).*r.^4)) .-1).*exp.((sig_p)./(r.-(1.5*sig_p)).+2) )./eps_3
+    end
 end
 
-function potSwap(eps,sigma,r,rc)
-    r = collect(r);
-    t1 = potPatchPatch(eps,sigma,r,rc);
-    t1 = -(t1.*isfinite.(t1))./eps;
-    return (t1.*t1)./eps
+function SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik)
+"""
+    Potential for the swap mechanism
+"""
+    return w.*eps_jk.*U3(eps_ij,eps_jk,sig_p,r_ij).*U3(eps_ik,eps_jk,sig_p,r_ik)
 end
 
 
-## Evaluation
-potParts = potCLMO(eps,sigma_parti,dist);
-potPatch = potPatchPatch(eps,sigma_patch,dist,rc);
-potPatch = potPatch.*isfinite.(potPatch);
-potSwapp = potSwap(eps,sigma_patch,dist,rc);
-potTotPc = potPatch .+ potSwapp;
+# Parameters
+N = 150;
+sig = 0.4;
+eps = 1.0;
+rmin = 0.000001;
+rmax = 2*sig;
+w=10;
+r_dom = range(rmin,rmax,length=N);
 
-## Figure
+Ueval = map(s->Upatch(eps,sig,s),r_dom);
+U3eval = map(s->U3(eps,eps,sig,s),r_dom);
+USwapeval = map(s->SwapU(w,eps,eps,eps,sig,s,s),r_dom);
+USwapfam = reduce(hcat,map(r->map(s->SwapU(w,eps,eps,eps,sig,s,r),r_dom),r_dom));
 
-fig = Figure(size=(1280,980))
+Utot = reduce(hcat,map(s->Ueval.+USwapfam[:,s],1:150));
 
-ax = Axis(fig[1,1:2],
-        aspect = nothing,
-        limits = (0,df,minimum(potPatch),minimum(potPatch)^2),
-        title = L"\mathrm{Potentials~of~simulations}",
-        xlabel = L"\mathrm{Distance~}\sigma",
-        ylabel = L"\sigma_{U(r)}",
-        titlesize = 24.0f0,
-        xticklabelsize = 18.0f0,
-        yticklabelsize = 18.0f0,
-        xlabelsize = 20.0f0,
-        ylabelsize = 20.0f0,
-        xminorticksvisible = true, 
-        xminorgridvisible = true,
-    )
+figPot = Figure(size=(1280,720))
+axPot = Axis(figPot[1,1],
+               title=L"\mathrm{Potentials}",
+               xlabel=L"\mathrm{Distance}~[\sigma]",
+               ylabel=L"U(r)",
+               limits=(0,rmax,minimum(Ueval)+minimum(Ueval)/10,w+w/10),
+               titlesize = 24.0f0,
+               xticklabelsize = 18.0f0,
+               yticklabelsize = 18.0f0,
+               xlabelsize = 20.0f0,
+               ylabelsize = 20.0f0,
+               xminorticksvisible = true, 
+               xminorgridvisible = true
+              )
+lines!(axPot,r_dom,Ueval,label=L"U_{\mathrm{patch}}")
+lines!(axPot,r_dom,U3eval,label=L"U_{3}")
+lines!(axPot,r_dom,USwapeval,label=L"U_{\mathrm{Swap}}")
+lines!(axPot,r_dom,Ueval+USwapeval,label=L"U_{\mathrm{patch}}+U_{\mathrm{Swap}}")
 
-lines!(ax,dist,potParts)
-lines!(ax,dist,potPatch)
-lines!(ax,dist,potSwapp)
-lines!(ax,dist,potTotPc)
+axislegend(axPot,position=:rt)
+
+figPot2 = Figure(size=(1280,720))
+axPot2 = Axis(figPot2[1,1],
+               title=L"\mathrm{Potentials}",
+               xlabel=L"\mathrm{Distance}~[\sigma]",
+               ylabel=L"U(r)",
+               limits=(0,rmax,minimum(Ueval)+minimum(Ueval)/10,w+w/10),
+               titlesize = 24.0f0,
+               xticklabelsize = 18.0f0,
+               yticklabelsize = 18.0f0,
+               xlabelsize = 20.0f0,
+               ylabelsize = 20.0f0,
+               xminorticksvisible = true, 
+               xminorgridvisible = true
+              )
+lines!(axPot2,r_dom,Ueval,label=L"U_{\mathrm{patch}}")
+series!(axPot2,r_dom,Utot,color=:thermal)
+
+
+
+
+
+
 
