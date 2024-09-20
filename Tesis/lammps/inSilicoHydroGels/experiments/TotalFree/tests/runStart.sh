@@ -14,8 +14,8 @@ r_Patch=0.4;
 
 # Main parameters of the simulation
 phi=0.55;
-CL_concentration=0.1;
-N_particles=50;
+CL_concentration=0.15;
+N_particles=1500;
 
 # Number of monomers and cross-linkers given concentration an total amount of patchy particles
 N_CL=$(echo "scale=0; $CL_concentration * $N_particles" | bc);
@@ -46,8 +46,8 @@ L_real=$(echo "scale=$cs; e( l($Vol_Tot)/3 )" | bc -l );
 L=$(echo "scale=$cs; $L_real / 2" | bc);
 
 # Numerical parameters for LAMMPS simulation
-steps=1500000;
-tstep=0.005;
+steps=2500000;
+tstep=0.001;
 sstep=10000;
 seed1=1234;
 seed2=4321;
@@ -57,7 +57,7 @@ seed3=3124;
 tstep_defor=0.001;
 sstep_defor=10000;
 
-shear_rate=0.01;
+shear_rate=0.02;
 max_strain=12;
 Nstep_per_strain=$(echo "scale=$cs; $(echo "scale=$cs; 1 / $shear_rate" | bc) * $(echo "scale=$cs; 1 / $tstep_defor" | bc)" | bc) ;
 Nstep_per_strain=${Nstep_per_strain%.*};
@@ -92,6 +92,7 @@ dir_name=""systemTotalFreePhi"${phi_aux}"CL"${N_CL}"MO"${N_MO}"ShearRate"${shear
 
 ## Create the directory
 cd data;
+rm -f -r ${dir_name};
 mkdir -p ${dir_name};
 cd ${dir_name};
 
