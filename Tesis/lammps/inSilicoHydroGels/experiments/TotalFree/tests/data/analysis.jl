@@ -27,7 +27,6 @@ file_name = (
              "stressVirial_shear.fixf"
             );
 
-"""
 # Get parameters from the directories
 parameters=getParameters(dirs,file_name);
 
@@ -42,7 +41,6 @@ energy_shear=map(s->data[s][4],eachindex(data));
 bondlenCL_shear=map(s->data[s][5],eachindex(data));
 bondlenPt_shear=map(s->data[s][6],eachindex(data));
 stress_shear=map(s->data[s][7],eachindex(data));
-"""
 
 ## Energy and Temperature figure
 
@@ -69,7 +67,7 @@ tf=last(time_shear);
 fig_Energy = Figure(size=(1200,980));
 ax_e = Axis(fig_Energy[1,1],
         title = L"\mathrm{Total~Energy}",
-        xlabel = L"\mathrm{Time~unit}~[\tau~Log_{10}]",
+        xlabel = L"\mathrm{Time~unit}",
         ylabel = L"\mathrm{Energy}",
         titlesize = 24.0f0,
         xticklabelsize = 18.0f0,
@@ -79,12 +77,12 @@ ax_e = Axis(fig_Energy[1,1],
         xminorticksvisible = true, 
         xminorgridvisible = true,
         xminorticks = IntervalsBetween(5),
-        xscale = log10,
-        limits = (10e0,exp10(round(log10(tf))),nothing,nothing)
+        #xscale = log10,
+        #limits = (10e0,exp10(round(log10(tf))),nothing,nothing)
     )
 ax_t = Axis(fig_Energy[1,2],
         title = L"\mathrm{Temperature}",
-        xlabel = L"\mathrm{Time~unit}~[\tau~Log_{10}]",
+        xlabel = L"\mathrm{Time~unit}",
         ylabel = L"\mathrm{Temperature}",
         titlesize = 24.0f0,
         xticklabelsize = 18.0f0,
@@ -94,8 +92,8 @@ ax_t = Axis(fig_Energy[1,2],
         xminorticksvisible = true, 
         xminorgridvisible = true,
         xminorticks = IntervalsBetween(5),
-        xscale = log10,
-        limits = (10e0,exp10(round(log10(tf))),nothing,nothing)
+        #xscale = log10,
+        #limits = (10e0,exp10(round(log10(tf))),nothing,nothing)
     )
 
 series!(ax_e,time_assembly,Eng_assembly',labels=labels_CL)

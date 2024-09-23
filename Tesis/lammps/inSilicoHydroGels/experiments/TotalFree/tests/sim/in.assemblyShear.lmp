@@ -41,9 +41,9 @@ thermo ${sstep}
 # COMPUTES
 
 # Compute global kinetic and potential energy and temperature
-compute t all temp
-compute ep all pe
-compute ek all ke
+compute t CM temp
+compute ep CM pe
+compute ek CM ke
 compute blAll Patches pair table/omp 3 epair
 compute blCl PA pair table/omp 3 epair
 
