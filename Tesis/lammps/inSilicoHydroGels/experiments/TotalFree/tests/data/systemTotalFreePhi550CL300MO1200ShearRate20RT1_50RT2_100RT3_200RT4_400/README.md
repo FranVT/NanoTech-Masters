@@ -5,7 +5,7 @@
 
 - Central particle radius: 0.5 [sigma]
 - Patch particle radius: 0.4 [sigma]
-- Cross-Linker Concentration: 0.2
+- Cross-Linker Concentration: 0.20
 - Number of particles: 1500
 
  ## Assembly System values 
