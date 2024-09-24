@@ -26,9 +26,10 @@ fix_modify BrDy virial no
 thermo ${sstep}
 
 # Compute global kinetic and potential energy and temperature
-compute t CM temp
-compute ep CM pe
-compute ek CM ke
+compute t all temp
+compute tCM CM temp
+compute ep all pe
+compute ek all ke
 compute stressVirial all pressure t ke pair
 variable tilt equal v_shear_rate*step*dt
 compute blAll Patches pair table/omp 3 epair
@@ -46,7 +47,7 @@ dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
 group Energy empty
 group BL1 empty
 group BL2 empty
-fix fixEng Energy ave/time 1 10 10 c_t c_ep c_ek file info/energy_shear.fixf
+fix fixEng Energy ave/time 1 10 10 c_tCM c_ep c_ek c_t file info/energy_shear.fixf
 
 fix fixBLg BL1 ave/time 1 10 10 c_blAll file info/bondlenPatch_shear.fixf
 fix fixBLc BL2 ave/time 1 10 10 c_blCl file info/bondlenCL_shear.fixf
