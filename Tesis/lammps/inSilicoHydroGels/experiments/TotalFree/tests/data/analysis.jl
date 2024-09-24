@@ -42,11 +42,21 @@ bondlenCL_shear=map(s->data[s][5],eachindex(data));
 bondlenPt_shear=map(s->data[s][6],eachindex(data));
 stress_shear=map(s->data[s][7],eachindex(data));
 
+time_shear=parameters[1][13]*parameters[1][18]*parameters[1][17];
+time_rlxo1=time_shear;
+time_rlxf1=time_rlxo1+parameters[1][13]*parameters[1][18];
+time_rlxo2=time_rlxf1+time_shear;
+time_rlxf2=time_rlxo2+parameters[1][13]*parameters[1][19];
+time_rlxo3=time_rlxf2+time_shear;
+time_rlxf3=time_rlxo3+parameters[1][13]*parameters[1][20];
+time_rlxo4=time_rlxf3+time_shear;
+time_rlxf4=time_rlxo4+parameters[1][13]*parameters[1][21];
+
 ## Energy and Temperature figure
 
 # Time
 time_assembly=parameters[1][7].*energy_assembly[1][1,:];
-time_shear=parameters[1][7].*energy_shear[1][1,:].+last(time_assembly);
+time_deform=parameters[1][7].*energy_shear[1][1,:].+last(time_assembly);
 
 # Energy
 T_assembly=reduce(hcat,map(s->energy_assembly[s][2,:],eachindex(energy_assembly)));
@@ -63,7 +73,7 @@ Eng_shear=U_shear.+K_shear;
 aux_CL=map(s->Int64.(parameters[s][10]/(parameters[s][10]+parameters[s][11]).*100),eachindex(parameters));
 labels_CL=string.(aux_CL,"%");
 
-tf=last(time_shear);
+tf=last(time_deform);
 fig_Energy = Figure(size=(1200,980));
 ax_e = Axis(fig_Energy[1,1],
         title = L"\mathrm{Total~Energy}",
@@ -97,19 +107,21 @@ ax_t = Axis(fig_Energy[1,2],
     )
 
 series!(ax_e,time_assembly,Eng_assembly',labels=labels_CL)
-series!(ax_e,time_shear,Eng_shear',labels=labels_CL)
-vlines!(ax_e,last(time_assembly),linestyle=:dash)
+series!(ax_e,time_deform,Eng_shear',labels=labels_CL)
+vlines!(ax_e,last(time_assembly),linestyle=:dash,color=:black)
+vlines!(ax_e,last(time_assembly).+[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash)
 axislegend(ax_e,L"\mathrm{Cross-Linker~Concentration}",position=:rb,merge=true)
 
 series!(ax_t,time_assembly,T_assembly',labels=labels_CL)
-series!(ax_t,time_shear,T_shear',labels=labels_CL)
-vlines!(ax_t,last(time_assembly),linestyle=:dash)
+series!(ax_t,time_deform,T_shear',labels=labels_CL)
+vlines!(ax_t,last(time_assembly),linestyle=:dash,color=:black)
 axislegend(ax_t,L"\mathrm{Cross-Linker~Concentration}",position=:rb,merge=true)
 
 ## Stress figure
 time_stress=parameters[1][13].*stress_shear[1][1,:];
 stressXX=reduce(hcat,map(s->-stress_shear[s][3,:],eachindex(stress_shear)));
 stressXY=reduce(hcat,map(s->-stress_shear[s][6,:],eachindex(stress_shear)));
+
 
 fig_Stress = Figure(size=(1080,980));
 ax_stressXX = Axis(fig_Stress[1,1:2],
@@ -144,9 +156,11 @@ ax_stressXY = Axis(fig_Stress[2,1:2],
                   )
 
 series!(ax_stressXX,time_stress,stressXX',labels=labels_CL)
+vlines!(ax_stressXX,[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash)
 axislegend(ax_stressXX,L"\mathrm{Cross-Linker~Concentration}",position=:rt)
 
 series!(ax_stressXY,time_stress,stressXY',labels=labels_CL)
+vlines!(ax_stressXY,[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash)
 axislegend(ax_stressXY,L"\mathrm{Cross-Linker~Concentration}",position=:rt)
 
 #energy_assemblly
