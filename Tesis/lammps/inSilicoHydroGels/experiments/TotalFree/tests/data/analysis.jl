@@ -56,18 +56,21 @@ time_rlxf4=time_rlxo4+parameters[1][13]*parameters[1][21];
 
 # Time
 time_assembly=parameters[1][7].*energy_assembly[1][1,:];
-time_deform=parameters[1][7].*energy_shear[1][1,:].+last(time_assembly);
+#time_deform=parameters[1][7].*energy_shear[1][1,:].+last(time_assembly);
+time_deform=map(s->(parameters[1][7].*s[1,:]).+last(time_assembly),energy_shear);
 
 # Energy
-T_assembly=reduce(hcat,map(s->energy_assembly[s][2,:],eachindex(energy_assembly)));
+T_assembly=reduce(hcat,map(s->energy_assembly[s][5,:],eachindex(energy_assembly)));
+Tcp_assembly=reduce(hcat,map(s->energy_assembly[s][2,:],eachindex(energy_assembly)));
 U_assembly=reduce(hcat,map(s->energy_assembly[s][3,:],eachindex(energy_assembly)));
 K_assembly=reduce(hcat,map(s->energy_assembly[s][4,:],eachindex(energy_assembly)));
 Eng_assembly=U_assembly.+K_assembly;
 
-T_shear=reduce(hcat,map(s->energy_shear[s][2,:],eachindex(energy_assembly)));
-U_shear=reduce(hcat,map(s->energy_shear[s][3,:],eachindex(energy_assembly)));
-K_shear=reduce(hcat,map(s->energy_shear[s][4,:],eachindex(energy_assembly)));
-Eng_shear=U_shear.+K_shear;
+T_shear=map(s->energy_shear[s][5,:],eachindex(energy_assembly));
+Tcp_shear=map(s->energy_shear[s][2,:],eachindex(energy_assembly));
+U_shear=map(s->energy_shear[s][3,:],eachindex(energy_assembly));
+K_shear=map(s->energy_shear[s][4,:],eachindex(energy_assembly));
+Eng_shear=map(s->U_shear[s].+K_shear[s],eachindex(T_shear));
 
 # Labels
 aux_CL=map(s->Int64.(parameters[s][10]/(parameters[s][10]+parameters[s][11]).*100),eachindex(parameters));
@@ -90,7 +93,15 @@ ax_e = Axis(fig_Energy[1,1],
         #xscale = log10,
         #limits = (10e0,exp10(round(log10(tf))),nothing,nothing)
     )
-ax_t = Axis(fig_Energy[1,2],
+series!(ax_e,time_assembly,Eng_assembly',labels=labels_CL,color=Makie.wong_colors())
+map(s->lines!(ax_e,time_deform[s],Eng_shear[s],label=labels_CL[s]),eachindex(time_deform))
+vlines!(ax_e,last(time_assembly),linestyle=:dash,color=:black)
+vlines!(ax_e,last(time_assembly).+[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash)
+axislegend(ax_e,L"\mathrm{Cross-Linker~Concentration}",position=:rb,merge=true)
+
+
+fig_Temp=Figure(size=(1200,980));
+ax_t = Axis(fig_Temp[1,1],
         title = L"\mathrm{Temperature}",
         xlabel = L"\mathrm{Time~unit}",
         ylabel = L"\mathrm{Temperature}",
@@ -105,22 +116,38 @@ ax_t = Axis(fig_Energy[1,2],
         #xscale = log10,
         #limits = (10e0,exp10(round(log10(tf))),nothing,nothing)
     )
+ax_tcp = Axis(fig_Temp[1,2],
+        title = L"\mathrm{Temperature~Central~particles}",
+        xlabel = L"\mathrm{Time~unit}",
+        ylabel = L"\mathrm{Temperature}",
+        titlesize = 24.0f0,
+        xticklabelsize = 18.0f0,
+        yticklabelsize = 18.0f0,
+        xlabelsize = 20.0f0,
+        ylabelsize = 20.0f0,
+        xminorticksvisible = true, 
+        xminorgridvisible = true,
+        xminorticks = IntervalsBetween(5),
+        #xscale = log10,
+        #limits = (10e0,exp10(round(log10(tf))),nothing,nothing)
+    )
 
-series!(ax_e,time_assembly,Eng_assembly',labels=labels_CL)
-series!(ax_e,time_deform,Eng_shear',labels=labels_CL)
-vlines!(ax_e,last(time_assembly),linestyle=:dash,color=:black)
-vlines!(ax_e,last(time_assembly).+[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash)
-axislegend(ax_e,L"\mathrm{Cross-Linker~Concentration}",position=:rb,merge=true)
-
-series!(ax_t,time_assembly,T_assembly',labels=labels_CL)
-series!(ax_t,time_deform,T_shear',labels=labels_CL)
+series!(ax_t,time_assembly,T_assembly',labels=labels_CL,color=Makie.wong_colors())
+map(s->lines!(ax_t,time_deform[s],T_shear[s],label=labels_CL[s]),eachindex(time_deform))
 vlines!(ax_t,last(time_assembly),linestyle=:dash,color=:black)
 axislegend(ax_t,L"\mathrm{Cross-Linker~Concentration}",position=:rb,merge=true)
 
+series!(ax_tcp,time_assembly,Tcp_assembly',labels=labels_CL,color=Makie.wong_colors())
+map(s->lines!(ax_tcp,time_deform[s],Tcp_shear[s],label=labels_CL[s]),eachindex(time_deform))
+vlines!(ax_tcp,last(time_assembly),linestyle=:dash,color=:black)
+axislegend(ax_tcp,L"\mathrm{Cross-Linker~Concentration}",position=:rb,merge=true)
+
+
+
 ## Stress figure
-time_stress=parameters[1][13].*stress_shear[1][1,:];
-stressXX=reduce(hcat,map(s->-stress_shear[s][3,:],eachindex(stress_shear)));
-stressXY=reduce(hcat,map(s->-stress_shear[s][6,:],eachindex(stress_shear)));
+time_stress=map(s->parameters[1][13].*s[1,:],stress_shear);
+stressXX=map(s->-stress_shear[s][3,:],eachindex(stress_shear));
+stressXY=map(s->-stress_shear[s][6,:],eachindex(stress_shear));
 
 
 fig_Stress = Figure(size=(1080,980));
@@ -155,11 +182,13 @@ ax_stressXY = Axis(fig_Stress[2,1:2],
                    #limits = (10e0,exp10(1+round(log10(tf))),nothing,nothing)
                   )
 
-series!(ax_stressXX,time_stress,stressXX',labels=labels_CL)
+#series!(ax_stressXX,time_stress,stressXX',labels=labels_CL)
+map(s->lines!(ax_stressXX,time_stress[s],stressXX[s],label=labels_CL[s]),eachindex(time_stress))
 vlines!(ax_stressXX,[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash)
 axislegend(ax_stressXX,L"\mathrm{Cross-Linker~Concentration}",position=:rt)
 
-series!(ax_stressXY,time_stress,stressXY',labels=labels_CL)
+#series!(ax_stressXY,time_stress,stressXY',labels=labels_CL)
+map(s->lines!(ax_stressXY,time_stress[s],stressXY[s],label=labels_CL[s]),eachindex(time_stress))
 vlines!(ax_stressXY,[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash)
 axislegend(ax_stressXY,L"\mathrm{Cross-Linker~Concentration}",position=:rt)
 
