@@ -73,7 +73,7 @@ K_shear=map(s->energy_shear[s][4,:],eachindex(energy_assembly));
 Eng_shear=map(s->U_shear[s].+K_shear[s],eachindex(T_shear));
 
 # Labels
-aux_CL=map(s->Int64.(parameters[s][10]/(parameters[s][10]+parameters[s][11]).*100),eachindex(parameters));
+aux_CL=map(s->Int64.(round(parameters[s][10]/(parameters[s][10]+parameters[s][11]).*100)),eachindex(parameters));
 labels_CL=string.(aux_CL,"%");
 
 tf=last(time_deform);
