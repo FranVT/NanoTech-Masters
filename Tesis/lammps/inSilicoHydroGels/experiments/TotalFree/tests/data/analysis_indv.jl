@@ -14,7 +14,7 @@ dirs_aux = open("dirs.txt") do f
     reduce(vcat,map(s->split(s," "),readlines(f)))
     end
 
-dirs=dirs_aux[2:end];
+dirs=dirs_aux; #[2:end];
 
 # File names 
 
