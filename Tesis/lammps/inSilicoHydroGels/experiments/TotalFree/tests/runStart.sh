@@ -14,7 +14,7 @@ r_Patch=0.4;
 
 # Main parameters of the simulation
 phi=0.55;
-CL_concentration=0.05;
+CL_concentration=0.07;
 N_particles=1500;
 
 # Number of monomers and cross-linkers given concentration an total amount of patchy particles
@@ -46,15 +46,15 @@ L_real=$(echo "scale=$cs; e( l($Vol_Tot)/3 )" | bc -l );
 L=$(echo "scale=$cs; $L_real / 2" | bc);
 
 # Numerical parameters for LAMMPS simulation
-steps=2500000;
-tstep=0.001;
+steps=5000000;
+tstep=0.0005;
 sstep=10000;
 seed1=1234;
 seed2=4321;
 seed3=3124;
 
 ## Variables for shear deformation simulation
-tstep_defor=0.001;
+tstep_defor=0.0005;
 sstep_defor=10000;
 
 shear_rate=0.02;
