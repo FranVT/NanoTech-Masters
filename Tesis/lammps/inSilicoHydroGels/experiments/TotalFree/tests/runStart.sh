@@ -87,8 +87,10 @@ rt3_aux=$(echo "scale=0; $tstep_defor*$relaxTime3" | bc);
 rt3_aux=${rt3_aux%.*};
 rt4_aux=$(echo "scale=0; $tstep_defor*$relaxTime4" | bc);
 rt4_aux=${rt4_aux%.*};
+CL_con=$(echo "scale=$cs; $scl*$CL_concentration" | bc);
+CL_con=${CL_con%.*};
 
-dir_name=""systemTotalFreePhi"${phi_aux}"CL"${N_CL}"MO"${N_MO}"ShearRate"${shear_aux}"RT1_"${rt1_aux}"RT2_"${rt2_aux}"RT3_"${rt3_aux}"RT4_"${rt4_aux}";
+dir_name=""systemTotalFreePhi"${phi_aux}"NPart"${N_particles}"cCL"${CL_con}"ShearRate"${shear_aux}"RT1_"${rt1_aux}"RT2_"${rt2_aux}"RT3_"${rt3_aux}"RT4_"${rt4_aux}";
 
 ## Create the directory
 cd data;
@@ -119,6 +121,7 @@ echo -e "\n ## Shear Deformation System values \n" >> $file_name;
 echo -e ""- Box Volume: "${Vol_Tot}"[sigma^3]"" >> $file_name;
 echo -e ""- Time step: "${tstep_defor}" [tau]"" >> $file_name;
 echo -e ""- Number of time steps: "${steps}" >> $file_name;
+echo -e ""- Number of time steps per deformation: "${Nstep_per_strain}" >> $file_name;
 echo -e ""- Save every "${sstep_defor}" time step"" >> $file_name;
 echo -e ""- Shear rate: "${shear_rate}" [1/tau]"" >> $file_name;
 echo -e ""- Max deformation per cycle: "${max_strain}" >> $file_name;
@@ -145,6 +148,7 @@ echo -e "${N_MO}" >> $file_name;
 echo -e "${Vol_Tot}" >> $file_name;
 echo -e "${tstep_defor}" >> $file_name;
 echo -e "${steps}" >> $file_name;
+echo -e "${Nstep_per_strain}" >> $file_name;
 echo -e "${sstep_defor}" >> $file_name;
 echo -e "${shear_rate}" >> $file_name;
 echo -e "${max_strain}" >> $file_name;
