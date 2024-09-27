@@ -11,7 +11,8 @@ boundary p p p
 # Styles of atoms and that stuff
 atom_style bond
 bond_style zero nocoeff
-pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 0.5 table/omp linear 5000000 threebody/table
+#pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 0.5 table/omp linear 5000000 threebody/table
+pair_style hybrid/overlay/omp zero 0.0 table/omp linear 1000 table/omp linear 5000000 threebody/table
 newton on
 
 # Create simulaiton box
