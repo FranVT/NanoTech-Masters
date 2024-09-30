@@ -64,12 +64,12 @@ M = 2*N*N*N;
 eps_ij = 1.0;
 eps_ik = 1.0;
 eps_jk = 1.0;
-sig = 0.8;
+sig = 0.4;
 rmin = sig-sig/2;
 rmax = 1.499*sig;
 thi = 180/(4*N)
 thf = 180 - thi;
-w=1;
+w=1.5;
 
 # Create the domains of evaluation according filename nessetities
 th_dom = range(thi,thf,2*N);
@@ -82,11 +82,11 @@ docs =  map(eachindex(doms)) do s
             (
                  s,
                  doms[s]...,
-                 -Forceij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]),
-                 -Forceik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]),
                  Forceij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]),
-                 0.0,
                  Forceik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]),
+                 -Forceij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]),
+                 0.0,
+                 -Forceik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]),
                  0.0,
                  SwapU(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2])
             )

@@ -44,15 +44,15 @@ bondlenCL_shear=map(s->data[s][5],eachindex(data));
 bondlenPt_shear=map(s->data[s][6],eachindex(data));
 stress_shear=map(s->data[s][7],eachindex(data));
 
-time_shear=parameters[1][13]*parameters[1][18]*parameters[1][17];
+time_shear=parameters[1][13]*parameters[1][18]*parameters[1][15];
 time_rlxo1=time_shear;
-time_rlxf1=time_rlxo1+parameters[1][13]*parameters[1][18];
+time_rlxf1=time_rlxo1+parameters[1][13]*parameters[1][19];
 time_rlxo2=time_rlxf1+time_shear;
-time_rlxf2=time_rlxo2+parameters[1][13]*parameters[1][19];
+time_rlxf2=time_rlxo2+parameters[1][13]*parameters[1][20];
 time_rlxo3=time_rlxf2+time_shear;
-time_rlxf3=time_rlxo3+parameters[1][13]*parameters[1][20];
+time_rlxf3=time_rlxo3+parameters[1][13]*parameters[1][21];
 time_rlxo4=time_rlxf3+time_shear;
-time_rlxf4=time_rlxo4+parameters[1][13]*parameters[1][21];
+time_rlxf4=time_rlxo4+parameters[1][13]*parameters[1][22];
 
 ## Energy and Temperature figure
 

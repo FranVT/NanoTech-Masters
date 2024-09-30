@@ -21,15 +21,15 @@ Reading data file ...
   orthogonal box = (-9.99857 -9.99857 -9.99857) to (9.99857 9.99857 9.99857)
   2 by 2 by 2 MPI processor grid
   reading atoms ...
-  4800 atoms
+  4590 atoms
   reading velocities ...
-  4800 velocities
+  4590 velocities
   scanning bonds ...
   8 = max bonds/atom
   orthogonal box = (-9.99857 -9.99857 -9.99857) to (9.99857 9.99857 9.99857)
   2 by 2 by 2 MPI processor grid
   reading bonds ...
-  3300 bonds
+  3090 bonds
 Finding 1-2 1-3 1-4 neighbors ...
   special bond factors lj:    0        0        0       
   special bond factors coul:  0        0        0       
@@ -38,7 +38,7 @@ Finding 1-2 1-3 1-4 neighbors ...
      3 = max # of 1-4 neighbors
      9 = max # of special neighbors
   special bonds CPU = 0.001 seconds
-  read_data CPU = 0.029 seconds
+  read_data CPU = 0.027 seconds
 
 change_box all triclinic
 Changing box ...
@@ -62,10 +62,14 @@ Reading pair table potential file sysFiles/wcaTab.table with DATE: 2024-09-27
 #pair_coeff 2 2 lj/cut/omp 1.0 1.0 1.12
 #pair_coeff 1 2 lj/cut/omp 1.0 1.0 1.12
 pair_modify shift yes
-pair_coeff 3 4 table/omp 2 sysFiles/pachTab.table POT 0.89 #0.75
+pair_coeff 3 4 table/omp 2 sysFiles/pachTab.table POT 0.6 #0.75
 Reading pair table potential file sysFiles/pachTab.table with DATE: 2024-07-08
-pair_coeff 4 4 table/omp 2 sysFiles/pachTab.table POT 0.89 #0.75
+WARNING: 1 of 1000000 force values in table POT are inconsistent with -dE/dr.
+WARNING:  Should only be flagged at inflection points (src/pair_table.cpp:466)
+pair_coeff 4 4 table/omp 2 sysFiles/pachTab.table POT 0.6 #0.75
 Reading pair table potential file sysFiles/pachTab.table with DATE: 2024-07-08
+WARNING: 1 of 1000000 force values in table POT are inconsistent with -dE/dr.
+WARNING:  Should only be flagged at inflection points (src/pair_table.cpp:466)
 pair_coeff * * threebody/table swapMech.3b NULL NULL PA PB
 
 # Molecules
@@ -93,26 +97,26 @@ Read molecule template MO:
 
 # Create patchy particles
 group CrossLinker type 1 3
-750 atoms in group CrossLinker
+225 atoms in group CrossLinker
 group Monomer type 2 4
-4050 atoms in group Monomer
+4365 atoms in group Monomer
 group Patches type 3 4
-3300 atoms in group Patches
+3090 atoms in group Patches
 group CL type 1
-150 atoms in group CL
+45 atoms in group CL
 group MO type 2
-1350 atoms in group MO
+1455 atoms in group MO
 group PA type 3
-600 atoms in group PA
+180 atoms in group PA
 group CM type 1 2
 1500 atoms in group CM
 fix pCL CrossLinker rigid/small/omp molecule #langevin 1.0 1.0 100.0 ${seed3}
   create bodies CPU = 0.000 seconds
-  150 rigid bodies with 750 atoms
+  45 rigid bodies with 225 atoms
   0.46400431 = max distance from body owner to body atom
 fix pMO Monomer rigid/small/omp molecule #langevin 1.0 1.0 100.0 ${seed3}
   create bodies CPU = 0.000 seconds
-  1350 rigid bodies with 4050 atoms
+  1455 rigid bodies with 4365 atoms
   0.5 = max distance from body owner to body atom
 
 # Neighbor list
@@ -122,7 +126,7 @@ neigh_modify exclude molecule/intra Monomer
 
 fix BrDy all rigid/nve/small molecule langevin 0.05 0.05 0.25 12345 # Brownian Dynamics: langevin + nve
   create bodies CPU = 0.000 seconds
-  1500 rigid bodies with 4800 atoms
+  1500 rigid bodies with 4590 atoms
   0.5 = max distance from body owner to body atom
 fix_modify BrDy virial no
 
@@ -223,7 +227,7 @@ Neighbor list info ...
       stencil: none
       bin: none
   (3) pair table/omp, perpetual, skip from (5)
-      attributes: half, newton on, omp, cut 2.69
+      attributes: half, newton on, omp, cut 2.4
       pair build: skip/omp
       stencil: none
       bin: none
@@ -245,40 +249,37 @@ Neighbor list info ...
 WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
 WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
 WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
-Per MPI rank memory allocation (min/avg/max) = 25.06 | 25.19 | 25.6 Mbytes
+Per MPI rank memory allocation (min/avg/max) = 25.13 | 25.15 | 25.17 Mbytes
    Step          Temp          E_pair         E_mol          TotEng         Press          Volume    
-         0   0.43201082     2.6273808      0              2.6677468      0.026979624    7996.5685    
-     10000   0.43358464     2.4366904      0              2.4772035     -6184.243       7996.5685    
-     20000   0.41661446     2.3249478      0              2.3638753     -33399.156      7996.5685    
-     30000   0.43792378     2.2169923      0              2.2579108     -82033.431      7996.5685    
-     40000   0.42542811     2.1155097      0              2.1552607     -151616.22      7996.5685    
-     50000   0.44585287     2.0394978      0              2.0811572     -251578.82      7996.5685    
-     60000   0.42688834     1.9761604      0              2.0160478     -387752.5       7996.5685    
-     70000   0.41993823     1.8936227      0              1.9328606     -546457.5       7996.5685    
-     80000   0.43417287     1.812421       0              1.852989      -760378.74      7996.5685    
-     90000   0.43374145     1.8334951      0              1.8740228     -1013308.1      7996.5685    
-    100000   0.44041115     1.8375384      0              1.8786893     -1278236.9      7996.5685    
-    110000   0.41917609     1.7672209      0              1.8063876     -1612612        7996.5685    
-    120000   0.43250699     1.7881905      0              1.8286029     -1973647.4      7996.5685    
-    130000   0.44239801     1.7470878      0              1.7884244     -2431787.9      7996.5685    
-    140000   0.43540995     1.7363181      0              1.7770017     -2861645.3      7996.5685    
-    150000   0.43823063     1.7314242      0              1.7723713     -3296013.6      7996.5685    
-    160000   0.42678209     1.7140847      0              1.7539622     -3834404.1      7996.5685    
-    170000   0.41626        1.7389919      0              1.7778862     -4324968.8      7996.5685    
-    180000   0.42847624     1.7334547      0              1.7734904     -5085734.1      7996.5685    
-    190000   0.44107644     1.6665325      0              1.7077456     -5782531.5      7996.5685    
-    200000   0.42852247     1.7274411      0              1.7674812     -6376121        7996.5685    
-    210000   0.4162765      1.756086       0              1.7949818     -7092510.5      7996.5685    
-    220000   0.42864604     1.7609287      0              1.8009803     -7798072.6      7996.5685    
-    230000   0.43229137     1.7367614      0              1.7771536     -8877781.8      7996.5685    
-    240000   0.43039505     1.7362357      0              1.7764508     -9720808.9      7996.5685    
-    250000   0.41905755     1.7442995      0              1.7834552     -10447772       7996.5685    
-    260000   0.43895159     1.6718004      0              1.7128149     -11199257       7996.5685    
-    270000   0.4172395      1.7477849      0              1.7867708     -11984507       7996.5685    
-    280000   0.42775214     1.7742205      0              1.8141886     -13628295       7996.5685    
-    290000   0.43129409     1.721872       0              1.762171      -14683453       7996.5685    
-    300000   0.4192377      1.636175       0              1.6753475     -15463698       7996.5685    
-    310000   0.42453493     1.7836689      0              1.8233363     -16486704       7996.5685    
-    320000   0.42762309     1.786215       0              1.826171      -17211419       7996.5685    
-    330000   0.4329099      1.7928366      0              1.8332866     -19206504       7996.5685    
-    340000   0.43399089     1.8096045      0              1.8501555     -19712904   
+         0   0.29149688    -0.27873515     0             -0.23691583    -0.04096578     7996.5685    
+     10000   0.2841358     -0.27996463     0             -0.23920136    -5855.2163      7996.5685    
+     20000   0.28518084    -0.24789718     0             -0.20698398    -29476.348      7996.5685    
+     30000   0.29747273    -0.21969182     0             -0.17701518    -73420.461      7996.5685    
+     40000   0.29217203    -0.21449036     0             -0.17257417    -144663.41      7996.5685    
+     50000   0.2915464     -0.21464334     0             -0.17281692    -247023.07      7996.5685    
+     60000   0.29165399    -0.22069351     0             -0.17885164    -392006.28      7996.5685    
+     70000   0.28921664    -0.2168221      0             -0.17532991    -574863.35      7996.5685    
+     80000   0.28776487    -0.20697371     0             -0.1656898     -766700.12      7996.5685    
+     90000   0.29382532    -0.20493475     0             -0.16278138    -1048625.9      7996.5685    
+    100000   0.28709178    -0.19302756     0             -0.15184021    -1408961.7      7996.5685    
+    110000   0.29328977    -0.18546045     0             -0.14338392    -1876057.4      7996.5685    
+    120000   0.28566676    -0.17909545     0             -0.13811254    -2364002.5      7996.5685    
+    130000   0.2891776     -0.17495267     0             -0.13346608    -2643904.9      7996.5685    
+    140000   0.28942078    -0.1640071      0             -0.12248562    -3375757.7      7996.5685    
+    150000   0.29142382    -0.16096351     0             -0.11915467    -4076000.9      7996.5685    
+    160000   0.2927952     -0.15116724     0             -0.10916165    -4892233.7      7996.5685    
+    170000   0.28129354    -0.16178774     0             -0.12143223    -5865299.6      7996.5685    
+    180000   0.28588945    -0.14697602     0             -0.10596116    -5991513.2      7996.5685    
+    190000   0.29527565    -0.13998667     0             -0.097625232   -7059338.9      7996.5685    
+    200000   0.29429864    -0.13435259     0             -0.092131315   -8237651.4      7996.5685    
+    210000   0.29858833    -0.13723069     0             -0.094393998   -9578365.2      7996.5685    
+    220000   0.29559302    -0.13700614     0             -0.094599164   -11030820       7996.5685    
+    230000   0.29366845    -0.12559069     0             -0.08345982    -10860361       7996.5685    
+    240000   0.29134363    -0.12972645     0             -0.087929109   -12156440       7996.5685    
+    250000   0.28443953    -0.13038658     0             -0.089579735   -13872947       7996.5685    
+    260000   0.28312853    -0.12279047     0             -0.082171701   -15726044       7996.5685    
+    270000   0.29598161    -0.10995675     0             -0.067494026   -17460946       7996.5685    
+    280000   0.29280549    -0.099580235    0             -0.057573173   -16660421       7996.5685    
+    290000   0.29788417    -0.10969196     0             -0.066956291   -18590710       7996.5685    
+    300000   0.29217627    -0.097981983    0             -0.056065192   -20065984       7996.5685    
+    310000   0.29137284    -0.097753823    0             -0.055952294   -2247094

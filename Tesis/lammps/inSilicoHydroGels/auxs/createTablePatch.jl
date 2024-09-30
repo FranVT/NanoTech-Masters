@@ -26,7 +26,7 @@ end
 
 # Parameters
 N = 1000000;
-sig = 0.8;
+sig = 0.4;
 eps = 1.0;
 rmin = 0.000001;
 rmax = 5*sig;
