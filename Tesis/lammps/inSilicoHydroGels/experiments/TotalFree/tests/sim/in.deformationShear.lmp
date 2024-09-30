@@ -7,8 +7,8 @@ boundary p p p
 # Styles of atoms and that stuff
 atom_style bond
 bond_style zero nocoeff
-#pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 0.5 table/omp linear 5000000 threebody/table
-pair_style hybrid/overlay/omp zero 0.0 table/omp 1000 table/omp linear 5000000 threebody/table
+#pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 1.12 table/omp linear 5000000 threebody/table
+pair_style hybrid/overlay/omp zero 0.0 table/omp linear 1000 table/omp linear 5000000 threebody/table
 newton on
 
 read_data data.hydrogel extra/bond/per/atom 4 extra/special/per/atom 5
@@ -33,8 +33,8 @@ compute ep all pe
 compute ek all ke
 compute stressVirial all pressure t ke pair
 variable tilt equal v_shear_rate*step*dt
-compute blAll Patches pair table/omp 3 epair
-compute blCl PA pair table/omp 3 epair
+compute blAll Patches pair table/omp 2 epair
+compute blCl PA pair table/omp 2 epair
 
 
 # DUMPS and FIXES

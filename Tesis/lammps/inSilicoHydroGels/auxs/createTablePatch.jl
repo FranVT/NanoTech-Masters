@@ -25,8 +25,8 @@ function Fpatch(eps_pair,sig_p,r)
 end
 
 # Parameters
-N = 5000000;
-sig = 0.4;
+N = 1000000;
+sig = 0.8;
 eps = 1.0;
 rmin = 0.000001;
 rmax = 5*sig;
