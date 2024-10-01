@@ -35,7 +35,7 @@ include potential.in
 # Molecules
 include molecules.in
 
-fix BrDy all rigid/nve/small molecule langevin 0.05 0.05 1 12345 # Brownian Dynamics: langevin + nve
+fix BrDy all rigid/nve/small molecule langevin 0.05 0.05 0.25 12345 # Brownian Dynamics: langevin + nve
 
 thermo ${sstep}
 
@@ -49,10 +49,12 @@ compute ek all ke
 compute blAll Patches pair table/omp 2 epair
 compute blCl PA pair table/omp 2 epair
 
+variable step equal step
+
 # DUMPS and FIXES
 
 # Save atom positions
-dump dumpID all atom ${steps} info/patchyParticles_assembly.dumpf
+dump dumpID all atom ${steps} info/dumps/assembly/patchyParticles_assembly_N${step}.dumpf
 dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
 dump_modify dumpID delay ${steps}
 

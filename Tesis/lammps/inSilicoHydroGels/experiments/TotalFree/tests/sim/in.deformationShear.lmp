@@ -36,11 +36,12 @@ variable tilt equal v_shear_rate*step*dt
 compute blAll Patches pair table/omp 2 epair
 compute blCl PA pair table/omp 2 epair
 
+variable step equal step
 
 # DUMPS and FIXES
 
 # Save atom positions
-dump dumpID all atom ${Nsave} info/patchyParticles_shear.dumpf
+dump dumpID all atom ${Nsave} info/dumps/shear/patchyParticles_shear_N${step}.dumpf
 dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
 #dump_modify dumpID delay ${steps}
 
