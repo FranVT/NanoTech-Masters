@@ -1,0 +1,16 @@
+bond_coeff * nocoeff
+pair_coeff 1 3 zero
+pair_coeff 1 4 zero
+pair_coeff 2 3 zero
+pair_coeff 2 4 zero
+pair_coeff 3 3 zero
+pair_coeff 1 1 table/omp 1 sysFiles/wcaTab.table POT 1.12
+pair_coeff 2 2 table/omp 1 sysFiles/wcaTab.table POT 1.12
+pair_coeff 1 2 table/omp 1 sysFiles/wcaTab.table POT 1.12
+#pair_coeff 1 1 lj/cut/omp 1.0 1.0 1.12
+#pair_coeff 2 2 lj/cut/omp 1.0 1.0 1.12
+#pair_coeff 1 2 lj/cut/omp 1.0 1.0 1.12
+pair_modify shift yes
+pair_coeff 3 4 table/omp 2 sysFiles/pachTab.table POT 0.6 #0.75 
+pair_coeff 4 4 table/omp 2 sysFiles/pachTab.table POT 0.6 #0.75 
+pair_coeff * * threebody/table swapMech.3b NULL NULL PA PB
