@@ -18,7 +18,7 @@ end
 
 function Fpatch(eps_pair,sig_p,r)
     if r < 2^(1/6)*sig_p
-        return -4*eps_pair*( -((12).*(sig_p^12)./(r.^13)) .+ ((6).*(sig_p^6)./(r.^7)) )
+        return ((-eps_pair)./r).*( ((24).*(sig_p^6)./(r.^6)) .- ((48).*(sig_p^12)./(r.^12)) )
     else
         return 0.0
     end
@@ -29,7 +29,7 @@ N = 1000;
 sig = 1.0;
 eps = 1.0;
 rmin = 0.000001;
-rmax = 1.5*sig;
+rmax = 2^(1/6)*sig;
 r_dom = range(rmin,rmax,length=N);
 
 # Create the table

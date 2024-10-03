@@ -19,40 +19,42 @@ function U3(eps_pair,eps_3,sig_p,r)
 end
 
 
-function SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik)
+function SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,r_c)
 """
     Potential for the swap mechanism
 """
     return w.*eps_jk.*U3(eps_ij,eps_jk,sig_p,r_ij).*U3(eps_ik,eps_jk,sig_p,r_ik)
 end
 
-function Forceij(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik)
+function Forceij(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,r_c)
 """
     -d/drij SwapU
 """
     if r_ij < sig_p || r_ik < sig_p
         return 0.0
-    elseif r_ij >= 1.5*sig_p || r_ik >= 1.5*sig_p
+    elseif r_ij >= rc || r_ik >= rc
         return 0.0 
     else 
-        t1 = (eps_ij*eps_ik/eps_jk)*( (sig_p^4/r_ij^5)*((sig_p^4/(2*r_ik^4))-1) )*( 8*exp(4+(sig_p/(r_ij-1.5*sig_p))+(sig_p/(r_ik-1.5*sig_p))) )
-        t2 = (eps_ij*eps_ik/eps_jk)*( (sig_p/(r_ij-1.5*sig_p)^2)*((sig_p^4/(2*r_ij^4))-1)*((sig_p^4/(2*r_ik^4))-1) )*( 4*exp(4+(sig_p/(r_ij-1.5*sig_p))+(sig_p/(r_ik-1.5*sig_p))) )
-        return w*(t1+t2)
+        t1 = (sig_p/(r_ij-r_c)^2)*(1/r_ij^5)*(4*r_c^2*sig_p^3+sig_p^3*(sig_p-8*r_c)*r_ij-2*r_ij^5+4*r_ij^2*sig_p^3);
+        t2 = (sig_p/r_ik)^4-2;
+        t3 = exp(sig_p*(1/(r_ij-r_c)+1/(r_ik-r_c))+4);
+        return w*eps_jk*t1*t2*t3
     end
 end
 
-function Forceik(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik)
+function Forceik(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,r_c)
 """
-    -d/drij SwapU
+    -d/drik SwapU
 """
     if r_ij < sig_p || r_ik < sig_p
         return 0.0
-    elseif r_ij >= 1.5*sig_p || r_ik >= 1.5*sig_p 
-        return 0.0
-    else
-        t1 = (eps_ij*eps_ik/eps_jk)*( (sig_p^4/r_ik^5)*((sig_p^4/(2*r_ij^4))-1) )*( 8*exp(4+(sig_p/(r_ij-1.5*sig_p))+(sig_p/(r_ik-1.5*sig_p))) )
-        t2 = (eps_ij*eps_ik/eps_jk)*( (sig_p/(r_ik-1.5*sig_p)^2)*((sig_p^4/(2*r_ij^4))-1)*((sig_p^4/(2*r_ik^4))-1) )*( 4*exp(4+(sig_p/(r_ij-1.5*sig_p))+(sig_p/(r_ik-1.5*sig_p))) )
-        return w*(t1+t2)
+    elseif r_ij >= rc || r_ik >= rc
+        return 0.0 
+    else 
+        t1 = (sig_p/(r_ik-r_c)^2)*(1/r_ik^5)*(4*r_c^2*sig_p^3+sig_p^3*(sig_p-8*r_c)*r_ik-2*r_ik^5+4*r_ik^2*sig_p^3);
+        t2 = (sig_p/r_ij)^4-2;
+        t3 = exp(sig_p*(1/(r_ij-r_c)+1/(r_ik-r_c))+4);
+        return w*eps_jk*t1*t2*t3
     end
 end
 
@@ -65,6 +67,7 @@ eps_ij = 1.0;
 eps_ik = 1.0;
 eps_jk = 1.0;
 sig = 0.4;
+rc = 1.5*sig;
 rmin = sig-sig/2;
 rmax = 1.499*sig;
 thi = 180/(4*N)
@@ -82,13 +85,13 @@ docs =  map(eachindex(doms)) do s
             (
                  s,
                  doms[s]...,
-                 Forceij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]),
-                 Forceik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]),
-                 -Forceij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]),
+                 Forceij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc),
+                 Forceik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc),
+                 -Forceij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc),
                  0.0,
-                 -Forceik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]),
+                 -Forceik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc),
                  0.0,
-                 SwapU(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2])
+                 SwapU(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc)
             )
         end
 
