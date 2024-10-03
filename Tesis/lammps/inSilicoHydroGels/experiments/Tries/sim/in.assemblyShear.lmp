@@ -35,7 +35,7 @@ include potential.in
 # Molecules
 include molecules.in
 
-fix BrDy all rigid/nve/small molecule langevin 0.05 0.05 0.1 12345 # Brownian Dynamics: langevin + nve
+fix BrDy all rigid/nve/small molecule langevin 0.05 0.05 0.01 12345 # Brownian Dynamics: langevin + nve
 
 thermo ${sstep}
 

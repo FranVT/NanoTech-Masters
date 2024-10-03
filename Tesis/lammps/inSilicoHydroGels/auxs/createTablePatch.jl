@@ -9,7 +9,7 @@ function Upatch(eps_pair,sig_p,r)
 """
     Auxiliary potential to create Swap Mechanism based in Patch-Patch interaction
 """
-    if r <= 1.5*sig_p 
+    if r < 1.5*sig_p 
         return 2*eps_pair*( ((sig_p^4)./((2).*r.^4)) .-1).*exp.((sig_p)./(r.-(1.5*sig_p)).+2) 
     else
         return 0.0
@@ -17,7 +17,7 @@ function Upatch(eps_pair,sig_p,r)
 end
 
 function Fpatch(eps_pair,sig_p,r_c,r)
-    if r <= r_c
+    if r < r_c
         return ((eps_pair*sig_p)/(r^5*(r-r_c)^2))*(4*r_c^2*sig_p^3+sig_p^3*(sig_p-8*r_c).*r-2*r^5+4*r^2*sig_p^3).*exp.(((sig_p)./(r.-r_c)).+2)
 #4*eps_pair*(sig_p^4/r^5)*exp.((sig_p)./(r.-(1.5*sig_p)).+2) + 2*eps*(sig_p/(r-1.5*sig_p)^2)*( ((sig_p^4)./((2).*r.^4)) .-1).*exp.((sig_p)./(r.-(1.5*sig_p)).+2)
     else
