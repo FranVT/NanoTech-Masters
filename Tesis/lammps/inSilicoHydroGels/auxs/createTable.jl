@@ -82,10 +82,10 @@ docs =  map(eachindex(doms)) do s
                  s,
                  doms[s]...,
                  -Forceij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc),
-                 -Forceik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc),
+                 -Forceij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc),
                  Forceij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc),
                  0.0,
-                 Forceik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc),
+                 Forceij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc),
                  0.0,
                  SwapU(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc)
             )
