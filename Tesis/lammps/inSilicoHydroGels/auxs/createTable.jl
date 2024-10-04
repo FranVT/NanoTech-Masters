@@ -30,7 +30,7 @@ function Forceij(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,r_c)
 """
     -d/drij SwapU
 """
-    if r_ij >= rc || r_ik >= rc
+    if r_ij > rc || r_ij < sig_p
         return 0.0 
     else 
         t1 = (sig_p/(r_ij-r_c)^2)*(1/r_ij^5)*(4*r_c^2*sig_p^3+sig_p^3*(sig_p-8*r_c)*r_ij-2*r_ij^5+4*r_ij^2*sig_p^3);
@@ -44,7 +44,7 @@ function Forceik(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,r_c)
 """
     -d/drik SwapU
 """
-    if r_ij >= rc || r_ik >= rc
+    if r_ik > rc || r_ik < sig_p
         return 0.0 
     else 
         t1 = (sig_p/(r_ik-r_c)^2)*(1/r_ik^5)*(4*r_c^2*sig_p^3+sig_p^3*(sig_p-8*r_c)*r_ik-2*r_ik^5+4*r_ik^2*sig_p^3);
@@ -81,11 +81,11 @@ docs =  map(eachindex(doms)) do s
             (
                  s,
                  doms[s]...,
-                 Forceij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc),
-                 Forceik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc),
                  -Forceij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc),
-                 0.0,
                  -Forceik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc),
+                 Forceij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc),
+                 0.0,
+                 Forceik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc),
                  0.0,
                  SwapU(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc)
             )
