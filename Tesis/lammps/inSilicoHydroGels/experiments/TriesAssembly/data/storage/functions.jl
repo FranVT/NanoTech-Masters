@@ -50,6 +50,8 @@ function getInfo(filename)
         info[it] = parse.(Float64,split(aux[it+2]," "))
     end
 
+    println(filename)
+
     # Reshape the information
     return Float64.(reduce(hcat,info))
 end
