@@ -120,7 +120,7 @@ create_atoms 0 random 1455 4321 spawn_box mol MO ${seed2} overlap 1.0 maxtry 500
 create_atoms 0 random 1455 4321 spawn_box mol MO 4321 overlap 1.0 maxtry 5000 
 Created 4365 atoms
   using lattice units in orthogonal box = (-9.99857 -9.99857 -9.99857) to (9.99857 9.99857 9.99857)
-  create_atoms CPU = 0.404 seconds
+  create_atoms CPU = 0.412 seconds
 
 # Create patchy particles
 group CrossLinker type 1 3
@@ -605,21 +605,21 @@ Per MPI rank memory allocation (min/avg/max) = 24.43 | 24.44 | 24.44 Mbytes
    3480000   0.31086585    -0.3353028      0             -0.29070472    -43702270     
    3490000   0.30570629    -0.33465506     0             -0.2907972     -89765803     
    3500000   0.30214395    -0.33733932     0             -0.29399252    -1.3074769e+08
-Loop time of 2083 on 8 procs for 3500000 steps with 4590 atoms
+Loop time of 2060.49 on 8 procs for 3500000 steps with 4590 atoms
 
-Performance: 145175.430 tau/day, 1680.271 timesteps/s, 7.712 Matom-step/s
-88.4% CPU use with 8 MPI tasks x 1 OpenMP threads
+Performance: 146761.148 tau/day, 1698.624 timesteps/s, 7.797 Matom-step/s
+88.2% CPU use with 8 MPI tasks x 1 OpenMP threads
 
 MPI task timing breakdown:
 Section |  min time  |  avg time  |  max time  |%varavg| %total
 ---------------------------------------------------------------
-Pair    | 338.31     | 375.71     | 422.61     | 126.8 | 18.04
-Bond    | 0.33809    | 0.40251    | 0.46123    |   6.5 |  0.02
-Neigh   | 0.24174    | 0.24191    | 0.24203    |   0.0 |  0.01
-Comm    | 218.83     | 264.32     | 302.54     | 145.7 | 12.69
-Output  | 0.23789    | 0.28469    | 0.37948    |   7.6 |  0.01
-Modify  | 1398.8     | 1401.4     | 1407.5     |   7.1 | 67.28
-Other   |            | 40.65      |            |       |  1.95
+Pair    | 344.72     | 380.17     | 416.93     | 112.9 | 18.45
+Bond    | 0.31741    | 0.36504    | 0.41868    |   6.6 |  0.02
+Neigh   | 0.24219    | 0.24242    | 0.24274    |   0.0 |  0.01
+Comm    | 221.98     | 258.15     | 294.81     | 132.9 | 12.53
+Output  | 0.20453    | 0.24426    | 0.357      |   9.1 |  0.01
+Modify  | 1380       | 1382.8     | 1387.5     |   6.6 | 67.11
+Other   |            | 38.51      |            |       |  1.87
 
 Nlocal:         573.75 ave         610 max         540 min
 Histogram: 1 0 1 1 2 1 0 0 1 1
@@ -645,4 +645,4 @@ WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
 WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
 WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
 WARNING: One or more atoms are time integrated more than once (src/modify.cpp:296)
-Total wall time: 0:34:51
+Total wall time: 0:34:29
