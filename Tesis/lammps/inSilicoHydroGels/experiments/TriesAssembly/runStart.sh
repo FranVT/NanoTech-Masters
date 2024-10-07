@@ -46,7 +46,7 @@ L_real=$(echo "scale=$cs; e( l($Vol_Tot)/3 )" | bc -l );
 L=$(echo "scale=$cs; $L_real / 2" | bc);
 
 # Numerical parameters for LAMMPS simulation
-steps=3500000;
+steps=6000000;
 tstep=0.001;
 sstep=10000;
 seed1=1234;
