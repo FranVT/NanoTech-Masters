@@ -8,8 +8,10 @@ function getParameters(dirs,file_name)
         dirs is an array of directories
         file_name is an array of file names
     """
-    file_dir=reduce(vcat,map(s->joinpath(dirs[s],first(file_name)),eachindex(dirs)));
-    parameters=map(eachindex(dirs)) do r
+#    file_dir=reduce(vcat,map(s->joinpath(dirs[s],first(file_name)),eachindex(dirs)));
+     file_dir=[joinpath(dirs[1],first(file_name))];
+     println(file_dir)
+     parameters=map(eachindex(dirs)) do r
         open(file_dir[r]) do f
             map(s->parse(Float64,s),readlines(f))
         end

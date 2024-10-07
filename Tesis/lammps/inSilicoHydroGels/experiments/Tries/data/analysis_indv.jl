@@ -21,11 +21,13 @@ dirs=dirs_aux; #[2:end];
 file_name = (
              "parameters",
              "energy_assembly.fixf",
-             "bondlenCL_assembly.fixf",
-             "bondlenPatch_assembly.fixf",
+             "wcaPair_assembly.fixf",
+             "patchPair_assembly.fixf",
+             "swapPair_assembly.fixf",
              "energy_shear.fixf",
-             "bondlenCL_shear.fixf",
-             "bondlenPatch_shear.fixf",
+             "wcaPair_shear.fixf",
+             "patchPair_shear.fixf",
+             "swapPair_shear.fixf",
              "stressVirial_shear.fixf"
             );
 
@@ -37,12 +39,15 @@ data=getData(dirs,file_name);
 
 # Re-organize the information
 energy_assembly=map(s->data[s][1],eachindex(data));
-bondlenCL_assembly=map(s->data[s][2],eachindex(data));
-bondlenPt_assembly=map(s->data[s][3],eachindex(data));
-energy_shear=map(s->data[s][4],eachindex(data));
-bondlenCL_shear=map(s->data[s][5],eachindex(data));
-bondlenPt_shear=map(s->data[s][6],eachindex(data));
-stress_shear=map(s->data[s][7],eachindex(data));
+wcaPair_assembly=map(s->data[s][2],eachindex(data));
+patchPair_assembly=map(s->data[s][3],eachindex(data));
+swapPair_assembly=map(s->data[s][4],eachindex(data));
+energy_shear=map(s->data[s][5],eachindex(data));
+wcaPair_shear=map(s->data[s][6],eachindex(data));
+patchPair_shear=map(s->data[s][7],eachindex(data));
+swapPair_shear=map(s->data[s][8],eachindex(data));
+stress_shear=map(s->data[s][9],eachindex(data));
+
 
 time_shear=parameters[1][13]*parameters[1][18]*parameters[1][15];
 time_rlxo1=time_shear;
