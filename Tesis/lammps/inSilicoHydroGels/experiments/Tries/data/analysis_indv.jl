@@ -100,12 +100,12 @@ ax_e = Axis(fig_Energy[1,1],
         #xscale = log10,
         #limits = (10e0,exp10(round(log10(tf))),nothing,nothing)
     )
-series!(ax_e,time_assembly,Eng_assembly',labels=labels_CL,color=Makie.wong_colors())
+series!(ax_e,time_assembly,Eng_assembly',labels=labels_CL,color=:tab10)
 map(s->lines!(ax_e,time_deform[s],Eng_shear[s],label=labels_CL[s]),eachindex(time_deform))
 vlines!(ax_e,last(time_assembly),linestyle=:dash,color=:black)
 vlines!(ax_e,last(time_assembly).+[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash)
 axislegend(ax_e,L"\mathrm{Cross-Linker~Concentration}",position=:rb,merge=true)
-
+#fig_Energy[]=Legend(fig_Energy,ax_e)
 
 fig_Temp=Figure(size=(1200,980));
 ax_t = Axis(fig_Temp[1,1],
