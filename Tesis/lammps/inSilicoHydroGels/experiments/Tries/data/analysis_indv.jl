@@ -31,7 +31,7 @@ file_name = (
              "stressVirial_shear.fixf"
             );
 
-"""
+#"""
 # Get parameters from the directories
 parameters=getParameters(dirs,file_name);
 
@@ -60,7 +60,7 @@ time_rlxf3=time_rlxo3+parameters[1][13]*parameters[1][21];
 time_rlxo4=time_rlxf3+time_shear;
 time_rlxf4=time_rlxo4+parameters[1][13]*parameters[1][22];
 
-"""
+#"""
 ## Energy and Temperature figure
 
 # Time
