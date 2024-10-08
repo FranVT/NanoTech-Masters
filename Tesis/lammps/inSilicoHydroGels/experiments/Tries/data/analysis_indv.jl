@@ -60,11 +60,14 @@ time_rlxf3=time_rlxo3+parameters[1][13]*parameters[1][21];
 time_rlxo4=time_rlxf3+time_shear;
 time_rlxf4=time_rlxo4+parameters[1][13]*parameters[1][22];
 
+"""
 ## Energy and Temperature figure
 
 # Time
 time_assembly=parameters[1][7].*energy_assembly[1][1,:];
-time_deform=parameters[1][7].*energy_shear[1][1,:].+last(time_assembly);
+time_shear=parameters[1][7].*energy_shear[1][1,:];
+time_deform=time_shear.+last(time_assembly);
+time_stress=parameters[1][13].*stress_shear[1][1,:];
 
 # Energy
 T_assembly=reduce(hcat,map(s->energy_assembly[s][5,:],eachindex(energy_assembly)));
@@ -79,7 +82,7 @@ U_shear=reduce(hcat,map(s->energy_shear[s][3,:],eachindex(energy_assembly)));
 K_shear=reduce(hcat,map(s->energy_shear[s][4,:],eachindex(energy_assembly)));
 Eng_shear=U_shear.+K_shear;
 
-"""
+
 
 println("Data readed.")
 
@@ -230,7 +233,7 @@ ax_Ut = Axis(fig_EngPot[1,1:2],
     )
 ax_wca = Axis(fig_EngPot[2,1:2],
         title = L"\mathrm{WCA~potential}",
-        xlabel = L"\mathrm{Time~steps}~\ln_{10}",
+        xlabel = L"\mathrm{Time~steps}",
         ylabel = L"\mathrm{Energy}",
         titlesize = 24.0f0,
         xticklabelsize = 18.0f0,
@@ -243,7 +246,7 @@ ax_wca = Axis(fig_EngPot[2,1:2],
     )
 ax_patch = Axis(fig_EngPot[1,3:4],
         title = L"\mathrm{Patch~interaction~potential}",
-        xlabel = L"\mathrm{Time~steps}~\ln_{10}",
+        xlabel = L"\mathrm{Time~steps}",
         ylabel = L"\mathrm{Energy}",
         titlesize = 24.0f0,
         xticklabelsize = 18.0f0,
@@ -256,7 +259,7 @@ ax_patch = Axis(fig_EngPot[1,3:4],
     )
 ax_swap = Axis(fig_EngPot[2,3:4],
         title = L"\mathrm{Swap~potential}",
-        xlabel = L"\mathrm{Time~steps}~\ln_{10}",
+        xlabel = L"\mathrm{Time~steps}",
         ylabel = L"\mathrm{Energy}",
         titlesize = 24.0f0,
         xticklabelsize = 18.0f0,
@@ -299,15 +302,97 @@ Legend(fig_EngPot[1:2,5],ax_leg,
        patchsize=(35,35)
       )
 
-# Stress
+# Potential energy of the deformation
 
+fig_PotDef=Figure(size=(1920,1080));
+ax_leg=Axis(fig_PotDef[1:2,5],limits=(0.01,0.1,0.01,0.1))
+hidespines!(ax_leg)
+hidedecorations!(ax_leg)
+ax_Ut = Axis(fig_PotDef[1,1:2],
+        title = L"\mathrm{Potential~energy}",
+        xlabel = L"\mathrm{Time~unit}",
+        ylabel = L"\mathrm{Energy}",
+        titlesize = 24.0f0,
+        xticklabelsize = 18.0f0,
+        yticklabelsize = 18.0f0,
+        xlabelsize = 20.0f0,
+        ylabelsize = 20.0f0,
+        xminorticksvisible = true, 
+        xminorgridvisible = true,
+        xminorticks = IntervalsBetween(5),
+    )
+ax_wca = Axis(fig_PotDef[2,1:2],
+        title = L"\mathrm{WCA~potential}",
+        xlabel = L"\mathrm{Time~steps}",
+        ylabel = L"\mathrm{Energy}",
+        titlesize = 24.0f0,
+        xticklabelsize = 18.0f0,
+        yticklabelsize = 18.0f0,
+        xlabelsize = 20.0f0,
+        ylabelsize = 20.0f0,
+        xminorticksvisible = true, 
+        xminorgridvisible = true,
+        xminorticks = IntervalsBetween(5),
+    )
+ax_patch = Axis(fig_PotDef[1,3:4],
+        title = L"\mathrm{Patch~interaction~potential}",
+        xlabel = L"\mathrm{Time~steps}",
+        ylabel = L"\mathrm{Energy}",
+        titlesize = 24.0f0,
+        xticklabelsize = 18.0f0,
+        yticklabelsize = 18.0f0,
+        xlabelsize = 20.0f0,
+        ylabelsize = 20.0f0,
+        xminorticksvisible = true, 
+        xminorgridvisible = true,
+        xminorticks = IntervalsBetween(5),
+    )
+ax_swap = Axis(fig_PotDef[2,3:4],
+        title = L"\mathrm{Swap~potential}",
+        xlabel = L"\mathrm{Time~steps}",
+        ylabel = L"\mathrm{Energy}",
+        titlesize = 24.0f0,
+        xticklabelsize = 18.0f0,
+        yticklabelsize = 18.0f0,
+        xlabelsize = 20.0f0,
+        ylabelsize = 20.0f0,
+        xminorticksvisible = true, 
+        xminorgridvisible = true,
+        xminorticks = IntervalsBetween(5),
+    )
+
+
+println("Plotting lines")
+
+series!(ax_Ut,time_shear,U_shear',color=:tab10)
+vlines!(ax_Ut,[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash,color=:black)
+series!(ax_wca,time_shear,wcaPair_shear',color=:tab10)
+vlines!(ax_wca,[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash,color=:black)
+series!(ax_patch,time_shear,patchPair_shear',color=:tab10)
+vlines!(ax_patch,[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash,color=:black)
+series!(ax_swap,time_shear,swapPair_shear',color=:tab10)
+vlines!(ax_swap,[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash,color=:black)
+series!(ax_leg,zeros(length(dirs),length(dirs)),linestyle=:solid,color=:tab10,labels=labels_CL)
+
+Legend(fig_PotDef[1:2,5],ax_leg,
+       framevisible=true,
+       halign=:center,
+       orientation=:vertical,
+       L"\mathrm{Concentration~and~damp}",
+       patchsize=(35,35)
+      )
+
+
+
+# Stress
 time_stress=parameters[1][13].*stress_shear[1][1,:];
 stressXX=reduce(hcat,map(s->-stress_shear[s][3,:],eachindex(stress_shear)));
 stressXY=reduce(hcat,map(s->-stress_shear[s][6,:],eachindex(stress_shear)));
 
-
-
 fig_Stress = Figure(size=(1080,980));
+ax_leg=Axis(fig_Stress[1:2,3],limits=(0.01,0.1,0.01,0.1))
+hidespines!(ax_leg)
+hidedecorations!(ax_leg)
 ax_stressXX = Axis(fig_Stress[1,1:2],
                    title = L"\mathrm{Stress}~xx",
                    xlabel = L"\mathrm{Time [tau]}",
@@ -320,8 +405,6 @@ ax_stressXX = Axis(fig_Stress[1,1:2],
                    xminorticksvisible = true, 
                    xminorgridvisible = true,
                    xminorticks = IntervalsBetween(5),
-                   #xscale = log10,
-                   #limits = (10e0,exp10(1+round(log10(tf))),nothing,nothing)
                   )
 ax_stressXY = Axis(fig_Stress[2,1:2],
                    title = L"\mathrm{Stress}~xy",
@@ -335,18 +418,24 @@ ax_stressXY = Axis(fig_Stress[2,1:2],
                    xminorticksvisible = true, 
                    xminorgridvisible = true,
                    xminorticks = IntervalsBetween(5),
-                   #xscale = log10,
-                   #limits = (10e0,exp10(1+round(log10(tf))),nothing,nothing)
                   )
 
-series!(ax_stressXX,time_stress,stressXX',labels=labels_CL)
-#map(s->lines!(ax_stressXX,time_stress[s],stressXX[s],label=labels_CL[s]),eachindex(time_stress))
-vlines!(ax_stressXX,[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash)
-axislegend(ax_stressXX,L"\mathrm{Cross-Linker~Concentration}",position=:rt)
+series!(ax_stressXX,time_stress,stressXX',color=:tab10)
+vlines!(ax_stressXX,[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash,color=:black)
 
-series!(ax_stressXY,time_stress,stressXY',labels=labels_CL)
-#map(s->lines!(ax_stressXY,time_stress[s],stressXY[s],label=labels_CL[s]),eachindex(time_stress))
-vlines!(ax_stressXY,[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash)
-axislegend(ax_stressXY,L"\mathrm{Cross-Linker~Concentration}",position=:rt)
+series!(ax_stressXY,time_stress,stressXY',color=:tab10)
+vlines!(ax_stressXY,[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash,color=:black)
+
+series!(ax_leg,zeros(length(dirs),length(dirs)),linestyle=:solid,color=:tab10,labels=labels_CL)
+
+println("Legends")
+
+Legend(fig_Stress[1:2,3],ax_leg,
+       framevisible=true,
+       halign=:center,
+       orientation=:vertical,
+       L"\mathrm{Concentration~and~damp}",
+       patchsize=(35,35)
+      )
 
 
