@@ -14,7 +14,7 @@
 *.3b
 *dump.
 *.table
-#*.dumpf
+*.dumpf
 #*.fixf
 #**/clusterOvito/
 #**/assembly/
