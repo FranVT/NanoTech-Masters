@@ -24,15 +24,45 @@ file_name = (
              "wcaPair_assembly.fixf",
              "patchPair_assembly.fixf",
              "swapPair_assembly.fixf",
+             "cmdisplacement_assebmly.fixf",
+             "stressVirial_assembly.fixf",
              "energy_shear.fixf",
              "wcaPair_shear.fixf",
              "patchPair_shear.fixf",
              "swapPair_shear.fixf",
+             "cmdisplacement_assebmly.fixf",
              "stressVirial_shear.fixf"
             );
 
 #"""
 # Get parameters from the directories
+"""
+    Relation of index with parameter
+    1 -> Central particle radius
+    1 -> Patch particle radius
+    1 -> Cross-Linker Concentration
+    1 -> Number of particles
+    1 -> Temperature
+    1 -> Damp
+    1 -> Box Volume
+    1 -> Packing fraction
+    1 -> Time step in assembly
+    1 -> Number of time steps in assembly
+    1 -> Save every N time steps in assembly
+    1 -> Number of Cross-Linkers 
+    1 -> Number of Monomers
+    1 -> Box Volume
+    1 -> Time step in shear
+    1 -> Number of time steps in shear
+    1 -> Number of time steps per deformation
+    1 -> Save every N time steps
+    1 -> Shear rate
+    1 -> Max deformation per cycle
+    1 -> Relax time 1
+    1 -> Relax time 2 
+    1 -> Relax time 3
+    1 -> Relax time 4
+"""
 parameters=getParameters(dirs,file_name);
 
 # Get the data from the fix files

@@ -6,9 +6,9 @@
 
 
 ## Start the for loop
-for var_cCL in 0.02 0.1; #0.02 0.06 0.1 0.14 0.18;
+for var_cCL in 0.02 0.06 0.1 0.14 0.18;
 do 
-for var_damp in 0.05 0.1; #0.075 0.1;
+for var_damp in 0.05 0.075 0.1;
 do
 
 # Cifras significativas
@@ -22,7 +22,7 @@ r_Patch=0.4;
 # Main parameters of the simulation
 phi=0.55;
 CL_concentration=$var_cCL; #0.1;
-N_particles=500;
+N_particles=1500;
 damp=$var_damp; #0.05;
 T=0.05;
 
@@ -77,7 +77,7 @@ Nave=$(echo "scale=$cs; 1 / $tstep_defor" | bc);
 Nave=${Nave%.*};
 cycles=4;
 
-relaxTime1=$(( 6 * $Nstep_per_strain ));
+relaxTime1=$(( 3 * $Nstep_per_strain ));
 relaxTime2=$(( 2 * $relaxTime1)); 
 relaxTime3=$(( 2 * $relaxTime2));
 relaxTime4=$(( 2 * $relaxTime3));

@@ -53,8 +53,8 @@ compute patchPair all pair table/omp 2 epair
 compute swapPair all pair threebody/table epair
 compute disc CM displace/atom
 compute daux CM chunk/atom type pbc yes
-compute disC CM reduce/chunk 1 sum c_disc[4]
-compute disM CM reduce/chunk 2 sum c_disc[4]
+compute dis CM reduce/chunk daux sum c_disc[4]
+#compute disM CM reduce/chunk daux sum c_disc[4]
 
 # DUMPS and FIXES
 
@@ -76,7 +76,7 @@ fix fixswap PairE3 ave/time 1 10 10 c_swapPair file info/swapPair_assembly.fixf
 
 # Save Atom displacement
 group Displ empty
-fix fixDispl Displ ave/time 1 ${Nave} ${Nave} c_disC c_disM file info/cmdisplacement_assembly.fixf
+fix fixDispl Displ ave/time 1 ${Nave} ${Nave} c_dis[1] c_dis[2] c_dis[3] c_dis[4] file info/cmdisplacement_assembly.fixf
 
 # Save Stress tensor
 group Stress empty
