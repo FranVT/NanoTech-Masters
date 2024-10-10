@@ -18,7 +18,7 @@ dirs_aux = open("dirs.txt") do f
     # [5:8]
     # [9:12]
 
-dirs=dirs_aux; #[2:end];
+    dirs=dirs_aux[11:15]; #[2:end];
 #dirs=dirs_aux[5:8];
 #dirs=dirs_aux[9:12];
 #dirs=dirs_aux[1:4];
@@ -71,7 +71,7 @@ file_name = (
    24 -> Relax time 4
 """
 
-#=
+
 
 parameters=getParameters(dirs,file_name);
 
@@ -117,7 +117,7 @@ lblaux_damp=map(s->s[6],parameters);
 #labels_CL=string.(first.(split.(dirs,"/"))," CL=",aux_CL,"%");
 labels_CL=string.("T=",lblaux_T,", CL=",lblaux_CL,"%, damp=",lblaux_damp);
 
-=#
+
 
 csh=:tab20;
 
