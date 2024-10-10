@@ -6,9 +6,9 @@
 
 
 ## Start the for loop
-for var_cCL in 0.02 0.06 0.1 0.14 0.18;
+for var_cCL in 0.02 0.06 0.1;
 do 
-for var_damp in 0.05 0.075 0.1;
+for Nexp in 0.05 0.075 0.1;
 do
 
 # Cifras significativas
@@ -23,7 +23,7 @@ r_Patch=0.4;
 phi=0.55;
 CL_concentration=$var_cCL; #0.1;
 N_particles=1500;
-damp=$var_damp; #0.05;
+damp=0.1; #0.05;
 T=0.05;
 
 # Number of monomers and cross-linkers given concentration an total amount of patchy particles
