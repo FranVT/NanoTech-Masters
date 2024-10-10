@@ -8,7 +8,7 @@
 ## Start the for loop
 for var_cCL in 0.02 0.06 0.1;
 do 
-for Nexp in 0.05 0.075 0.1;
+for Nexp in $(seq 1 15);
 do
 
 # Cifras significativas
@@ -77,10 +77,10 @@ Nave=$(echo "scale=$cs; 1 / $tstep_defor" | bc);
 Nave=${Nave%.*};
 cycles=4;
 
-relaxTime1=$(( 3 * $Nstep_per_strain ));
+relaxTime1=$(( 6 * $Nstep_per_strain ));
 relaxTime2=$(( 2 * $relaxTime1)); 
 relaxTime3=$(( 2 * $relaxTime2));
-relaxTime4=$(( 2 * $relaxTime3));
+relaxTime4=$(( 3 * $relaxTime3));
 
 : '
     Creation of directory for the simulation data
@@ -107,7 +107,7 @@ damp_aux=${damp_aux%.*};
 T_aux=$(echo "scale=$cs; $scl*$T" | bc);
 T_aux=${T_aux%.*};
 
-dir_name=""systemTotalFreePhi"${phi_aux}"T"${T_aux}"damp"${damp_aux}"cCL"${CL_con}"NPart"${N_particles}"ShearRate"${shear_aux}"RT1_"${rt1_aux}"RT2_"${rt2_aux}"RT3_"${rt3_aux}"RT4_"${rt4_aux}";
+dir_name=""systemTotalFreePhi"${phi_aux}"T"${T_aux}"damp"${damp_aux}"cCL"${CL_con}"NPart"${N_particles}"ShearRate"${shear_aux}"RT1_"${rt1_aux}"RT2_"${rt2_aux}"RT3_"${rt3_aux}"RT4_"${rt4_aux}"Nexp"${Nexp}";
 
 ## Create the directory
 cd data/storage;
