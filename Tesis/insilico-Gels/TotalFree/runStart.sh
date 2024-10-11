@@ -55,7 +55,7 @@ L_real=$(echo "scale=$cs; e( l($Vol_Tot)/3 )" | bc -l );
 L=$(echo "scale=$cs; $L_real / 2" | bc);
 
 # Numerical parameters for LAMMPS simulation
-steps=6000000;
+steps=1000000;
 tstep=0.001;
 sstep=10000;
 seed1=1234;
@@ -202,7 +202,7 @@ echo -e "mkdir assembly; mkdir shear; cd ..; cd ..;" >> $file_name;
 echo -e "" >> $file_name;
 echo -e "env OMP_RUN_THREADS=2 mpirun -np 8 lmp -sf omp -in in.assemblyShear.lmp -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3 -var steps $steps -var tstep $tstep -var sstep $sstep -var Nave $Nave" >> $file_name;
 echo -e "" >> $file_name;
-echo -e "env OMP_RUN_THREADS=2 mpirun -np 8 lmp -sf omp -in in.deformationShear.lmp -var temp $T -var damp $damp -var tstep $tstep_defor -var sstep $sstep_defor -var shear_rate $shear_rate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var seed3 $seed3 -var Nave $Nave -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var rlxT4 $relaxTime4" >> $file_name;
+#echo -e "env OMP_RUN_THREADS=2 mpirun -np 8 lmp -sf omp -in in.deformationShear.lmp -var temp $T -var damp $damp -var tstep $tstep_defor -var sstep $sstep_defor -var shear_rate $shear_rate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var seed3 $seed3 -var Nave $Nave -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var rlxT4 $relaxTime4" >> $file_name;
 echo -e "" >> $file_name;
 echo -e "cp -r info ..;" >> $file_name;
 echo -e "cd ..;" >> $file_name;

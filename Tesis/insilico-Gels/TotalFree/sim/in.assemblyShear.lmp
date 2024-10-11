@@ -35,14 +35,6 @@ include potential.in
 # Molecules
 include molecules.in
 
-fix BrDy all rigid/nve/small molecule langevin ${temp} ${temp} ${damp} 12345 # Brownian Dynamics: langevin + nve
-
-velocity all create ${temp} 1234 dist gaussian mom yes
-run 0
-velocity all scale ${temp}
-
-thermo ${sstep}
-
 # COMPUTES
 
 # Compute global kinetic and potential energy and temperature
@@ -59,6 +51,10 @@ compute disc CM displace/atom
 compute daux CM chunk/atom type pbc yes
 compute dis CM reduce/chunk daux sum c_disc[4]
 #compute disM CM reduce/chunk daux sum c_disc[4]
+
+fix BrDy all rigid/nve/small molecule langevin ${temp} ${temp} ${damp} 12345 # Brownian Dynamics: langevin + nve
+fix_modify BrDy temp tCM
+thermo ${sstep}
 
 # DUMPS and FIXES
 
