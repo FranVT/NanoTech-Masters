@@ -37,6 +37,10 @@ include molecules.in
 
 fix BrDy all rigid/nve/small molecule langevin ${temp} ${temp} ${damp} 12345 # Brownian Dynamics: langevin + nve
 
+velocity all create ${temp} 1234 dist gaussian mom yes
+run 0
+velocity all scale ${temp}
+
 thermo ${sstep}
 
 # COMPUTES

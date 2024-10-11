@@ -9,7 +9,7 @@ function getParameters(dirs,file_name)
         file_name is an array of file names
     """
     file_dir=reduce(vcat,map(s->joinpath(dirs[s],first(file_name)),eachindex(dirs)));
-     #file_dir=[joinpath(dirs[1],first(file_name))];
+#    file_dir=[joinpath(dirs[1],first(file_name))];
      println(file_dir)
      parameters=map(eachindex(dirs)) do r
         open(file_dir[r]) do f
@@ -114,7 +114,7 @@ function getData2(dir,files,parameters)
     displMo_assembly=data[5][3,:];
     stressXX_assembly=-data[6][2,:];
     stressXY_assembly=-data[6][5,:];
-
+#=
     temp_shear=data[7][2,:];
     U_shear=data[7][3,:];
     K_shear=data[7][4,:];
@@ -126,21 +126,21 @@ function getData2(dir,files,parameters)
     displMo_shear=data[11][3,:];
     stressXX_shear=-data[12][2,:];
     stressXY_shear=-data[12][5,:];
- 
+=# 
     # Compute data
     ## Total energy of the system (Internal Energy)
     E_assembly=U_assembly.+K_assembly;
-    E_shear=U_shear.+K_shear;
+#    E_shear=U_shear.+K_shear;
     
     ## Mean displacement of Cl, Mo and central particles
     displCl_assembly=displCl_assembly./Int64(parameters[4]);
     displMo_assembly=displMo_assembly./Int64(parameters[4]);
     displCM_assembly=displCl_assembly.+displMo_assembly;
- 
+#= 
     displCl_shear=displCl_shear./Int64(parameters[4]);
     displMo_shear=displMo_shear./Int64(parameters[4]);
     displCM_shear=displCl_shear.+displMo_shear;
-
+=#
     # Create tuple with data
     info_assembly=(
                    temp_assembly,tempCM_assembly,
@@ -150,13 +150,14 @@ function getData2(dir,files,parameters)
                    stressXX_assembly,stressXY_assembly
                   );
 
-    info_shear=(
+#=    info_shear=(
                    temp_shear,tempCM_shear,
                    U_shear,K_shear,E_shear,
                    wcaPair_shear,patchPair_shear,swapPair_shear,
                    displCl_shear,displMo_shear,displCM_shear,
                    stressXX_shear,stressXY_shear
-                  );
+                  ); =#
+                  info_shear=nothing;
     return (info_assembly,info_shear)
 
 end

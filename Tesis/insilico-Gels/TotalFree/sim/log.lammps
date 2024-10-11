@@ -3,8 +3,12 @@ OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:98
   using 1 OpenMP thread(s) per MPI task
 package omp 0
 using multi-threaded neighbor list subroutines
-# Script to create a shear deformationgiven a data file
+# Input script of lammps that creates a hydrogel and then creates a shear deformation.
 
+# Parallel configuration with pacakge OPENMP
+# RUN: env OMP_NUM_THREADS=Nthreads mpirun -np NProcs lmp -sf omp -in
+
+# Initialization
 units lj
 dimension 3
 boundary p p p
@@ -16,33 +20,24 @@ bond_style zero nocoeff
 pair_style hybrid/overlay/omp zero 0.0 table/omp linear 1000 table/omp linear 5000000 threebody/table
 newton on
 
-read_data data.hydrogel extra/bond/per/atom 4 extra/special/per/atom 5
-Reading data file ...
-  orthogonal box = (-9.998647 -9.998647 -9.998647) to (9.998647 9.998647 9.998647)
+# Create simulaiton box
+region simulation_box block -$L $L -$L $L -$L $L
+region simulation_box block -9.998647 $L -$L $L -$L $L
+region simulation_box block -9.998647 9.998647 -$L $L -$L $L
+region simulation_box block -9.998647 9.998647 -9.998647 $L -$L $L
+region simulation_box block -9.998647 9.998647 -9.998647 9.998647 -$L $L
+region simulation_box block -9.998647 9.998647 -9.998647 9.998647 -9.998647 $L
+region simulation_box block -9.998647 9.998647 -9.998647 9.998647 -9.998647 9.998647
+# N-atom-types region-ID keyword value Is necesesary the extra/special/per/atom (# of special neighbors per atom)
+create_box 4 simulation_box     bond/types 1     extra/bond/per/atom 4     extra/special/per/atom 5
+Created orthogonal box = (-9.998647 -9.998647 -9.998647) to (9.998647 9.998647 9.998647)
   2 by 2 by 2 MPI processor grid
-  reading atoms ...
-  5040 atoms
-  reading velocities ...
-  5040 velocities
-  scanning bonds ...
-  8 = max bonds/atom
-  orthogonal box = (-9.998647 -9.998647 -9.998647) to (9.998647 9.998647 9.998647)
-  2 by 2 by 2 MPI processor grid
-  reading bonds ...
-  3540 bonds
-Finding 1-2 1-3 1-4 neighbors ...
-  special bond factors lj:    0        0        0       
-  special bond factors coul:  0        0        0       
-     4 = max # of 1-2 neighbors
-     3 = max # of 1-3 neighbors
-     3 = max # of 1-4 neighbors
-     9 = max # of special neighbors
-  special bonds CPU = 0.001 seconds
-  read_data CPU = 0.031 seconds
 
-change_box all triclinic
-Changing box ...
-  triclinic box = (-9.998647 -9.998647 -9.998647) to (9.998647 9.998647 9.998647) with tilt (0 0 0)
+# Atom types
+mass 1 1.0      # CL
+mass 2 1.0      # MO
+mass 3 0.5      # PA
+mass 4 0.5      # PB
 
 # Coefficients
 include potential.in
@@ -75,7 +70,7 @@ pair_coeff * * threebody/table swapMech.3b NULL NULL PA PB
 #pair_coeff 4 4 threebody/table swapMech.3b NULL NULL PB PB
 
 # Molecules
-include molDeform.in
+include molecules.in
 molecule CL sysFiles/molecule.patchy.CL
 Read molecule template CL:
 # Patchy Cross-Linker
@@ -97,28 +92,58 @@ Read molecule template MO:
   0 dihedrals with max type 0
   0 impropers with max type 0
 
+# Introduce the molecules
+# ID style args keyword arg
+region spawn_box block -$L $L -$L $L -$L $L
+region spawn_box block -9.998647 $L -$L $L -$L $L
+region spawn_box block -9.998647 9.998647 -$L $L -$L $L
+region spawn_box block -9.998647 9.998647 -9.998647 $L -$L $L
+region spawn_box block -9.998647 9.998647 -9.998647 9.998647 -$L $L
+region spawn_box block -9.998647 9.998647 -9.998647 9.998647 -9.998647 $L
+region spawn_box block -9.998647 9.998647 -9.998647 9.998647 -9.998647 9.998647
+
+# create_atoms type style args keyword values
+# style_random: N seed region-ID
+# keyword_mol: template-ID seed
+# keyword_overlap: overlap value = only insert if at least this distance from all existing atoms
+# keyword_maxtry: maxtry value = number of attempts to insert a particle before failure
+create_atoms 0 random ${NCL} ${seed1} spawn_box mol CL ${seed1} overlap 1.0 maxtry 5000 #xls
+create_atoms 0 random 30 ${seed1} spawn_box mol CL ${seed1} overlap 1.0 maxtry 5000 
+create_atoms 0 random 30 1234 spawn_box mol CL ${seed1} overlap 1.0 maxtry 5000 
+create_atoms 0 random 30 1234 spawn_box mol CL 1234 overlap 1.0 maxtry 5000 
+Created 150 atoms
+  using lattice units in orthogonal box = (-9.998647 -9.998647 -9.998647) to (9.998647 9.998647 9.998647)
+  create_atoms CPU = 0.003 seconds
+create_atoms 0 random ${NMO} ${seed2} spawn_box mol MO ${seed2} overlap 1.0 maxtry 5000 #mon
+create_atoms 0 random 1470 ${seed2} spawn_box mol MO ${seed2} overlap 1.0 maxtry 5000 
+create_atoms 0 random 1470 4321 spawn_box mol MO ${seed2} overlap 1.0 maxtry 5000 
+create_atoms 0 random 1470 4321 spawn_box mol MO 4321 overlap 1.0 maxtry 5000 
+Created 4410 atoms
+  using lattice units in orthogonal box = (-9.998647 -9.998647 -9.998647) to (9.998647 9.998647 9.998647)
+  create_atoms CPU = 0.424 seconds
+
 # Create patchy particles
 group CrossLinker type 1 3
-1350 atoms in group CrossLinker
+150 atoms in group CrossLinker
 group Monomer type 2 4
-3690 atoms in group Monomer
+4410 atoms in group Monomer
 group Patches type 3 4
-3540 atoms in group Patches
+3060 atoms in group Patches
 group CL type 1
-270 atoms in group CL
+30 atoms in group CL
 group MO type 2
-1230 atoms in group MO
+1470 atoms in group MO
 group PA type 3
-1080 atoms in group PA
+120 atoms in group PA
 group CM type 1 2
 1500 atoms in group CM
 fix pCL CrossLinker rigid/small/omp molecule #langevin 1.0 1.0 100.0 ${seed3}
   create bodies CPU = 0.000 seconds
-  270 rigid bodies with 1350 atoms
+  30 rigid bodies with 150 atoms
   0.46400431 = max distance from body owner to body atom
 fix pMO Monomer rigid/small/omp molecule #langevin 1.0 1.0 100.0 ${seed3}
   create bodies CPU = 0.000 seconds
-  1230 rigid bodies with 3690 atoms
+  1470 rigid bodies with 4410 atoms
   0.5 = max distance from body owner to body atom
 
 # Neighbor list
@@ -129,100 +154,17 @@ neigh_modify exclude molecule/intra Monomer
 fix BrDy all rigid/nve/small molecule langevin ${temp} ${temp} ${damp} 12345 # Brownian Dynamics: langevin + nve
 fix BrDy all rigid/nve/small molecule langevin 0.05 ${temp} ${damp} 12345 
 fix BrDy all rigid/nve/small molecule langevin 0.05 0.05 ${damp} 12345 
-fix BrDy all rigid/nve/small molecule langevin 0.05 0.05 0.1 12345 
-  create bodies CPU = 0.001 seconds
-  1500 rigid bodies with 5040 atoms
+fix BrDy all rigid/nve/small molecule langevin 0.05 0.05 1 12345 
+  create bodies CPU = 0.000 seconds
+  1500 rigid bodies with 4560 atoms
   0.5 = max distance from body owner to body atom
-fix_modify BrDy virial no
 
-thermo ${sstep}
-thermo 10000
-
-# COMPUTES
-
-# Compute global kinetic and potential energy and temperature
-compute t all temp
-compute tCM CM temp
-compute ep all pe
-compute ek all ke
-compute ekCM CM ke
-compute stressVirial all pressure t ke pair
-compute wcaPair all pair table/omp 1 epair
-compute patchPair all pair table/omp 2 epair
-compute swapPair all pair threebody/table epair
-compute disc CM displace/atom
-compute daux CM chunk/atom type pbc yes
-compute dis CM reduce/chunk daux sum c_disc[4]
-#compute disM CM reduce/chunk 2 sum c_disc[4]
-
-
-# DUMPS and FIXES
-
-# Save atom positions
-dump dumpID all atom ${Nsave} info/dumps/shear/patchyParticles_shear.*.dumpf
-dump dumpID all atom 500 info/dumps/shear/patchyParticles_shear.*.dumpf
-dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
-
-# Save global energies and temperature
-group Energy empty
-0 atoms in group Energy
-group PairE1 empty
-0 atoms in group PairE1
-group PairE2 empty
-0 atoms in group PairE2
-group PairE3 empty
-0 atoms in group PairE3
-
-fix fixEng Energy ave/time 1 10 10 c_t c_ep c_ek c_tCM file info/energy_shear.fixf
-
-fix fixwca PairE1 ave/time 1 10 10 c_wcaPair file info/wcaPair_shear.fixf
-fix fixpatch PairE2 ave/time 1 10 10 c_patchPair file info/patchPair_shear.fixf
-fix fixswap PairE3 ave/time 1 10 10 c_swapPair file info/swapPair_shear.fixf
-
-# Save Atom displacement
-group Displ empty
-0 atoms in group Displ
-fix fixDispl Displ ave/time 1 ${Nave} ${Nave} c_dis[1] c_dis[2] c_dis[3] c_dis[4] file info/cmdisplacement_shear.fixf
-fix fixDispl Displ ave/time 1 1000 ${Nave} c_dis[1] c_dis[2] c_dis[3] c_dis[4] file info/cmdisplacement_shear.fixf
-fix fixDispl Displ ave/time 1 1000 1000 c_dis[1] c_dis[2] c_dis[3] c_dis[4] file info/cmdisplacement_shear.fixf
-
-# Save Stress tensor
-group Stress empty
-0 atoms in group Stress
-fix fixStress5 Stress ave/time 1 ${Nave} ${Nave} c_stressVirial[*] file info/stressVirial_shear.fixf
-fix fixStress5 Stress ave/time 1 1000 ${Nave} c_stressVirial[*] file info/stressVirial_shear.fixf
-fix fixStress5 Stress ave/time 1 1000 1000 c_stressVirial[*] file info/stressVirial_shear.fixf
-
-# RUN SIMULATION
-
-# Introduce deformation
-fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
-fix shear all deform 1 xy erate 0.02 remap x flip yes
-
-# Run deformation
-timestep ${tstep}
-timestep 0.001
-run ${shear_it}
-run 600000
-
-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
-
-Your simulation uses code contributions which should be cited:
-
-- Type Label Framework: https://doi.org/10.1021/acs.jpcb.3c08419
-
-@Article{Gissinger24,
- author = {Jacob R. Gissinger, Ilia Nikiforov, Yaser Afshar, Brendon Waters, Moon-ki Choi, Daniel S. Karls, Alexander Stukowski, Wonpil Im, Hendrik Heinz, Axel Kohlmeyer, and Ellad B. Tadmor},
- title = {Type Label Framework for Bonded Force Fields in LAMMPS},
- journal = {J. Phys. Chem. B},
- year =    2024,
- volume =  128,
- number =  13,
- pages =   {3282–-3297}
-}
-
-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE-CITE
-
+velocity all create ${temp} 1234 dist gaussian mom yes
+velocity all create 0.05 1234 dist gaussian mom yes
+WARNING: Cannot count rigid body degrees-of-freedom before bodies are fully initialized (src/RIGID/fix_rigid_small.cpp:1129)
+WARNING: Cannot count rigid body degrees-of-freedom before bodies are fully initialized (src/RIGID/fix_rigid_small.cpp:1129)
+WARNING: Cannot count rigid body degrees-of-freedom before bodies are fully initialized (src/RIGID/fix_rigid_small.cpp:1129)
+run 0
 WARNING: Using a manybody potential with bonds/angles/dihedrals and special_bond exclusions (src/pair.cpp:242)
 Hybrid pair style last /omp style table/omp
 Last active /omp style is pair_style table/omp
@@ -259,181 +201,111 @@ Neighbor list info ...
       bin: none
   (5) neighbor class addition, perpetual
       attributes: half, newton on, omp
-      pair build: half/bin/newton/tri/omp
-      stencil: half/bin/3d/tri
+      pair build: half/bin/newton/omp
+      stencil: half/bin/3d
       bin: standard
   (6) neighbor class addition, perpetual
       attributes: full, newton on, omp, cut 2.4
       pair build: full/bin/omp
       stencil: full/bin/3d
       bin: standard
-WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
-WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
-WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
-Per MPI rank memory allocation (min/avg/max) = 25.79 | 25.8 | 25.82 Mbytes
-   Step          Temp          E_pair         E_mol          TotEng         Press          Volume    
-         0   0.94378622    -0.26005558     0             -0.22101204     0.017695167    7996.7532    
-     10000   0.91866139    -0.26030798     0             -0.22230384    -8834.8681      7996.7532    
-     20000   0.9254417     -0.25796159     0             -0.21967695    -42757.362      7996.7532    
-     30000   0.95401721    -0.25642885     0             -0.21696206    -99327.161      7996.7532    
-     40000   0.96738911    -0.25592028     0             -0.21590031    -196862.7       7996.7532    
-     50000   0.95655775    -0.25573299     0             -0.2161611     -346524.65      7996.7532    
-     60000   0.93444456    -0.25443841     0             -0.21578132    -563464.54      7996.7532    
-     70000   0.94169835    -0.25332795     0             -0.21437079    -844411.78      7996.7532    
-     80000   0.93622231    -0.25679358     0             -0.21806295    -1111516.3      7996.7532    
-     90000   0.9515345     -0.25375991     0             -0.21439584    -1555441.6      7996.7532    
-    100000   0.96150328    -0.25340682     0             -0.21363035    -2148697.2      7996.7532    
-    110000   0.94212597    -0.25474153     0             -0.21576668    -2846441        7996.7532    
-    120000   0.9173677     -0.25259532     0             -0.21464469    -3737458.6      7996.7532    
-    130000   0.94342745    -0.25476458     0             -0.21573588    -4006667.9      7996.7532    
-    140000   0.93292551    -0.25402003     0             -0.21542579    -5209059.5      7996.7532    
-    150000   0.97485447    -0.25296459     0             -0.21263579    -6535011.1      7996.7532    
-    160000   0.95727279    -0.25255331     0             -0.21295185    -8102882.2      7996.7532    
-    170000   0.95812968    -0.25396962     0             -0.21433271    -9843585        7996.7532    
-    180000   0.99153984    -0.25344616     0             -0.2124271     -9709570.4      7996.7532    
-    190000   0.92870143    -0.25052692     0             -0.21210742    -11752419       7996.7532    
-    200000   0.9605699     -0.24902862     0             -0.20929075    -14038230       7996.7532    
-    210000   0.94028109    -0.25047442     0             -0.21157589    -16519616       7996.7532    
-    220000   0.93356249    -0.24814541     0             -0.20952482    -19316311       7996.7532    
-    230000   0.95774063    -0.24900451     0             -0.2093837     -17996509       7996.7532    
-    240000   0.94102711    -0.25122198     0             -0.21229258    -20840687       7996.7532    
-    250000   0.95963914    -0.24966443     0             -0.20996507    -24344522       7996.7532    
-    260000   0.97616069    -0.24732081     0             -0.20693797    -27280025       7996.7532    
-    270000   0.97726418    -0.24818266     0             -0.20775417    -30669010       7996.7532    
-    280000   0.93399424    -0.24806874     0             -0.20943028    -27279187       7996.7532    
-    290000   0.92298597    -0.24805141     0             -0.20986836    -30911507       7996.7532    
-    300000   0.93737092    -0.24839736     0             -0.20961922    -33186038       7996.7532    
-    310000   0.94694227    -0.24852222     0             -0.20934812    -36495254       7996.7532    
-    320000   0.94722189    -0.24898357     0             -0.2097979     -39438813       7996.7532    
-    330000   0.93018965    -0.24979601     0             -0.21131495    -33198942       7996.7532    
-    340000   0.99139037    -0.24926751     0             -0.20825463    -35058620       7996.7532    
-    350000   0.93667825    -0.2498549      0             -0.21110541    -37685773       7996.7532    
-    360000   0.9939592     -0.24953892     0             -0.20841978    -97225104       7996.7532    
-    370000   1.0134321     -0.24644009     0             -0.20451536    -42961955       7996.7532    
-    380000   0.94676714    -0.25104219     0             -0.21187534    -33492277       7996.7532    
-    390000   0.92241499    -0.25123114     0             -0.21307171    -36534192       7996.7532    
-    400000   0.95630743    -0.25026959     0             -0.21070806    -36462585       7996.7532    
-    410000   0.94527704    -0.24721328     0             -0.20810807     2.4864387e+08  7996.7532    
-    420000   0.96220321    -0.24962668     0             -0.20982125    -39889548       7996.7532    
-    430000   0.94410483    -0.24912681     0             -0.21007009    -27077209       7996.7532    
-    440000   0.93919996    -0.24877121     0             -0.2099174     -29211964       7996.7532    
-    450000   0.97861707    -0.25047065     0             -0.20998619    -29366832       7996.7532    
-    460000   0.95146545    -0.25110726     0             -0.21174604    -31732554       7996.7532    
-    470000   0.97335804    -0.24919919     0             -0.20893229    -31707534       7996.7532    
-    480000   0.96200502    -0.24792253     0             -0.2081253     -19270442       7996.7532    
-    490000   0.94897989    -0.24937095     0             -0.21011256    -23077195       7996.7532    
-    500000   0.93617238    -0.25164643     0             -0.21291787    -1.0883748e+08  7996.7532    
-    510000   0.92935336    -0.25062121     0             -0.21217475    -26592549       7996.7532    
-    520000   0.94273801    -0.2513565      0             -0.21235632    -26237009       7996.7532    
-    530000   0.94758133    -0.25255165     0             -0.21335111    -18560996       7996.7532    
-    540000   0.97463826    -0.25095951     0             -0.21063965    -20138698       7996.7532    
-    550000   0.92721959    -0.25266641     0             -0.21430821     2.7371727e+08  7996.7532    
-    560000   0.95954728    -0.25076296     0             -0.2110674     -22213999       7996.7532    
-    570000   1.01004       -0.24970654     0             -0.20792215    -22956090       7996.7532    
-    580000   0.99377165    -0.24765608     0             -0.20654469    -17270493       7996.7532    
-    590000   0.96091989    -0.2469311      0             -0.20717876    -6.1835941e+08  7996.7532    
-    600000   0.96660574    -0.24817702     0             -0.20818947    -17711007       7996.7532    
-Loop time of 449.917 on 8 procs for 600000 steps with 5040 atoms
-
-Performance: 115221.267 tau/day, 1333.579 timesteps/s, 6.721 Matom-step/s
-89.8% CPU use with 8 MPI tasks x 1 OpenMP threads
-
-MPI task timing breakdown:
-Section |  min time  |  avg time  |  max time  |%varavg| %total
----------------------------------------------------------------
-Pair    | 64.241     | 71.665     | 84.577     |  85.0 | 15.93
-Bond    | 0.079012   | 0.10143    | 0.12652    |   4.7 |  0.02
-Neigh   | 4.3251     | 4.3273     | 4.329      |   0.1 |  0.96
-Comm    | 46.764     | 59.157     | 66.6       |  89.6 | 13.15
-Output  | 0.76462    | 0.86241    | 0.95649    |   6.8 |  0.19
-Modify  | 304.13     | 305.02     | 305.82     |   3.0 | 67.79
-Other   |            | 8.786      |            |       |  1.95
-
-Nlocal:            630 ave         715 max         559 min
-Histogram: 1 1 1 1 0 2 0 0 1 1
-Nghost:        1878.88 ave        1923 max        1845 min
-Histogram: 1 0 2 1 0 2 1 0 0 1
-Neighs:              0 ave           0 max           0 min
-Histogram: 8 0 0 0 0 0 0 0 0 0
-
-Total # of neighbors = 0
-Ave neighs/atom = 0
-Ave special neighs/atom = 2.5357143
-Neighbor list builds = 781
-Dangerous builds = 12
-
-# Stop deformation
-unfix shear
-
-# Relax time
-run ${rlxT1}
-run 150000
-WARNING: Using a manybody potential with bonds/angles/dihedrals and special_bond exclusions (src/pair.cpp:242)
-Hybrid pair style last /omp style table/omp
-Last active /omp style is pair_style table/omp
-WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
-WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
-WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
-WARNING: One or more atoms are time integrated more than once (src/modify.cpp:296)
-WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
-WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
-WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
-Per MPI rank memory allocation (min/avg/max) = 27.33 | 27.33 | 27.35 Mbytes
+Per MPI rank memory allocation (min/avg/max) = 23.62 | 23.62 | 23.63 Mbytes
    Step          Temp          E_pair         E_mol          TotEng         Press     
-    600000   0.96660574    -0.24817673     0             -0.20818917    -0.040318873  
-    610000   0.99982615    -0.25122115     0             -0.20985929    -6502.9339    
-    620000   0.94164839    -0.24984811     0             -0.21089301    -28877.797    
-    630000   0.96852139    -0.24908688     0             -0.20902007    -99999.303    
-    640000   1.0214499     -0.25006866     0             -0.20781225    -178153.42    
-    650000   0.93559086    -0.24891439     0             -0.21020989    -266085.1     
-    660000   0.95266864    -0.24890842     0             -0.20949742    -428897.17    
-    670000   0.95654577    -0.24866018     0             -0.20908879    -563789.48    
-    680000   0.94805379    -0.2509561      0             -0.21173602    -760914.39    
-    690000   0.9442938     -0.25134788     0             -0.21228334    -950911.12    
-    700000   0.96062817    -0.25228015     0             -0.21253988    -1306678.9    
-    710000   0.94406276    -0.25168658     0             -0.21263161    -1522270.3    
-    720000   0.9448469     -0.25254174     0             -0.21345432    -1898959      
-    730000   0.99556041    -0.252166       0             -0.21098061    -2068362.7    
-    740000   0.95657446    -0.25278849     0             -0.21321592    -2443067.4    
-    750000   0.96394181    -0.25346212     0             -0.21358476    -2993775.1    
-Loop time of 106.983 on 8 procs for 150000 steps with 5040 atoms
+         0   0.27126028     0.0011997765   0              0.042156509    0.015120277  
+Loop time of 2.06887e-06 on 8 procs for 0 steps with 4560 atoms
 
-Performance: 121140.653 tau/day, 1402.091 timesteps/s, 7.067 Matom-step/s
-89.6% CPU use with 8 MPI tasks x 1 OpenMP threads
+145.0% CPU use with 8 MPI tasks x 1 OpenMP threads
 
 MPI task timing breakdown:
 Section |  min time  |  avg time  |  max time  |%varavg| %total
 ---------------------------------------------------------------
-Pair    | 15.248     | 17.813     | 20.878     |  42.1 | 16.65
-Bond    | 0.019352   | 0.024621   | 0.034323   |   2.7 |  0.02
-Neigh   | 0.19362    | 0.1937     | 0.19378    |   0.0 |  0.18
-Comm    | 10.648     | 13.515     | 15.906     |  45.4 | 12.63
-Output  | 0.18559    | 0.20981    | 0.23382    |   3.4 |  0.20
-Modify  | 72.933     | 73.129     | 73.459     |   1.8 | 68.36
-Other   |            | 2.098      |            |       |  1.96
+Pair    | 0          | 0          | 0          |   0.0 |  0.00
+Bond    | 0          | 0          | 0          |   0.0 |  0.00
+Neigh   | 0          | 0          | 0          |   0.0 |  0.00
+Comm    | 0          | 0          | 0          |   0.0 |  0.00
+Output  | 0          | 0          | 0          |   0.0 |  0.00
+Modify  | 0          | 0          | 0          |   0.0 |  0.00
+Other   |            | 2.069e-06  |            |       |100.00
 
-Nlocal:            630 ave         722 max         540 min
-Histogram: 1 1 0 1 1 1 1 0 1 1
-Nghost:        1846.12 ave        1907 max        1808 min
-Histogram: 2 1 0 1 2 0 1 0 0 1
+Nlocal:            570 ave         591 max         541 min
+Histogram: 1 1 0 1 0 1 0 1 0 3
+Nghost:        1674.88 ave        1717 max        1631 min
+Histogram: 1 0 1 0 2 1 1 1 0 1
 Neighs:              0 ave           0 max           0 min
 Histogram: 8 0 0 0 0 0 0 0 0 0
 
 Total # of neighbors = 0
 Ave neighs/atom = 0
-Ave special neighs/atom = 2.5357143
-Neighbor list builds = 36
+Ave special neighs/atom = 2.0657895
+Neighbor list builds = 0
 Dangerous builds = 0
+velocity all scale ${temp}
+velocity all scale 0.05
+WARNING: Changing velocities of atoms in rigid bodies. This has no effect unless rigid bodies are rebuild (src/velocity.cpp:71)
 
-# Introduce deformation
-fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
-fix shear all deform 1 xy erate 0.02 remap x flip yes
+thermo ${sstep}
+thermo 10000
 
-# Re-run deformation
+# COMPUTES
+
+# Compute global kinetic and potential energy and temperature
+compute t all temp
+compute tCM CM temp
+compute ep all pe
+compute ek all ke
+compute ekCM CM ke
+compute stressVirial all pressure t ke pair
+compute wcaPair all pair table/omp 1 epair
+compute patchPair all pair table/omp 2 epair
+compute swapPair all pair threebody/table epair
+compute disc CM displace/atom
+compute daux CM chunk/atom type pbc yes
+compute dis CM reduce/chunk daux sum c_disc[4]
+#compute disM CM reduce/chunk daux sum c_disc[4]
+
+# DUMPS and FIXES
+
+# Save atom positions
+dump dumpID all atom ${sstep} info/dumps/assembly/patchyParticles_assembly.*.dumpf
+dump dumpID all atom 10000 info/dumps/assembly/patchyParticles_assembly.*.dumpf
+dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
+
+# Save global energies and temperature
+group Energy empty
+0 atoms in group Energy
+fix fixEng Energy ave/time 1 10 10 c_t c_ep c_ek c_tCM file info/energy_assembly.fixf
+
+group PairE1 empty
+0 atoms in group PairE1
+group PairE2 empty
+0 atoms in group PairE2
+group PairE3 empty
+0 atoms in group PairE3
+
+fix fixwca PairE1 ave/time 1 10 10 c_wcaPair file info/wcaPair_assembly.fixf
+fix fixpatch PairE2 ave/time 1 10 10 c_patchPair file info/patchPair_assembly.fixf
+fix fixswap PairE3 ave/time 1 10 10 c_swapPair file info/swapPair_assembly.fixf
+
+# Save Atom displacement
+group Displ empty
+0 atoms in group Displ
+fix fixDispl Displ ave/time 1 ${Nave} ${Nave} c_dis[1] c_dis[2] c_dis[3] c_dis[4] file info/cmdisplacement_assembly.fixf
+fix fixDispl Displ ave/time 1 1000 ${Nave} c_dis[1] c_dis[2] c_dis[3] c_dis[4] file info/cmdisplacement_assembly.fixf
+fix fixDispl Displ ave/time 1 1000 1000 c_dis[1] c_dis[2] c_dis[3] c_dis[4] file info/cmdisplacement_assembly.fixf
+
+# Save Stress tensor
+group Stress empty
+0 atoms in group Stress
+fix fixStress5 Stress ave/time 1 ${Nave} ${Nave} c_stressVirial[*] file info/stressVirial_assembly.fixf
+fix fixStress5 Stress ave/time 1 1000 ${Nave} c_stressVirial[*] file info/stressVirial_assembly.fixf
+fix fixStress5 Stress ave/time 1 1000 1000 c_stressVirial[*] file info/stressVirial_assembly.fixf
+
+# RUN SIMULATION
+
 timestep ${tstep}
 timestep 0.001
-run ${shear_it}
-run 600000
+run ${steps}
+run 6000000
 WARNING: Using a manybody potential with bonds/angles/dihedrals and special_bond exclusions (src/pair.cpp:242)
 Hybrid pair style last /omp style table/omp
 Last active /omp style is pair_style table/omp
@@ -444,672 +316,108 @@ WARNING: One or more atoms are time integrated more than once (src/modify.cpp:29
 WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
 WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
 WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
-Per MPI rank memory allocation (min/avg/max) = 27.34 | 27.35 | 27.36 Mbytes
-   Step          Temp          E_pair         E_mol          TotEng         Press          Volume    
-    750000   0.96394181    -0.25346212     0             -0.21358476    -0.013256731    7996.7532    
-    760000   0.96165828    -0.25439444     0             -0.21461155    -7219.9335      7996.7532    
-    770000   0.95096428    -0.25586636     0             -0.21652587    -35754.405      7996.7532    
-    780000   0.93218203    -0.25435722     0             -0.21579373    -97323.734      7996.7532    
-    790000   0.93564272    -0.25364766     0             -0.21494101    -201946.91      7996.7532    
-    800000   0.96471623    -0.25237284     0             -0.21246345    -354684.43      7996.7532    
-    810000   0.9555642     -0.25144224     0             -0.21191146    -564005.46      7996.7532    
-    820000   0.94696171    -0.25096892     0             -0.21179401    -832816.4       7996.7532    
-    830000   0.93157165    -0.25038184     0             -0.21184361    -1078509.1      7996.7532    
-    840000   0.96185551    -0.24857913     0             -0.20878809    -1494083.1      7996.7532    
-    850000   0.97606094    -0.2490369      0             -0.20865819    -2018745.2      7996.7532    
-    860000   0.93064365    -0.24988605     0             -0.21138621    -2589813.4      7996.7532    
-    870000   0.95313292    -0.24860446     0             -0.20917426    -3259765.1      7996.7532    
-    880000   0.94201991    -0.24762163     0             -0.20865116    -3580227.5      7996.7532    
-    890000   0.96346841    -0.24999426     0             -0.21013649    -4457926.5      7996.7532    
-    900000   0.94295461    -0.24817379     0             -0.20916466    -5529917.4      7996.7532    
-    910000   0.97631867    -0.24870277     0             -0.20831339    -6526956.2      7996.7532    
-    920000   0.97419524    -0.25060163     0             -0.2103001     -7754717.2      7996.7532    
-    930000   0.92779544    -0.25056801     0             -0.212186      -7936147.6      7996.7532    
-    940000   0.97036047    -0.24924896     0             -0.20910607    -9445954.6      7996.7532    
-    950000   0.959269      -0.24973705     0             -0.21005301    -10838747       7996.7532    
-    960000   0.95669011    -0.24851704     0             -0.20893968    -12771323       7996.7532    
-    970000   0.96286852    -0.24762713     0             -0.20779418    -14573626       7996.7532    
-    980000   0.95230356    -0.2467344      0             -0.20733851    -14282848       7996.7532    
-    990000   0.9484277     -0.24688532     0             -0.20764977    -16672779       7996.7532    
-   1000000   0.92957253    -0.24989601     0             -0.21144048    -18920607       7996.7532    
-   1010000   0.92715049    -0.24774634     0             -0.209391      -21492990       7996.7532    
-   1020000   0.90801933    -0.2458153      0             -0.2082514     -23815191       7996.7532    
-   1030000   0.95471787    -0.24575137     0             -0.2062556     -22291394       7996.7532    
-   1040000   0.95135596    -0.24543103     0             -0.20607434    -24469749       7996.7532    
-   1050000   0.97194845    -0.24390258     0             -0.20369399    -26613535       7996.7532    
-   1060000   0.96189384    -0.24244033     0             -0.2026477     -29813595       7996.7532    
-   1070000   0.98316255    -0.24442534     0             -0.20375284    -31423713       7996.7532    
-   1080000   0.98899945    -0.24513467     0             -0.2042207     -27048988       7996.7532    
-   1090000   0.97765065    -0.24432481     0             -0.20388033    -29348843       7996.7532    
-   1100000   0.99559171    -0.24495087     0             -0.20376419    -31239299       7996.7532    
-   1110000   0.94041286    -0.24352815     0             -0.20462417    -33881458       7996.7532    
-   1120000   0.97445419    -0.24371335     0             -0.20340111    -36030751       7996.7532    
-   1130000   0.93968595    -0.2450607      0             -0.20618679    -30617976       7996.7532    
-   1140000   0.96494381    -0.24488609     0             -0.20496728    -32761417       7996.7532    
-   1150000   0.95239337    -0.24515546     0             -0.20575585    -35527543       7996.7532    
-   1160000   0.96466187    -0.24536595     0             -0.2054588     -37438455       7996.7532    
-   1170000   0.95715604    -0.24764567     0             -0.20804904    -40090546       7996.7532    
-   1180000   0.96826161    -0.24695713     0             -0.20690107    -32654936       7996.7532    
-   1190000   0.96246691    -0.24622245     0             -0.20640611    -33972592       7996.7532    
-   1200000   0.92135668    -0.24831928     0             -0.21020363    -33765949       7996.7532    
-   1210000   0.93195514    -0.25116147     0             -0.21260738    -35339193       7996.7532    
-   1220000   0.93399082    -0.25129071     0             -0.2126524     -37510464       7996.7532    
-   1230000   0.93844587    -0.25037292     0             -0.21155031    -29281443       7996.7532    
-   1240000   0.95407007    -0.2480016      0             -0.20853263    -29518712       7996.7532    
-   1250000   0.94430497    -0.24449564     0             -0.20543064    -31805913       7996.7532    
-   1260000   0.9667308     -0.24704397     0             -0.20705124    -31646650       7996.7532    
-   1270000   0.94610383    -0.24449043     0             -0.20535101    -32172106       7996.7532    
-   1280000   0.97130189    -0.24455526     0             -0.20437343    -21744628       7996.7532    
-   1290000   0.91831552    -0.24527348     0             -0.20728364    -24531287       7996.7532    
-   1300000   0.90530014    -0.2473628      0             -0.2099114      2.6920233e+08  7996.7532    
-   1310000   0.95725772    -0.2450489      0             -0.20544806    -26114769       7996.7532    
-   1320000   0.95012663    -0.24285752     0             -0.20355168    -26697284       7996.7532    
-   1330000   0.96155595    -0.2445713      0             -0.20479265    -17962826       7996.7532    
-   1340000   0.9655264     -0.24394526     0             -0.20400235    -17706773       7996.7532    
-   1350000   0.948182      -0.24396069     0             -0.2047353     -19110767       7996.7532    
-Loop time of 448.792 on 8 procs for 600000 steps with 5040 atoms
-
-Performance: 115510.078 tau/day, 1336.922 timesteps/s, 6.738 Matom-step/s
-89.7% CPU use with 8 MPI tasks x 1 OpenMP threads
-
-MPI task timing breakdown:
-Section |  min time  |  avg time  |  max time  |%varavg| %total
----------------------------------------------------------------
-Pair    | 64.801     | 71.262     | 85.406     |  83.1 | 15.88
-Bond    | 0.08033    | 0.10197    | 0.13567    |   4.9 |  0.02
-Neigh   | 4.3156     | 4.3187     | 4.3205     |   0.1 |  0.96
-Comm    | 43.773     | 57.382     | 63.846     |  88.4 | 12.79
-Output  | 0.79343    | 0.93294    | 1.071      |   9.5 |  0.21
-Modify  | 305.23     | 306.02     | 306.69     |   2.9 | 68.19
-Other   |            | 8.776      |            |       |  1.96
-
-Nlocal:            630 ave         762 max         550 min
-Histogram: 2 0 2 1 1 0 0 1 0 1
-Nghost:        1934.88 ave        2010 max        1890 min
-Histogram: 2 1 1 0 1 2 0 0 0 1
-Neighs:              0 ave           0 max           0 min
-Histogram: 8 0 0 0 0 0 0 0 0 0
-
-Total # of neighbors = 0
-Ave neighs/atom = 0
-Ave special neighs/atom = 2.5357143
-Neighbor list builds = 788
-Dangerous builds = 12
-
-# Stop deformation
-unfix shear
-
-# Relax time
-run ${rlxT2}
-run 300000
-WARNING: Using a manybody potential with bonds/angles/dihedrals and special_bond exclusions (src/pair.cpp:242)
-Hybrid pair style last /omp style table/omp
-Last active /omp style is pair_style table/omp
-WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
-WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
-WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
-WARNING: One or more atoms are time integrated more than once (src/modify.cpp:296)
-WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
-WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
-WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
-Per MPI rank memory allocation (min/avg/max) = 27.33 | 27.33 | 27.35 Mbytes
+Per MPI rank memory allocation (min/avg/max) = 25.06 | 25.06 | 25.07 Mbytes
    Step          Temp          E_pair         E_mol          TotEng         Press     
-   1350000   0.948182      -0.24396025     0             -0.20473487    -0.013134611  
-   1360000   0.93403211    -0.2443382      0             -0.20569818    -6650.173     
-   1370000   0.94489119    -0.24413677     0             -0.20504752    -41132.808    
-   1380000   0.93496092    -0.24700397     0             -0.20832552    -96156.749    
-   1390000   0.99373588    -0.24824376     0             -0.20713385    -167871.09    
-   1400000   0.94153714    -0.24818485     0             -0.20923436    -257219.28    
-   1410000   0.97595141    -0.24978698     0             -0.2094128     -386881.04    
-   1420000   0.94248828    -0.24539233     0             -0.20640249    -533149.83    
-   1430000   0.97718486    -0.24543492     0             -0.20500972    -731167.07    
-   1440000   0.94672248    -0.24930692     0             -0.21014191    -915899.41    
-   1450000   0.95430854    -0.24773753     0             -0.20825869    -1241629      
-   1460000   0.95072257    -0.24636969     0             -0.2070392     -1418628.5    
-   1470000   0.93340949    -0.24584403     0             -0.20722976    -1707049.2    
-   1480000   0.97703382    -0.24779108     0             -0.20737212    -2170060.8    
-   1490000   0.96509458    -0.25064585     0             -0.21072081    -2359150.1    
-   1500000   0.95525118    -0.25087423     0             -0.2113564     -2737632.2    
-   1510000   0.93427173    -0.25171303     0             -0.2130631     -3319118.2    
-   1520000   0.92328673    -0.25383495     0             -0.21563945    -3661896      
-   1530000   0.93075288    -0.25365591     0             -0.21515155    -4130702.2    
-   1540000   0.98836618    -0.25381445     0             -0.21292669    -4732274.4    
-   1550000   0.92986677    -0.2553125      0             -0.2168448     -5205154.1    
-   1560000   0.94061362    -0.25207386     0             -0.21316157    -5732591.6    
-   1570000   0.95440029    -0.25500625     0             -0.21552362    -6131641.6    
-   1580000   0.93270385    -0.25519331     0             -0.21660824    -6919553.4    
-   1590000   0.98305953    -0.25558078     0             -0.21491255    -7585867.2    
-   1600000   0.95032005    -0.25629333     0             -0.21697949    -8194323.1    
-   1610000   0.97332381    -0.25543615     0             -0.21517067    -8722100.4    
-   1620000   0.92900578    -0.25516504     0             -0.21673295    -9605221.9    
-   1630000   0.9614652     -0.2560246      0             -0.2162497     -10303728     
-   1640000   0.9451925     -0.25718295     0             -0.21808123    -11050335     
-   1650000   0.94033257    -0.25681207     0             -0.21791141    -11898276     
-Loop time of 217.625 on 8 procs for 300000 steps with 5040 atoms
-
-Performance: 119104.101 tau/day, 1378.520 timesteps/s, 6.948 Matom-step/s
-89.0% CPU use with 8 MPI tasks x 1 OpenMP threads
-
-MPI task timing breakdown:
-Section |  min time  |  avg time  |  max time  |%varavg| %total
----------------------------------------------------------------
-Pair    | 28.62      | 35.55      | 42.364     |  70.5 | 16.34
-Bond    | 0.038628   | 0.048694   | 0.063603   |   3.2 |  0.02
-Neigh   | 0.36593    | 0.36631    | 0.36656    |   0.0 |  0.17
-Comm    | 21.268     | 27.816     | 34.504     |  76.4 | 12.78
-Output  | 0.39268    | 0.46068    | 0.52759    |   6.6 |  0.21
-Modify  | 148.62     | 149.05     | 149.63     |   2.4 | 68.49
-Other   |            | 4.329      |            |       |  1.99
-
-Nlocal:            630 ave         709 max         552 min
-Histogram: 1 1 1 0 1 1 1 0 0 2
-Nghost:        1947.75 ave        1980 max        1896 min
-Histogram: 1 0 0 1 0 0 3 1 1 1
-Neighs:              0 ave           0 max           0 min
-Histogram: 8 0 0 0 0 0 0 0 0 0
-
-Total # of neighbors = 0
-Ave neighs/atom = 0
-Ave special neighs/atom = 2.5357143
-Neighbor list builds = 68
-Dangerous builds = 0
-
-# Introduce deformation
-fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
-fix shear all deform 1 xy erate 0.02 remap x flip yes
-
-# Re-run deformation
-timestep ${tstep}
-timestep 0.001
-run ${shear_it}
-run 600000
-WARNING: Using a manybody potential with bonds/angles/dihedrals and special_bond exclusions (src/pair.cpp:242)
-Hybrid pair style last /omp style table/omp
-Last active /omp style is pair_style table/omp
-WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
-WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
-WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
-WARNING: One or more atoms are time integrated more than once (src/modify.cpp:296)
-WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
-WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
-WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
-Per MPI rank memory allocation (min/avg/max) = 27.34 | 27.35 | 27.36 Mbytes
-   Step          Temp          E_pair         E_mol          TotEng         Press          Volume    
-   1650000   0.94033257    -0.25681207     0             -0.21791141    -0.029245098    7996.7532    
-   1660000   0.92409194    -0.25666837     0             -0.21843956    -7547.783       7996.7532    
-   1670000   0.95148088    -0.25645784     0             -0.21709598    -38995.946      7996.7532    
-   1680000   0.96383331    -0.25437718     0             -0.21450431    -104202.25      7996.7532    
-   1690000   0.93323403    -0.25330776     0             -0.21470076    -208617.53      7996.7532    
-   1700000   0.94740975    -0.25509984     0             -0.2159064     -356515.39      7996.7532    
-   1710000   0.97881868    -0.25272906     0             -0.21223626    -596548.85      7996.7532    
-   1720000   0.92953063    -0.251459       0             -0.21300521    -892174.78      7996.7532    
-   1730000   0.96021457    -0.25019424     0             -0.21047108    -1170208.2      7996.7532    
-   1740000   0.96092257    -0.25111751     0             -0.21136506    -1635659.5      7996.7532    
-   1750000   0.97710702    -0.25016058     0             -0.2097386     -2206163.8      7996.7532    
-   1760000   0.95675313    -0.24779918     0             -0.20821921    -2813756.3      7996.7532    
-   1770000   0.95133807    -0.24891598     0             -0.20956003    -3573143.4      7996.7532    
-   1780000   0.93438783    -0.24992325     0             -0.21126852    -3869701.9      7996.7532    
-   1790000   0.9401488     -0.24893509     0             -0.21004203    -4918008.5      7996.7532    
-   1800000   0.91848299    -0.25150905     0             -0.21351229    -6008574.1      7996.7532    
-   1810000   0.99459534    -0.24830481     0             -0.20715935    -7274486.8      7996.7532    
-   1820000   0.96620263    -0.24768377     0             -0.20771289    -8714618.2      7996.7532    
-   1830000   0.94814383    -0.2469961      0             -0.20777229    -8686299.8      7996.7532    
-   1840000   0.93257632    -0.24813072     0             -0.20955093    -10496113       7996.7532    
-   1850000   0.95626605    -0.25078637     0             -0.21122655    -12378979       7996.7532    
-   1860000   0.9773749     -0.25055977     0             -0.2101267     -14435772       7996.7532    
-   1870000   0.94673469    -0.24813802     0             -0.2089725     -16562880       7996.7532    
-   1880000   0.96149591    -0.24768367     0             -0.2079075     -15972228       7996.7532    
-   1890000   0.93619433    -0.24720432     0             -0.20847485    -18390492       7996.7532    
-   1900000   0.96865265    -0.24865906     0             -0.20858682    -21040254       7996.7532    
-   1910000   0.96373717    -0.24753857     0             -0.20766968    -23808055       7996.7532    
-   1920000   0.95386139    -0.24925818     0             -0.20979784    -26977106       7996.7532    
-   1930000   0.94116364    -0.24735707     0             -0.20842203    -24520131       7996.7532    
-   1940000   0.96518937    -0.24843053     0             -0.20850156    -27616794       7996.7532    
-   1950000   0.96555778    -0.24588378     0             -0.20593958    -29711034       7996.7532    
-   1960000   1.0016976     -0.24759546     0             -0.20615619    -33091983       7996.7532    
-   1970000   0.90465152    -0.24899911     0             -0.21157454    -36242616       7996.7532    
-   1980000   0.94831102    -0.24926434     0             -0.21003362    -30479422       7996.7532    
-   1990000   0.93607819    -0.24637678     0             -0.20765211     12244879       7996.7532    
-   2000000   0.92199788    -0.24727827     0             -0.20913609    -35853667       7996.7532    
-   2010000   0.95223034    -0.24696567     0             -0.20757281    -38145213       7996.7532    
-   2020000   0.97629606    -0.24624987     0             -0.20586143    -40601409       7996.7532    
-   2030000   0.93919083    -0.24451894     0             -0.20566551    -33099710       7996.7532    
-   2040000   0.93830741    -0.24599999     0             -0.20718311    -33360018       7996.7532    
-   2050000   1.0097061     -0.24560417     0             -0.20383359    -33991991       7996.7532    
-   2060000   0.96793871    -0.24445008     0             -0.20440738    -36372136       7996.7532    
-   2070000   0.93916134    -0.24431866     0             -0.20546645    -8.7650075e+08  7996.7532    
-   2080000   0.94886483    -0.24567459     0             -0.20642096    -30396062       7996.7532    
-   2090000   0.93472771    -0.24641101     0             -0.20774222    -32285399       7996.7532    
-   2100000   0.95027561    -0.24531771     0             -0.20600572    -31783175       7996.7532    
-   2110000   0.9273507     -0.24665503     0             -0.20829142    -33465595       7996.7532    
-   2120000   0.95355032    -0.24881386     0             -0.20936639    -34606927       7996.7532    
-   2130000   0.94108932    -0.2475838      0             -0.20865183    -23814488       7996.7532    
-   2140000   0.93537133    -0.25008688     0             -0.21139146    -25827157       7996.7532    
-   2150000   0.99177716    -0.24841174     0             -0.20738286    -27824534       7996.7532    
-   2160000   0.92181256    -0.2480408      0             -0.20990629    -28830934       7996.7532    
-   2170000   0.9337478     -0.24886834     0             -0.21024008    -31602694       7996.7532    
-   2180000   0.96566136    -0.24725206     0             -0.20730357    -21896921       7996.7532    
-   2190000   0.95410542    -0.2471794      0             -0.20770896    -20929856       7996.7532    
-   2200000   0.95456126    -0.2475714      0             -0.20808211    -24587331       7996.7532    
-   2210000   0.95301857    -0.24670556     0             -0.20728008    -23032125       7996.7532    
-   2220000   0.94763195    -0.24489558     0             -0.20569295    -23215900       7996.7532    
-   2230000   0.92116782    -0.24708771     0             -0.20897987    -17835567       7996.7532    
-   2240000   0.95151167    -0.2461807      0             -0.20681757    -17069702       7996.7532    
-   2250000   0.97378152    -0.24456994     0             -0.20428553    -1.9541158e+08  7996.7532    
-Loop time of 449.338 on 8 procs for 600000 steps with 5040 atoms
-
-Performance: 115369.699 tau/day, 1335.297 timesteps/s, 6.730 Matom-step/s
-89.7% CPU use with 8 MPI tasks x 1 OpenMP threads
-
-MPI task timing breakdown:
-Section |  min time  |  avg time  |  max time  |%varavg| %total
----------------------------------------------------------------
-Pair    | 64.211     | 71.435     | 82.129     |  73.2 | 15.90
-Bond    | 0.085053   | 0.10132    | 0.13836    |   4.9 |  0.02
-Neigh   | 4.2731     | 4.2739     | 4.2747     |   0.0 |  0.95
-Comm    | 47.036     | 57.22      | 64.357     |  77.8 | 12.73
-Output  | 0.77735    | 0.91478    | 1.0495     |   9.3 |  0.20
-Modify  | 306.32     | 306.68     | 306.99     |   1.3 | 68.25
-Other   |            | 8.712      |            |       |  1.94
-
-Nlocal:            630 ave         772 max         491 min
-Histogram: 2 0 0 1 1 0 2 1 0 1
-Nghost:        1904.88 ave        2004 max        1820 min
-Histogram: 2 0 2 0 0 1 0 1 1 1
-Neighs:              0 ave           0 max           0 min
-Histogram: 8 0 0 0 0 0 0 0 0 0
-
-Total # of neighbors = 0
-Ave neighs/atom = 0
-Ave special neighs/atom = 2.5357143
-Neighbor list builds = 788
-Dangerous builds = 12
-
-# Stop deformation
-unfix shear
-
-# Relax time
-run ${rlxT3}
-run 600000
-WARNING: Using a manybody potential with bonds/angles/dihedrals and special_bond exclusions (src/pair.cpp:242)
-Hybrid pair style last /omp style table/omp
-Last active /omp style is pair_style table/omp
-WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
-WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
-WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
-WARNING: One or more atoms are time integrated more than once (src/modify.cpp:296)
-WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
-WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
-WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
-Per MPI rank memory allocation (min/avg/max) = 27.33 | 27.33 | 27.35 Mbytes
-   Step          Temp          E_pair         E_mol          TotEng         Press     
-   2250000   0.97378152    -0.24456966     0             -0.20428524     0.033060285  
-   2260000   0.95565333    -0.24386378     0             -0.20432931    -6942.3737    
-   2270000   0.92754305    -0.24375052     0             -0.20537895    -30688.968    
-   2280000   0.96663165    -0.24467686     0             -0.20468823    -99216.991    
-   2290000   0.94902597    -0.24587949     0             -0.20661919    -186264.09    
-   2300000   0.94262962    -0.25019268     0             -0.21119699    -284484.51    
-   2310000   0.95121145    -0.25102479     0             -0.21167408    -391693.56    
-   2320000   0.9608851     -0.25360982     0             -0.21385892    -570271.41    
-   2330000   0.93056522    -0.25012362     0             -0.21162703    -748213.04    
-   2340000   0.91831476    -0.25060305     0             -0.21261324    -950012.48    
-   2350000   0.95252145    -0.25028886     0             -0.21088396    -1209561.6    
-   2360000   0.95427168    -0.25062002     0             -0.21114271    -1450167.6    
-   2370000   0.95390263    -0.25051673     0             -0.21105469    -1732548.2    
-   2380000   0.95455866    -0.25248375     0             -0.21299457    -2176663.9    
-   2390000   0.95312328    -0.2515117      0             -0.21208189    -2362656.2    
-   2400000   0.9466999     -0.25167855     0             -0.21251448    -2835571      
-   2410000   0.93535787    -0.25447063     0             -0.21577577    -3141927.7    
-   2420000   1.0332436     -0.25576414     0             -0.21301984    -3727414.7    
-   2430000   0.96204304    -0.25715218     0             -0.21735337    -4232416.4    
-   2440000   0.95731106    -0.25641312     0             -0.21681007    -4698678      
-   2450000   0.94803289    -0.25639564     0             -0.21717642    -5219015.9    
-   2460000   0.95914955    -0.25616592     0             -0.21648681    -5854304.3    
-   2470000   0.94873389    -0.25660924     0             -0.21736102    -6405182.3    
-   2480000   0.939623      -0.25596437     0             -0.21709307    -6931262.6    
-   2490000   0.95399704    -0.25560692     0             -0.21614097    -7404082.5    
-   2500000   0.93158736    -0.25260186     0             -0.21406298    -8065946.4    
-   2510000   0.96439862    -0.25353515     0             -0.2136389     -8621804.7    
-   2520000   0.97768958    -0.25329703     0             -0.21285095    -9323949.8    
-   2530000   0.96365548    -0.2534626      0             -0.21359709    -10169156     
-   2540000   0.94531573    -0.25417726     0             -0.21507045    -10662455     
-   2550000   0.93751335    -0.25247223     0             -0.21368819    -11649403     
-   2560000   0.92794069    -0.25338571     0             -0.21499769    -12499132     
-   2570000   0.95166649    -0.24977836     0             -0.21040882    -13347222     
-   2580000   0.95097058    -0.25081785     0             -0.2114771     -13964467     
-   2590000   0.95408619    -0.25107783     0             -0.2116082     -14952846     
-   2600000   0.97340962    -0.25198119     0             -0.21171216    -15892683     
-   2610000   0.98036101    -0.25198252     0             -0.21142592    -16641442     
-   2620000   0.93029602    -0.25173847     0             -0.21325301    -18076622     
-   2630000   0.93769039    -0.24997282     0             -0.21118146    -19265141     
-   2640000   0.94998696    -0.25466606     0             -0.215366      -20192091     
-   2650000   0.91647719    -0.25308325     0             -0.21516946    -21315135     
-   2660000   0.96041602    -0.25482896     0             -0.21509747    -21928471     
-   2670000   0.95527883    -0.25336036     0             -0.21384139    -22962775     
-   2680000   0.9530148     -0.250927       0             -0.21150169    -23604057     
-   2690000   0.95273948    -0.25110342     0             -0.2116895     -25135428     
-   2700000   0.94794499    -0.25181179     0             -0.21259621    -25916076     
-   2710000   1.0005701     -0.25024154     0             -0.2088489     -26770647     
-   2720000   0.93668641    -0.24992938     0             -0.21117955    -27773421     
-   2730000   0.93065608    -0.25075638     0             -0.21225603    -28356208     
-   2740000   0.93434655    -0.25319148     0             -0.21453845    -28796868     
-   2750000   0.97245655    -0.25290096     0             -0.21267136    -29404365     
-   2760000   0.94205927    -0.25271734     0             -0.21374524     88882332     
-   2770000   0.99279862    -0.25320682     0             -0.21213569    -29799872     
-   2780000   0.95316018    -0.25196293     0             -0.2125316     -30586205     
-   2790000   0.97180056    -0.25285348     0             -0.21265101    -30961143     
-   2800000   0.94109162    -0.2524553      0             -0.21352323    -31313337     
-   2810000   0.9615875     -0.25384915     0             -0.21406919    -30032053     
-   2820000   0.92622796    -0.25118533     0             -0.21286816    -29951675     
-   2830000   0.95227878    -0.25370222     0             -0.21430736    -30152811     
-   2840000   0.93483071    -0.25118805     0             -0.212515      -29677869     
-   2850000   0.95559868    -0.25286654     0             -0.21333433    -29773375     
-Loop time of 430.571 on 8 procs for 600000 steps with 5040 atoms
-
-Performance: 120398.281 tau/day, 1393.499 timesteps/s, 7.023 Matom-step/s
-89.6% CPU use with 8 MPI tasks x 1 OpenMP threads
-
-MPI task timing breakdown:
-Section |  min time  |  avg time  |  max time  |%varavg| %total
----------------------------------------------------------------
-Pair    | 53.129     | 70.053     | 83.862     | 120.5 | 16.27
-Bond    | 0.079088   | 0.098862   | 0.12567    |   5.0 |  0.02
-Neigh   | 0.77168    | 0.77207    | 0.77251    |   0.0 |  0.18
-Comm    | 43.12      | 56.49      | 73.384     | 132.5 | 13.12
-Output  | 0.78711    | 0.95819    | 1.1449     |  12.2 |  0.22
-Modify  | 291.74     | 293.56     | 294.94     |   7.0 | 68.18
-Other   |            | 8.64       |            |       |  2.01
-
-Nlocal:            630 ave         751 max         503 min
-Histogram: 1 1 0 0 2 0 2 1 0 1
-Nghost:        1872.12 ave        2011 max        1764 min
-Histogram: 2 0 1 0 2 0 2 0 0 1
-Neighs:              0 ave           0 max           0 min
-Histogram: 8 0 0 0 0 0 0 0 0 0
-
-Total # of neighbors = 0
-Ave neighs/atom = 0
-Ave special neighs/atom = 2.5357143
-Neighbor list builds = 140
-Dangerous builds = 0
-
-# Introduce deformation
-fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
-fix shear all deform 1 xy erate 0.02 remap x flip yes
-
-# Re-run deformation
-timestep ${tstep}
-timestep 0.001
-run ${shear_it}
-run 600000
-WARNING: Using a manybody potential with bonds/angles/dihedrals and special_bond exclusions (src/pair.cpp:242)
-Hybrid pair style last /omp style table/omp
-Last active /omp style is pair_style table/omp
-WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
-WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
-WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
-WARNING: One or more atoms are time integrated more than once (src/modify.cpp:296)
-WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
-WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
-WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
-Per MPI rank memory allocation (min/avg/max) = 27.34 | 27.35 | 27.36 Mbytes
-   Step          Temp          E_pair         E_mol          TotEng         Press          Volume    
-   2850000   0.95559868    -0.25286654     0             -0.21333433     0.015550719    7996.7532    
-   2860000   0.97521811    -0.25329068     0             -0.21294684    -8657.0972      7996.7532    
-   2870000   0.91293718    -0.25229759     0             -0.21453025    -39976.768      7996.7532    
-   2880000   0.95203171    -0.25039706     0             -0.21101242    -103643.22      7996.7532    
-   2890000   0.94078625    -0.25004064     0             -0.21112121    -203359.19      7996.7532    
-   2900000   0.94647479    -0.25056025     0             -0.21140549    -365436.64      7996.7532    
-   2910000   0.9558891     -0.25155088     0             -0.21200666    -588021.21      7996.7532    
-   2920000   0.94983629    -0.24772995     0             -0.20843612    -903082.2       7996.7532    
-   2930000   0.92946298    -0.24984268     0             -0.21139168    -1151953.3      7996.7532    
-   2940000   0.94608294    -0.24767093     0             -0.20853238    -1665952.5      7996.7532    
-   2950000   0.94854532    -0.24569701     0             -0.20645659    -2301066.1      7996.7532    
-   2960000   0.94356342    -0.24747736     0             -0.20844304    -3030861.6      7996.7532    
-   2970000   0.93312822    -0.24470823     0             -0.20610561    -3902386.2      7996.7532    
-   2980000   0.95603492    -0.24662767     0             -0.20707742    -4184511.2      7996.7532    
-   2990000   0.96180604    -0.24591367     0             -0.20612467    -5283785.3      7996.7532    
-   3000000   0.97420472    -0.24736462     0             -0.20706269    -6676646        7996.7532    
-   3010000   0.99178104    -0.24546659     0             -0.20443756    -8194016.2      7996.7532    
-   3020000   0.97273995    -0.24502092     0             -0.20477959    -9753269.8      7996.7532    
-   3030000   0.94614412    -0.24708288     0             -0.2079418     -9512775.7      7996.7532    
-   3040000   0.96547885    -0.24748        0             -0.20753906    -11446262       7996.7532    
-   3050000   0.95195435    -0.24482086     0             -0.20543941    -13588682       7996.7532    
-   3060000   0.95861224    -0.24502489     0             -0.20536801    -15739423       7996.7532    
-   3070000   0.97015893    -0.24726813     0             -0.20713358    -18324708       7996.7532    
-   3080000   0.94233107    -0.24874743     0             -0.20976409    -17269592       7996.7532    
-   3090000   0.93491882    -0.24970574     0             -0.21102904    -19972093       7996.7532    
-   3100000   0.93496653    -0.24990007     0             -0.21122139    -22917134       7996.7532    
-   3110000   0.93001568    -0.25074497     0             -0.21227111    -25977469       7996.7532    
-   3120000   0.92331244    -0.25207982     0             -0.21388327    -29349643       7996.7532    
-   3130000   0.9542687     -0.24952915     0             -0.21005196    -25730256       7996.7532    
-   3140000   0.92444528    -0.25082408     0             -0.21258066    -29031669       7996.7532    
-   3150000   0.9231149     -0.24991244     0             -0.21172406    -31481238       7996.7532    
-   3160000   0.9593841     -0.24824484     0             -0.20855603    -33752696       7996.7532    
-   3170000   0.93864473    -0.25081899     0             -0.21198815    -35922715       7996.7532    
-   3180000   0.95067526    -0.24955111     0             -0.21022258    -29844997       7996.7532    
-   3190000   0.93798118    -0.2508555      0             -0.21205211    -31289399       7996.7532    
-   3200000   0.92946587    -0.2519239      0             -0.21347279    -33849523       7996.7532    
-   3210000   0.94930073    -0.24981384     0             -0.21054217    -36502622       7996.7532    
-   3220000   0.93148248    -0.24980822     0             -0.21127368    -39017385       7996.7532    
-   3230000   0.92535486    -0.25118132     0             -0.21290027     4.9324415e+08  7996.7532    
-   3240000   0.98602045    -0.24893063     0             -0.20813991    -33984029       7996.7532    
-   3250000   0.99250761    -0.24824877     0             -0.20718968    -34606643       7996.7532    
-   3260000   0.94856189    -0.24881697     0             -0.20957587    -37311742       7996.7532    
-   3270000   0.97697956    -0.24720737     0             -0.20679065    -39801845       7996.7532    
-   3280000   0.96929935    -0.24388925     0             -0.20379026    -28536017       7996.7532    
-   3290000   0.94932605    -0.24596437     0             -0.20669166    -30345208       7996.7532    
-   3300000   0.93357618    -0.24457984     0             -0.20595868    -33116983       7996.7532    
-   3310000   0.9684847     -0.24512022     0             -0.20505493     42510406       7996.7532    
-   3320000   0.98400772    -0.24720367     0             -0.20649621    -38411998       7996.7532    
-   3330000   0.97141754    -0.24586796     0             -0.20568134    -27102862       7996.7532    
-   3340000   0.92619667    -0.24402272     0             -0.20570685    -27653392       7996.7532    
-   3350000   0.97991901    -0.24392385     0             -0.20338553    -29673913       7996.7532    
-   3360000   0.94038103    -0.24308849     0             -0.20418582    -91898209       7996.7532    
-   3370000   1.0460703     -0.24532183     0             -0.2020469     -29671156       7996.7532    
-   3380000   0.95280628    -0.24840117     0             -0.20898448    -21646217       7996.7532    
-   3390000   0.94739018    -0.24722766     0             -0.20803503    -22253218       7996.7532    
-   3400000   0.96508542    -0.24595744     0             -0.20603277    -22621336       7996.7532    
-   3410000   0.9454442     -0.24671652     0             -0.2076044     -27715238       7996.7532    
-   3420000   0.94004012    -0.24753446     0             -0.20864589    -25605959       7996.7532    
-   3430000   0.93625612    -0.24548173     0             -0.2067497     -19321385       7996.7532    
-   3440000   0.96491       -0.24703235     0             -0.20711494    -19911214       7996.7532    
-   3450000   0.93417152    -0.24587363     0             -0.20722784    -21046186       7996.7532    
-Loop time of 438.361 on 8 procs for 600000 steps with 5040 atoms
-
-Performance: 118258.725 tau/day, 1368.735 timesteps/s, 6.898 Matom-step/s
-89.4% CPU use with 8 MPI tasks x 1 OpenMP threads
-
-MPI task timing breakdown:
-Section |  min time  |  avg time  |  max time  |%varavg| %total
----------------------------------------------------------------
-Pair    | 62.473     | 70.444     | 78.146     |  68.1 | 16.07
-Bond    | 0.080177   | 0.095879   | 0.12197    |   4.0 |  0.02
-Neigh   | 4.1388     | 4.1401     | 4.1414     |   0.0 |  0.94
-Comm    | 47.172     | 54.36      | 61.508     |  71.5 | 12.40
-Output  | 0.77291    | 0.9267     | 1.0845     |  10.7 |  0.21
-Modify  | 299.4      | 299.97     | 300.35     |   1.5 | 68.43
-Other   |            | 8.426      |            |       |  1.92
-
-Nlocal:            630 ave         733 max         566 min
-Histogram: 2 1 1 0 1 1 0 1 0 1
-Nghost:        1851.62 ave        1923 max        1736 min
-Histogram: 1 0 0 0 3 0 0 1 1 2
-Neighs:              0 ave           0 max           0 min
-Histogram: 8 0 0 0 0 0 0 0 0 0
-
-Total # of neighbors = 0
-Ave neighs/atom = 0
-Ave special neighs/atom = 2.5357143
-Neighbor list builds = 790
-Dangerous builds = 12
-
-# Stop deformation
-unfix shear
-
-# Relax time
-run ${rlxT4}
-run 1200000
-WARNING: Using a manybody potential with bonds/angles/dihedrals and special_bond exclusions (src/pair.cpp:242)
-Hybrid pair style last /omp style table/omp
-Last active /omp style is pair_style table/omp
-WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
-WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
-WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
-WARNING: One or more atoms are time integrated more than once (src/modify.cpp:296)
-WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
-WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
-WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
-Per MPI rank memory allocation (min/avg/max) = 27.33 | 27.33 | 27.35 Mbytes
-   Step          Temp          E_pair         E_mol          TotEng         Press     
-   3450000   0.93417152    -0.24587347     0             -0.20722768     0.035392773  
-   3460000   0.9472128     -0.24407151     0             -0.20488621    -7718.709     
-   3470000   0.94595538    -0.24548521     0             -0.20635193    -39195.075    
-   3480000   0.95986236    -0.2462092      0             -0.20650061    -85292.637    
-   3490000   1.0032447     -0.24672469     0             -0.20522142    -191935.74    
-   3500000   0.9385206     -0.24455216     0             -0.20572646    -264716.57    
-   3510000   0.93534305    -0.24404557     0             -0.20535132    -380512.3     
-   3520000   0.9372751     -0.24831418     0             -0.20954       -616421.45    
-   3530000   0.95830865    -0.24928352     0             -0.2096392     -769088.97    
-   3540000   0.92998261    -0.24974263     0             -0.21127014    -1006801.4    
-   3550000   0.93764422    -0.24680465     0             -0.2080152     -1239824.8    
-   3560000   0.94360669    -0.248103       0             -0.20906689    -1423261      
-   3570000   0.95728111    -0.24929479     0             -0.20969299    -1788116.2    
-   3580000   0.96336192    -0.24656986     0             -0.2067165     -2097728.7    
-   3590000   0.97062471    -0.24637518     0             -0.20622136    -2464451.8    
-   3600000   0.9733884     -0.24700059     0             -0.20673243    -2935608.3    
-   3610000   0.9595876     -0.24888072     0             -0.2091835     -3259046.6    
-   3620000   0.95882813    -0.2506735      0             -0.21100769    -3674793.3    
-   3630000   0.94911019    -0.25103314     0             -0.21176936    -4197297.7    
-   3640000   0.95094464    -0.24925307     0             -0.2099134     -4691983.6    
-   3650000   0.98796635    -0.2495917      0             -0.20872048    -5135593.4    
-   3660000   0.9627898     -0.24739906     0             -0.20756936    -5981379.7    
-   3670000   0.94179009    -0.24880019     0             -0.20983923    -6543811.6    
-   3680000   0.93719664    -0.24825655     0             -0.20948562    -7079727.9    
-   3690000   0.98032084    -0.24781352     0             -0.20725858    -7565984.4    
-   3700000   0.95263158    -0.2480775      0             -0.20866804    -8233977.2    
-   3710000   0.93873119    -0.24673092     0             -0.20789651    -9020975.6    
-   3720000   0.97459302    -0.25009226     0             -0.20977427    -9793987.8    
-   3730000   0.97267665    -0.24757655     0             -0.20733784    -10458581     
-   3740000   0.94533728    -0.24770354     0             -0.20859583    -11076136     
-   3750000   0.94582869    -0.2487477      0             -0.20961967    -11776774     
-   3760000   0.91234508    -0.24797396     0             -0.21023112    -12746729     
-   3770000   0.96828345    -0.25032091     0             -0.21026395    -13558701     
-   3780000   0.96631418    -0.24966407     0             -0.20968857    -14512427     
-   3790000   0.94937144    -0.25052413     0             -0.21124954    -15118326     
-   3800000   0.93463228    -0.25131108     0             -0.21264623    -16135350     
-   3810000   0.96925761    -0.24950533     0             -0.20940806    -17078141     
-   3820000   0.92010742    -0.25110667     0             -0.2130427     -17820819     
-   3830000   0.9375328     -0.2509311      0             -0.21214626    -19147547     
-   3840000   0.93467121    -0.25195698     0             -0.21329052    -19409306     
-   3850000   0.97867624    -0.25307266     0             -0.21258576    -21234338     
-   3860000   0.93467003    -0.25308129     0             -0.21441488    -22135433     
-   3870000   0.94115069    -0.25164085     0             -0.21270634    -23250820     
-   3880000   0.9286262     -0.25135624     0             -0.21293986    -23731174     
-   3890000   0.96161553    -0.25092563     0             -0.21114451    -24538169     
-   3900000   0.95860865    -0.25302181     0             -0.21336508    -25598804     
-   3910000   0.9499484     -0.25484467     0             -0.21554621    -25771508     
-   3920000   0.94256582    -0.25155131     0             -0.21255826    -26528046     
-   3930000   0.96310289    -0.25260395     0             -0.2127613     -27952507     
-   3940000   0.91684497    -0.25256307     0             -0.21463407    -29047318     
-   3950000   0.93583381    -0.25346582     0             -0.21475126    -29214280     
-   3960000   0.9463611     -0.25373037     0             -0.21458032    -30737829     
-   3970000   0.89820864    -0.25458716     0             -0.21742912    -30473603     
-   3980000   0.98062387    -0.2531829      0             -0.21261543    -31306515     
-   3990000   0.98213827    -0.25530407     0             -0.21467395    -32259901     
-   4000000   1.000459      -0.25424879     0             -0.21286075    -32374851     
-   4010000   0.95705393    -0.25442247     0             -0.21483006    -31957002     
-   4020000   0.95144544    -0.25394751     0             -0.21458711    -31406435     
-   4030000   0.94986751    -0.25622243     0             -0.21692732    -29945312     
-   4040000   0.9494015     -0.25351913     0             -0.21424329    -30390089     
-   4050000   0.95408551    -0.25495323     0             -0.21548362    -29707420     
-   4060000   0.92535922    -0.25531752     0             -0.21703629    -29000048     
-   4070000   0.9330102     -0.25702571     0             -0.21842796    -28508693     
-   4080000   0.94141937    -0.25572623     0             -0.21678061    -27299261     
-   4090000   0.95251218    -0.25570333     0             -0.21629881    -27327874     
-   4100000   0.93895605    -0.25667088     0             -0.21782716    -26588646     
-   4110000   0.93231307    -0.25589535     0             -0.21732644    -25885862     
-   4120000   0.94496861    -0.25700507     0             -0.21791262    -24234817     
-   4130000   0.93260988    -0.2570039      0             -0.21842272    -24212248     
-   4140000   0.95338819    -0.2563391      0             -0.21689834    -23211708     
-   4150000   0.98257059    -0.25472769     0             -0.21407968    -1.1314235e+08
-   4160000   0.94797124    -0.25521459     0             -0.21599792    -21170704     
-   4170000   0.91700507    -0.25570643     0             -0.21777081    -20775483     
-   4180000   0.93830178    -0.25632389     0             -0.21750724    -20068463     
-   4190000   0.9323233     -0.25947504     0             -0.22090572    -18988781     
-   4200000   0.9347635     -0.25841621     0             -0.21974594    -18549764     
-   4210000   0.96090139    -0.26023        0             -0.22047843    -15793990     
-   4220000   1.0003881     -0.2571415      0             -0.2157564     -17514307     
-   4230000   0.96635337    -0.25823174     0             -0.21825462    -14617178     
-   4240000   0.97778153    -0.25727683     0             -0.21682694    -13970072     
-   4250000   0.9336379     -0.25917651     0             -0.22055279    -12468632     
-   4260000   0.91755193    -0.25798007     0             -0.22002182    -12512953     
-   4270000   0.9403923     -0.25857063     0             -0.21966749    -11911207     
-   4280000   0.92165913    -0.25866811     0             -0.22053995    -9852976.7    
-   4290000   0.9695544     -0.25713634     0             -0.2170268     -10203077     
-   4300000   0.96340101    -0.25854549     0             -0.21869051    -8244114      
-   4310000   0.92954052    -0.25887905     0             -0.22042485    -8164759.8    
-   4320000   0.92208668    -0.25625962     0             -0.21811378    -3577551.5    
-   4330000   0.90424297    -0.25774416     0             -0.22033649    -3875373.5    
-   4340000   0.95706727    -0.25663291     0             -0.21703995    -4367402      
-   4350000   0.952311      -0.25723132     0             -0.21783512    -3048832.6    
-   4360000   0.95727269    -0.25578802     0             -0.21618656    -3494353.8    
-   4370000   0.97171097    -0.25632877     0             -0.21613001    -2268523.6    
-   4380000   0.95423729    -0.25700278     0             -0.21752689     6.5671268e+08
-   4390000   0.94824573    -0.25842441     0             -0.21919638    -3106360.7    
-   4400000   0.97774143    -0.25828882     0             -0.21784059    -2789852.2    
-   4410000   1.0483064     -0.25567433     0             -0.21230689    -2562330.1    
-   4420000   0.9403925     -0.25512833     0             -0.21622519    -3798358.2    
-   4430000   0.94871395    -0.25199439     0             -0.212747      -4146931.8    
-   4440000   0.90534238    -0.25384915     0             -0.21639599    -3147248      
-   4450000   0.99585208    -0.25432291     0             -0.21312545    -3086013.9    
-   4460000   0.9627834     -0.25451006     0             -0.21468063    -2407271.9    
-   4470000   0.95237377    -0.25299764     0             -0.21359885     4.9899454e+08
-   4480000   0.95489491    -0.25289862     0             -0.21339553    -2715658.9    
-   4490000   0.94650683    -0.25299085     0             -0.21383476    -2508358.6    
-   4500000   0.93573652    -0.25276537     0             -0.21405484    -2358592      
-   4510000   0.9792978     -0.25570639     0             -0.21519378    -2009928      
-   4520000   0.97728437    -0.25480818     0             -0.21437885    -1600123.4    
-   4530000   0.95186483    -0.25672303     0             -0.21734529    -4.4739281e+08
-   4540000   0.9903314     -0.25677218     0             -0.21580312    -807793.32    
-   4550000   0.96159142    -0.25755822     0             -0.2177781     -2291161      
-   4560000   0.93185386    -0.25856759     0             -0.22001768    -1289680.7    
-   4570000   0.94836883    -0.25708836     0             -0.21785524    -1137847.7    
-   4580000   0.94464495    -0.2580201      0             -0.21894104    -1222064      
-   4590000   0.92828963    -0.25572654     0             -0.21732408    -1513106.7    
-   4600000   0.94411685    -0.25612677     0             -0.21706956     1517530.1    
-   4610000   0.95005112    -0.2560475      0             -0.21674479     824076.34    
-   4620000   0.94930856    -0.25642468     0             -0.21715269     2127788.6    
-   4630000   0.95569016    -0.25535685     0             -0.21582086    -701778.28    
-   4640000   0.94386037    -0.25572536     0             -0.21667875     626873.18    
-   4650000   0.94868786    -0.25983632     0             -0.22059001    -267056.26    
-Loop time of 836.376 on 8 procs for 1200000 steps with 5040 atoms
-
-Performance: 123963.319 tau/day, 1434.761 timesteps/s, 7.231 Matom-step/s
-89.4% CPU use with 8 MPI tasks x 1 OpenMP threads
-
-MPI task timing breakdown:
-Section |  min time  |  avg time  |  max time  |%varavg| %total
----------------------------------------------------------------
-Pair    | 122.8      | 140.98     | 155.43     |  76.3 | 16.86
-Bond    | 0.16042    | 0.18887    | 0.21427    |   4.1 |  0.02
-Neigh   | 1.461      | 1.4615     | 1.4619     |   0.0 |  0.17
-Comm    | 87.864     | 101.87     | 118.78     |  84.3 | 12.18
-Output  | 1.5168     | 1.8222     | 2.1291     |  14.8 |  0.22
-Modify  | 572.38     | 573.67     | 574.97     |   2.9 | 68.59
-Other   |            | 16.38      |            |       |  1.96
-
-Nlocal:            630 ave         715 max         533 min
-Histogram: 1 0 0 1 2 2 0 0 1 1
-Nghost:         1872.5 ave        1932 max        1771 min
-Histogram: 1 0 0 0 0 3 1 1 0 2
-Neighs:              0 ave           0 max           0 min
-Histogram: 8 0 0 0 0 0 0 0 0 0
-
-Total # of neighbors = 0
-Ave neighs/atom = 0
-Ave special neighs/atom = 2.5357143
-Neighbor list builds = 285
-Dangerous builds = 0
-
-Total wall time: 0:56:27
+         0   0.05           0.0011997765   0              0.0087491186   0.013562612  
+     10000   0.33539263    -0.084174256    0             -0.033534382   -622.24701    
+     20000   0.36339494    -0.13975501     0             -0.08488716    -3639.2292    
+     30000   0.35216834    -0.16523069     0             -0.11205791    -9802.4631    
+     40000   0.39556061    -0.17559192     0             -0.11586747    -19874.319    
+     50000   0.36328517    -0.18743952     0             -0.13258824    -34531.611    
+     60000   0.41867027    -0.18946121     0             -0.12624751    -52426.973    
+     70000   0.40583068    -0.19347716     0             -0.13220207    -75315.605    
+     80000   0.31925825    -0.20133516     0             -0.15313137    -101735.1     
+     90000   0.37476396    -0.20529703     0             -0.1487126     -132954.5     
+    100000   0.39473013    -0.20369266     0             -0.1440936     -167260.38    
+    110000   0.3474986     -0.20559005     0             -0.15312233    -205767.96    
+    120000   0.39100819    -0.2052363      0             -0.1461992     -248124.74    
+    130000   0.34586744    -0.20443438     0             -0.15221295    -297733.93    
+    140000   0.3590885     -0.20240178     0             -0.14818414    -352310       
+    150000   0.36692905    -0.20549117     0             -0.15008971    -408271.49    
+    160000   0.3107099     -0.19971084     0             -0.15279774    -464129.28    
+    170000   0.3631033     -0.20330654     0             -0.14848271    -528177.27    
+    180000   0.38039881    -0.20255016     0             -0.14511494    -595982.37    
+    190000   0.36948622    -0.20387857     0             -0.14809101    -674265.93    
+    200000   0.31663142    -0.20207438     0             -0.15426721    -745391.5     
+    210000   0.36279143    -0.19891718     0             -0.14414045    -828972.91    
+    220000   0.35325498    -0.1970958      0             -0.14375895    -896045.57    
+    230000   0.41244323    -0.19788215     0             -0.13560865    -994600.69    
+    240000   0.33253645    -0.20303522     0             -0.1528266     -1080482.9    
+    250000   0.33618488    -0.20801353     0             -0.15725403    -1177872      
+    260000   0.41112836    -0.2120708      0             -0.14999583    -1292891.7    
+    270000   0.34822586    -0.20086709     0             -0.14828956    -1386964.3    
+    280000   0.35948854    -0.19901094     0             -0.1447329     -1503528.5    
+    290000   0.37786953    -0.20525165     0             -0.14819833    -1617703.4    
+    300000   0.33805851    -0.20311645     0             -0.15207406    -1724927.3    
+    310000   0.35393763    -0.20880337     0             -0.15536344    -1848968.2    
+    320000   0.3965964     -0.20916628     0             -0.14928544    -1978799.3    
+    330000   0.34014878    -0.20923029     0             -0.1578723     -2100854.9    
+    340000   0.37886271    -0.20855065     0             -0.15134737    -2235240.8    
+    350000   0.34484       -0.21100878     0             -0.15894247    -2391869.8    
+    360000   0.33567708    -0.20605158     0             -0.15536876    -2522593.1    
+    370000   0.37903911    -0.20218237     0             -0.14495245    -2673753.5    
+    380000   0.34204433    -0.20414704     0             -0.15250285    -2819312.2    
+    390000   0.35968419    -0.20337738     0             -0.1490698     -2989852.8    
+    400000   0.39060773    -0.20142654     0             -0.14244991    -3158547.5    
+    410000   0.33864533    -0.20808621     0             -0.15695522    -3323417.5    
+    420000   0.46388324    -0.20875283     0             -0.13871256    -3513752.3    
+    430000   0.36140787    -0.20532588     0             -0.15075805    -3665932.1    
+    440000   0.31955827    -0.20266467     0             -0.15441558    -3849389.1    
+    450000   0.38143238    -0.20324308     0             -0.14565181    -4028451.4    
+    460000   0.34349117    -0.20624744     0             -0.15438479    -4215651.4    
+    470000   0.37186032    -0.20515579     0             -0.14900977    -4395335.3    
+    480000   0.35299568    -0.20605821     0             -0.15276051    -4592953.4    
+    490000   0.30758166    -0.21166156     0             -0.16522077    -4778902.9    
+    500000   0.33302365    -0.21133733     0             -0.16105514    -4950501      
+    510000   0.35098121    -0.20775685     0             -0.15476331    -5204380.9    
+    520000   0.35882353    -0.20262356     0             -0.14844593    -5404012.1    
+    530000   0.33508036    -0.20974617     0             -0.15915345    -5597818.2    
+    540000   0.42980283    -0.20694888     0             -0.14205431    -5793784.3    
+    550000   0.37645583    -0.20478851     0             -0.14794864    -6074915.4    
+    560000   0.36560315    -0.20508162     0             -0.14988036    -6287328      
+    570000   0.36265337    -0.2056131      0             -0.15085721    -6561390.9    
+    580000   0.37909904    -0.20667792     0             -0.14943895    -6772219.6    
+    590000   0.34765104    -0.20827454     0             -0.1557838     -7053788      
+    600000   0.30047421    -0.20733259     0             -0.16196494    -7274780.4    
+    610000   0.40240769    -0.20847076     0             -0.14771249    -7580417.2    
+    620000   0.31883543    -0.20802583     0             -0.15988587    -7788006.6    
+    630000   0.33296458    -0.21078414     0             -0.16051087    -8077519.3    
+    640000   0.35293317    -0.20770156     0             -0.15441329    -8314561.8    
+    650000   0.36748985    -0.20569931     0             -0.15021318    -8583639.1    
+    660000   0.38661804    -0.20257972     0             -0.14420549    -8854424.8    
+    670000   0.383646      -0.20288741     0             -0.14496191    -9249627.9    
+    680000   0.368696      -0.20144944     0             -0.1457812     -9453524.8    
+    690000   0.39637259    -0.2040921      0             -0.14424505    -9801954.9    
+    700000   0.33273821    -0.20570976     0             -0.15547067    -10078640     
+    710000   0.36042886    -0.20716148     0             -0.15274146    -10379819     
+    720000   0.3759799     -0.20538137     0             -0.14861335    -10695461     
+    730000   0.38394306    -0.20563878     0             -0.14766843    -10976669     
+    740000   0.3340729     -0.20713311     0             -0.15669249    -11277901     
+    750000   0.32742043    -0.20988863     0             -0.16045246    -11630036     
+    760000   0.31868249    -0.21031959     0             -0.16220273    -11930561     
+    770000   0.38451663    -0.20643072     0             -0.14837377    -12287995     
+    780000   0.38048619    -0.19932535     0             -0.14187694    -12632850     
+    790000   0.29913804    -0.20108497     0             -0.15591906    -12970781     
+    800000   0.36642811    -0.20363714     0             -0.14831131    -13397518     
+    810000   0.34731269    -0.20246196     0             -0.15002232    -13612424     
+    820000   0.34880518    -0.20169918     0             -0.14903419    -13908299     
+    830000   0.39820063    -0.19863987     0             -0.13851682    -14176946     
+    840000   0.34479619    -0.20184869     0             -0.149789      -14632097     
+    850000   0.40154343    -0.19626609     0             -0.13563832    -15063817     
+    860000   0.34010029    -0.19923832     0             -0.14788765    -15413290     
+    870000   0.34811717    -0.204918       0             -0.15235688    -15790714     
+    880000   0.35194895    -0.21226582     0             -0.15912616    -16020478     
+    890000   0.36133071    -0.20498087     0             -0.15042469    -16407054     
+    900000   0.31133978    -0.20249413     0             -0.15548592    -16723494     
+    910000   0.36080541    -0.19389789     0             -0.13942102    -16922959     
+    920000   0.34324923    -0.20060693     0             -0.14878081    -17336093     
+    930000   0.39581979    -0.20206091     0             -0.14229733    -17616888     
+    940000   0.32718179    -0.20542745     0             -0.1560273     -18028592     
+    950000   0.34542802    -0.20021012     0             -0.14805503    -18495007     
+    960000   0.33394358    -0.20232927     0             -0.15190819    -18630363     
+    970000   0.3751521     -0.20051842     0             -0.14387539    -18951014     
+    980000   0.37512509    -0.20117721     0             -0.14453825    -19116304     
+    990000   0.33725421    -0.20452008     0             -0.15359913    -19537891     
+   1000000   0.37347835    -0.20490321     0             -0.1485129     -19458605     
+   1010000   0.33697907    -0.20488325     0             -0.15400385    -19738510     
+   1020000   0.34958769    -0.2063218 
