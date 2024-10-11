@@ -18,7 +18,8 @@ dirs_aux = open("dirs.txt") do f
     # [5:8]
     # [9:12]
 
-    dirs=dirs_aux[11:15]; #[2:end];
+dirs=dirs_aux;
+    #    dirs=dirs_aux[11:15]; #[2:end];
 #dirs=dirs_aux[5:8];
 #dirs=dirs_aux[9:12];
 #dirs=dirs_aux[1:4];
@@ -76,7 +77,7 @@ file_name = (
 parameters=getParameters(dirs,file_name);
 
 # Retrieve all the data from every experiment
-data=map(s->getData2(dirs[s],file_name,parameters[s]),eachindex(dirs));
+data=map(s->getData2(dirs[s],file_name[1:7],parameters[s]),eachindex(dirs));
 
 # Separate the data from assembly and shear experiment
 data_assembly=first.(data);
