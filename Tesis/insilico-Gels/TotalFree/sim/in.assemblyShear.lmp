@@ -52,8 +52,7 @@ compute daux CM chunk/atom type pbc yes
 compute dis CM reduce/chunk daux sum c_disc[4]
 #compute disM CM reduce/chunk daux sum c_disc[4]
 
-fix BrDy all rigid/nve/small molecule langevin ${temp} ${temp} ${damp} 12345 # Brownian Dynamics: langevin + nve
-fix_modify BrDy temp tCM
+fix BrDy all rigid/nve/small molecule langevin ${temp} ${temp} ${damp} 12345 omega yes # Brownian Dynamics: langevin + nve
 thermo ${sstep}
 
 # DUMPS and FIXES
