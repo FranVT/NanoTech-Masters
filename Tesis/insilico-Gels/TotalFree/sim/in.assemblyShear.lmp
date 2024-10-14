@@ -39,7 +39,9 @@ include molecules.in
 
 # Compute global kinetic and potential energy and temperature
 compute t all temp
-compute tCM CM temp
+compute_modify t extra/dof 0
+compute tCM CM temp/asphere dof all
+#compute_modify tCM extra/dof 0
 compute ep all pe
 compute ek all ke
 compute ekCM CM ke
@@ -52,7 +54,8 @@ compute daux CM chunk/atom type pbc yes
 compute dis CM reduce/chunk daux sum c_disc[4]
 #compute disM CM reduce/chunk daux sum c_disc[4]
 
-fix BrDy all rigid/nve/small molecule langevin ${temp} ${temp} ${damp} 12345 omega yes # Brownian Dynamics: langevin + nve
+fix BrDy all rigid/nve/small molecule 
+fix Br all langevin ${temp} ${temp} ${damp} 12345 # Brownian Dynamics: langevin + nve 
 thermo ${sstep}
 
 # DUMPS and FIXES
