@@ -1,4 +1,4 @@
-LAMMPS (27 Jun 2024)
+LAMMPS (29 Aug 2024)
 OMP_NUM_THREADS environment is not set. Defaulting to 1 thread. (src/comm.cpp:98)
   using 1 OpenMP thread(s) per MPI task
 package omp 0
@@ -31,7 +31,7 @@ region simulation_box block -9.998647 9.998647 -9.998647 9.998647 -9.998647 9.99
 # N-atom-types region-ID keyword value Is necesesary the extra/special/per/atom (# of special neighbors per atom)
 create_box 4 simulation_box     bond/types 1     extra/bond/per/atom 4     extra/special/per/atom 5
 Created orthogonal box = (-9.998647 -9.998647 -9.998647) to (9.998647 9.998647 9.998647)
-  2 by 2 by 2 MPI processor grid
+  1 by 1 by 3 MPI processor grid
 
 # Atom types
 mass 1 1.0      # CL
@@ -59,11 +59,11 @@ Reading pair table potential file sysFiles/wcaTab.table with DATE: 2024-09-27
 #pair_modify shift yes
 pair_coeff 3 4 table/omp 2 sysFiles/pachTab.table POT 0.6 #0.75
 Reading pair table potential file sysFiles/pachTab.table with DATE: 2024-07-08
-WARNING: 2 of 1000000 force values in table POT are inconsistent with -dE/dr.
+WARNING: 5115 of 1000000 force values in table POT are inconsistent with -dE/dr.
 WARNING:  Should only be flagged at inflection points (src/pair_table.cpp:466)
 pair_coeff 4 4 table/omp 2 sysFiles/pachTab.table POT 0.6 #0.75
 Reading pair table potential file sysFiles/pachTab.table with DATE: 2024-07-08
-WARNING: 2 of 1000000 force values in table POT are inconsistent with -dE/dr.
+WARNING: 5115 of 1000000 force values in table POT are inconsistent with -dE/dr.
 WARNING:  Should only be flagged at inflection points (src/pair_table.cpp:466)
 pair_coeff * * threebody/table swapMech.3b NULL NULL PA PB
 #pair_coeff 3 4 threebody/table swapMech.3b NULL NULL PA PB
@@ -113,14 +113,14 @@ create_atoms 0 random 30 1234 spawn_box mol CL ${seed1} overlap 1.0 maxtry 5000
 create_atoms 0 random 30 1234 spawn_box mol CL 1234 overlap 1.0 maxtry 5000 
 Created 150 atoms
   using lattice units in orthogonal box = (-9.998647 -9.998647 -9.998647) to (9.998647 9.998647 9.998647)
-  create_atoms CPU = 0.004 seconds
+  create_atoms CPU = 0.002 seconds
 create_atoms 0 random ${NMO} ${seed2} spawn_box mol MO ${seed2} overlap 1.0 maxtry 5000 #mon
 create_atoms 0 random 1470 ${seed2} spawn_box mol MO ${seed2} overlap 1.0 maxtry 5000 
 create_atoms 0 random 1470 4321 spawn_box mol MO ${seed2} overlap 1.0 maxtry 5000 
 create_atoms 0 random 1470 4321 spawn_box mol MO 4321 overlap 1.0 maxtry 5000 
 Created 4410 atoms
   using lattice units in orthogonal box = (-9.998647 -9.998647 -9.998647) to (9.998647 9.998647 9.998647)
-  create_atoms CPU = 0.387 seconds
+  create_atoms CPU = 1.094 seconds
 
 # Create patchy particles
 group CrossLinker type 1 3
@@ -142,7 +142,7 @@ fix pCL CrossLinker rigid/small/omp molecule #langevin 1.0 1.0 100.0 ${seed3}
   30 rigid bodies with 150 atoms
   0.46400431 = max distance from body owner to body atom
 fix pMO Monomer rigid/small/omp molecule #langevin 1.0 1.0 100.0 ${seed3}
-  create bodies CPU = 0.000 seconds
+  create bodies CPU = 0.001 seconds
   1470 rigid bodies with 4410 atoms
   0.5 = max distance from body owner to body atom
 
@@ -155,7 +155,211 @@ neigh_modify exclude molecule/intra Monomer
 
 # Compute global kinetic and potential energy and temperature
 compute t all temp
-compute_modify t extra/dof 0
-compute tCM CM temp/asphere dof all
-ERROR: Unrecognized compute style 'temp/asphere' is part of the ASPHERE package which is not enabled in this LAMMPS binary. (src/modify.cpp:1289)
-Last command: compute tCM CM temp/asphere dof all
+compute tCM CM temp
+compute ep all pe
+compute ek all ke
+compute ekCM CM ke
+compute stressVirial all pressure t ke pair
+compute wcaPair all pair table/omp 1 epair
+compute patchPair all pair table/omp 2 epair
+compute swapPair all pair threebody/table epair
+compute disc CM displace/atom
+compute daux CM chunk/atom type pbc yes
+compute dis CM reduce/chunk daux sum c_disc[4]
+#compute disM CM reduce/chunk daux sum c_disc[4]
+
+fix BrDy all rigid/nve/small molecule
+  create bodies CPU = 0.001 seconds
+  1500 rigid bodies with 4560 atoms
+  0.5 = max distance from body owner to body atom
+fix Br all langevin ${temp} ${temp} ${damp} 12345 # Brownian Dynamics: langevin + nve
+fix Br all langevin 0.05 ${temp} ${damp} 12345 
+fix Br all langevin 0.05 0.05 ${damp} 12345 
+fix Br all langevin 0.05 0.05 0.5 12345 
+thermo ${sstep}
+thermo 10000
+
+# DUMPS and FIXES
+
+# Save atom positions
+dump dumpID all atom ${sstep} info/dumps/assembly/patchyParticles_assembly.*.dumpf
+dump dumpID all atom 10000 info/dumps/assembly/patchyParticles_assembly.*.dumpf
+dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
+
+# Save global energies and temperature
+group Energy empty
+0 atoms in group Energy
+fix fixEng Energy ave/time 1 10 10 c_t c_ep c_ek c_tCM file info/energy_assembly.fixf
+
+group PairE1 empty
+0 atoms in group PairE1
+group PairE2 empty
+0 atoms in group PairE2
+group PairE3 empty
+0 atoms in group PairE3
+
+fix fixwca PairE1 ave/time 1 10 10 c_wcaPair file info/wcaPair_assembly.fixf
+fix fixpatch PairE2 ave/time 1 10 10 c_patchPair file info/patchPair_assembly.fixf
+fix fixswap PairE3 ave/time 1 10 10 c_swapPair file info/swapPair_assembly.fixf
+
+# Save Atom displacement
+group Displ empty
+0 atoms in group Displ
+fix fixDispl Displ ave/time 1 ${Nave} ${Nave} c_dis[1] c_dis[2] c_dis[3] c_dis[4] file info/cmdisplacement_assembly.fixf
+fix fixDispl Displ ave/time 1 1000 ${Nave} c_dis[1] c_dis[2] c_dis[3] c_dis[4] file info/cmdisplacement_assembly.fixf
+fix fixDispl Displ ave/time 1 1000 1000 c_dis[1] c_dis[2] c_dis[3] c_dis[4] file info/cmdisplacement_assembly.fixf
+
+# Save Stress tensor
+group Stress empty
+0 atoms in group Stress
+fix fixStress5 Stress ave/time 1 ${Nave} ${Nave} c_stressVirial[*] file info/stressVirial_assembly.fixf
+fix fixStress5 Stress ave/time 1 1000 ${Nave} c_stressVirial[*] file info/stressVirial_assembly.fixf
+fix fixStress5 Stress ave/time 1 1000 1000 c_stressVirial[*] file info/stressVirial_assembly.fixf
+
+# RUN SIMULATION
+
+timestep ${tstep}
+timestep 0.001
+run ${steps}
+run 500000
+WARNING: Using a manybody potential with bonds/angles/dihedrals and special_bond exclusions (src/pair.cpp:243)
+Hybrid pair style last /omp style table/omp
+Last active /omp style is pair_style table/omp
+WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
+WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
+WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
+WARNING: One or more atoms are time integrated more than once (src/modify.cpp:296)
+Neighbor list info ...
+  update: every = 1 steps, delay = 0 steps, check = yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 2.92
+  ghost atom cutoff = 2.92
+  binsize = 1.46, bins = 14 14 14
+  6 neighbor lists, perpetual/occasional/extra = 6 0 0
+  (1) pair zero, perpetual, skip from (5)
+      attributes: half, newton on, omp
+      pair build: skip/omp
+      stencil: none
+      bin: none
+  (2) pair table/omp, perpetual, skip from (5)
+      attributes: half, newton on, omp
+      pair build: skip/omp
+      stencil: none
+      bin: none
+  (3) pair table/omp, perpetual, skip from (5)
+      attributes: half, newton on, omp, cut 2.4
+      pair build: skip/omp
+      stencil: none
+      bin: none
+  (4) pair threebody/table, perpetual, skip from (6)
+      attributes: full, newton on, omp, cut 2.4
+      pair build: skip/omp
+      stencil: none
+      bin: none
+  (5) neighbor class addition, perpetual
+      attributes: half, newton on, omp
+      pair build: half/bin/newton/omp
+      stencil: half/bin/3d
+      bin: standard
+  (6) neighbor class addition, perpetual
+      attributes: full, newton on, omp, cut 2.4
+      pair build: full/bin/omp
+      stencil: full/bin/3d
+      bin: standard
+WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
+WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
+WARNING: Computing temperature of portions of rigid bodies (src/RIGID/fix_rigid_small.cpp:1178)
+Per MPI rank memory allocation (min/avg/max) = 25.92 | 25.95 | 25.99 Mbytes
+   Step          Temp          E_pair         E_mol          TotEng         Press     
+         0   0              0.0011997765   0              0.0011997765   0.010692698  
+     10000   0.29833602    -0.081956886    0             -0.036912074   -0.1709864    
+     20000   0.3058667     -0.1346707      0             -0.088488858   -0.13119871   
+     30000   0.31474925    -0.1654289      0             -0.11790591    -0.05864978   
+     40000   0.33829072    -0.18573833     0             -0.13466088    -0.18658353   
+     50000   0.33849497    -0.19916759     0             -0.14805931    -0.061633569  
+     60000   0.3233946     -0.20415752     0             -0.15532919     0.27478913   
+     70000   0.31077504    -0.20806665     0             -0.16114371    -0.21777019   
+     80000   0.30177656    -0.20765487     0             -0.16209058    -0.3018617    
+     90000   0.29944447    -0.21316623     0             -0.16795405     0.013647202  
+    100000   0.36025996    -0.21663901     0             -0.16224449     0.39741331   
+    110000   0.2982983     -0.22259516     0             -0.17755605     0.47961854   
+    120000   0.32708417    -0.22502542     0             -0.17564002     0.09602707   
+    130000   0.30181697    -0.22304725     0             -0.17747686     0.39515373   
+    140000   0.29124714    -0.22244685     0             -0.17847236    -0.1820868    
+    150000   0.3536619     -0.22125786     0             -0.16785957     0.030355439  
+    160000   0.34208605    -0.22030482     0             -0.16865433    -0.16206027   
+    170000   0.28612939    -0.22796575     0             -0.18476398     0.16788597   
+    180000   0.34244257    -0.22439446     0             -0.17269013    -0.17198691   
+    190000   0.30552185    -0.22246199     0             -0.17633221     0.20622561   
+    200000   0.32306812    -0.22470436     0             -0.17592533    -0.14337898   
+    210000   0.298936      -0.22217657     0             -0.17704117    -0.41694468   
+    220000   0.30407478    -0.22136824     0             -0.17545695    -0.043331095  
+    230000   0.306995      -0.2201245      0             -0.17377229    -0.21798394   
+    240000   0.30045882    -0.21451999     0             -0.16915467     0.20456865   
+    250000   0.2986337     -0.21601811     0             -0.17092835     0.19352846   
+    260000   0.30234991    -0.21722815     0             -0.17157729    -0.28912909   
+    270000   0.32046376    -0.21755631     0             -0.1691705     -0.090620202  
+    280000   0.32040827    -0.21781668     0             -0.16943925     0.089822692  
+    290000   0.31241953    -0.21841966     0             -0.17124842     0.061698979  
+    300000   0.30081975    -0.22094226     0             -0.17552243     0.2796298    
+    310000   0.29385658    -0.22313537     0             -0.17876689     0.29778759   
+    320000   0.31153253    -0.2197602      0             -0.17272289    -0.46476301   
+    330000   0.3212621     -0.22449878     0             -0.17599243     0.060525177  
+    340000   0.29153437    -0.22671471     0             -0.18269686    -0.051273642  
+    350000   0.31957756    -0.22848514     0             -0.18023314     0.086032703  
+    360000   0.30240106    -0.23127689     0             -0.18561831    -0.17756572   
+    370000   0.30995776    -0.22570345     0             -0.1789039      0.10686201   
+    380000   0.30019268    -0.22567202     0             -0.18034688    -0.17562281   
+    390000   0.32712983    -0.2224962      0             -0.1731039     -0.089179149  
+    400000   0.3201471     -0.22078679     0             -0.17244879    -0.0094224826 
+    410000   0.31031587    -0.22616814     0             -0.17931453     0.3016419    
+    420000   0.37098288    -0.22755581     0             -0.17154227    -0.16846885   
+    430000   0.35614717    -0.21978041     0             -0.16600687    -0.053287557  
+    440000   0.2917739     -0.22133954     0             -0.17728552     0.630022     
+    450000   0.30855564    -0.22236714     0             -0.1757793     -0.12605049   
+    460000   0.30388469    -0.22013434     0             -0.17425175    -0.21674335   
+    470000   0.31940368    -0.21482017     0             -0.16659442     0.10414811   
+    480000   0.29510209    -0.22010053     0             -0.175544       0.26658792   
+    490000   0.30994323    -0.22031538     0             -0.17351803     0.28007208   
+    500000   0.31898499    -0.22071862     0             -0.17255608     0.21329947   
+Loop time of 1005.09 on 3 procs for 500000 steps with 4560 atoms
+
+Performance: 42981.275 tau/day, 497.468 timesteps/s, 2.268 Matom-step/s
+93.9% CPU use with 3 MPI tasks x 1 OpenMP threads
+
+MPI task timing breakdown:
+Section |  min time  |  avg time  |  max time  |%varavg| %total
+---------------------------------------------------------------
+Pair    | 191.38     | 202.01     | 208.55     |  53.4 | 20.10
+Bond    | 0.21366    | 0.22883    | 0.23979    |   2.3 |  0.02
+Neigh   | 18.507     | 18.509     | 18.51      |   0.0 |  1.84
+Comm    | 47.456     | 53.91      | 64.482     | 102.6 |  5.36
+Output  | 0.12457    | 0.1264     | 0.12803    |   0.4 |  0.01
+Modify  | 716.36     | 717.09     | 717.55     |   1.9 | 71.35
+Other   |            | 13.22      |            |       |  1.31
+
+Nlocal:           1520 ave        1571 max        1468 min
+Histogram: 1 0 0 0 0 1 0 0 0 1
+Nghost:        3289.33 ave        3408 max        3131 min
+Histogram: 1 0 0 0 0 0 0 1 0 1
+Neighs:              0 ave           0 max           0 min
+Histogram: 3 0 0 0 0 0 0 0 0 0
+
+Total # of neighbors = 0
+Ave neighs/atom = 0
+Ave special neighs/atom = 2.0657895
+Neighbor list builds = 1341
+Dangerous builds = 0
+
+# Write data for deformation
+
+write_data data.hydrogel
+System init for write_data ...
+WARNING: Using a manybody potential with bonds/angles/dihedrals and special_bond exclusions (src/pair.cpp:243)
+Hybrid pair style last /omp style table/omp
+Last active /omp style is pair_style table/omp
+WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
+WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
+WARNING: More than one fix rigid command (src/RIGID/fix_rigid_small.cpp:529)
+WARNING: One or more atoms are time integrated more than once (src/modify.cpp:296)
+Total wall time: 0:16:53
