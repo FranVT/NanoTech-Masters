@@ -21,7 +21,7 @@ include potential.in
 # Molecules
 include molDeform.in
 
-fix BrDy all rigid/nve/small molecule langevin ${temp} ${temp} ${damp} 12345 omega yes # Brownian Dynamics: langevin + nve
+fix BrDy all rigid/nve/small molecule langevin ${temp} ${temp} ${damp} 12345 # Brownian Dynamics: langevin + nve
 fix_modify BrDy virial no
 
 thermo ${sstep}
