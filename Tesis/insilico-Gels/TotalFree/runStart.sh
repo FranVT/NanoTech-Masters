@@ -66,7 +66,7 @@ seed3=3124;
 tstep_defor=0.001;
 sstep_defor=10000;
 
-shear_rate=0.001;
+shear_rate=0.01;
 max_strain=12;
 Nstep_per_strain=$(echo "scale=$cs; $(echo "scale=$cs; 1 / $shear_rate" | bc) * $(echo "scale=$cs; 1 / $tstep_defor" | bc)" | bc) ;
 Nstep_per_strain=${Nstep_per_strain%.*};
