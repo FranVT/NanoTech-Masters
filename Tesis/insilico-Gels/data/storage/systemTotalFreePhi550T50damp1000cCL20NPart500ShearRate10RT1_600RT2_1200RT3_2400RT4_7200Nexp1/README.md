@@ -16,7 +16,7 @@
 - Packing fraction: 0.55
 - Time step: 0.001 [tau]
 - Number of time steps: 1000000
-- Save every 10000 time step
+- Save every 500 time step
 - Numer of Cross-Linkers: 10
 - Number of Monomers: 490
 
