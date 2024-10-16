@@ -63,7 +63,7 @@ seed2=4321;
 seed3=3124;
 
 ## Variables for shear deformation simulation
-tstep_defor=0.001;
+tstep_defor=0.00001;
 sstep_defor=10000;
 
 shear_rate=0.01;
