@@ -7,6 +7,13 @@ units lj
 dimension 3
 boundary p p p
 
+# Styles of atoms and that stuff
+atom_style bond
+bond_style zero nocoeff
+#pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 1.12 table/omp linear 5000000 threebody/table
+pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 1.12 sw/omp threebody off threebody/table
+newton on
+
 # Create simulaiton box
 region simulation_box block -$L $L -$L $L -$L $L
 # N-atom-types region-ID keyword value Is necesesary the extra/special/per/atom (# of special neighbors per atom)
@@ -20,13 +27,6 @@ mass 1 1.0      # CL
 mass 2 1.0      # MO
 mass 3 0.5      # PA
 mass 4 0.5      # PB
-
-# Styles of atoms and that stuff
-atom_style bond
-bond_style zero nocoeff
-#pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 1.12 table/omp linear 5000000 threebody/table
-pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 1.12 sw threebody off threebody/table
-newton on
 
 # Coefficients
 include potential.in
@@ -43,19 +43,20 @@ compute ep all pe
 compute ek all ke
 compute ekCM CM ke
 compute stressVirial all pressure t ke pair
-compute wcaPair all pair table/omp 1 epair
-compute patchPair all pair table/omp 2 epair
+compute wcaPair all pair lj/cut/omp epair
+compute patchPair all pair sw/omp epair
 compute swapPair all pair threebody/table epair
 compute disc CM displace/atom
 compute daux CM chunk/atom type pbc yes
 compute dis CM reduce/chunk daux sum c_disc[4]
 #compute disM CM reduce/chunk daux sum c_disc[4]
 
-fix BrDy all rigid/nve/small molecule 
-fix Br all langevin ${temp} ${temp} ${damp} 12345 # Brownian Dynamics: langevin + nve 
-thermo ${sstep}
+# Energy minimization
+minimize 1.0e-4 1.0e-6 1000 10000
 
 # DUMPS and FIXES
+
+thermo ${sstep}
 
 # Save atom positions
 dump dumpID all atom ${sstep} info/dumps/assembly/patchyParticles_assembly.*.dumpf
@@ -83,7 +84,20 @@ fix fixStress5 Stress ave/time 1 ${Nave} ${Nave} c_stressVirial[*] file info/str
 
 # RUN SIMULATION
 
+# Brownian Dynamics using Langevin Thermostat
+
+# Set the time integrator
+fix VelVerlet all nve/omp # Use Velocity Verlet integrator
 timestep ${tstep}
+
+# First elevate the temperature
+fix ThermoLng all langevin 0.0 ${temp} ${damp} 12345 # Brownian Dynamics: langevin + nve 
+run 1000000
+
+unfix ThermoLng
+
+# Now we let the system to create the polymeric network
+fix ThermoLng all langevin ${temp} ${temp} ${damp} 12345 # Brownian Dynamics: langevin + nve 
 run ${steps}
 
 # Write data for deformation
