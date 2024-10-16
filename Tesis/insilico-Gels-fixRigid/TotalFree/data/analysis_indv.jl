@@ -74,20 +74,24 @@ file_name = (
 
 
 
-parameters=getParameters(dirs,file_name);
+#parameters=getParameters(dirs,file_name);
 
 # Retrieve all the data from every experiment
-data=map(s->getData2(dirs[s],file_name[1:7],parameters[s]),eachindex(dirs));
+#data=map(s->getData2(dirs[s],file_name,parameters[s]),eachindex(dirs));
 
 # Separate the data from assembly and shear experiment
-data_assembly=first.(data);
-data_shear=last.(data);
+#data_assembly=first.(data);
+#data_shear=last.(data);
 
 # Create time and deformation arrays.
 time_assembly=range(0,parameters[1][9].*parameters[1][10],length=Int64(parameters[1][10]/10));
-tshear_aux=Int64(4*parameters[1][20]*parameters[1][17]+sum(parameters[1][21:24]));
-time_shear=range(0,parameters[1][15]*tshear_aux,length=Int64(tshear_aux/1000));
-time_deform=range(last(time_assembly),last(time_assembly)+parameters[1][15]tshear_aux,length=Int64(tshear_aux/10));
+
+
+tshear_aux=map(s->range(1,s,step=1)*parameters[1][15].+last(time_assembly) ,length.(map(s->s[1],data_shear)));
+
+#tshear_aux=Int64(4*parameters[1][20]*parameters[1][17]+sum(parameters[1][21:24]));
+#time_shear=range(0,parameters[1][15]*tshear_aux,length=Int64.(tshear_aux/1000));
+#time_deform=range(last(time_assembly),last(time_assembly)+parameters[1][15]tshear_aux,length=Int64.(tshear_aux/10));
 
 time_rlxaux=Int64(parameters[1][15]*parameters[1][20]*parameters[1][17]);
 time_rlxo1=time_rlxaux;
@@ -112,11 +116,11 @@ gamma=reduce(vcat,[deform1,rlx1,deform2,rlx2,deform3,rlx3,deform4,rlx4]);
 
 # Labels
 lblaux_CL=map(s->Int64.(round(s[3]*100)),parameters);
-lblaux_T=map(s->s[5],parameters);
 lblaux_damp=map(s->s[6],parameters);
+lblaux_gammadot=map(s->s[19],parameters);
 #auxsdir=map(s->s[2],split.(dirs,"/"));
 #labels_CL=string.(first.(split.(dirs,"/"))," CL=",aux_CL,"%");
-labels_CL=string.("T=",lblaux_T,", CL=",lblaux_CL,"%, damp=",lblaux_damp);
+labels_CL=string.("CL=",lblaux_CL,"%, damp=",lblaux_damp,L"\dot{\gamma}=",lblaux_gammadot);
 
 
 
@@ -162,11 +166,14 @@ ax_tcp = Axis(fig_Temp[2,1:2],
     )
 
 series!(ax_t,time_assembly,reduce(hcat,map(s->s[1],data_assembly))',color=csh)
-series!(ax_t,time_deform,reduce(hcat,map(s->s[1],data_shear))',color=csh)
+#series!(ax_t,time_deform,reduce(hcat,map(s->s[1],data_shear))',color=csh)
+map(s->lines!(ax_t,tshear_aux[s],data_shear[s][1]),eachindex(dirs))
+
+
 vlines!(ax_t,last(time_assembly),linestyle=:dash,color=:black)
 
 series!(ax_tcp,time_assembly,reduce(hcat,map(s->s[2],data_assembly))',color=csh)
-series!(ax_tcp,time_deform,reduce(hcat,map(s->s[2],data_shear))',color=csh)
+#series!(ax_tcp,time_deform,reduce(hcat,map(s->s[2],data_shear))',color=csh)
 vlines!(ax_tcp,last(time_assembly),linestyle=:dash,color=:black)
 
 series!(ax_leg,zeros(length(dirs),length(dirs)),linestyle=:solid,color=csh,labels=labels_CL)
@@ -179,6 +186,7 @@ Legend(fig_Temp[1:2,3],ax_leg,
        patchsize=(35,35)
       )
 
+#=
 
 
 # Total energy and Log
@@ -536,4 +544,4 @@ Legend(fig_Displ[1:2,3],ax_leg,
        patchsize=(35,35)
       )
 
-
+=#
