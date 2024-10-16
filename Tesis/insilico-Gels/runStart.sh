@@ -8,7 +8,7 @@
 ## Start the for loop
 for var_cCL in 0.02; #0.06 0.1;
 do 
-for Nexp in 2; #$(seq 1 15);
+for Nexp in 3; #$(seq 1 15);
 do
 
 # Cifras significativas
