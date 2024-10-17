@@ -10,5 +10,5 @@ env OMP_RUN_THREADS=1 mpirun -np 4 lmp -sf omp -in in.assembly.lmp -var temp 0.0
 
 cp -r info ..;
 cd ..;
-mv -f info data/storage/systemTotalFreePhi550T50damp1000cCL20NPart500ShearRate10RT1_600RT2_1200RT3_2400RT4_7200Nexp4;
-cd data/storage/systemTotalFreePhi550T50damp1000cCL20NPart500ShearRate10RT1_600RT2_1200RT3_2400RT4_7200Nexp4/info; mv dumps ..; cd ..; cd ..; cd ..; cd ..;
+mv -f info data/storage/systemTotalFreePhi550T50damp1000cCL20NPart500ShearRate10RT1_600RT2_1200RT3_2400RT4_7200Nexp6;
+cd data/storage/systemTotalFreePhi550T50damp1000cCL20NPart500ShearRate10RT1_600RT2_1200RT3_2400RT4_7200Nexp6/info; mv dumps ..; cd ..; cd ..; cd ..; cd ..;
