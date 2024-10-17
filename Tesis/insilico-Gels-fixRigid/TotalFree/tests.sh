@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for n in $(seq 1 10);
+for n in 2; #$(seq 1 10);
 do 
     echo $n
 done
