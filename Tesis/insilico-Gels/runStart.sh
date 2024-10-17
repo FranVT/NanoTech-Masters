@@ -23,7 +23,7 @@ r_Patch=0.4;
 phi=0.55;
 CL_concentration=$var_cCL; #0.1;
 N_particles=500;
-damp=1; #0.05;
+damp=10; #0.05;
 T=0.05;
 
 # Number of monomers and cross-linkers given concentration an total amount of patchy particles
