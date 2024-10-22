@@ -26,10 +26,9 @@ group PA type 3
 group CM type 1 2
 
 # Fix rigid bodies
-fix frCL CrossLinker rigid/small/omp molecule
-fix frMO Monomer rigid/small/omp molecule
+fix rigiBodies all rigid/small/omp molecule
 
 # Neighbor list
-neighbor 1.12 bin # extra-distance style
+neighbor 1.8 bin # extra-distance style
 neigh_modify exclude molecule/intra CrossLinker
 neigh_modify exclude molecule/intra Monomer
