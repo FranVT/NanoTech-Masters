@@ -5,10 +5,16 @@
 #!/bin/bash
 
 
+# clean the directory from previus simulations
+cd sim;
+rm -f runSim*;
+rm -rf info*;
+cd ..; 
+
 ## Start the for loop
-for var_cCL in 0.02; #0.06 0.1;
+for var_cCL in 0.25; #0.06 0.1;
 do 
-for Nexp in 9; #$(seq 1 15);
+for Nexp in 2; #$(seq 1 15);
 do
 
 # Cifras significativas
@@ -22,7 +28,7 @@ r_Patch=0.4;
 # Main parameters of the simulation
 phi=0.55;
 CL_concentration=$var_cCL; #0.1;
-N_particles=500;
+N_particles=60;
 damp=1; #0.05;
 T=0.05;
 
@@ -66,7 +72,7 @@ seed3=3124;
 tstep_defor=0.001;
 sstep_defor=10000;
 
-shear_rate=0.01;
+shear_rate=0.1;
 max_strain=4;
 Nstep_per_strain=$(echo "scale=$cs; $(echo "scale=$cs; 1 / $shear_rate" | bc) * $(echo "scale=$cs; 1 / $tstep_defor" | bc)" | bc) ;
 Nstep_per_strain=${Nstep_per_strain%.*};
@@ -190,26 +196,32 @@ cd ..; cd ..; cd ..;
 cd sim;
 
 # Create the execute bash script
-file_name="runSim.sh";
-rm -f $file_name
+file_name=""runSim_CL"${var_cCL}"N"${Nexp}".sh"";
+info_name=""infoPhi"${phi_aux}"T"${T_aux}"damp"${damp_aux}"cCL"${CL_con}"NPart"${N_particles}"ShearRate"${shear_aux}"RT1_"${rt1_aux}"RT2_"${rt2_aux}"RT3_"${rt3_aux}"RT4_"${rt4_aux}"Nexp"${Nexp}";
+dump_name=""dumpPhi"${phi_aux}"T"${T_aux}"damp"${damp_aux}"cCL"${CL_con}"NPart"${N_particles}"ShearRate"${shear_aux}"RT1_"${rt1_aux}"RT2_"${rt2_aux}"RT3_"${rt3_aux}"RT4_"${rt4_aux}"Nexp"${Nexp}";
+
+nodes=4;
+
 touch $file_name;
 echo -e "#!/bin/bash" >> $file_name;
 echo -e "" >> $file_name;
-echo -e "rm -f -r info;" >> $file_name;
-echo -e "mkdir info;" >> $file_name;
-echo -e "cd info; mkdir dumps; cd dumps;" >> $file_name;
-echo -e "mkdir assembly; mkdir shear; cd ..; cd ..;" >> $file_name;
+echo -e "mkdir $info_name;" >> $file_name;
+echo -e "mkdir $dump_name;" >> $file_name;
+#echo -e "cd $info_name; mkdir dumps; cd dumps;" >> $file_name;
+echo -e "cd $dump_name; mkdir assembly; mkdir shear; cd ..;" >> $file_name;
 echo -e "" >> $file_name;
-#echo -e "env OMP_RUN_THREADS=1 mpirun -np 4 lmp -sf omp -in in.assembly.lmp -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3 -var steps $steps -var tstep $tstep -var sstep $sstep -var Nave $Nave" >> $file_name;
+echo -e "env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.assembly.lmp -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3 -var steps $steps -var tstep $tstep -var sstep $sstep -var Nave $Nave -var Dir $info_name -var dumpDir $dump_name" >> $file_name;
 echo -e "" >> $file_name;
-echo -e "env OMP_RUN_THREADS=1 mpirun -np 4 lmp -sf omp -in in.shear.lmp -var temp $T -var damp $damp -var tstep $tstep_defor -var sstep $sstep_defor -var shear_rate $shear_rate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var seed3 $seed3 -var Nave $Nave -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var rlxT4 $relaxTime4" >> $file_name;
+echo -e "env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.shear.lmp -var temp $T -var damp $damp -var tstep $tstep_defor -var sstep $sstep_defor -var shear_rate $shear_rate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var seed3 $seed3 -var Nave $Nave -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var rlxT4 $relaxTime4 -var Dir $info_name -var dumpDir $dump_name" >> $file_name;
 echo -e "" >> $file_name;
-echo -e "cp -r info ..;" >> $file_name;
+echo -e "mv $info_name ..; mv $dump_name ..;" >> $file_name;
 echo -e "cd ..;" >> $file_name;
-echo -e "mv -f info data/storage/$dir_name;" >> $file_name;
-echo -e "cd data/storage/$dir_name/info; mv dumps ..; cd ..; cd ..; cd ..; cd ..;" >> $file_name;
+echo -e "mv -f $info_name data/storage/$dir_name/info;" >> $file_name;
+echo -e "mv -f $dump_name data/storage/dumps;" >> $file_name;
 
-bash runSim.sh
+#echo -e "cd data/storage/$dir_name/info; mv dumps ..; cd ..; cd ..; cd ..; cd ..;" >> $file_name;
+
+bash $file_name
 
 cd ..;
 

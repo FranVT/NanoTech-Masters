@@ -26,7 +26,8 @@ group PA type 3
 group CM type 1 2
 
 # Fix rigid bodies
-fix rigiBodies all rigid/small/omp molecule
+fix rigidBodies all rigid/small/omp molecule
+fix_modify rigidBodies virial no # No contribution to the stress
 
 # Neighbor list
 neighbor 1.8 bin # extra-distance style

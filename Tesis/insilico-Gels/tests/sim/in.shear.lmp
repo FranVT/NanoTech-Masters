@@ -27,6 +27,7 @@ include molDeform.in
 # Compute global kinetic and potential energy and temperature
 compute t all temp
 compute tCM CM temp
+compute p all pressure t
 compute ep all pe
 compute ek all ke
 compute ekCM CM ke
@@ -43,7 +44,7 @@ compute dis CM reduce/chunk daux sum c_disc[4]
 # DUMPS and FIXES
 
 # Save atom positions
-dump dumpID all atom ${Nsave} info/dumps/shear/patchyParticles_shear.*.dumpf
+dump dumpID all atom ${Nsave} ${dumpDir}/shear/patchyParticles_shear.*.dumpf
 dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
 
 # Save global energies and temperature
@@ -52,19 +53,19 @@ group PairE1 empty
 group PairE2 empty
 group PairE3 empty
 
-fix fixEng Energy ave/time 1 10 10 c_t c_ep c_ek c_tCM file info/energy_shear.fixf
+fix fixEng Energy ave/time 1 10 10 c_t c_ep c_ek c_tCM c_p file ${Dir}/energy_shear.fixf
 
-fix fixwca PairE1 ave/time 1 10 10 c_wcaPair file info/wcaPair_shear.fixf
-fix fixpatch PairE2 ave/time 1 10 10 c_patchPair file info/patchPair_shear.fixf
-fix fixswap PairE3 ave/time 1 10 10 c_swapPair file info/swapPair_shear.fixf
+fix fixwca PairE1 ave/time 1 10 10 c_wcaPair file ${Dir}/wcaPair_shear.fixf
+fix fixpatch PairE2 ave/time 1 10 10 c_patchPair file ${Dir}/patchPair_shear.fixf
+fix fixswap PairE3 ave/time 1 10 10 c_swapPair file ${Dir}/swapPair_shear.fixf
 
 # Save Atom displacement
 group Displ empty
-fix fixDispl Displ ave/time 1 ${Nave} ${Nave} c_dis[1] c_dis[2] c_dis[3] c_dis[4] file info/cmdisplacement_shear.fixf
+fix fixDispl Displ ave/time 1 ${Nave} ${Nave} c_dis[1] c_dis[2] c_dis[3] c_dis[4] file ${Dir}/cmdisplacement_shear.fixf
 
 # Save Stress tensor
 group Stress empty
-fix fixStress5 Stress ave/time 1 ${Nave} ${Nave} c_stressVirial[*] file info/stressVirial_shear.fixf
+fix fixStress5 Stress ave/time 1 ${Nave} ${Nave} c_stressVirial[*] file ${Dir}/stressVirial_shear.fixf
 
 thermo ${sstep}
 
@@ -77,7 +78,7 @@ fix VelVerlet all nve/omp # Use Velocity Verlet integrator
 fix ThermoLng all langevin ${temp} ${temp} ${damp} 12345 # Brownian Dynamics: langevin + nve
 
 variable shearDirection equal xy
-variable maxTilt equal 0.25*lx
+variable maxTilt equal 0.5*lx
 variable restoreTilt equal -v_maxTilt
 variable shear_distance equal ${shear_rate}*lx*${tstep}
 
