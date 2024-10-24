@@ -36,13 +36,13 @@ file_name = (
              "patchPair_assembly.fixf",
              "swapPair_assembly.fixf",
              "cmdisplacement_assembly.fixf",
-             "stressVirial_assembly.fixf"#=,
+             "stressVirial_assembly.fixf",
              "energy_shear.fixf",
              "wcaPair_shear.fixf",
              "patchPair_shear.fixf",
              "swapPair_shear.fixf",
              "cmdisplacement_shear.fixf",
-             "stressVirial_shear.fixf"=#
+             "stressVirial_shear.fixf"
             );
 
 #"""
@@ -88,13 +88,13 @@ data_shear=last.(data);
 time_assembly=range(0,parameters[1][9].*parameters[1][10],length=length(data_assembly[1][1]));  #Int64(parameters[1][10]/10));
 
 
-#tshear_aux=map(s->range(1,s,step=1)*parameters[1][15].+last(time_assembly) ,length.(map(s->s[1],data_shear)));
+tshear_aux=map(s->range(1,s,step=1)*parameters[1][15].+last(time_assembly) ,length.(map(s->s[1],data_shear)));
 
-#tshear_aux=Int64(4*parameters[1][20]*parameters[1][17]+sum(parameters[1][21:24]));
-#time_shear=range(0,parameters[1][15]*tshear_aux,length=Int64.(tshear_aux/1000));
-#time_deform=range(last(time_assembly),last(time_assembly)+parameters[1][15]tshear_aux,length=Int64.(tshear_aux/10));
+tshear_aux=Int64(4*parameters[1][20]*parameters[1][17]+sum(parameters[1][21:24]));
+time_shear=range(0,parameters[1][15]*tshear_aux,length=Int64.(tshear_aux/1000));
+time_deform=range(last(time_assembly),last(time_assembly)+parameters[1][15]tshear_aux,length=Int64.(tshear_aux/10));
 
-#=
+
 time_rlxaux=Int64(parameters[1][15]*parameters[1][20]*parameters[1][17]);
 time_rlxo1=time_rlxaux;
 time_rlxf1=time_rlxo1+parameters[1][15]*parameters[1][21];
@@ -115,7 +115,7 @@ deform4=range(last(deform3),last(deform3)+parameters[1][20],length=Int64(paramet
 rlx4=last(deform4).*ones(Int64(parameters[1][24]/1000));
 
 gamma=reduce(vcat,[deform1,rlx1,deform2,rlx2,deform3,rlx3,deform4,rlx4]);
-=#
+
 
 # Labels
 lblaux_CL=map(s->Int64.(round(s[3]*100)),parameters);
@@ -169,15 +169,17 @@ ax_tcp = Axis(fig_Temp[2,1:2],
     )
 
 series!(ax_t,time_assembly,reduce(hcat,map(s->s[1],data_assembly))',color=csh)
-#series!(ax_t,time_deform,reduce(hcat,map(s->s[1],data_shear))',color=csh)
+series!(ax_t,time_deform,reduce(hcat,map(s->s[1],data_shear))',color=csh)
 #map(s->lines!(ax_t,tshear_aux[s],data_shear[s][1]),eachindex(dirs))
+vlines!(ax_t,[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash,color=:black)
 
 
 vlines!(ax_t,last(time_assembly),linestyle=:dash,color=:black)
 
 series!(ax_tcp,time_assembly,reduce(hcat,map(s->s[2],data_assembly))',color=csh)
-#series!(ax_tcp,time_deform,reduce(hcat,map(s->s[2],data_shear))',color=csh)
+series!(ax_tcp,time_deform,reduce(hcat,map(s->s[2],data_shear))',color=csh)
 vlines!(ax_tcp,last(time_assembly),linestyle=:dash,color=:black)
+vlines!(ax_tcp,[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash,color=:black)
 
 series!(ax_leg,zeros(length(dirs),length(dirs)),linestyle=:solid,color=csh,labels=labels_CL)
 
@@ -225,17 +227,17 @@ ax_Elo = Axis(fig_Energy[2,1:2],
         xminorgridvisible = true,
         xminorticks = IntervalsBetween(5),
         xscale = log10,
-        limits = (10e0,exp10(round(log10( length(time_assembly)#=+length(time_deform)=#))),nothing,nothing)
+        limits = (10e0,exp10(round(log10( length(time_assembly)+length(time_deform)))),nothing,nothing)
     )
 
 println("Plotting lines")
 
 series!(ax_E,time_assembly,reduce(hcat,map(s->s[5],data_assembly))',color=csh)
-#series!(ax_E,time_deform,reduce(hcat,map(s->s[5],data_shear))',color=csh)
+series!(ax_E,time_deform,reduce(hcat,map(s->s[5],data_shear))',color=csh)
 vlines!(ax_E,last(time_assembly),linestyle=:dash,color=:black)
 
 series!(ax_Elo,eachindex(time_assembly),reduce(hcat,map(s->s[5],data_assembly))',color=csh)
-#series!(ax_Elo,eachindex(time_deform).+length(time_assembly),reduce(hcat,map(s->s[5],data_shear))',color=csh)
+series!(ax_Elo,eachindex(time_deform).+length(time_assembly),reduce(hcat,map(s->s[5],data_shear))',color=csh)
 vlines!(ax_Elo,length(time_assembly),linestyle=:dash,color=:black)
 
 series!(ax_leg,zeros(length(dirs),length(dirs)),linestyle=:solid,color=csh,labels=labels_CL)
