@@ -11,7 +11,7 @@ The rest of directories will be focused for class notes or homeworks or other st
 The main goal of the project is to explore the mechanical response of soft matter under shear deformations.
 Whereas it is known that is complicated to find funding for experimental set ups in Mexico, the exploration is performed by means of computer simulations.
 
-The soft matter system is based on a model for hydro-gels [^1] using patchy particles and the main numeric tool is LAMMPS [[2]](#2). [Eventually I will add the references.] 
+The soft matter system is based on a model for hydro-gels[^1] using patchy particles and the main numeric tool is LAMMPS [[2]](#2).
 This model utilizes implicit liquid phase, via langevin thermostat, and the patchy particles are the solid phase of the gel.
 Our main interest is how the networks structures of the gels affect the mechanical response.
 
@@ -25,7 +25,20 @@ The goals of the simulations are,
 
 
 
+
 ---
+
+# People in the project
+
+- Advisors:
+   - Antonio Ortiz
+   - Claudia Ferreiro
+- Students
+   - Fco. Vazquez
+   - Felipe Benavides (Help with the yield stress behaviour and development of the LAMMPS scripts.)
+
+---
+
 # Bibliography
 
 <a id="2">[2]</a>
