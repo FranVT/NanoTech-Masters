@@ -21,7 +21,7 @@ This model utilizes implicit liquid phase, via langevin thermostat, and the patc
 # Bibliography
 
 # Footnotes
- [^1] So...  technically, this simulations are not modeling Hydro-gels because there is no swelling mechanism added.
+[^1]: So...  technically, this simulations are not modeling Hydro-gels because there is no swelling mechanism added.
 However, it does simulate a gel.
 
 --- 
