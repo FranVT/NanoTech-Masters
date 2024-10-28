@@ -2,7 +2,7 @@
 *.gif
 *.aux
 *log
-**/log.lammps
+*.lammps
 *.bbl
 *.toc
 *.fls
