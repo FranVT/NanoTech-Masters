@@ -12,9 +12,9 @@ rm -rf info*;
 cd ..; 
 
 ## Start the for loop
-for var_cCL in 0.25; #0.06 0.1;
+for var_cCL in 0.02; #0.06 0.1;
 do 
-for Nexp in 2; #$(seq 1 15);
+for Nexp in 1; #$(seq 1 15);
 do
 
 # Cifras significativas
@@ -28,7 +28,7 @@ r_Patch=0.4;
 # Main parameters of the simulation
 phi=0.55;
 CL_concentration=$var_cCL; #0.1;
-N_particles=60;
+N_particles=100;
 damp=1; #0.05;
 T=0.05;
 
@@ -72,8 +72,8 @@ seed3=3124;
 tstep_defor=0.001;
 sstep_defor=10000;
 
-shear_rate=0.1;
-max_strain=4;
+shear_rate=0.01;
+max_strain=2;
 Nstep_per_strain=$(echo "scale=$cs; $(echo "scale=$cs; 1 / $shear_rate" | bc) * $(echo "scale=$cs; 1 / $tstep_defor" | bc)" | bc) ;
 Nstep_per_strain=${Nstep_per_strain%.*};
 
@@ -81,7 +81,7 @@ shear_it=$(( $max_strain * $Nstep_per_strain));
 Nsave=500;
 Nave=$(echo "scale=$cs; 1 / $tstep_defor" | bc);
 Nave=${Nave%.*};
-cycles=4;
+cycles=1;
 
 relaxTime1=$(( 6 * $Nstep_per_strain ));
 relaxTime2=$(( 2 * $relaxTime1)); 
@@ -200,7 +200,7 @@ file_name=""runSim_CL"${var_cCL}"N"${Nexp}".sh"";
 info_name=""infoPhi"${phi_aux}"T"${T_aux}"damp"${damp_aux}"cCL"${CL_con}"NPart"${N_particles}"ShearRate"${shear_aux}"RT1_"${rt1_aux}"RT2_"${rt2_aux}"RT3_"${rt3_aux}"RT4_"${rt4_aux}"Nexp"${Nexp}";
 dump_name=""dumpPhi"${phi_aux}"T"${T_aux}"damp"${damp_aux}"cCL"${CL_con}"NPart"${N_particles}"ShearRate"${shear_aux}"RT1_"${rt1_aux}"RT2_"${rt2_aux}"RT3_"${rt3_aux}"RT4_"${rt4_aux}"Nexp"${Nexp}";
 
-nodes=4;
+nodes=8;
 
 touch $file_name;
 echo -e "#!/bin/bash" >> $file_name;

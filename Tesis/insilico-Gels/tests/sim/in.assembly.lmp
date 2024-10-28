@@ -88,17 +88,27 @@ fix fixStress5 Stress ave/time 1 ${Nave} ${Nave} c_stressVirial[*] file ${Dir}/s
 # Brownian Dynamics using Langevin Thermostat
 
 # Set the time integrator
-fix VelVerlet all nve/omp # Use Velocity Verlet integrator
+#fix VelVerlet all nve/omp # Use Velocity Verlet integrator
 timestep ${tstep}
 
 # First elevate the temperature
-fix ThermoLng all langevin 0.0 ${temp} ${damp} 12345 # Brownian Dynamics: langevin + nve 
+#fix ThermoLng all langevin 0.0 ${temp} ${damp} 12345 # Brownian Dynamics: langevin + nve 
+
+fix rigidBodies all rigid/nve/small molecule langevin 0.0 ${temp} ${damp} 12345
+fix_modify rigidBodies virial no # No contribution to the stress
+
 run 1000000
 
-unfix ThermoLng
+unfix rigidBodies
 
 # Now we let the system to create the polymeric network
-fix ThermoLng all langevin ${temp} ${temp} ${damp} 12345 # Brownian Dynamics: langevin + nve 
+#fix ThermoLng all langevin ${temp} ${temp} ${damp} 12345 # Brownian Dynamics: langevin + nve 
+
+fix rigidBodies all rigid/nve/small molecule langevin ${temp} ${temp} ${damp} 12345
+fix_modify rigidBodies virial no # No contribution to the stress
+
+
+
 run ${steps}
 
 # Write data for deformation

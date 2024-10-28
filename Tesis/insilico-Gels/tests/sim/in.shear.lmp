@@ -74,8 +74,11 @@ thermo ${sstep}
 # Brownian Dynamics using Langevin Thermostat
 
 # Set the time integrator
-fix VelVerlet all nve/omp # Use Velocity Verlet integrator
-fix ThermoLng all langevin ${temp} ${temp} ${damp} 12345 # Brownian Dynamics: langevin + nve
+#fix VelVerlet all nve/omp # Use Velocity Verlet integrator
+#fix ThermoLng all langevin ${temp} ${temp} ${damp} 12345 # Brownian Dynamics: langevin + nve
+
+fix rigidBodies all rigid/nve/small molecule langevin ${temp} ${temp} ${damp} 12345
+fix_modify rigidBodies virial no # No contribution to the stress
 
 variable shearDirection equal xy
 variable maxTilt equal 0.5*lx
@@ -87,58 +90,23 @@ run ${shear_it} post no every 1 &
    "change_box all xy delta ${shear_distance} remap units box" &
    "if '${shearDirection} >= ${maxTilt}' then 'change_box all xy final ${restoreTilt} remap units box'"
 
+run ${rlxT1}
 
+run ${shear_it} post no every 1 &
+   "change_box all xy delta ${shear_distance} remap units box" &
+   "if '${shearDirection} >= ${maxTilt}' then 'change_box all xy final ${restoreTilt} remap units box'"
 
+run ${rlxT2}
 
-# Introduce deformation
-#fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
+run ${shear_it} post no every 1 &
+   "change_box all xy delta ${shear_distance} remap units box" &
+   "if '${shearDirection} >= ${maxTilt}' then 'change_box all xy final ${restoreTilt} remap units box'"
 
-# Run deformation
-#timestep ${tstep}
-#run ${shear_it}
+run ${rlxT3}
 
-# Stop deformation
-#unfix shear
+run ${shear_it} post no every 1 &
+   "change_box all xy delta ${shear_distance} remap units box" &
+   "if '${shearDirection} >= ${maxTilt}' then 'change_box all xy final ${restoreTilt} remap units box'"
 
-# Relax time
-#run ${rlxT1}
-
-# Introduce deformation
-#fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
-
-# Re-run deformation
-#timestep ${tstep}
-#run ${shear_it}
-
-# Stop deformation
-#unfix shear
-
-# Relax time
-#run ${rlxT2}
-
-# Introduce deformation
-#fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
-
-# Re-run deformation
-#timestep ${tstep}
-#run ${shear_it}
-
-# Stop deformation
-#unfix shear
-
-# Relax time
-#run ${rlxT3}
-
-# Introduce deformation
-#fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
-
-# Re-run deformation
-#timestep ${tstep}
-#run ${shear_it}
-
-# Stop deformation
-#unfix shear
-
-# Relax time
-#run ${rlxT4}
+run ${rlxT4}
 
