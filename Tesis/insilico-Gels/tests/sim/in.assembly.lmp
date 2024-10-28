@@ -92,9 +92,9 @@ fix fixStress5 Stress ave/time 1 ${Nave} ${Nave} c_stressVirial[*] file ${Dir}/s
 timestep ${tstep}
 
 # First elevate the temperature
-#fix ThermoLng all langevin 0.0 ${temp} ${damp} 12345 # Brownian Dynamics: langevin + nve 
+#fix ThermoLng all langevin 0.0 ${temp} ${damp} ${seed3} # Brownian Dynamics: langevin + nve 
 
-fix rigidBodies all rigid/nve/small molecule langevin 0.0 ${temp} ${damp} 12345
+fix rigidBodies all rigid/nve/small molecule langevin 0.0 ${temp} ${damp} ${seed3}
 fix_modify rigidBodies virial no # No contribution to the stress
 
 run 1000000

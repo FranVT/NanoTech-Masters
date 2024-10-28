@@ -14,11 +14,16 @@ cd ..;
 ## Start the for loop
 for var_cCL in 0.02; #0.06 0.1;
 do 
-for Nexp in 1; #$(seq 1 15);
+for Nexp in $(seq 1 15);
 do
 
 # Cifras significativas
 cs=6;
+
+# Seed for random numbers
+seed1=$((1234 + $Nexp)); # Position of CL and MO
+seed2=$((4321 + $Nexp)); # Position of Cl and MO
+seed3=$((3124 + $Nexp)); # Langevin Thermostat
 
 # Parameters of the model
 # Radii of the main and patch particles
@@ -28,7 +33,7 @@ r_Patch=0.4;
 # Main parameters of the simulation
 phi=0.55;
 CL_concentration=$var_cCL; #0.1;
-N_particles=100;
+N_particles=50;
 damp=1; #0.05;
 T=0.05;
 
@@ -64,9 +69,6 @@ L=$(echo "scale=$cs; $L_real / 2" | bc);
 steps=1000000;
 tstep=0.001;
 sstep=500;
-seed1=1234;
-seed2=4321;
-seed3=3124;
 
 ## Variables for shear deformation simulation
 tstep_defor=0.001;
