@@ -13,10 +13,10 @@ group CM type 1 2
 # Fix rigid bodies
 #fix pCL CrossLinker rigid/small/omp molecule #langevin 1.0 1.0 100.0 ${seed3}
 #fix pMO Monomer rigid/small/omp molecule #langevin 1.0 1.0 100.0 ${seed3}
-fix rigidBodies all rigid/small/omp molecule
-fix_modify rigidBodies virial no # No contribution to the stress
+#fix rigidBodies all rigid/small/omp molecule
+#fix_modify rigidBodies virial no # No contribution to the stress
 
 # Neighbor list
 neighbor 1.8 bin # extra-distance style
-#neigh_modify exclude molecule/intra CrossLinker
-#neigh_modify exclude molecule/intra Monomer
+neigh_modify exclude molecule/intra CrossLinker
+neigh_modify exclude molecule/intra Monomer
