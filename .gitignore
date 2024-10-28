@@ -1,7 +1,7 @@
 *.jld
 *.gif
 *.aux
-*.log
+*log
 **/log.lammps
 *.bbl
 *.toc
