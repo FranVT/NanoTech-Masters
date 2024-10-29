@@ -33,7 +33,7 @@ r_Patch=0.4;
 # Main parameters of the simulation
 phi=0.55;
 CL_concentration=$var_cCL; #0.1;
-N_particles=50;
+N_particles=100;
 damp=1; #0.05;
 T=0.05;
 
