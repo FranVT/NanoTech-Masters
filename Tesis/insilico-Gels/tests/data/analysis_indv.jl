@@ -16,6 +16,8 @@ dirs_aux = open("dirs.txt") do f
 
 dirs=dirs_aux;
 
+#=
+
 # File names 
 file_name = (
              "parameters",
@@ -245,6 +247,8 @@ Legend(fig_Energy[1:2,3],ax_leg,
        L"\mathrm{Concentration~and~damp}",
        patchsize=(35,35)
       )
+
+=#
 
 #=
 

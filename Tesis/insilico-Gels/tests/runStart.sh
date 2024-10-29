@@ -12,7 +12,7 @@ rm -rf info*;
 cd ..; 
 
 ## Start the for loop
-for var_cCL in 0.02; #0.06 0.1;
+for var_cCL in 0.03; #0.06 0.1;
 do 
 for Nexp in $(seq 1 15);
 do
