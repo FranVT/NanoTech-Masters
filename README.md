@@ -1,4 +1,4 @@
-# Nanotechonolgy Masters degree homeworks and othre stuff
+# Nanotechonolgy Masters degree homeworks and other stuff
 
 Hello, this repository is created for my Master's Degree project and miscellaneous content like notes or homeworks.
 The "main" directory of the repository is "Tesis" where you can find files and documentations that I have been developing for the Thesis project.

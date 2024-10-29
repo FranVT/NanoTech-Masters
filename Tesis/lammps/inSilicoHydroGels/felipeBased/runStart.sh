@@ -12,13 +12,18 @@ rm -rf info*;
 cd ..; 
 
 ## Start the for loop
-for var_cCL in 0.25; #0.06 0.1;
+for var_cCL in 0.1; #0.06 0.1;
 do 
 for Nexp in 2; #$(seq 1 15);
 do
 
 # Cifras significativas
 cs=6;
+
+# Seed for random numbers
+seed1=$((1234 + $Nexp)); # Position of CL and MO
+seed2=$((4321 + $Nexp)); # Position of Cl and MO
+seed3=$((3124 + $Nexp)); # Langevin Thermostat
 
 # Parameters of the model
 # Radii of the main and patch particles
@@ -28,8 +33,8 @@ r_Patch=0.4;
 # Main parameters of the simulation
 phi=0.55;
 CL_concentration=$var_cCL; #0.1;
-N_particles=60;
-damp=1; #0.05;
+N_particles=50;
+damp=0.1; #0.05;
 T=0.05;
 
 # Number of monomers and cross-linkers given concentration an total amount of patchy particles
@@ -64,16 +69,13 @@ L=$(echo "scale=$cs; $L_real / 2" | bc);
 steps=1000000;
 tstep=0.001;
 sstep=500;
-seed1=1234;
-seed2=4321;
-seed3=3124;
 
 ## Variables for shear deformation simulation
 tstep_defor=0.001;
 sstep_defor=10000;
 
-shear_rate=0.1;
-max_strain=4;
+shear_rate=0.01;
+max_strain=2;
 Nstep_per_strain=$(echo "scale=$cs; $(echo "scale=$cs; 1 / $shear_rate" | bc) * $(echo "scale=$cs; 1 / $tstep_defor" | bc)" | bc) ;
 Nstep_per_strain=${Nstep_per_strain%.*};
 
@@ -81,7 +83,7 @@ shear_it=$(( $max_strain * $Nstep_per_strain));
 Nsave=500;
 Nave=$(echo "scale=$cs; 1 / $tstep_defor" | bc);
 Nave=${Nave%.*};
-cycles=4;
+cycles=2;
 
 relaxTime1=$(( 6 * $Nstep_per_strain ));
 relaxTime2=$(( 2 * $relaxTime1)); 
