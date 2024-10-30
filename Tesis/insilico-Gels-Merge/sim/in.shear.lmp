@@ -96,8 +96,6 @@ run ${shear_it} post no every 1 &
 
 run ${rlxT2}
 
-<<<<<<< HEAD
-=======
 run ${shear_it} post no every 1 &
    "change_box all xy delta ${shear_distance} remap units box" &
    "if '${shearDirection} >= ${maxTilt}' then 'change_box all xy final ${restoreTilt} remap units box'"
@@ -109,5 +107,4 @@ run ${shear_it} post no every 1 &
    "if '${shearDirection} >= ${maxTilt}' then 'change_box all xy final ${restoreTilt} remap units box'"
 
 run ${rlxT4}
->>>>>>> f0a3c023454c93cfbbb48efaa55ccf94335aa027
 

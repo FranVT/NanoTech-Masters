@@ -14,7 +14,7 @@ cd ..;
 ## Start the for loop
 for var_cCL in 0.03; #0.06 0.1;
 do 
-for Nexp in $(seq 1 15);
+for Nexp in 100; #$(seq 1 15);
 do
 
 # Cifras significativas
@@ -33,8 +33,8 @@ r_Patch=0.4;
 # Main parameters of the simulation
 phi=0.55;
 CL_concentration=$var_cCL; #0.1;
-N_particles=1500;
-damp=0.1; #0.05;
+N_particles=150;
+damp=0.01; #0.05;
 T=0.05;
 
 # Number of monomers and cross-linkers given concentration an total amount of patchy particles
@@ -79,11 +79,7 @@ Nstep_per_strain=$(echo "scale=$cs; $(echo "scale=$cs; 1 / $shear_rate" | bc) * 
 Nstep_per_strain=${Nstep_per_strain%.*};
 
 shear_it=$(( $max_strain * $Nstep_per_strain));
-<<<<<<< HEAD
-cycles=2;
-=======
-#cycles=2;
->>>>>>> f0a3c023454c93cfbbb48efaa55ccf94335aa027
+cycles=6;
 
 relaxTime1=$(( $max_strain * $Nstep_per_strain ));
 relaxTime2=$(( 2 * $relaxTime1)); 

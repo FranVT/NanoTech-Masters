@@ -30,7 +30,7 @@ N = 1000000;
 sig = 0.4;
 eps = 1.0;
 rc=1.5*sig;
-rmin = sig/4;
+rmin = sig/100;
 rmax = rc+sig;
 r_dom = range(rmin,rmax,length=N);
 
