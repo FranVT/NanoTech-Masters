@@ -61,7 +61,7 @@ minimize 1.0e-4 1.0e-6 1000 10000
 
 # DUMPS and FIXES
 
-thermo ${sstep}
+thermo ${NsaveStress}
 
 # Save atom positions
 dump dumpID all atom ${Ndump} ${dumpDir}/assembly/patchyParticles_assembly.*.dumpf
@@ -81,11 +81,11 @@ fix fixswap PairE3 ave/time 1 ${Nsave} ${Nsave} c_swapPair file ${Dir}/swapPair_
 
 # Save Atom displacement
 group Displ empty
-fix fixDispl Displ ave/time 1 ${Nave} ${Nave} c_dis[1] c_dis[2] c_dis[3] c_dis[4] file ${Dir}/cmdisplacement_assembly.fixf
+fix fixDispl Displ ave/time 1 ${NsaveStress} ${NsaveStress} c_dis[1] c_dis[2] c_dis[3] c_dis[4] file ${Dir}/cmdisplacement_assembly.fixf
 
 # Save Stress tensor
 group Stress empty
-fix fixStress5 Stress ave/time 1 ${Nave} ${Nave} c_stressVirial[*] file ${Dir}/stressVirial_assembly.fixf
+fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_stressVirial[*] file ${Dir}/stressVirial_assembly.fixf
 
 # RUN SIMULATION
 

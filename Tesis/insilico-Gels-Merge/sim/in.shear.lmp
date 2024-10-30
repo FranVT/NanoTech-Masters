@@ -62,13 +62,13 @@ fix fixswap PairE3 ave/time 1 ${Nsave} ${Nsave} c_swapPair file ${Dir}/swapPair_
 
 # Save Atom displacement
 group Displ empty
-fix fixDispl Displ ave/time 1 ${Nave} ${Nave} c_dis[1] c_dis[2] c_dis[3] c_dis[4] file ${Dir}/cmdisplacement_shear.fixf
+fix fixDispl Displ ave/time 1 ${NsaveStress} ${NsaveStress} c_dis[1] c_dis[2] c_dis[3] c_dis[4] file ${Dir}/cmdisplacement_shear.fixf
 
 # Save Stress tensor
 group Stress empty
-fix fixStress5 Stress ave/time 1 ${Nave} ${Nave} c_stressVirial[*] file ${Dir}/stressVirial_shear.fixf
+fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_stressVirial[*] file ${Dir}/stressVirial_shear.fixf
 
-thermo ${sstep}
+thermo ${NsaveStress}
 
 # RUN SIMULATION
 
@@ -88,7 +88,26 @@ run ${shear_it} post no every 1 &
    "change_box all xy delta ${shear_distance} remap units box" &
    "if '${shearDirection} >= ${maxTilt}' then 'change_box all xy final ${restoreTilt} remap units box'"
 
+run ${rlxT1}
 
+run ${shear_it} post no every 1 &
+   "change_box all xy delta ${shear_distance} remap units box" &
+   "if '${shearDirection} >= ${maxTilt}' then 'change_box all xy final ${restoreTilt} remap units box'"
 
+run ${rlxT2}
 
+<<<<<<< HEAD
+=======
+run ${shear_it} post no every 1 &
+   "change_box all xy delta ${shear_distance} remap units box" &
+   "if '${shearDirection} >= ${maxTilt}' then 'change_box all xy final ${restoreTilt} remap units box'"
+
+run ${rlxT3}
+
+run ${shear_it} post no every 1 &
+   "change_box all xy delta ${shear_distance} remap units box" &
+   "if '${shearDirection} >= ${maxTilt}' then 'change_box all xy final ${restoreTilt} remap units box'"
+
+run ${rlxT4}
+>>>>>>> f0a3c023454c93cfbbb48efaa55ccf94335aa027
 
