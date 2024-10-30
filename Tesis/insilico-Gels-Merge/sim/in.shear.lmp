@@ -45,7 +45,7 @@ compute dis CM reduce/chunk daux sum c_disc[4]
 # DUMPS and FIXES
 
 # Save atom positions
-dump dumpID all atom ${Nsave} ${dumpDir}/shear/patchyParticles_shear.*.dumpf
+dump dumpID all atom ${Ndump} ${dumpDir}/shear/patchyParticles_shear.*.dumpf
 dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
 
 # Save global energies and temperature
@@ -54,11 +54,11 @@ group PairE1 empty
 group PairE2 empty
 group PairE3 empty
 
-fix fixEng Energy ave/time 1 10 10 c_t c_ep c_ek c_tCM c_p file ${Dir}/energy_shear.fixf
+fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_ep c_ek c_tCM c_p file ${Dir}/energy_shear.fixf
 
-fix fixwca PairE1 ave/time 1 10 10 c_wcaPair file ${Dir}/wcaPair_shear.fixf
-fix fixpatch PairE2 ave/time 1 10 10 c_patchPair file ${Dir}/patchPair_shear.fixf
-fix fixswap PairE3 ave/time 1 10 10 c_swapPair file ${Dir}/swapPair_shear.fixf
+fix fixwca PairE1 ave/time 1 ${Nsave} ${Nsave} c_wcaPair file ${Dir}/wcaPair_shear.fixf
+fix fixpatch PairE2 ave/time 1 ${Nsave} ${Nsave} c_patchPair file ${Dir}/patchPair_shear.fixf
+fix fixswap PairE3 ave/time 1 ${Nsave} ${Nsave} c_swapPair file ${Dir}/swapPair_shear.fixf
 
 # Save Atom displacement
 group Displ empty
@@ -91,55 +91,4 @@ run ${shear_it} post no every 1 &
 
 
 
-# Introduce deformation
-#fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
-
-# Run deformation
-#timestep ${tstep}
-#run ${shear_it}
-
-# Stop deformation
-#unfix shear
-
-# Relax time
-#run ${rlxT1}
-
-# Introduce deformation
-#fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
-
-# Re-run deformation
-#timestep ${tstep}
-#run ${shear_it}
-
-# Stop deformation
-#unfix shear
-
-# Relax time
-#run ${rlxT2}
-
-# Introduce deformation
-#fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
-
-# Re-run deformation
-#timestep ${tstep}
-#run ${shear_it}
-
-# Stop deformation
-#unfix shear
-
-# Relax time
-#run ${rlxT3}
-
-# Introduce deformation
-#fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
-
-# Re-run deformation
-#timestep ${tstep}
-#run ${shear_it}
-
-# Stop deformation
-#unfix shear
-
-# Relax time
-#run ${rlxT4}
 

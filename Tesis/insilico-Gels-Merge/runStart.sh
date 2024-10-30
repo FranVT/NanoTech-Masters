@@ -68,7 +68,6 @@ L=$(echo "scale=$cs; $L_real / 2" | bc);
 # Numerical parameters for LAMMPS simulation
 steps=1000000;
 tstep=0.001;
-sstep=500;
 
 ## Variables for shear deformation simulation
 tstep_defor=0.001;
@@ -80,15 +79,20 @@ Nstep_per_strain=$(echo "scale=$cs; $(echo "scale=$cs; 1 / $shear_rate" | bc) * 
 Nstep_per_strain=${Nstep_per_strain%.*};
 
 shear_it=$(( $max_strain * $Nstep_per_strain));
-Nsave=500;
-Nave=$(echo "scale=$cs; 1 / $tstep_defor" | bc);
-Nave=${Nave%.*};
 cycles=2;
 
 relaxTime1=$(( 6 * $Nstep_per_strain ));
 relaxTime2=$(( 2 * $relaxTime1)); 
 relaxTime3=$(( 2 * $relaxTime2));
 relaxTime4=$(( 3 * $relaxTime3));
+
+# Parameters for fix and dumps files
+Nsave=10; # Temporal average for fix files
+Nave=$(echo "scale=$cs; 1 / $tstep_defor" | bc); # Tmeporal average for stress fix files
+Nave=${Nave%.*};
+Ndump=100; # Every Ndump time steps save the particles positions.
+
+
 
 : '
     Creation of directory for the simulation data
