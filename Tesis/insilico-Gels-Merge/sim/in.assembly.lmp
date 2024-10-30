@@ -64,20 +64,20 @@ minimize 1.0e-4 1.0e-6 1000 10000
 thermo ${sstep}
 
 # Save atom positions
-dump dumpID all atom ${sstep} ${dumpDir}/assembly/patchyParticles_assembly.*.dumpf
+dump dumpID all atom ${Ndump} ${dumpDir}/assembly/patchyParticles_assembly.*.dumpf
 dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
 
 # Save global energies and temperature
 group Energy empty
-fix fixEng Energy ave/time 1 10 10 c_t c_ep c_ek c_tCM c_p file ${Dir}/energy_assembly.fixf
+fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_ep c_ek c_tCM c_p file ${Dir}/energy_assembly.fixf
 
 group PairE1 empty
 group PairE2 empty
 group PairE3 empty
 
-fix fixwca PairE1 ave/time 1 10 10 c_wcaPair file ${Dir}/wcaPair_assembly.fixf
-fix fixpatch PairE2 ave/time 1 10 10 c_patchPair file ${Dir}/patchPair_assembly.fixf
-fix fixswap PairE3 ave/time 1 10 10 c_swapPair file ${Dir}/swapPair_assembly.fixf
+fix fixwca PairE1 ave/time 1 ${Nsave} ${Nsave} c_wcaPair file ${Dir}/wcaPair_assembly.fixf
+fix fixpatch PairE2 ave/time 1 ${Nsave} ${Nsave} c_patchPair file ${Dir}/patchPair_assembly.fixf
+fix fixswap PairE3 ave/time 1 ${Nsave} ${Nsave} c_swapPair file ${Dir}/swapPair_assembly.fixf
 
 # Save Atom displacement
 group Displ empty
