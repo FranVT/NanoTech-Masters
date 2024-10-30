@@ -14,7 +14,7 @@ cd ..;
 ## Start the for loop
 for var_cCL in 0.03; #0.06 0.1;
 do 
-for Nexp in 2; #$(seq 1 15);
+for Nexp in $(seq 1 15);
 do
 
 # Cifras significativas
@@ -33,7 +33,7 @@ r_Patch=0.4;
 # Main parameters of the simulation
 phi=0.55;
 CL_concentration=$var_cCL; #0.1;
-N_particles=200;
+N_particles=1500;
 damp=0.1; #0.05;
 T=0.05;
 
