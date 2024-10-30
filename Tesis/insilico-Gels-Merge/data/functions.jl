@@ -107,10 +107,13 @@ function getData2(dir,files,parameters)
     end
 
     # Re-organize the data
+    time_assembly=data[1][1,:];
+    time_assemblyStress=data[6][1,:];
     temp_assembly=data[1][2,:];
     U_assembly=data[1][3,:];
     K_assembly=data[1][4,:];
     tempCM_assembly=data[1][5,:];
+    pressure_assembly=data[1][6,:];
     wcaPair_assembly=data[2][2,:];
     patchPair_assembly=data[3][2,:];
     swapPair_assembly=data[4][2,:];
@@ -119,10 +122,13 @@ function getData2(dir,files,parameters)
     stressXX_assembly=-data[6][2,:];
     stressXY_assembly=-data[6][5,:];
 
+    time_shear=data[7][1,:];
+    time_shearStress=data[12][1,:];
     temp_shear=data[7][2,:];
     U_shear=data[7][3,:];
     K_shear=data[7][4,:];
     tempCM_shear=data[7][5,:];
+    pressure_shear=data[7][6,:];
     wcaPair_shear=data[8][2,:];
     patchPair_shear=data[9][2,:];
     swapPair_shear=data[10][2,:];
@@ -147,7 +153,8 @@ function getData2(dir,files,parameters)
 
     # Create tuple with data
     info_assembly=(
-                   temp_assembly,tempCM_assembly,
+                   time_assembly,time_assemblyStress,
+                   temp_assembly,tempCM_assembly,pressure_assembly,
                    U_assembly,K_assembly,E_assembly,
                    wcaPair_assembly,patchPair_assembly,swapPair_assembly,
                    displCl_assembly,displMo_assembly,displCM_assembly,
@@ -155,7 +162,8 @@ function getData2(dir,files,parameters)
                   );
 
     info_shear=(
-                   temp_shear,tempCM_shear,
+                   time_shear,time_shearStress,
+                   temp_shear,tempCM_shear,pressure_shear,
                    U_shear,K_shear,E_shear,
                    wcaPair_shear,patchPair_shear,swapPair_shear,
                    displCl_shear,displMo_shear,displCM_shear,
