@@ -97,7 +97,7 @@ timestep ${tstep}
 
 # First elevate the temperature
 fix ThermoLng all langevin 0.0 ${temp} ${damp} 12345 # Brownian Dynamics: langevin + nve 
-run 1000000
+run ${steps}
 
 unfix ThermoLng
 

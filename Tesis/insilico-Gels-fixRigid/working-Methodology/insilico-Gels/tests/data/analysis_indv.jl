@@ -4,6 +4,7 @@
 
 using FileIO
 using GLMakie
+using Statistics
 
 include("functions.jl")
 
@@ -14,9 +15,55 @@ dirs_aux = open("dirs.txt") do f
     reduce(vcat,map(s->split(s," "),readlines(f)))
     end
 
-dirs=dirs_aux;
+#dirs=dirs_aux;
 
-#=
+#aux_indx=map(s->split(dirs_aux[1],"Nexp")[1] == split(dirs_aux[s],"Nexp")[1],eachindex(dirs_aux));
+"""
+   Start of the classification process.
+   Parameters to select the system:
+   phi -> Packing fraction
+   NPart -> Number of central particles
+   damp -> damp langevin parameter
+   T -> Temperature of the system
+   cCL -> CrossLink concentration
+   ShearRate -> Self explanatory
+   Nexp -> Number of simulation
+"""
+
+selc_phi="550";
+selc_Npart="150";
+selc_damp="10";
+selc_T="50";
+selc_cCL="30";
+selc_ShearRate="10";
+
+aux_dirs_ind=split.(last.(split.(dirs_aux,"Phi")),"NPart");
+auxs_indPhi=findall(r->r==selc_phi, first.(aux_dirs_ind) );
+
+aux_dirs_ind=split.(last.(aux_dirs_ind),"damp");
+auxs_indNPart=findall(r->r==selc_Npart, first.(aux_dirs_ind) );
+
+aux_dirs_ind=split.(last.(aux_dirs_ind),"T");
+auxs_indDamp=findall(r->r==selc_damp, first.(aux_dirs_ind) );
+
+aux_dirs_ind=split.(last.(aux_dirs_ind),"cCL");
+auxs_indT=findall(r->r==selc_T, first.(aux_dirs_ind) );
+
+aux_dirs_ind=split.(last.(aux_dirs_ind),"ShearRate");
+auxs_indcCL=findall(r->r==selc_cCL, first.(aux_dirs_ind) );
+
+aux_dirs_ind=split.(last.(aux_dirs_ind),"-");
+auxs_indShearRate=findall(r->r==selc_ShearRate, first.(aux_dirs_ind) );
+
+# Get the idixes that meet the criteria
+auxs_ind=intersect(auxs_indPhi,auxs_indNPart,auxs_indDamp,auxs_indT,auxs_indcCL,auxs_indShearRate);
+
+# Select the number of experiments
+auxs_ind=auxs_ind[1:2];
+
+# Selcet the directories woth the criteria
+dirs=dirs_aux[auxs_ind];
+
 
 # File names 
 file_name = (
@@ -39,41 +86,193 @@ file_name = (
 # Get parameters from the directories
 """
     Relation of index with parameter
-    1 -> Central particle radius
-    2 -> Patch particle radius
-    3 -> Cross-Linker Concentration
-    4 -> Number of particles
-    5 -> Temperature
-    6 -> Damp
-    7 -> Box Volume
-    8 -> Packing fraction
-    9 -> Time step in assembly
-   10 -> Number of time steps in assembly
-   11 -> Save every N time steps in assembly
-   12 -> Number of Cross-Linkers 
-   13 -> Number of Monomers
-   14 -> Box Volume
+    1 -> Packing fraction
+    2 -> Number of particles
+    3 -> Number of Cross-Linkers
+    4 -> Number of Monomers
+    5 -> Cross-Linker Concentration
+    6 -> Box Volume
+    7 -> L in lammps (Half length of box) 
+    8 -> Temperature
+    9 -> Damp
+   10 -> Time step in assembly
+   11 -> Number of time steps in heating process in assembly
+   12 -> Number of time steps in isothermal process in assembly 
+   13 -> Save every N time steps in dumps files
+   14 -> Save every N time steps in fix files
    15 -> Time step in shear
-   16 -> Number of time steps in shear
-   17 -> Number of time steps per deformation
-   18 -> Save every N time steps
-   19 -> Shear rate
-   20 -> Max deformation per cycle
-   21 -> Relax time 1 [Time steps]
-   22 -> Relax time 2 [Time steps]
-   23 -> Relax time 3 [Time steps]
-   24 -> Relax time 4 [Time steps]
+   16 -> Shear rate
+   17 -> Max deformation per cycle
+   18 -> Relax time 1 [Time steps]
+   19 -> Relax time 2 [Time steps]
+   20 -> Relax time 3 [Time steps]
+   21 -> Relax time 4 [Time steps]
+   22 -> Save every N time steps in dumps files
+   23 -> Save every N time steps in fix files
+   24 -> Save every N time steps for Stress fix files
 """
 
 parameters=getParameters(dirs,file_name);
 
 # Retrieve all the data from every experiment
-data=map(s->getData2(dirs[s],file_name,parameters[s]),eachindex(dirs));
+#data=map(s->getData2(dirs[s],file_name,parameters[s]),eachindex(dirs));
 
 # Separate the data from assembly and shear experiment
-data_assembly=first.(data);
-data_shear=last.(data);
+#data_assembly=first.(data);
+#data_shear=last.(data);
 
+# From time steps to time units
+
+time_assembly=map(s->parameters[s][10].*data_assembly[s][1],eachindex(data_assembly));
+time_assemblyStress=map(s->parameters[s][10].*data_assembly[s][2],eachindex(data_assembly));
+
+time_shear=map(s->last(time_assembly[s]).+parameters[s][15].*data_shear[s][1],eachindex(data_assembly));
+time_shearStress=map(s->parameters[s][15].*data_shear[s][2],eachindex(data_assembly));
+
+# Get time instants
+time_endAssembly=parameters[1][10]*((parameters[1][11]+parameters[1][12])/parameters[1][14]);
+
+
+csh=:tab20;
+
+## Temperature
+
+tf=last(time_assembly);
+
+fig_Temp=Figure(size=(1920,1080));
+ax_leg=Axis(fig_Temp[1:2,3],limits=(0.01,0.1,0.01,0.1))
+hidespines!(ax_leg)
+hidedecorations!(ax_leg)
+ax_t = Axis(fig_Temp[1,1:2],
+        title = L"\mathrm{Temperature}",
+        xlabel = L"\mathrm{Time~unit}",
+        ylabel = L"\mathrm{Temperature}",
+        titlesize = 24.0f0,
+        xticklabelsize = 18.0f0,
+        yticklabelsize = 18.0f0,
+        xlabelsize = 20.0f0,
+        ylabelsize = 20.0f0,
+        xminorticksvisible = true, 
+        xminorgridvisible = true,
+        xminorticks = IntervalsBetween(5),
+        #xscale = log10,
+        #limits = (10e0,exp10(round(log10(tf))),nothing,nothing)
+    )
+ax_tcp = Axis(fig_Temp[2,1:2],
+        title = L"\mathrm{Temperature~Central~particles}",
+        xlabel = L"\mathrm{Time~unit}",
+        ylabel = L"\mathrm{Temperature}",
+        titlesize = 24.0f0,
+        xticklabelsize = 18.0f0,
+        yticklabelsize = 18.0f0,
+        xlabelsize = 20.0f0,
+        ylabelsize = 20.0f0,
+        xminorticksvisible = true, 
+        xminorgridvisible = true,
+        xminorticks = IntervalsBetween(5),
+        #xscale = log10,
+        #limits = (10e0,exp10(round(log10(tf))),nothing,nothing)
+    )
+
+map(s->lines!(ax_t,time_assembly[s],data_assembly[s][3]),eachindex(dirs))
+map(s->lines!(ax_t,time_shear[s],data_shear[s][3]),eachindex(dirs))
+#vlines!(ax_t,[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash,color=:black)
+
+vlines!(ax_t,time_endAssembly,linestyle=:dash,color=:black)
+
+map(s->lines!(ax_tcp,time_assembly[s],data_assembly[s][4]),eachindex(dirs))
+map(s->lines!(ax_tcp,time_shear[s],data_shear[s][4]),eachindex(dirs))
+
+#vlines!(ax_tcp,last(time_assembly),linestyle=:dash,color=:black)
+#vlines!(ax_tcp,[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash,color=:black)
+
+#series!(ax_leg,zeros(length(dirs),length(dirs)),linestyle=:solid,color=csh,labels=labels_CL)
+
+#=
+Legend(fig_Temp[1:2,3],ax_leg,
+       framevisible=true,
+       halign=:center,
+       orientation=:vertical,
+       L"\mathrm{Concentration~and~damp}",
+       patchsize=(35,35)
+      )
+=#
+
+## Energy Plot
+
+fig_Energy=Figure(size=(1920,1080));
+ax_leg=Axis(fig_Energy[1:2,3],limits=(0.01,0.1,0.01,0.1))
+hidespines!(ax_leg)
+hidedecorations!(ax_leg)
+ax_E = Axis(fig_Energy[1,1:2],
+        title = L"\mathrm{Total~energy}",
+        xlabel = L"\mathrm{Time~unit}",
+        ylabel = L"\mathrm{Energy}",
+        titlesize = 24.0f0,
+        xticklabelsize = 18.0f0,
+        yticklabelsize = 18.0f0,
+        xlabelsize = 20.0f0,
+        ylabelsize = 20.0f0,
+        xminorticksvisible = true, 
+        xminorgridvisible = true,
+        xminorticks = IntervalsBetween(5),
+        #xscale = log10,
+        #limits = (10e0,exp10(round(log10(tf))),nothing,nothing)
+    )
+ax_Elo = Axis(fig_Energy[2,1:2],
+        title = L"\mathrm{Total~Energy}",
+        xlabel = L"\mathrm{Time~steps}~\ln_{10}",
+        ylabel = L"\mathrm{Energy}",
+        titlesize = 24.0f0,
+        xticklabelsize = 18.0f0,
+        yticklabelsize = 18.0f0,
+        xlabelsize = 20.0f0,
+        ylabelsize = 20.0f0,
+        xminorticksvisible = true, 
+        xminorgridvisible = true,
+        xminorticks = IntervalsBetween(5),
+        xscale = log10,
+        #limits = (10e0,exp10(round(log10( length(time_assembly)+length(time_deform)))),nothing,nothing)
+    )
+
+println("Plotting lines")
+
+map(s->lines!(ax_E,time_assembly[s],data_assembly[s][8]),eachindex(dirs))
+map(s->lines!(ax_E,time_shear[s],data_shear[s][8]),eachindex(dirs))
+#vlines!(ax_t,[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash,color=:black)
+
+vlines!(ax_E,time_endAssembly,linestyle=:dash,color=:black)
+
+map(s->lines!(ax_Elo,time_assembly[s],data_assembly[s][8]),eachindex(dirs))
+map(s->lines!(ax_Elo,time_shear[s],data_shear[s][8]),eachindex(dirs))
+
+#vlines!(ax_tcp,last(time_assembly),linestyle=:dash,color=:black)
+#vlines!(ax_tcp,[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash,color=:black)
+
+#series!(ax_leg,zeros(length(dirs),length(dirs)),linestyle=:solid,color=csh,labels=labels_CL)
+
+
+#series!(ax_E,time_assembly,reduce(hcat,map(s->s[5],data_assembly))',color=csh)
+#series!(ax_E,time_deform,reduce(hcat,map(s->s[5],data_shear))',color=csh)
+
+#series!(ax_Elo,eachindex(time_assembly),reduce(hcat,map(s->s[5],data_assembly))',color=csh)
+#series!(ax_Elo,eachindex(time_deform).+length(time_assembly),reduce(hcat,map(s->s[5],data_shear))',color=csh)
+#vlines!(ax_Elo,length(time_assembly),linestyle=:dash,color=:black)
+
+#series!(ax_leg,zeros(length(dirs),length(dirs)),linestyle=:solid,color=csh,labels=labels_CL)
+
+println("Legends")
+#=
+Legend(fig_Energy[1:2,3],ax_leg,
+       framevisible=true,
+       halign=:center,
+       orientation=:vertical,
+       L"\mathrm{Concentration~and~damp}",
+       patchsize=(35,35)
+      )
+=#
+
+#=
 # Create time and deformation arrays.
 time_assembly=range(0,parameters[1][9].*parameters[1][10],length=length(data_assembly[1][1]));  #Int64(parameters[1][10]/10));
 
@@ -104,15 +303,18 @@ rlx3=last(deform3).*ones(Int64(parameters[1][23]/1000));
 deform4=range(last(deform3),last(deform3)+parameters[1][20],length=Int64(parameters[1][20]*parameters[1][17]/1000))|>collect;
 rlx4=last(deform4).*ones(Int64(parameters[1][24]/1000));
 
+=#
+
 # Plot the stress with respect the spatial deformation
 """
     shear_rate = velocity/shear_gap; shear_gap is the height of the simulation box.
     shear_rate = (gamma/dt)/shear_gap;
     gamma = shear_rate*shear_gap*dt
 """
-gamma=reduce(vcat,parameters[1][24].*cbrt(parameters[1][7]).*[deform1,rlx1,deform2,rlx2,deform3,rlx3,deform4,rlx4]);
+#gamma=reduce(vcat,parameters[1][19].*cbrt(parameters[1][7]).*[deform1,rlx1,deform2,rlx2,deform3,rlx3,deform4,rlx4]);
 
 
+#=
 # Labels
 lblaux_CL=map(s->Int64.(round(s[3]*100)),parameters);
 lblaux_damp=map(s->s[6],parameters);
@@ -247,7 +449,6 @@ Legend(fig_Energy[1:2,3],ax_leg,
        L"\mathrm{Concentration~and~damp}",
        patchsize=(35,35)
       )
-
 =#
 
 #=
