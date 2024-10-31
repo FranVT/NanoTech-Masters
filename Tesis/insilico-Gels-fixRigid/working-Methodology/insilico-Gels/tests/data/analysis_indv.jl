@@ -32,7 +32,7 @@ dirs_aux = open("dirs.txt") do f
 
 selc_phi="550";
 selc_Npart="500";
-selc_damp="100";
+selc_damp="1";
 selc_T="50";
 selc_cCL="30";
 selc_ShearRate="10";
@@ -199,19 +199,25 @@ hlines!(ax_t,mean_T_ass,linestyle=:dash,color=:black)
 hlines!(ax_t,[mean_T_ass+std_T_ass,mean_T_ass+2*std_T_ass,mean_T_ass+3*std_T_ass],linestyle=:dash,color=:red)
 vlines!(ax_t,parameters[1][10]*parameters[1][11],linestyle=:dash,color=:black)
 
+#=
 map(s->lines!(ax_tcp,time_shear[s],data_shear[s][3]),eachindex(dirs))
 hlines!(ax_tcp,mean_T_shear,linestyle=:dash,color=:black)
 hlines!(ax_tcp,[mean_T_shear+std_T_shear,mean_T_shear+2*std_T_shear,mean_T_shear+3*std_T_shear],linestyle=:dash,color=:red)
 
 vlines!(ax_tcp,[tm_rlx1o,tm_rlx1f,tm_rlx2o,tm_rlx2f,tm_rlx3o,tm_rlx3f,tm_rlx4o,tm_rlx4f],linestyle=:dash,color=:black)
+=#
 
 #hlines!(ax_tcp,[mean(data_shear[1][3]),mean(data_shear[1][3])+std(data_shear[1][3],mean=mean(data_shear[1][3])),mean(data_shear[1][3])-std(data_shear[1][3],mean=mean(data_shear[1][3]))],linestyle=:dash,color=:blue)
 
 #vlines!(ax_t,time_endAssembly,linestyle=:dash,color=:black)
 
 
-#map(s->lines!(ax_tcp,time_assembly[s],data_assembly[s][4]),eachindex(dirs))
-#map(s->lines!(ax_tcp,time_shear[s],data_shear[s][4]),eachindex(dirs))
+map(s->lines!(ax_tcp,time_assembly[s],data_assembly[s][4]),eachindex(dirs))
+map(s->lines!(ax_tcp,time_shear[s],data_shear[s][4]),eachindex(dirs))
+#hlines!(ax_tcp,mean_T_shear,linestyle=:dash,color=:black)
+#hlines!(ax_tcp,[mean_T_shear+std_T_shear,mean_T_shear+2*std_T_shear,mean_T_shear+3*std_T_shear],linestyle=:dash,color=:red)
+
+
 
 #vlines!(ax_tcp,last(time_assembly),linestyle=:dash,color=:black)
 #vlines!(ax_tcp,[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash,color=:black)
