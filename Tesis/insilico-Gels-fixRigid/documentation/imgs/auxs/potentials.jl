@@ -43,8 +43,8 @@ N = 150;
 sig = 0.4;
 eps = 1.0;
 rmin = 0.000001;
-rmax = 2*sig;
-w=10;
+rmax = 1.5*sig;
+w=1;
 r_dom = range(rmin,rmax,length=N);
 
 Ueval = map(s->Upatch(eps,sig,s),r_dom);

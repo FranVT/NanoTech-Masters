@@ -14,7 +14,7 @@ cd ..;
 ## Start the for loop
 for var_cCL in 0.03; #0.06 0.1;
 do 
-for Nexp in $(seq 1 15);
+for Nexp in 1; #$(seq 1 15);
 do
 
 # Cifras significativas
@@ -33,8 +33,8 @@ r_Patch=0.4;
 # Main parameters of the simulation
 phi=0.55;
 CL_concentration=$var_cCL; #0.1;
-N_particles=100;
-damp=1; #0.05;
+N_particles=500;
+damp=0.1; #0.05;
 T=0.05;
 
 # Number of monomers and cross-linkers given concentration an total amount of patchy particles
@@ -79,7 +79,6 @@ Nstep_per_strain=$(echo "scale=$cs; $(echo "scale=$cs; 1 / $shear_rate" | bc) * 
 Nstep_per_strain=${Nstep_per_strain%.*};
 
 shear_it=$(( $max_strain * $Nstep_per_strain));
-cycles=6;
 
 relaxTime1=$(( $max_strain * $Nstep_per_strain ));
 relaxTime2=$(( 2 * $relaxTime1)); 
@@ -91,16 +90,6 @@ Nsave=10; # Temporal average for fix files
 NsaveStress=$(echo "scale=$cs; 1 / $tstep_defor" | bc); # Tmeporal average for stress fix files
 NsaveStress=${NsaveStress%.*};
 Ndump=100; # Every Ndump time steps save the particles positions.
-
-
-
-# Parameters for fix and dumps files
-Nsave=10; # Temporal average for fix files
-Nave=$(echo "scale=$cs; 1 / $tstep_defor" | bc); # Tmeporal average for stress fix files
-Nave=${Nave%.*};
-Ndump=100; # Every Ndump time steps save the particles positions.
-
-
 
 : '
     Creation of directory for the simulation data

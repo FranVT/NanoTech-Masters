@@ -57,7 +57,7 @@ minimize 1.0e-4 1.0e-6 1000 10000
 
 # DUMPS and FIXES
 
-thermo ${sstep}
+thermo ${NsaveStress}
 
 # Save atom positions
 dump dumpID all atom ${Ndump} ${dumpDir}/assembly/patchyParticles_assembly.*.dumpf

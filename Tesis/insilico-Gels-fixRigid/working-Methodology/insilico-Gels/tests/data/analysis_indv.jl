@@ -31,8 +31,8 @@ dirs_aux = open("dirs.txt") do f
 """
 
 selc_phi="550";
-selc_Npart="150";
-selc_damp="10";
+selc_Npart="500";
+selc_damp="100";
 selc_T="50";
 selc_cCL="30";
 selc_ShearRate="10";
@@ -59,7 +59,7 @@ auxs_indShearRate=findall(r->r==selc_ShearRate, first.(aux_dirs_ind) );
 auxs_ind=intersect(auxs_indPhi,auxs_indNPart,auxs_indDamp,auxs_indT,auxs_indcCL,auxs_indShearRate);
 
 # Select the number of experiments
-auxs_ind=auxs_ind[1:2];
+auxs_ind=auxs_ind;
 
 # Selcet the directories woth the criteria
 dirs=dirs_aux[auxs_ind];
@@ -115,11 +115,11 @@ file_name = (
 parameters=getParameters(dirs,file_name);
 
 # Retrieve all the data from every experiment
-#data=map(s->getData2(dirs[s],file_name,parameters[s]),eachindex(dirs));
+data=map(s->getData2(dirs[s],file_name,parameters[s]),eachindex(dirs));
 
 # Separate the data from assembly and shear experiment
-#data_assembly=first.(data);
-#data_shear=last.(data);
+data_assembly=first.(data);
+data_shear=last.(data);
 
 # From time steps to time units
 
@@ -130,8 +130,21 @@ time_shear=map(s->last(time_assembly[s]).+parameters[s][15].*data_shear[s][1],ea
 time_shearStress=map(s->parameters[s][15].*data_shear[s][2],eachindex(data_assembly));
 
 # Get time instants
-time_endAssembly=parameters[1][10]*((parameters[1][11]+parameters[1][12])/parameters[1][14]);
+tm_endAssembly=parameters[1][10]*(parameters[1][11]+parameters[1][12]);
 
+tm_shear=parameters[1][15]*parameters[1][17]*parameters[1][18];
+
+tm_rlx1o=last(time_assembly[1])+tm_shear;
+tm_rlx1f=tm_rlx1o+parameters[1][15]*parameters[1][18];
+
+tm_rlx2o=tm_rlx1f+tm_shear;
+tm_rlx2f=tm_rlx2o+parameters[1][15]*parameters[1][19];
+
+tm_rlx3o=tm_rlx2f+tm_shear;
+tm_rlx3f=tm_rlx3o+parameters[1][15]*parameters[1][20];
+
+tm_rlx4o=tm_rlx3f+tm_shear;
+tm_rlx4f=tm_rlx4o+parameters[1][15]*parameters[1][21];
 
 csh=:tab20;
 
@@ -144,7 +157,7 @@ ax_leg=Axis(fig_Temp[1:2,3],limits=(0.01,0.1,0.01,0.1))
 hidespines!(ax_leg)
 hidedecorations!(ax_leg)
 ax_t = Axis(fig_Temp[1,1:2],
-        title = L"\mathrm{Temperature}",
+        title = L"\mathrm{Temperature~Assembly~Simulation}",
         xlabel = L"\mathrm{Time~unit}",
         ylabel = L"\mathrm{Temperature}",
         titlesize = 24.0f0,
@@ -156,10 +169,10 @@ ax_t = Axis(fig_Temp[1,1:2],
         xminorgridvisible = true,
         xminorticks = IntervalsBetween(5),
         #xscale = log10,
-        #limits = (10e0,exp10(round(log10(tf))),nothing,nothing)
+        #limits = (nothing,nothing,0,mean(data_assembly[1][3]) + std(data_assembly[1][3],mean=mean(data_assembly[1][3])) )
     )
 ax_tcp = Axis(fig_Temp[2,1:2],
-        title = L"\mathrm{Temperature~Central~particles}",
+        title = L"\mathrm{Temperature~Shear~Simulation}",
         xlabel = L"\mathrm{Time~unit}",
         ylabel = L"\mathrm{Temperature}",
         titlesize = 24.0f0,
@@ -174,14 +187,31 @@ ax_tcp = Axis(fig_Temp[2,1:2],
         #limits = (10e0,exp10(round(log10(tf))),nothing,nothing)
     )
 
+# Mean and standard values of Temperature
+mean_T_ass=mean(data_assembly[1][3]);
+std_T_ass=std(data_assembly[1][3],mean=mean_T_ass);
+
+mean_T_shear=mean(data_shear[1][3]);
+std_T_shear=std(data_shear[1][3],mean=mean_T_shear);
+
 map(s->lines!(ax_t,time_assembly[s],data_assembly[s][3]),eachindex(dirs))
-map(s->lines!(ax_t,time_shear[s],data_shear[s][3]),eachindex(dirs))
-#vlines!(ax_t,[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash,color=:black)
+hlines!(ax_t,mean_T_ass,linestyle=:dash,color=:black)
+hlines!(ax_t,[mean_T_ass+std_T_ass,mean_T_ass+2*std_T_ass,mean_T_ass+3*std_T_ass],linestyle=:dash,color=:red)
+vlines!(ax_t,parameters[1][10]*parameters[1][11],linestyle=:dash,color=:black)
 
-vlines!(ax_t,time_endAssembly,linestyle=:dash,color=:black)
+map(s->lines!(ax_tcp,time_shear[s],data_shear[s][3]),eachindex(dirs))
+hlines!(ax_tcp,mean_T_shear,linestyle=:dash,color=:black)
+hlines!(ax_tcp,[mean_T_shear+std_T_shear,mean_T_shear+2*std_T_shear,mean_T_shear+3*std_T_shear],linestyle=:dash,color=:red)
 
-map(s->lines!(ax_tcp,time_assembly[s],data_assembly[s][4]),eachindex(dirs))
-map(s->lines!(ax_tcp,time_shear[s],data_shear[s][4]),eachindex(dirs))
+vlines!(ax_tcp,[tm_rlx1o,tm_rlx1f,tm_rlx2o,tm_rlx2f,tm_rlx3o,tm_rlx3f,tm_rlx4o,tm_rlx4f],linestyle=:dash,color=:black)
+
+#hlines!(ax_tcp,[mean(data_shear[1][3]),mean(data_shear[1][3])+std(data_shear[1][3],mean=mean(data_shear[1][3])),mean(data_shear[1][3])-std(data_shear[1][3],mean=mean(data_shear[1][3]))],linestyle=:dash,color=:blue)
+
+#vlines!(ax_t,time_endAssembly,linestyle=:dash,color=:black)
+
+
+#map(s->lines!(ax_tcp,time_assembly[s],data_assembly[s][4]),eachindex(dirs))
+#map(s->lines!(ax_tcp,time_shear[s],data_shear[s][4]),eachindex(dirs))
 
 #vlines!(ax_tcp,last(time_assembly),linestyle=:dash,color=:black)
 #vlines!(ax_tcp,[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash,color=:black)
