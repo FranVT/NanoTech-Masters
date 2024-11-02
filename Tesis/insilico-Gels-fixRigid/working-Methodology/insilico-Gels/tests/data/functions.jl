@@ -2,15 +2,15 @@
     Script with functions
 """
 
-function getParameters(dirs,file_name)
+function getParameters(dirs,file_name,inds)
     """
         Function that return an array with the parameters of a simulation.
         dirs is an array of directories
         file_name is an array of file names
     """
-    if sum(eachindex(dirs))==1 
-        file_dir=map(s->joinpath(dirs[s],first(file_name)),eachindex(dirs));
-        parameters=map(eachindex(dirs)) do r
+    if length(inds)==1 
+        file_dir=[joinpath(dirs,first(file_name))];
+        parameters=map(eachindex(file_dir)) do r
             open(file_dir[r]) do f
                 map(s->parse(Float64,s),readlines(f))
             end

@@ -54,7 +54,7 @@ end
 
 # Parameters
 N = 150;
-sigCP=0.5;
+sigCP=1;
 sig = 0.4;
 eps = 1.0;
 w=1;
@@ -113,7 +113,11 @@ lines!(axPot2,r_dom,Ueval,label=L"U_{\mathrm{patch}}")
 lines!(axPot2,r_dom,USwapeval,label=L"U_{\mathrm{Swap}}")
 lines!(axPot2,r_dom,Ueval+USwapeval,label=L"U_{\mathrm{patch}}+U_{\mathrm{Swap}}")
 
-vlines!(axPot2,1.5*sig,linestyle=:dash)
+vlines!(axPot2,1.5*sig,linestyle=:dash,label=L"\mathrm{Patch-Patch~cutoff}")
+vlines!(axPot2,sigCP/2,linestyle=:solid,label=L"\mathrm{Radius~of~Central~particle}")
+vlines!(axPot2,sig/2,linestyle=:solid,label=L"\mathrm{Radius~of~Patch~particle}")
+#vlines!(axPot2,0.5,linestyle=:solid)
+
 axislegend(axPot2,position=:rt)
 
 ## Add stuff

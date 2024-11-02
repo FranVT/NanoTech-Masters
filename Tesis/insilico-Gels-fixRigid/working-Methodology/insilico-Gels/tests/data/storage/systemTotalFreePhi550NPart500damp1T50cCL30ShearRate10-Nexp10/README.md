@@ -11,7 +11,7 @@
 - Box Volume: 2665.591818 [sigma^3]
 - Half length of the box: 6.932675 [sigma]
 - Temperature: 0.05
-- Damp: 1
+- Damp: 0.001
 
  ## Assembly System values 
 

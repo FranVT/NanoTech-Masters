@@ -4,14 +4,14 @@
 ## Model and System parameters
 
 - Packing fraction: 0.55
-- Number of particles: 100
-- Number of Cross-Linkers: 3
-- Number of Monomers: 97
+- Number of particles: 500
+- Number of Cross-Linkers: 15
+- Number of Monomers: 485
 - Cross-Linker Concentration: 0.03
-- Box Volume: 533.118363 [sigma^3]
-- Half length of the box: 4.054254 [sigma]
+- Box Volume: 2665.591818 [sigma^3]
+- Half length of the box: 6.932675 [sigma]
 - Temperature: 0.05
-- Damp: 1
+- Damp: 0.01
 
  ## Assembly System values 
 

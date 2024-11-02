@@ -14,7 +14,7 @@ cd ..;
 ## Start the for loop
 for var_cCL in 0.03; #0.06 0.1;
 do 
-for Nexp in 1; #$(seq 1 15);
+for Nexp in 10; #$(seq 1 15);
 do
 
 # Cifras significativas
@@ -23,7 +23,7 @@ cs=6;
 # Seed for random numbers
 seed1=$((1234 + $Nexp)); # Position of CL and MO
 seed2=$((4321 + $Nexp)); # Position of Cl and MO
-seed3=$((3124 + $Nexp)); # Langevin Thermostat
+seed3=4321;#$((3124 + $Nexp)); # Langevin Thermostat
 
 # Parameters of the model
 # Radii of the main and patch particles
@@ -34,7 +34,7 @@ r_Patch=0.4;
 phi=0.55;
 CL_concentration=$var_cCL; #0.1;
 N_particles=500;
-damp=0.001; #0.05;
+damp=0.01; #0.05;
 T=0.05;
 
 # Number of monomers and cross-linkers given concentration an total amount of patchy particles

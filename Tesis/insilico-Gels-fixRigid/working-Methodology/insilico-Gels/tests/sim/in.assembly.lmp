@@ -23,10 +23,10 @@ create_box 4 simulation_box &
     extra/special/per/atom 5
 
 # Atom types
-mass 1 1.0      # CL 
-mass 2 1.0      # MO
-mass 3 0.5      # PA
-mass 4 0.5      # PB
+mass 1 10      # CL 
+mass 2 10     # MO
+mass 3 10      # PA
+mass 4 10      # PB
 
 # Coefficients
 include potential.in
@@ -53,7 +53,7 @@ compute dis CM reduce/chunk daux sum c_disc[4]
 #compute disM CM reduce/chunk daux sum c_disc[4]
 
 # Energy minimization
-minimize 1.0e-4 1.0e-6 1000 10000
+#minimize 1.0e-4 1.0e-6 1000 10000
 
 # DUMPS and FIXES
 
@@ -87,12 +87,7 @@ fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_stressVirial[*]
 
 # Brownian Dynamics using Langevin Thermostat
 
-# Set the time integrator
-#fix VelVerlet all nve/omp # Use Velocity Verlet integrator
 timestep ${tstep}
-
-# First elevate the temperature
-#fix ThermoLng all langevin 0.0 ${temp} ${damp} ${seed3} # Brownian Dynamics: langevin + nve 
 
 fix rigidBodies all rigid/nve/small molecule langevin 0.0 ${temp} ${damp} ${seed3}
 fix_modify rigidBodies virial no # No contribution to the stress
