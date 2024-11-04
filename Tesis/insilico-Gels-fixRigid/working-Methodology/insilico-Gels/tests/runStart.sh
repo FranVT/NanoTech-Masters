@@ -14,7 +14,7 @@ cd ..;
 ## Start the for loop
 for var_cCL in 0.03; #0.06 0.1;
 do 
-for Nexp in 10; #$(seq 1 15);
+for Nexp in 200; #$(seq 1 15);
 do
 
 # Cifras significativas
@@ -28,7 +28,7 @@ seed3=4321;#$((3124 + $Nexp)); # Langevin Thermostat
 # Parameters of the model
 # Radii of the main and patch particles
 r_Parti=0.5;
-r_Patch=0.4;
+r_Patch=0.2;
 
 # Main parameters of the simulation
 phi=0.55;
