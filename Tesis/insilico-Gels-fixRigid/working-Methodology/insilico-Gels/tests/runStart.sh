@@ -31,10 +31,10 @@ r_Parti=0.5;
 r_Patch=0.2;
 
 # Main parameters of the simulation
-phi=0.55;
+phi=0.5;
 CL_concentration=$var_cCL; #0.1;
 N_particles=500;
-damp=0.01; #0.05;
+damp=0.001; #0.05;
 T=0.05;
 
 # Number of monomers and cross-linkers given concentration an total amount of patchy particles

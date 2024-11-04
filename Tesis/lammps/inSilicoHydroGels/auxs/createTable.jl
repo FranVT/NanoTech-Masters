@@ -23,7 +23,7 @@ function SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,r_c)
 """
     Potential for the swap mechanism
 """
-    return w.*eps_jk.*U3(eps_ij,eps_jk,sig_p,r_ij).*U3(eps_ik,eps_jk,sig_p,r_ik)
+    return round(w.*eps_jk.*U3(eps_ij,eps_jk,sig_p,r_ij).*U3(eps_ik,eps_jk,sig_p,r_ik),digits=2^7)
 end
 
 function Forceij(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,r_c)
@@ -36,7 +36,7 @@ function Forceij(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,r_c)
         t1 = (sig_p/(r_ij-r_c)^2)*(1/r_ij^5)*(4*r_c^2*sig_p^3+sig_p^3*(sig_p-8*r_c)*r_ij-2*r_ij^5+4*r_ij^2*sig_p^3);
         t2 = (sig_p/r_ik)^4-2;
         t3 = exp(sig_p*(1/(r_ij-r_c)+1/(r_ik-r_c))+4);
-        return w*eps_jk*t1*t2*t3
+        return round(w*eps_jk*t1*t2*t3,digits=2^7)
     end
 end
 
@@ -50,7 +50,7 @@ function Forceik(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,r_c)
         t1 = (sig_p/(r_ik-r_c)^2)*(1/r_ik^5)*(4*r_c^2*sig_p^3+sig_p^3*(sig_p-8*r_c)*r_ik-2*r_ik^5+4*r_ik^2*sig_p^3);
         t2 = (sig_p/r_ij)^4-2;
         t3 = exp(sig_p*(1/(r_ij-r_c)+1/(r_ik-r_c))+4);
-        return w*eps_jk*t1*t2*t3
+        return round(w*eps_jk*t1*t2*t3,digits=2^7)
     end
 end
 
@@ -64,7 +64,7 @@ eps_ik = 1.0;
 eps_jk = 1.0;
 sig = 0.4;
 rc = 1.5*sig;
-rmin = sig/100;
+rmin = sig/1000;
 rmax = 2*sig;
 thi = 180/(4*N)
 thf = 180 - thi;
