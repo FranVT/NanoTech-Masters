@@ -24,7 +24,7 @@ create_box 4 simulation_box &
 
 # Atom types
 mass 1 10      # CL 
-mass 2 10     # MO
+mass 2 10      # MO
 mass 3 10      # PA
 mass 4 10      # PB
 
@@ -99,7 +99,7 @@ unfix rigidBodies
 # Now we let the system to create the polymeric network
 #fix ThermoLng all langevin ${temp} ${temp} ${damp} 12345 # Brownian Dynamics: langevin + nve 
 
-fix rigidBodies all rigid/nve/small molecule langevin ${temp} ${temp} ${damp} 12345
+fix rigidBodies all rigid/nve/small molecule langevin ${temp} ${temp} ${damp} ${seed3}
 fix_modify rigidBodies virial no # No contribution to the stress
 
 run ${steps}

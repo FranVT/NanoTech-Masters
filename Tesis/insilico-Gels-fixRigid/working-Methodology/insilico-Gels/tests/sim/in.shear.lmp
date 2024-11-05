@@ -74,10 +74,8 @@ thermo ${NsaveStress}
 # Brownian Dynamics using Langevin Thermostat
 
 # Set the time integrator
-#fix VelVerlet all nve/omp # Use Velocity Verlet integrator
-#fix ThermoLng all langevin ${temp} ${temp} ${damp} 12345 # Brownian Dynamics: langevin + nve
 
-fix rigidBodies all rigid/nve/small molecule langevin ${temp} ${temp} ${damp} 12345
+fix rigidBodies all rigid/nve/small molecule langevin ${temp} ${temp} ${damp} ${seed3} 
 fix_modify rigidBodies virial no # No contribution to the stress
 
 variable shearDirection equal xy

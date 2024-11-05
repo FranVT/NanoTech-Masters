@@ -14,7 +14,7 @@ cd ..;
 ## Start the for loop
 for var_cCL in 0.03; #0.06 0.1;
 do 
-for Nexp in 200; #$(seq 1 15);
+for Nexp in 1000; #$(seq 1 15);
 do
 
 # Cifras significativas
@@ -34,7 +34,7 @@ r_Patch=0.2;
 phi=0.5;
 CL_concentration=$var_cCL; #0.1;
 N_particles=500;
-damp=0.02; #0.002; #0.05;
+damp=0.0028; #0.002; #0.05;
 T=0.05;
 
 # Number of monomers and cross-linkers given concentration an total amount of patchy particles
@@ -96,7 +96,7 @@ Ndump=100; # Every Ndump time steps save the particles positions.
 '
 
 ## Adapting the variables to be in the directories name
-scl=1000;
+scl=10000;
 shear_aux=$(echo "scale=$cs; $scl*$shear_rate" | bc);
 shear_aux=${shear_aux%.*};
 phi_aux=$(echo "scale=$cs; $scl*$phi" | bc);

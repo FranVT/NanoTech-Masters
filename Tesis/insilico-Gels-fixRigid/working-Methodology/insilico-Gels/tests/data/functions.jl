@@ -9,7 +9,7 @@ function getParameters(dirs,file_name,inds)
         file_name is an array of file names
     """
     if length(inds)==1 
-        file_dir=[joinpath(dirs,first(file_name))];
+        file_dir=[joinpath(dirs[1],first(file_name))];
         parameters=map(eachindex(file_dir)) do r
             open(file_dir[r]) do f
                 map(s->parse(Float64,s),readlines(f))

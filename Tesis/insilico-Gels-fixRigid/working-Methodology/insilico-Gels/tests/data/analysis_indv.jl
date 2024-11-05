@@ -30,9 +30,9 @@ dirs_aux = open("dirs.txt") do f
    Nexp -> Number of simulation
 """
 
-selc_phi="550";
+selc_phi="500";
 selc_Npart="500";
-selc_damp="1";
+selc_damp="3";
 selc_T="50";
 selc_cCL="30";
 selc_ShearRate="10";
@@ -59,7 +59,7 @@ auxs_indShearRate=findall(r->r==selc_ShearRate, first.(aux_dirs_ind) );
 auxs_ind=intersect(auxs_indPhi,auxs_indNPart,auxs_indDamp,auxs_indT,auxs_indcCL,auxs_indShearRate);
 
 # Select the number of experiments
-auxs_ind=auxs_ind[[2,3,4]];
+auxs_ind=auxs_ind;
 
 # Selcet the directories woth the criteria
 dirs=dirs_aux[auxs_ind];
@@ -115,7 +115,7 @@ file_name = (
 parameters=getParameters(dirs,file_name,auxs_ind);
 
 # Retrieve all the data from every experiment
-#data=map(s->getData2(dirs[s],file_name,parameters[s]),eachindex(dirs));
+data=map(s->getData2(dirs[s],file_name,parameters[s]),eachindex(dirs));
 
 # Separate the data from assembly and shear experiment
 data_assembly=first.(data);
@@ -153,11 +153,11 @@ csh=:tab20;
 tf=last(time_assembly);
 
 # Mean and standard values of Temperature
-mean_T_ass=mean(data_assembly[2][3][Int64(parameters[1][12]/parameters[1][14]):end]);
-std_T_ass=std(data_assembly[2][3][Int64(parameters[1][12]/parameters[1][14]):end],mean=mean_T_ass);
+mean_T_ass=mean(data_assembly[1][3][Int64(parameters[1][12]/parameters[1][14]):end]);
+std_T_ass=std(data_assembly[1][3][Int64(parameters[1][12]/parameters[1][14]):end],mean=mean_T_ass);
 
-mean_T_shear=mean(data_shear[2][3]);
-std_T_shear=std(data_shear[2][3],mean=mean_T_shear);
+mean_T_shear=mean(data_shear[1][3]);
+std_T_shear=std(data_shear[1][3],mean=mean_T_shear);
 
 fig_Temp=Figure(size=(1920,1080));
 ax_leg=Axis(fig_Temp[1:2,3],limits=(0.01,0.1,0.01,0.1))
@@ -237,8 +237,8 @@ Legend(fig_Temp[1:2,3],ax_leg,
 ## Energy Plot
 
 # Mean and standard values of Temperature
-mean_Eng_ass=mean(data_assembly[2][8][Int64(parameters[1][12]/parameters[1][14]):end]);
-std_Eng_ass=std(data_assembly[2][8][Int64(parameters[1][12]/parameters[1][14]):end],mean=mean_T_ass);
+mean_Eng_ass=mean(data_assembly[1][8][Int64(parameters[1][12]/parameters[1][14]):end]);
+std_Eng_ass=std(data_assembly[1][8][Int64(parameters[1][12]/parameters[1][14]):end],mean=mean_T_ass);
 
 #mean_Eng_shear=mean(data_shear[2][8]);
 #std_Eng_shear=std(data_shear[2][8],mean=mean_T_shear);
