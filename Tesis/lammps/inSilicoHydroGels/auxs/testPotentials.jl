@@ -10,40 +10,134 @@ function Upatch(eps_pair,sig_p,r)
     Auxiliary potential to create Swap Mechanism based in Patch-Patch interaction
 """
     if r < 1.5*sig_p 
-        return 2*eps_pair*( ((sig_p^4)./((2).*r.^4)) .-1).*exp.((sig_p)./(r.-(1.5*sig_p)).+2) 
+        return round(2*eps_pair*( ((sig_p^4)./((2).*r.^4)) .-1).*exp.((sig_p)./(r.-(1.5*sig_p)).+2),digits=2^7)
     else
         return 0.0
     end
 end
 
-function Fpatch(eps_pair,sig_p,r)
-    if r < 1.5*sig_p
-        return 4*eps_pair*(sig_p^4/r^5)*exp.((sig_p)./(r.-(1.5*sig_p)).+2) + 2*eps*(sig_p/(r-1.5*sig_p)^2)*( ((sig_p^4)./((2).*r.^4)) .-1).*exp.((sig_p)./(r.-(1.5*sig_p)).+2)
+function Fpatch(eps_pair,sig_p,r_c,r)
+    if r < r_c
+        return round(((eps_pair*sig_p)/(r^5*(r-r_c)^2))*(4*r_c^2*sig_p^3+sig_p^3*(sig_p-8*r_c).*r-2*r^5+4*r^2*sig_p^3).*exp.(((sig_p)./(r.-r_c)).+2),digits=2^7)
+#4*eps_pair*(sig_p^4/r^5)*exp.((sig_p)./(r.-(1.5*sig_p)).+2) + 2*eps*(sig_p/(r-1.5*sig_p)^2)*( ((sig_p^4)./((2).*r.^4)) .-1).*exp.((sig_p)./(r.-(1.5*sig_p)).+2)
     else
         return 0.0
     end
 end
 
 # Parameters
-N = 5000000;
+N = 1000000;
 sig = 0.4;
 eps = 1.0;
-rmin = 0.000001;
-rmax = 5*sig;
+rc=1.5*sig;
+rmin = sig/1000;
+rmax = 2*sig;
 r_dom = range(rmin,rmax,length=N);
 
-Ueval = map(s->Upatch(eps,sig,s),r_dom);
+# Create the table
+#info = reduce(hcat,map(s->[s,r_dom[s],Upatch(eps,sig,r_dom[s]),Fpatch(eps,sig,rc,r_dom[s])],eachindex(r_dom)));
 
 figPatch = Figure(size=(1280,720))
 axPatch = Axis(figPatch[1,1],
                title=L"\mathrm{Patch~Potential}",
                xlabel=L"\mathrm{Distance}~[\sigma]",
                ylabel=L"U_{\mathrm{Patch}}(r)",
-               limits=(0,rmax,minimum(Ueval),-minimum(Ueval))
+               limits=(0,rmax,minimum(info[4,:]),-minimum(info[4,:]))
               )
-lines!(axPatch,r_dom,Ueval)
+series!(axPatch,info[2,:],info[3:4,:])
+
+## Swap Mechanism
+# Create the functions
+function U3(eps_pair,eps_3,sig_p,r)
+"""
+    Auxiliary potential to create Swap Mechanism based in Patch-Patch interaction
+"""
+    if r < sig_p 
+        return 1.0
+    elseif r >= 1.5*sig_p
+        return 0.0 
+    else 
+        return -( 2*eps_pair*( ((sig_p^4)./((2).*r.^4)) .-1).*exp.((sig_p)./(r.-(1.5*sig_p)).+2) )./eps_3
+    end
+end
 
 
+function SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,r_c)
+"""
+    Potential for the swap mechanism
+"""
+    return round(w.*eps_jk.*U3(eps_ij,eps_jk,sig_p,r_ij).*U3(eps_ik,eps_jk,sig_p,r_ik),digits=2^7)
+end
+
+function Forceij(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,r_c)
+"""
+    -d/drij SwapU
+"""
+    if r_ij > rc || r_ij < sig_p
+        return 0.0 
+    else 
+        t1 = (sig_p/(r_ij-r_c)^2)*(1/r_ij^5)*(4*r_c^2*sig_p^3+sig_p^3*(sig_p-8*r_c)*r_ij-2*r_ij^5+4*r_ij^2*sig_p^3);
+        t2 = (sig_p/r_ik)^4-2;
+        t3 = exp(sig_p*(1/(r_ij-r_c)+1/(r_ik-r_c))+4);
+        return round(w*eps_jk*t1*t2*t3,digits=2^7)
+    end
+end
+
+function Forceik(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,r_c)
+"""
+    -d/drik SwapU
+"""
+    if r_ik > rc || r_ik < sig_p
+        return 0.0 
+    else 
+        t1 = (sig_p/(r_ik-r_c)^2)*(1/r_ik^5)*(4*r_c^2*sig_p^3+sig_p^3*(sig_p-8*r_c)*r_ik-2*r_ik^5+4*r_ik^2*sig_p^3);
+        t2 = (sig_p/r_ij)^4-2;
+        t3 = exp(sig_p*(1/(r_ij-r_c)+1/(r_ik-r_c))+4);
+        return round(w*eps_jk*t1*t2*t3,digits=2^7)
+    end
+end
+
+## Parameters for the file
+
+N = 50;
+M = 2*N*N*N;
+
+eps_ij = 1.0;
+eps_ik = 1.0;
+eps_jk = 1.0;
+sig = 0.4;
+rc = 1.5*sig;
+rmin = sig/1000;
+rmax = 2*sig;
+thi = 180/(4*N)
+thf = 180 - thi;
+w=1;
+
+# Create the domains of evaluation according filename nessetities
+th_dom = range(thi,thf,2*N);
+r_dom = range(rmin,rmax,N);
+
+doms = reduce(vcat,Iterators.product(r_dom,r_dom,th_dom));
+
+# Create tuples with the information
+docs =  map(eachindex(doms)) do s
+            [ 
+                 s,
+                 doms[s]...,
+                 Forceij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc),
+                 Forceik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][2],doms[s][1],rc),
+                 Forceij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc),
+                 0.0,
+                 Forceik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][2],doms[s][1],rc),
+                 0.0,
+                 SwapU(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc)
+            ]
+        end
+docs=reduce(hcat,docs);
+
+
+
+#=
 # Create the functions
 function U3(eps_pair,eps_3,sig_p,r)
 """
@@ -164,4 +258,4 @@ lines!(axSwap,r_dom,Ueval.+USwapeval4,label=L"U_{\mathrm{patch}}+U_{\mathrm{swap
 
 axislegend(axSwap,position=:rb)
 
-
+=#

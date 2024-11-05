@@ -23,10 +23,10 @@ create_box 4 simulation_box &
     extra/special/per/atom 5
 
 # Atom types
-mass 1 10      # CL 
-mass 2 10      # MO
-mass 3 10      # PA
-mass 4 10      # PB
+mass 1 1      # CL 
+mass 2 1      # MO
+mass 3 1      # PA
+mass 4 1      # PB
 
 # Coefficients
 include potential.in
@@ -43,6 +43,8 @@ compute p all pressure t
 compute ep all pe
 compute ek all ke
 compute ekCM CM ke
+variable ec equal ecouple
+variable eC equal econserve
 compute stressVirial all pressure t ke pair
 compute wcaPair all pair lj/cut/omp epair
 compute patchPair all pair table/omp epair
@@ -65,15 +67,19 @@ dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
 
 # Save global energies and temperature
 group Energy empty
-fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_ep c_ek c_tCM c_p file ${Dir}/energy_assembly.fixf
+fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_ep c_ek c_tCM c_p v_ec v_eC file ${Dir}/energy_assembly.fixf
 
 group PairE1 empty
 group PairE2 empty
 group PairE3 empty
+group PairE4 empty
 
 fix fixwca PairE1 ave/time 1 ${Nsave} ${Nsave} c_wcaPair file ${Dir}/wcaPair_assembly.fixf
 fix fixpatch PairE2 ave/time 1 ${Nsave} ${Nsave} c_patchPair file ${Dir}/patchPair_assembly.fixf
 fix fixswap PairE3 ave/time 1 ${Nsave} ${Nsave} c_swapPair file ${Dir}/swapPair_assembly.fixf
+fix fixLang PairE4 ave/time 1 ${Nsave} ${Nsave} v_ec file ${Dir}/langevinPot_assembly.fixf
+
+
 
 # Save Atom displacement
 group Displ empty

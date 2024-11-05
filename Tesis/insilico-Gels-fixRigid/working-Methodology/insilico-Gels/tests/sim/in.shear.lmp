@@ -31,6 +31,8 @@ compute p all pressure t
 compute ep all pe
 compute ek all ke
 compute ekCM CM ke
+variable ec equal ecouple
+variable eC equal econserve
 compute stressVirial all pressure t ke pair
 compute wcaPair all pair lj/cut/omp epair
 compute patchPair all pair table/omp epair
@@ -52,12 +54,15 @@ group Energy empty
 group PairE1 empty
 group PairE2 empty
 group PairE3 empty
+group PairE4 empty
 
-fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_ep c_ek c_tCM c_p file ${Dir}/energy_shear.fixf
+fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_ep c_ek c_tCM c_p v_ec v_eC file ${Dir}/energy_shear.fixf
 
 fix fixwca PairE1 ave/time 1 ${Nsave} ${Nsave} c_wcaPair file ${Dir}/wcaPair_shear.fixf
 fix fixpatch PairE2 ave/time 1 ${Nsave} ${Nsave} c_patchPair file ${Dir}/patchPair_shear.fixf
 fix fixswap PairE3 ave/time 1 ${Nsave} ${Nsave} c_swapPair file ${Dir}/swapPair_shear.fixf
+fix fixLang PairE4 ave/time 1 ${Nsave} ${Nsave} v_ec file ${Dir}/langevinPot_shear.fixf
+
 
 # Save Atom displacement
 group Displ empty

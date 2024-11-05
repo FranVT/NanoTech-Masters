@@ -14,7 +14,7 @@ cd ..;
 ## Start the for loop
 for var_cCL in 0.03; #0.06 0.1;
 do 
-for Nexp in 1000; #$(seq 1 15);
+for Nexp in 1115; #$(seq 1 15);
 do
 
 # Cifras significativas
@@ -23,7 +23,7 @@ cs=6;
 # Seed for random numbers
 seed1=$((1234 + $Nexp)); # Position of CL and MO
 seed2=$((4321 + $Nexp)); # Position of Cl and MO
-seed3=4321;#$((3124 + $Nexp)); # Langevin Thermostat
+seed3=10;#$((3124 + $Nexp)); # Langevin Thermostat
 
 # Parameters of the model
 # Radii of the main and patch particles
@@ -34,7 +34,7 @@ r_Patch=0.2;
 phi=0.5;
 CL_concentration=$var_cCL; #0.1;
 N_particles=500;
-damp=0.0028; #0.002; #0.05;
+damp=0.005; #0.002; #0.05;
 T=0.05;
 
 # Number of monomers and cross-linkers given concentration an total amount of patchy particles
@@ -86,7 +86,7 @@ relaxTime3=$(( 2 * $relaxTime2));
 relaxTime4=$(( 1 * $Nstep_per_strain));
 
 # Parameters for fix and dumps files
-Nsave=10; # Temporal average for fix files
+Nsave=2; # Temporal average for fix files
 NsaveStress=$(echo "scale=$cs; 1 / $tstep_defor" | bc); # Tmeporal average for stress fix files
 NsaveStress=${NsaveStress%.*};
 Ndump=100; # Every Ndump time steps save the particles positions.

@@ -30,12 +30,12 @@ dirs_aux = open("dirs.txt") do f
    Nexp -> Number of simulation
 """
 
-selc_phi="500";
+selc_phi="5000";
 selc_Npart="500";
-selc_damp="3";
-selc_T="50";
-selc_cCL="30";
-selc_ShearRate="10";
+selc_damp="10000";
+selc_T="500";
+selc_cCL="300";
+selc_ShearRate="100";
 
 aux_dirs_ind=split.(last.(split.(dirs_aux,"Phi")),"NPart");
 auxs_indPhi=findall(r->r==selc_phi, first.(aux_dirs_ind) );
@@ -176,7 +176,7 @@ ax_t = Axis(fig_Temp[1,1:2],
         xminorgridvisible = true,
         xminorticks = IntervalsBetween(5),
         #xscale = log10,
-        limits = (nothing,nothing,0,mean_T_ass+4*std_T_ass)
+#        limits = (nothing,nothing,0,mean_T_ass+4*std_T_ass)
     )
 ax_tcp = Axis(fig_Temp[2,1:2],
         title = L"\mathrm{Temperature~Shear~Simulation}",
@@ -191,7 +191,7 @@ ax_tcp = Axis(fig_Temp[2,1:2],
         xminorgridvisible = true,
         xminorticks = IntervalsBetween(5),
         #xscale = log10,
-        limits = (nothing,nothing,0,mean_T_ass+4std_T_ass)
+#        limits = (nothing,nothing,0,mean_T_ass+4std_T_ass)
     )
 
 map(s->lines!(ax_t,time_assembly[s],data_assembly[s][3]),eachindex(dirs))
@@ -262,7 +262,7 @@ ax_E = Axis(fig_Energy[1,1:2],
         xminorgridvisible = true,
         xminorticks = IntervalsBetween(5),
         #xscale = log10,
-        limits = (nothing,nothing,-4*std_Eng_ass,mean_Eng_ass+4*std_Eng_ass)
+#        limits = (nothing,nothing,-4*std_Eng_ass,mean_Eng_ass+4*std_Eng_ass)
     )
 ax_Elo = Axis(fig_Energy[2,1:2],
         title = L"\mathrm{Kinetic~Energy}",
@@ -277,7 +277,7 @@ ax_Elo = Axis(fig_Energy[2,1:2],
         xminorgridvisible = true,
         xminorticks = IntervalsBetween(5),
         #xscale = log10,
-        limits = (nothing,nothing,-4*std_Eng_ass,mean_Eng_ass+4*std_Eng_ass)
+#        limits = (nothing,nothing,-4*std_Eng_ass,mean_Eng_ass+4*std_Eng_ass)
     )
 
 println("Plotting lines")
@@ -325,7 +325,7 @@ ax_E = Axis(fig_EnergyLog[1,1:2],
         xminorgridvisible = true,
         xminorticks = IntervalsBetween(5),
         #xscale = log10,
-        limits = (nothing,nothing,-4*std_Eng_ass,mean_Eng_ass+4*std_Eng_ass)
+#        limits = (nothing,nothing,-4*std_Eng_ass,mean_Eng_ass+4*std_Eng_ass)
     )
 ax_Elo = Axis(fig_EnergyLog[2,1:2],
         title = L"\mathrm{Total~Energy}",
@@ -340,7 +340,7 @@ ax_Elo = Axis(fig_EnergyLog[2,1:2],
         xminorgridvisible = true,
         xminorticks = IntervalsBetween(5),
         xscale = log10,
-        limits = (nothing,nothing,-4*std_Eng_ass,mean_Eng_ass+4*std_Eng_ass)
+#        limits = (nothing,nothing,-4*std_Eng_ass,mean_Eng_ass+4*std_Eng_ass)
     )
 
 println("Plotting lines")
