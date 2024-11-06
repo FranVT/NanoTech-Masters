@@ -14,7 +14,7 @@ cd ..;
 ## Start the for loop
 for var_cCL in 0.03; #0.06 0.1;
 do 
-for Nexp in 100; #$(seq 1 15);
+for Nexp in 200; #$(seq 1 15);
 do
 
 # Cifras significativas
@@ -66,7 +66,8 @@ L_real=$(echo "scale=$cs; e( l($Vol_Tot)/3 )" | bc -l );
 L=$(echo "scale=$cs; $L_real / 2" | bc);
 
 # Numerical parameters for LAMMPS simulation
-steps=2000000;
+stepsheat=1000000;
+steps=4000000;
 tstep=0.001;
 
 ## Variables for shear deformation simulation
@@ -138,7 +139,7 @@ echo -e ""- Temperature: "${T}" >> $file_name;
 echo -e ""- Damp: "${damp}" >> $file_name;
 echo -e "\n ## Assembly System values \n" >> $file_name;
 echo -e ""- Time step: "${tstep}" [tau]"" >> $file_name;
-echo -e ""- Number of time steps in heating process: "${steps}" >> $file_name;
+echo -e ""- Number of time steps in heating process: "${stepsheat}" >> $file_name;
 echo -e ""- Number of time steps in isothermal  process: "${steps}" >> $file_name;
 echo -e ""- Save every "${Ndump}" time steps for dumps files"" >> $file_name;
 echo -e ""- Save every "${Nsave}" time steps for fix files"" >> $file_name;
@@ -207,7 +208,7 @@ echo -e "mkdir $dump_name;" >> $file_name;
 #echo -e "cd $info_name; mkdir dumps; cd dumps;" >> $file_name;
 echo -e "cd $dump_name; mkdir assembly; mkdir shear; cd ..;" >> $file_name;
 echo -e "" >> $file_name;
-echo -e "env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.assembly.lmp -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3  -var tstep $tstep -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var Dir $info_name -var dumpDir $dump_name" -var steps $steps >> $file_name;
+echo -e "env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.assembly.lmp -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3  -var tstep $tstep -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var Dir $info_name -var dumpDir $dump_name" -var steps $steps -var stepsheat $stepsheat >> $file_name;
 echo -e "" >> $file_name;
 echo -e "env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.shear.lmp -var temp $T -var damp $damp -var tstep $tstep_defor -var shear_rate $shear_rate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var seed3 $seed3  -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var rlxT4 $relaxTime4 -var Dir $info_name -var dumpDir $dump_name" >> $file_name;
 echo -e "" >> $file_name;

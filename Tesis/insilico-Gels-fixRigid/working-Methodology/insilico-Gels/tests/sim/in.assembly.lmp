@@ -99,7 +99,7 @@ timestep ${tstep}
 fix rigidBodies all rigid/nve/small molecule langevin 0.0 ${temp} ${damp} ${seed3}
 fix_modify rigidBodies virial no # No contribution to the stress
 
-run ${steps}
+run ${stepsheat}
 
 unfix rigidBodies
 
