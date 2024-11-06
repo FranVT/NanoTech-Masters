@@ -1,5 +1,5 @@
 """
-    Individual visual analysis
+    Multiple visual analysis
 """
 
 using FileIO
@@ -32,7 +32,7 @@ dirs_aux = open("dirs.txt") do f
 
 selc_phi="5000";
 selc_Npart="500";
-selc_damp="1000";
+selc_damp="100";
 selc_T="500";
 selc_cCL="300";
 selc_ShearRate="100";

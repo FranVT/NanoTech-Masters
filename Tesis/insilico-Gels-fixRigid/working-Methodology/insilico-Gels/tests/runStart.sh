@@ -14,7 +14,7 @@ cd ..;
 ## Start the for loop
 for var_cCL in 0.03; #0.06 0.1;
 do 
-for Nexp in 2115; #$(seq 1 15);
+for Nexp in 100; #$(seq 1 15);
 do
 
 # Cifras significativas
@@ -34,7 +34,7 @@ r_Patch=0.2;
 phi=0.5;
 CL_concentration=$var_cCL; #0.1;
 N_particles=500;
-damp=0.005; #0.002; #0.05;
+damp=0.05; #0.002; #0.05;
 T=0.05;
 
 # Number of monomers and cross-linkers given concentration an total amount of patchy particles
@@ -66,7 +66,7 @@ L_real=$(echo "scale=$cs; e( l($Vol_Tot)/3 )" | bc -l );
 L=$(echo "scale=$cs; $L_real / 2" | bc);
 
 # Numerical parameters for LAMMPS simulation
-steps=1000000;
+steps=2000000;
 tstep=0.001;
 
 ## Variables for shear deformation simulation
@@ -74,7 +74,7 @@ tstep_defor=0.001;
 sstep_defor=10000;
 
 shear_rate=0.01;
-max_strain=3;
+max_strain=1;
 Nstep_per_strain=$(echo "scale=$cs; $(echo "scale=$cs; 1 / $shear_rate" | bc) * $(echo "scale=$cs; 1 / $tstep_defor" | bc)" | bc) ;
 Nstep_per_strain=${Nstep_per_strain%.*};
 
