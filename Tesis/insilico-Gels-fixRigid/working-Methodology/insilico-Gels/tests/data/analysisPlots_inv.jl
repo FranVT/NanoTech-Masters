@@ -59,7 +59,7 @@ auxs_indShearRate=findall(r->r==selc_ShearRate, first.(aux_dirs_ind) );
 auxs_ind=intersect(auxs_indPhi,auxs_indNPart,auxs_indDamp,auxs_indT,auxs_indcCL,auxs_indShearRate);
 
 # Select the number of experiments
-auxs_ind=auxs_ind;
+auxs_ind=auxs_ind[[end]];
 
 # Selcet the directories woth the criteria
 dirs=dirs_aux[auxs_ind];
