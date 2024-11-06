@@ -23,17 +23,17 @@ cs=6;
 # Seed for random numbers
 seed1=$((1234 + $Nexp)); # Position of CL and MO
 seed2=$((4321 + $Nexp)); # Position of Cl and MO
-seed3=$((3124 + $Nexp)); # Langevin Thermostat
+seed3=10; # Langevin Thermostat
 
 # Parameters of the model
 # Radii of the main and patch particles
 r_Parti=0.5;
-r_Patch=0.4;
+r_Patch=0.2;
 
 # Main parameters of the simulation
 phi=0.55;
 CL_concentration=$var_cCL; #0.1;
-N_particles=150;
+N_particles=500;
 damp=0.01;
 T=0.05;
 
@@ -87,27 +87,17 @@ relaxTime3=$(( 2 * $relaxTime2));
 relaxTime4=$(( 1 * $Nstep_per_strain));
 
 # Parameters for fix and dumps files
-Nsave=10; # Temporal average for fix files
+Nsave=2; # Temporal average for fix files
 NsaveStress=$(echo "scale=$cs; 1 / $tstep_defor" | bc); # Tmeporal average for stress fix files
 NsaveStress=${NsaveStress%.*};
 Ndump=100; # Every Ndump time steps save the particles positions.
-
-
-
-# Parameters for fix and dumps files
-Nsave=10; # Temporal average for fix files
-Nave=$(echo "scale=$cs; 1 / $tstep_defor" | bc); # Tmeporal average for stress fix files
-Nave=${Nave%.*};
-Ndump=100; # Every Ndump time steps save the particles positions.
-
-
 
 : '
     Creation of directory for the simulation data
 '
 
 ## Adapting the variables to be in the directories name
-scl=1000;
+scl=10000;
 shear_aux=$(echo "scale=$cs; $scl*$shear_rate" | bc);
 shear_aux=${shear_aux%.*};
 phi_aux=$(echo "scale=$cs; $scl*$phi" | bc);

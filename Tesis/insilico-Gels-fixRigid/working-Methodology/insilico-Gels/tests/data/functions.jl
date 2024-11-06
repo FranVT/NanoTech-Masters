@@ -116,26 +116,26 @@ function getData2(dir,files,parameters)
     pressure_assembly=data[1][6,:];
     wcaPair_assembly=data[2][2,:];
     patchPair_assembly=data[3][2,:];
-    swapPair_assembly=data[4][2,:];
-    displCl_assembly=data[5][2,:];
-    displMo_assembly=data[5][3,:];
-    stressXX_assembly=-data[6][2,:];
-    stressXY_assembly=-data[6][5,:];
+    swapPair_assembly=nothing;#data[4][2,:];
+    displCl_assembly=data[5-1][2,:];
+    displMo_assembly=data[5-1][3,:];
+    stressXX_assembly=-data[6-1][2,:];
+    stressXY_assembly=-data[6-1][5,:];
 
-    time_shear=data[7][1,:];
-    time_shearStress=data[12][1,:];
-    temp_shear=data[7][2,:];
-    U_shear=data[7][3,:];
-    K_shear=data[7][4,:];
-    tempCM_shear=data[7][5,:];
-    pressure_shear=data[7][6,:];
-    wcaPair_shear=data[8][2,:];
-    patchPair_shear=data[9][2,:];
-    swapPair_shear=data[10][2,:];
-    displCl_shear=data[11][2,:];
-    displMo_shear=data[11][3,:];
-    stressXX_shear=-data[12][2,:];
-    stressXY_shear=-data[12][5,:];
+    time_shear=data[7-1][1,:];
+    time_shearStress=data[12-2][1,:];
+    temp_shear=data[7-1][2,:];
+    U_shear=data[7-1][3,:];
+    K_shear=data[7-1][4,:];
+    tempCM_shear=data[7-1][5,:];
+    pressure_shear=data[7-1][6,:];
+    wcaPair_shear=data[8-1][2,:];
+    patchPair_shear=data[9-1][2,:];
+    swapPair_shear=nothing;#data[10][2,:];
+    displCl_shear=data[11-2][2,:];
+    displMo_shear=data[11-2][3,:];
+    stressXX_shear=-data[12-2][2,:];
+    stressXY_shear=-data[12-2][5,:];
  
     # Compute data
     ## Total energy of the system (Internal Energy)

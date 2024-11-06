@@ -12,7 +12,8 @@ boundary p p p
 atom_style full 
 bond_style harmonic
 angle_style harmonic
-pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 1.12 table/omp linear 5000000 threebody/table
+pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 1.12 table/omp linear 5000000 
+#threebody/table
 
 newton on
 
@@ -29,8 +30,8 @@ create_box 4 simulation_box &
 # Atom types
 mass 1 1.0      # CL 
 mass 2 1.0      # MO
-mass 3 0.01      # PA
-mass 4 0.01      # PB
+mass 3 1.0      # PA
+mass 4 1.0      # PB
 
 # Coefficients
 include potential.in
@@ -50,14 +51,14 @@ compute ekCM CM ke
 compute stressVirial all pressure t ke pair
 compute wcaPair all pair lj/cut/omp epair
 compute patchPair all pair table/omp epair
-compute swapPair all pair threebody/table epair
+#compute swapPair all pair threebody/table epair
 compute disc CM displace/atom
 compute daux CM chunk/atom type pbc yes
 compute dis CM reduce/chunk daux sum c_disc[4]
 #compute disM CM reduce/chunk daux sum c_disc[4]
 
 # Energy minimization
-minimize 1.0e-4 1.0e-6 1000 10000
+#minimize 1.0e-4 1.0e-6 1000 10000
 
 # DUMPS and FIXES
 
@@ -73,11 +74,11 @@ fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_ep c_ek c_tCM c_p file ${Di
 
 group PairE1 empty
 group PairE2 empty
-group PairE3 empty
+#group PairE3 empty
 
 fix fixwca PairE1 ave/time 1 ${Nsave} ${Nsave} c_wcaPair file ${Dir}/wcaPair_assembly.fixf
 fix fixpatch PairE2 ave/time 1 ${Nsave} ${Nsave} c_patchPair file ${Dir}/patchPair_assembly.fixf
-fix fixswap PairE3 ave/time 1 ${Nsave} ${Nsave} c_swapPair file ${Dir}/swapPair_assembly.fixf
+#fix fixswap PairE3 ave/time 1 ${Nsave} ${Nsave} c_swapPair file ${Dir}/swapPair_assembly.fixf
 
 # Save Atom displacement
 group Displ empty
@@ -96,13 +97,13 @@ fix VelVerlet all nve/omp # Use Velocity Verlet integrator
 timestep ${tstep}
 
 # First elevate the temperature
-fix ThermoLng all langevin 0.0 ${temp} ${damp} 12345 # Brownian Dynamics: langevin + nve 
+fix ThermoLng all langevin 0.0 ${temp} ${damp} ${seed3} # Brownian Dynamics: langevin + nve 
 run ${steps}
 
 unfix ThermoLng
 
 # Now we let the system to create the polymeric network
-fix ThermoLng all langevin ${temp} ${temp} ${damp} 12345 # Brownian Dynamics: langevin + nve 
+fix ThermoLng all langevin ${temp} ${temp} ${damp} ${seed3} # Brownian Dynamics: langevin + nve 
 run ${steps}
 
 # Write data for deformation

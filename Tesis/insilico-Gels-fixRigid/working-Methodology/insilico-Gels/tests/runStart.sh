@@ -14,7 +14,7 @@ cd ..;
 ## Start the for loop
 for var_cCL in 0.03; #0.06 0.1;
 do 
-for Nexp in 1115; #$(seq 1 15);
+for Nexp in 2115; #$(seq 1 15);
 do
 
 # Cifras significativas
@@ -82,7 +82,7 @@ shear_it=$(( $max_strain * $Nstep_per_strain));
 
 relaxTime1=$(( $max_strain * $Nstep_per_strain ));
 relaxTime2=$(( 2 * $relaxTime1)); 
-relaxTime3=$(( 2 * $relaxTime2));
+relaxTime3=$(( 1 * $relaxTime2));
 relaxTime4=$(( 1 * $Nstep_per_strain));
 
 # Parameters for fix and dumps files
