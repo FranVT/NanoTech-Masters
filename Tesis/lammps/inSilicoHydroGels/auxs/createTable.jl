@@ -26,6 +26,19 @@ function SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,r_c)
     return round(w.*eps_jk.*U3(eps_ij,eps_jk,sig_p,r_ij).*U3(eps_ik,eps_jk,sig_p,r_ik),digits=2^7)
 end
 
+
+function centralDiffEval(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,r_c)
+"""
+    Get the central finite difference given the value of the position and the function.
+"""
+    dh=1e-6;
+    fo=SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij+dh,r_ik,r_c)
+    ff=SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij-dh,r_ik,r_c)
+    return (1/(2*dh))*( fo - ff );
+end
+
+
+
 function Forceij(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,r_c)
 """
     -d/drij SwapU
@@ -81,11 +94,11 @@ docs =  map(eachindex(doms)) do s
             (
                  s,
                  doms[s]...,
-                 Forceij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc),
-                 Forceik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][2],doms[s][1],rc),
-                 -Forceij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc),
+                 -centralDiffEval(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc) #Forceij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc),
+                 -centralDiffEval(w,eps_ij,eps_ik,eps_jk,sig,doms[s][2],doms[s][1],rc) #Forceik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][2],doms[s][1],rc),
+                 centralDiffEval(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc) #-Forceij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc),
                  0.0,
-                 -Forceik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][2],doms[s][1],rc),
+                 centralDiffEval(w,eps_ij,eps_ik,eps_jk,sig,doms[s][2],doms[s][1],rc) #-Forceik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][2],doms[s][1],rc),
                  0.0,
                  SwapU(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc)
             )
