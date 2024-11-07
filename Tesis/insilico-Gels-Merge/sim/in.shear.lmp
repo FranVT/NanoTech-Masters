@@ -28,11 +28,12 @@ include molDeform.in
 # Compute global kinetic and potential energy and temperature
 compute t all temp
 compute tCM CM temp
+compute td all temp/deform
 compute p all pressure t
 compute ep all pe
 compute ek all ke
 compute ekCM CM ke
-compute stressVirial all pressure t ke pair
+compute stressVirial all pressure td ke pair
 compute wcaPair all pair lj/cut/omp epair
 compute patchPair all pair table/omp epair
 compute swapPair all pair threebody/table epair
@@ -54,7 +55,7 @@ group PairE1 empty
 group PairE2 empty
 group PairE3 empty
 
-fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_ep c_ek c_tCM c_p file ${Dir}/energy_shear.fixf
+fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_ep c_ek c_tCM c_p c_td file ${Dir}/energy_shear.fixf
 
 fix fixwca PairE1 ave/time 1 ${Nsave} ${Nsave} c_wcaPair file ${Dir}/wcaPair_shear.fixf
 fix fixpatch PairE2 ave/time 1 ${Nsave} ${Nsave} c_patchPair file ${Dir}/patchPair_shear.fixf
@@ -76,7 +77,7 @@ thermo ${NsaveStress}
 
 # Set the time integrator
 fix VelVerlet all nve/omp # Use Velocity Verlet integrator
-fix ThermoLng all langevin ${temp} ${temp} ${damp} ${seed3} # Brownian Dynamics: langevin + nve
+fix ThermoLng all langevin ${temp} ${temp} ${damp} ${seed3} zero yes # Brownian Dynamics: langevin + nve
 
 variable shearDirection equal xy
 variable maxTilt equal 0.5*lx
