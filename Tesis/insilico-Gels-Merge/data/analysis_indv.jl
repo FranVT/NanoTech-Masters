@@ -36,6 +36,7 @@ selc_damp="5000";
 selc_T="500";
 selc_cCL="300";
 selc_ShearRate="100";
+selc_Nexp="150";
 
 aux_dirs_ind=split.(last.(split.(dirs_aux,"Phi")),"NPart");
 auxs_indPhi=findall(r->r==selc_phi, first.(aux_dirs_ind) );
@@ -55,11 +56,14 @@ auxs_indcCL=findall(r->r==selc_cCL, first.(aux_dirs_ind) );
 aux_dirs_ind=split.(last.(aux_dirs_ind),"-");
 auxs_indShearRate=findall(r->r==selc_ShearRate, first.(aux_dirs_ind) );
 
+aux_dirs_ind=split.(last.(aux_dirs_ind),"Nexp");
+auxs_indNexp=findall(r->r==selc_Nexp, last.(aux_dirs_ind) );
+
 # Get the idixes that meet the criteria
-auxs_ind=intersect(auxs_indPhi,auxs_indNPart,auxs_indDamp,auxs_indT,auxs_indcCL,auxs_indShearRate);
+auxs_ind=intersect(auxs_indPhi,auxs_indNPart,auxs_indDamp,auxs_indT,auxs_indcCL,auxs_indShearRate,auxs_indNexp);
 
 # Select the number of experiments
-auxs_ind=auxs_ind[[end]];
+auxs_ind=auxs_ind;
 
 # Selcet the directories woth the criteria
 dirs=dirs_aux[auxs_ind];
@@ -71,13 +75,13 @@ file_name = (
              "energy_assembly.fixf",
              "wcaPair_assembly.fixf",
              "patchPair_assembly.fixf",
-             #"swapPair_assembly.fixf",
+             "swapPair_assembly.fixf",
              "cmdisplacement_assembly.fixf",
              "stressVirial_assembly.fixf",
              "energy_shear.fixf",
              "wcaPair_shear.fixf",
              "patchPair_shear.fixf",
-             #"swapPair_shear.fixf",
+             "swapPair_shear.fixf",
              "cmdisplacement_shear.fixf",
              "stressVirial_shear.fixf"
             );

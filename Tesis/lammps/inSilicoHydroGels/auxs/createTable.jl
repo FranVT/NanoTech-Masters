@@ -69,7 +69,7 @@ end
 
 ## Parameters for the file
 
-N = 50;
+N = 100;
 M = 2*N*N*N;
 
 eps_ij = 1.0;
@@ -87,18 +87,20 @@ w=1;
 th_dom = range(thi,thf,2*N);
 r_dom = range(rmin,rmax,N);
 
-doms = reduce(vcat,Iterators.product(r_dom,r_dom,th_dom));
+doms = Iterators.product(r_dom,r_dom,th_dom)|>collect;
+
+
 
 # Create tuples with the information
 docs =  map(eachindex(doms)) do s
             (
                  s,
                  doms[s]...,
-                 -centralDiffEval(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc) #Forceij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc),
-                 -centralDiffEval(w,eps_ij,eps_ik,eps_jk,sig,doms[s][2],doms[s][1],rc) #Forceik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][2],doms[s][1],rc),
-                 centralDiffEval(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc) #-Forceij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc),
+                 -centralDiffEval(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), #Forceij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc),
+                 -centralDiffEval(w,eps_ij,eps_ik,eps_jk,sig,doms[s][2],doms[s][1],rc), #Forceik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][2],doms[s][1],rc),
+                 centralDiffEval(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), #-Forceij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc),
                  0.0,
-                 centralDiffEval(w,eps_ij,eps_ik,eps_jk,sig,doms[s][2],doms[s][1],rc) #-Forceik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][2],doms[s][1],rc),
+                 centralDiffEval(w,eps_ij,eps_ik,eps_jk,sig,doms[s][2],doms[s][1],rc), #-Forceik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][2],doms[s][1],rc),
                  0.0,
                  SwapU(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc)
             )
@@ -125,3 +127,5 @@ function createTable(N,rmin,rmax,info,filename)
 end
 
 createTable(N,rmin,rmax,docs,filename)
+
+
