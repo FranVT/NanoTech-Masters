@@ -36,7 +36,7 @@ selc_damp="5000";
 selc_T="500";
 selc_cCL="300";
 selc_ShearRate="100";
-selc_Nexp="153";
+selc_Nexp="250";
 
 aux_dirs_ind=split.(last.(split.(dirs_aux,"Phi")),"NPart");
 auxs_indPhi=findall(r->r==selc_phi, first.(aux_dirs_ind) );
@@ -120,7 +120,7 @@ file_name = (
 parameters=getParameters(dirs,file_name,auxs_ind);
 
 # Retrieve all the data from every experiment
-data=getData2(dirs[1],file_name,parameters[1]);
+#data=getData2(dirs[1],file_name,parameters[1]);
 
 # Separate the data from assembly and shear experiment
 data_assembly=first(data);
@@ -481,8 +481,60 @@ Legend(fig_EngPot[1:2,5],ax_leg,
 
 
 
+# Stress
+fig_Stress = Figure(size=(1080,980));
+ax_leg=Axis(fig_Stress[1:2,3],limits=(0.01,0.1,0.01,0.1))
+hidespines!(ax_leg)
+hidedecorations!(ax_leg)
+ax_stressXX = Axis(fig_Stress[1,1:2],
+                   title = L"\mathrm{Stress}~xx",
+                   xlabel = L"\mathrm{Time [tau]}",
+                   ylabel = L"\sigma",
+                   titlesize = 24.0f0,
+                   xticklabelsize = 18.0f0,
+                   yticklabelsize = 18.0f0,
+                   xlabelsize = 20.0f0,
+                   ylabelsize = 20.0f0,
+                   xminorticksvisible = true, 
+                   xminorgridvisible = true,
+                   xminorticks = IntervalsBetween(5),
+                  )
+ax_stressXY = Axis(fig_Stress[2,1:2],
+                   title = L"\mathrm{Stress}~xy",
+                   xlabel = L"\mathrm{Time [tau]}",
+                   ylabel = L"\sigma",
+                   titlesize = 24.0f0,
+                   xticklabelsize = 18.0f0,
+                   yticklabelsize = 18.0f0,
+                   xlabelsize = 20.0f0,
+                   ylabelsize = 20.0f0,
+                   xminorticksvisible = true, 
+                   xminorgridvisible = true,
+                   xminorticks = IntervalsBetween(5),
+                  )
 
+lines!(ax_stressXX,time_shearStress,data_shear[15])
+#vlines!(ax_stressXX,[tm_rlx1o,tm_rlx1f,tm_rlx2o,tm_rlx2f,tm_rlx3o,tm_rlx3f,tm_rlx4o,tm_rlx4f],linestyle=:dash,color=:black)
 
+lines!(ax_stressXY,time_shearStress,data_shear[16])
+#vlines!(ax_stressXY,[tm_rlx1o,tm_rlx1f,tm_rlx2o,tm_rlx2f,tm_rlx3o,tm_rlx3f,tm_rlx4o,tm_rlx4f],linestyle=:dash,color=:black)
+
+#series!(ax_leg,zeros(length(dirs),length(dirs)),linestyle=:solid,color=csh,labels=labels_CL)
+
+println("Legends")
+
+#=
+Legend(fig_Stress[1:2,3],ax_leg,
+       framevisible=true,
+       halign=:center,
+       orientation=:vertical,
+       L"\mathrm{Concentration~and~damp}",
+       patchsize=(35,35)
+      )
+
+vlines!(ax_swap,[tm_rlx1o,tm_rlx1f,tm_rlx2o,tm_rlx2f,tm_rlx3o,tm_rlx3f,tm_rlx4o,tm_rlx4f],linestyle=:dash,color=:black)
+vlines!(ax_swap,tm_endAssembly,linestyle=:dash,color=:black)
+=#
 
 
 

@@ -86,27 +86,43 @@ variable restoreTilt equal -v_maxTilt
 variable shear_distance equal ${shear_rate}*lx*${tstep}
 
 timestep ${tstep}
-run ${shear_it} post no every 1 &
-   "change_box all xy delta ${shear_distance} remap units box" &
-   "if '${shearDirection} >= ${maxTilt}' then 'change_box all xy final ${restoreTilt} units box'"
+#run ${shear_it} post no every 1 &
+#   "change_box all xy delta ${shear_distance} remap units box" &
+#   "if '${shearDirection} >= ${maxTilt}' then 'change_box all xy final ${restoreTilt} units box'"
+
+fix shear all deform 1 xy erate ${shear_rate} remap v flip yes
+run ${shear_it}
+unfix shear
 
 run ${rlxT1}
 
-run ${shear_it} post no every 1 &
-   "change_box all xy delta ${shear_distance} remap units box" &
-   "if '${shearDirection} >= ${maxTilt}' then 'change_box all xy final ${restoreTilt} units box'"
+#run ${shear_it} post no every 1 &
+#   "change_box all xy delta ${shear_distance} remap units box" &
+#   "if '${shearDirection} >= ${maxTilt}' then 'change_box all xy final ${restoreTilt} units box'"
+
+fix shear all deform 1 xy erate ${shear_rate} remap v flip yes
+run ${shear_it}
+unfix shear
 
 run ${rlxT2}
 
-run ${shear_it} post no every 1 &
-   "change_box all xy delta ${shear_distance} remap units box" &
-   "if '${shearDirection} >= ${maxTilt}' then 'change_box all xy final ${restoreTilt} units box'"
+#run ${shear_it} post no every 1 &
+#   "change_box all xy delta ${shear_distance} remap units box" &
+#   "if '${shearDirection} >= ${maxTilt}' then 'change_box all xy final ${restoreTilt} units box'"
+
+fix shear all deform 1 xy erate ${shear_rate} remap v flip yes
+run ${shear_it}
+unfix shear
 
 run ${rlxT3}
 
-run ${shear_it} post no every 1 &
-   "change_box all xy delta ${shear_distance} remap units box" &
-   "if '${shearDirection} >= ${maxTilt}' then 'change_box all xy final ${restoreTilt} units box'"
+#run ${shear_it} post no every 1 &
+#   "change_box all xy delta ${shear_distance} remap units box" &
+#   "if '${shearDirection} >= ${maxTilt}' then 'change_box all xy final ${restoreTilt} units box'"
+
+fix shear all deform 1 xy erate ${shear_rate} remap v flip yes
+run ${shear_it}
+unfix shear
 
 run ${rlxT4}
 
