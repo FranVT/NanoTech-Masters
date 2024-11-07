@@ -1,5 +1,5 @@
 """
-    Individual visual analysis
+    Multiple visual analysis
 """
 
 using FileIO
@@ -32,7 +32,7 @@ dirs_aux = open("dirs.txt") do f
 
 selc_phi="5000";
 selc_Npart="500";
-selc_damp="5000";
+selc_damp="100";
 selc_T="500";
 selc_cCL="300";
 selc_ShearRate="100";
@@ -59,7 +59,7 @@ auxs_indShearRate=findall(r->r==selc_ShearRate, first.(aux_dirs_ind) );
 auxs_ind=intersect(auxs_indPhi,auxs_indNPart,auxs_indDamp,auxs_indT,auxs_indcCL,auxs_indShearRate);
 
 # Select the number of experiments
-auxs_ind=auxs_ind[[end]];
+auxs_ind=auxs_ind;
 
 # Selcet the directories woth the criteria
 dirs=dirs_aux[auxs_ind];

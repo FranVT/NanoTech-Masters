@@ -1,5 +1,5 @@
 """
-    Statistical analysis
+    Individual visual analysis
 """
 
 using FileIO
@@ -30,12 +30,12 @@ dirs_aux = open("dirs.txt") do f
    Nexp -> Number of simulation
 """
 
-selc_phi="550";
-selc_Npart="150";
-selc_damp="10";
-selc_T="50";
-selc_cCL="30";
-selc_ShearRate="10";
+selc_phi="5500";
+selc_Npart="500";
+selc_damp="5000";
+selc_T="500";
+selc_cCL="300";
+selc_ShearRate="100";
 
 aux_dirs_ind=split.(last.(split.(dirs_aux,"Phi")),"NPart");
 auxs_indPhi=findall(r->r==selc_phi, first.(aux_dirs_ind) );
@@ -59,7 +59,7 @@ auxs_indShearRate=findall(r->r==selc_ShearRate, first.(aux_dirs_ind) );
 auxs_ind=intersect(auxs_indPhi,auxs_indNPart,auxs_indDamp,auxs_indT,auxs_indcCL,auxs_indShearRate);
 
 # Select the number of experiments
-auxs_ind=auxs_ind[1:2];
+auxs_ind=auxs_ind[[end]];
 
 # Selcet the directories woth the criteria
 dirs=dirs_aux[auxs_ind];
@@ -71,13 +71,13 @@ file_name = (
              "energy_assembly.fixf",
              "wcaPair_assembly.fixf",
              "patchPair_assembly.fixf",
-             "swapPair_assembly.fixf",
+             #"swapPair_assembly.fixf",
              "cmdisplacement_assembly.fixf",
              "stressVirial_assembly.fixf",
              "energy_shear.fixf",
              "wcaPair_shear.fixf",
              "patchPair_shear.fixf",
-             "swapPair_shear.fixf",
+             #"swapPair_shear.fixf",
              "cmdisplacement_shear.fixf",
              "stressVirial_shear.fixf"
             );
@@ -112,14 +112,14 @@ file_name = (
    24 -> Save every N time steps for Stress fix files
 """
 
-parameters=getParameters(dirs,file_name);
+parameters=getParameters(dirs,file_name,auxs_ind);
 
 # Retrieve all the data from every experiment
-#data=map(s->getData2(dirs[s],file_name,parameters[s]),eachindex(dirs));
+data=map(s->getData2(dirs[s],file_name,parameters[s]),eachindex(dirs));
 
 # Separate the data from assembly and shear experiment
-#data_assembly=first.(data);
-#data_shear=last.(data);
+data_assembly=first.(data);
+data_shear=last.(data);
 
 # From time steps to time units
 
@@ -130,8 +130,21 @@ time_shear=map(s->last(time_assembly[s]).+parameters[s][15].*data_shear[s][1],ea
 time_shearStress=map(s->parameters[s][15].*data_shear[s][2],eachindex(data_assembly));
 
 # Get time instants
-time_endAssembly=parameters[1][10]*((parameters[1][11]+parameters[1][12])/parameters[1][14]);
+tm_endAssembly=parameters[1][10]*(parameters[1][11]+parameters[1][12]);
 
+tm_shear=parameters[1][15]*parameters[1][17]*parameters[1][18];
+
+tm_rlx1o=last(time_assembly[1])+tm_shear;
+tm_rlx1f=tm_rlx1o+parameters[1][15]*parameters[1][18];
+
+tm_rlx2o=tm_rlx1f+tm_shear;
+tm_rlx2f=tm_rlx2o+parameters[1][15]*parameters[1][19];
+
+tm_rlx3o=tm_rlx2f+tm_shear;
+tm_rlx3f=tm_rlx3o+parameters[1][15]*parameters[1][20];
+
+tm_rlx4o=tm_rlx3f+tm_shear;
+tm_rlx4f=tm_rlx4o+parameters[1][15]*parameters[1][21];
 
 csh=:tab20;
 
@@ -139,12 +152,19 @@ csh=:tab20;
 
 tf=last(time_assembly);
 
+# Mean and standard values of Temperature
+mean_T_ass=mean(data_assembly[1][3][Int64(parameters[1][12]/parameters[1][14]):end]);
+std_T_ass=std(data_assembly[1][3][Int64(parameters[1][12]/parameters[1][14]):end],mean=mean_T_ass);
+
+mean_T_shear=mean(data_shear[1][3]);
+std_T_shear=std(data_shear[1][3],mean=mean_T_shear);
+
 fig_Temp=Figure(size=(1920,1080));
 ax_leg=Axis(fig_Temp[1:2,3],limits=(0.01,0.1,0.01,0.1))
 hidespines!(ax_leg)
 hidedecorations!(ax_leg)
 ax_t = Axis(fig_Temp[1,1:2],
-        title = L"\mathrm{Temperature}",
+        title = L"\mathrm{Temperature~Assembly~Simulation}",
         xlabel = L"\mathrm{Time~unit}",
         ylabel = L"\mathrm{Temperature}",
         titlesize = 24.0f0,
@@ -156,10 +176,10 @@ ax_t = Axis(fig_Temp[1,1:2],
         xminorgridvisible = true,
         xminorticks = IntervalsBetween(5),
         #xscale = log10,
-        #limits = (10e0,exp10(round(log10(tf))),nothing,nothing)
+#        limits = (nothing,nothing,0,mean_T_ass+4*std_T_ass)
     )
 ax_tcp = Axis(fig_Temp[2,1:2],
-        title = L"\mathrm{Temperature~Central~particles}",
+        title = L"\mathrm{Temperature~Shear~Simulation}",
         xlabel = L"\mathrm{Time~unit}",
         ylabel = L"\mathrm{Temperature}",
         titlesize = 24.0f0,
@@ -171,17 +191,33 @@ ax_tcp = Axis(fig_Temp[2,1:2],
         xminorgridvisible = true,
         xminorticks = IntervalsBetween(5),
         #xscale = log10,
-        #limits = (10e0,exp10(round(log10(tf))),nothing,nothing)
+#        limits = (nothing,nothing,0,mean_T_ass+4std_T_ass)
     )
 
 map(s->lines!(ax_t,time_assembly[s],data_assembly[s][3]),eachindex(dirs))
-map(s->lines!(ax_t,time_shear[s],data_shear[s][3]),eachindex(dirs))
-#vlines!(ax_t,[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash,color=:black)
+hlines!(ax_t,mean_T_ass,linestyle=:dash,color=:black)
+hlines!(ax_t,[mean_T_ass+std_T_ass,mean_T_ass+2*std_T_ass,mean_T_ass+3*std_T_ass],linestyle=:dash,color=:red)
+vlines!(ax_t,parameters[1][10]*parameters[1][11],linestyle=:dash,color=:black)
 
-vlines!(ax_t,time_endAssembly,linestyle=:dash,color=:black)
 
-map(s->lines!(ax_tcp,time_assembly[s],data_assembly[s][4]),eachindex(dirs))
-map(s->lines!(ax_tcp,time_shear[s],data_shear[s][4]),eachindex(dirs))
+map(s->lines!(ax_tcp,time_shear[s],data_shear[s][3]),eachindex(dirs))
+hlines!(ax_tcp,mean_T_shear,linestyle=:dash,color=:black)
+hlines!(ax_tcp,[mean_T_shear+std_T_shear,mean_T_shear+2*std_T_shear,mean_T_shear+3*std_T_shear],linestyle=:dash,color=:red)
+
+vlines!(ax_tcp,[tm_rlx1o,tm_rlx1f,tm_rlx2o,tm_rlx2f,tm_rlx3o,tm_rlx3f,tm_rlx4o,tm_rlx4f],linestyle=:dash,color=:black)
+
+
+#hlines!(ax_tcp,[mean(data_shear[1][3]),mean(data_shear[1][3])+std(data_shear[1][3],mean=mean(data_shear[1][3])),mean(data_shear[1][3])-std(data_shear[1][3],mean=mean(data_shear[1][3]))],linestyle=:dash,color=:blue)
+
+#vlines!(ax_t,time_endAssembly,linestyle=:dash,color=:black)
+
+
+#map(s->lines!(ax_tcp,time_assembly[s],data_assembly[s][4]),eachindex(dirs))
+#map(s->lines!(ax_tcp,time_shear[s],data_shear[s][4]),eachindex(dirs))
+#hlines!(ax_tcp,mean_T_shear,linestyle=:dash,color=:black)
+#hlines!(ax_tcp,[mean_T_shear+std_T_shear,mean_T_shear+2*std_T_shear,mean_T_shear+3*std_T_shear],linestyle=:dash,color=:red)
+
+
 
 #vlines!(ax_tcp,last(time_assembly),linestyle=:dash,color=:black)
 #vlines!(ax_tcp,[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash,color=:black)
@@ -200,11 +236,83 @@ Legend(fig_Temp[1:2,3],ax_leg,
 
 ## Energy Plot
 
+# Mean and standard values of Temperature
+mean_Eng_ass=mean(data_assembly[1][8][Int64(parameters[1][12]/parameters[1][14]):end]);
+std_Eng_ass=std(data_assembly[1][8][Int64(parameters[1][12]/parameters[1][14]):end],mean=mean_T_ass);
+
+#mean_Eng_shear=mean(data_shear[2][8]);
+#std_Eng_shear=std(data_shear[2][8],mean=mean_T_shear);
+
+
+
 fig_Energy=Figure(size=(1920,1080));
 ax_leg=Axis(fig_Energy[1:2,3],limits=(0.01,0.1,0.01,0.1))
 hidespines!(ax_leg)
 hidedecorations!(ax_leg)
 ax_E = Axis(fig_Energy[1,1:2],
+        title = L"\mathrm{Potential~energy}",
+        xlabel = L"\mathrm{Time~unit}",
+        ylabel = L"\mathrm{Energy}",
+        titlesize = 24.0f0,
+        xticklabelsize = 18.0f0,
+        yticklabelsize = 18.0f0,
+        xlabelsize = 20.0f0,
+        ylabelsize = 20.0f0,
+        xminorticksvisible = true, 
+        xminorgridvisible = true,
+        xminorticks = IntervalsBetween(5),
+        #xscale = log10,
+#        limits = (nothing,nothing,-4*std_Eng_ass,mean_Eng_ass+4*std_Eng_ass)
+    )
+ax_Elo = Axis(fig_Energy[2,1:2],
+        title = L"\mathrm{Kinetic~Energy}",
+        xlabel = L"\mathrm{Time~steps}~\ln_{10}",
+        ylabel = L"\mathrm{Energy}",
+        titlesize = 24.0f0,
+        xticklabelsize = 18.0f0,
+        yticklabelsize = 18.0f0,
+        xlabelsize = 20.0f0,
+        ylabelsize = 20.0f0,
+        xminorticksvisible = true, 
+        xminorgridvisible = true,
+        xminorticks = IntervalsBetween(5),
+        #xscale = log10,
+#        limits = (nothing,nothing,-4*std_Eng_ass,mean_Eng_ass+4*std_Eng_ass)
+    )
+
+println("Plotting lines")
+
+map(s->lines!(ax_E,time_assembly[s],data_assembly[s][6]),eachindex(dirs))
+map(s->lines!(ax_E,time_shear[s],data_shear[s][6]),eachindex(dirs))
+
+vlines!(ax_E,tm_endAssembly,linestyle=:dash,color=:black)
+vlines!(ax_E,[tm_rlx1o,tm_rlx1f,tm_rlx2o,tm_rlx2f,tm_rlx3o,tm_rlx3f,tm_rlx4o,tm_rlx4f],linestyle=:dash,color=:black)
+
+map(s->lines!(ax_Elo,time_assembly[s],data_assembly[s][7]),eachindex(dirs))
+map(s->lines!(ax_Elo,time_shear[s],data_shear[s][7]),eachindex(dirs))
+
+vlines!(ax_Elo,tm_endAssembly,linestyle=:dash,color=:black)
+vlines!(ax_Elo,[tm_rlx1o,tm_rlx1f,tm_rlx2o,tm_rlx2f,tm_rlx3o,tm_rlx3f,tm_rlx4o,tm_rlx4f],linestyle=:dash,color=:black)
+
+
+
+println("Legends")
+#=
+Legend(fig_Energy[1:2,3],ax_leg,
+       framevisible=true,
+       halign=:center,
+       orientation=:vertical,
+       L"\mathrm{Concentration~and~damp}",
+       patchsize=(35,35)
+      )
+=#
+
+
+fig_EnergyLog=Figure(size=(1920,1080));
+ax_leg=Axis(fig_Energy[1:2,3],limits=(0.01,0.1,0.01,0.1))
+hidespines!(ax_leg)
+hidedecorations!(ax_leg)
+ax_E = Axis(fig_EnergyLog[1,1:2],
         title = L"\mathrm{Total~energy}",
         xlabel = L"\mathrm{Time~unit}",
         ylabel = L"\mathrm{Energy}",
@@ -217,9 +325,9 @@ ax_E = Axis(fig_Energy[1,1:2],
         xminorgridvisible = true,
         xminorticks = IntervalsBetween(5),
         #xscale = log10,
-        #limits = (10e0,exp10(round(log10(tf))),nothing,nothing)
+#        limits = (nothing,nothing,-4*std_Eng_ass,mean_Eng_ass+4*std_Eng_ass)
     )
-ax_Elo = Axis(fig_Energy[2,1:2],
+ax_Elo = Axis(fig_EnergyLog[2,1:2],
         title = L"\mathrm{Total~Energy}",
         xlabel = L"\mathrm{Time~steps}~\ln_{10}",
         ylabel = L"\mathrm{Energy}",
@@ -232,45 +340,160 @@ ax_Elo = Axis(fig_Energy[2,1:2],
         xminorgridvisible = true,
         xminorticks = IntervalsBetween(5),
         xscale = log10,
-        #limits = (10e0,exp10(round(log10( length(time_assembly)+length(time_deform)))),nothing,nothing)
+#        limits = (nothing,nothing,-4*std_Eng_ass,mean_Eng_ass+4*std_Eng_ass)
     )
 
 println("Plotting lines")
 
 map(s->lines!(ax_E,time_assembly[s],data_assembly[s][8]),eachindex(dirs))
 map(s->lines!(ax_E,time_shear[s],data_shear[s][8]),eachindex(dirs))
-#vlines!(ax_t,[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash,color=:black)
 
-vlines!(ax_E,time_endAssembly,linestyle=:dash,color=:black)
+vlines!(ax_E,tm_endAssembly,linestyle=:dash,color=:black)
+vlines!(ax_E,[tm_rlx1o,tm_rlx1f,tm_rlx2o,tm_rlx2f,tm_rlx3o,tm_rlx3f,tm_rlx4o,tm_rlx4f],linestyle=:dash,color=:black)
 
 map(s->lines!(ax_Elo,time_assembly[s],data_assembly[s][8]),eachindex(dirs))
 map(s->lines!(ax_Elo,time_shear[s],data_shear[s][8]),eachindex(dirs))
 
-#vlines!(ax_tcp,last(time_assembly),linestyle=:dash,color=:black)
-#vlines!(ax_tcp,[time_rlxo1,time_rlxf1,time_rlxo2,time_rlxf2,time_rlxo3,time_rlxf3,time_rlxo4,time_rlxf4],linestyle=:dash,color=:black)
-
-#series!(ax_leg,zeros(length(dirs),length(dirs)),linestyle=:solid,color=csh,labels=labels_CL)
+vlines!(ax_Elo,tm_endAssembly,linestyle=:dash,color=:black)
 
 
-#series!(ax_E,time_assembly,reduce(hcat,map(s->s[5],data_assembly))',color=csh)
-#series!(ax_E,time_deform,reduce(hcat,map(s->s[5],data_shear))',color=csh)
+# Potential energy
 
-#series!(ax_Elo,eachindex(time_assembly),reduce(hcat,map(s->s[5],data_assembly))',color=csh)
-#series!(ax_Elo,eachindex(time_deform).+length(time_assembly),reduce(hcat,map(s->s[5],data_shear))',color=csh)
-#vlines!(ax_Elo,length(time_assembly),linestyle=:dash,color=:black)
+fig_EngPot=Figure(size=(1920,1080));
+ax_leg=Axis(fig_EngPot[1:2,5],limits=(0.01,0.1,0.01,0.1))
+hidespines!(ax_leg)
+hidedecorations!(ax_leg)
+ax_Ut = Axis(fig_EngPot[1,1:2],
+        title = L"\mathrm{Potential~energy}",
+        xlabel = L"\mathrm{Time~unit}",
+        ylabel = L"\mathrm{Energy}",
+        titlesize = 24.0f0,
+        xticklabelsize = 18.0f0,
+        yticklabelsize = 18.0f0,
+        xlabelsize = 20.0f0,
+        ylabelsize = 20.0f0,
+        xminorticksvisible = true, 
+        xminorgridvisible = true,
+        xminorticks = IntervalsBetween(5),
+    )
+ax_wca = Axis(fig_EngPot[2,1:2],
+        title = L"\mathrm{WCA~potential}",
+        xlabel = L"\mathrm{Time~steps}",
+        ylabel = L"\mathrm{Energy}",
+        titlesize = 24.0f0,
+        xticklabelsize = 18.0f0,
+        yticklabelsize = 18.0f0,
+        xlabelsize = 20.0f0,
+        ylabelsize = 20.0f0,
+        xminorticksvisible = true, 
+        xminorgridvisible = true,
+        xminorticks = IntervalsBetween(5),
+    )
+ax_patch = Axis(fig_EngPot[1,3:4],
+        title = L"\mathrm{Patch~interaction~potential}",
+        xlabel = L"\mathrm{Time~steps}",
+        ylabel = L"\mathrm{Energy}",
+        titlesize = 24.0f0,
+        xticklabelsize = 18.0f0,
+        yticklabelsize = 18.0f0,
+        xlabelsize = 20.0f0,
+        ylabelsize = 20.0f0,
+        xminorticksvisible = true, 
+        xminorgridvisible = true,
+        xminorticks = IntervalsBetween(5),
+    )
+ax_swap = Axis(fig_EngPot[2,3:4],
+        title = L"\mathrm{Swap~potential}",
+        xlabel = L"\mathrm{Time~steps}",
+        ylabel = L"\mathrm{Energy}",
+        titlesize = 24.0f0,
+        xticklabelsize = 18.0f0,
+        yticklabelsize = 18.0f0,
+        xlabelsize = 20.0f0,
+        ylabelsize = 20.0f0,
+        xminorticksvisible = true, 
+        xminorgridvisible = true,
+        xminorticks = IntervalsBetween(5),
+    )
 
-#series!(ax_leg,zeros(length(dirs),length(dirs)),linestyle=:solid,color=csh,labels=labels_CL)
+
+println("Plotting lines")
+
+map(s->lines!(ax_Ut,time_assembly[s],data_assembly[s][6]),eachindex(dirs))
+map(s->lines!(ax_Ut,time_shear[s],data_shear[s][6]),eachindex(dirs))
+
+vlines!(ax_Ut,[tm_rlx1o,tm_rlx1f,tm_rlx2o,tm_rlx2f,tm_rlx3o,tm_rlx3f,tm_rlx4o,tm_rlx4f],linestyle=:dash,color=:black)
+vlines!(ax_Ut,tm_endAssembly,linestyle=:dash,color=:black)
+
+map(s->lines!(ax_wca,time_assembly[s],data_assembly[s][9]),eachindex(dirs))
+map(s->lines!(ax_wca,time_shear[s],data_shear[s][9]),eachindex(dirs))
+
+vlines!(ax_wca,[tm_rlx1o,tm_rlx1f,tm_rlx2o,tm_rlx2f,tm_rlx3o,tm_rlx3f,tm_rlx4o,tm_rlx4f],linestyle=:dash,color=:black)
+vlines!(ax_wca,tm_endAssembly,linestyle=:dash,color=:black)
+
+map(s->lines!(ax_patch,time_assembly[s],data_assembly[s][10]),eachindex(dirs))
+map(s->lines!(ax_patch,time_shear[s],data_shear[s][10]),eachindex(dirs))
+
+vlines!(ax_patch,[tm_rlx1o,tm_rlx1f,tm_rlx2o,tm_rlx2f,tm_rlx3o,tm_rlx3f,tm_rlx4o,tm_rlx4f],linestyle=:dash,color=:black)
+vlines!(ax_patch,tm_endAssembly,linestyle=:dash,color=:black)
+
+map(s->lines!(ax_swap,time_assembly[s],data_assembly[s][11]),eachindex(dirs))
+map(s->lines!(ax_swap,time_shear[s],data_shear[s][11]),eachindex(dirs))
+
+vlines!(ax_swap,[tm_rlx1o,tm_rlx1f,tm_rlx2o,tm_rlx2f,tm_rlx3o,tm_rlx3f,tm_rlx4o,tm_rlx4f],linestyle=:dash,color=:black)
+vlines!(ax_swap,tm_endAssembly,linestyle=:dash,color=:black)
+#=
+
+series!(ax_Ut,time_assembly,reduce(hcat,map(s->s[3],data_assembly))',color=csh)
+series!(ax_Ut,time_deform,reduce(hcat,map(s->s[3],data_shear))',color=csh)
+vlines!(ax_Ut,last(time_assembly),linestyle=:dash,color=:black)
+
+series!(ax_wca,time_assembly,reduce(hcat,map(s->s[6],data_assembly))',color=csh)
+series!(ax_wca,time_deform,reduce(hcat,map(s->s[6],data_shear))',color=csh)
+vlines!(ax_wca,last(time_assembly),linestyle=:dash,color=:black)
+
+series!(ax_patch,time_assembly,reduce(hcat,map(s->s[7],data_assembly))',color=csh)
+series!(ax_patch,time_deform,reduce(hcat,map(s->s[7],data_shear))',color=csh)
+vlines!(ax_patch,last(time_assembly),linestyle=:dash,color=:black)
+
+series!(ax_swap,time_assembly,reduce(hcat,map(s->s[8],data_assembly))',color=csh)
+series!(ax_swap,time_deform,reduce(hcat,map(s->s[8],data_shear))',color=csh)
+vlines!(ax_swap,last(time_assembly),linestyle=:dash,color=:black)
+
+series!(ax_leg,zeros(length(dirs),length(dirs)),linestyle=:solid,color=csh,labels=labels_CL)
 
 println("Legends")
-#=
-Legend(fig_Energy[1:2,3],ax_leg,
+
+Legend(fig_EngPot[1:2,5],ax_leg,
        framevisible=true,
        halign=:center,
        orientation=:vertical,
        L"\mathrm{Concentration~and~damp}",
        patchsize=(35,35)
       )
+
 =#
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 #=
 # Create time and deformation arrays.
