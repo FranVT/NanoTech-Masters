@@ -14,7 +14,7 @@ cd ..;
 ## Start the for loop
 for var_cCL in 0.03; #0.06 0.1;
 do 
-for Nexp in 250; #$(seq 1 5);
+for Nexp in 251; #$(seq 1 5);
 do
 
 # Cifras significativas
@@ -75,7 +75,7 @@ tstep_defor=0.001;
 sstep_defor=10000;
 
 shear_rate=0.01;
-max_strain=1;
+max_strain=6;
 Nstep_per_strain=$(echo "scale=$cs; $(echo "scale=$cs; 1 / $shear_rate" | bc) * $(echo "scale=$cs; 1 / $tstep_defor" | bc)" | bc) ;
 Nstep_per_strain=${Nstep_per_strain%.*};
 
@@ -87,7 +87,7 @@ relaxTime3=$(( 1 * $relaxTime2));
 relaxTime4=$(( 1 * $Nstep_per_strain));
 
 # Parameters for fix and dumps files
-Nsave=2; # Temporal average for fix files
+Nsave=10; # Temporal average for fix files
 NsaveStress=$(echo "scale=$cs; 1 / $tstep_defor" | bc); # Tmeporal average for stress fix files
 NsaveStress=${NsaveStress%.*};
 Ndump=100; # Every Ndump time steps save the particles positions.

@@ -36,7 +36,7 @@ selc_damp="5000";
 selc_T="500";
 selc_cCL="300";
 selc_ShearRate="100";
-selc_Nexp="250";
+selc_Nexp="251";
 
 aux_dirs_ind=split.(last.(split.(dirs_aux,"Phi")),"NPart");
 auxs_indPhi=findall(r->r==selc_phi, first.(aux_dirs_ind) );
@@ -120,7 +120,7 @@ file_name = (
 parameters=getParameters(dirs,file_name,auxs_ind);
 
 # Retrieve all the data from every experiment
-#data=getData2(dirs[1],file_name,parameters[1]);
+data=getData2(dirs[1],file_name,parameters[1]);
 
 # Separate the data from assembly and shear experiment
 data_assembly=first(data);
