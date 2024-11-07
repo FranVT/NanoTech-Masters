@@ -124,7 +124,7 @@ function getData2(dir,files,parameters)
 
     time_shear=data[7][1,:];
     time_shearStress=data[12][1,:];
-    temp_shear=data[7][2,:];
+    temp_shear=data[7][7,:];
     U_shear=data[7][3,:];
     K_shear=data[7][4,:];
     tempCM_shear=data[7][5,:];

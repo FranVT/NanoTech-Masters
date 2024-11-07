@@ -78,6 +78,7 @@ thermo ${NsaveStress}
 # Set the time integrator
 fix VelVerlet all nve/omp # Use Velocity Verlet integrator
 fix ThermoLng all langevin ${temp} ${temp} ${damp} ${seed3} zero yes # Brownian Dynamics: langevin + nve
+fix_modify ThermoLng temp td
 
 variable shearDirection equal xy
 variable maxTilt equal 0.5*lx

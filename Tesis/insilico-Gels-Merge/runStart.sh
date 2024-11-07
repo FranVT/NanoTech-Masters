@@ -14,7 +14,7 @@ cd ..;
 ## Start the for loop
 for var_cCL in 0.03; #0.06 0.1;
 do 
-for Nexp in 152; #$(seq 1 5);
+for Nexp in 153; #$(seq 1 5);
 do
 
 # Cifras significativas
@@ -169,7 +169,7 @@ echo -e "${L}" >> $file_name;
 echo -e "${T}" >> $file_name;
 echo -e "${damp}" >> $file_name;
 echo -e "${tstep}" >> $file_name;
-echo -e "${steps}" >> $file_name;
+echo -e "${stepsheat}" >> $file_name;
 echo -e "${steps}" >> $file_name;
 echo -e "${Ndump}" >> $file_name;
 echo -e "${Nsave}" >> $file_name;
