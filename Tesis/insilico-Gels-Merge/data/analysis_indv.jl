@@ -34,7 +34,7 @@ selc_phi="5500";
 selc_Npart="500";
 selc_damp="5000";
 selc_T="500";
-selc_cCL="300";
+selc_cCL="100";
 selc_ShearRate="100";
 selc_Nexp="251";
 
