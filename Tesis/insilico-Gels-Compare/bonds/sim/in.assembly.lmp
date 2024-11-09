@@ -56,9 +56,6 @@ compute daux CM chunk/atom type pbc yes
 compute dis CM reduce/chunk daux sum c_disc[4]
 #compute disM CM reduce/chunk daux sum c_disc[4]
 
-# Energy minimization
-#minimize 1.0e-4 1.0e-6 1000 10000
-
 # DUMPS and FIXES
 
 thermo ${NsaveStress}

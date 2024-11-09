@@ -12,6 +12,8 @@ rm -rf info*;
 cd ..; 
 
 ## Start the for loop
+for var_shearRate in 0.1 0.01 0.001;
+do
 for var_cCL in 0.03; #0.06 0.1;
 do 
 for Nexp in 1000; #$(seq 1 15);
@@ -74,8 +76,8 @@ tstep=0.001;
 tstep_defor=0.001;
 sstep_defor=10000;
 
-shear_rate=0.01;
-max_strain=1;
+shear_rate=$var_shearRate;
+max_strain=2;
 Nstep_per_strain=$(echo "scale=$cs; $(echo "scale=$cs; 1 / $shear_rate" | bc) * $(echo "scale=$cs; 1 / $tstep_defor" | bc)" | bc) ;
 Nstep_per_strain=${Nstep_per_strain%.*};
 
@@ -87,7 +89,7 @@ relaxTime3=$(( 1 * $relaxTime2));
 relaxTime4=$(( 1 * $Nstep_per_strain));
 
 # Parameters for fix and dumps files
-Nsave=2; # Temporal average for fix files
+Nsave=10; # Temporal average for fix files
 NsaveStress=$(echo "scale=$cs; 1 / $tstep_defor" | bc); # Tmeporal average for stress fix files
 NsaveStress=${NsaveStress%.*};
 Ndump=100; # Every Ndump time steps save the particles positions.
@@ -245,5 +247,6 @@ echo "$relaxTime2"
 echo "$relaxTime3"
 echo "$relaxTime4"
 
+done
 done
 done

@@ -42,7 +42,6 @@ compute daux CM chunk/atom type pbc yes
 compute dis CM reduce/chunk daux sum c_disc[4]
 #compute disM CM reduce/chunk 2 sum c_disc[4]
 
-
 # DUMPS and FIXES
 
 # Save atom positions
@@ -80,12 +79,8 @@ fix VelVerlet all nve/omp # Use Velocity Verlet integrator
 fix ThermoLng all langevin ${temp} ${temp} ${damp} ${seed3} zero yes # Brownian Dynamics: langevin + nve
 fix_modify ThermoLng temp td
 
-#variable shearDirection equal xy
-#variable maxTilt equal 0.5*lx
-#variable restoreTilt equal -v_maxTilt
-#variable shear_distance equal ${shear_rate}*lx*${tstep}
-
 timestep ${tstep}
+
 fix shear all deform 1 xy erate ${shear_rate} remap v flip yes
 run ${shear_it}
 unfix shear

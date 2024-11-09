@@ -43,7 +43,6 @@ compute daux CM chunk/atom type pbc yes
 compute dis CM reduce/chunk daux sum c_disc[4]
 #compute disM CM reduce/chunk 2 sum c_disc[4]
 
-
 # DUMPS and FIXES
 
 # Save atom positions
