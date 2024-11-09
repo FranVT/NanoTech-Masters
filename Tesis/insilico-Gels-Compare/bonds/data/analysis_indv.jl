@@ -34,7 +34,7 @@ selc_phi="5500";
 selc_Npart="500";
 selc_damp="5000";
 selc_T="500";
-selc_cCL="100";
+selc_cCL="300";
 selc_ShearRate="1000";
 selc_Nexp="251";
 
@@ -196,7 +196,7 @@ ax_tcp = Axis(fig_Temp[2,1:2],
         xminorgridvisible = true,
         xminorticks = IntervalsBetween(5),
         #xscale = log10,
-        limits = (nothing,nothing,0,mean_T_shear+4std_T_shear)
+        limits = (nothing,nothing,0,mean_T_ass+4std_T_ass)
     )
 
 lines!(ax_t,time_assembly,data_assembly[3])
