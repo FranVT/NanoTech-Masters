@@ -153,23 +153,70 @@ time_shearStress=map(s->last(time_assembly).+parameters[s][15].*range(1,tm_Totsh
 
 time_deform=map(s->parameters[s][15].*range(1,tm_Totshear[s],length=round(Int64,div(tm_Totshear[s],parameters[s][25]))), eachindex(dirs));
 
-# Gamma domain
-#dgamma=parameters[1][16]*parameters[1][15]*2*parameters[1][7]; # shear_rate*dt*h
-#gamma_deform=dgamma.*range(1,tm_def,length=round(Int64,div(tm_def,parameters[1][25])));
-#gamma_rlx1=ones(round(Int64,div(parameters[1][19],parameters[1][25])));
-
 # Get time instants
 tm_rlx1o=tm_ass.+tm_Totshear;
 tm_rlx1f=tm_rlx1o.+Iterators.flatten(map(s->s[15]*s[19],parameters))|>collect;
 
-tm_rlx2o=tm_rlx1f.+tm_shear;
+tm_rlx2o=tm_rlx1f.+tm_Totshear;
 tm_rlx2f=tm_rlx2o.+Iterators.flatten(map(s->s[15]*s[20],parameters))|>collect;
 
-tm_rlx3o=tm_rlx2f.+tm_shear;
+tm_rlx3o=tm_rlx2f.+tm_Totshear;
 tm_rlx3f=tm_rlx3o.+Iterators.flatten(map(s->s[15]*s[21],parameters))|>collect;
 
-tm_rlx4o=tm_rlx3f.+tm_shear;
+tm_rlx4o=tm_rlx3f.+tm_Totshear;
 tm_rlx4f=tm_rlx4o.+Iterators.flatten(map(s->s[15]*s[22],parameters))|>collect;
+
+# Stuff for stress domain
+## Indixes to get the stress for each part of the experiment.
+ind_tm_def=eachindex.(aux_tm_def);
+ind_rltmStress=map(s->range.(1,Int64.(div.(s[19:22],s[25]))),parameters);
+
+ind_rltmStress1=map(s->last(ind_tm_def[s]).+ind_rltmStress[s][1],eachindex(dirs));
+ind_tm_defStress2=map(s->last(ind_rltmStress1[s]).+ind_tm_def[s],eachindex(dirs));
+
+ind_rltmStress2=map(s->last(ind_tm_defStress2[s]).+ind_rltmStress[s][2],eachindex(dirs));
+ind_tm_defStress3=map(s->last(ind_rltmStress2[s]).+ind_tm_def[s],eachindex(dirs));
+
+ind_rltmStress3=map(s->last(ind_tm_defStress3[s]).+ind_rltmStress[s][3],eachindex(dirs));
+ind_tm_defStress4=map(s->last(ind_rltmStress3[s]).+ind_tm_def[s],eachindex(dirs));
+
+ind_rltmStress4=map(s->last(ind_tm_defStress4[s]).+ind_rltmStress[s][4],eachindex(dirs));
+
+# Gamma domain
+dgamma=map(s->parameters[s][16]*parameters[s][15],eachindex(dirs));#*2*parameters[1][7]; # shear_rate*dt*h
+
+aux_tm_defStress=map(s->range(1,tm_def[s],length=round(Int64,div(tm_def[s],parameters[s][25]))),eachindex(dirs));
+gammaStress_deform=map(s->dgamma[s].*aux_tm_defStress[s],eachindex(dirs));
+
+gammaStress_deform2=map(s->last(gammaStress_deform[s]).+gammaStress_deform[s],eachindex(gammaStress_deform));
+gammaStress_deform3=map(s->last(gammaStress_deform2[s]).+gammaStress_deform[s],eachindex(gammaStress_deform));
+gammaStress_deform4=map(s->last(gammaStress_deform3[s]).+gammaStress_deform[s],eachindex(gammaStress_deform));
+
+# Stuff for not stress domains, but use gamma
+aux_tm_def=map(s->range(1,tm_def[s],length=round(Int64,div(tm_def[s],parameters[s][24]))),eachindex(dirs));
+gamma_deform=map(s->dgamma[s].*aux_tm_def[s],eachindex(dirs));
+
+gamma_deform2=map(s->last(gamma_deform[s]).+gamma_deform[s],eachindex(gamma_deform));
+gamma_deform3=map(s->last(gamma_deform2[s]).+gamma_deform[s],eachindex(gamma_deform));
+gamma_deform4=map(s->last(gamma_deform3[s]).+gamma_deform[s],eachindex(gamma_deform));
+
+## Indixes to get the stress for each part of the experiment.
+ind_tm_def=eachindex.(aux_tm_def);
+ind_rltm=map(s->range.(1,Int64.(div.(s[19:22],s[24]))),parameters);
+
+ind_rltm1=map(s->last(ind_tm_def[s]).+ind_rltm[s][1],eachindex(dirs));
+ind_tm_def2=map(s->last(ind_rltm1[s]).+ind_tm_def[s],eachindex(dirs));
+
+ind_rltm2=map(s->last(ind_tm_def2[s]).+ind_rltm[s][2],eachindex(dirs));
+ind_tm_def3=map(s->last(ind_rltm2[s]).+ind_tm_def[s],eachindex(dirs));
+
+ind_rltm3=map(s->last(ind_tm_def3[s]).+ind_rltm[s][3],eachindex(dirs));
+ind_tm_def4=map(s->last(ind_rltm3[s]).+ind_tm_def[s],eachindex(dirs));
+
+ind_rltm4=map(s->last(ind_tm_def4[s]).+ind_rltm[s][4],eachindex(dirs));
+
+
+
 
 #csh=:tab20;
 #scatter!(ax, 2, 0, color = 1, colormap = :tab10, colorrange = (1, 10))
@@ -180,8 +227,10 @@ lbls=map(s->string(L"\mathrm{CL:}",s[5],L"~\gamma:",s[16]),parameters);
 # Prepare the color map and color range
 cmap=:tab10;
 crng=(1,length(dirs));
+alph=0.5;
 
 # Temperature Figure
+
 
 fig_Temp=Figure(size=(1920,1080));
 ax_leg=Axis(fig_Temp[1:2,3],limits=(0.01,0.1,0.01,0.1))
@@ -189,7 +238,7 @@ hidespines!(ax_leg)
 hidedecorations!(ax_leg)
 ax_t = Axis(fig_Temp[1,1:2],
         title = L"\mathrm{Temperature~Assembly~Simulation}",
-        xlabel = L"\mathrm{Time~unit}",
+        xlabel = L"\mathrm{Time~}[\tau]",
         ylabel = L"\mathrm{Temperature}",
         titlesize = 24.0f0,
         xticklabelsize = 18.0f0,
@@ -202,9 +251,9 @@ ax_t = Axis(fig_Temp[1,1:2],
         #xscale = log10,
         #limits = (nothing,nothing,0,mean_T_ass+4*std_T_ass)
     )
-ax_tcp = Axis(fig_Temp[2,1:2],
-        title = L"\mathrm{Temperature~Shear~Simulation}",
-        xlabel = L"\mathrm{Time~unit}",
+ax_tsd = Axis(fig_Temp[2,1:2],
+        title = L"\mathrm{Temperature~Shear~Deformation}",
+        xlabel = L"\mathrm{Deformation~}[\sigma]",
         ylabel = L"\mathrm{Temperature}",
         titlesize = 24.0f0,
         xticklabelsize = 18.0f0,
@@ -217,20 +266,43 @@ ax_tcp = Axis(fig_Temp[2,1:2],
         #xscale = log10,
         #limits = (nothing,nothing,0,mean_T_ass+4std_T_ass)
     )
-
+ax_trx = Axis(fig_Temp[3,1:2],
+        title = L"\mathrm{Temperature~Relax~Periods}",
+        xlabel = L"\mathrm{Deformation~}[\sigma]",
+        ylabel = L"\mathrm{Temperature}",
+        titlesize = 24.0f0,
+        xticklabelsize = 18.0f0,
+        yticklabelsize = 18.0f0,
+        xlabelsize = 20.0f0,
+        ylabelsize = 20.0f0,
+        xminorticksvisible = true, 
+        xminorgridvisible = true,
+        xminorticks = IntervalsBetween(5),
+        #xscale = log10,
+        #limits = (nothing,nothing,0,mean_T_ass+4std_T_ass)
+    )
 map(s->lines!(ax_t,time_assembly,data_assembly[s][3],color=s,colormap=cmap,colorrange=crng),eachindex(dirs))
-
-
 #hlines!(ax_t,mean_T_ass,linestyle=:dash,color=:black)
 #hlines!(ax_t,[mean_T_ass+std_T_ass,mean_T_ass+2*std_T_ass,mean_T_ass+3*std_T_ass],linestyle=:dash,color=:red)
 #vlines!(ax_t,parameters[1][10]*parameters[1][11],linestyle=:dash,color=:black)
 
-map(s->lines!(ax_tcp,time_shear[s],data_shear[s][3],color=s,colormap=cmap,colorrange=crng),eachindex(dirs))
+#map(s->lines!(ax_tcp,time_shear[s],data_shear[s][3],color=s,colormap=cmap,colorrange=crng),eachindex(dirs))
+
+map(s->lines!(ax_tsd,gamma_deform[s],data_shear[s][3][ind_tm_def[s]],color=s,colormap=cmap,colorrange=crng),eachindex(dirs))
+map(s->lines!(ax_tsd,gamma_deform2[s],data_shear[s][3][ind_tm_def2[s]],color=s,colormap=cmap,colorrange=crng),eachindex(dirs))
+map(s->lines!(ax_tsd,gamma_deform3[s],data_shear[s][3][ind_tm_def3[s]],color=s,colormap=cmap,colorrange=crng),eachindex(dirs))
+map(s->lines!(ax_tsd,gamma_deform4[s],data_shear[s][3][ind_tm_def4[s]],color=s,colormap=cmap,colorrange=crng),eachindex(dirs))
+
 #lines!(ax_tcp,time_shear,data_shear[3])
 #hlines!(ax_tcp,mean_T_shear,linestyle=:dash,color=:black)
 #hlines!(ax_tcp,[mean_T_shear+std_T_shear,mean_T_shear+2*std_T_shear,mean_T_shear+3*std_T_shear],linestyle=:dash,color=:red)
 
 #vlines!(ax_tcp,[tm_rlx1o,tm_rlx1f,tm_rlx2o,tm_rlx2f,tm_rlx3o,tm_rlx3f,tm_rlx4o,tm_rlx4f],linestyle=:dash,color=:black)
+aux_Norm=Iterators.flatten(map(s->round(Int64,s[15]*4*s[17]*s[18]/s[24]),parameters))|>collect;
+map(s->lines!(ax_trx,time_shear[s][ind_rltm1[s]],data_shear[s][3][ind_rltm1[s]],color=s,colormap=cmap,colorrange=crng),eachindex(dirs))
+map(s->lines!(ax_trx,time_shear[s][ind_rltm2[s]],data_shear[s][3][ind_rltm2[s]],color=s,colormap=cmap,colorrange=crng),eachindex(dirs))
+map(s->lines!(ax_trx,time_shear[s][ind_rltm3[s]],data_shear[s][3][ind_rltm3[s]],color=s,colormap=cmap,colorrange=crng),eachindex(dirs))
+map(s->lines!(ax_trx,time_shear[s][ind_rltm4[s]],data_shear[s][3][ind_rltm4[s]],color=s,colormap=cmap,colorrange=crng),eachindex(dirs))
 
 #series!(ax_leg,zeros(length(dirs),length(dirs)),linestyle=:solid,color=cmap,labels=lbls)
 map(s->scatter!(ax_leg,0,0,color=s,colormap=cmap,colorrange=crng,label=lbls[s]),eachindex(dirs))
@@ -243,4 +315,3 @@ Legend(fig_Temp[1:2,3],ax_leg,
        L"\mathrm{Concentration~and~Shear~Rate}",
        patchsize=(35,35)
       )
-

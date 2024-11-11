@@ -124,7 +124,8 @@ function getData2(dir,files,parameters)
 
     time_shear=data[7][1,:];
     time_shearStress=data[12][1,:];
-    temp_shear=data[7][7,:];
+    temp_shear=data[7][2,:];
+    temp_shearDeform=data[7][7,:]
     U_shear=data[7][3,:];
     K_shear=data[7][4,:];
     tempCM_shear=data[7][5,:];
@@ -163,13 +164,12 @@ function getData2(dir,files,parameters)
 
     info_shear=(
                    time_shear,time_shearStress,
-                   temp_shear,tempCM_shear,pressure_shear,
+                   temp_shear,temp_shearDeform,pressure_shear,
                    U_shear,K_shear,E_shear,
                    wcaPair_shear,patchPair_shear,swapPair_shear,
                    displCl_shear,displMo_shear,displCM_shear,
                    stressXX_shear,stressXY_shear
                   ); 
-                  #info_shear=nothing;
     return (info_assembly,info_shear)
 
 end
@@ -179,19 +179,22 @@ function getAvgData(dirs,files,parameters)
 """
    dirs is a vector with the name of the directories: system
    Function that averages the information of N experiments. 
-      1.-  Temperature
-      2.-  Temperature of central particles
-      3.-  Potential energy
-      4.-  Kinetic energy
-      5.-  Total energy
-      6.-  wca Potential energy
-      7.-  patch Potential energy
-      8.-  swap Potential energy
-      9.-  Mean displacement of CrossLinker
-      10.- Mean displacement of Monomer
-      11.- Mean displacement of central particles
-      12.- XX component of stress tensor
-      13.- XY component of stress tensor
+      1.-  Time assembly
+      2.-  Time assembly Stress
+      3.-  Temperature
+      4.-  Temperature of central particles/temp shear deform
+      5.-  Pressure
+      6.-  Potential energy
+      7.-  Kinetic energy
+      8.-  Total energy
+      9.-  wca Potential energy
+      10.-  patch Potential energy
+      11.-  swap Potential energy
+      12.-  Mean displacement of CrossLinker
+      13.- Mean displacement of Monomer
+      14.- Mean displacement of central particles
+      15.- XX component of stress tensor
+      16.- XY component of stress tensor
 """
   
     # Get the data from each experiment
