@@ -32,13 +32,13 @@ dirs_aux = open("dirs.txt") do f
    Nexp -> Number of simulation
 """
 
-selc_phi="5500";
+selc_phi="5000";
 selc_Npart="500";
 selc_damp="5000";
 selc_T="500";
 selc_cCL="300";
 selc_ShearRate=string.((1000,100,10));
-selc_Nexp="251";
+selc_Nexp="1000";
 
 aux_dirs_ind=split.(last.(split.(dirs_aux,"Phi")),"NPart");
 auxs_indPhi=findall(r->r==selc_phi, first.(aux_dirs_ind) );
@@ -122,11 +122,11 @@ file_name = (
 parameters=getParameters(dirs,file_name,auxs_ind);
 
 # Retrieve all the data from every experiment
-#data=map(s->getData2(dirs[s],file_name,parameters[s]),eachindex(dirs));
+data=map(s->getData2(dirs[s],file_name,parameters[s]),eachindex(dirs));
 
 # Separate the data from assembly and shear experiment
-#data_assembly=first.(data);
-#data_shear=last.(data);
+data_assembly=first.(data);
+data_shear=last.(data);
 
 # Create temporal domains for the graphs
 
