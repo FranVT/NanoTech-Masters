@@ -61,6 +61,10 @@ LAMMPS - a flexible simulation tool for particle-based materials modeling at the
     - data
         - data n
 2. Tesis
+    - documentation
+    - insilico-Gels-Compare
+    - insilico-Gels-fixRigid
+    - insilico-Gels-Merge
     - lammps
 
 ---
