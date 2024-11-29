@@ -125,21 +125,133 @@ info=[
 
 
 
-
-# Start to extract the data with the energy file
-
+"""
+# Start to extract the data with the energy file of all experiments of the same system
 file_dir=map(s->joinpath(s,"info",files_names[2]),dirs);
 
-data_test=reduce(hcat,map(s->parse.(Float64,s),split.(readlines(file_dir[1])," ")[3:end]));
-
-#ind_assembly=(1:sum(parameters[11:12]))
-#time_assembly=parameters[10].*()
-
-"""
-file_dir=joinpath(first(dirs),first(files_names));
-parameters=open(file_dir) do f
-    map(s->parse(Float64,s),readlines(f))
+# All data of N experiments of one system
+data_energy=map(file_dir) do r
+    data_aux=reduce(hcat,map(s->parse.(Float64,s),split.(readlines(r)," ")[3:end]));
+    (
+     data_Temp=data_aux[2,:],
+     data_Pot=data_aux[3,:],
+     data_Kin=data_aux[4,:],
+     data_TpCM=data_aux[5,:],
+     data_pressure=data_aux[6,:],
+     data_Eng=data_aux[3,:].+data_aux[4,:]
+   );
 end
+
+info_energy=(
+             temp=reduce(vcat,mean(reduce(hcat,map(s->s.data_Temp,data_energy)),dims=2)),
+             pot=reduce(vcat,mean(reduce(hcat,map(s->s.data_Pot,data_energy)),dims=2)),
+             kin=reduce(vcat,mean(reduce(hcat,map(s->s.data_Kin,data_energy)),dims=2)),
+             tpcm=reduce(vcat,mean(reduce(hcat,map(s->s.data_TpCM,data_energy)),dims=2)),
+             pressure=reduce(vcat,mean(reduce(hcat,map(s->s.data_pressure,data_energy)),dims=2)),
+             eng=reduce(vcat,mean(reduce(hcat,map(s->s.data_Eng,data_energy)),dims=2))
+            );  
 """
+    
+# Files per fix files per experiment
+file_dir=map(s->reduce(vcat,map(r->joinpath(r,"info",s),dirs)),files_names[2:end]);
+
+# Information from energy file
+
+data_energy_assembly=map(file_dir[1]) do r
+    data_aux=reduce(hcat,map(s->parse.(Float64,s),split.(readlines(r)," ")[3:end]));
+    (
+     data_Temp=data_aux[2,:],
+     data_Pot=data_aux[3,:],
+     data_Kin=data_aux[4,:],
+     data_TpCM=data_aux[5,:],
+     data_pressure=data_aux[6,:],
+     data_Eng=data_aux[3,:].+data_aux[4,:]
+   );
+end
+
+info_energy_assembly=(
+             temp=reduce(vcat,mean(reduce(hcat,map(s->s.data_Temp,data_energy_assembly)),dims=2)),
+             pot=reduce(vcat,mean(reduce(hcat,map(s->s.data_Pot,data_energy_assembly)),dims=2)),
+             kin=reduce(vcat,mean(reduce(hcat,map(s->s.data_Kin,data_energy_assembly)),dims=2)),
+             tpcm=reduce(vcat,mean(reduce(hcat,map(s->s.data_TpCM,data_energy_assembly)),dims=2)),
+             pressure=reduce(vcat,mean(reduce(hcat,map(s->s.data_pressure,data_energy_assembly)),dims=2)),
+             eng=reduce(vcat,mean(reduce(hcat,map(s->s.data_Eng,data_energy_assembly)),dims=2))
+            );
+
+data_energy_shear=map(file_dir[7]) do r
+    data_aux=reduce(hcat,map(s->parse.(Float64,s),split.(readlines(r)," ")[3:end]));
+    (
+     data_Temp=data_aux[2,:],
+     data_Pot=data_aux[3,:],
+     data_Kin=data_aux[4,:],
+     data_TpCM=data_aux[5,:],
+     data_pressure=data_aux[6,:],
+     data_Eng=data_aux[3,:].+data_aux[4,:]
+   );
+end
+
+info_energy_shear=(
+             temp=reduce(vcat,mean(reduce(hcat,map(s->s.data_Temp,data_energy_shear)),dims=2)),
+             pot=reduce(vcat,mean(reduce(hcat,map(s->s.data_Pot,data_energy_shear)),dims=2)),
+             kin=reduce(vcat,mean(reduce(hcat,map(s->s.data_Kin,data_energy_shear)),dims=2)),
+             tpcm=reduce(vcat,mean(reduce(hcat,map(s->s.data_TpCM,data_energy_shear)),dims=2)),
+             pressure=reduce(vcat,mean(reduce(hcat,map(s->s.data_pressure,data_energy_shear)),dims=2)),
+             eng=reduce(vcat,mean(reduce(hcat,map(s->s.data_Eng,data_energy_shear)),dims=2))
+            );
+
+info_energy=(
+             temp=append!(info_energy_assembly.temp,info_energy_shear.temp),
+             pot=append!(info_energy_assembly.pot,info_energy_shear.pot),
+             kin=append!(info_energy_assembly.kin,info_energy_shear.kin),
+             tpcm=append!(info_energy_assembly.tpcm,info_energy_shear.tpcm),
+             pressure=append!(info_energy_assembly.pressure,info_energy_shear.pressure),
+             eng=append!(info_energy_assembly.eng,info_energy_shear.eng)
+            );
+
+
+
+# Stress for assembly and shear process
+
+data_stress_assembly=map(file_dir[5]) do r
+    data_aux=reduce(hcat,map(s->parse.(Float64,s),split.(readlines(r)," ")[3:end]));
+    (
+     XX=data_aux[2,:],
+     XY=data_aux[5,:],
+     norm=sqrt.( data_aux[2,:].^2 .+ data_aux[3,:].^2 .+ data_aux[4,:].^2 .+ (2).*( data_aux[5,:].^2 .+ data_aux[6,:].^2 .+ data_aux[7,:].^2) )
+   );
+end
+
+info_stress_assembly=(
+             XX=reduce(vcat,mean(reduce(hcat,map(s->s.XX,data_stress_assembly)),dims=2)),
+             XY=reduce(vcat,mean(reduce(hcat,map(s->s.XY,data_stress_assembly)),dims=2)),
+             norm=reduce(vcat,mean(reduce(hcat,map(s->s.norm,data_stress_assembly)),dims=2))
+            );
+
+
+
+
+data_stress_shear=map(file_dir[end-1]) do r
+    data_aux=reduce(hcat,map(s->parse.(Float64,s),split.(readlines(r)," ")[3:end]));
+    (
+     XX=data_aux[2,:],
+     XY=data_aux[5,:],
+     norm=sqrt.( data_aux[2,:].^2 .+ data_aux[3,:].^2 .+ data_aux[4,:].^2 .+ (2).*( data_aux[5,:].^2 .+ data_aux[6,:].^2 .+ data_aux[7,:].^2) )
+   );
+end
+
+info_stress_shear=(
+             XX=reduce(vcat,mean(reduce(hcat,map(s->s.XX,data_stress_shear)),dims=2)),
+             XY=reduce(vcat,mean(reduce(hcat,map(s->s.XY,data_stress_shear)),dims=2)),
+             norm=reduce(vcat,mean(reduce(hcat,map(s->s.norm,data_stress_shear)),dims=2))
+            );
+
+
+info_stress=(
+             XX=-append!(info_stress_assembly.XX,info_stress_shear.XX),
+             XY=-append!(info_stress_assembly.XY,info_stress_shear.XY),
+             norm=-append!(info_stress_assembly.norm,info_stress_shear.norm), 
+           );
+
+
 
 
