@@ -47,259 +47,409 @@ parameters=open(file_dir) do f
     map(s->parse(Float64,s),readlines(f))
 end
 
-# Pre-allocate the array with the information of the system
 # The system energy and stuff are means of N experiments of the same system.
-"""
-    ShearRate
-    Number of particles
-    Concentration
-    Strain factor of conversion
-    Indexes for heat up
-    Indexes for assembly (isothermal)
-    Indexes for deformation 1
-    Indexes for deformation 2
-    Indexes for deformation 3
-    Indexes for deformation 4
-    Indexes for relax 1
-    Indexes for relax 2
-    Indexes for relax 3
-    Indexes for relax 4
-    Indexes for heat up for Stress
-    Indexes for assembly (isothermal) for Stress
-    Indexes for deformation 1 for Stress
-    Indexes for deformation 2 for Stress
-    Indexes for deformation 3 for Stress
-    Indexes for deformation 4 for Stress
-    Indexes for relax 1 for Stress
-    Indexes for relax 2 for Stress
-    Indexes for relax 3 for Stress
-    Indexes for relax 4 for Stress
-    Time for the whole process (Heat up, isothermal, shears and relax)
-    Deformation for the whole process (Heat up, isothermal, shears and relax)
-    Temperature
-    Pressure
-    Total energy
-    Kinetic energy
-    Potential energy
-    Central-centra energy
-    Patch-patch energy
-    Swap energy
-    xy component of Virial Stress
-    Norm of the pressure tensor
-"""
 
-# Alocate the indixes
-#inds=(
-#      shearRate=parameters[16],
-#      Npart=parameters[2],
-#      CLcon=parameters[5],
-#      strainFact=1,
- # Indixes for non stress fix files
-      ind_heat=Int64.((1:1:parameters[11]/parameters[24]));#,
-      ind_isothermal=Int64.(last(ind_heat).+(1:1:parameters[12]/parameters[24]));#,
-      ind_deform1=Int64.(last(ind_isothermal).+(1:1:parameters[18]/parameters[24]));#,
-      ind_rlx1=Int64.(last(ind_deform1).+(1:parameters[19]/parameters[24]));#,
-      ind_deform2=Int64.(last(ind_rlx1).+(1:1:parameters[18]/parameters[24]));#,
-      ind_rlx2=Int64.(last(ind_deform2).+(1:parameters[20]/parameters[24]));#,
-      ind_deform3=Int64.(last(ind_rlx2).+(1:1:parameters[18]/parameters[24]));#,
-      ind_rlx3=Int64.(last(ind_deform3).+(1:parameters[21]/parameters[24]));#,
-      ind_deform4=Int64.(last(ind_rlx3).+(1:1:parameters[18]/parameters[24]));#,
-      ind_rlx4=Int64.(last(ind_deform4).+(1:parameters[22]/parameters[24]));#,
-# Indixes for stress fix files
-      ind_heat_s=Int64.((1:1:parameters[11]/parameters[25]));#,
-      ind_isothermal_s=Int64.(last(ind_heat_s).+(1:1:parameters[12]/parameters[25]));#,
-      ind_deform1_s=Int64.(last(ind_isothermal_s).+(1:1:parameters[18]/parameters[25]));#,
-      ind_rlx1_s=Int64.(last(ind_deform1_s).+(1:parameters[19]/parameters[25]));#,
-      ind_deform2_s=Int64.(last(ind_rlx1_s).+(1:1:parameters[18]/parameters[25]));#,
-      ind_rlx2_s=Int64.(last(ind_deform2_s).+(1:parameters[20]/parameters[25]));#,
-      ind_deform3_s=Int64.(last(ind_rlx2_s).+(1:1:parameters[18]/parameters[25]));#,
-      ind_rlx3_s=Int64.(last(ind_deform3_s).+(1:parameters[21]/parameters[25]));#,
-      ind_deform4_s=Int64.(last(ind_rlx3_s).+(1:1:parameters[18]/parameters[25]));#,
-      ind_rlx4_s=Int64.(last(ind_deform4_s).+(1:parameters[22]/parameters[25]));#
-#     );
-
-
-
-
-"""
-# Start to extract the data with the energy file of all experiments of the same system
-file_dir=map(s->joinpath(s,"info",files_names[2]),dirs);
-
-# All data of N experiments of one system
-data_energy=map(file_dir) do r
-    data_aux=reduce(hcat,map(s->parse.(Float64,s),split.(readlines(r)," ")[3:end]));
-    (
-     data_Temp=data_aux[2,:],
-     data_Pot=data_aux[3,:],
-     data_Kin=data_aux[4,:],
-     data_TpCM=data_aux[5,:],
-     data_pressure=data_aux[6,:],
-     data_Eng=data_aux[3,:].+data_aux[4,:]
-   );
-end
-
-info_energy=(
-             temp=reduce(vcat,mean(reduce(hcat,map(s->s.data_Temp,data_energy)),dims=2)),
-             pot=reduce(vcat,mean(reduce(hcat,map(s->s.data_Pot,data_energy)),dims=2)),
-             kin=reduce(vcat,mean(reduce(hcat,map(s->s.data_Kin,data_energy)),dims=2)),
-             tpcm=reduce(vcat,mean(reduce(hcat,map(s->s.data_TpCM,data_energy)),dims=2)),
-             pressure=reduce(vcat,mean(reduce(hcat,map(s->s.data_pressure,data_energy)),dims=2)),
-             eng=reduce(vcat,mean(reduce(hcat,map(s->s.data_Eng,data_energy)),dims=2))
-            );  
-"""
-    
+  
 # Files per fix files per experiment
 file_dir=map(s->reduce(vcat,map(r->joinpath(r,"info",s),dirs)),files_names[2:end]);
 
-# Assembly
-data_energy_assembly=map(file_dir[1]) do r
-    data_aux=reduce(hcat,map(s->parse.(Float64,s),split.(readlines(r)," ")[3:end]));
-    (
-     data_Temp=data_aux[2,:],
-     data_Pot=data_aux[3,:],
-     data_Kin=data_aux[4,:],
-     data_TpCM=data_aux[5,:],
-     data_pressure=data_aux[6,:],
-     data_Eng=data_aux[3,:].+data_aux[4,:]
-   );
-end
-
-# Potential energies Assembly (2:4)
-data_wca_assembly=map(file_dir[2]) do r
-    data_aux=reduce(hcat,map(s->parse.(Float64,s),split.(readlines(r)," ")[3:end]));
-    (
-     data_pot=data_aux[2,:]
-    );
-end
-
-data_patch_assembly=map(file_dir[3]) do r
-    data_aux=reduce(hcat,map(s->parse.(Float64,s),split.(readlines(r)," ")[3:end]));
-    (
-     data_pot=data_aux[2,:]
-    );
-end
-
-data_swap_assembly=map(file_dir[4]) do r
-    data_aux=reduce(hcat,map(s->parse.(Float64,s),split.(readlines(r)," ")[3:end]));
-    (
-     data_pot=data_aux[2,:]
-    );
-end
-
-# Stress file assembly
-data_stress_assembly=map(file_dir[5]) do r
-    data_aux=reduce(hcat,map(s->parse.(Float64,s),split.(readlines(r)," ")[3:end]));
-    (
-     XX=data_aux[2,:],
-     XY=data_aux[5,:],
-     norm=sqrt.( data_aux[2,:].^2 .+ data_aux[3,:].^2 .+ data_aux[4,:].^2 .+ (2).*( data_aux[5,:].^2 .+ data_aux[6,:].^2 .+ data_aux[7,:].^2) )
-   );
-end
-
-# Take the average of N experiments fo the same system.
-info_assembly=(
-            # energy file
-             temp=reduce(vcat,mean(reduce(hcat,map(s->s.data_Temp,data_energy_assembly)),dims=2)),
-             pot=reduce(vcat,mean(reduce(hcat,map(s->s.data_Pot,data_energy_assembly)),dims=2)),
-             kin=reduce(vcat,mean(reduce(hcat,map(s->s.data_Kin,data_energy_assembly)),dims=2)),
-             tpcm=reduce(vcat,mean(reduce(hcat,map(s->s.data_TpCM,data_energy_assembly)),dims=2)),
-             pressure=reduce(vcat,mean(reduce(hcat,map(s->s.data_pressure,data_energy_assembly)),dims=2)),
-             eng=reduce(vcat,mean(reduce(hcat,map(s->s.data_Eng,data_energy_assembly)),dims=2)),
-             # Potentials files
-             wca=reduce(vcat,mean(reduce(hcat,data_wca_assembly),dims=2)),
-             patch=reduce(vcat,mean(reduce(hcat,data_patch_assembly),dims=2)),
-             swap=reduce(vcat,mean(reduce(hcat,data_swap_assembly),dims=2)),
-             # Stress files
-             XX=-reduce(vcat,mean(reduce(hcat,map(s->s.XX,data_stress_assembly)),dims=2)),
-             XY=-reduce(vcat,mean(reduce(hcat,map(s->s.XY,data_stress_assembly)),dims=2)),
-             norm=-reduce(vcat,mean(reduce(hcat,map(s->s.norm,data_stress_assembly)),dims=2))
-            );
-
-# Shear
-# Energy file
-data_energy_shear=map(file_dir[7]) do r
-    data_aux=reduce(hcat,map(s->parse.(Float64,s),split.(readlines(r)," ")[3:end]));
-    (
-     data_Temp=data_aux[2,:],
-     data_Pot=data_aux[3,:],
-     data_Kin=data_aux[4,:],
-     data_TpCM=data_aux[5,:],
-     data_pressure=data_aux[6,:],
-     data_Eng=data_aux[3,:].+data_aux[4,:]
-   );
-end
-
-# Potential files 
-data_wca_shear=map(file_dir[8]) do r
-    data_aux=reduce(hcat,map(s->parse.(Float64,s),split.(readlines(r)," ")[3:end]));
-    (
-     data_pot=data_aux[2,:]
-    );
-end
-
-data_patch_shear=map(file_dir[9]) do r
-    data_aux=reduce(hcat,map(s->parse.(Float64,s),split.(readlines(r)," ")[3:end]));
-    (
-     data_pot=data_aux[2,:]
-    );
-end
-
-data_swap_shear=map(file_dir[10]) do r
-    data_aux=reduce(hcat,map(s->parse.(Float64,s),split.(readlines(r)," ")[3:end]));
-    (
-     data_pot=data_aux[2,:]
-    );
-end
-
-# Stress file
-data_stress_shear=map(file_dir[end-1]) do r
-    data_aux=reduce(hcat,map(s->parse.(Float64,s),split.(readlines(r)," ")[3:end]));
-    (
-     XX=data_aux[2,:],
-     XY=data_aux[5,:],
-     norm=sqrt.( data_aux[2,:].^2 .+ data_aux[3,:].^2 .+ data_aux[4,:].^2 .+ (2).*( data_aux[5,:].^2 .+ data_aux[6,:].^2 .+ data_aux[7,:].^2) )
-   );
-end
-
-# Compute the mean of N experiments of the same experiment
-info_shear=(
-            # Energy file
-             temp=reduce(vcat,mean(reduce(hcat,map(s->s.data_Temp,data_energy_shear)),dims=2)),
-             pot=reduce(vcat,mean(reduce(hcat,map(s->s.data_Pot,data_energy_shear)),dims=2)),
-             kin=reduce(vcat,mean(reduce(hcat,map(s->s.data_Kin,data_energy_shear)),dims=2)),
-             tpcm=reduce(vcat,mean(reduce(hcat,map(s->s.data_TpCM,data_energy_shear)),dims=2)),
-             pressure=reduce(vcat,mean(reduce(hcat,map(s->s.data_pressure,data_energy_shear)),dims=2)),
-             eng=reduce(vcat,mean(reduce(hcat,map(s->s.data_Eng,data_energy_shear)),dims=2)),
-            # Potentials files
-             wca=reduce(vcat,mean(reduce(hcat,data_wca_shear),dims=2)),
-             patch=reduce(vcat,mean(reduce(hcat,data_patch_shear),dims=2)),
-             swap=reduce(vcat,mean(reduce(hcat,data_swap_shear),dims=2)),
-             # Stress files
-             XX=-reduce(vcat,mean(reduce(hcat,map(s->s.XX,data_stress_shear)),dims=2)),
-             XY=-reduce(vcat,mean(reduce(hcat,map(s->s.XY,data_stress_shear)),dims=2)),
-             norm=-reduce(vcat,mean(reduce(hcat,map(s->s.norm,data_stress_shear)),dims=2))
-            );
+# Retrieve the information of the system
+#(inds,info)=getDataSystem(parameters,file_dir);
 
 
-# Merge Assembly and shear simualtions
-info=(
-     # Energy file
-     temp=append!(info_assembly.temp,info_shear.temp),
-     pot=append!(info_assembly.pot,info_shear.pot),
-     kin=append!(info_assembly.kin,info_shear.kin),
-     tpcm=append!(info_assembly.tpcm,info_shear.tpcm),
-     pressure=append!(info_assembly.pressure,info_shear.pressure),
-     energy=append!(info_assembly.eng,info_shear.eng),
-     # Potential files
-     wca=append!(info_assembly.wca,info_shear.wca),
-     patch=append!(info_assembly.patch,info_shear.patch),
-     swap=append!(info_assembly.swap,info_shear.swap),
-     # Stress files
-     XX=append!(info_assembly.XX,info_shear.XX),
-     XY=append!(info_assembly.XY,info_shear.XY),
-     norm=append!(info_assembly.norm,info_shear.norm)
-      );
+# Total Energy
+fig_energy=Figure(size=(1920,1080));
+ax_leg=Axis(fig_energy[1:3,3],limits=(0.01,0.1,0.01,0.1));
+hidespines!(ax_leg)
+hidedecorations!(ax_leg)
+ax_full=Axis(fig_energy[1,1:2],
+               title=L"\mathrm{Total~Energy~of~Full~simulation}",
+               xlabel=L"\mathrm{Time~steps~}\log_{10}",
+               ylabel=L"\mathrm{Energy}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true,
+               xscale=log10
+              )
+ax_assembly=Axis(fig_energy[2,1:2],
+               title=L"\mathrm{Total~Energy~of~Assembly~simulation}",
+               xlabel=L"\mathrm{Time~steps~}\log_{10}",
+               ylabel=L"\mathrm{Energy}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true,
+               xscale=log10
+              )
+ax_shear=Axis(fig_energy[3,1:2],
+               title=L"\mathrm{Total~Energy~of~Shear~simulation}",
+               xlabel=L"\mathrm{Time~steps~}\log_{10}",
+               ylabel=L"\mathrm{Energy}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true,
+               xscale=log10
+              )
+
+lines!(ax_full,info.energy)
+vlines!(ax_full,last(inds.heat),color=:black,linestyle=:dash)
+vlines!(ax_full,last(inds.isothermal),color=:orange,linestyle=:dash)
+
+lines!(ax_assembly,info.energy[inds.assembly])
+vlines!(ax_assembly,last(inds.heat),color=:black,linestyle=:dash)
+
+lines!(ax_shear,inds.shear,info.energy[inds.shear])
+vlines!(ax_shear,first(inds.rlx1),color=:black,linestyle=:dash)
+vlines!(ax_shear,first(inds.rlx2),color=:black,linestyle=:dash)
+vlines!(ax_shear,first(inds.rlx3),color=:black,linestyle=:dash)
+vlines!(ax_shear,first(inds.rlx4),color=:black,linestyle=:dash)
+vlines!(ax_shear,first(inds.deform1),color=:blue,linestyle=:dash)
+vlines!(ax_shear,first(inds.deform2),color=:blue,linestyle=:dash)
+vlines!(ax_shear,first(inds.deform3),color=:blue,linestyle=:dash)
+vlines!(ax_shear,first(inds.deform4),color=:blue,linestyle=:dash)
+
+lines!(ax_leg,0,0,label="1")
+
+Legend(fig_energy[1:3,3],ax_leg,
+       framevisible=true,
+       halign=:center,
+       orientation=:vertical,
+       title=L"\mathrm{Legends}",
+       patchsize=(35,35)
+      )
+
+
+# Potential Energy
+fig_potential=Figure(size=(1920,1080));
+ax_leg=Axis(fig_potential[1:2,3],limits=(0.01,0.1,0.01,0.1));
+hidespines!(ax_leg)
+hidedecorations!(ax_leg)
+ax_wca=Axis(fig_potential[1,1:2],
+               title=L"\mathrm{WCA~Energy~of~isothermal~and~shear~simulation}",
+               xlabel=L"\mathrm{Time~steps}",
+               ylabel=L"\mathrm{Energy}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+ax_patch=Axis(fig_potential[2,1:2],
+               title=L"\mathrm{Patch~Energy~of~isothermal~and~shear~simulation}",
+               xlabel=L"\mathrm{Time~steps}",
+               ylabel=L"\mathrm{Energy}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true              
+              )
+ax_swap=Axis(fig_potential[3,1:2],
+               title=L"\mathrm{Swap~Energy~of~isothermal~and~shear~simulation}",
+               xlabel=L"\mathrm{Time~steps}",
+               ylabel=L"\mathrm{Energy}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+
+dom=reduce(vcat,[inds.isothermal,inds.shear]);
+
+lines!(ax_wca,dom,info.wca[first(inds.isothermal):end])
+vlines!(ax_wca,last(inds.isothermal),color=:orange,linestyle=:dash)
+vlines!(ax_wca,first(inds.rlx1),color=:black,linestyle=:dash)
+vlines!(ax_wca,first(inds.rlx2),color=:black,linestyle=:dash)
+vlines!(ax_wca,first(inds.rlx3),color=:black,linestyle=:dash)
+vlines!(ax_wca,first(inds.rlx4),color=:black,linestyle=:dash)
+vlines!(ax_wca,first(inds.deform1),color=:blue,linestyle=:dash)
+vlines!(ax_wca,first(inds.deform2),color=:blue,linestyle=:dash)
+vlines!(ax_wca,first(inds.deform3),color=:blue,linestyle=:dash)
+vlines!(ax_wca,first(inds.deform4),color=:blue,linestyle=:dash)
 
 
 
+lines!(ax_patch,dom,info.patch[first(inds.isothermal):end])
+lines!(ax_patch,dom,info.patch[first(inds.isothermal):end].+info.swap[first(inds.isothermal):end])
+lines!(ax_patch,dom,info.pot[first(inds.isothermal):end])
+
+
+
+vlines!(ax_patch,last(inds.isothermal),color=:orange,linestyle=:dash)
+vlines!(ax_patch,first(inds.rlx1),color=:black,linestyle=:dash)
+vlines!(ax_patch,first(inds.rlx2),color=:black,linestyle=:dash)
+vlines!(ax_patch,first(inds.rlx3),color=:black,linestyle=:dash)
+vlines!(ax_patch,first(inds.rlx4),color=:black,linestyle=:dash)
+vlines!(ax_patch,first(inds.deform1),color=:blue,linestyle=:dash)
+vlines!(ax_patch,first(inds.deform2),color=:blue,linestyle=:dash)
+vlines!(ax_patch,first(inds.deform3),color=:blue,linestyle=:dash)
+vlines!(ax_patch,first(inds.deform4),color=:blue,linestyle=:dash)
+
+
+lines!(ax_swap,dom,info.swap[first(inds.isothermal):end])
+vlines!(ax_swap,last(inds.isothermal),color=:orange,linestyle=:dash)
+vlines!(ax_swap,first(inds.rlx1),color=:black,linestyle=:dash)
+vlines!(ax_swap,first(inds.rlx2),color=:black,linestyle=:dash)
+vlines!(ax_swap,first(inds.rlx3),color=:black,linestyle=:dash)
+vlines!(ax_swap,first(inds.rlx4),color=:black,linestyle=:dash)
+vlines!(ax_swap,first(inds.deform1),color=:blue,linestyle=:dash)
+vlines!(ax_swap,first(inds.deform2),color=:blue,linestyle=:dash)
+vlines!(ax_swap,first(inds.deform3),color=:blue,linestyle=:dash)
+vlines!(ax_swap,first(inds.deform4),color=:blue,linestyle=:dash)
+
+lines!(ax_leg,0,0,label="1")
+
+Legend(fig_potential[1:3,3],ax_leg,
+       framevisible=true,
+       halign=:center,
+       orientation=:vertical,
+       title=L"\mathrm{Legends}",
+       patchsize=(35,35)
+      )
+
+
+# Stress
+fig_stress=Figure(size=(1920,1080));
+ax_leg=Axis(fig_stress[1:2,3],limits=(0.01,0.1,0.01,0.1));
+hidespines!(ax_leg)
+hidedecorations!(ax_leg)
+ax_norm=Axis(fig_stress[1,1:2],
+               title=L"\mathrm{Norm~of~Virial~Stress~tensor~of~full~simulation}",
+               xlabel=L"\mathrm{Time~steps}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+ax_xy=Axis(fig_stress[2,1:2],
+               title=L"xy~\mathrm{component~of~Virial~Stress~of~full~simulation}",
+               xlabel=L"\mathrm{Time~steps}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+ax_xx=Axis(fig_stress[3,1:2],
+               title=L"xx~\mathrm{component~of~Virial~Stress~of~full~simulation}",
+               xlabel=L"\mathrm{Time~steps}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+
+lines!(ax_norm,info.norm)
+vlines!(ax_norm,first(inds.isothermal_s),color=:orange,linestyle=:dash)
+vlines!(ax_norm,last(inds.isothermal_s),color=:orange,linestyle=:dash)
+vlines!(ax_norm,first(inds.rlx1_s),color=:black,linestyle=:dash)
+vlines!(ax_norm,first(inds.rlx2_s),color=:black,linestyle=:dash)
+vlines!(ax_norm,first(inds.rlx3_s),color=:black,linestyle=:dash)
+vlines!(ax_norm,first(inds.rlx4_s),color=:black,linestyle=:dash)
+vlines!(ax_norm,first(inds.deform1_s),color=:blue,linestyle=:dash)
+vlines!(ax_norm,first(inds.deform2_s),color=:blue,linestyle=:dash)
+vlines!(ax_norm,first(inds.deform3_s),color=:blue,linestyle=:dash)
+vlines!(ax_norm,first(inds.deform4_s),color=:blue,linestyle=:dash)
+
+lines!(ax_xy,info.XY)
+vlines!(ax_xy,first(inds.isothermal_s),color=:orange,linestyle=:dash)
+vlines!(ax_xy,last(inds.isothermal_s),color=:orange,linestyle=:dash)
+vlines!(ax_xy,first(inds.rlx1_s),color=:black,linestyle=:dash)
+vlines!(ax_xy,first(inds.rlx2_s),color=:black,linestyle=:dash)
+vlines!(ax_xy,first(inds.rlx3_s),color=:black,linestyle=:dash)
+vlines!(ax_xy,first(inds.rlx4_s),color=:black,linestyle=:dash)
+vlines!(ax_xy,first(inds.deform1_s),color=:blue,linestyle=:dash)
+vlines!(ax_xy,first(inds.deform2_s),color=:blue,linestyle=:dash)
+vlines!(ax_xy,first(inds.deform3_s),color=:blue,linestyle=:dash)
+vlines!(ax_xy,first(inds.deform4_s),color=:blue,linestyle=:dash)
+
+
+lines!(ax_xx,info.XX)
+vlines!(ax_xx,first(inds.isothermal_s),color=:orange,linestyle=:dash)
+vlines!(ax_xx,last(inds.isothermal_s),color=:orange,linestyle=:dash)
+vlines!(ax_xx,first(inds.rlx1_s),color=:black,linestyle=:dash)
+vlines!(ax_xx,first(inds.rlx2_s),color=:black,linestyle=:dash)
+vlines!(ax_xx,first(inds.rlx3_s),color=:black,linestyle=:dash)
+vlines!(ax_xx,first(inds.rlx4_s),color=:black,linestyle=:dash)
+vlines!(ax_xx,first(inds.deform1_s),color=:blue,linestyle=:dash)
+vlines!(ax_xx,first(inds.deform2_s),color=:blue,linestyle=:dash)
+vlines!(ax_xx,first(inds.deform3_s),color=:blue,linestyle=:dash)
+vlines!(ax_xx,first(inds.deform4_s),color=:blue,linestyle=:dash)
+
+
+lines!(ax_leg,0,0,label="1")
+
+Legend(fig_stress[1:3,3],ax_leg,
+       framevisible=true,
+       halign=:center,
+       orientation=:vertical,
+       title=L"\mathrm{Legends}",
+       patchsize=(35,35)
+      )
+
+
+# Deformations and Relax intervals
+fig_def_rlx=Figure(size=(1920,1080));
+ax_leg=Axis(fig_def_rlx[1:2,5],limits=(0.01,0.1,0.01,0.1));
+hidespines!(ax_leg)
+hidedecorations!(ax_leg)
+ax_def_norm=Axis(fig_def_rlx[1,1:2],
+               title=L"\mathrm{Deformations~Norm~of~Virial~Stress}",
+               xlabel=L"\mathrm{Strain}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+ax_rlx_norm=Axis(fig_def_rlx[1,3:4],
+               title=L"\mathrm{Relax~intervals~Norm~of~Virial~Stress}",
+               xlabel=L"\mathrm{Time~steps}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+ax_def_xy=Axis(fig_def_rlx[2,1:2],
+               title=L"\mathrm{Deformations}~xy~\mathrm{component~of~Virial~Stress}",
+               xlabel=L"\mathrm{Strain}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+ax_rlx_xy=Axis(fig_def_rlx[2,3:4],
+               title=L"\mathrm{Relax~intervals}~xy~\mathrm{component~of~Virial~Stress}",
+               xlabel=L"\mathrm{Time~steps}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+ax_def_xx=Axis(fig_def_rlx[3,1:2],
+               title=L"\mathrm{Deformations}~xx~\mathrm{component~of~Virial~Stress}",
+               xlabel=L"\mathrm{Strain}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+ax_rlx_xx=Axis(fig_def_rlx[3,3:4],
+               title=L"\mathrm{Relax~intervals}~xx~\mathrm{component~of~Virial~Stress}",
+               xlabel=L"\mathrm{Time~steps}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+
+aux_parm=(
+          dt=parameters[15],
+          shear_rate=parameters[16],
+          h=2*parameters[7]
+        );
+
+strain_fct=aux_parm.dt*aux_parm.shear_rate*aux_parm.h;
+
+aux_def=reduce(vcat,[inds.deform1_s,inds.deform2_s,inds.deform3_s,inds.deform4_s]);
+aux_rlx=reduce(vcat,[inds.rlx1_s,inds.rlx2_s,inds.rlx3_s,inds.rlx4_s]);
+
+
+lines!(ax_def_norm,strain_fct.*(1:1:length(aux_def)),info.norm[aux_def])
+#vlines!(ax_def_norm,last(inds.deform1_s),color=:black,linestyle=:dash)
+#vlines!(ax_def_norm,last(inds.deform2_s),color=:black,linestyle=:dash)
+#vlines!(ax_def_norm,last(inds.deform3_s),color=:black,linestyle=:dash)
+#vlines!(ax_def_norm,last(inds.deform4_s),color=:black,linestyle=:dash)
+
+lines!(ax_rlx_norm,info.norm[aux_rlx])
+#vlines!(ax_rlx_norm,last(inds.deform1_s),color=:black,linestyle=:dash)
+#vlines!(ax_rlx_norm,last(inds.deform2_s),color=:black,linestyle=:dash)
+#vlines!(ax_rlx_norm,last(inds.deform3_s),color=:black,linestyle=:dash)
+#vlines!(ax_rlx_norm,last(inds.deform4_s),color=:black,linestyle=:dash)
+
+
+lines!(ax_def_xy,strain_fct.*(1:1:length(aux_def)),info.XY[aux_def])
+lines!(ax_rlx_xy,info.XY[aux_rlx])
+
+lines!(ax_def_xx,strain_fct.*(1:1:length(aux_def)),info.XX[aux_def])
+lines!(ax_rlx_xx,info.XX[aux_rlx])
+
+
+lines!(ax_leg,0,0,label="1")
+
+Legend(fig_def_rlx[1:3,5],ax_leg,
+       framevisible=true,
+       halign=:center,
+       orientation=:vertical,
+       title=L"\mathrm{Legends}",
+       patchsize=(35,35)
+      )
+
+
+
+
+"""
+vlines!(ax_,last(inds.isothermal),color=:orange,linestyle=:dash)
+vlines!(ax_,first(inds.rlx1),color=:black,linestyle=:dash)
+vlines!(ax_,first(inds.rlx2),color=:black,linestyle=:dash)
+vlines!(ax_,first(inds.rlx3),color=:black,linestyle=:dash)
+vlines!(ax_,first(inds.rlx4),color=:black,linestyle=:dash)
+vlines!(ax_,first(inds.deform1),color=:blue,linestyle=:dash)
+vlines!(ax_,first(inds.deform2),color=:blue,linestyle=:dash)
+vlines!(ax_,first(inds.deform3),color=:blue,linestyle=:dash)
+vlines!(ax_,first(inds.deform4),color=:blue,linestyle=:dash)
+
+"""
 

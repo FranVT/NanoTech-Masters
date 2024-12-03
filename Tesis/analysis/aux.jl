@@ -1,5 +1,5 @@
 """
-    Auciliary script when coding
+    Auxiliary script when coding
 """
 
 # Assembly
