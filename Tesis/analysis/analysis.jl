@@ -4,6 +4,7 @@
 
 using FileIO
 using GLMakie
+using LaTeXStrings
 using Statistics
 
 # Add functions to acces infromation from files
@@ -18,7 +19,7 @@ selc_Npart="1500";
 selc_damp="5000";
 selc_T="500";
 selc_cCL="300";
-selc_ShearRate="100";
+selc_ShearRate=string.((10,50,100));
 selc_Nexp=string.(1:15);
 
 dirs=getDirs(selc_phi,selc_Npart,selc_damp,selc_T,selc_cCL,selc_ShearRate,selc_Nexp);
@@ -54,9 +55,11 @@ end
 file_dir=map(s->reduce(vcat,map(r->joinpath(r,"info",s),dirs)),files_names[2:end]);
 
 # Retrieve the information of the system
-#(inds,info)=getDataSystem(parameters,file_dir);
 
+#(inds,info,lbl)=getDataSystem(parameters,file_dir);
+#map()
 
+"""
 # Total Energy
 fig_energy=Figure(size=(1920,1080));
 ax_leg=Axis(fig_energy[1:3,3],limits=(0.01,0.1,0.01,0.1));
@@ -102,6 +105,7 @@ ax_shear=Axis(fig_energy[3,1:2],
                xscale=log10
               )
 
+#vspan!(ax_full,0,last(inds.heat),ymin=-100000,ymax=0,alpha=0.5)
 lines!(ax_full,info.energy)
 vlines!(ax_full,last(inds.heat),color=:black,linestyle=:dash)
 vlines!(ax_full,last(inds.isothermal),color=:orange,linestyle=:dash)
@@ -119,7 +123,7 @@ vlines!(ax_shear,first(inds.deform2),color=:blue,linestyle=:dash)
 vlines!(ax_shear,first(inds.deform3),color=:blue,linestyle=:dash)
 vlines!(ax_shear,first(inds.deform4),color=:blue,linestyle=:dash)
 
-lines!(ax_leg,0,0,label="1")
+lines!(ax_leg,0,0,label=latexstring("\\dot{\\gamma}:~",lbl.shearRate,"~%\\mathrm{CL}:~",100*lbl.clCon))
 
 Legend(fig_energy[1:3,3],ax_leg,
        framevisible=true,
@@ -215,7 +219,7 @@ vlines!(ax_swap,first(inds.deform2),color=:blue,linestyle=:dash)
 vlines!(ax_swap,first(inds.deform3),color=:blue,linestyle=:dash)
 vlines!(ax_swap,first(inds.deform4),color=:blue,linestyle=:dash)
 
-lines!(ax_leg,0,0,label="1")
+lines!(ax_leg,0,0,label=latexstring("\\dot{\\gamma}:~",lbl.shearRate,"~%\\mathrm{CL}:~",100*lbl.clCon))
 
 Legend(fig_potential[1:3,3],ax_leg,
        framevisible=true,
@@ -306,7 +310,7 @@ vlines!(ax_xx,first(inds.deform3_s),color=:blue,linestyle=:dash)
 vlines!(ax_xx,first(inds.deform4_s),color=:blue,linestyle=:dash)
 
 
-lines!(ax_leg,0,0,label="1")
+lines!(ax_leg,0,0,label=latexstring("\\dot{\\gamma}:~",lbl.shearRate,"~%\\mathrm{CL}:~",100*lbl.clCon))
 
 Legend(fig_stress[1:3,3],ax_leg,
        framevisible=true,
@@ -401,7 +405,7 @@ aux_parm=(
           h=2*parameters[7]
         );
 
-strain_fct=aux_parm.dt*aux_parm.shear_rate*aux_parm.h;
+strain_fct=parameters[25]*aux_parm.dt*aux_parm.shear_rate;#*aux_parm.h;
 
 aux_def=reduce(vcat,[inds.deform1_s,inds.deform2_s,inds.deform3_s,inds.deform4_s]);
 aux_rlx=reduce(vcat,[inds.rlx1_s,inds.rlx2_s,inds.rlx3_s,inds.rlx4_s]);
@@ -427,7 +431,7 @@ lines!(ax_def_xx,strain_fct.*(1:1:length(aux_def)),info.XX[aux_def])
 lines!(ax_rlx_xx,info.XX[aux_rlx])
 
 
-lines!(ax_leg,0,0,label="1")
+lines!(ax_leg,0,0,label=latexstring("\\dot{\\gamma}:~",lbl.shearRate,"~%\\mathrm{CL}:~",100*lbl.clCon))
 
 Legend(fig_def_rlx[1:3,5],ax_leg,
        framevisible=true,
@@ -438,7 +442,7 @@ Legend(fig_def_rlx[1:3,5],ax_leg,
       )
 
 
-
+"""
 
 """
 vlines!(ax_,last(inds.isothermal),color=:orange,linestyle=:dash)

@@ -32,7 +32,7 @@ aux_dirs_ind=split.(last.(aux_dirs_ind),"ShearRate");
 auxs_indcCL=findall(r->r==selc_cCL, first.(aux_dirs_ind) );
 
 aux_dirs_ind=split.(last.(aux_dirs_ind),"-");
-auxs_indShearRate=findall(r->r==selc_ShearRate, first.(aux_dirs_ind) );
+auxs_indShearRate=Iterators.flatten(map(s->findall(r->r==s, first.(aux_dirs_ind) ), selc_ShearRate))|>collect;
 
 aux_dirs_ind=split.(last.(aux_dirs_ind),"Nexp");
 auxs_indNexp=Iterators.flatten(map(s->findall(r->r==s, last.(aux_dirs_ind)), selc_Nexp))|>collect;
@@ -267,7 +267,13 @@ info=(
      norm=append!(info_assembly.norm,info_shear.norm)
     );
 
-return (inds,info)
+lbl=(
+     shearRate=parameters[16],
+     clCon=parameters[5],
+     Npart=parameters[2]
+    );
+
+return (inds,info,lbl)
 
 end
 
