@@ -1,5 +1,5 @@
 """
-   Statistical analysisi and graph
+    Comparisson with different systems
 """
 
 using FileIO
@@ -19,10 +19,10 @@ selc_Npart="1500";
 selc_damp="5000";
 selc_T="500";
 selc_cCL="300";
-selc_ShearRate=10;#string.((10,50,100));
+selc_ShearRate=string.((10,50,100));
 selc_Nexp=string.(1:15);
 
-dirs=getDirs(selc_phi,selc_Npart,selc_damp,selc_T,selc_cCL,selc_ShearRate,selc_Nexp);
+dirs=Iterators.partition(getDirs(selc_phi,selc_Npart,selc_damp,selc_T,selc_cCL,selc_ShearRate,selc_Nexp),length(selc_Nexp))|>collect;
 
 files_names = (
                "parameters",
@@ -41,23 +41,39 @@ files_names = (
               );
 
 
+
+
 # Get the parameters of the system
 
-file_dir=joinpath(first(dirs),first(files_names));
-parameters=open(file_dir) do f
+file_dir=map(s->joinpath(first(s),first(files_names)),dirs);
+
+parameters=map(file_dir) do r 
+open(r) do f
     map(s->parse(Float64,s),readlines(f))
+end
 end
 
 # The system energy and stuff are means of N experiments of the same system.
 
   
 # Files per fix files per experiment
-file_dir=map(s->reduce(vcat,map(r->joinpath(r,"info",s),dirs)),files_names[2:end]);
+file_dir=map(dirs) do f
+    map(s->reduce(vcat,map(r->joinpath(r,"info",s),f)),files_names[2:end]);
+end
 
 # Retrieve the information of the system
 
-(inds,info,lbl)=getDataSystem(parameters,file_dir);
+"""
+(inds,info,lbl)=map(eachindex(file_dir)) do f
+    getDataSystem(parameters[f],file_dir[f]);
+end
+"""
 
+#map()
+
+data=(inds,info,lbl);
+
+#"""
 # Total Energy
 fig_energy=Figure(size=(1920,1080));
 ax_leg=Axis(fig_energy[1:3,3],limits=(0.01,0.1,0.01,0.1));
@@ -104,14 +120,21 @@ ax_shear=Axis(fig_energy[3,1:2],
               )
 
 #vspan!(ax_full,0,last(inds.heat),ymin=-100000,ymax=0,alpha=0.5)
-lines!(ax_full,info.energy)
-vlines!(ax_full,last(inds.heat),color=:black,linestyle=:dash)
-vlines!(ax_full,last(inds.isothermal),color=:orange,linestyle=:dash)
+#lines!(ax_full,info[2].energy)
+#lines!(ax_full,inds[2].energy)
+#lines!(ax_full,lbl[2].energy)
 
-lines!(ax_assembly,info.energy[inds.assembly])
-vlines!(ax_assembly,last(inds.heat),color=:black,linestyle=:dash)
+map(s->lines!(ax_full,s[2].energy),data)
 
-lines!(ax_shear,inds.shear,info.energy[inds.shear])
+#vlines!(ax_full,last(inds.heat),color=:black,linestyle=:dash)
+#vlines!(ax_full,last(inds.isothermal),color=:orange,linestyle=:dash)
+
+map(s->lines!(ax_assembly,s[2].energy[s[1].assembly]),data)
+#vlines!(ax_assembly,last(inds.heat),color=:black,linestyle=:dash)
+
+map(s->lines!(ax_shear,s[1].shear,s[2].energy[s[1].shear]),data)
+
+"""
 vlines!(ax_shear,first(inds.rlx1),color=:black,linestyle=:dash)
 vlines!(ax_shear,first(inds.rlx2),color=:black,linestyle=:dash)
 vlines!(ax_shear,first(inds.rlx3),color=:black,linestyle=:dash)
@@ -120,8 +143,9 @@ vlines!(ax_shear,first(inds.deform1),color=:blue,linestyle=:dash)
 vlines!(ax_shear,first(inds.deform2),color=:blue,linestyle=:dash)
 vlines!(ax_shear,first(inds.deform3),color=:blue,linestyle=:dash)
 vlines!(ax_shear,first(inds.deform4),color=:blue,linestyle=:dash)
+"""
 
-lines!(ax_leg,0,0,label=latexstring("\\dot{\\gamma}:~",lbl.shearRate,"~%\\mathrm{CL}:~",100*lbl.clCon))
+map(s->lines!(ax_leg,0,0,label=latexstring("\\dot{\\gamma}:~",s[3].shearRate,"~%\\mathrm{CL}:~",100*s[3].clCon)),(inds,info,lbl))
 
 Legend(fig_energy[1:3,3],ax_leg,
        framevisible=true,
@@ -132,6 +156,247 @@ Legend(fig_energy[1:3,3],ax_leg,
       )
 
 
+# Deformations and Relax intervals
+fig_def_rlx=Figure(size=(1920,1080));
+ax_leg=Axis(fig_def_rlx[1:2,5],limits=(0.01,0.1,0.01,0.1));
+hidespines!(ax_leg)
+hidedecorations!(ax_leg)
+ax_def_norm=Axis(fig_def_rlx[1,1:2],
+               title=L"\mathrm{Deformations~Norm~of~Virial~Stress}",
+               xlabel=L"\mathrm{Strain}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+ax_rlx_norm=Axis(fig_def_rlx[1,3:4],
+               title=L"\mathrm{Relax~intervals~Norm~of~Virial~Stress}",
+               xlabel=L"\mathrm{Time~steps}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+ax_def_xy=Axis(fig_def_rlx[2,1:2],
+               title=L"\mathrm{Deformations}~xy~\mathrm{component~of~Virial~Stress}",
+               xlabel=L"\mathrm{Strain}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+ax_rlx_xy=Axis(fig_def_rlx[2,3:4],
+               title=L"\mathrm{Relax~intervals}~xy~\mathrm{component~of~Virial~Stress}",
+               xlabel=L"\mathrm{Time~steps}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+ax_def_xx=Axis(fig_def_rlx[3,1:2],
+               title=L"\mathrm{Deformations}~xx~\mathrm{component~of~Virial~Stress}",
+               xlabel=L"\mathrm{Strain}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+ax_rlx_xx=Axis(fig_def_rlx[3,3:4],
+               title=L"\mathrm{Relax~intervals}~xx~\mathrm{component~of~Virial~Stress}",
+               xlabel=L"\mathrm{Time~steps}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+
+"""
+aux_parm=(
+          dt=parameters[15],
+          shear_rate=parameters[16],
+          h=2*parameters[7]
+        );
+"""
+
+strain_fct=map(s->parameters[s][25]*parameters[s][15]*parameters[s][16]*2*parameters[s][7],eachindex(parameters));#*aux_parm.h;
+
+aux_def=map(s-> reduce(vcat,[s[1].deform1_s,s[1].deform2_s,s[1].deform3_s,s[1].deform4_s]),data) ;
+aux_rlx=map(s-> reduce(vcat,[s[1].rlx1_s,s[1].rlx2_s,s[1].rlx3_s,s[1].rlx4_s]),data);
+
+
+map(s-> lines!(ax_def_norm,strain_fct[s].*(1:1:length(aux_def[s])), data[s][2].norm[aux_def[s]]) ,eachindex(parameters))
+map(s-> lines!(ax_rlx_norm,data[s][2].norm[aux_rlx[s]]) ,eachindex(parameters))
+
+map(s-> lines!(ax_def_xy,strain_fct[s].*(1:1:length(aux_def[s])), data[s][2].XY[aux_def[s]]) ,eachindex(parameters))
+map(s-> lines!(ax_rlx_xy,data[s][2].XY[aux_rlx[s]]) ,eachindex(parameters))
+
+map(s-> lines!(ax_def_xx,strain_fct[s].*(1:1:length(aux_def[s])), data[s][2].XX[aux_def[s]]) ,eachindex(parameters))
+map(s-> lines!(ax_rlx_xx,data[s][2].XX[aux_rlx[s]]) ,eachindex(parameters))
+
+
+
+
+#vlines!(ax_def_norm,last(inds.deform1_s),color=:black,linestyle=:dash)
+#vlines!(ax_def_norm,last(inds.deform2_s),color=:black,linestyle=:dash)
+#vlines!(ax_def_norm,last(inds.deform3_s),color=:black,linestyle=:dash)
+#vlines!(ax_def_norm,last(inds.deform4_s),color=:black,linestyle=:dash)
+
+#lines!(ax_rlx_norm,info.norm[aux_rlx])
+
+
+#vlines!(ax_rlx_norm,last(inds.deform1_s),color=:black,linestyle=:dash)
+#vlines!(ax_rlx_norm,last(inds.deform2_s),color=:black,linestyle=:dash)
+#vlines!(ax_rlx_norm,last(inds.deform3_s),color=:black,linestyle=:dash)
+#vlines!(ax_rlx_norm,last(inds.deform4_s),color=:black,linestyle=:dash)
+
+
+#lines!(ax_def_xy,strain_fct.*(1:1:length(aux_def)),info.XY[aux_def])
+#lines!(ax_rlx_xy,info.XY[aux_rlx])
+
+#lines!(ax_def_xx,strain_fct.*(1:1:length(aux_def)),info.XX[aux_def])
+#lines!(ax_rlx_xx,info.XX[aux_rlx])
+
+
+map(s->lines!(ax_leg,0,0,label=latexstring("\\dot{\\gamma}:~",s[3].shearRate,"~%\\mathrm{CL}:~",100*s[3].clCon)),(inds,info,lbl))
+
+Legend(fig_def_rlx[1:3,5],ax_leg,
+       framevisible=true,
+       halign=:center,
+       orientation=:vertical,
+       title=L"\mathrm{Legends}",
+       patchsize=(35,35)
+      )
+
+
+"""
+# Stress
+fig_stress=Figure(size=(1920,1080));
+ax_leg=Axis(fig_stress[1:2,3],limits=(0.01,0.1,0.01,0.1));
+hidespines!(ax_leg)
+hidedecorations!(ax_leg)
+ax_norm=Axis(fig_stress[1,1:2],
+               title=L"\mathrm{Norm~of~Virial~Stress~tensor~of~full~simulation}",
+               xlabel=L"\mathrm{Time~steps}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+ax_xy=Axis(fig_stress[2,1:2],
+               title=L"xy~\mathrm{component~of~Virial~Stress~of~full~simulation}",
+               xlabel=L"\mathrm{Time~steps}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+ax_xx=Axis(fig_stress[3,1:2],
+               title=L"xx~\mathrm{component~of~Virial~Stress~of~full~simulation}",
+               xlabel=L"\mathrm{Time~steps}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+
+lines!(ax_norm,info.norm)
+
+"""
+vlines!(ax_norm,first(inds.isothermal_s),color=:orange,linestyle=:dash)
+vlines!(ax_norm,last(inds.isothermal_s),color=:orange,linestyle=:dash)
+vlines!(ax_norm,first(inds.rlx1_s),color=:black,linestyle=:dash)
+vlines!(ax_norm,first(inds.rlx2_s),color=:black,linestyle=:dash)
+vlines!(ax_norm,first(inds.rlx3_s),color=:black,linestyle=:dash)
+vlines!(ax_norm,first(inds.rlx4_s),color=:black,linestyle=:dash)
+vlines!(ax_norm,first(inds.deform1_s),color=:blue,linestyle=:dash)
+vlines!(ax_norm,first(inds.deform2_s),color=:blue,linestyle=:dash)
+vlines!(ax_norm,first(inds.deform3_s),color=:blue,linestyle=:dash)
+vlines!(ax_norm,first(inds.deform4_s),color=:blue,linestyle=:dash)
+"""
+
+
+lines!(ax_xy,info.XY)
+
+"""
+vlines!(ax_xy,first(inds.isothermal_s),color=:orange,linestyle=:dash)
+vlines!(ax_xy,last(inds.isothermal_s),color=:orange,linestyle=:dash)
+vlines!(ax_xy,first(inds.rlx1_s),color=:black,linestyle=:dash)
+vlines!(ax_xy,first(inds.rlx2_s),color=:black,linestyle=:dash)
+vlines!(ax_xy,first(inds.rlx3_s),color=:black,linestyle=:dash)
+vlines!(ax_xy,first(inds.rlx4_s),color=:black,linestyle=:dash)
+vlines!(ax_xy,first(inds.deform1_s),color=:blue,linestyle=:dash)
+vlines!(ax_xy,first(inds.deform2_s),color=:blue,linestyle=:dash)
+vlines!(ax_xy,first(inds.deform3_s),color=:blue,linestyle=:dash)
+vlines!(ax_xy,first(inds.deform4_s),color=:blue,linestyle=:dash)
+"""
+
+lines!(ax_xx,info.XX)
+
+"""
+vlines!(ax_xx,first(inds.isothermal_s),color=:orange,linestyle=:dash)
+vlines!(ax_xx,last(inds.isothermal_s),color=:orange,linestyle=:dash)
+vlines!(ax_xx,first(inds.rlx1_s),color=:black,linestyle=:dash)
+vlines!(ax_xx,first(inds.rlx2_s),color=:black,linestyle=:dash)
+vlines!(ax_xx,first(inds.rlx3_s),color=:black,linestyle=:dash)
+vlines!(ax_xx,first(inds.rlx4_s),color=:black,linestyle=:dash)
+vlines!(ax_xx,first(inds.deform1_s),color=:blue,linestyle=:dash)
+vlines!(ax_xx,first(inds.deform2_s),color=:blue,linestyle=:dash)
+vlines!(ax_xx,first(inds.deform3_s),color=:blue,linestyle=:dash)
+vlines!(ax_xx,first(inds.deform4_s),color=:blue,linestyle=:dash)
+"""
+
+map(s->lines!(ax_leg,0,0,label=latexstring("\\dot{\\gamma}:~",s[3].shearRate,"~%\\mathrm{CL}:~",100*s[3].clCon)),(inds,info,lbl))
+
+Legend(fig_stress[1:3,3],ax_leg,
+       framevisible=true,
+       halign=:center,
+       orientation=:vertical,
+       title=L"\mathrm{Legends}",
+       patchsize=(35,35)
+      )
+"""
+
+
+
+
+
+"""
 # Potential Energy
 fig_potential=Figure(size=(1920,1080));
 ax_leg=Axis(fig_potential[1:2,3],limits=(0.01,0.1,0.01,0.1));
@@ -227,216 +492,20 @@ Legend(fig_potential[1:3,3],ax_leg,
        patchsize=(35,35)
       )
 
-
-# Stress
-fig_stress=Figure(size=(1920,1080));
-ax_leg=Axis(fig_stress[1:2,3],limits=(0.01,0.1,0.01,0.1));
-hidespines!(ax_leg)
-hidedecorations!(ax_leg)
-ax_norm=Axis(fig_stress[1,1:2],
-               title=L"\mathrm{Norm~of~Virial~Stress~tensor~of~full~simulation}",
-               xlabel=L"\mathrm{Time~steps}",
-               ylabel=L"\mathrm{Stress}",
-               titlesize=24.0f0,
-               xticklabelsize=18.0f0,
-               yticklabelsize=18.0f0,
-               xlabelsize=20.0f0,
-               ylabelsize=20.0f0,
-               xminorticksvisible=true,
-               xminorgridvisible=true
-              )
-ax_xy=Axis(fig_stress[2,1:2],
-               title=L"xy~\mathrm{component~of~Virial~Stress~of~full~simulation}",
-               xlabel=L"\mathrm{Time~steps}",
-               ylabel=L"\mathrm{Stress}",
-               titlesize=24.0f0,
-               xticklabelsize=18.0f0,
-               yticklabelsize=18.0f0,
-               xlabelsize=20.0f0,
-               ylabelsize=20.0f0,
-               xminorticksvisible=true,
-               xminorgridvisible=true
-              )
-ax_xx=Axis(fig_stress[3,1:2],
-               title=L"xx~\mathrm{component~of~Virial~Stress~of~full~simulation}",
-               xlabel=L"\mathrm{Time~steps}",
-               ylabel=L"\mathrm{Stress}",
-               titlesize=24.0f0,
-               xticklabelsize=18.0f0,
-               yticklabelsize=18.0f0,
-               xlabelsize=20.0f0,
-               ylabelsize=20.0f0,
-               xminorticksvisible=true,
-               xminorgridvisible=true
-              )
-
-lines!(ax_norm,info.norm)
-vlines!(ax_norm,first(inds.isothermal_s),color=:orange,linestyle=:dash)
-vlines!(ax_norm,last(inds.isothermal_s),color=:orange,linestyle=:dash)
-vlines!(ax_norm,first(inds.rlx1_s),color=:black,linestyle=:dash)
-vlines!(ax_norm,first(inds.rlx2_s),color=:black,linestyle=:dash)
-vlines!(ax_norm,first(inds.rlx3_s),color=:black,linestyle=:dash)
-vlines!(ax_norm,first(inds.rlx4_s),color=:black,linestyle=:dash)
-vlines!(ax_norm,first(inds.deform1_s),color=:blue,linestyle=:dash)
-vlines!(ax_norm,first(inds.deform2_s),color=:blue,linestyle=:dash)
-vlines!(ax_norm,first(inds.deform3_s),color=:blue,linestyle=:dash)
-vlines!(ax_norm,first(inds.deform4_s),color=:blue,linestyle=:dash)
-
-lines!(ax_xy,info.XY)
-vlines!(ax_xy,first(inds.isothermal_s),color=:orange,linestyle=:dash)
-vlines!(ax_xy,last(inds.isothermal_s),color=:orange,linestyle=:dash)
-vlines!(ax_xy,first(inds.rlx1_s),color=:black,linestyle=:dash)
-vlines!(ax_xy,first(inds.rlx2_s),color=:black,linestyle=:dash)
-vlines!(ax_xy,first(inds.rlx3_s),color=:black,linestyle=:dash)
-vlines!(ax_xy,first(inds.rlx4_s),color=:black,linestyle=:dash)
-vlines!(ax_xy,first(inds.deform1_s),color=:blue,linestyle=:dash)
-vlines!(ax_xy,first(inds.deform2_s),color=:blue,linestyle=:dash)
-vlines!(ax_xy,first(inds.deform3_s),color=:blue,linestyle=:dash)
-vlines!(ax_xy,first(inds.deform4_s),color=:blue,linestyle=:dash)
+"""
 
 
-lines!(ax_xx,info.XX)
-vlines!(ax_xx,first(inds.isothermal_s),color=:orange,linestyle=:dash)
-vlines!(ax_xx,last(inds.isothermal_s),color=:orange,linestyle=:dash)
-vlines!(ax_xx,first(inds.rlx1_s),color=:black,linestyle=:dash)
-vlines!(ax_xx,first(inds.rlx2_s),color=:black,linestyle=:dash)
-vlines!(ax_xx,first(inds.rlx3_s),color=:black,linestyle=:dash)
-vlines!(ax_xx,first(inds.rlx4_s),color=:black,linestyle=:dash)
-vlines!(ax_xx,first(inds.deform1_s),color=:blue,linestyle=:dash)
-vlines!(ax_xx,first(inds.deform2_s),color=:blue,linestyle=:dash)
-vlines!(ax_xx,first(inds.deform3_s),color=:blue,linestyle=:dash)
-vlines!(ax_xx,first(inds.deform4_s),color=:blue,linestyle=:dash)
 
+"""
+vlines!(ax_,last(inds.isothermal),color=:orange,linestyle=:dash)
+vlines!(ax_,first(inds.rlx1),color=:black,linestyle=:dash)
+vlines!(ax_,first(inds.rlx2),color=:black,linestyle=:dash)
+vlines!(ax_,first(inds.rlx3),color=:black,linestyle=:dash)
+vlines!(ax_,first(inds.rlx4),color=:black,linestyle=:dash)
+vlines!(ax_,first(inds.deform1),color=:blue,linestyle=:dash)
+vlines!(ax_,first(inds.deform2),color=:blue,linestyle=:dash)
+vlines!(ax_,first(inds.deform3),color=:blue,linestyle=:dash)
+vlines!(ax_,first(inds.deform4),color=:blue,linestyle=:dash)
 
-lines!(ax_leg,0,0,label=latexstring("\\dot{\\gamma}:~",lbl.shearRate,"~%\\mathrm{CL}:~",100*lbl.clCon))
-
-Legend(fig_stress[1:3,3],ax_leg,
-       framevisible=true,
-       halign=:center,
-       orientation=:vertical,
-       title=L"\mathrm{Legends}",
-       patchsize=(35,35)
-      )
-
-
-# Deformations and Relax intervals
-fig_def_rlx=Figure(size=(1920,1080));
-ax_leg=Axis(fig_def_rlx[1:2,5],limits=(0.01,0.1,0.01,0.1));
-hidespines!(ax_leg)
-hidedecorations!(ax_leg)
-ax_def_norm=Axis(fig_def_rlx[1,1:2],
-               title=L"\mathrm{Deformations~Norm~of~Virial~Stress}",
-               xlabel=L"\mathrm{Strain}",
-               ylabel=L"\mathrm{Stress}",
-               titlesize=24.0f0,
-               xticklabelsize=18.0f0,
-               yticklabelsize=18.0f0,
-               xlabelsize=20.0f0,
-               ylabelsize=20.0f0,
-               xminorticksvisible=true,
-               xminorgridvisible=true
-              )
-ax_rlx_norm=Axis(fig_def_rlx[1,3:4],
-               title=L"\mathrm{Relax~intervals~Norm~of~Virial~Stress}",
-               xlabel=L"\mathrm{Time~steps}",
-               ylabel=L"\mathrm{Stress}",
-               titlesize=24.0f0,
-               xticklabelsize=18.0f0,
-               yticklabelsize=18.0f0,
-               xlabelsize=20.0f0,
-               ylabelsize=20.0f0,
-               xminorticksvisible=true,
-               xminorgridvisible=true
-              )
-ax_def_xy=Axis(fig_def_rlx[2,1:2],
-               title=L"\mathrm{Deformations}~xy~\mathrm{component~of~Virial~Stress}",
-               xlabel=L"\mathrm{Strain}",
-               ylabel=L"\mathrm{Stress}",
-               titlesize=24.0f0,
-               xticklabelsize=18.0f0,
-               yticklabelsize=18.0f0,
-               xlabelsize=20.0f0,
-               ylabelsize=20.0f0,
-               xminorticksvisible=true,
-               xminorgridvisible=true
-              )
-ax_rlx_xy=Axis(fig_def_rlx[2,3:4],
-               title=L"\mathrm{Relax~intervals}~xy~\mathrm{component~of~Virial~Stress}",
-               xlabel=L"\mathrm{Time~steps}",
-               ylabel=L"\mathrm{Stress}",
-               titlesize=24.0f0,
-               xticklabelsize=18.0f0,
-               yticklabelsize=18.0f0,
-               xlabelsize=20.0f0,
-               ylabelsize=20.0f0,
-               xminorticksvisible=true,
-               xminorgridvisible=true
-              )
-ax_def_xx=Axis(fig_def_rlx[3,1:2],
-               title=L"\mathrm{Deformations}~xx~\mathrm{component~of~Virial~Stress}",
-               xlabel=L"\mathrm{Strain}",
-               ylabel=L"\mathrm{Stress}",
-               titlesize=24.0f0,
-               xticklabelsize=18.0f0,
-               yticklabelsize=18.0f0,
-               xlabelsize=20.0f0,
-               ylabelsize=20.0f0,
-               xminorticksvisible=true,
-               xminorgridvisible=true
-              )
-ax_rlx_xx=Axis(fig_def_rlx[3,3:4],
-               title=L"\mathrm{Relax~intervals}~xx~\mathrm{component~of~Virial~Stress}",
-               xlabel=L"\mathrm{Time~steps}",
-               ylabel=L"\mathrm{Stress}",
-               titlesize=24.0f0,
-               xticklabelsize=18.0f0,
-               yticklabelsize=18.0f0,
-               xlabelsize=20.0f0,
-               ylabelsize=20.0f0,
-               xminorticksvisible=true,
-               xminorgridvisible=true
-              )
-
-aux_parm=(
-          dt=parameters[15],
-          shear_rate=parameters[16],
-          h=2*parameters[7]
-        );
-
-strain_fct=parameters[25]*aux_parm.dt*aux_parm.shear_rate;#*aux_parm.h;
-
-aux_def=reduce(vcat,[inds.deform1_s,inds.deform2_s,inds.deform3_s,inds.deform4_s]);
-aux_rlx=reduce(vcat,[inds.rlx1_s,inds.rlx2_s,inds.rlx3_s,inds.rlx4_s]);
-
-
-lines!(ax_def_norm,strain_fct.*(1:1:length(aux_def)),info.norm[aux_def])
-#vlines!(ax_def_norm,last(inds.deform1_s),color=:black,linestyle=:dash)
-#vlines!(ax_def_norm,last(inds.deform2_s),color=:black,linestyle=:dash)
-#vlines!(ax_def_norm,last(inds.deform3_s),color=:black,linestyle=:dash)
-#vlines!(ax_def_norm,last(inds.deform4_s),color=:black,linestyle=:dash)
-
-lines!(ax_rlx_norm,info.norm[aux_rlx])
-#vlines!(ax_rlx_norm,last(inds.deform1_s),color=:black,linestyle=:dash)
-#vlines!(ax_rlx_norm,last(inds.deform2_s),color=:black,linestyle=:dash)
-#vlines!(ax_rlx_norm,last(inds.deform3_s),color=:black,linestyle=:dash)
-#vlines!(ax_rlx_norm,last(inds.deform4_s),color=:black,linestyle=:dash)
-
-
-lines!(ax_def_xy,strain_fct.*(1:1:length(aux_def)),info.XY[aux_def])
-lines!(ax_rlx_xy,info.XY[aux_rlx])
-
-lines!(ax_def_xx,strain_fct.*(1:1:length(aux_def)),info.XX[aux_def])
-lines!(ax_rlx_xx,info.XX[aux_rlx])
-
-
-lines!(ax_leg,0,0,label=latexstring("\\dot{\\gamma}:~",lbl.shearRate,"~%\\mathrm{CL}:~",100*lbl.clCon))
-
-Legend(fig_def_rlx[1:3,5],ax_leg,
-       framevisible=true,
-       halign=:center,
-       orientation=:vertical,
-       title=L"\mathrm{Legends}",
-       patchsize=(35,35)
-      )
-
+"""
 
