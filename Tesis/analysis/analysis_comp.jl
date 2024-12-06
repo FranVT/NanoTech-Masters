@@ -15,12 +15,12 @@ include("functions.jl")
 """
 
 selc_phi="5500";
-selc_Npart="1500";
+selc_Npart="8000";
 selc_damp="5000";
 selc_T="500";
 selc_cCL="300";
 selc_ShearRate=string.((10,50,100));
-selc_Nexp=string.(1:15);
+selc_Nexp=string.(1:5);
 
 dirs=Iterators.partition(getDirs(selc_phi,selc_Npart,selc_damp,selc_T,selc_cCL,selc_ShearRate,selc_Nexp),length(selc_Nexp))|>collect;
 
@@ -63,11 +63,11 @@ end
 
 # Retrieve the information of the system
 
-#"""
+"""
 data=map(eachindex(file_dir)) do f
     getDataSystem(parameters[f],file_dir[f]);
 end
-#"""
+"""
 
 
 #"""
@@ -190,7 +190,7 @@ ax_leg=Axis(fig_def_rlx[1:2,5],limits=(0.01,0.1,0.01,0.1));
 hidespines!(ax_leg)
 hidedecorations!(ax_leg)
 ax_def_norm=Axis(fig_def_rlx[1,1:2],
-                 title=latexstring("\\dot{\\gamma}:~",data[1][3].shearRate,"~%\\mathrm{CL}:~",100*data[1][3].clCon), #L"\mathrm{Deformations~Norm~of~Virial~Stress}",
+                 title=latexstring("\\dot{\\gamma}:~",data[2][3].shearRate,"~%\\mathrm{CL}:~",100*data[2][3].clCon,"~\\mathrm{NParticles:}~",Int64(data[2][3].Npart)), #L"\mathrm{Deformations~Norm~of~Virial~Stress}",
                xlabel=L"\mathrm{Strain}",
                ylabel=L"\mathrm{Stress}",
                titlesize=24.0f0,
@@ -202,7 +202,7 @@ ax_def_norm=Axis(fig_def_rlx[1,1:2],
                xminorgridvisible=true
               )
 ax_rlx_norm=Axis(fig_def_rlx[1,3:4],
-               title=latexstring("\\dot{\\gamma}:~",data[1][3].shearRate,"~%\\mathrm{CL}:~",100*data[1][3].clCon),
+                 title=latexstring("\\dot{\\gamma}:~",data[2][3].shearRate,"~%\\mathrm{CL}:~",100*data[2][3].clCon,"~\\mathrm{NParticles:}~",Int64(data[2][3].Npart)),
                xlabel=L"\mathrm{Time~steps}",
                ylabel=L"\mathrm{Stress}",
                titlesize=24.0f0,
@@ -214,7 +214,7 @@ ax_rlx_norm=Axis(fig_def_rlx[1,3:4],
                xminorgridvisible=true
               )
 ax_def_xy=Axis(fig_def_rlx[2,1:2],
-               title=latexstring("\\dot{\\gamma}:~",data[2][3].shearRate,"~%\\mathrm{CL}:~",100*data[2][3].clCon),
+               title=latexstring("\\dot{\\gamma}:~",data[3][3].shearRate,"~%\\mathrm{CL}:~",100*data[3][3].clCon,"~\\mathrm{NParticles:}~",Int64(data[3][3].Npart)),
                xlabel=L"\mathrm{Strain}",
                ylabel=L"\mathrm{Stress}",
                titlesize=24.0f0,
@@ -226,7 +226,7 @@ ax_def_xy=Axis(fig_def_rlx[2,1:2],
                xminorgridvisible=true
               )
 ax_rlx_xy=Axis(fig_def_rlx[2,3:4],
-               title=latexstring("\\dot{\\gamma}:~",data[2][3].shearRate,"~%\\mathrm{CL}:~",100*data[2][3].clCon),
+               title=latexstring("\\dot{\\gamma}:~",data[3][3].shearRate,"~%\\mathrm{CL}:~",100*data[3][3].clCon,"~\\mathrm{NParticles:}~",Int64(data[3][3].Npart)),
                xlabel=L"\mathrm{Time~steps}",
                ylabel=L"\mathrm{Stress}",
                titlesize=24.0f0,
@@ -238,7 +238,7 @@ ax_rlx_xy=Axis(fig_def_rlx[2,3:4],
                xminorgridvisible=true
               )
 ax_def_xx=Axis(fig_def_rlx[3,1:2],
-               title=latexstring("\\dot{\\gamma}:~",data[3][3].shearRate,"~%\\mathrm{CL}:~",100*data[3][3].clCon),
+               title=latexstring("\\dot{\\gamma}:~",data[1][3].shearRate,"~%\\mathrm{CL}:~",100*data[1][3].clCon,"~\\mathrm{NParticles:}~",Int64(data[1][3].Npart)),
                xlabel=L"\mathrm{Strain}",
                ylabel=L"\mathrm{Stress}",
                titlesize=24.0f0,
@@ -250,7 +250,7 @@ ax_def_xx=Axis(fig_def_rlx[3,1:2],
                xminorgridvisible=true
               )
 ax_rlx_xx=Axis(fig_def_rlx[3,3:4],
-               title=latexstring("\\dot{\\gamma}:~",data[3][3].shearRate,"~%\\mathrm{CL}:~",100*data[3][3].clCon),
+               title=latexstring("\\dot{\\gamma}:~",data[1][3].shearRate,"~%\\mathrm{CL}:~",100*data[1][3].clCon,"~\\mathrm{NParticles:}~",Int64(data[1][3].Npart)),
                xlabel=L"\mathrm{Time~steps}",
                ylabel=L"\mathrm{Stress}",
                titlesize=24.0f0,
@@ -275,39 +275,39 @@ aux_def=map(s-> reduce(vcat,[s[1].deform1_s,s[1].deform2_s,s[1].deform3_s,s[1].d
 aux_rlx=map(s-> reduce(vcat,[s[1].rlx1_s,s[1].rlx2_s,s[1].rlx3_s,s[1].rlx4_s]),data);
 
 # Norm
-lines!(ax_def_norm, (1:1:length(data[1][1].deform1_s)) ,data[1][2].XY[data[1][1].deform1_s])
-lines!(ax_def_norm, (1:1:length(data[1][1].deform2_s)) ,data[1][2].XY[data[1][1].deform2_s])
-lines!(ax_def_norm, (1:1:length(data[1][1].deform3_s)) ,data[1][2].XY[data[1][1].deform3_s])
-lines!(ax_def_norm, (1:1:length(data[1][1].deform4_s)) ,data[1][2].XY[data[1][1].deform4_s])
+lines!(ax_def_norm, (1:1:length(data[2][1].deform1_s)) ,data[2][2].XY[data[2][1].deform1_s])
+lines!(ax_def_norm, (1:1:length(data[2][1].deform2_s)) ,data[2][2].XY[data[2][1].deform2_s])
+lines!(ax_def_norm, (1:1:length(data[2][1].deform3_s)) ,data[2][2].XY[data[2][1].deform3_s])
+lines!(ax_def_norm, (1:1:length(data[2][1].deform4_s)) ,data[2][2].XY[data[2][1].deform4_s])
 
-lines!(ax_rlx_norm, (1:1:length(data[1][1].rlx1_s)) ,data[1][2].XY[data[1][1].rlx1_s])
-lines!(ax_rlx_norm, (1:1:length(data[1][1].rlx2_s)) ,data[1][2].XY[data[1][1].rlx2_s])
-lines!(ax_rlx_norm, (1:1:length(data[1][1].rlx3_s)) ,data[1][2].XY[data[1][1].rlx3_s])
-lines!(ax_rlx_norm, (1:1:length(data[1][1].rlx4_s)) ,data[1][2].XY[data[1][1].rlx4_s])
-
-
-# Norm
-lines!(ax_def_xy, (1:1:length(data[2][1].deform1_s)) ,data[2][2].XY[data[2][1].deform1_s])
-lines!(ax_def_xy, (1:1:length(data[2][1].deform2_s)) ,data[2][2].XY[data[2][1].deform2_s])
-lines!(ax_def_xy, (1:1:length(data[2][1].deform3_s)) ,data[2][2].XY[data[2][1].deform3_s])
-lines!(ax_def_xy, (1:1:length(data[2][1].deform4_s)) ,data[2][2].XY[data[2][1].deform4_s])
-
-lines!(ax_rlx_xy, (1:1:length(data[2][1].rlx1_s)) ,data[2][2].XY[data[2][1].rlx1_s])
-lines!(ax_rlx_xy, (1:1:length(data[2][1].rlx2_s)) ,data[2][2].XY[data[2][1].rlx2_s])
-lines!(ax_rlx_xy, (1:1:length(data[2][1].rlx3_s)) ,data[2][2].XY[data[2][1].rlx3_s])
-lines!(ax_rlx_xy, (1:1:length(data[2][1].rlx4_s)) ,data[2][2].XY[data[2][1].rlx4_s])
+lines!(ax_rlx_norm, (1:1:length(data[2][1].rlx1_s)) ,data[2][2].XY[data[2][1].rlx1_s])
+lines!(ax_rlx_norm, (1:1:length(data[2][1].rlx2_s)) ,data[2][2].XY[data[2][1].rlx2_s])
+lines!(ax_rlx_norm, (1:1:length(data[2][1].rlx3_s)) ,data[2][2].XY[data[2][1].rlx3_s])
+lines!(ax_rlx_norm, (1:1:length(data[2][1].rlx4_s)) ,data[2][2].XY[data[2][1].rlx4_s])
 
 
 # Norm
-lines!(ax_def_xx, (1:1:length(data[3][1].deform1_s)) ,data[3][2].XY[data[3][1].deform1_s])
-lines!(ax_def_xx, (1:1:length(data[3][1].deform2_s)) ,data[3][2].XY[data[3][1].deform2_s])
-lines!(ax_def_xx, (1:1:length(data[3][1].deform3_s)) ,data[3][2].XY[data[3][1].deform3_s])
-lines!(ax_def_xx, (1:1:length(data[3][1].deform4_s)) ,data[3][2].XY[data[3][1].deform4_s])
+lines!(ax_def_xy, (1:1:length(data[3][1].deform1_s)) ,data[3][2].XY[data[3][1].deform1_s])
+lines!(ax_def_xy, (1:1:length(data[3][1].deform2_s)) ,data[3][2].XY[data[3][1].deform2_s])
+lines!(ax_def_xy, (1:1:length(data[3][1].deform3_s)) ,data[3][2].XY[data[3][1].deform3_s])
+lines!(ax_def_xy, (1:1:length(data[3][1].deform4_s)) ,data[3][2].XY[data[3][1].deform4_s])
 
-lines!(ax_rlx_xx, (1:1:length(data[3][1].rlx1_s)) ,data[3][2].XY[data[3][1].rlx1_s])
-lines!(ax_rlx_xx, (1:1:length(data[3][1].rlx2_s)) ,data[3][2].XY[data[3][1].rlx2_s])
-lines!(ax_rlx_xx, (1:1:length(data[3][1].rlx3_s)) ,data[3][2].XY[data[3][1].rlx3_s])
-lines!(ax_rlx_xx, (1:1:length(data[3][1].rlx4_s)) ,data[3][2].XY[data[3][1].rlx4_s])
+lines!(ax_rlx_xy, (1:1:length(data[3][1].rlx1_s)) ,data[3][2].XY[data[3][1].rlx1_s])
+lines!(ax_rlx_xy, (1:1:length(data[3][1].rlx2_s)) ,data[3][2].XY[data[3][1].rlx2_s])
+lines!(ax_rlx_xy, (1:1:length(data[3][1].rlx3_s)) ,data[3][2].XY[data[3][1].rlx3_s])
+lines!(ax_rlx_xy, (1:1:length(data[3][1].rlx4_s)) ,data[3][2].XY[data[3][1].rlx4_s])
+
+
+# Norm
+lines!(ax_def_xx, (1:1:length(data[1][1].deform1_s)) ,data[1][2].XY[data[1][1].deform1_s])
+lines!(ax_def_xx, (1:1:length(data[1][1].deform2_s)) ,data[1][2].XY[data[1][1].deform2_s])
+lines!(ax_def_xx, (1:1:length(data[1][1].deform3_s)) ,data[1][2].XY[data[1][1].deform3_s])
+lines!(ax_def_xx, (1:1:length(data[1][1].deform4_s)) ,data[1][2].XY[data[1][1].deform4_s])
+
+lines!(ax_rlx_xx, (1:1:length(data[1][1].rlx1_s)) ,data[1][2].XY[data[1][1].rlx1_s])
+lines!(ax_rlx_xx, (1:1:length(data[1][1].rlx2_s)) ,data[1][2].XY[data[1][1].rlx2_s])
+lines!(ax_rlx_xx, (1:1:length(data[1][1].rlx3_s)) ,data[1][2].XY[data[1][1].rlx3_s])
+lines!(ax_rlx_xx, (1:1:length(data[1][1].rlx4_s)) ,data[1][2].XY[data[1][1].rlx4_s])
 
 
 
@@ -325,7 +325,7 @@ map(s-> lines!(ax_rlx_xx,data[s][2].XX[aux_rlx[s]]) ,eachindex(parameters))
 
 
 # Legends
-map(s->lines!(ax_leg,0,0,label=latexstring("\\dot{\\gamma}:~",s[3].shearRate,"~%\\mathrm{CL}:~",100*s[3].clCon)),data)
+map(s->lines!(ax_leg,0,0,label=latexstring(s,"~\\mathrm{Cycle}")),1:4)
 
 Legend(fig_def_rlx[1:3,5],ax_leg,
        framevisible=true,
