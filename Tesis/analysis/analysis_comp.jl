@@ -3,7 +3,8 @@
 """
 
 using FileIO
-using GLMakie
+#using GLMakie
+using CairoMakie
 using LaTeXStrings
 using Statistics
 
@@ -20,7 +21,7 @@ selc_damp="5000";
 selc_T="500";
 selc_cCL="300";
 selc_ShearRate=string.((10,50,100));
-selc_Nexp=string.(1:5);
+selc_Nexp=string.(1:10);
 
 dirs=Iterators.partition(getDirs(selc_phi,selc_Npart,selc_damp,selc_T,selc_cCL,selc_ShearRate,selc_Nexp),length(selc_Nexp))|>collect;
 
@@ -39,9 +40,6 @@ files_names = (
                "stressVirial_shear.fixf",
                "cmdisplacement_shear.fixf",
               );
-
-
-
 
 # Get the parameters of the system
 
@@ -68,6 +66,74 @@ data=map(eachindex(file_dir)) do f
     getDataSystem(parameters[f],file_dir[f]);
 end
 """
+
+"""
+   Some Statistics
+
+aux_parm=(
+          dt=parameters[15],
+          shear_rate=parameters[16],
+          h=2*parameters[7],
+          Stress fix files = parameters[25]
+        );
+"""
+
+strain_fct=map(s->parameters[s][25]*parameters[s][15]*parameters[s][16],eachindex(parameters));#*aux_parm.h;
+aux_def=map(s-> reduce(vcat,[s[1].deform1_s,s[1].deform2_s,s[1].deform3_s,s[1].deform4_s]),data);
+aux_rlx=map(s-> reduce(vcat,[s[1].rlx1_s,s[1].rlx2_s,s[1].rlx3_s,s[1].rlx4_s]),data);
+
+
+lng_def_indx=map(s->Int64.((1*s[18]/s[25]+1:1:s[17]*s[18]/s[25])),parameters);
+
+mean_cycle1=reduce(vcat,map(s->mean(data[s][2].XY[data[s][1].deform1_s[lng_def_indx[s]]]),(2,3,1)));
+mean_cycle2=reduce(vcat,map(s->mean(data[s][2].XY[data[s][1].deform2_s[lng_def_indx[s]]]),(2,3,1)));
+mean_cycle3=reduce(vcat,map(s->mean(data[s][2].XY[data[s][1].deform3_s[lng_def_indx[s]]]),(2,3,1)));
+mean_cycle4=reduce(vcat,map(s->mean(data[s][2].XY[data[s][1].deform4_s[lng_def_indx[s]]]),(2,3,1)));
+
+
+
+"""
+    Plots
+"""
+
+fig_mean_stress=Figure(size=(1920,1080));
+ax_leg=Axis(fig_mean_stress[1:1,2],limits=(0.01,0.1,0.01,0.1));
+hidespines!(ax_leg)
+hidedecorations!(ax_leg)
+ax_mean_stress=Axis(fig_mean_stress[1:1,1:1],
+                    title=L"\mathrm{Shear~rate~vs~Stress}~xy~\mathrm{component}",
+                    xlabel=L"\mathrm{Shear~Rate}",
+                    ylabel=L"\mathrm{Mean~Stress}~xy~\mathrm{component}",
+                    titlesize=24.0f0,
+                    xticklabelsize=18.0f0,
+                    yticklabelsize=18.0f0,
+                    xlabelsize=20.0f0,
+                    ylabelsize=20.0f0,
+                    xminorticksvisible=true,
+                    xminorgridvisible=true
+                   )
+dom_shearRate=reduce(vcat,map(s->parameters[s][16],(2,3,1)));
+
+lines!(ax_mean_stress,dom_shearRate,mean_cycle1)
+scatter!(ax_mean_stress,dom_shearRate,mean_cycle1)
+lines!(ax_mean_stress,dom_shearRate,mean_cycle2)
+scatter!(ax_mean_stress,dom_shearRate,mean_cycle2)
+lines!(ax_mean_stress,dom_shearRate,mean_cycle3)
+scatter!(ax_mean_stress,dom_shearRate,mean_cycle3)
+lines!(ax_mean_stress,dom_shearRate,mean_cycle4)
+scatter!(ax_mean_stress,dom_shearRate,mean_cycle4)
+
+
+# Legends
+map(s->lines!(ax_leg,0,0,label=latexstring(s,"~\\mathrm{Cycle}")),1:4)
+
+Legend(fig_mean_stress[1:1,2],ax_leg,
+       framevisible=true,
+       halign=:center,
+       orientation=:vertical,
+       title=L"\mathrm{Legends}",
+       patchsize=(35,35)
+      )
 
 
 #"""
@@ -270,15 +336,15 @@ aux_parm=(
         );
 """
 
-strain_fct=map(s->parameters[s][25]*parameters[s][15]*parameters[s][16]*2*parameters[s][7],eachindex(parameters));#*aux_parm.h;
+strain_fct=map(s->parameters[s][25]*parameters[s][15]*parameters[s][16],eachindex(parameters));#*aux_parm.h;
 aux_def=map(s-> reduce(vcat,[s[1].deform1_s,s[1].deform2_s,s[1].deform3_s,s[1].deform4_s]),data) ;
 aux_rlx=map(s-> reduce(vcat,[s[1].rlx1_s,s[1].rlx2_s,s[1].rlx3_s,s[1].rlx4_s]),data);
 
 # Norm
-lines!(ax_def_norm, (1:1:length(data[2][1].deform1_s)) ,data[2][2].XY[data[2][1].deform1_s])
-lines!(ax_def_norm, (1:1:length(data[2][1].deform2_s)) ,data[2][2].XY[data[2][1].deform2_s])
-lines!(ax_def_norm, (1:1:length(data[2][1].deform3_s)) ,data[2][2].XY[data[2][1].deform3_s])
-lines!(ax_def_norm, (1:1:length(data[2][1].deform4_s)) ,data[2][2].XY[data[2][1].deform4_s])
+lines!(ax_def_norm, strain_fct[2]*(1:1:length(data[2][1].deform1_s)) ,data[2][2].XY[data[2][1].deform1_s])
+lines!(ax_def_norm, strain_fct[2]*(1:1:length(data[2][1].deform2_s)) ,data[2][2].XY[data[2][1].deform2_s])
+lines!(ax_def_norm, strain_fct[2]*(1:1:length(data[2][1].deform3_s)) ,data[2][2].XY[data[2][1].deform3_s])
+lines!(ax_def_norm, strain_fct[2]*(1:1:length(data[2][1].deform4_s)) ,data[2][2].XY[data[2][1].deform4_s])
 
 lines!(ax_rlx_norm, (1:1:length(data[2][1].rlx1_s)) ,data[2][2].XY[data[2][1].rlx1_s])
 lines!(ax_rlx_norm, (1:1:length(data[2][1].rlx2_s)) ,data[2][2].XY[data[2][1].rlx2_s])
@@ -287,10 +353,10 @@ lines!(ax_rlx_norm, (1:1:length(data[2][1].rlx4_s)) ,data[2][2].XY[data[2][1].rl
 
 
 # Norm
-lines!(ax_def_xy, (1:1:length(data[3][1].deform1_s)) ,data[3][2].XY[data[3][1].deform1_s])
-lines!(ax_def_xy, (1:1:length(data[3][1].deform2_s)) ,data[3][2].XY[data[3][1].deform2_s])
-lines!(ax_def_xy, (1:1:length(data[3][1].deform3_s)) ,data[3][2].XY[data[3][1].deform3_s])
-lines!(ax_def_xy, (1:1:length(data[3][1].deform4_s)) ,data[3][2].XY[data[3][1].deform4_s])
+lines!(ax_def_xy, strain_fct[3]*(1:1:length(data[3][1].deform1_s)) ,data[3][2].XY[data[3][1].deform1_s])
+lines!(ax_def_xy, strain_fct[3]*(1:1:length(data[3][1].deform2_s)) ,data[3][2].XY[data[3][1].deform2_s])
+lines!(ax_def_xy, strain_fct[3]*(1:1:length(data[3][1].deform3_s)) ,data[3][2].XY[data[3][1].deform3_s])
+lines!(ax_def_xy, strain_fct[3]*(1:1:length(data[3][1].deform4_s)) ,data[3][2].XY[data[3][1].deform4_s])
 
 lines!(ax_rlx_xy, (1:1:length(data[3][1].rlx1_s)) ,data[3][2].XY[data[3][1].rlx1_s])
 lines!(ax_rlx_xy, (1:1:length(data[3][1].rlx2_s)) ,data[3][2].XY[data[3][1].rlx2_s])
@@ -299,30 +365,15 @@ lines!(ax_rlx_xy, (1:1:length(data[3][1].rlx4_s)) ,data[3][2].XY[data[3][1].rlx4
 
 
 # Norm
-lines!(ax_def_xx, (1:1:length(data[1][1].deform1_s)) ,data[1][2].XY[data[1][1].deform1_s])
-lines!(ax_def_xx, (1:1:length(data[1][1].deform2_s)) ,data[1][2].XY[data[1][1].deform2_s])
-lines!(ax_def_xx, (1:1:length(data[1][1].deform3_s)) ,data[1][2].XY[data[1][1].deform3_s])
-lines!(ax_def_xx, (1:1:length(data[1][1].deform4_s)) ,data[1][2].XY[data[1][1].deform4_s])
+lines!(ax_def_xx, strain_fct[1]*(1:1:length(data[1][1].deform1_s)) ,data[1][2].XY[data[1][1].deform1_s])
+lines!(ax_def_xx, strain_fct[1]*(1:1:length(data[1][1].deform2_s)) ,data[1][2].XY[data[1][1].deform2_s])
+lines!(ax_def_xx, strain_fct[1]*(1:1:length(data[1][1].deform3_s)) ,data[1][2].XY[data[1][1].deform3_s])
+lines!(ax_def_xx, strain_fct[1]*(1:1:length(data[1][1].deform4_s)) ,data[1][2].XY[data[1][1].deform4_s])
 
 lines!(ax_rlx_xx, (1:1:length(data[1][1].rlx1_s)) ,data[1][2].XY[data[1][1].rlx1_s])
 lines!(ax_rlx_xx, (1:1:length(data[1][1].rlx2_s)) ,data[1][2].XY[data[1][1].rlx2_s])
 lines!(ax_rlx_xx, (1:1:length(data[1][1].rlx3_s)) ,data[1][2].XY[data[1][1].rlx3_s])
 lines!(ax_rlx_xx, (1:1:length(data[1][1].rlx4_s)) ,data[1][2].XY[data[1][1].rlx4_s])
-
-
-
-"""
-map(s-> lines!(ax_def_norm,strain_fct[s].*(1:1:length(aux_def[s])), data[s][2].norm[aux_def[s]]) ,eachindex(parameters))
-map(s-> lines!(ax_rlx_norm,data[s][2].norm[aux_rlx[s]]) ,eachindex(parameters))
-
-map(s-> lines!(ax_def_xy,strain_fct[s].*(1:1:length(aux_def[s])), data[s][2].XY[aux_def[s]]) ,eachindex(parameters))
-map(s-> lines!(ax_rlx_xy,data[s][2].XY[aux_rlx[s]]) ,eachindex(parameters))
-
-map(s-> lines!(ax_def_xx,strain_fct[s].*(1:1:length(aux_def[s])), data[s][2].XX[aux_def[s]]) ,eachindex(parameters))
-map(s-> lines!(ax_rlx_xx,data[s][2].XX[aux_rlx[s]]) ,eachindex(parameters))
-"""
-
-
 
 # Legends
 map(s->lines!(ax_leg,0,0,label=latexstring(s,"~\\mathrm{Cycle}")),1:4)
@@ -336,15 +387,16 @@ Legend(fig_def_rlx[1:3,5],ax_leg,
       )
 
 
-"""
-# Stress
-fig_stress=Figure(size=(1920,1080));
-ax_leg=Axis(fig_stress[1:2,3],limits=(0.01,0.1,0.01,0.1));
+
+
+# Compare each cycle with different shear rate
+fig_def=Figure(size=(1920,1080));
+ax_leg=Axis(fig_def[1:2,5],limits=(0.01,0.1,0.01,0.1));
 hidespines!(ax_leg)
 hidedecorations!(ax_leg)
-ax_norm=Axis(fig_stress[1,1:2],
-               title=L"\mathrm{Norm~of~Virial~Stress~tensor~of~full~simulation}",
-               xlabel=L"\mathrm{Time~steps}",
+ax_def_1=Axis(fig_def[1,1:2],
+               title=latexstring("\\mathrm{Cycle}~1"),
+               xlabel=L"\mathrm{Strain}",
                ylabel=L"\mathrm{Stress}",
                titlesize=24.0f0,
                xticklabelsize=18.0f0,
@@ -354,9 +406,9 @@ ax_norm=Axis(fig_stress[1,1:2],
                xminorticksvisible=true,
                xminorgridvisible=true
               )
-ax_xy=Axis(fig_stress[2,1:2],
-               title=L"xy~\mathrm{component~of~Virial~Stress~of~full~simulation}",
-               xlabel=L"\mathrm{Time~steps}",
+ax_def_2=Axis(fig_def[1,3:4],
+               title=latexstring("\\mathrm{Cycle}~2"),
+               xlabel=L"\mathrm{Strain}",
                ylabel=L"\mathrm{Stress}",
                titlesize=24.0f0,
                xticklabelsize=18.0f0,
@@ -366,9 +418,21 @@ ax_xy=Axis(fig_stress[2,1:2],
                xminorticksvisible=true,
                xminorgridvisible=true
               )
-ax_xx=Axis(fig_stress[3,1:2],
-               title=L"xx~\mathrm{component~of~Virial~Stress~of~full~simulation}",
-               xlabel=L"\mathrm{Time~steps}",
+ax_def_3=Axis(fig_def[2,1:2],
+               title=latexstring("\\mathrm{Cycle}~3"),
+               xlabel=L"\mathrm{Strain}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+ax_def_4=Axis(fig_def[2,3:4],
+               title=latexstring("\\mathrm{Cycle}~4"),
+               xlabel=L"\mathrm{Strain}",
                ylabel=L"\mathrm{Stress}",
                titlesize=24.0f0,
                xticklabelsize=18.0f0,
@@ -379,156 +443,24 @@ ax_xx=Axis(fig_stress[3,1:2],
                xminorgridvisible=true
               )
 
-lines!(ax_norm,info.norm)
+strain_fct=map(s->parameters[s][25]*parameters[s][15]*parameters[s][16],eachindex(parameters));#*aux_parm.h;
 
-"""
-vlines!(ax_norm,first(inds.isothermal_s),color=:orange,linestyle=:dash)
-vlines!(ax_norm,last(inds.isothermal_s),color=:orange,linestyle=:dash)
-vlines!(ax_norm,first(inds.rlx1_s),color=:black,linestyle=:dash)
-vlines!(ax_norm,first(inds.rlx2_s),color=:black,linestyle=:dash)
-vlines!(ax_norm,first(inds.rlx3_s),color=:black,linestyle=:dash)
-vlines!(ax_norm,first(inds.rlx4_s),color=:black,linestyle=:dash)
-vlines!(ax_norm,first(inds.deform1_s),color=:blue,linestyle=:dash)
-vlines!(ax_norm,first(inds.deform2_s),color=:blue,linestyle=:dash)
-vlines!(ax_norm,first(inds.deform3_s),color=:blue,linestyle=:dash)
-vlines!(ax_norm,first(inds.deform4_s),color=:blue,linestyle=:dash)
-"""
+# Cycle 1
+map(s->lines!(ax_def_1, strain_fct[s]*(1:1:length(data[s][1].deform1_s)) ,data[s][2].XY[data[s][1].deform1_s]), (2,3,1) )
 
+# Cycle 2
+map(s->lines!(ax_def_2, strain_fct[s]*(1:1:length(data[s][1].deform2_s)) ,data[s][2].XY[data[s][1].deform2_s]), (2,3,1) )
 
-lines!(ax_xy,info.XY)
+# Cycle 3
+map(s->lines!(ax_def_3, strain_fct[s]*(1:1:length(data[s][1].deform2_s)) ,data[s][2].XY[data[s][1].deform3_s]), (2,3,1) )
 
-"""
-vlines!(ax_xy,first(inds.isothermal_s),color=:orange,linestyle=:dash)
-vlines!(ax_xy,last(inds.isothermal_s),color=:orange,linestyle=:dash)
-vlines!(ax_xy,first(inds.rlx1_s),color=:black,linestyle=:dash)
-vlines!(ax_xy,first(inds.rlx2_s),color=:black,linestyle=:dash)
-vlines!(ax_xy,first(inds.rlx3_s),color=:black,linestyle=:dash)
-vlines!(ax_xy,first(inds.rlx4_s),color=:black,linestyle=:dash)
-vlines!(ax_xy,first(inds.deform1_s),color=:blue,linestyle=:dash)
-vlines!(ax_xy,first(inds.deform2_s),color=:blue,linestyle=:dash)
-vlines!(ax_xy,first(inds.deform3_s),color=:blue,linestyle=:dash)
-vlines!(ax_xy,first(inds.deform4_s),color=:blue,linestyle=:dash)
-"""
+# Cycle 4
+map(s->lines!(ax_def_4, strain_fct[s]*(1:1:length(data[s][1].deform4_s)) ,data[s][2].XY[data[s][1].deform4_s]), (2,3,1) )
 
-lines!(ax_xx,info.XX)
+# Legends
+map(s->lines!(ax_leg,0,0,label=latexstring("\\dot{\\gamma}:~",data[s][3].shearRate,"~%\\mathrm{CL}:~",100*data[s][3].clCon)),(2,3,1))
 
-"""
-vlines!(ax_xx,first(inds.isothermal_s),color=:orange,linestyle=:dash)
-vlines!(ax_xx,last(inds.isothermal_s),color=:orange,linestyle=:dash)
-vlines!(ax_xx,first(inds.rlx1_s),color=:black,linestyle=:dash)
-vlines!(ax_xx,first(inds.rlx2_s),color=:black,linestyle=:dash)
-vlines!(ax_xx,first(inds.rlx3_s),color=:black,linestyle=:dash)
-vlines!(ax_xx,first(inds.rlx4_s),color=:black,linestyle=:dash)
-vlines!(ax_xx,first(inds.deform1_s),color=:blue,linestyle=:dash)
-vlines!(ax_xx,first(inds.deform2_s),color=:blue,linestyle=:dash)
-vlines!(ax_xx,first(inds.deform3_s),color=:blue,linestyle=:dash)
-vlines!(ax_xx,first(inds.deform4_s),color=:blue,linestyle=:dash)
-"""
-
-map(s->lines!(ax_leg,0,0,label=latexstring("\\dot{\\gamma}:~",s[3].shearRate,"~%\\mathrm{CL}:~",100*s[3].clCon)),(inds,info,lbl))
-
-Legend(fig_stress[1:3,3],ax_leg,
-       framevisible=true,
-       halign=:center,
-       orientation=:vertical,
-       title=L"\mathrm{Legends}",
-       patchsize=(35,35)
-      )
-"""
-
-
-
-
-
-"""
-# Potential Energy
-fig_potential=Figure(size=(1920,1080));
-ax_leg=Axis(fig_potential[1:2,3],limits=(0.01,0.1,0.01,0.1));
-hidespines!(ax_leg)
-hidedecorations!(ax_leg)
-ax_wca=Axis(fig_potential[1,1:2],
-               title=L"\mathrm{WCA~Energy~of~isothermal~and~shear~simulation}",
-               xlabel=L"\mathrm{Time~steps}",
-               ylabel=L"\mathrm{Energy}",
-               titlesize=24.0f0,
-               xticklabelsize=18.0f0,
-               yticklabelsize=18.0f0,
-               xlabelsize=20.0f0,
-               ylabelsize=20.0f0,
-               xminorticksvisible=true,
-               xminorgridvisible=true
-              )
-ax_patch=Axis(fig_potential[2,1:2],
-               title=L"\mathrm{Patch~Energy~of~isothermal~and~shear~simulation}",
-               xlabel=L"\mathrm{Time~steps}",
-               ylabel=L"\mathrm{Energy}",
-               titlesize=24.0f0,
-               xticklabelsize=18.0f0,
-               yticklabelsize=18.0f0,
-               xlabelsize=20.0f0,
-               ylabelsize=20.0f0,
-               xminorticksvisible=true,
-               xminorgridvisible=true              
-              )
-ax_swap=Axis(fig_potential[3,1:2],
-               title=L"\mathrm{Swap~Energy~of~isothermal~and~shear~simulation}",
-               xlabel=L"\mathrm{Time~steps}",
-               ylabel=L"\mathrm{Energy}",
-               titlesize=24.0f0,
-               xticklabelsize=18.0f0,
-               yticklabelsize=18.0f0,
-               xlabelsize=20.0f0,
-               ylabelsize=20.0f0,
-               xminorticksvisible=true,
-               xminorgridvisible=true
-              )
-
-dom=reduce(vcat,[inds.isothermal,inds.shear]);
-
-lines!(ax_wca,dom,info.wca[first(inds.isothermal):end])
-vlines!(ax_wca,last(inds.isothermal),color=:orange,linestyle=:dash)
-vlines!(ax_wca,first(inds.rlx1),color=:black,linestyle=:dash)
-vlines!(ax_wca,first(inds.rlx2),color=:black,linestyle=:dash)
-vlines!(ax_wca,first(inds.rlx3),color=:black,linestyle=:dash)
-vlines!(ax_wca,first(inds.rlx4),color=:black,linestyle=:dash)
-vlines!(ax_wca,first(inds.deform1),color=:blue,linestyle=:dash)
-vlines!(ax_wca,first(inds.deform2),color=:blue,linestyle=:dash)
-vlines!(ax_wca,first(inds.deform3),color=:blue,linestyle=:dash)
-vlines!(ax_wca,first(inds.deform4),color=:blue,linestyle=:dash)
-
-
-
-lines!(ax_patch,dom,info.patch[first(inds.isothermal):end])
-lines!(ax_patch,dom,info.patch[first(inds.isothermal):end].+info.swap[first(inds.isothermal):end])
-lines!(ax_patch,dom,info.pot[first(inds.isothermal):end])
-
-
-
-vlines!(ax_patch,last(inds.isothermal),color=:orange,linestyle=:dash)
-vlines!(ax_patch,first(inds.rlx1),color=:black,linestyle=:dash)
-vlines!(ax_patch,first(inds.rlx2),color=:black,linestyle=:dash)
-vlines!(ax_patch,first(inds.rlx3),color=:black,linestyle=:dash)
-vlines!(ax_patch,first(inds.rlx4),color=:black,linestyle=:dash)
-vlines!(ax_patch,first(inds.deform1),color=:blue,linestyle=:dash)
-vlines!(ax_patch,first(inds.deform2),color=:blue,linestyle=:dash)
-vlines!(ax_patch,first(inds.deform3),color=:blue,linestyle=:dash)
-vlines!(ax_patch,first(inds.deform4),color=:blue,linestyle=:dash)
-
-
-lines!(ax_swap,dom,info.swap[first(inds.isothermal):end])
-vlines!(ax_swap,last(inds.isothermal),color=:orange,linestyle=:dash)
-vlines!(ax_swap,first(inds.rlx1),color=:black,linestyle=:dash)
-vlines!(ax_swap,first(inds.rlx2),color=:black,linestyle=:dash)
-vlines!(ax_swap,first(inds.rlx3),color=:black,linestyle=:dash)
-vlines!(ax_swap,first(inds.rlx4),color=:black,linestyle=:dash)
-vlines!(ax_swap,first(inds.deform1),color=:blue,linestyle=:dash)
-vlines!(ax_swap,first(inds.deform2),color=:blue,linestyle=:dash)
-vlines!(ax_swap,first(inds.deform3),color=:blue,linestyle=:dash)
-vlines!(ax_swap,first(inds.deform4),color=:blue,linestyle=:dash)
-
-lines!(ax_leg,0,0,label=latexstring("\\dot{\\gamma}:~",lbl.shearRate,"~%\\mathrm{CL}:~",100*lbl.clCon))
-
-Legend(fig_potential[1:3,3],ax_leg,
+Legend(fig_def[1:2,5],ax_leg,
        framevisible=true,
        halign=:center,
        orientation=:vertical,
@@ -536,20 +468,90 @@ Legend(fig_potential[1:3,3],ax_leg,
        patchsize=(35,35)
       )
 
-"""
+# Compare each cycle with different shear rate
+fig_rlx=Figure(size=(1920,1080));
+ax_leg=Axis(fig_rlx[1:2,5],limits=(0.01,0.1,0.01,0.1));
+hidespines!(ax_leg)
+hidedecorations!(ax_leg)
+ax_rlx_1=Axis(fig_rlx[1,1:2],
+               title=latexstring("\\mathrm{Cycle}~1"),
+               xlabel=L"\mathrm{Equivalent~Strain}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+ax_rlx_2=Axis(fig_rlx[1,3:4],
+               title=latexstring("\\mathrm{Cycle}~2"),
+               xlabel=L"\mathrm{Equivalent~Strain}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+ax_rlx_3=Axis(fig_rlx[2,1:2],
+               title=latexstring("\\mathrm{Cycle}~3"),
+               xlabel=L"\mathrm{Equivalent~Strain}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+ax_rlx_4=Axis(fig_rlx[2,3:4],
+               title=latexstring("\\mathrm{Cycle}~4"),
+               xlabel=L"\mathrm{Equivalent~Strain}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+
+strain_fct=map(s->parameters[s][25]*parameters[s][15]*parameters[s][16],eachindex(parameters));#*aux_parm.h;
+
+# Cycle 1
+map(s->lines!(ax_rlx_1, strain_fct[s]*(1:1:length(data[s][1].rlx1_s)) ,data[s][2].XY[data[s][1].rlx1_s]), (2,3,1) )
+
+# Cycle 2
+map(s->lines!(ax_rlx_2, strain_fct[s]*(1:1:length(data[s][1].rlx2_s)) ,data[s][2].XY[data[s][1].rlx2_s]), (2,3,1) )
+
+# Cycle 3
+map(s->lines!(ax_rlx_3, strain_fct[s]*(1:1:length(data[s][1].rlx3_s)) ,data[s][2].XY[data[s][1].rlx3_s]), (2,3,1) )
+
+# Cycle 4
+map(s->lines!(ax_rlx_4, strain_fct[s]*(1:1:length(data[s][1].rlx4_s)) ,data[s][2].XY[data[s][1].rlx4_s]), (2,3,1) )
+
+# Legends
+map(s->lines!(ax_leg,0,0,label=latexstring("\\dot{\\gamma}:~",data[s][3].shearRate,"~%\\mathrm{CL}:~",100*data[s][3].clCon)),(2,3,1))
+
+Legend(fig_rlx[1:2,5],ax_leg,
+       framevisible=true,
+       halign=:center,
+       orientation=:vertical,
+       title=L"\mathrm{Legends}",
+       patchsize=(35,35)
+      )
+
+#"""
 
 
 
-"""
-vlines!(ax_,last(inds.isothermal),color=:orange,linestyle=:dash)
-vlines!(ax_,first(inds.rlx1),color=:black,linestyle=:dash)
-vlines!(ax_,first(inds.rlx2),color=:black,linestyle=:dash)
-vlines!(ax_,first(inds.rlx3),color=:black,linestyle=:dash)
-vlines!(ax_,first(inds.rlx4),color=:black,linestyle=:dash)
-vlines!(ax_,first(inds.deform1),color=:blue,linestyle=:dash)
-vlines!(ax_,first(inds.deform2),color=:blue,linestyle=:dash)
-vlines!(ax_,first(inds.deform3),color=:blue,linestyle=:dash)
-vlines!(ax_,first(inds.deform4),color=:blue,linestyle=:dash)
 
-"""
+
+
 
