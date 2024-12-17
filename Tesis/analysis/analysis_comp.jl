@@ -3,8 +3,8 @@
 """
 
 using FileIO
-#using GLMakie
-using CairoMakie
+using GLMakie
+#using CairoMakie
 using LaTeXStrings
 using Statistics
 
@@ -61,11 +61,9 @@ end
 
 # Retrieve the information of the system
 
-"""
 data=map(eachindex(file_dir)) do f
     getDataSystem(parameters[f],file_dir[f]);
 end
-"""
 
 """
    Some Statistics
