@@ -3,8 +3,8 @@
 """
 
 using FileIO
-using GLMakie
-#using CairoMakie
+#using GLMakie
+using CairoMakie
 using LaTeXStrings
 using Statistics
 
