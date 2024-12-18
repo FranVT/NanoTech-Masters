@@ -95,7 +95,8 @@ data=map(eachindex(file_dir)) do f
 end
 """
 
-strain_fct=map(s->parameters[s].N_savestress*parameters[s].dt_shear*parameters[s].shearRate,eachindex(parameters));#*aux_parm.h;
+# Create the range for the stress
+strain_fct=map(s->parameters[s].N_savestress*parameters[s].dt_shear*parameters[s].shearRate,eachindex(parameters));
 aux_def=map(s-> reduce(vcat,[s[1].deform1_s,s[1].deform2_s,s[1].deform3_s]),data);
 aux_rlx=map(s-> reduce(vcat,[s[1].rlx1_s,s[1].rlx2_s,s[1].rlx3_s]),data);
 
@@ -112,8 +113,164 @@ mean_cycle3=reduce(vcat,map(s->mean(data[s][2].XY[data[s][1].deform3_s[lng_def_i
 """
     Plots
 """
+# General parameters for the plots
+fntsz_title=56.5;
+fntsz_axis=37;
+fntsz_lbl=37;
+fntsz_tick=37;
 
-fig_mean_stress=Figure(size=(1920,1080));
+ylim=(0,0.04);
+yrange=range(ylim...,step=0.01);
+
+# Compare each cycle with different shear rate
+fig_def=Figure(size=(1920,1080));
+#ax_leg=Axis(fig_def[1:3,3],limits=(0.01,0.1,0.01,0.1));
+#hidespines!(ax_leg)
+#hidedecorations!(ax_leg)
+ax_def_1=Axis(fig_def[1,1:2],
+               #title=latexstring("\\mathrm{Cycle}~1"),
+               #xlabel=L"\mathrm{Strain}",
+               yticks=yrange,
+               ylabel=L"\mathrm{Stress}",
+               titlesize=fntsz_title,
+               xticklabelsize=fntsz_tick,
+               yticklabelsize=fntsz_tick,
+               xlabelsize=fntsz_lbl,
+               ylabelsize=fntsz_lbl,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+ax_def_2=Axis(fig_def[2,1:2],
+               #title=latexstring("\\mathrm{Cycle}~2"),
+               #xlabel=L"\mathrm{Strain}",
+               yticks=yrange,
+               ylabel=L"\mathrm{Stress}",
+               titlesize=fntsz_title,
+               xticklabelsize=fntsz_tick,
+               yticklabelsize=fntsz_tick,
+               xlabelsize=fntsz_lbl,
+               ylabelsize=fntsz_lbl,
+               xminorticksvisible=true,
+               xminorgridvisible=true,
+               xticksmirrored=true
+              )
+ax_def_3=Axis(fig_def[3,1:2],
+               #title=latexstring("\\mathrm{Cycle}~3"),
+               yticks=yrange,
+               xlabel=L"\mathrm{Strain}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=fntsz_title,
+               xticklabelsize=fntsz_tick,
+               yticklabelsize=fntsz_tick,
+               xlabelsize=fntsz_lbl,
+               ylabelsize=fntsz_lbl,
+               xminorticksvisible=true,
+               xminorgridvisible=true,
+               xticksmirrored=true
+              )
+ylims!(ax_def_1,ylim)
+ylims!(ax_def_2,ylim)
+ylims!(ax_def_3,ylim)
+
+
+linkxaxes!(ax_def_1,ax_def_2,ax_def_3)
+
+
+hidespines!(ax_def_1, :b)
+hidespines!(ax_def_2, :b)
+
+hidexdecorations!(ax_def_1,grid=false,ticks=false)
+hidexdecorations!(ax_def_2,grid=false,ticks=false)
+#hidedecorations!(ax_def_3,grid=false)
+
+
+rowgap!(fig_def.layout,-1)
+
+
+# Cycle 1
+map(s->lines!(ax_def_1, strain_fct[s]*(1:1:length(data[s][1].deform1_s)) ,data[s][2].XY[data[s][1].deform1_s],label=latexstring("\\dot{\\gamma}:~",data[s][3].shearRate,"~%\\mathrm{CL}:~",100*data[s][3].clCon)), order )
+
+# Cycle 2
+map(s->lines!(ax_def_2, strain_fct[s]*(1:1:length(data[s][1].deform2_s)) ,data[s][2].XY[data[s][1].deform2_s],label=latexstring("\\dot{\\gamma}:~",data[s][3].shearRate,"~%\\mathrm{CL}:~",100*data[s][3].clCon)), order )
+
+# Cycle 3
+map(s->lines!(ax_def_3, strain_fct[s]*(1:1:length(data[s][1].deform2_s)) ,data[s][2].XY[data[s][1].deform3_s],label=latexstring("\\dot{\\gamma}:~",data[s][3].shearRate,"~%\\mathrm{CL}:~",100*data[s][3].clCon)), order )
+
+axislegend(ax_def_1)
+
+
+
+# Compare each cycle with different shear rate
+fig_rlx=Figure(size=(1920,1080));
+ax_leg=Axis(fig_rlx[1:2,5],limits=(0.01,0.1,0.01,0.1));
+hidespines!(ax_leg)
+hidedecorations!(ax_leg)
+ax_rlx_1=Axis(fig_rlx[1,1:2],
+               title=latexstring("\\mathrm{Cycle}~1"),
+               xlabel=L"\mathrm{Time~steps}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=fntsz_title,
+               xticklabelsize=fntsz_tick,
+               yticklabelsize=fntsz_tick,
+               xlabelsize=fntsz_lbl,
+               ylabelsize=fntsz_lbl,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+ax_rlx_2=Axis(fig_rlx[1,3:4],
+               title=latexstring("\\mathrm{Cycle}~2"),
+               xlabel=L"\mathrm{Time~steps}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=fntsz_title,
+               xticklabelsize=fntsz_tick,
+               yticklabelsize=fntsz_tick,
+               xlabelsize=fntsz_lbl,
+               ylabelsize=fntsz_lbl,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+ax_rlx_3=Axis(fig_rlx[2,1:2],
+               title=latexstring("\\mathrm{Cycle}~3"),
+               xlabel=L"\mathrm{Time~steps}",
+               ylabel=L"\mathrm{Stress}",
+               titlesize=fntsz_title,
+               xticklabelsize=fntsz_tick,
+               yticklabelsize=fntsz_tick,
+               xlabelsize=fntsz_lbl,
+               ylabelsize=fntsz_lbl,
+               xminorticksvisible=true,
+               xminorgridvisible=true
+              )
+
+#strain_fct=map(s->parameters[s][25]*parameters[s][15]*parameters[s][16],eachindex(parameters));#*aux_parm.h;
+
+# Cycle 1
+map(s->lines!(ax_rlx_1, (1:1:length(data[s][1].rlx1_s)) ,data[s][2].XY[data[s][1].rlx1_s]), order )
+
+# Cycle 2
+map(s->lines!(ax_rlx_2, (1:1:length(data[s][1].rlx2_s)) ,data[s][2].XY[data[s][1].rlx2_s]), order )
+
+# Cycle 3
+map(s->lines!(ax_rlx_3, (1:1:length(data[s][1].rlx3_s)) ,data[s][2].XY[data[s][1].rlx3_s]), order )
+
+# Legends
+map(s->lines!(ax_leg,0,0,label=latexstring("\\dot{\\gamma}:~",data[s][3].shearRate,"~%\\mathrm{CL}:~",100*data[s][3].clCon)),order)
+
+Legend(fig_rlx[1:2,5],ax_leg,
+       framevisible=true,
+       halign=:center,
+       orientation=:vertical,
+       title=L"\mathrm{Legends}",
+       patchsize=(35,35)
+      )
+
+
+
+
+
+# Energy
+"""
+fig_mean_stress=Figure(fontsize=24, size=(1920,1080));
 ax_leg=Axis(fig_mean_stress[1:1,2],limits=(0.01,0.1,0.01,0.1));
 hidespines!(ax_leg)
 hidedecorations!(ax_leg)
@@ -262,140 +419,6 @@ Legend(fig_energy[1:2,3],ax_leg,
       )
 
 
-
-
-
-
-
-
-# Compare each cycle with different shear rate
-fig_def=Figure(size=(1920,1080));
-ax_leg=Axis(fig_def[1:2,5],limits=(0.01,0.1,0.01,0.1));
-hidespines!(ax_leg)
-hidedecorations!(ax_leg)
-ax_def_1=Axis(fig_def[1,1:2],
-               title=latexstring("\\mathrm{Cycle}~1"),
-               xlabel=L"\mathrm{Strain}",
-               ylabel=L"\mathrm{Stress}",
-               titlesize=24.0f0,
-               xticklabelsize=18.0f0,
-               yticklabelsize=18.0f0,
-               xlabelsize=20.0f0,
-               ylabelsize=20.0f0,
-               xminorticksvisible=true,
-               xminorgridvisible=true
-              )
-ax_def_2=Axis(fig_def[1,3:4],
-               title=latexstring("\\mathrm{Cycle}~2"),
-               xlabel=L"\mathrm{Strain}",
-               ylabel=L"\mathrm{Stress}",
-               titlesize=24.0f0,
-               xticklabelsize=18.0f0,
-               yticklabelsize=18.0f0,
-               xlabelsize=20.0f0,
-               ylabelsize=20.0f0,
-               xminorticksvisible=true,
-               xminorgridvisible=true
-              )
-ax_def_3=Axis(fig_def[2,1:2],
-               title=latexstring("\\mathrm{Cycle}~3"),
-               xlabel=L"\mathrm{Strain}",
-               ylabel=L"\mathrm{Stress}",
-               titlesize=24.0f0,
-               xticklabelsize=18.0f0,
-               yticklabelsize=18.0f0,
-               xlabelsize=20.0f0,
-               ylabelsize=20.0f0,
-               xminorticksvisible=true,
-               xminorgridvisible=true
-              )
-
-#strain_fct=map(s->parameters[s][25]*parameters[s][15]*parameters[s][16],eachindex(parameters));#*aux_parm.h;
-
-# Cycle 1
-map(s->lines!(ax_def_1, strain_fct[s]*(1:1:length(data[s][1].deform1_s)) ,data[s][2].XY[data[s][1].deform1_s]), order )
-
-# Cycle 2
-map(s->lines!(ax_def_2, strain_fct[s]*(1:1:length(data[s][1].deform2_s)) ,data[s][2].XY[data[s][1].deform2_s]), order )
-
-# Cycle 3
-map(s->lines!(ax_def_3, strain_fct[s]*(1:1:length(data[s][1].deform2_s)) ,data[s][2].XY[data[s][1].deform3_s]), order )
-
-# Legends
-map(s->lines!(ax_leg,0,0,label=latexstring("\\dot{\\gamma}:~",data[s][3].shearRate,"~%\\mathrm{CL}:~",100*data[s][3].clCon)),order)
-
-Legend(fig_def[1:2,5],ax_leg,
-       framevisible=true,
-       halign=:center,
-       orientation=:vertical,
-       title=L"\mathrm{Legends}",
-       patchsize=(35,35)
-      )
-
-# Compare each cycle with different shear rate
-fig_rlx=Figure(size=(1920,1080));
-ax_leg=Axis(fig_rlx[1:2,5],limits=(0.01,0.1,0.01,0.1));
-hidespines!(ax_leg)
-hidedecorations!(ax_leg)
-ax_rlx_1=Axis(fig_rlx[1,1:2],
-               title=latexstring("\\mathrm{Cycle}~1"),
-               xlabel=L"\mathrm{Time~steps}",
-               ylabel=L"\mathrm{Stress}",
-               titlesize=24.0f0,
-               xticklabelsize=18.0f0,
-               yticklabelsize=18.0f0,
-               xlabelsize=20.0f0,
-               ylabelsize=20.0f0,
-               xminorticksvisible=true,
-               xminorgridvisible=true
-              )
-ax_rlx_2=Axis(fig_rlx[1,3:4],
-               title=latexstring("\\mathrm{Cycle}~2"),
-               xlabel=L"\mathrm{Time~steps}",
-               ylabel=L"\mathrm{Stress}",
-               titlesize=24.0f0,
-               xticklabelsize=18.0f0,
-               yticklabelsize=18.0f0,
-               xlabelsize=20.0f0,
-               ylabelsize=20.0f0,
-               xminorticksvisible=true,
-               xminorgridvisible=true
-              )
-ax_rlx_3=Axis(fig_rlx[2,1:2],
-               title=latexstring("\\mathrm{Cycle}~3"),
-               xlabel=L"\mathrm{Time~steps}",
-               ylabel=L"\mathrm{Stress}",
-               titlesize=24.0f0,
-               xticklabelsize=18.0f0,
-               yticklabelsize=18.0f0,
-               xlabelsize=20.0f0,
-               ylabelsize=20.0f0,
-               xminorticksvisible=true,
-               xminorgridvisible=true
-              )
-
-#strain_fct=map(s->parameters[s][25]*parameters[s][15]*parameters[s][16],eachindex(parameters));#*aux_parm.h;
-
-# Cycle 1
-map(s->lines!(ax_rlx_1, (1:1:length(data[s][1].rlx1_s)) ,data[s][2].XY[data[s][1].rlx1_s]), order )
-
-# Cycle 2
-map(s->lines!(ax_rlx_2, (1:1:length(data[s][1].rlx2_s)) ,data[s][2].XY[data[s][1].rlx2_s]), order )
-
-# Cycle 3
-map(s->lines!(ax_rlx_3, (1:1:length(data[s][1].rlx3_s)) ,data[s][2].XY[data[s][1].rlx3_s]), order )
-
-# Legends
-map(s->lines!(ax_leg,0,0,label=latexstring("\\dot{\\gamma}:~",data[s][3].shearRate,"~%\\mathrm{CL}:~",100*data[s][3].clCon)),order)
-
-Legend(fig_rlx[1:2,5],ax_leg,
-       framevisible=true,
-       halign=:center,
-       orientation=:vertical,
-       title=L"\mathrm{Legends}",
-       patchsize=(35,35)
-      )
-
 #"""
 
 
@@ -531,4 +554,4 @@ Legend(fig_def_rlx[1:3,5],ax_leg,
        patchsize=(35,35)
       )
 
-
+"""
