@@ -13,6 +13,10 @@
 
 $$ \left(\frac{\sigma}{r}\right)^{12} -  \left(\frac{\sigma}{r}\right)^{6}$$
 
+```math
+\left(\frac{\sigma}{r}\right)^{12} -  \left(\frac{\sigma}{r}\right)^{6}
+```
+
 ### Simulation protocols
 
 ### Results
