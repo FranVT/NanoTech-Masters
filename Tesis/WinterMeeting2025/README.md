@@ -14,7 +14,9 @@
 $$ \left(\frac{\sigma}{r}\right)^{12} -  \left(\frac{\sigma}{r}\right)^{6} $$
 
 ```math
-\left(\frac{\sigma}{r}\right)^{12} -  \left(\frac{\sigma}{r}\right)^{6}
+\begin{gather*}
+    \left(\frac{\sigma}{r}\right)^{12} -  \left(\frac{\sigma}{r}\right)^{6}
+\end{gather*}
 ```
 $$\left(\frac{\sigma}{r}\right)$$
 
