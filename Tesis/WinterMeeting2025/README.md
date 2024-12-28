@@ -15,7 +15,7 @@ $$ \left(\frac{\sigma}{r}\right)^{12} -  \left(\frac{\sigma}{r}\right)^{6} $$
 
 ```math
 \begin{gather*}
-    \left(\frac{\sigma}{r}\right)^{12} -  \left(\frac{\sigma}{r}\right)^{6} \\
+    4\epsilon\left[\left(\frac{\sigma}{r}\right)^{12} -  \left(\frac{\sigma}{r}\right)^{6}\right] + \epsilon \\
 \frac{\sigma^{12}}{r^{12}} - \frac{\sigma^{6}}{r^{6}}
 \end{gather*}
 ```
