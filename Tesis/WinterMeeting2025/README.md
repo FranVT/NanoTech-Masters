@@ -11,4 +11,6 @@
 
 ### Results
 
+![Deformation](https://github.com/FranVT/NanoTech-Masters/blob/main/Tesis/WinterMeeting2025/poster/figDef.png)
+
 
