@@ -23,6 +23,10 @@ $$\left(\frac{\sigma}{r}\right)$$
 
 $$ (\frac{\sigma}{r}) $$
 
+```math
+\left(\frac{\sigma}{r}\right)
+```
+
 
 ### Simulation protocols
 
