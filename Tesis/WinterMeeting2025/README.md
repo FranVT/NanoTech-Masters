@@ -15,6 +15,12 @@ U_{\mathrm{WCA}}\left(r\right) = 4\epsilon\left[\left(\frac{\sigma}{r}\right)^{1
 U_{\mathrm{patchy}}\left(r_{\mu\upsilon}\right) = 2\epsilon_{\mu\upsilon}\left(\frac{\sigma^{4}_{p}}{2 r^{4}_{\mu\upsilon}}-1\right)\exp\left[\frac{\sigma_p}{\left(r_{\mu\upsilon}-r_c\right)}+2\right],\quad r_{\mu\upsilon}\in\left[0,r_c\right]
 ```
 
+```math
+\begin{align*}
+    U_{\mathrm{swap}}\left(r\right) = w\sum_{\lambda,\mu,upsilon}\epsilon_{\mu\epsilon}U_3\left(r_{\lambda,\mu}\right)U_3\left(r_{\lambda,\upsilon}\right),\quad r_{\mu\upsilon}\in\left[0,r_c\right]
+\end{align*}
+```
+
 ### Simulation protocols
 
 ### Results
