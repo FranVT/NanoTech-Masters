@@ -1,5 +1,5 @@
 *.jld
-*.gif
+#*.gif
 *.aux
 *log
 *.lammps
