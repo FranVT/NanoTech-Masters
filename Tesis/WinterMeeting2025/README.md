@@ -8,29 +8,8 @@
 #### Interaction between patches
 
 ```math
-\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)
+U_{\mathrm{WCA}}\left(r\right) = 4\epsilon\left[\left(\right)^{12} + \left(\right)^{6}\right] + \epsilon,\qquad r\in\left[0,2^{1/6}\right]
 ```
-
-$$ \left(\frac{\sigma}{r}\right)^{12} -  \left(\frac{\sigma}{r}\right)^{6} $$
-
-```math
-\begin{gather*}
-    4\epsilon\left[\left(\frac{\sigma}{r}\right)^{12} -  \left(\frac{\sigma}{r}\right)^{6}\right] + \epsilon \\
-\frac{\sigma^{12}}{r^{12}} - \frac{\sigma^{6}}{r^{6}}
-\end{gather*}
-```
-$$\left(\frac{\sigma}{r}\right)$$
-
-$$(\frac{\sigma}{r})$$
-
-```math
-\left(\frac{\sigma}{r}\right)^{12} -  \left(\frac{\sigma}{r}\right)^{6}
-```
-
-$$\left(\frac{\sigma}{r}\right)$$
-
-**The Cauchy-Schwarz Inequality**\
-$$\left( \sum_{k=1}^n a_k b_k \right)^2 \leq \left( \sum_{k=1}^n a_k^2 \right) \left( \sum_{k=1}^n b_k^2 \right)$$
 
 ### Simulation protocols
 
