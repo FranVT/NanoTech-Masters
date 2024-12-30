@@ -21,15 +21,13 @@ $$ \left(\frac{\sigma}{r}\right)^{12} -  \left(\frac{\sigma}{r}\right)^{6} $$
 ```
 $$\left(\frac{\sigma}{r}\right)$$
 
-$$ (\frac{\sigma}{r}) $$
+$$(\frac{\sigma}{r})$$
 
 ```math
 \left(\frac{\sigma}{r}\right)
 ```
 
-$$
-\left(\frac{\sigma}{r}\right)
-$$
+$$\left(\frac{\sigma}{r}\right)$$
 
 
 ### Simulation protocols
