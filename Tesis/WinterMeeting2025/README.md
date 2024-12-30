@@ -17,7 +17,8 @@ U_{\mathrm{patchy}}\left(r_{\mu\upsilon}\right) = 2\epsilon_{\mu\upsilon}\left(\
 
 ```math
 \begin{align*}
-    U_{\mathrm{swap}}\left(r\right) = w\sum_{\lambda,\mu,upsilon}\epsilon_{\mu\epsilon}U_3\left(r_{\lambda,\mu}\right)U_3\left(r_{\lambda,\upsilon}\right),\quad r_{\mu\upsilon}\in\left[0,r_c\right]
+    U_{\mathrm{swap}}\left(r\right) &= w\sum_{\lambda,\mu,upsilon}\epsilon_{\mu\epsilon}U_3\left(r_{\lambda,\mu}\right)U_3\left(r_{\lambda,\upsilon}\right),\quad r_{\mu\upsilon}\in\left[0,r_c\right] \\
+    U_3\left(r\right) &= -\frac{U_{\mathrm{patchy}}\left(r\right)}{\epsilon_{\mu\epsilon}},\quad r_{\mu\epsilon}\in\left[0,r_c\right]
 \end{align*}
 ```
 
