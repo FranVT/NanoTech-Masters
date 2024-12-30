@@ -8,7 +8,11 @@
 #### Interaction between patches
 
 ```math
-U_{\mathrm{WCA}}\left(r\right) = 4\epsilon\left[\left(\right)^{12} + \left(\right)^{6}\right] + \epsilon,\qquad r\in\left[0,2^{1/6}\right]
+U_{\mathrm{WCA}}\left(r\right) = 4\epsilon\left[\left(\frac{\sigma}{r}\right)^{12} + \left(\frac{\sigma}{r}\right)^{6}\right] + \epsilon,\qquad r\in\left[0,2^{1/6}\right]
+```
+
+```math
+U_{\mathrm{patchy}}\left(r_{\mu\upsilon}\right) = 2\epsilon_{\mu\upsilon}\left(\frac{\simga^{4}_{p}}{2 r^{4}_{\mu\upsilon}}\right)
 ```
 
 ### Simulation protocols
