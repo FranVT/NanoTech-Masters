@@ -27,6 +27,10 @@ $$ (\frac{\sigma}{r}) $$
 \left(\frac{\sigma}{r}\right)
 ```
 
+$$
+\left(\frac{\sigma}{r}\right)
+$$
+
 
 ### Simulation protocols
 
