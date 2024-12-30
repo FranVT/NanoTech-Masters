@@ -12,7 +12,7 @@ U_{\mathrm{WCA}}\left(r\right) = 4\epsilon\left[\left(\frac{\sigma}{r}\right)^{1
 ```
 
 ```math
-U_{\mathrm{patchy}}\left(r_{\mu\upsilon}\right) = 2\epsilon_{\mu\upsilon}\left(\frac{\sigma^{4}_{p}}{2 r^{4}_{\mu\upsilon}}\right)\exp\qty[\frac{\sigma_p}{\left(r_{\mu\upsilon}-r_c\right)}+2],\quad r_{\mu\upsilon}\in\left[0,r_c\right]
+U_{\mathrm{patchy}}\left(r_{\mu\upsilon}\right) = 2\epsilon_{\mu\upsilon}\left(\frac{\sigma^{4}_{p}}{2 r^{4}_{\mu\upsilon}}\right)\exp\left[\frac{\sigma_p}{\left(r_{\mu\upsilon}-r_c\right)}+2\right],\quad r_{\mu\upsilon}\in\left[0,r_c\right]
 ```
 
 ### Simulation protocols
