@@ -38,3 +38,6 @@ U_{\mathrm{patchy}}\left(r_{\mu\upsilon}\right) = 2\epsilon_{\mu\upsilon}\left(\
 |----|----|
 | ![Deformation](https://github.com/FranVT/NanoTech-Masters/blob/main/Tesis/WinterMeeting2025/poster/figDef.png) | ![Relaxation](https://github.com/FranVT/NanoTech-Masters/blob/main/Tesis/WinterMeeting2025/poster/figRlx.png) |
 
+## Poster
+
+![poster](https://github.com/FranVT/NanoTech-Masters/blob/main/Tesis/WinterMeeting2025/poster/winterMeetingPoster.pdf)
