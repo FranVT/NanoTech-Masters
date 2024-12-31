@@ -24,12 +24,15 @@ U_{\mathrm{patchy}}\left(r_{\mu\upsilon}\right) = 2\epsilon_{\mu\upsilon}\left(\
 
 ### Simulation protocols
 
+| ![shear1Gif](https://github.com/FranVT/NanoTech-Masters/blob/main/Tesis/WinterMeeting2025/poster/shear_animation.gif) | |
+|----|----|
+
+
 ### Results
 
 
 | ![Stress](https://github.com/FranVT/NanoTech-Masters/blob/main/Tesis/WinterMeeting2025/poster/figStress.png) | ![Yield Stress](https://github.com/FranVT/NanoTech-Masters/blob/main/Tesis/WinterMeeting2025/poster/figYieldStress.png) |
 |----|----|
-
 | ![Deformation](https://github.com/FranVT/NanoTech-Masters/blob/main/Tesis/WinterMeeting2025/poster/figDef.png) | ![Relaxation](https://github.com/FranVT/NanoTech-Masters/blob/main/Tesis/WinterMeeting2025/poster/figRlx.png) |
 |----|----|
 
