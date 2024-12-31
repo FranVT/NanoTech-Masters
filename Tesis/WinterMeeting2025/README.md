@@ -25,6 +25,7 @@ U_{\mathrm{patchy}}\left(r_{\mu\upsilon}\right) = 2\epsilon_{\mu\upsilon}\left(\
 ### Simulation protocols
 
 | ![shear1Gif](https://github.com/FranVT/NanoTech-Masters/blob/main/Tesis/WinterMeeting2025/poster/shear-II_animation.gif) | ![shear2Gif](https://github.com/FranVT/NanoTech-Masters/blob/main/Tesis/WinterMeeting2025/poster/shear-III_animation.gif) |
+|----|----|
 | ![shear-rlx1Gif](https://github.com/FranVT/NanoTech-Masters/blob/main/Tesis/WinterMeeting2025/poster/shear-relaxation_animation.gif) | ![shear-rlx2Gif](https://github.com/FranVT/NanoTech-Masters/blob/main/Tesis/WinterMeeting2025/poster/relaxation-shear_animation.gif) |
 |----|----|
 
