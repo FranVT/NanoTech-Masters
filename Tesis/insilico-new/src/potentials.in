@@ -1,0 +1,15 @@
+# Scriptwith the pair-wise interaction parameters
+
+bond_coeff * nocoeff
+pair_coeff 1 3 zero # No interaction between CL_C-P Patch CL
+pair_coeff 1 4 zero # No interaction between CL_C-P Patch MO
+pair_coeff 2 3 zero # No interaction between MO_C-P Patch CL
+pair_coeff 2 4 zero # No interaction between MO_C-P Patch MO 
+pair_coeff 3 3 zero # No interaction between Patches of CL
+pair_coeff 1 1 lj/cut/omp 1.0 1.0 1.122462 # Interaction between CL C-P
+pair_coeff 2 2 lj/cut/omp 1.0 1.0 1.122462 # Interaction between MO C-P
+pair_coeff 1 2 lj/cut/omp 1.0 1.0 1.122462 # Interaction between CL MO C-P
+pair_coeff 3 4 table/omp sysFiles/pachTab.table POT 0.6 # Patch CL - Patch MO
+pair_coeff 4 4 table/omp sysFiles/pachTab.table POT 0.6 # Patch MO - Patch MO
+pair_coeff * * threebody/table swapMeach.3b NULL NULL PCL PMO # Swap mechanism
+pair_modify pair lj/cut/omp shift yes # Transform LJ to WCA
