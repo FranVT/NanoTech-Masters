@@ -1,0 +1,33 @@
+# Fco. Vazquez-Tavares
+
+# Simulation box set up
+units lj
+dimension 3
+boundary p p p
+
+# Styles and parameters
+atom_style bond
+bond_style zero nocoeff
+pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 1.122462 table/omp linear 5000000 threebody/table
+
+# Reciprocal interactions (3rd law)
+newton on
+
+# Create simulation box
+region simulation_box block -$L $L -$L $L -$L $L
+create_box 4 simulation_box &
+    bond/types 1 &
+    extra/bond/per/atom 4 &
+    extra/special/per/atom 5
+
+# Define mass of each particle
+mass 1 1.0
+mass 2 1.0
+mass 3 1.0
+mass 4 1.0
+
+# Potentials
+include potentials.in
+
+# Patchy particles
+include patchyParticles.in
