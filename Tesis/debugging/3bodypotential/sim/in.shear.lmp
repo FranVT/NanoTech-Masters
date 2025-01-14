@@ -1,0 +1,116 @@
+# LAMMPS script for shear deformation simulaiton
+
+# Fco. Vazquez and Felipe Benavides
+
+units lj
+dimension 3
+boundary p p p
+
+# Styles of atoms and that stuff
+atom_style bond
+bond_style zero nocoeff
+pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 1.122462 table/omp linear 5000000 threebody/table
+newton on
+
+read_data data.hydrogel extra/bond/per/atom 4 extra/special/per/atom 5
+
+change_box all triclinic
+
+# Coefficients
+include potential.in
+
+# Molecules
+include molDeform.in
+
+# COMPUTES
+
+# Compute global kinetic and potential energy and temperature
+compute t all temp
+compute tCM CM temp
+compute td all temp/deform
+compute p all pressure t
+compute ep all pe
+compute ek all ke
+compute ekCM CM ke
+variable ec equal ecouple
+variable eC equal econserve
+compute stressVirial all pressure t ke pair
+compute wcaPair all pair lj/cut/omp epair
+compute patchPair all pair table/omp epair
+compute swapPair all pair threebody/table epair
+compute disc CM displace/atom
+compute daux CM chunk/atom type pbc yes
+compute dis CM reduce/chunk daux sum c_disc[4]
+#compute disM CM reduce/chunk 2 sum c_disc[4]
+
+# DUMPS and FIXES
+
+# Save atom positions
+dump dumpID all atom ${Ndump} ${dumpDir}/shear/patchyParticles_shear.*.dumpf
+dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
+
+# Save global energies and temperature
+group Energy empty
+group PairE1 empty
+group PairE2 empty
+group PairE3 empty
+group PairE4 empty
+
+fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_ep c_ek c_tCM c_p c_td file ${Dir}/energy_shear.fixf
+
+fix fixwca PairE1 ave/time 1 ${Nsave} ${Nsave} c_wcaPair file ${Dir}/wcaPair_shear.fixf
+fix fixpatch PairE2 ave/time 1 ${Nsave} ${Nsave} c_patchPair file ${Dir}/patchPair_shear.fixf
+fix fixswap PairE3 ave/time 1 ${Nsave} ${Nsave} c_swapPair file ${Dir}/swapPair_shear.fixf
+fix fixLang PairE4 ave/time 1 ${Nsave} ${Nsave} v_ec file ${Dir}/langevinPot_shear.fixf
+
+
+# Save Atom displacement
+group Displ empty
+fix fixDispl Displ ave/time 1 ${NsaveStress} ${NsaveStress} c_dis[1] c_dis[2] c_dis[3] c_dis[4] file ${Dir}/cmdisplacement_shear.fixf
+
+# Save Stress tensor
+group Stress empty
+fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_stressVirial[*] file ${Dir}/stressVirial_shear.fixf
+
+thermo ${NsaveStress}
+
+# RUN SIMULATION
+
+# Brownian Dynamics using Langevin Thermostat
+
+# Set the time integrator
+
+fix rigidBodies all rigid/nve/small molecule langevin ${temp} ${temp} ${damp} ${seed3} 
+fix_modify rigidBodies virial no temp td # No contribution to the stress
+
+#variable shearDirection equal xy
+#variable maxTilt equal 0.5*lx
+#variable restoreTilt equal -v_maxTilt
+#variable shear_distance equal ${shear_rate}*lx*${tstep}
+
+timestep ${tstep}
+
+fix shear all deform 1 xy erate ${shear_rate} remap v flip yes
+run ${shear_it}
+unfix shear
+
+run ${rlxT1}
+
+fix shear all deform 1 xy erate ${shear_rate} remap v flip yes
+run ${shear_it}
+unfix shear
+
+run ${rlxT2}
+
+fix shear all deform 1 xy erate ${shear_rate} remap v flip yes
+run ${shear_it}
+unfix shear
+
+run ${rlxT3}
+
+fix shear all deform 1 xy erate ${shear_rate} remap v flip yes
+run ${shear_it}
+unfix shear
+
+run ${rlxT4}
+
