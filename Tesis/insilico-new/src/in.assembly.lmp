@@ -31,3 +31,68 @@ include potentials.in
 
 # Patchy particles
 include patchyParticles.in
+
+# Computes
+
+compute t all temp
+compute tCM Central temp
+compute p all pressure t
+compute ep all pe
+compute ek all ke
+
+variable ec equal ecouple
+variable eC equal econserve
+
+compute virialStress all pressure t ke pair
+
+compute pairWCA all pair lj/cut/omp epair
+compute pairPatch all pair table/omp epair
+compute pairSwap all pair threebody/table epair
+
+# Dumps and Fixes files
+
+thermo ${NsaveStress}
+
+# Save atoms positions
+dump dumpID all atom ${Ndump} ${dumpDir}/assembly/system_assembly.*.dumpf
+dump_modify dumpID pbc yes
+
+# Save global energues and temperature
+group energy empty
+fix fixEng energy ave/time 1 ${Nsave} ${Nsave} c_ep c_ek c_t c_tCM c_p v_ec v_eC file ${Dir}/system_assembly.fixf
+
+# Save the pontential energy of the interactions
+group epair1 empty
+group epair2 empty
+group epair3 empty
+group epair4 empty
+
+fix fixwca epair1 ave/time 1 ${Nsave} ${Nsave} c_pairWCA file ${Dir}/wca_assembly.fixf
+fix fixpatch epair2 ave/time 1 ${Nsave} ${Nsave} c_pairPatch file ${Dir}/patch_assembly.fixf
+fix fixswap epair3 ave/time 1 ${Nsave} ${Nsave} c_pairSwap file ${Dir}/swap_assembly.fixf
+fix fixlang epair4 ave/time 1 ${Nsave} ${Nsave} v_ec file ${Dir}/langevin_assembly.fixf
+
+# Save Stress tensor as the virial stress tensor
+group stress empty
+fix fixStress stress ave/time 1 ${NsaveStress} ${NsaveStress} c_virialStress[*] file ${Dir}/virialStress_assembly.fixf
+
+# Run Simulation
+
+timestep ${tstep}
+
+fix rigidBodies all rigid/nve/small molecule langevin 0.0 ${temp} ${damp} ${seed3}
+fix_modify rigidBodies virial no
+
+run ${stepsheat}
+
+unfix rigidBodies
+
+fix rigidBodies all rigid/nve/small molecule langevin ${temp} ${temp} ${damp} ${seed3}
+fix_modify rigidBodies virial no
+
+run ${stepsassembly}
+
+# Write data for deformation
+write_data data.hydrogel
+
+

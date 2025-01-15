@@ -11,5 +11,5 @@ pair_coeff 2 2 lj/cut/omp 1.0 1.0 1.122462 # Interaction between MO C-P
 pair_coeff 1 2 lj/cut/omp 1.0 1.0 1.122462 # Interaction between CL MO C-P
 pair_coeff 3 4 table/omp sysFiles/pachTab.table POT 0.6 # Patch CL - Patch MO
 pair_coeff 4 4 table/omp sysFiles/pachTab.table POT 0.6 # Patch MO - Patch MO
-pair_coeff * * threebody/table swapMeach.3b NULL NULL PCL PMO # Swap mechanism
+pair_coeff * * threebody/table swapMech.3b NULL NULL PA PB # Swap mechanism
 pair_modify pair lj/cut/omp shift yes # Transform LJ to WCA
