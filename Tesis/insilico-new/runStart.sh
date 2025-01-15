@@ -12,11 +12,11 @@ rm -rf info*;
 cd ..; 
 
 ## Start the for loop
-for var_shearRate in 0.01; #0.1 0.01 0.001;
+for var_shearRate in 0.1; #0.1 0.01 0.001;
 do
-for var_cCL in 0.5; #0.06 0.1;
+for var_cCL in 0.25; #0.06 0.1;
 do 
-for Nexp in 3; #$(seq 1 15);
+for Nexp in 4; #$(seq 1 15);
 do
 
 # Cifras significativas
@@ -33,9 +33,9 @@ r_Parti=0.5;
 r_Patch=0.2;
 
 # Main parameters of the simulation
-phi=0.5;
+phi=0.25;
 CL_concentration=$var_cCL; #0.1;
-N_particles=6;
+N_particles=200;
 damp=0.5; #0.002; #0.05;
 T=0.05;
 
@@ -69,7 +69,7 @@ L=$(echo "scale=$cs; $L_real / 2" | bc);
 
 # Numerical parameters for LAMMPS simulation
 stepsheat=250000;
-steps=250000;
+steps=1000000;
 tstep=0.001;
 
 ## Variables for shear deformation simulation

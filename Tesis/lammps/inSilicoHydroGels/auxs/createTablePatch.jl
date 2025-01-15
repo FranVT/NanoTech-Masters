@@ -25,6 +25,18 @@ function Fpatch(eps_pair,sig_p,r_c,r)
     end
 end
 
+function DiffEval(eps_pair,sig_p,r)
+"""
+    Get the central finite difference given the value of the position and the function.
+"""
+    dh=1e-6;
+    fo=Upatch(eps_pair,sig_p,r+dh)
+    ff=Upatch(eps_pair,sig_p,r-dh)
+    return (1/(2*dh))*( fo - ff );
+end
+
+
+
 # Parameters
 N = 1000000;
 sig = 0.4;
@@ -35,7 +47,10 @@ rmax = 2*sig;
 r_dom = range(rmin,rmax,length=N);
 
 # Create the table
-info = map(s->(s,r_dom[s],Upatch(eps,sig,r_dom[s]),Fpatch(eps,sig,rc,r_dom[s])),eachindex(r_dom));
+#info = map(s->(s,r_dom[s],Upatch(eps,sig,r_dom[s]),Fpatch(eps,sig,rc,r_dom[s])),eachindex(r_dom));
+
+info = map(s->(s,r_dom[s],Upatch(eps,sig,r_dom[s]),-DiffEval(eps,sig,r_dom[s])),eachindex(r_dom));
+
 
 # Start to write the data file
     touch(filename); # Create the file
