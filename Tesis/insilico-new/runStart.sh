@@ -14,9 +14,9 @@ cd ..;
 ## Start the for loop
 for var_shearRate in 0.1; #0.1 0.01 0.001;
 do
-for var_cCL in 0.25; #0.06 0.1;
+for var_cCL in 0.2; #0.06 0.1;
 do 
-for Nexp in 4; #$(seq 1 15);
+for Nexp in 1; #$(seq 1 15);
 do
 
 # Cifras significativas
@@ -35,7 +35,7 @@ r_Patch=0.2;
 # Main parameters of the simulation
 phi=0.25;
 CL_concentration=$var_cCL; #0.1;
-N_particles=200;
+N_particles=1000;
 damp=0.5; #0.002; #0.05;
 T=0.05;
 
@@ -68,7 +68,7 @@ L_real=$(echo "scale=$cs; e( l($Vol_Tot)/3 )" | bc -l );
 L=$(echo "scale=$cs; $L_real / 2" | bc);
 
 # Numerical parameters for LAMMPS simulation
-stepsheat=250000;
+stepsheat=1000;
 steps=1000000;
 tstep=0.001;
 

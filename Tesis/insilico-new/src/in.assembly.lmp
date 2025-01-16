@@ -9,6 +9,7 @@ boundary p p p
 atom_style bond
 bond_style zero nocoeff
 pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 1.122462 table/omp linear 1000000 threebody/table
+#pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 1.122462 threebody/table
 
 # Reciprocal interactions (3rd law)
 newton on
@@ -75,7 +76,6 @@ fix fixlang epair4 ave/time 1 ${Nsave} ${Nsave} v_ec file ${Dir}/langevin_assemb
 # Save Stress tensor as the virial stress tensor
 group stress empty
 fix fixStress stress ave/time 1 ${NsaveStress} ${NsaveStress} c_virialStress[*] file ${Dir}/virialStress_assembly.fixf
-
 
 # Run Simulation
 

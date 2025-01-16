@@ -2,10 +2,10 @@
 
 bond_coeff * nocoeff
 pair_coeff 1 3 zero # No interaction between CL_C-P Patch CL
-pair_coeff 1 4 zero # No interaction between CL_C-P Patch MO
-pair_coeff 2 3 zero # No interaction between MO_C-P Patch CL
+pair_coeff 1 4 zero # lj/cut/omp 1.0 0.7 0.785723 # No interaction between CL_C-P Patch MO
+pair_coeff 2 3 zero # lj/cut/omp 1.0 0.7 0.785723 # No interaction between MO_C-P Patch CL
 pair_coeff 2 4 zero # No interaction between MO_C-P Patch MO 
-pair_coeff 3 3 zero # No interaction between Patches of CL
+pair_coeff 3 3 zero # lj/cut/omp 1.0 0.4 0.448984 # No interaction between Patches of CL
 pair_coeff 1 1 lj/cut/omp 1.0 1.0 1.122462 # Interaction between CL C-P
 pair_coeff 2 2 lj/cut/omp 1.0 1.0 1.122462 # Interaction between MO C-P
 pair_coeff 1 2 lj/cut/omp 1.0 1.0 1.122462 # Interaction between CL MO C-P
