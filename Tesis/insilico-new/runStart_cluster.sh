@@ -4,13 +4,15 @@
 
 #!/bin/bash
 
-
-# clean the directory from previus simulations
+# Clean the directory from previus simulations
 cd src;
-rm -f runSim*;
-rm -rf info*;
-cd ..; 
 
+rm -f *.sge;
+rm -f *.po*;
+rm -f *.o*;
+rm -rf info*;
+
+cd ..;
 
 # Cifras significativas
 cs=6;
@@ -207,18 +209,49 @@ file_name=""runSim_ShearRate"${shear_rate}"CL"${var_cCL}"N"${Nexp}".sh"";
 info_name=""infoPhi"${phi_aux}"NPart"${N_particles}"damp"${damp_aux}"T"${T_aux}"cCL"${CL_con}"ShearRate"${shear_aux}"-Nexp"${Nexp}";
 dump_name=""dumpPhi"${phi_aux}"NPart"${N_particles}"damp"${damp_aux}"T"${T_aux}"cCL"${CL_con}"ShearRate"${shear_aux}"-Nexp"${Nexp}";
 
-nodes=8;
+nodes=4;
 
 touch $file_name;
 echo -e "#!/bin/bash" >> $file_name;
+echo -e "# Use current working directory" >> $file_name;
+echo -e "#$ -cwd" >> $file_name;
+echo -e "#" >> $file_name;
+echo -e "# Join stdout and stderr" >> $file_name;
+echo -e "#$ -j yes" >> $file_name;
+echo -e "#" >> $file_name;
+echo -e "# Run job through bash shell" >> $file_name;
+echo -e "#$ -S /bin/bash" >> $file_name;
+echo -e "# " >> $file_name;
+echo -e "# Set the number of nodes for parallel computation" >> $file_name;
+echo -e "#$ -pe mpich ${nodes}" >> $file_name;
+echo -e "# " >> $file_name;
+echo -e "# Job name" >> $file_name;
+echo -e "# -N Experiment_tries" >> $file_name;
+echo -e "# " >> $file_name;
+echo -e "# Send an email after the job has finished" >> $file_name;
+echo -e "# -m e" >> $file_name;
+echo -e "# -M vazqueztf@proton.me" >> $file_name;
+echo -e "# " >> $file_name;
+echo -e "# Modules neede" >> $file_name;
+echo -e ". /etc/profile.d/modules.sh" >> $file_name;
+echo -e "# " >> $file_name;
+echo -e "# Add modules that you might require:" >> $file_name;
+echo -e "module load python37/3.7.6 " >> $file_name;
+echo -e "module load gcc/8.3.0" >> $file_name;
+echo -e "module load openmpi/gcc/64/1.10.1">> $file_name;
 echo -e "" >> $file_name;
 echo -e "mkdir $info_name;" >> $file_name;
 echo -e "mkdir $dump_name;" >> $file_name;
+#echo -e "cd $info_name; mkdir dumps; cd dumps;" >> $file_name;
 echo -e "cd $dump_name; mkdir assembly; mkdir shear; cd ..;" >> $file_name;
 echo -e "" >> $file_name;
-echo -e "env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.assembly.lmp -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3  -var tstep $tstep -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var Dir $info_name -var dumpDir $dump_name" -var stepsassembly $steps -var stepsheat $stepsheat >> $file_name;
+echo -e "mpirun -n ${nodes} /mnt/MD1200B/cferreiro/fbenavides/lammps-2Aug2023/src/lmp_mpi -in in.assembly.lmp -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3  -var tstep $tstep -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var Dir $info_name -var dumpDir $dump_name" -var steps $steps -var stepsheat $stepsheat >> $file_name;
 echo -e "" >> $file_name;
-echo -e "env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.shear.lmp -var temp $T -var damp $damp -var tstep $tstep_defor -var shear_rate $shear_rate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var seed3 $seed3  -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var Dir $info_name -var dumpDir $dump_name" >> $file_name;
+echo "echo -e "\n End of Assembly simulation, start of Deformation simulation \n"" >> $file_name
+echo -e "" >> $file_name;
+echo -e "mpirun -n ${nodes} /mnt/MD1200B/cferreiro/fbenavides/lammps-2Aug2023/src/lmp_mpi -in in.shear.lmp -var temp $T -var damp $damp -var tstep $tstep_defor -var shear_rate $shear_rate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var seed3 $seed3  -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var Dir $info_name -var dumpDir $dump_name" >> $file_name;
+echo -e "" >> $file_name;
+echo "echo -e "\n End of Deformation simulation \n"" >> $file_name
 echo -e "" >> $file_name;
 echo -e "mv $info_name ..; mv $dump_name ..; mv data.hydrogel ..; mv data.firstShear .." >> $file_name;
 echo -e "cd ..;" >> $file_name;
@@ -227,7 +260,7 @@ echo -e "mv -f data.firstShear data/storage/$dir_name/info;" >> $file_name;
 echo -e "mv -f data.hydrogel data/storage/$dir_name/info;" >> $file_name;
 echo -e "mv -f $dump_name data/storage/dumps;" >> $file_name;
 
-bash $file_name
+qsub $file_name 
 
 cd ..;
 

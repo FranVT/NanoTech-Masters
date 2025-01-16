@@ -9,7 +9,6 @@ boundary p p p
 atom_style bond
 bond_style zero nocoeff
 pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 1.122462 table/omp linear 1000000 threebody/table
-#pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 1.122462 threebody/table
 
 # Reciprocal interactions (3rd law)
 newton on
