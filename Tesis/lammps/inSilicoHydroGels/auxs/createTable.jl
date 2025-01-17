@@ -62,7 +62,7 @@ rmin = sig/1000;
 rmax = 2*sig;
 thi = 180/(4*N)
 thf = 180 - thi;
-w=20;
+w=1;
 
 # Create the domains of evaluation according filename nessetities
 th_dom = range(thi,thf,2*N);

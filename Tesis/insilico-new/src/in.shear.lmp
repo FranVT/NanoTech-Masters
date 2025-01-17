@@ -28,7 +28,6 @@ include molDeform.in
 
 # Compute global kinetic and potential energy and temperature
 compute t all temp
-compute tCM CM temp
 compute td all temp/deform
 compute p all pressure t
 compute ep all pe
@@ -55,7 +54,7 @@ group PairE1 empty
 group PairE2 empty
 group PairE3 empty
 
-fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_ep c_ek c_tCM c_p c_td file ${Dir}/energy_shear.fixf
+fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_ep c_ek c_p c_td file ${Dir}/system_shear.fixf
 
 fix fixwca PairE1 ave/time 1 ${Nsave} ${Nsave} c_wcaPair file ${Dir}/wcaPair_shear.fixf
 fix fixpatch PairE2 ave/time 1 ${Nsave} ${Nsave} c_patchPair file ${Dir}/patchPair_shear.fixf
@@ -76,13 +75,11 @@ thermo ${NsaveStress}
 # Brownian Dynamics using Langevin Thermostat
 
 # Set the time integrator
-#fix VelVerlet all nve # Use Velocity Verlet integrator
-#fix ThermoLng all langevin ${temp} ${temp} ${damp} ${seed3} zero yes # Brownian Dynamics: langevin + nve
+
+timestep ${tstep}
 
 fix rigidBodies all rigid/nve/small molecule langevin ${temp} ${temp} ${damp} ${seed3}
 fix_modify rigidBodies temp td virial no
-
-timestep ${tstep}
 
 fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
 run ${shear_it}
@@ -90,17 +87,22 @@ unfix shear
 
 write_data data.firstShear
 
+fix_modify rigidBodies temp t virial no
 run ${rlxT1}
 
 fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
+fix_modify rigidBodies temp td virial no
 run ${shear_it}
 unfix shear
 
+fix_modify rigidBodies temp t virial no
 run ${rlxT2}
 
 fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
+fix_modify rigidBodies temp td virial no
 run ${shear_it}
 unfix shear
 
+fix_modify rigidBodies temp t virial no
 run ${rlxT3}
 

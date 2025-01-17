@@ -11,7 +11,6 @@ rm -f runSim*;
 rm -rf info*;
 cd ..; 
 
-
 # Cifras significativas
 cs=6;
 
@@ -40,7 +39,7 @@ r_aux=$(echo "scale=$cs; $r_ghost * $r_ghost * $r_ghost" | bc);
 Vol_ghost=$(echo "scale=$cs; $f_scl * $pi * $r_ghost" | bc);
 
 # Numerical parameters for LAMMPS simulation
-stepsheat=1000;
+stepsheat=250000;
 steps=1000000;
 tstep=0.001;
 
@@ -49,20 +48,19 @@ tstep_defor=0.001;
 sstep_defor=10000;
 
 # Max strain in the simulation
-max_strain=1;
+max_strain=2;
 
 # Time steps for each relax period
 relaxTime1=5000;
 relaxTime2=5000; 
 relaxTime3=5000;
 
-
 ## Start the for loop
 for var_shearRate in 0.1; #0.1 0.01 0.001;
 do
 for var_cCL in 0.2; #0.06 0.1;
 do 
-for Nexp in 5; #$(seq 1 15);
+for Nexp in 1; #$(seq 1 15);
 do
 
 # Seed for random numbers
