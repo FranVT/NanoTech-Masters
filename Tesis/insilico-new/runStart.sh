@@ -26,17 +26,7 @@ damp=0.5; #0.002; #0.05;
 T=0.05;
 
 # Compute the size of the box to get he given packing fraction
-
-# Pi
-pi=$(echo "scale=$cs; 4*a(1)" | bc -l);
-# Ratio of volume 
-f_scl=$(echo "scale=$cs; 4/3" | bc);
-# Ghost radius to ensure allocation in the box
-r_ghost=$(echo "scale=$cs; $r_Parti + $(echo "scale=$cs; $r_Patch / 2" | bc)" | bc);
-r_aux=$(echo "scale=$cs; $r_ghost * $r_ghost * $r_ghost" | bc);
-
-# Compute the volume necesary for all the partilces
-Vol_ghost=$(echo "scale=$cs; $f_scl * $pi * $r_ghost" | bc);
+Vol_ghost=0.8; # Volume of ghost particle to approximate the packing fraction ratio
 
 # Numerical parameters for LAMMPS simulation
 stepsheat=250000;
@@ -77,9 +67,7 @@ N_CL=${N_CL%.*};
 N_MO=$(( $N_particles - $N_CL ));
 
 # Compute total volume of the N patchy particles
-Vol_CLg=$(echo "scale=$cs; $Vol_ghost * $N_CL" | bc);
-Vol_MOg=$(echo "scale=$cs; $Vol_ghost * $N_MO" | bc);
-Vol_Totg=$(echo "scale=$cs; $Vol_CLg + $Vol_MOg" | bc);
+Vol_Totg=$(echo "scale=$cs; $Vol_ghost * $N_particles" | bc);
 
 # Get the total volume needed taking into account the packing fraction
 Vol_Tot=$(echo "scale=$cs; $Vol_Totg / $phi" | bc);
@@ -159,7 +147,7 @@ echo -e ""- Max deformation per cycle: "${max_strain}" >> $file_name;
 echo -e ""- Number of time steps per deformation: "${Nstep_per_strain}" >> $file_name;
 echo -e ""- Number of time steps for Relax steps 1: "${relaxTime1}" >> $file_name;
 echo -e ""- Number of time steps for Relax steps 2: "${relaxTime2}" >> $file_name;
-echo -e ""- Number of time steps for Relax steps 4: "${relaxTime4}" >> $file_name;
+echo -e ""- Number of time steps for Relax steps 3: "${relaxTime3}" >> $file_name;
 echo -e ""- Save every "${Ndump}" time steps for dumps files"" >> $file_name;
 echo -e ""- Save every "${Nsave}" time steps for fix files"" >> $file_name;
 echo -e ""- Save every "${NsaveStress}" time steps for Stress fix files"" >> $file_name;
