@@ -1,0 +1,46 @@
+#!/bin/bash
+# Use current working directory
+#$ -cwd
+#
+# Join stdout and stderr
+#$ -j yes
+#
+# Run job through bash shell
+#$ -S /bin/bash
+# 
+# Set the number of nodes for parallel computation
+#$ -pe mpich 6
+# 
+# Job name
+# -N Experiment_tries
+# 
+# Send an email after the job has finished
+# -m e
+# -M vazqueztf@proton.me
+# 
+# Modules neede
+. /etc/profile.d/modules.sh
+# 
+# Add modules that you might require:
+module load python37/3.7.6 
+module load gcc/8.3.0
+module load openmpi/gcc/64/1.10.1
+
+mkdir infoPhi5500NPart8000damp5000T500cCL300ShearRate50-Nexp100;
+mkdir dumpPhi5500NPart8000damp5000T500cCL300ShearRate50-Nexp100;
+cd dumpPhi5500NPart8000damp5000T500cCL300ShearRate50-Nexp100; mkdir assembly; mkdir shear; cd ..;
+
+mpirun -n 6 /mnt/MD1200B/cferreiro/fbenavides/lammps-2Aug2023/src/lmp_mpi -in in.assembly.lmp -var temp 0.05 -var damp 0.5 -var L 16.594292 -var NCL 240 -var NMO 7760 -var seed1 1334 -var seed2 4421 -var seed3 110  -var tstep 0.001 -var Nsave 10 -var NsaveStress 1000 -var Ndump 100 -var Dir infoPhi5500NPart8000damp5000T500cCL300ShearRate50-Nexp100 -var dumpDir dumpPhi5500NPart8000damp5000T500cCL300ShearRate50-Nexp100 -var steps 8000000 -var stepsheat 1000000
+
+echo -e n End of Assembly simulation, start of Deformation simulation n
+
+mpirun -n 6 /mnt/MD1200B/cferreiro/fbenavides/lammps-2Aug2023/src/lmp_mpi -in in.shear.lmp -var temp 0.05 -var damp 0.5 -var tstep 0.001 -var shear_rate 0.005 -var max_strain 20 -var Nstep_per_strain 200000 -var shear_it 4000000 -var Nsave 10 -var NsaveStress 1000 -var Ndump 100 -var seed3 110  -var rlxT1 1000000 -var rlxT2 1000000 -var rlxT3 1000000 -var Dir infoPhi5500NPart8000damp5000T500cCL300ShearRate50-Nexp100 -var dumpDir dumpPhi5500NPart8000damp5000T500cCL300ShearRate50-Nexp100
+
+echo -e n End of Deformation simulation n
+
+mv infoPhi5500NPart8000damp5000T500cCL300ShearRate50-Nexp100 ..; mv dumpPhi5500NPart8000damp5000T500cCL300ShearRate50-Nexp100 ..; mv data.hydrogel ..; mv data.firstShear ..
+cd ..;
+mv -f infoPhi5500NPart8000damp5000T500cCL300ShearRate50-Nexp100 data/storage/systemTotalFreePhi5500NPart8000damp5000T500cCL300ShearRate50-Nexp100/info;
+mv -f data.firstShear data/storage/systemTotalFreePhi5500NPart8000damp5000T500cCL300ShearRate50-Nexp100/info;
+mv -f data.hydrogel data/storage/systemTotalFreePhi5500NPart8000damp5000T500cCL300ShearRate50-Nexp100/info;
+mv -f dumpPhi5500NPart8000damp5000T500cCL300ShearRate50-Nexp100 data/storage/dumps;
