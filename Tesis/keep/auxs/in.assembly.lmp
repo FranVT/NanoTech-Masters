@@ -1,0 +1,75 @@
+units lj 
+dimension 3
+boundary p p p
+
+atom_style bond
+bond_style zero nocoeff
+region simulation_box block -10 10 -10 10 -10 10
+create_box 4 simulation_box bond/types 1 extra/bond/per/atom 4 extra/special/per/atom 5
+
+mass 1.0
+mass 1.0
+mass 0.5
+mass 0.5
+
+bond_coeff * nocoeff
+pair_coeff 1 3 zero
+pair_coeff 1 4 zero
+pair_coeff 2 3 zero
+pair_coeff 2 4 zero
+pair_coeff 3 3 zero
+pair_coeff 1 1 lj/cut/omp 1.0 1.0 1.12
+pair_coeff 2 2 lj/cut/omp 1.0 1.0 1.12
+pair_coeff 1 2 lj/cut/omp 1.0 1.0 1.12
+pair_modify shift yes
+pair_coeff 3 4 table/omp pachTab.table POT 0.6
+pair_coeff 4 4 table/omp pachTab.table POT 0.6
+
+molecule CL molecule.patchy.CL
+molecule MO molecule.patchy.MO
+
+region spawn_box block -10 10 -10 10 -10 10
+
+create_atoms 0 random 50 34512 spawn_box mol CL 34512 overlap 1.0 maxtry 5000
+create_atoms 0 random 450 31245 spawn_box mol MO 31245 overlap 1.0 maxtry 5000
+
+group CrossLinker type 1 3
+group Monomer type 2 4
+group Patches type 3 4
+group CL type 1
+group MO type 2
+group CM type 1 2
+group Energy empty
+
+fix pCL CrossLinker rigid/small/omp molecule
+fix pMO Monomer rigid/small/omp molecule
+
+neighbor 1.8 bin
+neigh_modify exclude molecule/intra CrossLinker
+neigh_modify exclude molecule/intra Monomer
+
+fix langevinFix all langevin 0.05 0.05 0.5 12345
+thermo 1000
+
+compute t all temp
+compute ep all pe
+compute ek all ke
+compute cluster all aggregate/atom 0.6
+compute cc1 all chunk/atom c_cluster compress yes pbc yes
+compute size all property/chunk cc1 count
+compute vorCompSimple CM voronoi/atom only_group
+compute vorCompHisto CM voronoi/atom only_group edge_histo 18 edge_threshold 0
+
+dump dumpID all atom 1000 info/patchyParticles_assembly.dumpf
+dump_modify dumpID pbc yes
+dump dumpNew all custom 10000000 newdata_assembly.dumpf id type mol x y z c_cluster
+dump_modify dumpNew delay 10000000
+dump dumpVor CM custom 10000000 info/voronoiSimple_assembly.dumpf c_vorCompSimple[1] c_vorCompSimple[2]
+dump_modify dumpVor delay 10000000
+
+fix fixvorHisto CM ave/time 1 1 10000000 c_vorCompHisto file info/vorHisto_assembly.fixf mode vector
+fix fixEng Energy ave/time 1 1 10 c_t c_ep c_ek file info/energy_assembly.fixf
+fix 1 all ave/time 1 1 10000000 c_size file info/sizeCluster_assembly.fixf mode vector
+
+timestep 0.05
+ run 10000000

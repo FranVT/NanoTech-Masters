@@ -1,0 +1,209 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+\section{Assembly of the network}\label{sec:descriptionSimulation}
+
+The simulation methodology is based on \cite{gnanSilicoSynthesisMicrogel2017} and \cite{sorichettiStructureElasticityModel2023}, with the objective of create a representative polymer structure of a hydro-gel and characterize its rheological properties.
+This methodology creates the desire structure by creating an interaction between two types of patchy particles.
+One type of patchy particle represent a Crosslinker and is define with 5 particles, one at the center and the rest are placed in the vertices of a tetrahedron that circumscribes the center particle.
+The other type of patchy particle represent a Monomer and is define with 3 particles, one at the center and the rest are placed at the poles of the center particle with an 180 degrees between them.
+Prior to describe with detail the methodology, it is important mention that to from now on I will refer to the center particle of the Crosslinker patchy particle as ``CL'' and the particles around CL as ``PA''.
+Naturally, the center particle of the Monomer patchy particle as ``MO'' and the particles around MO as ``PB''.
+
+The proposed methodology to create hydro-gels considers that the geometry of the position of the PA and PB are the same in all the patchy particles and does not change during the simulation.
+Also, takes into account the following interactions: CL$\longleftrightarrow$MO, PA$\longleftrightarrow$PB, PB$\longleftrightarrow$PB.
+The CL$\longleftrightarrow$MO interaction is repulsive, and the PA$\longleftrightarrow$PB, PB$\longleftrightarrow$PB interactions are attractive.
+
+There are 3 principal models.
+
+%However, the main difference between the articles cited and the simulations implemented is the absence of FENE bonds and Swelling potential.
+
+% because part of the exploration is to analyze what happen in the deformation if the interactions between crosslinker and monomer can swap.
+
+\subsection{Potentials}\label{subsec:Potentials}
+
+The potentials that describes the interactions mentioned above are a WCA and a threebodody potential.
+The threbody helps to swap interaction between patchy particles and the WCA to add repulsive behaviour of CL and MO.
+
+\begin{gather}
+    U_{WCA}(r) = 4\epsilon\left[\qty(\frac{\sigma}{r})^{12}-\qty(\frac{\sigma}{r})^6\right]+\epsilon,\quad r\in[0,2^{1/6}\sigma]\label{eqn:CL-MO_interaction}
+\end{gather}
+
+\begin{gather}
+    U_{\mathrm{patchy}}\qty(r_{\mu\upsilon}) = 2\epsilon_{\mu\upsilon}\left(\frac{\sigma_p^4}{2 r_{\mu\upsilon}^4}-1\right)\exp\left[\frac{\sigma_p}{\qty(r_{\mu\upsilon}-r_{c})}+2\right],\quad r_{\mu\upsilon}\in\qty[0,r_c] \label{eqn:patch-patch_interaction}
+\end{gather}
+
+\begin{gather}
+	U_{\mathrm{swap}}(r) = w\sum_{\lambda,\mu,\upsilon}\epsilon_{\mu\upsilon}U_3\qty(r_{\lambda,\mu})U_3\qty(r_{\lambda,\upsilon}),\quad r_{\mu\upsilon}\in\qty[0,r_c]\label{eqn:swap_interaction}
+\end{gather}
+
+\begin{gather}
+	U_{3} = -U_{\mathrm{patchy}}\qty(r)/\epsilon_{\mu\upsilon}\label{eqn:swapmod_interaction},\quad r_{\mu\upsilon}\in\qty[0,r_c]
+\end{gather}
+
+\subsection{Tables}
+
+To use those potentials in LAMMPS we need to declare the force at a given distance.
+Hence, the gradient in polar coordinates is computed, $\nabla = \partial_{r}\hat{r} + 1/r\partial_\theta$, $\vec{F}=-\nabla U$.
+
+\begin{gather}
+    \vec{F}_{\mathrm{WCA}}(r) = -\frac{\epsilon}{r}\left[24\qty(\frac{\sigma}{r})^6-48\qty(\frac{\sigma}{r})^{12}\right],\quad r\in\qty[0,2^{1/6}\sigma] %+ \frac{\epsilon}{\sigma}
+%    4\epsilon\left[\qty(\frac{\sigma}{r})^{12}-\qty(\frac{\sigma}{r})^6\right]+\epsilon,\quad r\in[0,2^{1/6}\sigma]\label{eqn:CL-MO_interaction}
+\end{gather}
+
+%The second term is added, due to the diplacemnt in the WCA potential.
+
+\begin{gather}
+    \vec{F}_{\mathrm{patchy}}(r) =-\left\{ -\frac{\epsilon\sigma_p}{r^5\qty(r-r_c)^2} \left[ 4r_c^2\sigma^3_p + \sigma^3_p\qty(\sigma_p-8r_c) r -2r^5 + 4r^2 \sigma^3_p \right] \exp\left[\frac{\sigma_p}{r-r_c}+2\right]\right\},\quad r_{\mu\upsilon}\in\qty[0,r_c]
+\end{gather}
+
+For the force of the swap mechanism, we analyze that $\partial_x f(x)g(y)=f(x)g'(y)$, such that,
+\begin{align*}
+    \vec{F}_{\mathrm{swap},r_{\lambda,\mu}} &= -\partial_{r_{\lambda,\mu}}\qty(w\epsilon_{\mu,\upsilon}U_3(r_{\lambda,\mu})U_3(r_{\lambda,\upsilon})) \\
+                                            &= -w\epsilon_{\mu,\upsilon}U'_3(r_{\lambda,\mu})U_3(r_{\lambda,\upsilon})
+\end{align*}
+and similiar for $r_{\lambda,\upsilon}$,
+\begin{gather*}
+    \vec{F}_{\mathrm{swap},r_{\lambda,\upsilon}} = -w\epsilon_{\mu,\upsilon}U_3(r_{\lambda,\mu})U'_3(r_{\lambda,\upsilon}).
+\end{gather*}
+
+Taking into account the definition of $U_3$ in terms of the patchy potential,
+\begin{align*}
+    -U'_3(r) &= -\frac{1}{\epsilon_{\mu,\upsilon}}\vec{F}_{\mathrm{patchy}}(r) \\
+             &= -\frac{\sigma_p}{r^5\qty(r-r_c)^2} \left[ 4r_c^2\sigma^3_p + \sigma^3_p\qty(\sigma_p-8r_c) r -2r^5 + 4r^2 \sigma^3_p \right] \exp\left[\frac{\sigma_p}{r-r_c}+2\right],
+\end{align*}
+hence,
+\begin{align*}
+    \vec{F}_{\mathrm{swap}}(r_{\lambda,\mu}) &= -w\epsilon_{\mu,\upsilon}U'_3(r_{\lambda,\mu})U_3(r_{\lambda,\upsilon}) \\
+                                             &= w\epsilon_{\mu,\upsilon}\left\{-U'_3(r_{\lambda,\mu})\right\}
+                                                \left\{-\frac{U_{\mathrm{patchy}}(r_{\lambda,\upsilon})}{\epsilon_{\lambda,\upsilon}}\right\} \\
+                                             &=\begin{multlined}
+                                                 w\epsilon_{\mu,\upsilon}
+                                                \left\{
+                                                       -\frac{\sigma_p}{r_{\lambda,\mu}^5\qty(r_{\lambda,\mu}-r_c)^2}
+                                                       \right.
+                                                       \\
+                                                       \left.
+                                                       \left[ 4r_c^2\sigma^3_p + \sigma^3_p\qty(\sigma_p-8r_c) r_{\lambda,\mu} -2r^5_{\lambda,\mu} + 4r^2_{\lambda,\mu} \sigma^3_p \right]
+                                                       \exp\left[\frac{\sigma_p}{r_{\lambda,\mu}-r_c}+2\right]
+                                                \right\} \\
+                                                \left\{
+                                                    -\frac{1}{\epsilon_{\lambda,\upsilon}}
+                                                    2\epsilon_{\mu\upsilon}\left(\frac{\sigma_p^4}{2 r_{\lambda,\upsilon}^4}-1\right)\exp\left[\frac{\sigma_p}{\qty(r_{\lambda,\upsilon}-r_{c})}+2\right]
+                                                \right\}
+                                            \end{multlined}
+                                                \\
+                                             &=\begin{multlined}
+                                                 w\epsilon_{\mu,\upsilon}
+                                                 \left\{
+                                                       \frac{\sigma_p}{r_{\lambda,\mu}^5\qty(r_{\lambda,\mu}-r_c)^2} 
+                                                       \left[ 4r_c^2\sigma^3_p + \sigma^3_p\qty(\sigma_p-8r_c) r_{\lambda,\mu} -2r^5_{\lambda,\mu} + 4r^2_{\lambda,\mu} \sigma^3_p \right]
+                                                \right\} \\
+                                                \left\{
+                                                    2\left(\frac{\sigma_p^4}{2 r_{\lambda,\upsilon}^4}-1\right)
+                                                \right\}
+                                            \exp\left[\frac{\sigma_p}{r_{\lambda,\mu}-r_c}+2+\frac{\sigma_p}{\qty(r_{\lambda,\upsilon}-r_{c})}+2\right]
+                                            \end{multlined}
+                                                \\
+                                             &=\begin{multlined}
+                                                 w\epsilon_{\mu,\upsilon}
+                                                 \left\{
+                                                       \frac{\sigma_p}{r_{\lambda,\mu}^5\qty(r_{\lambda,\mu}-r_c)^2} 
+                                                       \left[ 4r_c^2\sigma^3_p + \sigma^3_p\qty(\sigma_p-8r_c) r_{\lambda,\mu} -2r^5_{\lambda,\mu} + 4r^2_{\lambda,\mu} \sigma^3_p \right]
+                                                \right\} \\
+                                                \left\{
+                                                    \frac{\sigma_p^4}{r_{\lambda,\upsilon}^4}-2
+                                                \right\}
+                                            \exp\left[\sigma_p\qty(\frac{1}{r_{\lambda,\mu}-r_c}+\frac{1}{r_{\lambda,\upsilon}-r_{c}})+4\right]
+                                            \end{multlined}
+                                            \\
+                                        &=\begin{multlined}
+                                                 w\epsilon_{\mu,\upsilon}
+                                                 \left(
+                                                       \frac{\sigma_p}{\qty(r_{\lambda,\mu}-r_c)^2} 
+                                                       \frac{1}{r_{\lambda,\mu}^5}\left[ 4r_c^2\sigma^3_p + \sigma^3_p\qty(\sigma_p-8r_c) r_{\lambda,\mu} -2r^5_{\lambda,\mu} + 4r^2_{\lambda,\mu} \sigma^3_p \right]
+                                                \right)
+                                                \\
+                                                \left( \frac{\sigma_p^4}{r_{\lambda,\upsilon}^4}-2\right)
+                                            \exp\left[\sigma_p\qty(\frac{1}{r_{\lambda,\mu}-r_c}+\frac{1}{r_{\lambda,\upsilon}-r_{c}})+4\right].
+                                            \end{multlined}
+\end{align*}
+Since, the main difference between $\vec{F}_{swap}(r_{\lambda,\mu})$ and $\vec{F}_{swap}(r_{\lambda,\upsilon})$ is the evaluation of the functions, we can use the same expression and \underline{\textbf{carefully}} change the arguments, leading to,
+\begin{multline}
+    \vec{F}_{\mathrm{swap}}(r_{\lambda,\mu}) =w\epsilon_{\mu,\upsilon}
+                                                 \left(
+                                                       \frac{\sigma_p}{\qty(r_{\lambda,\mu}-r_c)^2} 
+                                                       \frac{1}{r_{\lambda,\mu}^5}\left[ 4r_c^2\sigma^3_p + \sigma^3_p\qty(\sigma_p-8r_c) r_{\lambda,\mu} -2r^5_{\lambda,\mu} + 4r^2_{\lambda,\mu} \sigma^3_p \right]
+                                                \right)
+                                                \\
+                                                \left( \frac{\sigma_p^4}{r_{\lambda,\upsilon}^4}-2\right)
+                                            \exp\left[\sigma_p\qty(\frac{1}{r_{\lambda,\mu}-r_c}+\frac{1}{r_{\lambda,\upsilon}-r_{c}})+4\right],\quad r_{\mu\upsilon}\in\qty[0,r_c],
+\end{multline}
+and
+\begin{multline}
+    \vec{F}_{\mathrm{swap}}(r_{\lambda,\upsilon}) =w\epsilon_{\mu,\upsilon}
+                                                 \left(
+                                                       \frac{\sigma_p}{\qty(r_{\lambda,\upsilon}-r_c)^2} 
+                                                       \frac{1}{r_{\lambda,\upsilon}^5}\left[ 4r_c^2\sigma^3_p + \sigma^3_p\qty(\sigma_p-8r_c) r_{\lambda,\upsilon} -2r^5_{\lambda,\upsilon} + 4r^2_{\lambda,\upsilon} \sigma^3_p \right]
+                                                \right)
+                                                \\
+                                                \left( \frac{\sigma_p^4}{r_{\lambda,\mu}^4}-2\right)
+                                            \exp\left[\sigma_p\qty(\frac{1}{r_{\lambda,\mu}-r_c}+\frac{1}{r_{\lambda,\upsilon}-r_{c}})+4\right],\quad r_{\mu\upsilon}\in\qty[0,r_c]
+\end{multline}
+
+\subsection{LAMMPS implementation}
+
+We use reduce units, Lennard-Jones units.
+
+To create the patchy particles, the \verb|zero| bond style is used.
+The reason to use this, is because bond forces and energies are not computed, but the geometry of bond pairs is accessible to other commands (\href{https://docs.lammps.org/bond_zero.html}{Ref}).
+
+The pair styles used in the simulation are: \verb|hybrid/overlay|, \verb|zero|, \verb|lj/cut|, \verb|table| and \verb|threebody/table|.
+The \verb|hybrid/overlay| style is used because superimposed multiple potentials in an additive fashion (\href{https://docs.lammps.org/pair_hybrid.html}{Ref}).
+The rest of pair styles are to implement the potentials described in \ref{subsec:Potentials}.
+
+The length of the box is set, such that the desire Monomers and Cross-Linkers can be spawn.
+The mass of the patches are set to be the half mass of the CL and MO.
+
+The \verb|pair_coeff| commands where set to accomplish the simulation describe in \ref{sec:descriptionSimulation}.
+With respect the \verb|create_atoms| command, the \textit{overlap} keyword was assign to a value of the diameter of CL and MO.
+
+Then, the \verb|rigid/small| fix command is used to create the Monomers and Cross-Linkers particles.
+This is because, this command is typucally best for a system with large number of small rigid bodies\href{https://docs.lammps.org/fix_rigid.html}{Ref}.
+
+The \verb|neighbor| command was set of type bin with a value of 1.8 and the \verb|neigh_modify| command with the exclude keyword was added to save needless computation due to the rigid bodies (\href{https://docs.lammps.org/neigh_modify.html}{Ref}).
+
+Then, a Langevin thermostat is used with a velocity-Verlet time integration algorithm to perform Brownian dynamics with the commands \verb|fix lagevin| and \verb|fix nve|.
+The Langevin thermostat is implemented to models an interaction with a background implicit solvent, in this case water.
+Meanwhile, the \verb|fix nve| help to create a system trajectory consistent with the microcanonical ensemble, in which the number of particles, volume and energy remains constant.
+
+finally, multiple \verb|computes| are used to get the potential, kinetic and total energies, temperature and voronoi analysis.
+
+\subsection{Packing fraction}
+
+To approximate a desire packing fraction in the simulation we consider that the packing fraction represent the ratio between the volume of the particle with respect the total volume of the simulation box,
+\begin{gather*}
+    \phi = \frac{V_{\mathrm{particles}}}{V_\mathrm{box}}.
+\end{gather*}
+Since, the packing fraction and the volume of the particles are defined, we compute for the volume of the simulation box, and then assume that the simulation box is a cube.
+
+We use a ``ghost'' particle to compute the approximate volume, due to easier calcalculations.
+We assume a sphere of $r_{\mathrm{CP}}+r_{\mathrm{patch}}$ and compute the volume of that ``ghost'' sphere.
+\begin{gather*}
+    V_{\mathrm{ghost}} = \frac{3}{4}\pi (r_{\mathrm{CP}}+r_{\mathrm{patch}})^{3}
+\end{gather*}
+considering that $r_{\mathrm{CP}}=0.5, r_{\mathrm{patch}}=0.2$, the volume is,
+\begin{align*}
+    V_{\mathrm{ghost}} &= \frac{3}{4}\pi (0.7)^{3} \\
+                       &= 0.8.
+\end{align*}
+
+Now, to compute the dimensions of the simulation box,
+\begin{align*}
+    V_\mathrm{box} &= \frac{V_{\mathrm{particles}}}{\phi} \\
+                   &= \frac{0.8}{\phi} \\
+    \frac{V_\mathrm{box}}{3}&= \frac{1}{3}\frac{0.8}{\phi} \\
+    L &= \frac{0.8}{3\phi}
+\end{align*}
+
+\end{document}
