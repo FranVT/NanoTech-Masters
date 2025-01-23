@@ -71,12 +71,12 @@ function getParameters(dir,files_names)
                   save_d = aux[13],
                   save_f = aux[14],
                   sh_rt  = aux[16],
-                  mx_def = aux[20],
-                  N_def  = aux[21],
-                  N_rlx1 = aux[22],
-                  N_rlx2 = aux[23],
-                  N_rlx3 = aux[24],
-                  save_s = aux[26]
+                  mx_def = aux[17],
+                  N_def  = aux[18],
+                  N_rlx1 = aux[19],
+                  N_rlx2 = aux[20],
+                  N_rlx3 = aux[21],
+                  save_s = aux[24]
                  )
 
     return parameters
@@ -128,16 +128,16 @@ function getData(parm,files_dir)
           def3=ind_def3,
           rlx3=ind_rlx3,
           shear=reduce(vcat,[ind_def1,ind_rlx1,ind_def2,ind_rlx2,ind_def3,ind_rlx3]),
-          heats=ind_heats,
-          isos=ind_isos,
-          assemblys=reduce(vcat,[ind_heats,ind_isos]),
-          def1s=ind_def1s,
-          rlx1s=ind_rlx1s,
-          def2s=ind_def2s,
-          rlx2s=ind_rlx2s,
-          def3s=ind_def3s,
-          rlx3s=ind_rlx3s,
-          shears=reduce(vcat,[ind_def1s,ind_rlx1s,ind_def2s,ind_rlx2s,ind_def3s,ind_rlx3s]),
+          heats=ind_sheat,
+          isos=ind_siso,
+          assemblys=reduce(vcat,[ind_sheat,ind_siso]),
+          def1s=ind_sdef1,
+          rlx1s=ind_srlx1,
+          def2s=ind_sdef2,
+          rlx2s=ind_srlx2,
+          def3s=ind_sdef3,
+          rlx3s=ind_srlx3,
+          shears=reduce(vcat,[ind_sdef1,ind_srlx1,ind_sdef2,ind_srlx2,ind_sdef3,ind_srlx3]),
          );
 
 
@@ -216,4 +216,11 @@ function getData(parm,files_dir)
     return (inds,system)
 
 end
+
+
+
+function ram()
+
+end
+
 

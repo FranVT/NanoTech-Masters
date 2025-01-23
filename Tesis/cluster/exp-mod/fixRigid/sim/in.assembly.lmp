@@ -54,6 +54,10 @@ compute daux CM chunk/atom type pbc yes
 compute dis CM reduce/chunk daux sum c_disc[4]
 #compute disM CM reduce/chunk daux sum c_disc[4]
 
+# Cluster analysis
+compute clPatch Patches cluster/atom 0.6
+
+
 # DUMPS and FIXES
 
 thermo ${NsaveStress}
@@ -83,6 +87,10 @@ fix fixDispl Displ ave/time 1 ${NsaveStress} ${NsaveStress} c_dis[1] c_dis[2] c_
 # Save Stress tensor
 group Stress empty
 fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_stressVirial[*] file ${Dir}/stressVirial_assembly.fixf
+
+# Save the cluster information
+fix fixCluster Patches ave/atom 1 ${Nsave} ${Nsave} c_clPatch
+dump dmpCluster Patches custom ${Ndump} ${Dir}/clusterPatches_assembly.dumpf f_fixCluster
 
 # RUN SIMULATION
 

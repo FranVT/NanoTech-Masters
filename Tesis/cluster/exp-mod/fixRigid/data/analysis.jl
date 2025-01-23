@@ -15,12 +15,12 @@ include("functions.jl")
 """
 
 selc_phi="5500";
-selc_Npart="1500";
+selc_Npart="1000";
 selc_damp="5000";
 selc_T="500";
 selc_cCL="300";
-selc_ShearRate=10;#string.((10,50,100));
-selc_Nexp=string.(1:15);
+selc_ShearRate="1000";#string.((10,50,100));
+selc_Nexp="2";
 
 dirs=getDirs(selc_phi,selc_Npart,selc_damp,selc_T,selc_cCL,selc_ShearRate,selc_Nexp);
 
@@ -42,9 +42,57 @@ files_names = (
                cmdispDef = "cmdisplacement_shear.fixf",
               );
 
-file_dir=joinpath(first(dirs),first(files_names));
-parameters=open(file_dir) do f
-    map(s->parse(Float64,s),readlines(f))
-end
+file_dir=map(s->reduce(vcat,map(r->joinpath(r,"info",s),dirs)),files_names);
 
+parameters = getParameters(dirs,files_names);
+
+#(inds,system)=getData(parameters,file_dir);
+
+# Figures
+
+fig_energy_log=Figure(size=(1920,1080));
+ax_leg=Axis(fig_energy_log[1:3,3],limits=(0.01,0.1,0.01,0.1));
+hidespines!(ax_leg)
+hidedecorations!(ax_leg)
+ax_total=Axis(fig_energy_log[1,1:2],
+               title=L"\mathrm{Total~Energy~of~Assembly~simulation}",
+               xlabel=L"\mathrm{Time~steps~}\log_{10}",
+               ylabel=L"\mathrm{Energy}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true,
+               xscale=log10
+              )
+ax_assembly=Axis(fig_energy_log[2,1],
+               title=L"\mathrm{Total~Energy~of~Assembly~simulation}",
+               xlabel=L"\mathrm{Time~steps~}\log_{10}",
+               ylabel=L"\mathrm{Energy}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true,
+               xscale=log10
+              )
+ax_shear=Axis(fig_energy_log[3,2],
+               title=L"\mathrm{Total~Energy~of~Shear~simulation}",
+               xlabel=L"\mathrm{Time~[unit~less]~}\log_{10}",
+               ylabel=L"\mathrm{Energy}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true,
+               xscale=log10
+              )
+lines!(ax_total,system.temp)
+lines!(ax_assembly,system.temp[inds.assembly])
 
