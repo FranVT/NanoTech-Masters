@@ -1,0 +1,16 @@
+# Script with the pair-wise interaction and bonds between particles
+
+bond_coeff * nocoeff
+pair_coeff 1 3 zero
+pair_coeff 1 4 zero
+pair_coeff 2 3 zero
+pair_coeff 2 4 zero
+pair_coeff 3 3 zero
+pair_coeff 1 1 lj/cut/omp 1.0 1.0 1.122462
+pair_coeff 2 2 lj/cut/omp 1.0 1.0 1.122462
+pair_coeff 1 2 lj/cut/omp 1.0 1.0 1.122462
+pair_coeff 3 4 table/omp sysFiles/pachTab.table POT 0.6 # sw/omp sysFiles/patchyPot.sw NULL NULL PA PB 
+pair_coeff 4 4 table/omp sysFiles/pachTab.table POT 0.6 # sw/omp sysFiles/patchyPot.sw NULL NULL PA PB
+pair_coeff * * threebody/table swapMech.3b NULL NULL PA PB
+pair_modify pair lj/cut/omp shift yes
+
