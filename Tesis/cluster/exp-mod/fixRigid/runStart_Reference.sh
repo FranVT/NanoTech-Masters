@@ -12,11 +12,11 @@ rm -rf info*;
 cd ..; 
 
 ## Start the for loop
-for var_shearRate in 0.1; #0.01 0.001;
+for var_shearRate in 0.01; #0.01 0.001;
 do
-for var_cCL in 0.03; #0.06 0.1;
+for var_cCL in 0.1; #0.06 0.1;
 do 
-for Nexp in 8; #$(seq 1 5);
+for Nexp in 101; #$(seq 1 5);
 do
 
 # Cifras significativas
@@ -30,7 +30,7 @@ seed3=10; # Langevin Thermostat
 # Main parameters of the simulation
 phi=0.55;
 CL_concentration=$var_cCL; #0.1;
-N_particles=100;
+N_particles=50;
 damp=0.5;
 T=0.05;
 

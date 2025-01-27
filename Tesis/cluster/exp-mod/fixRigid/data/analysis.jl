@@ -46,16 +46,16 @@ file_dir=map(s->reduce(vcat,map(r->joinpath(r,"info",s),dirs)),files_names);
 
 parameters = getParameters(dirs,files_names);
 
-#(inds,system)=getData(parameters,file_dir);
+(inds,system)=getData(parameters,file_dir);
 
 # Figures
 
 fig_energy_log=Figure(size=(1920,1080));
-ax_leg=Axis(fig_energy_log[1:3,3],limits=(0.01,0.1,0.01,0.1));
+ax_leg=Axis(fig_energy_log[1:2,2],limits=(0.01,0.1,0.01,0.1));
 hidespines!(ax_leg)
 hidedecorations!(ax_leg)
 ax_total=Axis(fig_energy_log[1,1:2],
-               title=L"\mathrm{Total~Energy~of~Assembly~simulation}",
+               title=L"\mathrm{Total~Energy~of~the~simulation}",
                xlabel=L"\mathrm{Time~steps~}\log_{10}",
                ylabel=L"\mathrm{Energy}",
                titlesize=24.0f0,
@@ -80,9 +80,9 @@ ax_assembly=Axis(fig_energy_log[2,1],
                xminorgridvisible=true,
                xscale=log10
               )
-ax_shear=Axis(fig_energy_log[3,2],
+ax_shear=Axis(fig_energy_log[2,2],
                title=L"\mathrm{Total~Energy~of~Shear~simulation}",
-               xlabel=L"\mathrm{Time~[unit~less]~}\log_{10}",
+               xlabel=L"\mathrm{Time~steps~}\log_{10}",
                ylabel=L"\mathrm{Energy}",
                titlesize=24.0f0,
                xticklabelsize=18.0f0,
@@ -93,6 +93,7 @@ ax_shear=Axis(fig_energy_log[3,2],
                xminorgridvisible=true,
                xscale=log10
               )
-lines!(ax_total,system.temp)
-lines!(ax_assembly,system.temp[inds.assembly])
+lines!(ax_total,system.energy)
+lines!(ax_assembly,system.energy[inds.assembly])
+
 

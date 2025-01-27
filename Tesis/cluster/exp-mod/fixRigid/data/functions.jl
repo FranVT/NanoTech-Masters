@@ -195,10 +195,24 @@ function getData(parm,files_dir)
     aux_ass = extractInfo(files_dir.stressAss);
     aux_def = extractInfo(files_dir.stressDef);
  
-    # Order the information
-    stress_ass = aux_ass[2,:]; 
-    stress_def = aux_def[2,:]; 
- 
+    # Makes some computes
+    stress_ass = sqrt.(aux_ass[2,:] .+ aux_ass[3,:] .+ aux_ass[4,:] .+ (2) .*(aux_ass[5,:] .+ aux_ass[6,:] .+ aux_ass[7,:] )) ; 
+    stress_def = sqrt.(aux_def[2,:] .+ aux_def[3,:] .+ aux_def[4,:] .+ (2) .*(aux_def[5,:] .+ aux_def[6,:] .+ aux_def[7,:] )) ; 
+
+    presss_ass = (1/3) .* (aux_ass[2,:] .+ aux_ass[3,:] .+ aux_ass[4,:]);
+    presss_def = (1/3) .* (aux_def[2,:] .+ aux_def[3,:] .+ aux_def[4,:]);
+
+    sigXX_ass = aux_ass[2,:];
+    sigXY_ass = aux_ass[5,:];
+    
+    sigXX_def = aux_def[5,:];
+    sigXY_def = aux_def[2,:];
+
+    energy_ass = ep_ass .+ ek_ass;
+    energy_def = ep_def .+ ek_def;
+
+
+
     system = (
               temp   = reduce(vcat,[temp_ass,temp_def]),
               ep     = reduce(vcat,[ep_ass,ep_def]),
@@ -211,6 +225,10 @@ function getData(parm,files_dir)
               swap   = reduce(vcat,[swap_ass,swap_def]),
               lang   = reduce(vcat,[lang_ass,lang_def]),
               stress = reduce(vcat,[stress_ass,stress_def]),
+              sig_XX = reduce(vcat,[sigXX_ass,sigXX_def]),
+              sig_XY = reduce(vcat,[sigXY_ass,sigXY_def]),
+              presss = reduce(vcat,[presss_ass,presss_def]),
+              energy = reduce(vcat,[energy_ass,energy_def])
              )
 
     return (inds,system)

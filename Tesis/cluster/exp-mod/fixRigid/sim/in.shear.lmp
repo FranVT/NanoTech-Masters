@@ -92,11 +92,6 @@ thermo ${NsaveStress}
 fix rigidBodies all rigid/nve/small molecule langevin ${temp} ${temp} ${damp} ${seed3} 
 fix_modify rigidBodies virial no temp td # No contribution to the stress
 
-#variable shearDirection equal xy
-#variable maxTilt equal 0.5*lx
-#variable restoreTilt equal -v_maxTilt
-#variable shear_distance equal ${shear_rate}*lx*${tstep}
-
 timestep ${tstep}
 
 fix shear all deform 1 xy erate ${shear_rate} remap v flip yes
