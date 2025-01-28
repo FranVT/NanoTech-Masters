@@ -16,7 +16,7 @@ for var_shearRate in 0.01; #0.01 0.001;
 do
 for var_cCL in 0.1; #0.06 0.1;
 do 
-for Nexp in 103; #$(seq 1 5);
+for Nexp in 104; #$(seq 1 5);
 do
 
 # Cifras significativas
@@ -30,7 +30,7 @@ seed3=10; # Langevin Thermostat
 # Main parameters of the simulation
 phi=0.55;
 CL_concentration=$var_cCL; #0.1;
-N_particles=1000;
+N_particles=5000;
 damp=0.5;
 T=0.05;
 
