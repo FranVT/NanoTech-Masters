@@ -1,0 +1,158 @@
+
+
+
+
+% LaTeX (version 2e)
+% By Ruben Moralez-Menendez
+% Updated: October 27 , 2002
+% --------------------------------------------------------------------
+
+\documentclass[10pt,twoside]{report}
+
+%----------------------------------------------------------------------
+% Reprocess only those files which have changed recently:
+% \includeonly{intro,creating,commands} ???????????????????????????????
+%----------------------------------------------------------------------
+% Create a listing in the log of all files needed to process this document
+
+\listfiles
+
+%----------------------------------------------------------------------
+% Non-standard packages I am using (things I've written, borrowed, etc.):
+%\usepackage{} % ... note that old .sty files can be included here
+% Standard LaTeX2e packages I am using (as seen in "The LaTeX Companion"):
+
+\usepackage{graphicx} % ..to include encapsulated postscript figures
+%\usepackage{graphics}
+\usepackage{makeidx}         % ..if you want an index
+\usepackage{amsmath}         % ..if you need lots of math symbols
+\usepackage[bookmarks=true]{hyperref}
+                             % ... only needed for PDF generation
+\usepackage[english]{babel}  % borre [spanish]
+\usepackage{ifthen}          % for caption fix.
+\usepackage{amsfonts}        % Instruction : \mathbb
+\usepackage{amssymb}         % Instruction : \triangleq
+\usepackage{times}           % font style
+\usepackage{fullpage}        % page size
+\usepackage{named}           % bibliograhic style
+
+
+%----------------------------------------------------------------------
+\makeindex % activate index-making
+%----------------------------------------------------------------------
+% The following command sets "1.2" as the line spacing throughout the
+% thesis for readability (optional).
+\renewcommand{\baselinestretch}{1.2}
+%----------------------------------------------------------------------
+% Reset page margins properly for doublesided pages
+\setlength{\marginparwidth}{0pt}
+\setlength{\marginparsep}{0pt}
+\setlength{\oddsidemargin}{0.125in}
+\setlength{\evensidemargin}{0.125in}
+\setlength{\textwidth}{6.375in}
+\raggedbottom
+%----------------------------------------------------------------------
+% My own command and environment definitions:
+%
+\newcommand{\program}[1]{\textbf{#1}} % program names in bold text
+\newcommand{\exten}[1]{\texttt{#1}}   % file extensions in bold text (use caps)
+\newcommand{\cmmd}[1]{\textbackslash\texttt{#1}} % command name in tt font
+\newcommand{\enviro}[1]{\texttt{#1}}  % environment name in tt font
+
+\newcommand{\eg}{\textit{e.g.},}      % some Latin abreviations in italic
+\newcommand{\ie}{\textit{i.e.},}
+\newcommand{\etc}{\textit{etc}.\@}
+
+\newcommand{\mat}[1]{\ensuremath{\mathcal{#1}}}
+        % matrix names in uppercase caligraphic
+\newcommand{\vect}[1]{\ensuremath{\mathit{#1}}}
+        % vector names in math italic
+\newcommand{\rv}[1]{\ensuremath{\mathbf{#1}}}
+        % math bold for random variables
+\newcommand{\degg}[1]{\mbox{\raisebox{3pt}{$\circ$}\hspace{-.5pt}#1}}
+    % command to produce a degree sign. Example: \degg[C] gives degrees Celcius
+
+\newenvironment{definition}[1]{\begin{quote}\emph{#1}:}{\end{quote}}
+  % Provides indented formal definition and emphasizes the word.
+  % e.g. \begin{definition}{Reliability} ... \end{definition}
+
+\newenvironment{where}[1]   % Equation symbol lists
+ {\begin{list}{}%
+  {\renewcommand{\makelabel}[1]{\hfill\textnormal{##1 =}}%
+   \settowidth{\labelwidth}{\textnormal{#1 =}}%
+   \setlength{\leftmargin}{\labelwidth}%
+   \addtolength{\leftmargin}{\labelsep}%
+   \setlength{\itemsep}{-\parsep}}}%
+ {\end{list}}
+
+%----------------------------------------------------------------------
+%  LOGICAL DOCUMENT
+
+\headsep = 25 pt   % Avoid the top margin problem
+
+\begin{document}
+%----------------------------------------------------------------------
+% FRONT MATERIAL
+%----------------------------------------------------------------------
+\include{frontpage}
+% \include{scheduleRMM}
+% Title page, declaration, borrowers' page, abstract, acknowlegements,
+% dedication, table of contents, list of tables, list of figures
+
+%----------------------------------------------------------------------
+% MAIN BODY
+%----------------------------------------------------------------------
+% Put the document title and page numbers in the header
+
+\pagestyle{myheadings}
+
+% Put title on left & chapter heading goes on right by default
+% \markboth{Reporte Tecnico}
+%  Go to normal sized type
+\normalsize
+
+% Chapters
+
+\include{chs/ch1}      % Chapter 1 Name
+\include{chs/ch2}      % Chapter 2 Name
+\include{chs/ch3}      % Chapter 3 Name
+%\include{chs/ch4}      % Chapter 4 Name
+\include{chs/ch5}      % Chapter 5 Name
+
+%----------------------------------------------------------------------
+% END MATERIAL
+%----------------------------------------------------------------------
+
+
+% Bibliography --------------------------------------------------------
+% If done using the BibTeX program, use
+
+\markright{Bibliography} % right header
+%\bibliographystyle{plain}  % sorted alphabetically, labeled with numbers
+\bibliographystyle{named}
+\bibliography{MyBiblio}     % names file phdrefs.bib as my bibliography file
+
+
+
+% Appendices-----------------------------------------------------------
+
+\appendix
+
+% Designate with \appendix declaration which just changes numbering style
+% from here on
+
+\include{apps/app1}     % There is not Appendix 1
+\include{apps/app2}     % There is not Appendix 2
+
+
+% Index ---------------------------------------------------------------
+% Put a \makeindex command in the Preamble if you use MakeIndex program
+% and put
+\printindex % here
+% OR, do it "by hand" inside \begin{theindex} ... \end{theindex}
+
+\include{RMMCV}     % No CV for the time being
+
+%----------------------------------------------------------------------
+\end{document}
+%======================================================================
