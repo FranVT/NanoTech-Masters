@@ -33,6 +33,11 @@ compute ep all pe
 compute ek all ke
 variable ec equal ecouple
 variable eC equal econserve
+variable eT equal etotal
+variable eB equal ebond
+variable eA equal eangle
+variable H equal enthalpy
+variable eM equal emol
 compute stressVirial all pressure td ke pair
 compute wcaPair all pair lj/cut/omp epair
 compute patchPair all pair table/omp epair
@@ -45,6 +50,8 @@ compute dis CM reduce/chunk daux sum c_disc[4]
 
 # cluster analysis
 compute clPatch Patches cluster/atom 0.6
+compute ccl Patches chunk/atom c_clPatch compress yes discard no # Define chunks based on cluster ID
+compute size Patches property/chunk ccl count # Counts the atoms in each chunk
 
 # DUMPS and FIXES
 
@@ -58,7 +65,7 @@ group PairE2 empty
 group PairE3 empty
 
 # Save global energies and temperature
-fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_ep c_ek c_p c_td v_ec v_eC file ${Dir}/energy_shear.fixf
+fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_ep c_ek c_p c_td v_ec v_eC v_eT v_eB v_eA v_H v_eM file ${Dir}/energy_shear.fixf
 
 fix fixwca PairE1 ave/time 1 ${Nsave} ${Nsave} c_wcaPair file ${Dir}/wcaPair_shear.fixf
 fix fixpatch PairE2 ave/time 1 ${Nsave} ${Nsave} c_patchPair file ${Dir}/patchPair_shear.fixf
@@ -73,9 +80,7 @@ group Stress empty
 fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_stressVirial[*] file ${Dir}/stressVirial_shear.fixf
 
 # Save the cluster information
-fix fixCluster Patches ave/atom 1 ${Nsave} ${Nsave} c_clPatch
-dump dmpCluster Patches custom ${Ndump} ${Dir}/clusterPatches_shear.dumpf f_fixCluster
-
+fix fixCluster2 Patches ave/histo 1 ${Nsave} ${Nsave} 0 8 80 c_size mode vector file ${Dir}/clusterPatches_shear.fixf
 
 thermo ${NsaveStress}
 

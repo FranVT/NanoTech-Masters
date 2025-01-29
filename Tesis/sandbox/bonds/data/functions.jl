@@ -108,13 +108,13 @@ function getData(parm,files_dir)
 
     # Indixes for the stress files
     ind_sheat = Int64.(1:1:div(parm.N_heat,parm.save_s));
-    ind_siso  = Int64.(1:1:div(parm.N_iso,parm.save_s)) .+ last(ind_heat);
-    ind_sdef1 = Int64.(1:1:div(parm.mx_def*parm.N_def,parm.save_s)) .+ last(ind_iso);
-    ind_srlx1 = Int64.(1:1:div(parm.N_rlx1,parm.save_s)) .+ last(ind_def1);
-    ind_sdef2 = Int64.(1:1:div(parm.mx_def*parm.N_def,parm.save_s)) .+ last(ind_rlx1);
-    ind_srlx2 = Int64.(1:1:div(parm.N_rlx2,parm.save_s)) .+ last(ind_def2);
-    ind_sdef3 = Int64.(1:1:div(parm.mx_def*parm.N_def,parm.save_s)) .+ last(ind_rlx2);
-    ind_srlx3 = Int64.(1:1:div(parm.N_rlx3,parm.save_s)) .+ last(ind_def3);
+    ind_siso  = Int64.(1:1:div(parm.N_iso,parm.save_s)) .+ last(ind_sheat);
+    ind_sdef1 = Int64.(1:1:div(parm.mx_def*parm.N_def,parm.save_s)) .+ last(ind_siso);
+    ind_srlx1 = Int64.(1:1:div(parm.N_rlx1,parm.save_s)) .+ last(ind_sdef1);
+    ind_sdef2 = Int64.(1:1:div(parm.mx_def*parm.N_def,parm.save_s)) .+ last(ind_srlx1);
+    ind_srlx2 = Int64.(1:1:div(parm.N_rlx2,parm.save_s)) .+ last(ind_sdef2);
+    ind_sdef3 = Int64.(1:1:div(parm.mx_def*parm.N_def,parm.save_s)) .+ last(ind_srlx2);
+    ind_srlx3 = Int64.(1:1:div(parm.N_rlx3,parm.save_s)) .+ last(ind_sdef3);
 
     # Make it easier to access
     inds=(
@@ -156,8 +156,9 @@ function getData(parm,files_dir)
     ep_def    = aux_def[3,:];
     ek_def    = aux_def[4,:];
     p_def     = aux_def[5,:];
-    ecple_def = aux_def[6,:];
-    ecrve_def = aux_def[7,:];
+    temp_df   = aux_def[6,:];
+    ecple_def = aux_def[7,:];
+    ecrve_def = aux_def[8,:];
 
     # Get the information from the wca.fixf
     aux_ass = extractInfo(files_dir.wcaAss);
@@ -188,8 +189,8 @@ function getData(parm,files_dir)
     aux_def = extractInfo(files_dir.stressDef);
  
     # Makes some computes
-    stress_ass = sqrt.(aux_ass[2,:] .+ aux_ass[3,:] .+ aux_ass[4,:] .+ (2) .*(aux_ass[5,:] .+ aux_ass[6,:] .+ aux_ass[7,:] )) ; 
-    stress_def = sqrt.(aux_def[2,:] .+ aux_def[3,:] .+ aux_def[4,:] .+ (2) .*(aux_def[5,:] .+ aux_def[6,:] .+ aux_def[7,:] )) ; 
+    stress_ass = sqrt.(aux_ass[2,:].^2 .+ aux_ass[3,:].^2 .+ aux_ass[4,:].^2 .+ (2) .*(aux_ass[5,:].^2 .+ aux_ass[6,:].^2 .+ aux_ass[7,:].^2 )) ; 
+    stress_def = sqrt.(aux_def[2,:].^2 .+ aux_def[3,:].^2 .+ aux_def[4,:].^2 .+ (2) .*(aux_def[5,:].^2 .+ aux_def[6,:].^2 .+ aux_def[7,:].^2 )) ; 
 
     presss_ass = (1/3) .* (aux_ass[2,:] .+ aux_ass[3,:] .+ aux_ass[4,:]);
     presss_def = (1/3) .* (aux_def[2,:] .+ aux_def[3,:] .+ aux_def[4,:]);
@@ -205,6 +206,7 @@ function getData(parm,files_dir)
 
     system = (
               temp   = reduce(vcat,[temp_ass,temp_def]),
+              tmp_df = temp_df,
               ep     = reduce(vcat,[ep_ass,ep_def]),
               ek     = reduce(vcat,[ek_ass,ek_def]),
               p      = reduce(vcat,[p_ass,p_def]),
@@ -227,6 +229,10 @@ end
 
 
 function ram()
+
+"""
+
+"""
 
 fig=Figure(size=(1920,1080));
 ax_leg=Axis(fig[1:2,2],limits=(0.01,0.1,0.01,0.1));

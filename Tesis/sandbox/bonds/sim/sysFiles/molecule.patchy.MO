@@ -2,6 +2,7 @@
 # header section:
 3 atoms
 2 bonds
+1 angles
 
 # body section:
 Coords
@@ -20,3 +21,7 @@ Bonds
 
 1 1 1 2
 2 1 1 3
+
+Angles
+
+1 1 2 1 3

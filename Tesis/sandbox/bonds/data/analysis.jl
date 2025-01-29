@@ -15,12 +15,12 @@ include("functions.jl")
 """
 
 selc_phi="5500";
-selc_Npart="100";
+selc_Npart="5000";
 selc_damp="5000";
 selc_T="500";
 selc_cCL="1000";
 selc_ShearRate="100";#string.((10,50,100));
-selc_Nexp="105";
+selc_Nexp="108";
 
 dirs=getDirs(selc_phi,selc_Npart,selc_damp,selc_T,selc_cCL,selc_ShearRate,selc_Nexp);
 
@@ -99,7 +99,7 @@ lines!(ax_total,system.energy)
 lines!(ax_assembly,system.energy[inds.assembly])
 lines!(ax_shear,system.energy[inds.shear])
 
-save(joinpath(dirs[1],"energyLog.png"),fig_energy_log)
+save(joinpath(dirs[1],"fig_energyLog.png"),fig_energy_log)
 
 """
 energy
@@ -149,7 +149,7 @@ lines!(ax_total,system.energy)
 lines!(ax_assembly,system.energy[inds.assembly])
 lines!(ax_shear,system.energy[inds.shear])
 
-save(joinpath(dirs[1],"energy.png"),fig_energy)
+save(joinpath(dirs[1],"fig_energy.png"),fig_energy)
 
 """
 temperature
@@ -196,10 +196,14 @@ ax_shear=Axis(fig_temp[2,2],
                xminorgridvisible=true,
               )
 lines!(ax_total,system.temp)
+lines!(ax_total,inds.shear,system.tmp_df)
 lines!(ax_assembly,system.temp[inds.assembly])
 lines!(ax_shear,system.temp[inds.shear])
+lines!(ax_shear,system.tmp_df)
 
-save(joinpath(dirs[1],"temperature.png"),fig_temp)
+
+
+save(joinpath(dirs[1],"fig_temperature.png"),fig_temp)
 
 """
 Pressure
@@ -249,7 +253,7 @@ lines!(ax_total,system.p)
 lines!(ax_assembly,system.p[inds.assembly])
 lines!(ax_shear,system.p[inds.shear])
 
-save(joinpath(dirs[1],"pressure.png"),fig)
+save(joinpath(dirs[1],"fig_pressure.png"),fig)
 
 """
 Potential energy
@@ -296,7 +300,7 @@ lines!(ax_total,system.ep)
 lines!(ax_assembly,system.ep[inds.assembly])
 lines!(ax_shear,system.ep[inds.shear])
 
-save(joinpath(dirs[1],"potential.png"),fig)
+save(joinpath(dirs[1],"fig_potential.png"),fig)
 
 """
 Kinetic energy
@@ -343,7 +347,7 @@ lines!(ax_total,system.ek)
 lines!(ax_assembly,system.ek[inds.assembly])
 lines!(ax_shear,system.ek[inds.shear])
 
-save(joinpath(dirs[1],"kinetic.png"),fig)
+save(joinpath(dirs[1],"fig_kinetic.png"),fig)
 
 """
 ecouple and econserve
@@ -397,7 +401,7 @@ lines!(ax_assembly,system.ecrve[inds.assembly])
 lines!(ax_shear,system.ecple[inds.shear])
 lines!(ax_shear,system.ecrve[inds.shear])
 
-save(joinpath(dirs[1],"ecpleANDcrve.png"),fig)
+save(joinpath(dirs[1],"fig_ecpleANDcrve.png"),fig)
 
 """
 Pair potentials
@@ -454,6 +458,205 @@ lines!(ax_shear,system.wca[inds.shear])
 lines!(ax_shear,system.patch[inds.shear])
 lines!(ax_shear,system.swap[inds.shear])
 
-save(joinpath(dirs[1],"pairPotentials.png"),fig)
+save(joinpath(dirs[1],"fig_pairPotentials.png"),fig)
+
+"""
+Pressure cumpted using the stess
+"""
+
+fig=Figure(size=(1920,1080));
+ax_leg=Axis(fig[1:2,2],limits=(0.01,0.1,0.01,0.1));
+hidespines!(ax_leg)
+hidedecorations!(ax_leg)
+ax_total=Axis(fig[1,1:2],
+               title=L"\mathrm{Pressure~(Stress)~of~the~system}",
+               xlabel=L"\mathrm{Time~steps~}",
+               ylabel=L"\mathrm{Pressure}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true,
+              )
+ax_assembly=Axis(fig[2,1],
+               title=L"\mathrm{Pressure~(Stress)~of~the~system~during~Assembly}",
+               xlabel=L"\mathrm{Time~steps~}",
+               ylabel=L"\mathrm{Pressure}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true,
+               )
+ax_shear=Axis(fig[2,2],
+               title=L"\mathrm{Pressure~(Stress)~of~the~system~during~Shear}",
+               xlabel=L"\mathrm{Time~steps~}",
+               ylabel=L"\mathrm{Pressure}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true,
+              )
+lines!(ax_total,system.presss)
+lines!(ax_assembly,system.presss[inds.assemblys])
+lines!(ax_shear,system.presss[inds.shears])
+
+save(joinpath(dirs[1],"fig_pressure-stress.png"),fig)
+
+"""
+Stress
+"""
+
+fig=Figure(size=(1920,1080));
+ax_leg=Axis(fig[1:2,2],limits=(0.01,0.1,0.01,0.1));
+hidespines!(ax_leg)
+hidedecorations!(ax_leg)
+ax_total=Axis(fig[1,1:2],
+               title=L"\mathrm{Stress~of~the~system}",
+               xlabel=L"\mathrm{Time~steps~}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true,
+              )
+ax_assembly=Axis(fig[2,1],
+               title=L"\mathrm{Stress~of~the~system~during~Assembly}",
+               xlabel=L"\mathrm{Time~steps~}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true,
+               )
+ax_shear=Axis(fig[2,2],
+               title=L"\mathrm{Stress~of~the~system~during~Shear}",
+               xlabel=L"\mathrm{Time~steps~}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true,
+              )
+lines!(ax_total,system.stress)
+lines!(ax_assembly,system.stress[inds.assemblys])
+lines!(ax_shear,system.stress[inds.shears])
+
+save(joinpath(dirs[1],"fig_stress.png"),fig)
+
+"""
+Stress XY
+"""
+fig=Figure(size=(1920,1080));
+ax_leg=Axis(fig[1:2,2],limits=(0.01,0.1,0.01,0.1));
+hidespines!(ax_leg)
+hidedecorations!(ax_leg)
+ax_total=Axis(fig[1,1:2],
+               title=L"\sigma_{xy}\mathrm{~of~the~system}",
+               xlabel=L"\mathrm{Time~steps~}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true,
+              )
+ax_assembly=Axis(fig[2,1],
+               title=L"\sigma_{xy}\mathrm{~of~the~system~during~Assembly}",
+               xlabel=L"\mathrm{Time~steps~}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true,
+               )
+ax_shear=Axis(fig[2,2],
+               title=L"\sigma_{xy}\mathrm{~of~the~system~during~Shear}",
+               xlabel=L"\mathrm{Time~steps~}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true,
+              )
+lines!(ax_total,-system.sig_XY)
+lines!(ax_assembly,-system.sig_XY[inds.assemblys])
+lines!(ax_shear,-system.sig_XY[inds.shears])
+
+save(joinpath(dirs[1],"fig_stress-xy.png"),fig)
+
+"""
+stress XY relax and deformation periods
+"""
+
+fig=Figure(size=(1920,1080));
+ax_leg=Axis(fig[1:2,2],limits=(0.01,0.1,0.01,0.1));
+hidespines!(ax_leg)
+hidedecorations!(ax_leg)
+ax_total=Axis(fig[1,1:2],
+               title=L"\sigma_{xy}\mathrm{~of~the~system}",
+               xlabel=L"\mathrm{Time~units~}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true,
+              )
+ax_assembly=Axis(fig[2,1],
+               title=L"\mathrm{Deformation~periods}",
+               xlabel=L"\mathrm{Strain~}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true,
+               )
+ax_shear=Axis(fig[2,2],
+               title=L"\mathrm{Relaxation~periods}",
+               xlabel=L"\mathrm{Time~units~}",
+               titlesize=24.0f0,
+               xticklabelsize=18.0f0,
+               yticklabelsize=18.0f0,
+               xlabelsize=20.0f0,
+               ylabelsize=20.0f0,
+               xminorticksvisible=true,
+               xminorgridvisible=true,
+              )
+lines!(ax_total,(parameters.dt*parameters.save_s).*eachindex(inds.shears),-system.sig_XY[inds.shears])
+vlines!(ax_total,(parameters.dt*parameters.save_s)*(last(inds.def1s)-last(inds.assemblys)),linestyle=:dash)
+vlines!(ax_total,(parameters.dt*parameters.save_s)*(last(inds.def2s)-last(inds.assemblys)),linestyle=:dash)
+vlines!(ax_total,(parameters.dt*parameters.save_s)*(last(inds.def3s)-last(inds.assemblys)),linestyle=:dash)
+
+lines!(ax_assembly,(parameters.dt*parameters.sh_rt*parameters.save_s).*(inds.def1s .- first(inds.def1s)),-system.sig_XY[inds.def1s])
+lines!(ax_assembly,(parameters.dt*parameters.sh_rt*parameters.save_s).*(inds.def2s .- (first(inds.def1s)+div(parameters.N_rlx1,parameters.save_s))),-system.sig_XY[inds.def2s])
+lines!(ax_assembly,(parameters.dt*parameters.sh_rt*parameters.save_s).*(inds.def3s .- (first(inds.def1s)+2*div(parameters.N_rlx1,parameters.save_s))),-system.sig_XY[inds.def3s])
+
+lines!(ax_shear,(parameters.dt*parameters.save_s).*eachindex(inds.rlx1s),-system.sig_XY[inds.rlx1s])
+lines!(ax_shear,(parameters.dt*parameters.save_s).*eachindex(inds.rlx2s),-system.sig_XY[inds.rlx2s])
+lines!(ax_shear,(parameters.dt*parameters.save_s).*eachindex(inds.rlx3s),-system.sig_XY[inds.rlx3s])
+
+save(joinpath(dirs[1],"fig_stress-xy-periods.png"),fig)
 
 

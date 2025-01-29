@@ -16,7 +16,7 @@ for var_shearRate in 0.01; #0.01 0.001;
 do
 for var_cCL in 0.1; #0.06 0.1;
 do 
-for Nexp in 105; #$(seq 1 5);
+for Nexp in 114; #$(seq 1 5);
 do
 
 # Cifras significativas
@@ -30,7 +30,7 @@ seed3=10; # Langevin Thermostat
 # Main parameters of the simulation
 phi=0.55;
 CL_concentration=$var_cCL; #0.1;
-N_particles=100;
+N_particles=500;
 damp=0.5;
 T=0.05;
 
@@ -50,8 +50,8 @@ L_real=$(echo "scale=$cs; e( l($Vol_Tot)/3 )" | bc -l );
 L=$(echo "scale=$cs; $L_real / 2" | bc);
 
 # Numerical parameters for LAMMPS simulation
-stepsheat=100000;
-steps=800000;
+stepsheat=1000;
+steps=8000;
 tstep=0.001;
 
 ## Variables for shear deformation simulation
@@ -60,15 +60,15 @@ sstep_defor=10000;
 
 # Shear rate parameters
 shear_rate=$var_shearRate;
-max_strain=2;
+max_strain=1;
 Nstep_per_strain=$(echo "scale=$cs; $(echo "scale=$cs; 1 / $shear_rate" | bc) * $(echo "scale=$cs; 1 / $tstep_defor" | bc)" | bc) ;
 Nstep_per_strain=${Nstep_per_strain%.*};
 
 shear_it=$(( $max_strain * $Nstep_per_strain));
 
-relaxTime1=200000;
-relaxTime2=200000;
-relaxTime3=200000;
+relaxTime1=2000;
+relaxTime2=2000;
+relaxTime3=2000;
 
 # Parameters for fix and dumps files
 Nsave=10; # Temporal average for fix files
@@ -105,6 +105,7 @@ mkdir -p ${dir_name};
 '
 
 cd ${dir_name};
+mkdir imgs;
 
 ## Create the README.md file
 file_name="README.md";
@@ -194,9 +195,10 @@ echo -e "env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.assembly.l
 echo -e "" >> $file_name;
 echo -e "env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.shear.lmp -var temp $T -var damp $damp -var tstep $tstep_defor -var shear_rate $shear_rate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var seed3 $seed3  -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var Dir $info_name -var dumpDir $dump_name" >> $file_name;
 echo -e "" >> $file_name;
-echo -e "mv $info_name ..; mv $dump_name ..;" >> $file_name;
-echo -e "cd ..;" >> $file_name;
+echo -e "mv $info_name ..; mv $dump_name ..; mv data.hydrogel ..; mv data.firstShear .." >> $file_name;echo -e "cd ..;" >> $file_name;
 echo -e "mv -f $info_name data/storage/$dir_name/info;" >> $file_name;
+echo -e "mv -f data.firstShear data/storage/$dir_name/info;" >> $file_name;
+echo -e "mv -f data.hydrogel data/storage/$dir_name/info;" >> $file_name;
 echo -e "mv -f $dump_name data/storage/dumps;" >> $file_name;
 
 bash $file_name
