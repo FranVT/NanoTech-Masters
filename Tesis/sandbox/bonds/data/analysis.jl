@@ -15,12 +15,12 @@ include("functions.jl")
 """
 
 selc_phi="5500";
-selc_Npart="5000";
+selc_Npart="500";
 selc_damp="5000";
 selc_T="500";
 selc_cCL="1000";
 selc_ShearRate="100";#string.((10,50,100));
-selc_Nexp="108";
+selc_Nexp="116";
 
 dirs=getDirs(selc_phi,selc_Npart,selc_damp,selc_T,selc_cCL,selc_ShearRate,selc_Nexp);
 
@@ -99,7 +99,7 @@ lines!(ax_total,system.energy)
 lines!(ax_assembly,system.energy[inds.assembly])
 lines!(ax_shear,system.energy[inds.shear])
 
-save(joinpath(dirs[1],"fig_energyLog.png"),fig_energy_log)
+save(joinpath(dirs[1],"imgs","fig_energyLog.png"),fig_energy_log)
 
 """
 energy
@@ -149,7 +149,7 @@ lines!(ax_total,system.energy)
 lines!(ax_assembly,system.energy[inds.assembly])
 lines!(ax_shear,system.energy[inds.shear])
 
-save(joinpath(dirs[1],"fig_energy.png"),fig_energy)
+save(joinpath(dirs[1],"imgs","fig_energy.png"),fig_energy)
 
 """
 temperature
@@ -203,7 +203,7 @@ lines!(ax_shear,system.tmp_df)
 
 
 
-save(joinpath(dirs[1],"fig_temperature.png"),fig_temp)
+save(joinpath(dirs[1],"imgs","fig_temperature.png"),fig_temp)
 
 """
 Pressure
@@ -253,7 +253,7 @@ lines!(ax_total,system.p)
 lines!(ax_assembly,system.p[inds.assembly])
 lines!(ax_shear,system.p[inds.shear])
 
-save(joinpath(dirs[1],"fig_pressure.png"),fig)
+save(joinpath(dirs[1],"imgs","fig_pressure.png"),fig)
 
 """
 Potential energy
@@ -300,7 +300,7 @@ lines!(ax_total,system.ep)
 lines!(ax_assembly,system.ep[inds.assembly])
 lines!(ax_shear,system.ep[inds.shear])
 
-save(joinpath(dirs[1],"fig_potential.png"),fig)
+save(joinpath(dirs[1],"imgs","fig_potential.png"),fig)
 
 """
 Kinetic energy
@@ -347,7 +347,7 @@ lines!(ax_total,system.ek)
 lines!(ax_assembly,system.ek[inds.assembly])
 lines!(ax_shear,system.ek[inds.shear])
 
-save(joinpath(dirs[1],"fig_kinetic.png"),fig)
+save(joinpath(dirs[1],"imgs","fig_kinetic.png"),fig)
 
 """
 ecouple and econserve
@@ -401,7 +401,7 @@ lines!(ax_assembly,system.ecrve[inds.assembly])
 lines!(ax_shear,system.ecple[inds.shear])
 lines!(ax_shear,system.ecrve[inds.shear])
 
-save(joinpath(dirs[1],"fig_ecpleANDcrve.png"),fig)
+save(joinpath(dirs[1],"imgs","fig_ecpleANDcrve.png"),fig)
 
 """
 Pair potentials
@@ -458,7 +458,7 @@ lines!(ax_shear,system.wca[inds.shear])
 lines!(ax_shear,system.patch[inds.shear])
 lines!(ax_shear,system.swap[inds.shear])
 
-save(joinpath(dirs[1],"fig_pairPotentials.png"),fig)
+save(joinpath(dirs[1],"imgs","fig_pairPotentials.png"),fig)
 
 """
 Pressure cumpted using the stess
@@ -508,7 +508,7 @@ lines!(ax_total,system.presss)
 lines!(ax_assembly,system.presss[inds.assemblys])
 lines!(ax_shear,system.presss[inds.shears])
 
-save(joinpath(dirs[1],"fig_pressure-stress.png"),fig)
+save(joinpath(dirs[1],"imgs","fig_pressure-stress.png"),fig)
 
 """
 Stress
@@ -555,7 +555,7 @@ lines!(ax_total,system.stress)
 lines!(ax_assembly,system.stress[inds.assemblys])
 lines!(ax_shear,system.stress[inds.shears])
 
-save(joinpath(dirs[1],"fig_stress.png"),fig)
+save(joinpath(dirs[1],"imgs","fig_stress.png"),fig)
 
 """
 Stress XY
@@ -601,7 +601,7 @@ lines!(ax_total,-system.sig_XY)
 lines!(ax_assembly,-system.sig_XY[inds.assemblys])
 lines!(ax_shear,-system.sig_XY[inds.shears])
 
-save(joinpath(dirs[1],"fig_stress-xy.png"),fig)
+save(joinpath(dirs[1],"imgs","fig_stress-xy.png"),fig)
 
 """
 stress XY relax and deformation periods
@@ -657,6 +657,6 @@ lines!(ax_shear,(parameters.dt*parameters.save_s).*eachindex(inds.rlx1s),-system
 lines!(ax_shear,(parameters.dt*parameters.save_s).*eachindex(inds.rlx2s),-system.sig_XY[inds.rlx2s])
 lines!(ax_shear,(parameters.dt*parameters.save_s).*eachindex(inds.rlx3s),-system.sig_XY[inds.rlx3s])
 
-save(joinpath(dirs[1],"fig_stress-xy-periods.png"),fig)
+save(joinpath(dirs[1],"imgs","fig_stress-xy-periods.png"),fig)
 
 

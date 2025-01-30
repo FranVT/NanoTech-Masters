@@ -16,7 +16,7 @@ for var_shearRate in 0.01; #0.01 0.001;
 do
 for var_cCL in 0.1; #0.06 0.1;
 do 
-for Nexp in 114; #$(seq 1 5);
+for Nexp in 116; #$(seq 1 5);
 do
 
 # Cifras significativas
@@ -50,8 +50,8 @@ L_real=$(echo "scale=$cs; e( l($Vol_Tot)/3 )" | bc -l );
 L=$(echo "scale=$cs; $L_real / 2" | bc);
 
 # Numerical parameters for LAMMPS simulation
-stepsheat=1000;
-steps=8000;
+stepsheat=100000;
+steps=800000;
 tstep=0.001;
 
 ## Variables for shear deformation simulation
@@ -66,9 +66,9 @@ Nstep_per_strain=${Nstep_per_strain%.*};
 
 shear_it=$(( $max_strain * $Nstep_per_strain));
 
-relaxTime1=2000;
-relaxTime2=2000;
-relaxTime3=2000;
+relaxTime1=200000;
+relaxTime2=200000;
+relaxTime3=200000;
 
 # Parameters for fix and dumps files
 Nsave=10; # Temporal average for fix files
