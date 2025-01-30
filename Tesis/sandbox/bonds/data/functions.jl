@@ -152,6 +152,11 @@ function getData(parm,files_dir)
     p_ass     = aux_ass[5,:];
     ecple_ass = aux_ass[6,:];
     ecrve_ass = aux_ass[7,:];
+    etot_ass  = aux_ass[8,:];
+    ebond_ass = aux_ass[9,:];
+    eang_ass  = aux_ass[10,:];
+    emol_ass  = aux_ass[12,:];
+    enth_ass  = aux_ass[11,:];
     temp_def  = aux_def[2,:];
     ep_def    = aux_def[3,:];
     ek_def    = aux_def[4,:];
@@ -159,6 +164,11 @@ function getData(parm,files_dir)
     temp_df   = aux_def[6,:];
     ecple_def = aux_def[7,:];
     ecrve_def = aux_def[8,:];
+    etot_def  = aux_def[9,:];
+    ebond_def = aux_def[10,:];
+    eang_def  = aux_def[11,:];
+    emol_def  = aux_def[13,:];
+    enth_def  = aux_def[12,:];
 
     # Get the information from the wca.fixf
     aux_ass = extractInfo(files_dir.wcaAss);
