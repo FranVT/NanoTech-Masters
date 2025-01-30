@@ -73,20 +73,38 @@ doms = Iterators.product(r_dom,r_dom,th_dom)|>collect;
 
 
 # Create tuples with the information
+
 docs =  map(eachindex(doms)) do s
             (
                  s,
                  doms[s]...,
-                 #rad2deg(atan(doms[s]...)),
-                 -DiffEvalij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), # Derivative with respect distance i-j
-                 -DiffEvalik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), # Derivative with respect distance i-k 
-                 DiffEvalij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), 
+                 0.0, #-DiffEvalij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), # Derivative with respect distance i-j
+                 0.0, #-DiffEvalik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), # Derivative with respect distance i-k 
+                 0.0, #DiffEvalij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), 
                  0.0,
-                 DiffEvalik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), 
+                 0.0, #DiffEvalik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), 
+                 0.0,
+                 0.0 #SwapU(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc)
+            )
+        end
+
+"""
+# Felipes version
+docs =  map(eachindex(doms)) do s
+            (
+                 s,
+                 doms[s]...,
+                 0.0, #-DiffEvalij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), # Derivative with respect distance i-j
+                 -DiffEvalij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), # Derivative with respect distance i-k 
+                 0.0, #DiffEvalij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), 
+                 0.0,
+                 DiffEvalij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), 
                  0.0,
                  SwapU(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc)
             )
         end
+"""
+
 
 function createTable(N,rmin,rmax,info,filename)
 """
