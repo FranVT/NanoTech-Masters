@@ -51,7 +51,7 @@ end
 ## Parameters for the file
 
 N = 100;
-M = 2*N*N*N;
+#M = 2*N*N*N;
 
 eps_ij = 1.0;
 eps_ik = 1.0;
@@ -68,7 +68,7 @@ w=1;
 th_dom = range(thi,thf,2*N);
 r_dom = range(rmin,rmax,N);
 
-doms = Iterators.product(r_dom,r_dom,th_dom)|>collect;
+doms = reverse.(Iterators.product(th_dom,r_dom,r_dom)|>collect);
 #doms = Iterators.product(r_dom,r_dom)|>collect;
 
 
@@ -78,13 +78,13 @@ docs =  map(eachindex(doms)) do s
             (
                  s,
                  doms[s]...,
-                 0.0, #-DiffEvalij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), # Derivative with respect distance i-j
-                 0.0, #-DiffEvalik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), # Derivative with respect distance i-k 
-                 0.0, #DiffEvalij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), 
+                 -DiffEvalij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), # Derivative with respect distance i-j
+                 -DiffEvalik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), # Derivative with respect distance i-k 
+                 DiffEvalij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), 
                  0.0,
-                 0.0, #DiffEvalik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), 
+                 DiffEvalik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), 
                  0.0,
-                 0.0 #SwapU(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc)
+                 SwapU(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc)
             )
         end
 

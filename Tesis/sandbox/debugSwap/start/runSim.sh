@@ -13,8 +13,8 @@ damp=0.5;
 T=0.05;
 
 L=6;
-N_CL=0;
-N_MO=3;
+N_CL=1;
+N_MO=2;
 
 tstep=0.001;
 Nsave=10;
@@ -77,6 +77,8 @@ echo -e "${NsaveStress}" >> $file_name;
 
 cd ..; cd ..; cd ..;
 
-env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.assembly.lmp -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3  -var tstep $tstep -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var Dir $info_name -var dumpDir $dump_name -var steps $steps -var stepsheat $stepsheat;
+#env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp_omp -sf omp -in in.assembly.lmp -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3  -var tstep $tstep -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var Dir $info_name -var dumpDir $dump_name -var steps $steps -var stepsheat $stepsheat;
+
+mpirun -np ${nodes} lmp_omp -sf omp -pk omp ${nodes} -in in.assembly.lmp -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3  -var tstep $tstep -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var Dir $info_name -var dumpDir $dump_name -var steps $steps -var stepsheat $stepsheat;
 
 
