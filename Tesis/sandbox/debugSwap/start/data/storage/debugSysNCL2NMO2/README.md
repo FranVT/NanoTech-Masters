@@ -3,9 +3,9 @@
 
 ## Model and System parameters
 
-- Number of Cross-Linkers: 1
+- Number of Cross-Linkers: 2
 - Number of Monomers: 2
-- Half length of the box: 4 [sigma]
+- Half length of the box: 3 [sigma]
 - Temperature: 0.05
 - Damp: 0.5
 
