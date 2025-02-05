@@ -12,9 +12,9 @@ seed3=10; # Langevin Thermostat
 damp=0.5;
 T=0.05;
 
-L=3;
-N_CL=10;
-N_MO=10;
+L=5;
+N_CL=50;
+N_MO=50;
 
 tstep=0.001;
 Nsave=10;
