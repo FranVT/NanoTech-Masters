@@ -87,7 +87,7 @@ rmin = sig/1000;
 rmax = 2*sig;
 thi = 180/(4*N)
 thf = 180 - thi;
-w=2;
+w=10;
 
 # Create the domains of evaluation according filename nessetities
 th_dom = range(thi,thf,2*N);
@@ -118,11 +118,11 @@ docs2 =  map(eachindex(doms)) do s
             (
                  s,
                  doms[s]...,
-                 force(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]), # Derivative with respect distance i-j
-                 force(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]), # Derivative with respect distance i-k 
+                 force(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]), 
+                 -force(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]), 
                  -force(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]), 
                  0.0,
-                 -force(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]), 
+                 force(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]), 
                  0.0,
                  SwapU(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc)
             )
