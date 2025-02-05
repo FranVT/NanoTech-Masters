@@ -26,6 +26,16 @@ function SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,r_c)
     return round(w.*eps_jk.*U3(eps_ij,eps_jk,sig_p,r_ij).*U3(eps_ik,eps_jk,sig_p,r_ik),digits=2^7)
 end
 
+function DiffU3(eps_pair,eps_3,sig_p,r)
+"""
+    Get the central finite difference given the value of the position and the function.
+"""
+    dh=1e-3;
+    fo=U3(eps_pair,eps_3,sig_p,r+dh);
+    ff=U3(eps_pair,eps_3,sig_p,r-dh);
+     return (1/(2*dh))*( fo - ff );
+end
+
 
 function DiffEvalij(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,r_c)
 """
@@ -48,6 +58,21 @@ function DiffEvalik(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,r_c)
 end
 
 
+
+function force(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik)
+"""
+    Compute the force of: d/dr[U(r_ij,r_ik)], U(r_ij,r_ik) = U(r_ij)U(r_ik)
+"""
+    a=U3(eps_ik,eps_jk,sig_p,r_ik); 
+    b=DiffU3(eps_ij,eps_jk,sig_p,r_ij);
+    c=U3(eps_ij,eps_jk,sig_p,r_ij);
+    d=DiffU3(eps_ik,eps_jk,sig_p,r_ik);
+
+    return -w*eps_jk*(a*b + c*d) 
+
+end
+
+
 ## Parameters for the file
 
 N = 100;
@@ -62,7 +87,7 @@ rmin = sig/1000;
 rmax = 2*sig;
 thi = 180/(4*N)
 thf = 180 - thi;
-w=1;
+w=2;
 
 # Create the domains of evaluation according filename nessetities
 th_dom = range(thi,thf,2*N);
@@ -73,7 +98,7 @@ doms = reverse.(Iterators.product(th_dom,r_dom,r_dom)|>collect);
 
 
 # Create tuples with the information
-
+"""
 docs =  map(eachindex(doms)) do s
             (
                  s,
@@ -87,6 +112,22 @@ docs =  map(eachindex(doms)) do s
                  SwapU(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc)
             )
         end
+"""
+
+docs2 =  map(eachindex(doms)) do s
+            (
+                 s,
+                 doms[s]...,
+                 force(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]), # Derivative with respect distance i-j
+                 force(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]), # Derivative with respect distance i-k 
+                 -force(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]), 
+                 0.0,
+                 -force(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]), 
+                 0.0,
+                 SwapU(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc)
+            )
+        end
+
 
 """
 # Felipes version
@@ -126,6 +167,6 @@ function createTable(N,rmin,rmax,info,filename)
     end
 end
 
-createTable(N,rmin,rmax,docs,filename)
+createTable(N,rmin,rmax,docs2,filename)
 
 
