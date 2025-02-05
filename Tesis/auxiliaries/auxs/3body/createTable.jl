@@ -2,7 +2,25 @@
     Script to create the threebody/table filename parameter
 """
 
-filename = "swapMechTab.table";
+function createTable(N,rmin,rmax,info,filename)
+"""
+    Create the table for threebody/table filename input as follows:
+        ind rij rik th fi1 fi2 fj1 fj2 fk1 fk2 e
+        ind rij rik th fi1 fi2 -fi1 0 -fi2 0 e
+        ind rij rik th fij fik -fij 0 -fik 0 e
+"""
+
+    # Start to write the data file
+    touch(filename); # Create the file
+
+    # Edit the file
+    open(filename,"w") do f
+        write(f,"SEC1\n")
+        write(f,string("N ",N," rmin ",rmin," rmax ",rmax,"\n\n"))
+        map(t->write(f,rstrip(join(map(s->s*" ",string.(info[t]))))*"\n" ),eachindex(info))
+    end
+end
+
 
 # Create the functions
 function U3(eps_pair,eps_3,sig_p,r)
@@ -75,8 +93,10 @@ end
 
 ## Parameters for the file
 
+filename1 = "swapMechTab1.table";
+filename2 = "swapMechTab2.table";
+
 N = 100;
-#M = 2*N*N*N;
 
 eps_ij = 1.0;
 eps_ik = 1.0;
@@ -93,80 +113,41 @@ w=10;
 th_dom = range(thi,thf,2*N);
 r_dom = range(rmin,rmax,N);
 
-doms = reverse.(Iterators.product(th_dom,r_dom,r_dom)|>collect);
-#doms = Iterators.product(r_dom,r_dom)|>collect;
-
+doms1 = reduce(vcat,reverse.(Iterators.product(th_dom,r_dom,r_dom)|>collect));
+doms2 = reduce(vcat,map(s-> reshape(reverse.(Iterators.product(th_dom,r_dom[s:end],r_dom[s])),2*N*(N-(s-1)),1) ,eachindex(r_dom)));
 
 # Create tuples with the information
-"""
-docs =  map(eachindex(doms)) do s
+# For Patch_j = Patch_k
+docs1 =  map(eachindex(doms1)) do s
             (
                  s,
-                 doms[s]...,
-                 -DiffEvalij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), # Derivative with respect distance i-j
-                 -DiffEvalik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), # Derivative with respect distance i-k 
-                 DiffEvalij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), 
+                 doms1[s]...,
+                 force(w,eps_ij,eps_ik,eps_jk,sig,doms1[s][1],doms1[s][2]), 
+                 force(w,eps_ij,eps_ik,eps_jk,sig,doms1[s][1],doms1[s][2]), 
+                 force(w,eps_ij,eps_ik,eps_jk,sig,doms1[s][1],doms1[s][2]), 
                  0.0,
-                 DiffEvalik(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), 
+                 force(w,eps_ij,eps_ik,eps_jk,sig,doms1[s][1],doms1[s][2]), 
                  0.0,
-                 SwapU(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc)
-            )
-        end
-"""
-
-docs2 =  map(eachindex(doms)) do s
-            (
-                 s,
-                 doms[s]...,
-                 force(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]), 
-                 force(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]), 
-                 force(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]), 
-                 0.0,
-                 force(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2]), 
-                 0.0,
-                 SwapU(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc)
+                 SwapU(w,eps_ij,eps_ik,eps_jk,sig,doms1[s][1],doms1[s][2],rc)
             )
         end
 
-
-"""
-# Felipes version
-docs =  map(eachindex(doms)) do s
+# For Patch_j != Patch_k
+docs2 =  map(eachindex(doms2)) do s
             (
                  s,
-                 doms[s]...,
-                 0.0, #-DiffEvalij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), # Derivative with respect distance i-j
-                 -DiffEvalij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), # Derivative with respect distance i-k 
-                 0.0, #DiffEvalij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), 
+                 doms2[s]...,
+                 force(w,eps_ij,eps_ik,eps_jk,sig,doms2[s][1],doms2[s][2]), 
+                 force(w,eps_ij,eps_ik,eps_jk,sig,doms2[s][1],doms2[s][2]), 
+                 force(w,eps_ij,eps_ik,eps_jk,sig,doms2[s][1],doms2[s][2]), 
                  0.0,
-                 DiffEvalij(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc), 
+                 force(w,eps_ij,eps_ik,eps_jk,sig,doms2[s][1],doms2[s][2]), 
                  0.0,
-                 SwapU(w,eps_ij,eps_ik,eps_jk,sig,doms[s][1],doms[s][2],rc)
+                 SwapU(w,eps_ij,eps_ik,eps_jk,sig,doms2[s][1],doms2[s][2],rc)
             )
         end
-"""
 
-
-function createTable(N,rmin,rmax,info,filename)
-"""
-    Create the table for threebody/table filename input as follows:
-        ind rij rik th fi1 fi2 fj1 fj2 fk1 fk2 e
-        ind rij rik th fi1 fi2 -fi1 0 -fi2 0 e
-        ind rij rik th fij fik -fij 0 -fik 0 e
-"""
-# map(s-> string("    ",s," ",masses[s],"\n"),1:atom_type);
-
-    # Start to write the data file
-    touch(filename); # Create the file
-
-    # Edit the file
-    open(filename,"w") do f
-        write(f,"SEC1\n")
-        write(f,string("N ",N," rmin ",rmin," rmax ",rmax,"\n\n"))
-        map(t->write(f,rstrip(join(map(s->s*" ",string.(info[t]))))*"\n" ),eachindex(info))
-    end
-end
-
-createTable(N,rmin,rmax,docs2,filename)
+createTable(N,rmin,rmax,docs1,filename1)
+createTable(N,rmin,rmax,docs2,filename2)
 
 
