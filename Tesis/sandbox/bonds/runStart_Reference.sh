@@ -16,7 +16,7 @@ for var_shearRate in 0.01; #0.01 0.001;
 do
 for var_cCL in 0.1; #0.06 0.1;
 do 
-for Nexp in 122; #$(seq 1 5);
+for Nexp in 1001; #$(seq 1 5);
 do
 
 # Cifras significativas
@@ -50,8 +50,8 @@ L_real=$(echo "scale=$cs; e( l($Vol_Tot)/3 )" | bc -l );
 L=$(echo "scale=$cs; $L_real / 2" | bc);
 
 # Numerical parameters for LAMMPS simulation
-stepsheat=100000;
-steps=800000;
+stepsheat=1000000;
+steps=8000000;
 tstep=0.001;
 
 ## Variables for shear deformation simulation
