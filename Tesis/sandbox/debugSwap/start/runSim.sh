@@ -12,9 +12,9 @@ seed3=10; # Langevin Thermostat
 damp=0.5;
 T=0.05;
 
-L=6;
-N_CL=5;
-N_MO=5;
+L=3;
+N_CL=10;
+N_MO=10;
 
 tstep=0.001;
 Nsave=10;
@@ -27,7 +27,7 @@ stepsheat=1000000;
 info_name=""infoSysNCL"${N_CL}"NMO"${N_MO}";
 dump_name=""dumpSysNCL"${N_CL}"NMO"${N_MO}";
 
-dir_name=""debugSysNCL"${N_CL}"NMO"${N_MO}"Nexp7"";
+dir_name=""debugSysNCL"${N_CL}"NMO"${N_MO}"Nexp1"";
 
 nodes=4;
 

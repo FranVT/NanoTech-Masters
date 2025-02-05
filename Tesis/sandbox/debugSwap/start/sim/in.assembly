@@ -3,7 +3,8 @@
 # Initialization
 units lj
 dimension 3
-boundary f f f
+#boundary f f f
+boundary p p p
 
 # Styles of atoms and that stuff
 atom_style full 
@@ -60,7 +61,7 @@ compute size Patches property/chunk ccl count # Counts the atoms in each chunk
 # DUMPS and FIXES
 
 # Bounce walls
-fix wall all wall/reflect xlo EDGE xhi EDGE ylo EDGE yhi EDGE zlo EDGE zhi EDGE units box
+#fix wall all wall/reflect xlo EDGE xhi EDGE ylo EDGE yhi EDGE zlo EDGE zhi EDGE units box
 
 
 # Save atom positions
