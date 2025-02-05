@@ -27,7 +27,7 @@ stepsheat=1500000;
 info_name=""infoSysNCL"${N_CL}"NMO"${N_MO}";
 dump_name=""dumpSysNCL"${N_CL}"NMO"${N_MO}";
 
-dir_name=""debugSysNCL"${N_CL}"NMO"${N_MO}"Nexp6"";
+dir_name=""debugSysNCL"${N_CL}"NMO"${N_MO}"Nexp7"";
 
 nodes=4;
 
