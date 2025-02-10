@@ -16,7 +16,7 @@ for var_shearRate in 0.01; #0.01 0.001;
 do
 for var_cCL in 0.1; #0.06 0.1;
 do 
-for Nexp in 1004; #$(seq 1 5);
+for Nexp in 1007; #$(seq 1 5);
 do
 
 # Cifras significativas
@@ -28,7 +28,7 @@ seed2=$((4321 + $Nexp)); # Position of Cl and MO
 seed3=10; # Langevin Thermostat
 
 # Main parameters of the simulation
-phi=0.4;
+phi=0.55;
 CL_concentration=$var_cCL; #0.1;
 N_particles=500;
 damp=0.5;
@@ -50,8 +50,8 @@ L_real=$(echo "scale=$cs; e( l($Vol_Tot)/3 )" | bc -l );
 L=$(echo "scale=$cs; $L_real / 2" | bc);
 
 # Numerical parameters for LAMMPS simulation
-stepsheat=1000000;
-steps=8000000;
+stepsheat=20000;
+steps=80000;
 tstep=0.001;
 
 ## Variables for shear deformation simulation
@@ -74,7 +74,7 @@ relaxTime3=200000;
 Nsave=10; # Temporal average for fix files
 NsaveStress=$(echo "scale=$cs; 1 / $tstep_defor" | bc); # Tmeporal average for stress fix files
 NsaveStress=${NsaveStress%.*};
-Ndump=100; # Every Ndump time steps save the particles positions.
+Ndump=10; # Every Ndump time steps save the particles positions.
 
 : '
     Creation of directory for the simulation data
