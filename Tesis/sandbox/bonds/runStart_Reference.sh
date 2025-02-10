@@ -12,11 +12,11 @@ rm -rf info*;
 cd ..; 
 
 ## Start the for loop
-for var_shearRate in 0.01; #0.01 0.001;
+for var_shearRate in 0.005; #0.01 0.001;
 do
 for var_cCL in 0.1; #0.06 0.1;
 do 
-for Nexp in 1008; #$(seq 1 5);
+for Nexp in 1011; #$(seq 1 5);
 do
 
 # Cifras significativas
