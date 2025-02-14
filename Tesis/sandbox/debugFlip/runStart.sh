@@ -16,7 +16,7 @@ for var_shearRate in 0.01; #0.01 0.001;
 do
 for var_cCL in 0.1; #0.06 0.1;
 do 
-for Nexp in 14; #$(seq 1 5);
+for Nexp in 15; #$(seq 1 5);
 do
 
 # Cifras significativas
@@ -47,7 +47,7 @@ Vol_Totg=$(echo "scale=$cs; $Vol_MO + $Vol_CL" | bc); # Volume approximation
 # Get the total volume needed taking into account the packing fraction
 Vol_Tot=$(echo "scale=$cs; $Vol_Totg / $phi" | bc);
 # Translate the volume into length of a box
-L_real=$(echo "scale=$cs; e( l($Vol_Tot^(1/3)) )" | bc -l );
+L_real=$(echo "scale=$cs; e( (1/3) * l($Vol_Tot) )" | bc -l );
 # Input parameter for LAMMPS script
 L=$(echo "scale=$cs; $L_real / 2" | bc);
 
