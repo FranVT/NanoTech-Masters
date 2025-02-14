@@ -12,7 +12,7 @@ group CM type 1 2
 
 # Neighbor list
 #neighbor 1.8 bin
-neighbor 1 multi # extra-distance style
+neighbor 1.8 multi # extra-distance style
 
 comm_style tiled
 comm_modify mode multi
