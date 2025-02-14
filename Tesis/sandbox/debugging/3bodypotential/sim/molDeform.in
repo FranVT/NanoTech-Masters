@@ -1,0 +1,23 @@
+molecule CL sysFiles/molecule.patchy.CL
+molecule MO sysFiles/molecule.patchy.MO
+
+# Create patchy particles
+group CrossLinker type 1 3
+group Monomer type 2 4
+group Patches type 3 4
+group CL type 1
+group MO type 2
+group PA type 3
+group CM type 1 2
+
+# Fix rigid bodies
+#fix pCL CrossLinker rigid/small/omp molecule #langevin 1.0 1.0 100.0 ${seed3}
+#fix pMO Monomer rigid/small/omp molecule #langevin 1.0 1.0 100.0 ${seed3}
+#fix rigidBodies all rigid/small/omp molecule
+#fix_modify rigidBodies virial no # No contribution to the stress
+
+# Neighbor list
+neighbor 1.8 bin # extra-distance style
+neigh_modify binsize 1.8
+neigh_modify exclude molecule/intra CrossLinker
+neigh_modify exclude molecule/intra Monomer
