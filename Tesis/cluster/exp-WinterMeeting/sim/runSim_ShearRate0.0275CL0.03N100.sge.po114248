@@ -1,3 +1,0 @@
--catch_rsh /cm/local/apps/sge/var/spool/compute-00-09/active_jobs/114248.1/pe_hostfile
-compute-00-09:2
-compute-00-02:4
