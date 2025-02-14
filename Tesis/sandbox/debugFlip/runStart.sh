@@ -73,10 +73,10 @@ relaxTime2=2500;
 relaxTime3=2500;
 
 # Parameters for fix and dumps files
-Nsave=10; # Temporal average for fix files
+Nsave=1; # Temporal average for fix files
 NsaveStress=$(echo "scale=$cs; 1 / $tstep_defor" | bc); # Tmeporal average for stress fix files
 NsaveStress=${NsaveStress%.*};
-Ndump=10; # Every Ndump time steps save the particles positions.
+Ndump=1; # Every Ndump time steps save the particles positions.
 
 : '
     Creation of directory for the simulation data
