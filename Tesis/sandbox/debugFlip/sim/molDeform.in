@@ -12,10 +12,10 @@ group CM type 1 2
 
 # Neighbor list
 #neighbor 1.8 bin
-neighbor 0.6 nsq # extra-distance style
+neighbor 0.6 bin # extra-distance style
 
 comm_style brick
-comm_modify mode single
+comm_modify mode single group all cutoff 0.0 vel yes
 
 #neigh_modify delay 0 every 1 check no
 
