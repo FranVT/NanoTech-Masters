@@ -1,0 +1,43 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+\section{Shear deformation}\label{sec:descriptionSimulation}
+
+We want to apply a shear deformation in one direction and try to find connections between the structure an there rheological properties.
+
+The main rheological properties to measure are: stress, and hopefully yield stress.
+
+\subsection{LAMMPS implementation}
+
+We use reduce units, Lennard-Jones units.
+
+To create the patchy particles, the \verb|zero| bond style is used.
+The reason to use this, is because bond forces and energies are not computed, but the geometry of bond pairs is accessible to other commands (\href{https://docs.lammps.org/bond_zero.html}{Ref}).
+
+The pair styles used in the simulation are: \verb|hybrid/overlay|, \verb|zero|, \verb|lj/cut|, \verb|table| and \verb|threebody/table|.
+The \verb|hybrid/overlay| style is used because superimposed multiple potentials in an additive fashion (\href{https://docs.lammps.org/pair_hybrid.html}{Ref}).
+The rest of pair styles are to implement the potentials described in \ref{subsec:Potentials}.
+
+The length of the box is set, such that the desire Monomers and Cross-Linkers can be spawn.
+The mass of the patches are set to be the half mass of the CL and MO.
+
+The \verb|pair_coeff| commands where set to accomplish the simulation describe in \ref{sec:descriptionSimulation}.
+With respect the \verb|create_atoms| command, the \textit{overlap} keyword was assign to a value of the diameter of CL and MO.
+
+Then, the \verb|rigid/small| fix command is used to create the Monomers and Cross-Linkers particles.
+This is because, this command is typucally best for a system with large number of small rigid bodies\href{https://docs.lammps.org/fix_rigid.html}{Ref}.
+
+The \verb|neighbor| command was set of type bin with a value of 1.8 and the \verb|neigh_modify| command with the exclude keyword was added to save needless computation due to the rigid bodies (\href{https://docs.lammps.org/neigh_modify.html}{Ref}).
+
+Then, a Nose/Hoover thermostat is used with a time integration algorithm to perform non-equilibrium Molecular dynamics with the command \verb|fix nvt/sllod|.
+This command is implemented because this thermostat is used for a simulation box that is changing size and/or shape, creating a ``streaming'' velocity.
+This position-dependent streaming velocity is subtracted from each atom’s actual velocity to yield a thermal velocity which is used for temperature computation and thermostatting (\href{https://docs.lammps.org/fix_nvt_sllod.html#evans3}{Ref}).
+
+To introduce the shear deformation the \verb|fix deform| command is used with the \textit{erate} keyword and remap $v$ and flip yes.
+
+
+finally, multiple \verb|computes| are used to get the potential, kinetic and total energies, temperature and voronoi analysis.
+	
+	
+	
+\end{document}

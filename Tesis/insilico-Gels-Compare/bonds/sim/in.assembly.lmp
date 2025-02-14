@@ -1,0 +1,107 @@
+# Input Script of lammps for assembly simulation of polimeric network.
+# Main code is based on: https://github.com/PipeB62/Hydrogel-Simulation
+
+# Felipe Benavides modified by Fco. Vazquez
+
+# Initialization
+units lj
+dimension 3
+boundary p p p
+
+# Styles of atoms and that stuff
+atom_style full 
+bond_style harmonic
+angle_style harmonic
+pair_style hybrid/overlay/omp zero 0.0 lj/cut/omp 1.12 table/omp linear 5000000 threebody/table
+
+newton on
+
+# Create simulaiton box
+region simulation_box block -$L $L -$L $L -$L $L
+# N-atom-types region-ID keyword value Is necesesary the extra/special/per/atom (# of special neighbors per atom)
+create_box 4 simulation_box &
+    bond/types 1 &
+    angle/types 2 &
+    extra/bond/per/atom 10 &
+    extra/angle/per/atom 6 &
+    extra/special/per/atom 10
+
+# Atom types
+mass 1 1.0      # CL 
+mass 2 1.0      # MO
+mass 3 1.0      # PA
+mass 4 1.0      # PB
+
+# Coefficients
+include potential.in
+
+# Molecules
+include molecules.in
+
+# COMPUTES
+
+# Compute global kinetic and potential energy and temperature
+compute t all temp
+compute tCM CM temp
+compute p all pressure t
+compute ep all pe
+compute ek all ke
+compute ekCM CM ke
+compute stressVirial all pressure t ke pair
+compute wcaPair all pair lj/cut/omp epair
+compute patchPair all pair table/omp epair
+compute swapPair all pair threebody/table epair
+compute disc CM displace/atom
+compute daux CM chunk/atom type pbc yes
+compute dis CM reduce/chunk daux sum c_disc[4]
+#compute disM CM reduce/chunk daux sum c_disc[4]
+
+# DUMPS and FIXES
+
+thermo ${NsaveStress}
+
+# Save atom positions
+dump dumpID all atom ${Ndump} ${dumpDir}/assembly/patchyParticles_assembly.*.dumpf
+dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
+
+# Save global energies and temperature
+group Energy empty
+fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_ep c_ek c_tCM c_p file ${Dir}/energy_assembly.fixf
+
+group PairE1 empty
+group PairE2 empty
+group PairE3 empty
+
+fix fixwca PairE1 ave/time 1 ${Nsave} ${Nsave} c_wcaPair file ${Dir}/wcaPair_assembly.fixf
+fix fixpatch PairE2 ave/time 1 ${Nsave} ${Nsave} c_patchPair file ${Dir}/patchPair_assembly.fixf
+fix fixswap PairE3 ave/time 1 ${Nsave} ${Nsave} c_swapPair file ${Dir}/swapPair_assembly.fixf
+
+# Save Atom displacement
+group Displ empty
+fix fixDispl Displ ave/time 1 ${NsaveStress} ${NsaveStress} c_dis[1] c_dis[2] c_dis[3] c_dis[4] file ${Dir}/cmdisplacement_assembly.fixf
+
+# Save Stress tensor
+group Stress empty
+fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_stressVirial[*] file ${Dir}/stressVirial_assembly.fixf
+
+# RUN SIMULATION
+
+# Brownian Dynamics using Langevin Thermostat
+
+# Set the time integrator
+fix VelVerlet all nve/omp # Use Velocity Verlet integrator
+timestep ${tstep}
+
+# First elevate the temperature
+fix ThermoLng all langevin 0.0 ${temp} ${damp} ${seed3} # Brownian Dynamics: langevin + nve 
+run ${stepsheat}
+
+unfix ThermoLng
+
+# Now we let the system to create the polymeric network
+fix ThermoLng all langevin ${temp} ${temp} ${damp} ${seed3} # Brownian Dynamics: langevin + nve 
+run ${steps}
+
+# Write data for deformation
+
+write_data data.hydrogel
