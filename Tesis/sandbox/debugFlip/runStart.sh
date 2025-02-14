@@ -16,7 +16,7 @@ for var_shearRate in 0.01; #0.01 0.001;
 do
 for var_cCL in 0.1; #0.06 0.1;
 do 
-for Nexp in 15; #$(seq 1 5);
+for Nexp in 16; #$(seq 1 5);
 do
 
 # Cifras significativas
@@ -40,8 +40,8 @@ N_CL=${N_CL%.*};
 N_MO=$(( $N_particles - $N_CL ));
 
 # Compute the size of the box to get he given packing fraction
-Vol_MO=$(echo "scale=$cs; 0.562135 * $N_MO" | bc); # Volume approximation
-Vol_CL=$(echo "scale=$cs; 0.600672 * $N_CL" | bc); # Volume approximation
+Vol_MO=$(echo "scale=$cs; 4.241404 * $N_MO" | bc); # Volume approximation
+Vol_CL=$(echo "scale=$cs; 4.294138 * $N_CL" | bc); # Volume approximation
 Vol_Totg=$(echo "scale=$cs; $Vol_MO + $Vol_CL" | bc); # Volume approximation
 
 # Get the total volume needed taking into account the packing fraction
