@@ -11,13 +11,13 @@ group PA type 3
 group CM type 1 2
 
 # Neighbor list
-neighbor 1.8 bin
-#neighbor 0.6 multi # extra-distance style
+#neighbor 1.8 bin
+neighbor 1 multi # extra-distance style
 
-#comm_style tiled
-#comm_modify mode multi
+comm_style tiled
+comm_modify mode multi
 
 #neigh_modify delay 0 every 1 check no
 
-neigh_modify exclude molecule/intra CrossLinker
-neigh_modify exclude molecule/intra Monomer
+#neigh_modify exclude molecule/intra CrossLinker
+#neigh_modify exclude molecule/intra Monomer
