@@ -19,5 +19,5 @@ neighbor 1.8 bin
 
 #neigh_modify delay 0 every 1 check no
 
-#neigh_modify exclude molecule/intra CrossLinker
-##neigh_modify exclude molecule/intra Monomer
+neigh_modify exclude molecule/intra CrossLinker
+neigh_modify exclude molecule/intra Monomer
