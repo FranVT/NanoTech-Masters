@@ -16,8 +16,8 @@ neighbor 0.6 multi # extra-distance style
 
 comm_style brick
 comm_modify mode multi group all vel yes
-
-#neigh_modify delay 0 every 1 check no
+comm_modify cutoff/multi * 4 
+neigh_modify delay 0 every 1 check no
 
 neigh_modify exclude molecule/intra CrossLinker
 neigh_modify exclude molecule/intra Monomer
