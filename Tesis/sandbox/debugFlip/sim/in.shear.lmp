@@ -96,13 +96,19 @@ fix_modify ThermoLng temp td
 timestep ${tstep}
 
 # Variables for the flip
-variable flip_treshold equal 0.5*v_l
+variable flip_treshold equal 0.5*lx
+variable xy equal xy
 
-run ${shear_it} every 1 & 
-    if "{xy}" >= ${flip_treshold} then &
-        "change_box all xy final -${flip_treshold}" &
-    else &
+fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box
+
+run ${shear_it} every 1 &
+    if ${xy} >= ${flip_treshold} then &
+        "change_box all xy final -${flip_treshold} remap units box" &
+        "unfix shear" &
         "fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box"
+    else &
+        "print 'No flip'"
+
 
 write_data data.firstShear
 
