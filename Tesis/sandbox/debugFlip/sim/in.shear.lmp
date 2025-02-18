@@ -102,7 +102,7 @@ unfix shear
 
 # Introduce the flip
 fix shear all deform 1 xy erate ${shear_rate} remap x flip yes units box
-run 0 pre no post no
+run 1 pre no post no
 unfix shear
 
 # Create the shear without a flip
