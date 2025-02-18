@@ -16,7 +16,7 @@ for var_shearRate in 0.01; #0.01 0.001;
 do
 for var_cCL in 0.1; #0.06 0.1;
 do 
-for Nexp in 1023; #$(seq 1 5);
+for Nexp in 1; #$(seq 1 5);
 do
 
 # Cifras significativas
@@ -28,7 +28,7 @@ seed2=$((4321 + $Nexp)); # Position of Cl and MO
 seed3=10; # Langevin Thermostat
 
 # Main parameters of the simulation
-phi=0.25;
+phi=0.5;
 CL_concentration=$var_cCL; #0.1;
 N_particles=1500;
 damp=0.5;
@@ -40,12 +40,14 @@ N_CL=${N_CL%.*};
 N_MO=$(( $N_particles - $N_CL ));
 
 # Compute the size of the box to get he given packing fraction
-Vol_Totg=$(echo "scale=$cs; 0.8 * $N_particles" | bc); # Volume approximation
+Vol_MO=$(echo "scale=$cs; 4.241404 * $N_MO" | bc); # Volume approximation
+Vol_CL=$(echo "scale=$cs; 4.294138 * $N_CL" | bc); # Volume approximation
+Vol_Totg=$(echo "scale=$cs; $Vol_MO + $Vol_CL" | bc); # Volume approximation
 
 # Get the total volume needed taking into account the packing fraction
 Vol_Tot=$(echo "scale=$cs; $Vol_Totg / $phi" | bc);
 # Translate the volume into length of a box
-L_real=$(echo "scale=$cs; e( l($Vol_Tot)/3 )" | bc -l );
+L_real=$(echo "scale=$cs; e( (1/3) * l($Vol_Tot) )" | bc -l );
 # Input parameter for LAMMPS script
 L=$(echo "scale=$cs; $L_real / 2" | bc);
 

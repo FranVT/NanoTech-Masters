@@ -95,22 +95,38 @@ fix_modify ThermoLng temp td
 
 timestep ${tstep}
 
-fix shear all deform 1 xy erate ${shear_rate} remap x flip yes units box
-run ${shear_it}
+# Variables for the flip
+variable flip_treshold equal 0.5*lx
+variable xy equal xy
+
+fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box
+run ${shear_it} post no every 1 &
+    "if '${xy} >= ${flip_treshold}' then &
+        'change_box all xy final -${flip_treshold} units box' &
+        'unfix shear' &
+        'fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box'"
 unfix shear
 
 write_data data.firstShear
 
 run ${rlxT1}
 
-fix shear all deform 1 xy erate ${shear_rate} remap x flip yes units box
-run ${shear_it}
+fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box
+run ${shear_it} post no every 1 &
+    "if '${xy} >= ${flip_treshold}' then &
+        'change_box all xy final -${flip_treshold} units box' &
+        'unfix shear' &
+        'fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box'"
 unfix shear
 
 run ${rlxT2}
 
-fix shear all deform 1 xy erate ${shear_rate} remap x flip yes units box
-run ${shear_it}
+fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box
+run ${shear_it} post no every 1 &
+    "if '${xy} >= ${flip_treshold}' then &
+        'change_box all xy final -${flip_treshold} units box' &
+        'unfix shear' &
+        'fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box'"
 unfix shear
 
 run ${rlxT3}

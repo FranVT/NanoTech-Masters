@@ -109,19 +109,3 @@ run ${shear_it} post no every 1 &
 
 write_data data.firstShear
 
-
-
-# History of working code
-
-# Create the shear without a flip
-#fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box
-#run ${shear_it}
-#unfix shear
-
-#change_box all xy final 0 xz final 0 yz final 0 remap units box
-
-# Create the shear without a flip
-#fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box
-#run ${shear_it}
-#unfix shear
-
