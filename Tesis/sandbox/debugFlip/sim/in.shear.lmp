@@ -100,15 +100,18 @@ fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box
 run ${shear_it}
 unfix shear
 
+change_box all xy final 0 xz final 0 yz final 0 remap units box
+
 # Introduce the flip
-fix shear all deform 1 xy erate ${shear_rate} remap x flip yes units box
-run 1 pre no post no
-unfix shear
+#fix shear all deform 1 xy erate ${shear_rate} remap x flip yes units box
+#run 1 pre no post no
+#unfix shear
 
 # Create the shear without a flip
 fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box
 run ${shear_it}
 unfix shear
+
 
 write_data data.firstShear
 
