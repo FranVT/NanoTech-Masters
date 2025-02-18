@@ -102,10 +102,10 @@ variable xy equal xy
 fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box
 
 run ${shear_it} every 1 &
-    if ${xy} >= ${flip_treshold} then &
+    if "${xy} >= ${flip_treshold}" then &
         "change_box all xy final -${flip_treshold} remap units box" &
         "unfix shear" &
-        "fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box"
+        "fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box" &
     else &
         "print 'No flip'"
 
