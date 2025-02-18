@@ -95,22 +95,33 @@ fix_modify ThermoLng temp td
 
 timestep ${tstep}
 
+# Create the shear without a flip
+fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box
+run ${shear_it}
+unfix shear
+
+# Introduce the flip
 fix shear all deform 1 xy erate ${shear_rate} remap x flip yes units box
+run 0 pre no post no
+unfix shear
+
+# Create the shear without a flip
+fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box
 run ${shear_it}
 unfix shear
 
 write_data data.firstShear
 
-run ${rlxT1}
+#run ${rlxT1}
 
-fix shear all deform 1 xy erate ${shear_rate} remap x flip yes units box
-run ${shear_it}
-unfix shear
+#fix shear all deform 1 xy erate ${shear_rate} remap x flip yes units box
+#run ${shear_it}
+#unfix shear
 
-run ${rlxT2}
+#run ${rlxT2}
 
-fix shear all deform 1 xy erate ${shear_rate} remap x flip yes units box
-run ${shear_it}
-unfix shear
+#fix shear all deform 1 xy erate ${shear_rate} remap x flip yes units box
+#run ${shear_it}
+#unfix shear
 
-run ${rlxT3}
+#run ${rlxT3}

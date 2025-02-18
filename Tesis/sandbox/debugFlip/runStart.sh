@@ -62,7 +62,7 @@ sstep_defor=10000;
 
 # Shear rate parameters
 shear_rate=$var_shearRate;
-max_strain=2;
+max_strain=1;
 Nstep_per_strain=$(echo "scale=$cs; $(echo "scale=$cs; 1 / $shear_rate" | bc) * $(echo "scale=$cs; 1 / $tstep_defor" | bc)" | bc) ;
 Nstep_per_strain=${Nstep_per_strain%.*};
 
