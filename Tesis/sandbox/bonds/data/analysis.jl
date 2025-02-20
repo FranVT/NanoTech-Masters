@@ -14,13 +14,13 @@ include("functions.jl")
     Select the desire systems to analyse
 """
 
-selc_phi="5500";
-selc_Npart="500";
+selc_phi="5000";
+selc_Npart="1500";
 selc_damp="5000";
 selc_T="500";
 selc_cCL="1000";
 selc_ShearRate="100";#string.((10,50,100));
-selc_Nexp="122";
+selc_Nexp="2";
 
 dirs=getDirs(selc_phi,selc_Npart,selc_damp,selc_T,selc_cCL,selc_ShearRate,selc_Nexp);
 
