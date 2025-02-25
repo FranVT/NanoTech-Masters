@@ -4,19 +4,22 @@
 
 #!/bin/bash
 
-
-# clean the directory from previus simulations
+# Clean the directory from previus simulations
 cd sim;
-rm -f runSim*;
+
+rm -f *.sge;
+rm -f *.po*;
+rm -f *.o*;
 rm -rf info*;
-cd ..; 
+
+cd ..;
 
 ## Start the for loop
-for var_shearRate in 0.01; #0.01 0.001;
+for var_shearRate in 0.005 0.01625 0.0275 0.03875 0.05; #0.01 0.005 0.001;
 do
-for var_cCL in 0.1; #0.06 0.1;
+for var_cCL in 0.03; #0.06 0.1;
 do 
-for Nexp in 2; #$(seq 1 5);
+for Nexp in 100; #$(seq 100 101);
 do
 
 # Cifras significativas
@@ -25,12 +28,12 @@ cs=6;
 # Seed for random numbers
 seed1=$((1234 + $Nexp)); # Position of CL and MO
 seed2=$((4321 + $Nexp)); # Position of Cl and MO
-seed3=10; # Langevin Thermostat
+seed3=$((10 + $Nexp)); # Langevin Thermostat
 
 # Main parameters of the simulation
-phi=0.5;
+phi=0.55;
 CL_concentration=$var_cCL; #0.1;
-N_particles=1500;
+N_particles=500;
 damp=0.5;
 T=0.05;
 
@@ -40,20 +43,18 @@ N_CL=${N_CL%.*};
 N_MO=$(( $N_particles - $N_CL ));
 
 # Compute the size of the box to get he given packing fraction
-Vol_MO=$(echo "scale=$cs; 4.241404 * $N_MO" | bc); # Volume approximation
-Vol_CL=$(echo "scale=$cs; 4.294138 * $N_CL" | bc); # Volume approximation
-Vol_Totg=$(echo "scale=$cs; $Vol_MO + $Vol_CL" | bc); # Volume approximation
+Vol_Totg=0.8; # Volume approximation
 
 # Get the total volume needed taking into account the packing fraction
 Vol_Tot=$(echo "scale=$cs; $Vol_Totg / $phi" | bc);
 # Translate the volume into length of a box
-L_real=$(echo "scale=$cs; e( (1/3) * l($Vol_Tot) )" | bc -l );
+L_real=$(echo "scale=$cs; e( l($Vol_Tot)/3 )" | bc -l );
 # Input parameter for LAMMPS script
 L=$(echo "scale=$cs; $L_real / 2" | bc);
 
 # Numerical parameters for LAMMPS simulation
 stepsheat=1000000;
-steps=9000000;
+steps=8000000;
 tstep=0.001;
 
 ## Variables for shear deformation simulation
@@ -62,21 +63,21 @@ sstep_defor=10000;
 
 # Shear rate parameters
 shear_rate=$var_shearRate;
-max_strain=10;
+max_strain=2;
 Nstep_per_strain=$(echo "scale=$cs; $(echo "scale=$cs; 1 / $shear_rate" | bc) * $(echo "scale=$cs; 1 / $tstep_defor" | bc)" | bc) ;
 Nstep_per_strain=${Nstep_per_strain%.*};
 
 shear_it=$(( $max_strain * $Nstep_per_strain));
 
-relaxTime1=2500000;
-relaxTime2=2500000;
-relaxTime3=2500000;
+relaxTime1=2000000;
+relaxTime2=2000000;
+relaxTime3=2000000;
 
 # Parameters for fix and dumps files
 Nsave=10; # Temporal average for fix files
 NsaveStress=$(echo "scale=$cs; 1 / $tstep_defor" | bc); # Tmeporal average for stress fix files
 NsaveStress=${NsaveStress%.*};
-Ndump=10; # Every Ndump time steps save the particles positions.
+Ndump=100; # Every Ndump time steps save the particles positions.
 
 : '
     Creation of directory for the simulation data
@@ -107,7 +108,6 @@ mkdir -p ${dir_name};
 '
 
 cd ${dir_name};
-mkdir imgs;
 
 ## Create the README.md file
 file_name="README.md";
@@ -179,31 +179,62 @@ cd ..; cd ..; cd ..;
 cd sim;
 
 # Create the execute bash script
-file_name=""runSim_ShearRate"${shear_rate}"CL"${var_cCL}"N"${Nexp}".sh"";
+file_name=""runSim_ShearRate"${shear_rate}"CL"${var_cCL}"N"${Nexp}".sge"";
 info_name=""infoPhi"${phi_aux}"NPart"${N_particles}"damp"${damp_aux}"T"${T_aux}"cCL"${CL_con}"ShearRate"${shear_aux}"-Nexp"${Nexp}";
 dump_name=""dumpPhi"${phi_aux}"NPart"${N_particles}"damp"${damp_aux}"T"${T_aux}"cCL"${CL_con}"ShearRate"${shear_aux}"-Nexp"${Nexp}";
 
-nodes=8;
+nodes=6;
 
 touch $file_name;
 echo -e "#!/bin/bash" >> $file_name;
+echo -e "# Use current working directory" >> $file_name;
+echo -e "#$ -cwd" >> $file_name;
+echo -e "#" >> $file_name;
+echo -e "# Join stdout and stderr" >> $file_name;
+echo -e "#$ -j yes" >> $file_name;
+echo -e "#" >> $file_name;
+echo -e "# Run job through bash shell" >> $file_name;
+echo -e "#$ -S /bin/bash" >> $file_name;
+echo -e "# " >> $file_name;
+echo -e "# Set the number of nodes for parallel computation" >> $file_name;
+echo -e "#$ -pe mpich ${nodes}" >> $file_name;
+echo -e "# " >> $file_name;
+echo -e "# Job name" >> $file_name;
+echo -e "# -N Experiment_tries" >> $file_name;
+echo -e "# " >> $file_name;
+echo -e "# Send an email after the job has finished" >> $file_name;
+echo -e "# -m e" >> $file_name;
+echo -e "# -M vazqueztf@proton.me" >> $file_name;
+echo -e "# " >> $file_name;
+echo -e "# Modules neede" >> $file_name;
+echo -e ". /etc/profile.d/modules.sh" >> $file_name;
+echo -e "# " >> $file_name;
+echo -e "# Add modules that you might require:" >> $file_name;
+echo -e "module load python37/3.7.6 " >> $file_name;
+echo -e "module load gcc/8.3.0" >> $file_name;
+echo -e "module load openmpi/gcc/64/1.10.1">> $file_name;
 echo -e "" >> $file_name;
 echo -e "mkdir $info_name;" >> $file_name;
 echo -e "mkdir $dump_name;" >> $file_name;
 #echo -e "cd $info_name; mkdir dumps; cd dumps;" >> $file_name;
 echo -e "cd $dump_name; mkdir assembly; mkdir shear; cd ..;" >> $file_name;
 echo -e "" >> $file_name;
-echo -e "env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.assembly.lmp -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3  -var tstep $tstep -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var Dir $info_name -var dumpDir $dump_name -var steps $steps -var stepsheat $stepsheat" >> $file_name;
+echo -e "mpirun -n ${nodes} /mnt/MD1200B/cferreiro/fbenavides/lammps-2Aug2023/src/lmp_mpi -in in.assembly.lmp -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3  -var tstep $tstep -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var Dir $info_name -var dumpDir $dump_name" -var steps $steps -var stepsheat $stepsheat >> $file_name;
 echo -e "" >> $file_name;
-echo -e "env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.shear.lmp -var temp $T -var damp $damp -var tstep $tstep_defor -var shear_rate $shear_rate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var seed3 $seed3  -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var Dir $info_name -var dumpDir $dump_name" >> $file_name;
+echo "echo -e "\n End of Assembly simulation, start of Deformation simulation \n"" >> $file_name
 echo -e "" >> $file_name;
-echo -e "mv $info_name ..; mv $dump_name ..; mv data.hydrogel ..; mv data.firstShear .." >> $file_name;echo -e "cd ..;" >> $file_name;
+echo -e "mpirun -n ${nodes} /mnt/MD1200B/cferreiro/fbenavides/lammps-2Aug2023/src/lmp_mpi -in in.shear.lmp -var temp $T -var damp $damp -var tstep $tstep_defor -var shear_rate $shear_rate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var seed3 $seed3  -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var Dir $info_name -var dumpDir $dump_name" >> $file_name;
+echo -e "" >> $file_name;
+echo "echo -e "\n End of Deformation simulation \n"" >> $file_name
+echo -e "" >> $file_name;
+echo -e "mv $info_name ..; mv $dump_name ..; mv data.hydrogel ..; mv data.firstShear .." >> $file_name;
+echo -e "cd ..;" >> $file_name;
 echo -e "mv -f $info_name data/storage/$dir_name/info;" >> $file_name;
 echo -e "mv -f data.firstShear data/storage/$dir_name/info;" >> $file_name;
 echo -e "mv -f data.hydrogel data/storage/$dir_name/info;" >> $file_name;
 echo -e "mv -f $dump_name data/storage/dumps;" >> $file_name;
 
-bash $file_name
+qsub $file_name 
 
 cd ..;
 

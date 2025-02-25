@@ -30,7 +30,7 @@ seed3=10; # Langevin Thermostat
 # Main parameters of the simulation
 phi=0.5;
 CL_concentration=$var_cCL; #0.1;
-N_particles=1500;
+N_particles=50;
 damp=0.5;
 T=0.05;
 
@@ -52,8 +52,8 @@ L_real=$(echo "scale=$cs; e( (1/3) * l($Vol_Tot) )" | bc -l );
 L=$(echo "scale=$cs; $L_real / 2" | bc);
 
 # Numerical parameters for LAMMPS simulation
-stepsheat=1000000;
-steps=9000000;
+stepsheat=100000;
+steps=900000;
 tstep=0.001;
 
 ## Variables for shear deformation simulation
@@ -62,15 +62,15 @@ sstep_defor=10000;
 
 # Shear rate parameters
 shear_rate=$var_shearRate;
-max_strain=10;
+max_strain=2;
 Nstep_per_strain=$(echo "scale=$cs; $(echo "scale=$cs; 1 / $shear_rate" | bc) * $(echo "scale=$cs; 1 / $tstep_defor" | bc)" | bc) ;
 Nstep_per_strain=${Nstep_per_strain%.*};
 
 shear_it=$(( $max_strain * $Nstep_per_strain));
 
-relaxTime1=2500000;
-relaxTime2=2500000;
-relaxTime3=2500000;
+relaxTime1=250000;
+relaxTime2=250000;
+relaxTime3=250000;
 
 # Parameters for fix and dumps files
 Nsave=10; # Temporal average for fix files
