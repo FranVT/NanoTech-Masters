@@ -1,0 +1,46 @@
+
+units lj
+dimension 3
+atom_style molecular
+angle_style hybrid harmonic
+dihedral_style harmonic
+bond_style fene
+boundary p p p
+
+neighbor 0.3 nsq
+neigh_modify delay 5
+
+read_data data.polymer2.lmp
+read_data data.polymer2.lmp add append shift 0.0 5.0 0.0
+read_data data.polymer2.lmp add append shift 0.0 -5.0 0.0
+read_data data.polymer2.lmp add append shift 5.0 0.0 0.0
+read_data data.polymer2.lmp add append shift -5.0 0.0 0.0
+read_data data.polymer2.lmp add append shift -5.0 5.0 0.0
+read_data data.polymer2.lmp add append shift -5.0 -5.0 0.0
+read_data data.polymer2.lmp add append shift 5.0 5.0 0.0
+read_data data.polymer2.lmp add append shift 5.0 -5.0 0.0
+
+
+minimize 1.0e-4 1.0e-6 1000 10000
+
+fix 1 all langevin 1.0 1.0 50.0 12345
+fix 2 all nve
+
+thermo 50
+compute t all temp
+compute ep all pe
+compute ek all ke
+compute ea all angle
+compute tm all momentum
+
+
+fix at1 all ave/time 1 5 5 c_t file temperatureDihedral.csv
+fix at2 all ave/time 1 5 5 c_ep file potentialDihedral.csv
+fix at3 all ave/time 1 5 5 c_ek file kineticDihedral.csv
+fix at4 all ave/time 1 5 5 c_ea file angleDihedral.csv mode vector
+fix at5 all ave/time 1 5 5 c_tm file momentumDihedral.csv mode vector
+
+dump 1 all atom 50 dump.polymerDihedral
+
+timestep 0.001
+run 100000

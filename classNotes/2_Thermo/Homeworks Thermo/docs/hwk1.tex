@@ -1,0 +1,75 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\section{Work: Different Paths, same final state}
+
+Consider an idea gas occupying \SI{2.25}{\liter} at \SI{1.33}{\bar}.
+\begin{enumerate}
+    \item What is the work required to first compress this gas isothermally to a volume of \SI{1.50}{\liter}, with a constant pressure of \SI{2.00}{\bar}, and then do another isothermal compression to a volume of \SI{0.800}{\liter} at a constant pressure of \SI{3.75}{\bar}.
+    \item Compare the result with that of compressing the gas isothermally and reversibly from \SI{2.25}{\liter} to \SI{0.800}{\liter}.
+\end{enumerate}
+
+\subsection{Irreversible paths}
+
+In the first path, the process is an irreversible process, due to an externally constant pressure applied to the system.
+Taking into account that no further information is provided, we assume that $dK_{\mathrm{pist}}\ll P_{\mathrm{ext}}dV$, so that is not take into account in the calculation of the work.
+
+For the first iso-thermal process with a constant pressure, the work is computed by the following equation,
+\begin{align*}
+    W_{\mathrm{isothermal}_1} &= \int dw_{\mathrm{irrev}} \\
+     &= -\int_{V_{1}}^{V_{2}} P_{\mathrm{ext}}dV \\
+    &= -\SI{2.00}{\bar}\int_{\SI{2.25}{\liter}}^{\SI{1.50}{\liter}}dV \\
+    &= -\SI{2.00}{\bar}\qty(\SI{1.50}{\liter}-\SI{2.25}{\liter}) \\
+    &= \SI{1.5}{\bar\liter},
+\end{align*}
+converting the result to \SI{}{\joule},
+\begin{gather*}
+    W_{\mathrm{isothermal}_1} = \qty(\SI{1.5}{\bar\liter})\qty(\SI[per-mode=fraction]{100}{\joule\per\bar\per\deci\meter\tothe{3}}) \\
+    W_{\mathrm{isothermal}_1} = \SI{150}{\joule}.
+\end{gather*}
+
+For the second iso-thermal process, the work is computed with the same equation as before,
+\begin{align*}
+    W_{\mathrm{isothermal}_2} &= \int dw_{\mathrm{irrev}} \\
+     &= -\int_{V_{1}}^{V_{2}} P_{\mathrm{ext}}dV \\
+    &= -\SI{3.75}{\bar}\int_{\SI{1.50}{\liter}}^{\SI{0.800}{\liter}}dV \\
+    &= -\SI{3.75}{\bar}\qty(\SI{0.800}{\liter}-\SI{1.50}{\liter}) \\
+    &= \SI{2.625}{\bar\liter},
+\end{align*}
+converting the result to \SI{}{\joule},
+\begin{gather*}
+    W_{\mathrm{isothermal}_2} = \qty(\SI{2.625}{\bar\liter})\qty(\SI[per-mode=fraction]{100}{\joule\per\bar\per\deci\meter\tothe{3}}) \\
+    W_{\mathrm{isothermal}_2} = \SI{262.5}{\joule}.
+\end{gather*}
+
+Finally, for the total work, we add the total energy of both process getting \SI{412.5}{\joule}.
+
+\subsection{Reversible path}
+
+In this second path, there is no restriction in the pressure which allows to exchange energy with there surrounds, creating a reversible process.
+
+For this process, which is iso-thermal and reversible, the work can be computed with,
+\begin{gather*}
+    W_{\mathrm{rev}} = -\int P dV,
+\end{gather*}
+using the ideal gas law,
+\begin{align*}
+    W_{\mathrm{rev}} &= -\int_{V_{1}}^{V_{2}} nRT\frac{1}{V}dV \\
+    &= -nRT\ln\qty[\frac{V_{2}}{V_{1}}].
+\end{align*}
+
+By re-appling the ideal gas law and the conversion factor,
+\begin{align*}
+    W_{\mathrm{rev}} &= -P_{1}V_{1}\qty(\SI[per-mode=fraction]{100}{\joule\per\bar\per\deci\meter\tothe{3}})\ln\qty[\frac{V_{2}}{V_{1}}],
+\end{align*}
+replacing the values of the states functions, the total work is \SI{309.4}{\joule}.
+
+\subsection{Comparison}
+
+The total work for the irreversible process is grater than the work required in a reversible process.
+This result can be explained by taking into account that in the irreversible process an external entity is interacting with the system, meanwhile, the reversible process only interacts with the surroundings.
+
+% https://personal.utdallas.edu/~son051000/chem3321/Ch19solutions.pdf
+
+\end{document}

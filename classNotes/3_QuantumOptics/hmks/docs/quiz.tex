@@ -1,0 +1,114 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+Knowing that the velocity Verlet algorithm is as follows,
+\begin{align}
+    \vec{v_{i}}\qty(t+\Delta t/2) &= \vec{v_{i}}\qty(t) + \frac{\Delta t}{2}\frac{1}{m_{i}}\vec{F_{j\to i}}\qty(\vec{r_{i,j}}\qty(t)), \\
+    \vec{r_{i}}\qty(t+\Delta t) &= \vec{r_{i}}\qty(t) + \Delta t \vec{v_{i}}\qty(t+\Delta t/2), \\
+    \vec{v_{i}}\qty(t+\Delta t) &= \vec{v_{i}}\qty(t+\Delta t/2) + \frac{\Delta t}{2}\frac{1}{m_{i}}\vec{F_{j\to i}}\qty(\vec{r_{i,j}}\qty(t+\Delta t)),
+\end{align}
+setting $\Delta t = 1$ and $m=1$, then
+\begin{align}
+    \vec{v_{i}}\qty(t+\Delta t/2) &= \vec{v_{i}}\qty(t) + \frac{1}{2}\vec{F_{j\to i}}\qty(\vec{r_{i,j}}\qty(t))\label{eqn1:vmid}, \\
+    \vec{r_{i}}\qty(t+\Delta t) &= \vec{r_{i}}\qty(t) + \vec{v_{i}}\qty(t+\Delta t/2)\label{eqn1:r}, \\
+    \vec{v_{i}}\qty(t+\Delta t) &= \vec{v_{i}}\qty(t+1/2) + \frac{1}{2}\vec{F_{j\to i}}\qty(\vec{r_{i,j}}\qty(t+\Delta t))\label{eqn1:v}.
+\end{align}
+
+Given the initial positions, we can compute the force $F_{12}$,
+\begin{align*}
+    F_{12} &= \frac{1}{\sqrt{ (3+2)^{2} + (1+2)^{2} }^{2}}\hat{r} \\
+    &= \frac{1}{34}\hat{r},
+\end{align*}
+for the force $F_{21}$
+\begin{align*}
+    F_{21} &= \frac{1}{\sqrt{ (-2-3)^{2} + (-2-1)^{2} }^{2}}\hat{r} \\
+    &= \frac{1}{34}\hat{r}.
+\end{align*}
+
+Now we need to get the $x$ and $y$ component for both forces,
+\begin{align*}
+    F_{12x} &= \frac{1}{34}\frac{5}{34}\hat{x} \\
+    F_{12y} &= \frac{1}{34}\frac{3}{34}\hat{y},
+\end{align*}
+and
+\begin{align*}
+    F_{21x} &= -\frac{1}{34}\frac{5}{34}\hat{x} \\
+    F_{21y} &= -\frac{1}{34}\frac{3}{34}\hat{y}.
+\end{align*}
+
+Now we substitute the initial force for particle 1 in the equation \eqref{eqn1:vmid},
+\begin{align*}
+    \vec{v_{1x}}\qty(t+\Delta t/2) &= -0.10 + \frac{1}{2}\frac{1}{34}\frac{5}{34} \\
+    \vec{v_{1y}}\qty(t+\Delta t/2) &= -0.10 + \frac{1}{2}\frac{1}{34}\frac{3}{34} \\
+    \\
+    \vec{v_{1x}}\qty(t+\Delta t/2) &= -0.0978 \\
+    \vec{v_{1y}}\qty(t+\Delta t/2) &= -0.0987 \\
+\end{align*}
+now, for particle 2,
+\begin{align*}
+    \vec{v_{2x}}\qty(t+\Delta t/2) &= -0.00 - \frac{1}{2}\frac{1}{34}\frac{5}{34} \\
+    \vec{v_{2y}}\qty(t+\Delta t/2) &= -0.00 - \frac{1}{2}\frac{1}{34}\frac{3}{34} \\
+    \\
+    \vec{v_{2x}}\qty(t+\Delta t/2) &= -0.0012 \\
+    \vec{v_{2y}}\qty(t+\Delta t/2) &= -0.0021.
+\end{align*}
+
+Now we compute the new positions using equation \eqref{eqn1:r},
+\begin{align*}
+    \vec{r_{1x}}\qty(t+\Delta t) &= 3.00 -0.0978 \\
+    \vec{r_{1y}}\qty(t+\Delta t) &= 1.00 -0.0987 \\
+    \\
+    \vec{r_{1x}}\qty(t+\Delta t) &= 2.9022 \\
+    \vec{r_{1y}}\qty(t+\Delta t) &= 0.9013,
+\end{align*}
+for the second particle
+\begin{align*}
+    \vec{r_{2x}}\qty(t+\Delta t) &= -2.00 -0.0012 \\
+    \vec{r_{2y}}\qty(t+\Delta t) &= -2.00 -0.0021 \\
+    \\
+    \vec{r_{2x}}\qty(t+\Delta t) &= -2.0012 \\
+    \vec{r_{2y}}\qty(t+\Delta t) &= -2.0021. 
+\end{align*}
+
+To finalize the the velocity verlet, we compute the new velocity with equation \eqref{eqn1:v}.
+For that, we need to compute the forces with the new positions,
+\begin{align*}
+    F_{12} &= \frac{1}{\sqrt{ (2.9022+2.0012)^{2} + (0.9013+2.0021)^{2} }^{2}}\hat{r} \\
+    &= \frac{1}{32.5411}\hat{r},
+\end{align*}
+for the force $F_{21}$
+\begin{align*}
+    F_{21} &= \frac{1}{\sqrt{ (-2.0012-2.9022)^{2} + (-2.0021-0.9013)^{2} }^{2}}\hat{r} \\
+    &= \frac{1}{32.5411}\hat{r},
+\end{align*}
+getting the $x$ and $y$ component for both forces,
+\begin{align*}
+    F_{12x} &= \frac{1}{32.5411}\frac{4.9033}{32.5411}\hat{x} \\
+    F_{12y} &= \frac{1}{32.5411}\frac{2.9151}{32.5411}\hat{y},
+\end{align*}
+and
+\begin{align*}
+    F_{21x} &= -\frac{1}{32.5411}\frac{4.9033}{32.5411}\hat{x} \\
+    F_{21y} &= -\frac{1}{32.5411}\frac{2.9151}{32.5411}\hat{y}.
+\end{align*}
+
+Substituting those values in equation \eqref{eqn1:v} for particle 1,
+\begin{align*}
+    \vec{v_{1x}}\qty(t+\Delta t) &= -0.0978 + \frac{1}{2}\frac{1}{32.5411}\frac{4.9033}{32.5411} \\
+    \vec{v_{1y}}\qty(t+\Delta t) &= -0.0987 + \frac{1}{2}\frac{1}{32.5411}\frac{2.9151}{32.5411} \\
+    \\
+    \vec{v_{1x}}\qty(t+\Delta t) &= -0.0954 \\
+    \vec{v_{1y}}\qty(t+\Delta t) &= -0.0964,
+\end{align*}
+for particle 2,
+\begin{align*}
+    \vec{v_{2x}}\qty(t+\Delta t) &= -0.0012 - \frac{1}{2}\frac{1}{32.5411}\frac{4.9033}{32.5411} \\
+    \vec{v_{2y}}\qty(t+\Delta t) &= -0.0021 - \frac{1}{2}\frac{1}{32.5411}\frac{2.9151}{32.5411} \\
+    \\
+    \vec{v_{2x}}\qty(t+\Delta t) &= -0.0035 \\
+    \vec{v_{2y}}\qty(t+\Delta t) &= -0.0034.
+\end{align*}
+
+
+\end{document}

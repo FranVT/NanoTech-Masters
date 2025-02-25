@@ -1,0 +1,78 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+%\section{}
+
+At $65^\circ$\SI{}{\celcius} ethanol and octanol have vapor pressures of $P^*_{\mathrm{EtOH}} = \SI{0.5846}{\bar}$ and $P^*_{\ce{C8OH}} = \SI{0.1297}{\bar}$.
+Assuming these two liquids form an ideal solution.
+
+\paragraph{A)} Calculate the entropy change and Gibbs energy of mixing for a solution with a mole fraction of ethanol $x_{\mathrm{EtOH}}=0.18$ (calculate for 1 mole of solution, i.e. $ n_{\mathrm{EtOH}} + n_{\ce{C8OH}} =1 $.
+
+To compute the entropy of mixing we use the following equation,
+\begin{gather*}
+    \Delta S_{\mathrm{mix}} = -n R\qty(x_{\mathrm{EtOH}}\ln x_{\mathrm{EtOH}} + x_{\ce{C8OH}}\ln x_{\ce{C8OH}} ). 
+\end{gather*}
+Taking into account that is a 1 mole solution, we can get the mole fraction of $\ce{C8OH}$ as follows,
+\begin{align*}
+    n_{\mathrm{EtOH}} + n_{\ce{C8OH}} &= n_{\mathrm{sol}} \\
+    n_{\mathrm{sol}} x_{\mathrm{EtOH}} + n_{\mathrm{sol}} x_{\ce{C8OH}} &= n_{\mathrm{sol}} \\
+    x_{\ce{C8OH}} &= 1 - x_{\mathrm{EtOH}} \\
+    &= 0.82.
+\end{align*}
+
+With this value, we can compute the change in entropy,
+\begin{align*}
+    \Delta S_{\mathrm{mix}} &= -n R\qty(x_{\mathrm{EtOH}}\ln x_{\mathrm{EtOH}} + x_{\ce{C8OH}}\ln x_{\ce{C8OH}} ), \\
+    &= -\SI{1}{\mole}~\SI[per-mode=fraction]{8.314}{\joule\per\mole\per\kelvin}~\qty(0.18\ln\qty[0.18] + 0.82\ln\qty[0.82]) \\
+    & \boxed{\Delta S_{\mathrm{mix}} = \SI{3.9191}{\joule\per\kelvin}.}
+\end{align*}
+
+For the Gibbs energy of mixing, we use the following equation,
+\begin{gather*}
+    \Delta G_{\mathrm{mix}} = -T\Delta_{\mathrm{mix}}S = RT\qty(n_{\mathrm{EtOH}} \ln\qty[x_{\mathrm{EtOH}}] + n_{\ce{C8OH}} \ln\qty[x_{\ce{C8OH}}]).
+\end{gather*}
+Since is a \SI{1}{\mole} solution, $x_i=n_i$.
+Using the previously calculated values of mole fractions and standard temperature, the change of Gibbs energy is,
+\begin{align*}
+    \Delta G_{\mathrm{mix}} &= RT\qty(n_{\mathrm{EtOH}} \ln\qty[x_{\mathrm{EtOH}}] + n_{\ce{C8OH}} \ln\qty[x_{\ce{C8OH}}]) \\
+    &= \SI[per-mode=fraction]{8.314}{\joule\per\mole\per\kelvin}\SI{338.15}{\kelvin}\qty(\SI{0.18}{\mole}\ln\qty[0.18] + \SI{0.82}{\mole}\ln\qty[0.82]) \\
+    & \boxed{\Delta G_{\mathrm{mix}} = -\SI{1325.2657}{\joule}.}
+\end{align*}
+
+\paragraph{B)} For a solution with total vapor pressure is \SI{0.460}{\bar}.
+What is the composition of the vapor and liquid (express your answer as the mole fraction of ethanol).
+
+To get the composition of vapor and liquid of the ethanol we use the Raults's law,
+\begin{gather*}
+    P_\mathrm{tot} = x_{\mathrm{EtOH}} P^*_{\mathrm{EtOH}} + x_{\ce{C8OH}} P^*_{\ce{C8OH}},
+\end{gather*}
+taking into account that $x_{\mathrm{EtOH}} + x_{\ce{C8OH}} = 1\rightarrow x_{\ce{C8OH}} = 1 - x_{\mathrm{EtOH}}$, hence,
+
+\begin{align*}
+    P_\mathrm{tot} &= x^l_{\mathrm{EtOH}} P^*_{\mathrm{EtOH}} + x^l_{\ce{C8OH}} P^*_{\ce{C8OH}} \\
+\end{align*}
+
+%\begin{comment}
+\begin{align*}
+    P_\mathrm{tot} &= x^l_{\mathrm{EtOH}} P^*_{\mathrm{EtOH}} + x^l_{\ce{C8OH}} P^*_{\ce{C8OH}} \\
+    &= x^l_{\mathrm{EtOH}} P^*_{\mathrm{EtOH}} + \qty(1 - x^l_{\mathrm{EtOH}}) P^*_{\ce{C8OH}} \\
+    &= x^l_{\mathrm{EtOH}} P^*_{\mathrm{EtOH}} + P^*_{\ce{C8OH}} - x^l_{\mathrm{EtOH}}P^*_{\ce{C8OH}} \\
+    P_\mathrm{tot} - P^*_{\ce{C8OH}} &= \qty(P^*_{\mathrm{EtOH}} - P^*_{\ce{C8OH}})x^l_{\mathrm{EtOH}} \\
+    x^l_{\mathrm{EtOH}} &= \frac{P_\mathrm{tot} - P^*_{\ce{C8OH}}}{P^*_{\mathrm{EtOH}} - P^*_{\ce{C8OH}}} \\
+    &= \frac{\SI{0.460}{\bar} - \SI{0.1297}{\bar}}{\SI{0.5846}{\bar} - \SI{0.1297}{\bar}} \\
+    &\boxed{P_\mathrm{tot} = 0.7260.}
+\end{align*}
+%\end{comment}
+
+This result indicates that 72.60\% of $\mathrm{EtOH}$ is liquid.
+To compute the composition of the vapor,
+\begin{align*}
+   x^v_{\ce{EtOH}} &= \frac{x^l_{\ce{EtOH}} P^*_{\mathrm{EtOH}}}{P_{\mathrm{tot}}} \\
+   &= \frac{0.7260~0.5846}{0.460} \\
+   &\boxed{x^v_{\ce{EtOH}}= 0.9227.}
+\end{align*}
+
+Finally, 92.27\% of the liquid is $\mathrm{EtOH}$.
+
+\end{document}

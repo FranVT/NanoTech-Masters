@@ -1,0 +1,81 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\section{Practice problem}
+
+Mixture of \SI{11.02}{\milli\mol} of \ce{H2S} and \SI{5.48}{\milli\mol} of \ce{CH4} in an empty container along with a Pt catalyst, equilibrium was established at \SI{700}{\degree\celcius} and \SI{762}{\torr}.
+Then it rapidly cools to room temperature (in such final conditions the rates of reaction are negligible).
+Analysis of this equilibrium mixture finds that \SI{0.711}{\milli\mol} of \ce{CS2} were formed.
+
+Find the equilibrium constant and standard Gibbs free energy for the reaction at \SI{700}{\degree\celcius}.
+
+\begin{gather*}
+    \ce{2H2S(g) + CH4(g) <=> 4H2(g) + CS2(g)},
+    \qquad K^\circ_P=\frac{(P_{\ce{H2}}/P^\circ)^4(P_{\ce{CS2}}/P^\circ)}{(P_{\ce{H2S}}/P^\circ)^2(P_{\ce{CH4}}/P^\circ)}.
+\end{gather*}
+
+To compute the standard Gibbs free energy we are going to use the following equation,
+\begin{gather*}
+    \Delta G^\circ=-RT\ln K^\circ_P.
+\end{gather*}
+With the aid of $K^\circ_P$, we now need to compute the partial pressures using the ideal gas law.
+For the partial pressures, we use the following relation from the equilibrium analysis,
+\begin{align*}
+    n_{\ce{CS2},f} &= \xi = \SI{0.711d-3}{\mol}\\
+    n_{\ce{H2},f} &= 4\xi = \SI{2.844d-3}{\mol}\\
+    n_{\ce{H2S},f} &= n_{\ce{H2S},i}-2\xi = \SI{9.59d-3}{\mol} \\
+    n_{\ce{CH4},f} &= n_{\ce{CH4},i}-\xi = \SI{4.76d-3}{\mol},
+\end{align*}
+taking into account that $T=\SI{973.15}{\kelvin}$ and that the volume can be computed using the initial conditions with ideal gas law,
+\begin{align*}
+    V &= \frac{nRT}{P} \\
+      &= \frac{\SI{16.5d-3}{\mol}~\SI{8.314}{\joule\per\kelvin\per\mol}~\SI{973.15}{\kelvin}}{\SI{1.015914d5}{\pascal}} \\
+      &= \SI{1.31d-3}{\meter\tothe{3}}.
+\end{align*}
+
+Performing the compute for the partial pressures,
+\begin{align*}
+    P_{\ce{CS2}} &= \frac{\SI{0.711d-3}{\mol}~\SI{8.314}{\joule\per\kelvin\per\mol}~\SI{973.15}{\kelvin}}{\SI{1.31d-3}{\meter\tothe{3}}} = \SI{4391.249}{\pascal}\\
+    P_{\ce{H2}} &= \frac{\SI{2.844d-3}{\mol}~\SI{8.314}{\joule\per\kelvin\per\mol}~\SI{973.15}{\kelvin}}{\SI{1.31d-3}{\meter\tothe{3}}} = \SI{17564.997}{\pascal}\\
+    P_{\ce{H2S}} &= \frac{\SI{9.591d-3}{\mol}~\SI{8.314}{\joule\per\kelvin\per\mol}~\SI{973.15}{\kelvin}}{\SI{1.31d-3}{\meter\tothe{3}}} = \SI{59235.546}{\pascal}\\
+    P_{\ce{CH4}} &= \frac{\SI{4.76d-3}{\mol}~\SI{8.314}{\joule\per\kelvin\per\mol}~\SI{973.15}{\kelvin}}{\SI{1.31d-3}{\meter\tothe{3}}} = \SI{29398.519}{\pascal},
+\end{align*}
+normalizing the partial pressures with respect the initial pressures,
+\begin{align*}
+    P_{\ce{CS2}}/P^\circ &= 0.043\\
+    P_{\ce{H2}}/P^\circ &= 0.172\\
+    P_{\ce{H2S}}/P^\circ &= 0.583\\
+    P_{\ce{CH4}}/P^\circ &= 0.289.
+\end{align*}
+
+Replace those values to compute the equilibrium constant,
+\begin{align*}
+    K^\circ_P &= \frac{(P_{\ce{H2}}/P^\circ)^4(P_{\ce{CS2}}/P^\circ)}{(P_{\ce{H2S}}/P^\circ)^2(P_{\ce{CH4}}/P^\circ)} \\
+    &= \frac{0.172^4~0.043}{0.583^2~0.289} \\
+    &\boxed{K^\circ_P = \SI{3.381d-4}{}}
+\end{align*}
+
+Finally, to compute standard Gibbs Energy,
+\begin{align*}
+    \Delta G^\circ &= -RT\ln K^\circ_P \\
+    &= -\SI{8.314}{\joule\per\mol\per\kelvin}\SI{973.15}{\kelvin}\ln\num{3.381d-4} \\
+    &= \SI{63651.161}{\joule\per\mol},
+\end{align*}
+multiplying by $n_{tf}=n_{\ce{CS2},f}+n_{\ce{H2},f} +n_{\ce{H2S},f}+n_{\ce{CH4},f}=\num{17.9d-3}$,
+\begin{gather*}
+    \boxed{\Delta G^\circ = \SI{1139.7376}{\joule}}.
+\end{gather*}
+
+%The initial pressure is $P_o=\SI{1.015914d5}{\pascal}$.
+%\begin{align*}
+%    P_o &= \frac{n_oRT}{V},
+%\end{align*}
+%with $n_o = \SI{11.02d-3}{\mol}+\SI{5.48d-3}{\mol}=\SI{16.5d-3}{\mol}$, $$
+
+
+
+%Because there is no change in volume during the process, the volume of the partial pressures is the same as the initial pressure.
+
+
+\end{document}

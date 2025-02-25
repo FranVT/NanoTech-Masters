@@ -1,0 +1,162 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\section{First and second law practice problem}
+an engine uses \SI{1}{\mole} of monoatomic gas as the working substance and operates to the thermodynamic cycle on the figure to the right, consisting of the following reversible processes:
+\begin{itemize}
+    \item Isothermal compression, from $1.20~\mathrm{atm}$ to $3.00~\mathrm{atm}$, at \SI{300}{\kelvin}
+    \item Isobaric expansion, at $3.00~\mathrm{atm}$, until a volme of \SI{20.5}{\liter} is reached
+    \item Isochoric cooling from \SI{750}{\kelvin} to \SI{300}{\kelvin}
+\end{itemize}
+
+For each step in the cycle calculate $q,~w,~\Delta U~,\Delta S$.
+
+\paragraph{Isothermal}~
+
+For an isothermal process the change in the internal energy is zero
+\begin{gather*}
+    \boxed{\Delta U = 0}.
+\end{gather*}
+This means that $w = -q$, and applying the definition of work with the ideal gas law,
+\begin{align*}
+    w &= -\int_{V_o}^{V_f} PdV \\
+    &= -\int_{V_o}^{V_f} \frac{nRT}{V}dV \\
+    &= -nRT\ln\qty[\frac{V_f}{V_o}].
+\end{align*}
+
+Taking into account the constant temperature with the ideal gas law we can get an expression of the initial and final volume in terms of the pressure,
+\begin{gather*}
+    V_i = \frac{nRT}{P_i},
+\end{gather*}
+replacing this expression in the equation for work,
+\begin{align*}
+    w &= -nRT\ln\qty[\frac{nRT}{P_f}\frac{P_o}{nRT}] \\
+    &= -nRT\ln\qty[\frac{P_o}{P_f}],
+\end{align*}
+Substituting the numeric values of the variables,
+\begin{align*}
+    w = -\SI{1}{\mol}~\SI[per-mode=fraction]{8.314}{\joule\per\mole\per\kelvin}~\SI{300}{\kelvin}~\ln\qty[\frac{1.20}{3.0}],
+\end{align*}
+the total work is
+\begin{gather*}
+    \boxed{w = \SI{2285.412}{\joule}},
+\end{gather*}
+hence, the heat of the process is,
+\begin{gather*}
+    \boxed{q = -\SI{2285.412}{\joule}}.
+\end{gather*}
+
+To compute the change in entropy we use the following expression with the ideal gas law,
+\begin{align*}
+    \Delta S &= \int_{V_o}^{V_f}\frac{dq}{T} \\
+    &= \int_{V_o}^{V_f}\frac{P}{T}dV \\
+    &= \int_{V_o}^{V_f}\frac{nRT}{VT}dV \\
+    &= nR\ln\qty[\frac{V_f}{V_o}],
+\end{align*}
+as before, we use the ideal gas law to express the volume in terms of the pressure,
+\begin{align*}
+    \Delta S &= nR\ln\qty[\frac{nRT}{P_f}\frac{P_o}{nRT}] \\
+    &= nR\ln\qty[\frac{P_o}{P_f}],
+\end{align*}
+replacing the numeric value of the variables,
+\begin{align*}
+    \Delta S = \SI{1}{\mol}~\SI[per-mode=fraction]{8.314}{\joule\per\mole\per\kelvin}~\ln\qty[\frac{1.20}{3.0}],
+\end{align*}
+the change in entropy of the system is
+\begin{gather*}
+    \boxed{\Delta S = -\SI[per-mode=fraction]{7.618}{\joule\per\kelvin}.}
+\end{gather*}
+
+
+\paragraph{Isobaric}~
+
+For the isobaric process the total change in the internal energy is equal to the work plus the heat.
+The heat can be computed with the following equation,
+\begin{gather*}
+    q_P = nC_P\Delta T,
+\end{gather*}
+and the work,
+\begin{gather*}
+    w = -P\Delta V.
+\end{gather*}
+For a mono-atomic gas $C_p=3/2R$ and to compute the work and the heat, we need to compute the initial volume and the change in temperature.
+For that we consider that the final temperature of the last process is \SI{300}{\kelvin} with a pressure of \SI{303975}{\pascal}, hence the initial volume for the isobaric process is,
+\begin{align*}
+    V_{o} &= \frac{nRT_o}{P_o} \\
+    &= \frac{\SI{1}{\mol}\SI{8.314}{\joule\per\mole\per\kelvin}\SI{300}{\kelvin}}{\SI{303975}{\pascal}} \\
+    &= \SI{8.205d-3}{\meter\tothe{3}}.
+\end{align*}
+
+With this information, the total work can be computed,
+\begin{gather*}
+    w = -\SI{303975}{\pascal}\left( \SI{20.5d-3}{\meter\tothe{3}}- \SI{8.205d-3}{\meter\tothe{3}}\right),
+\end{gather*}
+hence,
+\begin{gather*}
+    \boxed{w = -\SI{3738.892}{\joule}.}
+\end{gather*}
+For the final temperature, to compute the heat, we use the ideal gas law,
+\begin{align*}
+    T_f &= \frac{P_f V_f}{nR} \\
+    &= \frac{\SI{303975}{\pascal}\SI{20.5d-3}{\meter\tothe{3}}}{\SI{1}{\mol}\SI{8.314}{\joule\per\mol\per\kelvin}} \\
+    &= \SI{749.517}{\kelvin}.
+\end{align*}
+Replacing the values into the heat relation,
+\begin{gather*}
+    q = \SI{1}{\mole}\frac{3}{2}\SI{8.314}{\joule\per\mol\per\kelvin}\left(\SI{749.517}{\kelvin}-\SI{300}{\kelvin}\right),
+\end{gather*}
+therefore,
+\begin{gather*}
+    \boxed{q = \SI{5605.926}{\joule}.}
+\end{gather*}
+
+With the heat and work computed, the change in the internal energy is,
+\begin{gather*}
+    \Delta U = \SI{1867.034}{\joule}.
+\end{gather*}
+
+Finally, the change in entropy is computed as follows,
+\begin{align*}
+    \Delta S &= nC_{V,m}\ln\qty[\frac{T_f}{T_o}] + nR\ln\qty[\frac{V_f}{V_o}] \\
+    &= \SI{1}{\mol}\frac{3}{2}\SI{8.314}{\joule\per\mole\per\kelvin}\ln\qty[\frac{749.51}{300}]+
+    \SI{1}{\mol}\SI{8.314}{\joule\per\mole\per\kelvin}\ln\qty[\frac{\num{20.5d-3}}{\num{8.205d-3}}],
+\end{align*}
+the change in entropy is,
+\begin{gather*}
+    \boxed{\Delta S = \SI{19.031}{\joule\per\kelvin}}
+\end{gather*}
+
+\paragraph{Isochoric}~
+
+For an isochoric process the work done is equal to zero,
+\begin{gather*}
+    \boxed{w = \SI{0}{\joule}.}
+\end{gather*}
+Therefore, the change in internal energy comes from the heat exchange, $\Delta U = q$, and is computed as follows,
+\begin{align*}
+    q &= n C_{P,m}\Delta T \\
+    &= \SI{1}{\mole}\frac{3}{2}\SI{8.314}{\joule\per\mol\per\kelvin}\left(\SI{300}{\kelvin}-\SI{750}{\kelvin}\right)
+\end{align*}
+which yields,
+\begin{gather*}
+    \boxed{q = -\SI{5611.95}{\joule},}
+\end{gather*}
+hence,
+\begin{gather*}
+    \boxed{\Delta U = -\SI{5611.95}{\joule}.}
+\end{gather*}
+
+Finally, the change in entropy is computed as follows,
+\begin{align*}
+    \Delta S &= nC_{V,m}\ln\qty[\frac{T_f}{T_o}] + nR\ln\qty[\frac{V_f}{V_o}] \\
+    &= \SI{1}{\mol}\frac{3}{2}\SI{8.314}{\joule\per\mole\per\kelvin}\ln\qty[\frac{300}{750}]+
+    \SI{0}{\joule\per\kelvin},
+\end{align*}
+the change in entropy is,
+\begin{gather*}
+    \boxed{\Delta S = -\SI{11.427}{\joule\per\kelvin}}
+\end{gather*}
+
+
+\end{document}

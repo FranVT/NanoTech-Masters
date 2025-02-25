@@ -1,0 +1,116 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\section{Heats of Reaction and Heats of Formation}
+
+Sodium tribasic phosphate can be produced from the reaction of sodium hydroxide and phosphoric acid,
+
+\ce{3NaOH + H3PO4 -> Na3PO4 + 3H2O} $\qquad\Delta_{r}H^\circ = -\SI{200.5}{\kilo\joule\per\mol}$.
+
+Calculate the enthalpy of formation of \ce{Na3PO4}.
+Use the following information:
+\begin{table}[ht!]
+\centering
+\begin{tabular}{ll}
+\ce{P2O5 + 3H2O -> 2H3PO4} & $\Delta_r H^\circ=-\SI{198.8}{\kilo\joule\per\mol}$  \\
+\ce{2Na + 2H2O -> 2NaOH + H2} & $\Delta_r H^\circ=-\SI{280.2}{\kilo\joule\per\mol}$  \\ 
+\end{tabular}
+\end{table}
+
+Enthalpies of formation,
+\begin{table}[ht!]
+\centering
+\begin{tabular}{ll}
+$\Delta_f H^\circ\qty(\ce{H2O})=-\SI{285.83}{\kilo\joule\per\mol}$ &  $\Delta_f H^\circ\qty(\ce{P2O5})=-\SI{1506.2}{\kilo\joule\per\mol}$
+\end{tabular}
+\end{table}
+
+First, we can calculate the enthalpy of formation of \ce{NaOH}, taking into account that the enthalpy of formation of \ce{Na} and \ce{H2} is $0$.
+Therefore, 
+\begin{align*}
+    \Delta_r H^\circ &= 2\Delta_f H^\circ\qty(\ce{NaOH}) - 2\Delta_f H^\circ\qty(\ce{H2O}) \\
+    \Delta_f H^\circ\qty(\ce{NaOH}) &= \frac{\Delta_r H^\circ + 2\Delta_f H^\circ\qty(\ce{H2O})}{2} \\
+    &=\frac{-\SI{280.2}{\kilo\joule\per\mol} + 2\qty(-\SI{285.83}{\kilo\joule\per\mol})}{2} \\
+    &=-\SI{425.9299}{\kilo\joule\per\mol}.
+\end{align*}
+
+With a similar procedure, we can obtain the formation enthalpy \ce{H3PO4},
+\begin{align*}
+    \Delta_r H^\circ &= 2\Delta_f H^\circ\qty(\ce{H3PO4}) - \qty( \Delta_f H^\circ\qty(\ce{P2O5}) + 3\Delta_f H^\circ\qty(\ce{H2O}) )\\
+    \Delta_f H^\circ\qty(\ce{H3PO4}) &= \frac{\Delta_r H^\circ + \qty( \Delta_f H^\circ\qty(\ce{P2O5}) + 3\Delta_f H^\circ\qty(\ce{H2O}) )}{2} \\
+    &= \frac{-\SI{198.8}{\kilo\joule\per\mol} + \qty[ -\SI{1506.2}{\kilo\joule\per\mol} - 3\qty(\SI{285.83}{\kilo\joule\per\mol})] }{2} \\
+    &=-\SI{1281.245}{\kilo\joule\per\mol}
+\end{align*}
+
+Finally, we can compute the enthalpy of formation of \ce{Na3PO4} as follows,
+\begin{align*}
+    \Delta_r H^\circ &= \Delta_f H^\circ\qty(\ce{Na3PO4})+3\Delta_f H^\circ\qty(\ce{H2O}) - \qty(3\Delta_f H^\circ\qty(\ce{NaOH})+\Delta_f H^\circ\qty(\ce{H3PO4})) \\
+    \Delta_f H^\circ\qty(\ce{Na3PO4}) &= \Delta_r H^\circ - 3\Delta_f H^\circ\qty(\ce{H2O}) + \qty(3\Delta_f H^\circ\qty(\ce{NaOH})+\Delta_f H^\circ\qty(\ce{H3PO4})) \\
+    &= -\SI{200.5}{\kilo\joule\per\mol} +3\qty(\SI{285.83}{\kilo\joule\per\mol}) + \qty[ 3\qty(-\SI{425.9299}{\kilo\joule\per\mol})  -\SI{1281.245}{\kilo\joule\per\mol} ] \\
+    &\boxed{\Delta_f H^\circ\qty(\ce{Na3PO4})=-\SI{1902.0446}{\kilo\joule\per\mol}.}
+\end{align*}
+
+\section{Equilibrium Constant}
+
+Using standard state thermodynamic data \textbf{calculate $K^\circ_P$ for the following reactions}
+
+\begin{minipage}[c]{\textwidth}
+\begin{minipage}[c]{0.45\textwidth}
+    \ce{N2O4(g) <=> 2NO2(g)} \\
+    \ce{H2(g) + I2(g) <=> 2HI(g)} \\
+    \ce{3H2(g) + N2(g) <=> 2NH3(g)} \\
+\end{minipage}
+\vrule
+\begin{minipage}[c]{0.45\textwidth}
+\begin{align*}
+    \Delta_f G^\circ_{\ce{N204}} &= \SI{97.787}{\kilo\joule\per\mol} \\
+    \Delta_f G^\circ_{\ce{N02}} &= \SI{51.285}{\kilo\joule\per\mol} \\
+    \Delta_f G^\circ_{\ce{I2}} &= \SI{19.325}{\kilo\joule\per\mol} \\
+    \Delta_f G^\circ_{\ce{HI}} &= \SI{1.560}{\kilo\joule\per\mol} \\
+    \Delta_f G^\circ_{\ce{NH3}} &= -\SI{16.637}{\kilo\joule\per\mol} 
+\end{align*} 
+\end{minipage}
+\end{minipage}
+
+To calculate $K^\circ_P$ we use the following relation $K^\circ_P=\exp\qty[-\Delta G^\circ/RT]$.
+Taking into account that the reactions are carried out under standard conditions, the temperature is $25^\circ\SI{}{\celcius}=\SI{298.15}{\kelvin}$.
+Now we compute the change of the Gibbs energy of reaction for the three reactions,
+\begin{align*}
+    \Delta_r G^\circ_1 &= 2\Delta_f G^\circ_{\ce{N02}} - \Delta_f G^\circ_{\ce{N204}} \\
+    &= 2\qty(\SI{51.285}{\kilo\joule\per\mol}) - \qty(\SI{97.787}{\kilo\joule\per\mol}) \\
+    &= \SI{4.7829}{\kilo\joule\per\mol}),
+\end{align*}
+
+\begin{align*}
+    \Delta_r G^\circ_2 &= 2\Delta_f G^\circ_{\ce{HI}} - \qty(\cancelto{0}{\Delta_f G^\circ_{\ce{H2}}} + \Delta_f G^\circ_{\ce{I2}}) \\
+    &= 2\qty(\SI{1.560}{\kilo\joule\per\mol}) - \SI{19.325}{\kilo\joule\per\mol}) \\
+    &= -\SI{16.205}{\kilo\joule\per\mol}),
+\end{align*}
+
+\begin{align*}
+    \Delta_r G^\circ_3 &= 2\Delta_f G^\circ_{\ce{NH3}} - \qty(\cancelto{0}{3\Delta_f G^\circ_{\ce{H2}}} + \cancelto{0}{\Delta_f G^\circ_{\ce{N2}}}) \\
+    &= 2\qty(-\SI{16.637}{\kilo\joule\per\mol}) \\
+    &= -\SI{32.41}{\kilo\joule\per\mol}),
+\end{align*}
+
+now we can introduce the values into the exponential relation,
+\begin{align*}
+    K^\circ_{P,1} &= \exp\qty[-\frac{\Delta G^\circ_{1}}{RT}] \\
+    &= \exp\qty[-\frac{\SI{4.7829}{\kilo\joule\per\mol}}{\SI[per-mode=fraction]{8.314}{\joule\per\mole\per\kelvin}\SI{298.15}{\kelvin}}] \\
+    &\boxed{K^\circ_{P,1} =0.1452}
+\end{align*}
+
+\begin{align*}
+    K^\circ_{P,2} &= \exp\qty[-\frac{\Delta G^\circ_{2}}{RT}] \\
+    &= \exp\qty[-\frac{-\SI{16.205}{\kilo\joule\per\mol}}{\SI[per-mode=fraction]{8.314}{\joule\per\mole\per\kelvin}\SI{298.15}{\kelvin}}] \\
+    &\boxed{K^\circ_{P,2} =690.4800}
+\end{align*}
+
+\begin{align*}
+    K^\circ_{P,3} &= \exp\qty[-\frac{\Delta G^\circ_{3}}{RT}] \\
+    &= \exp\qty[-\frac{-\SI{32.41}{\kilo\joule\per\mol}}{\SI[per-mode=fraction]{8.314}{\joule\per\mole\per\kelvin}\SI{298.15}{\kelvin}}] \\
+    &\boxed{K^\circ_{P,3} =476762.7152}
+\end{align*}
+
+\end{document}

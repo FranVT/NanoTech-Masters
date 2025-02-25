@@ -1,0 +1,482 @@
+\documentclass[main.tex]{subfiles}
+
+\DeclareSIUnit\atm{atm}
+
+\begin{document}
+
+\section{Thermodynamic Functions $\Delta H,~\Delta S~,\Delta G$ and Reaction Equilibrium}
+
+%\begin{comment}
+\subsection{~}
+For the following chemical equations, express the final number of moles of each species in terms of the extent of reaction (xi) $\xi$.
+Use the initial conditions given under each equation.
+
+The extent of reaction is $\Delta n_i = n_i - n_{i,0}=\upsilon_i\xi$
+
+\paragraph{1a}~%\ce{SO2CL2(g) <=> SO2(g) + Cl2(g)}
+\begin{gather*}
+\begin{array}{cccc}
+    \mathrm{SO}_2\mathrm{Cl}_2(\mathrm{g}) & \xrightleftharpoons & \mathrm{SO}_2(g) &~+ \mathrm{Cl}_2(g) \\
+    n_0 & & 0 & 0\\
+    n_0 & & n_1 & 0\\
+\end{array}    
+\end{gather*}
+
+\paragraph{1a: $n_o\qquad 0 \qquad 0$}
+\begin{align*}
+    \Delta n_{\ce{SO2Cl2}} &= \SI{0}{\mole} - n_0\SI{}{\mole} = -n_0, \\
+    \Delta n_{\ce{SO2}} &= \SI{1}{\mole} - \SI{0}{\mole} = 1, \\
+    \Delta n_{\ce{Cl2}} &= \SI{1}{\mole} - \SI{0}{\mole} = 1,
+\end{align*}
+hence,
+\begin{align*}
+    \upsilon_{\ce{SO2Cl2}}\xi &= -n_0\xi, \\
+    \upsilon_{\ce{O2}}\xi &= 1\xi, \\
+    \upsilon_{\ce{Cl2}}\xi &= 1\xi.
+\end{align*}
+
+\paragraph{1a: $n_o\qquad n_1 \qquad 0$}
+\begin{align*}
+    \Delta n_{\ce{SO2Cl2}} &= \SI{0}{\mole} - n_0\SI{}{\mole} = -n_0, \\
+    \Delta n_{\ce{SO2}} &= \SI{1}{\mole} - n_1\SI{}{\mole} = 1-n_1, \\
+    \Delta n_{\ce{Cl2}} &= \SI{1}{\mole} - \SI{0}{\mole} = 1,
+\end{align*}
+hence,
+\begin{align*}
+    \upsilon_{\ce{SO2Cl2}}\xi &= -n_0\xi, \\
+    \upsilon_{\ce{O2}}\xi &= 1-n_1\xi, \\
+    \upsilon_{\ce{Cl2}}\xi &= 1\xi.
+\end{align*}
+
+\paragraph{1b}~%\ce{2SO3(g) <=> 2O2(g) + O2(g)}
+\begin{gather*}
+\begin{array}{cccc}
+    2\mathrm{SO}_3(\mathrm{g}) & \xrightleftharpoons & 2\mathrm{SO}_2(g) &~+ \mathrm{O}_2(g) \\
+    n_0 & & 0 & 0\\
+    n_0 & & 0 & n_1\\
+\end{array}    
+\end{gather*}
+
+\paragraph{1b:$n_0 \qquad 0 \qquad 0$}
+\begin{align*}
+    \Delta n_{\ce{SO3}} &= \SI{0}{\mole} - 2n_0\SI{}{\mole} = -2n_0, \\
+    \Delta n_{\ce{SO2}} &= \SI{2}{\mole} - \SI{0}{\mole} = 2, \\
+    \Delta n_{\ce{O2}} &= \SI{1}{\mole} - \SI{0}{\mole} = 1,
+\end{align*}
+hence,
+\begin{align*}
+    \upsilon_{\ce{SO2Cl2}}\xi &= -2n_0\xi, \\
+    \upsilon_{\ce{O2}}\xi &= 2\xi, \\
+    \upsilon_{\ce{Cl2}}\xi &= 1\xi.
+\end{align*}
+
+\paragraph{1b:$n_0 \qquad 0 \qquad n_1$}
+\begin{align*}
+    \Delta n_{\ce{SO3}} &= \SI{0}{\mole} - 2n_0\SI{}{\mole} = -2n_0, \\
+    \Delta n_{\ce{SO2}} &= \SI{2}{\mole} - \SI{0}{\mole} = 2, \\
+    \Delta n_{\ce{O2}} &= \SI{1}{\mole} - n_1\SI{}{\mole} = 1-n_1,
+\end{align*}
+hence,
+\begin{align*}
+    \upsilon_{\ce{SO2Cl2}}\xi &= -2n_0\xi, \\
+    \upsilon_{\ce{O2}}\xi &= 2\xi, \\
+    \upsilon_{\ce{Cl2}}\xi &= 1-n_1\xi.
+\end{align*}
+
+
+\paragraph{1c}%\ce{N2(g) + 2O2(g) <=> N2O4(g)}
+\begin{gather*}
+\begin{array}{cccc}
+    \mathrm{N}_2(\mathrm{g}) &+~2\mathrm{O}_2(g) & \xrightleftharpoons &~ \mathrm{N}_2\mathrm{O}_4(g) \\
+    n_0 & 2n_0 & & 0\\
+    n_0 & n_0 & & 0\\
+\end{array}    
+\end{gather*}
+
+\paragraph{1c: $n_0 \quad 2n_0 \qquad 0$}
+\begin{align*}
+    \Delta n_{\ce{N2}} &= \SI{0}{\mole} - n_0\SI{}{\mole} = -n_0, \\
+    \Delta n_{\ce{O2}} &= \SI{0}{\mole} - 2n_0\SI{}{\mole} = -2n_0, \\
+    \Delta n_{\ce{N2O4}} &= \SI{1}{\mole} - \SI{0}{\mole} = 1,
+\end{align*}
+hence,
+\begin{align*}
+    \upsilon_{\ce{N2}}\xi &= -n_0\xi, \\
+    \upsilon_{\ce{O2}}\xi &= -2n_0\xi, \\
+    \upsilon_{\ce{N2O4}}\xi &= 1\xi.
+\end{align*}
+
+
+\paragraph{1c: $n_0 \quad n_0 \qquad 0$}
+\begin{align*}
+    \Delta n_{\ce{N2}} &= \SI{0}{\mole} - n_0\SI{}{\mole} = -n_0, \\
+    \Delta n_{\ce{O2}} &= \SI{0}{\mole} - n_0\SI{}{\mole} = -n_0, \\
+    \Delta n_{\ce{N2O4}} &= \SI{1}{\mole} - \SI{0}{\mole} = 1,
+\end{align*}
+hence,
+\begin{align*}
+    \upsilon_{\ce{N2}}\xi &= -n_0\xi, \\
+    \upsilon_{\ce{O2}}\xi &= -n_0\xi, \\
+    \upsilon_{\ce{N2O4}}\xi &= 1\xi.
+\end{align*}
+
+
+\subsection{~}
+Calculate $\Delta G,~\Delta A$ and $\Delta S_{\mathrm{univ}}$ for each of the following processes, state any approximation or assumptions you made:
+
+\paragraph{2a} Reversible melting of \SI{36.0}{\gram} of ice at \SI{0}{\celsius} and \SI{1}{\atm}.
+
+Use the following values:
+Densities at \SI{0}{\celsius} and \SI{1}{\atm}: \SI{0.917}{\gram\per\centi\meter\tothe{3}} and \SI{1.000}{\gram\per\centi\meter\tothe{3}}for liquid water.
+Specific heat of liquid water, $C_P=\SI{4.19}{\joule\per\gram\per\kelvin}$; Specific heat of ice: \SI{2.11}{\joule\per\gram\per\kelvin} at \SI{0}{\celsius}.
+Heat of fusion of ice fusion: \SI{333.6}{\joule\per\gram}.
+
+Considering $G\equiv H-TS$ we can use its differential $dG = -SdT + VdP$ to use the given data, hence $\Delta G = -S\Delta T + V\Delta P$.
+Taking into account that there are no specified final temperatures and pressures, we assume that the process is performed at a constant temperature and pressure.
+Therefore, $\Delta G = 0$.
+
+To compute the change in enthalpy we compute the enthalpy of transition and the heat transfer that occurs in the phase change,
+\begin{align*}
+    \Delta H &= m\Delta H_{\mathrm{fus},m}^{\circ} \\
+    &= \qty(\SI{36.0}{\gram})~\SI[per-mode=fraction]{333.6}{\joule\per\gram} \\
+    &= \SI{12009.6}{\joule}
+\end{align*}
+
+
+Applying the same considerations, $A\equiv U -TS$, the differential is $dA=-S dT - P dV$, which gives $\Delta A = -S\Delta T - P \Delta V$.
+We assume that the temperature is constant and that the change in volume is due to a change in density from liquid to solid, due to conservation of mass.
+Therefore, $\Delta A = -P\qty[m\qty(1/\rho_{\mathrm{l}}-1/\rho_{\mathrm{s}})]$, replacing values,
+\begin{align*}
+    \Delta A &= -\SI{1}{\atm}\left[\SI{36}{\gram}\qty(\frac{1}{\SI{1.000}{\gram\per\centi\meter\tothe{3}}}-\frac{1}{\SI{0.917}{\gram\per\centi\meter\tothe{3}}})\right]\\
+    &= -\SI{3.258}{\atm\per\centi\meter\tothe{3}} \\
+    &= -\SI{3.258d-3}{\atm\per\liter}
+\end{align*}
+
+To convert the result to joules, we normalize the $R$ constant as follows,
+\begin{gather*}
+    \frac{\SI[per-mode=fraction]{8.314}{\joule\per\mole\per\kelvin}}{\SI[per-mode=fraction]{0.08206}{\liter\atm\per\mole\per\kelvin}} =\SI[per-mode=fraction]{101.3161}{\joule\per\atm\per\liter},
+\end{gather*}
+hence,
+\begin{align*}
+    \Delta A &=\qty(\SI[per-mode=fraction]{101.3161}{\joule\per\atm\per\liter}) -\SI[per-mode=fraction]{3.258d-3}{\atm\per\liter} \\
+    &\boxed{\Delta A = \SI{0.33}{\joule}} 
+\end{align*}
+
+On the other hand, the change in entropy of the surroundings can be computed as an exchange of heat, which is $\Delta H = q_p$,
+\begin{align*}
+    \Delta S &= \frac{\Delta q}{T}, \\
+    &= \frac{\Delta H}{T} \\
+    &= \frac{\SI{12009.6}{\joule}}{\SI{273.15}{\kelvin}} \\
+    &\boxed{\Delta S= \SI[per-mode=fraction]{43.967}{\joule\per\kelvin}}
+\end{align*}
+
+
+\paragraph{2b} Reversible vaporization of \SI{39}{\gram} of \ce{C6H6} (benzene) at its normal boiling point of \SI{80.1}{\celsius} and \SI{1}{\atm}.
+
+As before, the change in Gibbs energy is equal to zero, $\boxed{\Delta G=0}$ because we are analyzing a reversible process.
+Also, we use the procedure to compute the change in enthalpy,
+\begin{align*}
+    \Delta H &= q \\
+    &= m\Delta H_{\mathrm{vap},m}^\circ \\
+    &= \SI{0.5}{\mole}~\SI[per-mode=fraction]{33.9}{\kilo\joule\per\mole} \\
+    &= \SI{16.95}{\kilo\joule}.
+\end{align*}
+
+With the change of enthalpy we can compute the change of entropy of the system with the procedure used in the previous problem,
+\begin{align*}
+    \Delta S &= \frac{\Delta H}{T} \\
+    &= \frac{\SI{16.95}{\kilo\joule}}{\SI{353.25}{\kelvin}} \\
+    &\boxed{\Delta S =\SI[per-mode=fraction]{47.9830}{\joule\per\kelvin}.}
+\end{align*}
+
+Since the density of the benzene is not given, we assume that the initial volume of the benzene in the vapor phase is negligible, hence $\Delta V \approx V_{\mathrm{vapor},f}$.
+With this assumption, we can use the ideal gas law to compute the final volume using the data using the information given $V_{\mathrm{vapor},f} = nRT/P$.
+Finally, to compute the change in Helmholtz energy we apply the same analysis from previous problem, leading to,
+\begin{align*}
+    \Delta A &= -P\Delta V \\
+    &= -P\qty(\frac{nRT}{P}) \\
+    &= -nRT \\
+    &= -\qty(\SI{0.5}{\mole})\qty(\SI[per-mode=fraction]{8.314}{\joule\per\mole\per\kelvin})\qty(\SI{353.25}{\kelvin}) \\
+    &\boxed{\Delta A =\SI{1468.4602}{\joule}}
+\end{align*}
+
+\paragraph{2c} Adiabatic expansion of \SI{0.100}{\mole} of an ideal gas into vacuum with initial temperature of \SI{300}{\kelvin}, initial volume of \SI{2.00}{\liter}, and final volume of \SI{6.00}{\liter}.
+
+Taking into account that this is an adiabatic process, we have $q=0$ and it is not a reversible process.
+Also, since it is a process carried out in a vacuum, $w=0$, hence $\Delta U = 0$.
+
+Taking into account $\Delta G =\Delta H -T\Delta S$ and $\Delta A=\Delta U - T\Delta S$, the changes in the Gibbs and Helmholtz energy are equal, $\Delta G = -T\Delta S = \Delta A$.
+Therefore, we only need to compute the change in entropy,
+\begin{align*}
+    \Delta S &= \cancelto{0}{nC_v\ln\qty[\frac{T_2}{T_1}]} + nR\ln\qty[\frac{V_2}{V_1}] \\
+    &= nR\ln\qty[\frac{V_2}{V_1}] \\
+    &= \qty(\SI{0.1}{\mole})\qty(\SI[per-mode=fraction]{8.314}{\joule\per\mole\per\kelvin})\ln\qty[\frac{6}{2}] \\
+    &\boxed{\Delta S=\SI[per-mode=fraction]{0.9133}{\joule\per\kelvin}}.
+\end{align*}
+Then,
+\begin{align*}
+    \Delta G = \Delta A &= -T\Delta S \\
+    &= -\qty(\SI{300}{\kelvin})\qty(\SI[per-mode=fraction]{0.9133}{\joule\per\kelvin}) \\
+    &\boxed{\Delta G = \Delta A = -\SI{273.99}{\joule}}
+\end{align*}
+
+
+\subsection{~}
+
+Calculate $\Delta G$ and $\Delta A$ when \SI{2.50}{\mole} of an ideal gas with $C_{V,m}=1.5R$ at \SI{400}{\kelvin} expands from a volume of \SI{28.5}{\liter} to a volume of \SI{42.0}{\liter} at \SI{400}{\kelvin}.
+
+Taking into account that is an isothermal process, the change in internal energy and the change of enthalpy are zero, $\Delta H = \Delta U =0$.
+Hence, as before the change of Gibbs and Helmholtz energy can be computed as $\Delta G=\Delta A =-T\Delta S$, therefore,
+\begin{align*}
+    \Delta S &= \cancelto{0}{nC_v\ln\qty[\frac{T_2}{T_1}]} + nR\ln\qty[\frac{V_2}{V_1}] \\
+    &= nR\ln\qty[\frac{V_2}{V_1}] \\
+    &= \qty(\SI{2.50}{\mole})\qty(\SI[per-mode=fraction]{8.314}{\joule\per\mole\per\kelvin})\ln\qty[\frac{42}{28.5}] \\
+    &\boxed{\Delta S=\SI[per-mode=fraction]{8.0597}{\joule\per\kelvin}}.
+\end{align*}
+leading to,
+\begin{align*}
+    \Delta G = \Delta A &= -T\Delta S \\
+    &= -\qty(\SI{400}{\kelvin})\qty(\SI[per-mode=fraction]{8.0597}{\joule\per\kelvin}) \\
+    &\boxed{\Delta G = \Delta A = -\SI{3223.8826}{\joule}}
+\end{align*}
+
+\subsection{~}
+Methanol is usually a liquid in room temperature, but it can also exist in the vapor phase under these conditions.
+
+\paragraph{4a} What would be the molar entropy of methanol vapor at \SI{298.15}{\kelvin}, $S_{m,298}^{\circ}[\mathrm{\ce{CH3OH(g)}}]$?
+
+Using the following data: $S_{m,298}^{0}[\mathrm{\ce{CH3OH(l)}}]=\SI{126.8}{\joule\per\kelvin\per\mole}$.
+$\Delta_\mathrm{vap}H_m=\SI{36.5}{\kilo\joule\per\mole}$, at the normal boiling point of $T_\mathrm{vap}=\SI{337.7}{\kelvin}$.
+$C_{P,m}[\mathrm{\ce{CH3OH(l)}}]=\SI{81.12}{\joule\per\kelvin\per\mole}$, 
+$C_{P,m}[\mathrm{\ce{CH3OH(g)}}]=\SI{43.8}{\joule\per\kelvin\per\mole}$, 
+
+\textit{Hint: consider if there is a series of reversible steps that could take methanol from its standard stat to the specified thermodynamic state of vapor at room temperature?}
+
+
+We compute the change of entropy of 3 reversible process: heating the methanol, evaporating it and the cooling the vapor.
+The first change in entropy is computed as follows,
+\begin{align*}
+    \Delta S &= C_{P,m}\ln\qty[\frac{T_2}{T_1}]  \\
+    &= \qty(\SI[per-mode=fraction]{81.12}{\joule\per\mole\per\kelvin})\ln\qty[\frac{337.7}{298.15}] \\
+    &=\SI[per-mode=fraction]{10.1044}{\joule\per\kelvin}.
+\end{align*}
+
+For the heating process, the change in entropy is calculated as follows,
+\begin{align*}
+    \Delta S &= \frac{\Delta_{\mathrm{vap}} H_m}{T} \\
+    &= \frac{\SI{36.5d3}{\joule\per\mole}}{\SI{337.7}{\kelvin}} \\
+    &=\SI[per-mode=fraction]{108.0840}{\joule\per\kelvin}.
+\end{align*}
+
+Then, for the cooling process,
+\begin{align*}
+    \Delta S &= C_{P,m}\ln\qty[\frac{T_2}{T_1}]  \\
+    &= \qty(\SI[per-mode=fraction]{43.8}{\joule\per\mole\per\kelvin})\ln\qty[\frac{298.15}{337.7}] \\
+    &=-\SI[per-mode=fraction]{5.4557}{\joule\per\kelvin}.
+\end{align*}
+
+Adding the changes in entropy,
+\begin{align*}
+    S_{m,298}^{\circ}[\mathrm{\ce{CH3OH(g)}}]&=S_{m,298}^{\circ}[\mathrm{\ce{CH3OH(l)}}] + \Delta S_{\mathrm{total}} \\
+    &= \SI{126.8}{\joule\per\kelvin\per\mole} + \SI[per-mode=fraction]{112.7327}{\joule\per\mole\per\kelvin}\\
+    &\boxed{S_{m,298}^{\circ}[\mathrm{\ce{CH3OH(g)}}]=\SI[per-mode=fraction]{239.5327}{\joule\per\mole\per\kelvin}} 
+\end{align*}
+
+
+\paragraph{4b} Compare the value you calculated with the experimental value of \SI{239.9}{\joule\per\kelvin\per\mole}
+
+Using the percentage error as a parameter to compare the values we get,
+\begin{align*}
+    \%\mathrm{Error} &= 100~\frac{\SI{239.5327}{\joule\per\mole\per\kelvin} - \SI{239.9}{\joule\per\kelvin\per\mole}}{\SI{239.9}{\joule\per\kelvin\per\mole}} \\
+    &= -\num{1.53d-1}
+\end{align*}
+
+which means that theoretical value is under \num{1.53d-1}\% from the experimental value.
+
+\subsection{~}
+
+With the values provided for change of enthalpy for the following reactions:
+\begin{align*}
+    \ce{4NH3(g) + 5O2(g) -> 4NO(g) + 6H2O(l)} &\qquad \Delta H^0 = -\SI{1170}{\kilo\joule\per\mole} \\
+    \ce{2NO(g) + O2(g) -> 2NO2(g)} &\qquad \Delta H^0 = -\SI{114}{\kilo\joule\per\mole} \\
+    \ce{3NO2(g) + H2O(l) -> 2HNO3(l) + NO(g)} &\qquad \Delta H^0 = -\SI{72}{\kilo\joule\per\mole}
+\end{align*}
+Calculate the enthalpy of this reaction: \ce{NH3(g) + 2O2(g) -> HNO3(l) + H2O(l)}
+
+We can compute the enthalpy of reaction by an algebraic manipulation from the given reactions, 
+\begin{align*}
+    \ce{4NH3(g)} + \ce{5O2(g)} -\ce{4NO(g)} - \ce{6H2O(l)} &= -\SI{1170}{\kilo\joule\per\mole} \\
+    \left[\ce{2NO(g)} + \ce{O2(g)} - \ce{2NO2(g)} \right. &= \left.-\SI{114}{\kilo\joule\per\mole}\right]3 \\
+    \left[\ce{3NO2(g)} + \ce{H2O(l)} - \ce{2HNO3(l)} - \ce{NO(g)} \right. &= \left.-\SI{72}{\kilo\joule\per\mole}\right]2,
+\end{align*}
+Applying the operation,
+\begin{align*}
+    \ce{4NH3(g)} + \ce{5O2(g)} -\ce{4NO(g)} - \ce{6H2O(l)} &= -\SI{1170}{\kilo\joule\per\mole} \\
+    \ce{6NO(g)} + \ce{3O2(g)} - \ce{6NO2(g)} &= -\SI{342}{\kilo\joule\per\mole} \\
+    \ce{6NO2(g)} + \ce{2H2O(l)} - \ce{4HNO3(l)} - \ce{2NO(g)} &= -\SI{144}{\kilo\joule\per\mole},
+\end{align*}
+adding the equations,
+\begin{multline*}
+   \ce{4NH3(g)} + \ce{8O2(g)}  - \ce{4H2O(l)}- \ce{4HNO3(l)}\\
+   + \ce{6NO(g)} -\ce{6NO(g)} + \ce{6NO2(g)}- \ce{6NO2(g)}  
+  =-\SI{1656}{\kilo\joule\per\mole},
+\end{multline*}
+finally,
+\begin{align*}
+    \left[\ce{4NH3(g)} + \ce{8O2(g)}  - \ce{4H2O(l)}- \ce{4HNO3(l)}\right. &= \left.-\SI{1656}{\kilo\joule\per\mole}\right]\frac{1}{4} \\
+    \ce{NH3(g)} + \ce{2O2(g)}  - \ce{H2O(l)}- \ce{HNO3(l)} &= -\SI{414}{\kilo\joule\per\mole}
+\end{align*}
+
+\begin{gather*}
+    \boxed{\ce{NH3(g) + 2O2(g) -> HNO3(l) + H2O(l)},\qquad \Delta H^0 =-\SI{414}{\kilo\joule\per\mole}}
+\end{gather*}
+
+%\end{comment}
+
+
+\subsection{~}
+
+%When \SI{0.6018}{\gram} of naphthalene, \ce{C10H8(s)}, was burned in an adiabatic bomb calorimeter, a temperature rise of \SI{2.035}{\kelvin} and \SI{0.0142}{\gram} of fuse wire (used to ignite the sample) were observed 
+
+When \SI{0.6018}{\gram} of naphthalene, \ce{C10H8(g)}, was burned in an adiabatic bomb calorimeter, a temperature rise of \SI{2.035}{\kelvin} was observed and \SI{0.0142}{\gram} of fuse wire (used to ignite the sample) was burned.
+In the same calorimeter, combustion of \SI{0.5742}{\gram} of benzoic acid produced a temperature rise of \SI{1.270}{\kelvin}, and \SI{0.0121}{\gram} of fuse wire was burned.
+The $\Delta U$ for combustion of benzoic acid under typical bomb conditions is known to be \SI{26.434}{\kilo\joule\per\gram}, and the $\Delta U$ for combustion of the wire is \SI{6.28}{\kilo\joule\per\gram}. 
+
+\paragraph{6a} Find the average heat capacity of the calorimeter and its contents $(C_{K+P})$.
+Neglect the difference in heat capacity between the chemical substances in the two experiments.
+
+Considering that the experiment is done in a calorimeter, the change in internal energy can be computed as $\Delta U_{298} = -C_{K+P}\Delta T$.
+However, from the data given we use the following relation $\Delta U_{298} = -C_{K+P}\Delta T = m_{\mathrm{bnz}}\Delta U_{\mathrm{bnz}} + m_{\mathrm{wire}} \Delta U_{\mathrm{wire}}$.
+Substituting the numerical values,
+\begin{align*}
+    \Delta U_{298} &= \qty(\SI{0.5742}{\gram})\qty(-\SI{26.434}{\kilo\joule\per\gram}) + \qty(\SI{0.0121}{\gram})\qty(-\SI{6.28}{\kilo\joule\per\gram}) \\
+    &=-\SI{15.2543}{\kilo\joule},
+\end{align*}
+allowing us to compute the average heat capacity of the calorimeter and its contents $(C_{K+P})$,
+\begin{align*}
+    C_{K+P} &= -\frac{\Delta U_{298}}{\Delta T} \\
+    &=-\frac{-\SI{15.2543}{\kilo\joule}}{\SI{1.270}{\kelvin}} \\
+    &\boxed{C_{K+P}=\SI[per-mode=fraction]{12.0113}{\kilo\joule\per\kelvin}}
+\end{align*}
+
+\paragraph{6b} Neglecting the changes in thermodynamic functions that occur when species are brought from their standard states to those that occur in the calorimeter, find $\Delta_c U^o$ and $\Delta_c H^o$ of naphthalene.
+
+\textit{The combustion reaction for naphthalene is \ce{C10H8(s) + 12CO2(g) -> 10CO2(g) + 4H2O(l)}}
+
+The change in internal energy in the calorimeter for naphtalene can be computed as, follows,
+\begin{align*}
+    m_{\ce{C10H8}}\Delta U_{\ce{C10H8}} &= -C_{K+P}\Delta T - m_{\mathrm{wire}}\Delta U_{\mathrm{wire}} \\
+    &= -\qty(\SI[per-mode=fraction]{12.0113}{\kilo\joule\per\kelvin})\qty(\SI{2.035}{\kelvin}) - \qty(\SI[per-mode=fraction]{0.0142}{\gram})\qty(-\SI[per-mode=fraction]{6.28}{\kilo\joule\per\gram}) \\
+    &=-\SI[per-mode=fraction]{24.3538}{\kilo\joule},
+\end{align*}
+then, searching for the molar mass of naphthalene, we can compute $\Delta U_{\ce{C10H8}}$,
+\begin{align*}
+    \Delta U_{\ce{C10H8}} &=\frac{-\SI[per-mode=fraction]{24.3538}{\kilo\joule}}{\SI{0.6018}{\gram}}\SI[per-mode=fraction]{128.18}{\gram\per\mole} \\
+    &\boxed{\Delta U_{\ce{C10H8}}=-\SI{5187.2218}{\kilo\joule\per\mole}}.
+\end{align*}
+
+Finally, to compute the change of enthalpy we use the following relation $\Delta H_T^\circ = \Delta U_t^\circ + \Delta n_g RT$.
+Considering that the change of moles of gas is $\Delta n_g = -2$ and standard temperature we get,
+\begin{align*}
+    \Delta H_T^\circ &= \Delta U_t^\circ + \Delta n_g RT \\
+    &= -\SI{5187.2218}{\kilo\joule\per\mole} + \qty(-\SI{2}{\mole})\qty(\SI[per-mode=fraction]{8.314}{\joule\per\mole\per\kelvin})\qty(\SI{298.15}{\kelvin}) \\
+    &= -\SI{5187.2218d3}{\joule\per\mole} + \qty(-\SI{2}{\mole})\qty(\SI[per-mode=fraction]{8.314}{\joule\per\mole\per\kelvin})\qty(\SI{298.15}{\kelvin}) \\
+    &\boxed{\Delta H_T^\circ=-\SI{5192.1794}{\kilo\joule\per\mole}}
+\end{align*}
+
+
+%The first step is to compute the change of moles as follows,
+
+
+\subsection{~}
+Use the standard data given below to find $\Delta H^o_{298},~\Delta S_{298}^ o$ y $\Delta G_{298}^o$ for the following reactions:
+
+\paragraph{7a}\ce{2H2S(g) + 3O2(g) -> 2H2O(l) + 2SO2(g)}
+
+\begin{table}[ht!]
+\centering
+\begin{tabular}{|c|c|c|c|c|} 
+\hline
+\qquad & \ce{H2S(g)} & \ce{O2(g)} & \ce{H2O(l)} & \ce{SO2(g)} \\
+\hline
+$\Delta_fH^\circ_298$(\SI{}{\kilo\joule\per\mole}) & -20.63 &  & -285.830 & -296.83 \\
+\hline
+$S^\circ_298$(\SI{}{\joule\per\mole\per\kelvin}) & 205.79 & 205.138 & 69.91 & 248.22 \\
+\hline
+$C^\circ_P$(\SI{}{\joule\per\mole\per\kelvin}) & 34.23 & 29.355 & 75.291 & 39.87 \\
+\hline
+\end{tabular}
+\end{table}
+
+To compute the change in enthalpy we use the following equation $\Delta H^\circ_T=\sum_i\upsilon_i\Delta_f H_{T,i}^\circ$, where $\upsilon_i$ are the stoichiometric.
+
+\begin{align*}
+    \Delta H^o_{298} &= 2\Delta_f H_{298}^\circ\qty(\ce{SO2}) + 2\Delta_f H_{298}^\circ\qty(\ce{H2O}) - 2\Delta_f H_{298}^\circ\qty(\ce{H2S}) \\
+    &= 2\qty(\SI{-20.63}{\kilo\joule\per\mole}) + 2\qty(\SI{-285.830}{\kilo\joule\per\mole}) - 2\qty(\SI{-296.83}{\kilo\joule\per\mole}) \\
+    &\boxed{\Delta H^o_{298} = -\SI{1124.06}{\kilo\joule\per\mole}.}
+\end{align*}
+
+To compute the change in enthalpy we use the following equation $S^\circ_T=\sum_i\upsilon_i S_{T,i}^\circ$, where $\upsilon_i$ are the stoichiometric.
+
+\begin{align*}
+    S^o_{298} &= 2S^\circ_{298}\qty(\ce{SO2}) + 2S_{298}^\circ\qty(\ce{H2O}) - 2S_{298}^\circ\qty(\ce{H2S}) - 3S_{298}^\circ\qty(\ce{O2})\\
+    &= 2\qty(\SI{248.22}{\joule\per\mole\per\kelvin}) + 2\qty(\SI{69.91}{\joule\per\mole\per\kelvin}) - 2\qty(\SI{205.79}{\joule\per\mole\per\kelvin}) - 3\qty(\SI{205.138}{\joule\per\mole\per\kelvin})\\
+    &\boxed{S^o_{298} = -\SI{390.734}{\joule\per\mole\per\kelvin}.}
+\end{align*}
+
+Since there are no information in the table for the change in Gibbs energy we can compute it as follows,
+\begin{align*}
+    \Delta G^\circ_{298} &= \Delta H - T\Delta S \\
+    &= \qty(-\SI{1124.06d3}{\joule\per\mole}) - \SI{298}{\kelvin}\qty(-\SI{390.734}{\joule\per\mole\per\kelvin}) \\
+    &\boxed{\Delta G^\circ_{298}=-\SI{1007.621}{\kilo\joule\per\mole}.} 
+\end{align*}
+
+\paragraph{7b} For the same reaction, find $\Delta S_{370}^o,~\Delta H_{370}^o$ and $\Delta G_{370}^o$ (ignore the variation of $C_P^o$ with temperature)
+
+Since there is a change in temperature, the change of enthalpy and entropy can be computed with the following relations,
+
+\begin{minipage}[c]{0.45\textwidth}
+ \begin{align*}
+    \Delta H^\circ_{T_2} -\Delta H^\circ_{T_1} &= \int_{T_1}^{T_2}\Delta C_P^\circ dT \\
+    &= \Delta C_P^\circ\Delta T \\
+    \Delta H^\circ_{T_2}&= \Delta C_P^\circ\Delta T + \Delta H^\circ_{T_1},
+\end{align*}   
+\end{minipage}
+\begin{minipage}[c]{0.45\textwidth}
+ \begin{align*}
+    \Delta S^\circ_{T_2} -\Delta S^\circ_{T_1} &= \int_{T_1}^{T_2} \frac{\Delta C_P^\circ}{T} dT \\
+    &= \Delta C_P^\circ\ln\qty[\frac{T_f}{T_o}] \\
+    \Delta S^\circ_{T_2} &= \Delta C_P^\circ\ln\qty[\frac{T_f}{T_o}] + \Delta S^\circ_{T_1}.
+\end{align*}   
+\end{minipage}
+
+Now we compute the change of heat capacity using the information given in the table,
+\begin{align*}
+    \Delta C_P^o &= 2C_P^\circ\qty(\ce{SO2}) + 2C_P^\circ\qty(\ce{H2O}) - 2C_P^\circ\qty(\ce{H2S}) - 3C_P^\circ\qty(\ce{O2})\\
+    &= 2\qty(\SI{39.87}{\joule\per\mole\per\kelvin}) + 2\qty(\SI{75.291}{\joule\per\mole\per\kelvin}) - 2\qty(\SI{34.23}{\joule\per\mole\per\kelvin}) - 3\qty(\SI{29.355}{\joule\per\mole\per\kelvin})\\
+    &= \SI{73.797}{\joule\per\mole\per\kelvin}.
+\end{align*}
+
+
+Using the expression for the change of enthalpy and entropy above we get the following results,
+\begin{align*}
+    \Delta H^\circ_{370}&= \Delta C_P^\circ\Delta T + \Delta H^\circ_{298} \\
+    &= \SI{73.797}{\joule\per\mole\per\kelvin}\qty(\SI{370}{\kelvin}-\SI{298}{\kelvin}) -\SI{1124.06d3}{\joule\per\mole} \\
+    &\boxed{\Delta H^\circ_{370}=-\SI{1119.286}{\kilo\joule\per\mole}},
+\end{align*}
+
+\begin{align*}
+    \Delta S^\circ_{370}&= \Delta C_P^\circ\ln\qty[\frac{T_f}{T_o}] + \Delta S^\circ_{298} \\
+    &= \SI{73.797}{\joule\per\mole\per\kelvin}\ln\qty[\frac{\SI{370}{\kelvin}}{\SI{298}{\kelvin}}] -\SI{390.734}{\joule\per\mole\per\kelvin} \\
+    &\boxed{\Delta S^\circ_{370}=-\SI{374.763}{\joule\per\mole\per\kelvin}}.
+\end{align*}
+
+Finally we can compute the change in Gibbs energy as before,
+\begin{align*}
+    \Delta G^\circ_{370} &= \Delta H^\circ_{370} - T\Delta S^\circ_{370} \\
+    &= -\SI{1119.286d3}{\joule\per\mole} - \SI{370}{\kelvin}\qty(-\SI{374.763}{\joule\per\mole}) \\
+    &\boxed{\Delta G^\circ_{370} = -\SI{980.623}{\kilo\joule\per\mole}}
+\end{align*}
+
+
+\end{document}
