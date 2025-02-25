@@ -91,7 +91,7 @@ thermo ${NsaveStress}
 # Set the time integrator
 fix VelVerlet all nve # Use Velocity Verlet integrator
 fix ThermoLng all langevin ${temp} ${temp} ${damp} ${seed3} zero yes # Brownian Dynamics: langevin + nve
-fix_modify ThermoLng temp t
+fix_modify ThermoLng temp td
 
 timestep ${tstep}
 
@@ -102,31 +102,29 @@ variable xy equal xy
 fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box
 run ${shear_it} post no every 1 &
     "if '${xy} >= ${flip_treshold}' then &
-        'change_box all xy final -${flip_treshold} units box' &
-        'unfix shear' &
-        'fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box'"
+        'change_box all xy final -${flip_treshold} units box'"
 unfix shear
 
 write_data data.firstShear
 
+fix_modify ThermoLng temp t
 run ${rlxT1}
 
+fix_modify ThermoLng temp td
 fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box
 run ${shear_it} post no every 1 &
     "if '${xy} >= ${flip_treshold}' then &
-        'change_box all xy final -${flip_treshold} units box' &
-        'unfix shear' &
-        'fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box'"
+        'change_box all xy final -${flip_treshold} units box'"
 unfix shear
 
+fix_modify ThermoLng temp t
 run ${rlxT2}
 
+fix_modify ThermoLng temp td
 fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box
 run ${shear_it} post no every 1 &
     "if '${xy} >= ${flip_treshold}' then &
-        'change_box all xy final -${flip_treshold} units box' &
-        'unfix shear' &
-        'fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box'"
+        'change_box all xy final -${flip_treshold} units box'"
 unfix shear
 
 run ${rlxT3}
