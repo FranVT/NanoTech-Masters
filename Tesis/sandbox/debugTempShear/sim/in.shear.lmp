@@ -90,8 +90,8 @@ thermo ${NsaveStress}
 
 # Set the time integrator
 fix VelVerlet all nve # Use Velocity Verlet integrator
-fix ThermoLng all langevin ${temp} ${temp} ${damp} ${seed3} zero yes # Brownian Dynamics: langevin + nve
-fix_modify ThermoLng temp td
+fix ThermoLng all langevin ${temp} ${temp} ${damp} ${seed3} # Brownian Dynamics: langevin + nve
+#fix_modify ThermoLng temp td
 
 timestep ${tstep}
 

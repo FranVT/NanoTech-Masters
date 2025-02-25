@@ -12,11 +12,11 @@ rm -rf info*;
 cd ..; 
 
 ## Start the for loop
-for var_shearRate in 0.01; #0.01 0.001;
+for var_shearRate in 0.05; #0.01 0.001;
 do
 for var_cCL in 0.1; #0.06 0.1;
 do 
-for Nexp in 4; #$(seq 1 5);
+for Nexp in 7; #$(seq 1 5);
 do
 
 # Cifras significativas
@@ -62,7 +62,7 @@ sstep_defor=10000;
 
 # Shear rate parameters
 shear_rate=$var_shearRate;
-max_strain=2;
+max_strain=1;
 Nstep_per_strain=$(echo "scale=$cs; $(echo "scale=$cs; 1 / $shear_rate" | bc) * $(echo "scale=$cs; 1 / $tstep_defor" | bc)" | bc) ;
 Nstep_per_strain=${Nstep_per_strain%.*};
 
