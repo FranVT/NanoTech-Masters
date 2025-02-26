@@ -1,0 +1,151 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tufte Essay
+% LaTeX Template
+% Version 2.0 (19/1/19)
+%
+% This template originates from:
+% http://www.LaTeXTemplates.com
+%
+% Authors:
+% The Tufte-LaTeX Developers (https://www.ctan.org/pkg/tufte-latex)
+% Vel (vel@LaTeXTemplates.com)
+%
+% License:
+% Apache License, version 2.0
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[a4paper]{tufte-handout} % Use A4 paper by default, remove 'a4paper' for US letter
+
+\usepackage{graphicx} % Required for including images
+\setkeys{Gin}{width=\linewidth, totalheight=\textheight, keepaspectratio} % Default images settings
+\graphicspath{{Figures/}{./}} % Specifies where to look for included images (trailing slash required)
+
+\usepackage{amsmath, amsfonts, amssymb, amsthm} % For math equations, theorems, symbols, etc
+\usepackage{units} % Non-stacked fractions and better unit spacing
+\usepackage{physics}
+
+\usepackage{booktabs} % Required for better horizontal rules in tables
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\title{ Quantumm Optics Class-Notes and others }
+
+\author{Francisco Vazquez-Tavares}
+
+\date{\today} % Date, use \date{} for no date
+
+
+%----------------------------------------------------------------------------------------
+%	COMMANDS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hata}{\hat{a}}
+\newcommand{\hatad}{\hat{a}^\dagger}
+\newcommand{\QDi}{\hat{X}_1}
+\newcommand{\QDj}{\hat{X}_2}
+
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle % Print the title section
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT/SUMMARY
+%----------------------------------------------------------------------------------------
+
+\begin{abstract}
+	\textbf{Summary}
+        Class notes, post-class notes and others for the course of Quantum Optics.
+        Semester February-June 2025
+\end{abstract}
+
+%----------------------------------------------------------------------------------------
+%	ESSAY BODY
+%----------------------------------------------------------------------------------------
+
+\section{Harmonic oscilator}\label{sec:Feb12}
+February 12
+
+
+\section{First Quantization}\label{sec:Feb17}
+February 17
+
+\section{Properties of Quantumm electric field}\label{sec:Feb19}
+Februrary 19
+
+\subsection{Fock States}
+February 19
+
+\section{Coherent states}\label{sec:Feb24}
+February 24
+
+\marginpar{
+Reminders of some properties.
+\begin{align*}
+    \qty[\hata,\hatad] &= 1 \\
+    \hat{X}_1 &= \frac{\hata+\hatad}{2} \\
+    \hat{X}_2 &= \frac{\hata-\hatad}{2i} \\
+    \hata &= \hat{X}_1 + i\hat{X}_2 \\
+    \hatad &= \hat{X}_1 -i\hat{X}_2 \\
+    \qty[\hat{X}_1,\hat{X}_2] &= \frac{i}{2} \\
+    \Delta\hat{X}_1\Delta\hat{X}_2 &\geq \frac{1}{4}
+\end{align*}
+
+}
+
+According to the professor the sections \ref{sec:Feb12,sec:Feb17,sec:Feb19,sec:Feb24}, where the hard part of the course.
+The next sections we are going to describe different states and analize there properties.
+
+Lets remember the operator of an enlectric field with $x$ component and one mode,
+\begin{gather*}
+    E_x = i\left(\frac{\hbar\omega}{2\epsilon_o V}\right)^{1/2}\left(\hata\exp\qty[-i\omega t] - \hatad\exp\qty[-i\omega t]\right),
+\end{gather*}
+which can be expressed in terms of quadratures as,
+\begin{gather*}
+    E_x = 2\left(\frac{\hbar\omega}{2\epsilon_o V}\right)^{1/2}\qty( \hat{X}_1\sin\qty(\omega t) +  \hat{X}_2\cos\qty(\omega t))
+\end{gather*}
+
+So, when we want to get the expeted value of the electric field of a Fock state $\ket{n}$ we get $\expval{E}{n}=0$.
+So we need other states to model a laser.
+A useful observation is that $\expval{\QDi^2}{n}=1/4(2n+1)$ and $\Delta\QDi\Delta\QDj=1/4(2n+1)$.
+
+We are going to study the ``\textit{Gleuber states}''.
+Which are the states that can describe the laser.
+For that we have 4 definitions,
+\paragraph{Definition 1}
+Eigenstates of $\hata$ \[\hata\ket{\alpha}=\alpha\ket{\alpha},\quad\alpha\in\mathbb{C}.\]
+
+\paragraph{Definition 2}
+Displaced vacuum\footnote{
+    It is important to use the following definition of $e^x$, becuase the argument are matrices and vectors,
+\[\exp\qty(x)=\sum\frac{x^n}{n!}.\]
+}.
+
+\begin{gather*}
+    \hat{D}\qty(\alpha) = \exp\qty[\alpha\hatad-\alpha^*\hata],\quad\ket{\alpha}=\hat{D}(\alpha)\ket{0}
+\end{gather*}
+
+\paragraph{Definition 3}
+Fock States
+\begin{gather*}
+    \ket{\alpha} = \exp\qty[-\frac{\abs{\alpha}^2}{2}]\sum\frac{\alpha^n}{\sqrt{n!}}\ket{n}
+\end{gather*}
+
+\paragraph{Definition 4}
+\[\Delta\QDi\Delta\QDj=\frac{1}{2}\]
+
+\section{Squeezed States}
+February 26
+
+
+
+\end{document}
