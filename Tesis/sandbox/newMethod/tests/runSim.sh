@@ -115,6 +115,11 @@ do
 
             touch $file_name;
             echo -e "parameter,value" >> $file_name;
+            echo -e "directory,"${dir_name}"" >> $file_name;
+            echo -e "sub-dir,imgs" >> $file_name;
+            for i in "${!files_name[@]}"; do
+                echo -e "file"$i","${files_name[$i]}"" >> $file_name;
+            done
             echo -e "phi,"${phi}"" >> $file_name;
             echo -e "CL-Con,"${CL_con}"" >> $file_name;
             echo -e "Npart,"${N_particles}"" >> $file_name;
@@ -138,10 +143,11 @@ do
             echo -e "save-dump,"${Ndump}"" >> $file_name;
             echo -e "save-fix,"${Nsave}"" >> $file_name;
             echo -e "save-stress,"${NsaveStress}"" >> $file_name;
-            for i in "${!files_name[@]}"; do
-                echo -e "file"$i","${files_name[$i]}"" >> $file_name;
-            done
+            
+            # Bash script for the simulation
+            cd ..;
 
+            file_name="sim.sh";
             
 
         done
