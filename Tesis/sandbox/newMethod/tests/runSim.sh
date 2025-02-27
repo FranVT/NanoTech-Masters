@@ -60,6 +60,18 @@ do
 
             # Directory stuff
             dir_name="$(date +%F)-phi-${phi}-CLcon-${CL_con}-Part-${N_particles}-shear-${shear_rate}-Nexp-${Nexp}" ;
+            files_name=(
+                        "data_system_assembly.fixf" 
+                        "data_stress_assembly.fixf"
+                        "data_clustP_assembly.fixf"
+                        "traj_assembly.*.dumpf"
+                        "data.hydrogel"
+                        "data_system_shear.fixf" 
+                        "data_stress_shear.fixf"
+                        "data_clustP_shear.fixf"
+                        "traj_shear.*.dumpf"
+                        "data.firstShear"
+                        );
 
 
             # Create the directory in the sim directory with README.md file with parameters and .dat file
@@ -98,10 +110,39 @@ do
             echo -e ""- Save every "${Nsave}" time steps for fix files"" >> $file_name;
             echo -e ""- Save every "${NsaveStress}" time steps for Stress fix files"" >> $file_name;
             
+            # .dat file
+            file_name="data.dat";
 
+            touch $file_name;
+            echo -e "parameter,value" >> $file_name;
+            echo -e "phi,"${phi}"" >> $file_name;
+            echo -e "CL-Con,"${CL_con}"" >> $file_name;
+            echo -e "Npart,"${N_particles}"" >> $file_name;
+            echo -e "Shear-rate,"${shear_rate}"" >> $file_name;
+            echo -e "Temperature,"${T}"" >> $file_name;
+            echo -e "damp,"${damp}"" >> $file_name;
+            echo -e "Max-strain,"${max_strain}"" >> $file_name;
+            echo -e "time-step,"${dt}"" >> $file_name;
+            echo -e "N_heat,"${steps_heat}"" >> $file_name;
+            echo -e "N_isot,"${steps_isot}"" >> $file_name;
+            echo -e "N_def,"${Nstep_per_strain}"" >> $file_name;
+            echo -e "N_rlx1,"${relaxTime1}"" >> $file_name;
+            echo -e "N_rlx2,"${relaxTime2}"" >> $file_name;
+            echo -e "N_rlx3,"${relaxTime3}"" >> $file_name;
+            echo -e "N_CL,"${N_CL}"" >> $file_name;
+            echo -e "N_MO,"${N_MO}"" >> $file_name;
+            echo -e "Vol_CL,"${Vol_CL1}"" >> $file_name;
+            echo -e "Vol_MO,"${Vol_MO1}"" >> $file_name;
+            echo -e "Vol_box,"${Vol_Tot}"" >> $file_name;
+            echo -e "L,"${L}"" >> $file_name;
+            echo -e "save-dump,"${Ndump}"" >> $file_name;
+            echo -e "save-fix,"${Nsave}"" >> $file_name;
+            echo -e "save-stress,"${NsaveStress}"" >> $file_name;
+            for i in "${!files_name[@]}"; do
+                echo -e "file"$i","${files_name[$i]}"" >> $file_name;
+            done
 
-
-
+            
 
         done
     done
