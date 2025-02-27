@@ -143,6 +143,68 @@ Fock States
 \paragraph{Definition 4}
 \[\Delta\QDi\Delta\QDj=\frac{1}{2}\]
 
+Then we start to analyse a coherent state and a Fock state.
+\begin{align*}
+    \braket{\alpha}&=\exp\qty[-\abs{\alpha}^2]\sum_{n=0}\sum_{m=0}\frac{\alpha^{*m}\alpha^n}{\sqrt{m!}\sqrt{n!}}\braket{m}{n} \\
+                   &=\exp\qty[-\abs{\alpha}^2]\sum\frac{\abs{\alpha}^{2n}}{n!} \\
+                   &=1
+\end{align*}
+
+Later we analyse the creation and anhilihation operator.
+\marginpar{
+Usefull properties,
+\begin{gather*}
+    \hata\hatad-\hatad\hata=1\\
+    \expval{\hata\hatad}{\alpha}=\abs{\alpha}^2+1 \\
+    \hata\ket{n}=\sqrt{n}\ket{n-1}
+\end{gather*}
+}
+Knowing that $\hata\ket{\alpha}=\alpha\ket{\alpha}$ and when we compute its adjoint $\bra{\alpha}\hatad=\alpha^*\bra{\alpha}$, we get different eigenvalues for each operator.
+However, if we compute the expected value of both operators in a state we get,
+\begin{align*}
+    \expval{\hatad\hata}{\alpha} &=\braket{\alpha}{\hatad\hata\alpha} \\
+                                 &=\bra{\alpha}\hatad\alpha \\
+                                 &=\alpha^*\alpha \\
+                                 &=\abs{\alpha}^2
+\end{align*}
+
+Now we apply the $\hata$ operator in a Fock state,
+\begin{align*}
+    \hata\ket{\alpha} &=\hata\left( \exp\qty[-\frac{\abs{\alpha}^2}{2}]\sum_{n=0}\frac{\alpha^n}{\sqrt{n!}}\ket{\alpha} \right) \\
+                      &=\exp\qty[-\frac{\abs{\alpha}^2}{2}]\sum_{n=0}\frac{\alpha^n}{\sqrt{n!}}\hata\ket{\alpha} \\
+                      &=\exp\qty[-\frac{\abs{\alpha}^2}{2}]\sum_{n=0}\frac{\alpha^n}{\sqrt{n!}}\qty(\sqrt{n}\ket{\alpha-1}),
+\end{align*}
+When $n=0$ is like taking photons to the vaccum, which does not make sense, hence we can translate the sum as follows,
+\begin{align*}
+    \hata\ket{\alpha} &=\exp\qty[-\frac{\abs{\alpha}^2}{2}]\sum_{n=1}\frac{\alpha^n}{\sqrt{(n-1)!}}\ket{n-1}
+\end{align*}
+
+What is the probability of detecting $n$ photons\footnote{Is the Poisson distribution.}?
+\begin{gather*}
+    \abs{\braket{n}{\alpha}}^2=\exp\qty[-\frac{\abs{\alpha}^2}{2}]\frac{\abs{\alpha}^2}{n!}
+\end{gather*}
+
+Now wetake the expected value of $\ket{\alpha}$ with $\hata,\hatad,\QDi,\QDj$,
+\begin{align*}
+    \expval{\hata}{\alpha} &= \alpha \\
+    \expval{\hatad}{\alpha} &= \alpha^* \\
+    \expval{\QDi}{\alpha} &= \frac{1}{2}(\alpha+\alpha^*) \\
+    \expval{\QDj}{\alpha} &= \frac{1}{2}(\alpha-\alpha^*)
+\end{align*}
+
+Then we checked the Qadrature noise,
+\begin{align*}
+    \expval{\QDi^2}{\alpha} &=\expval{\frac{1}{4}(\hata+\hatad)^2}{\alpha}\\
+                            &=\frac{1}{4}\qty(\alpha^2+\alpha^{*2}+2\abs{\alpha}^2+1)
+\end{align*}
+therefore,
+\begin{gather*}
+    \braket{\QDi^2} - \braket{\QDi}^2=\frac{1}{4}
+\end{gather*}
+\marginpar{As homework, compute $\expval{\QDj^2}{\alpha}$}
+
+\subsection{Displacement Operator}
+
 \section{Squeezed States}
 February 26
 
