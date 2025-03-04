@@ -11,12 +11,13 @@ group PA type 3
 group CM type 1 2
 
 # Neighbor list
-neighbor 0.6 multi
+neighbor 1.8 bin
+#neighbor 0.6 multi
 
-comm_style brick
-comm_modify mode multi group all vel yes
-comm_modify cutoff/multi * 0.6
-neigh_modify delay 0 every 1 check no
+#comm_style brick
+#comm_modify mode multi group all vel yes
+#comm_modify cutoff/multi * 0.6
+#neigh_modify delay 0 every 1 check no
 
-neigh_modify exclude molecule/intra CrossLinker
-neigh_modify exclude molecule/intra Monomer
+#neigh_modify exclude molecule/intra CrossLinker
+#neigh_modify exclude molecule/intra Monomer
