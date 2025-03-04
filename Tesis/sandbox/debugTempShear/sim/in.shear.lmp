@@ -27,7 +27,7 @@ include molDeform.in
 
 # Compute global kinetic and potential energy and temperature
 compute t all temp
-compute td all temp/profile 1 0 0 x 10 
+compute td all temp/profile 1 0 0 x 2 
 compute p all pressure t
 compute ep all pe
 compute ek all ke
