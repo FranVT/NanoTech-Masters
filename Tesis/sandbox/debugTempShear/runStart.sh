@@ -12,11 +12,11 @@ rm -rf info*;
 cd ..; 
 
 ## Start the for loop
-for var_shearRate in 0.05; #0.01 0.001;
+for var_shearRate in 0.01; #0.01 0.001;
 do
 for var_cCL in 0.1; #0.06 0.1;
 do 
-for Nexp in 7; #$(seq 1 5);
+for Nexp in 11; #$(seq 1 5);
 do
 
 # Cifras significativas
@@ -30,7 +30,7 @@ seed3=10; # Langevin Thermostat
 # Main parameters of the simulation
 phi=0.5;
 CL_concentration=$var_cCL; #0.1;
-N_particles=50;
+N_particles=25;
 damp=0.5;
 T=0.05;
 
@@ -40,8 +40,8 @@ N_CL=${N_CL%.*};
 N_MO=$(( $N_particles - $N_CL ));
 
 # Compute the size of the box to get he given packing fraction
-Vol_MO=$(echo "scale=$cs; 4.241404 * $N_MO" | bc); # Volume approximation
-Vol_CL=$(echo "scale=$cs; 4.294138 * $N_CL" | bc); # Volume approximation
+Vol_MO=$(echo "scale=$cs; 4.49709 * $N_MO" | bc); # Volume approximation
+Vol_CL=$(echo "scale=$cs; 4.80538 * $N_CL" | bc); # Volume approximation
 Vol_Totg=$(echo "scale=$cs; $Vol_MO + $Vol_CL" | bc); # Volume approximation
 
 # Get the total volume needed taking into account the packing fraction

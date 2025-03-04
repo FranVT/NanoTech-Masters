@@ -8,6 +8,11 @@ The main idea is to create a methodology such that for each set of simulations a
 
 ### File names
 
+#### Scripts files
+- runSimulation.sh
+- in.assembly.lmp
+- in.shear.lmp
+
 #### Data files per simulations
 - index.dat
 - README.md

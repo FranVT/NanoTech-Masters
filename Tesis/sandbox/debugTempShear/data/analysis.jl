@@ -15,12 +15,12 @@ include("functions.jl")
 """
 
 selc_phi="5000";
-selc_Npart="50";
+selc_Npart="25";
 selc_damp="5000";
 selc_T="500";
 selc_cCL="1000";
 selc_ShearRate="100";#string.((10,50,100));
-selc_Nexp="4";
+selc_Nexp="11";
 
 dirs=getDirs(selc_phi,selc_Npart,selc_damp,selc_T,selc_cCL,selc_ShearRate,selc_Nexp);
 

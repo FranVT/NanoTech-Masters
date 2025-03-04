@@ -111,20 +111,22 @@ fix_modify ThermoLng temp t
 run ${rlxT1}
 
 fix_modify ThermoLng temp td
-fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box
-run ${shear_it} post no every 1 &
-    "if '${xy} >= ${flip_treshold}' then &
-        'change_box all xy final -${flip_treshold} units box'"
+fix shear all deform 1 xy erate ${shear_rate} remap x flip yes units box
+run ${shear_it}
+#run ${shear_it} post no every 1 &
+#    "if '${xy} >= ${flip_treshold}' then &
+#        'change_box all xy final -${flip_treshold} units box'"
 unfix shear
 
 fix_modify ThermoLng temp t
 run ${rlxT2}
 
 fix_modify ThermoLng temp td
-fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box
-run ${shear_it} post no every 1 &
-    "if '${xy} >= ${flip_treshold}' then &
-        'change_box all xy final -${flip_treshold} units box'"
+fix shear all deform 1 xy erate ${shear_rate} remap x flip yes units box
+run ${shear_it}
+#run ${shear_it} post no every 1 &
+#    "if '${xy} >= ${flip_treshold}' then &
+#        'change_box all xy final -${flip_treshold} units box'"
 unfix shear
 
 run ${rlxT3}
