@@ -103,6 +103,10 @@ axislegend(labelsize=20.0f0)
 # Photon numer distribution of Thermal state
 n_mean =(1,10,100);
 
+    hbar = 1.0545571726*10^(-34);
+    kb = 1.38066488*10^(-23);
+
+
 # Domain of the number of photons
 n=0:1:2*last(n_mean);
 
