@@ -22,7 +22,7 @@ ax=Axis(fig_coherent[1,1:2],
                ylabelsize=20.0f0,
                xminorticksvisible=true,
                xminorgridvisible=true,
-               limits=(0,150,0,1)
+               limits=(0,150,0,nothing)
               )
 map(s->lines!(ax,Poisson(s)),n)
 map(s->scatter!(ax,Poisson(s)),n)
