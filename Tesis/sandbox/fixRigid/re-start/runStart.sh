@@ -16,15 +16,15 @@ for var_shearRate in 0.01; #0.01 0.001;
 do
 for var_cCL in 0.1; #0.06 0.1;
 do 
-for Nexp in 1; #$(seq 1 5);
+for Nexp in 4; #$(seq 1 5);
 do
 
 # Cifras significativas
 cs=6;
 
 # Seed for random numbers
-seed1=$((1234 + $Nexp)); # Position of CL and MO
-seed2=$((4321 + $Nexp)); # Position of Cl and MO
+seed1=$((1234)); # Position of CL and MO
+seed2=$((4321)); # Position of Cl and MO
 seed3=10; # Langevin Thermostat
 
 # Main parameters of the simulation

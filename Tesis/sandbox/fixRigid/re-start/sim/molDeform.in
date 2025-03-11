@@ -12,5 +12,5 @@ group CM type 1 2
 
 # Neighbor list
 neighbor 1.8 bin # extra-distance style
-#neigh_modify exclude molecule/intra CrossLinker
-#neigh_modify exclude molecule/intra Monomer
+neigh_modify exclude molecule/intra CrossLinker
+neigh_modify exclude molecule/intra Monomer
