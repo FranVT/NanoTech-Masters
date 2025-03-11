@@ -96,16 +96,24 @@ timestep ${tstep}
 
 variable flip_treshold equal 0.5*lx
 variable lxy equal xy
-variable ds equal ${shear_rate}*lx
+variable ds equal lx*(1+${shear_rate}*${tstep})
 
 variable n_loop loop 3
 label runloop
-change_box all xy delta ds remap
-if "${lxy} >= ${flip_treshold}" then "change_box all xy final -${flip_treshold} units box"
-run ${shear_it}
-run ${rlxT1}
+#change_box all xy delta ${ds} remap units box
+#if "${lxy} >= ${flip_treshold}" then "change_box all xy final -${flip_treshold} units box"
+#run ${shear_it}
+#run ${rlxT1}
+
+run ${shear_it} post no every 1 &
+    "change_box all xy delta ${ds} remap units box"
+
+
 next n_loop
 jump SELF runloop
+
+
+
 
 
 #fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box
