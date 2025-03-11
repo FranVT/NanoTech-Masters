@@ -94,21 +94,52 @@ fix_modify rigidBodies virial no temp td # No contribution to the stress
 
 timestep ${tstep}
 
-fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
-run ${shear_it}
+variable flip_treshold equal 0.5*lx
+variable lxy equal xy
+
+fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box
+run ${shear_it} post no every 1 &
+    "if '${lxy} >= ${flip_treshold}' then &
+        'change_box all xy final -${flip_treshold} units box'"
 unfix shear
+
+write_data data.firstShear
 
 run ${rlxT1}
 
-fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
-run ${shear_it}
+fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box
+run ${shear_it} post no every 1 &
+    "if '${lxy} >= ${flip_treshold}' then &
+        'change_box all xy final -${flip_treshold} units box'"
 unfix shear
 
 run ${rlxT2}
 
-fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
-run ${shear_it}
+fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box
+run ${shear_it} post no every 1 &
+    "if '${lxy} >= ${flip_treshold}' then &
+        'change_box all xy final -${flip_treshold} units box'"
 unfix shear
 
 run ${rlxT3}
+
+
+
+#fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
+#run ${shear_it}
+#unfix shear
+
+#run ${rlxT1}
+
+#fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
+#run ${shear_it}
+#unfix shear
+
+#run ${rlxT2}
+
+#fix shear all deform 1 xy erate ${shear_rate} remap x flip yes
+#run ${shear_it}
+#unfix shear
+
+#run ${rlxT3}
 
