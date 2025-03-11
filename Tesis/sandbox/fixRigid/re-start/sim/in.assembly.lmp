@@ -25,8 +25,8 @@ create_box 4 simulation_box &
 # Atom types
 mass 1 1      # CL 
 mass 2 1      # MO
-mass 3 1      # PA
-mass 4 1      # PB
+mass 3 0.1      # PA
+mass 4 0.1      # PB
 
 # Coefficients
 include potential.in
