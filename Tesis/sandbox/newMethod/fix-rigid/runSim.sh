@@ -18,6 +18,7 @@ do
             seed1=$((1234 + Nexp));     # MO positions
             seed2=$((4321 + Nexp));     # CL positions
             seed3=10;                   # Langevin thermostat
+            nodes=8;                    # CPU nodes for omp variable
 
             # System parameters
             phi=0.5;
@@ -37,8 +38,8 @@ do
             relaxTime1=2500000; # Relax time steps for the first period.
             relaxTime2=2500000;
             relaxTime3=2500000;
-            Vol_MO1=4.624581;
-            Vol_CL1=5.060372;
+            Vol_MO1=4.49789;
+            Vol_CL1=4.80538;
 
             # Derived parameters
             N_CL=$(echo "scale=0; $CL_con * $N_particles" | bc);
@@ -59,7 +60,7 @@ do
             shear_it=$(( $max_strain * $Nstep_per_strain)); # Total number of steps to achive the max strain parameter.
 
             # Directory stuff
-            dir_name="$(date +%F)-phi-${phi}-CLcon-${CL_con}-Part-${N_particles}-shear-${shear_rate}-Nexp-${Nexp}" ;
+            dir_name="$(date +%F-%H%M%S)-phi-${phi}-CLcon-${CL_con}-Part-${N_particles}-shear-${shear_rate}-Nexp-${Nexp}" ;
             files_name=(
                         "data_system_assembly.fixf" 
                         "data_stress_assembly.fixf"
@@ -75,7 +76,7 @@ do
 
 
             # Create the directory in the sim directory with README.md file with parameters and .dat file
-            cd sim; mkdir ${dir_name}; cd ${dir_name}; mkdir imgs;
+            cd sim; mkdir ${dir_name}; cd ${dir_name}; mkdir imgs; mkdir traj;
 
             # README.md
             file_name="README.md";
@@ -114,7 +115,6 @@ do
             file_name="data.dat";
 
             touch $file_name;
-            echo -e "parameter,value" >> $file_name;
             echo -e "directory,"${dir_name}"" >> $file_name;
             echo -e "sub-dir,imgs" >> $file_name;
             for i in "${!files_name[@]}"; do
@@ -148,7 +148,27 @@ do
             cd ..;
 
             file_name="sim.sh";
-            
+            rm -f $file_name;
+            touch $file_name;
+            echo -e "#!/bin/bash" >> $file_name;
+            echo -e "" >> $file_name;
+            echo -e "env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.assembly.lmp -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3  -var tstep $tstep -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var dumpDir $dump_name -var steps $steps -var stepsheat $stepsheat -var Dir $dir_name -var file1_name ${files_name[1]} -var file2_name ${files_name[2]} -var file3_name ${files_name[3]} -var file4_name ${files_name[4]} -var file5_name ${files_name[5]}" >> $file_name;
+            echo -e "" >> $file_name;
+            echo -e "env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.shear.lmp -var temp $T -var damp $damp -var tstep $tstep_defor -var shear_rate $shear_rate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var seed3 $seed3  -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var Dir $dir_name -var file1_name ${files_name[6]} -var file2_name ${files_name[7]} -var file3_name ${files_name[8]} -var file4_name ${files_name[9]} -var file5_name ${files_name[10]}" >> $file_name;
+            echo -e "" >> $file_name;
+            echo -e "mv $info_name ..; mv $dump_name ..; mv data.hydrogel ..; mv data.firstShear .." >> $file_name;echo -e "cd ..;" >> $file_name;
+            echo -e "mv -f $info_name data/storage/$dir_name/info;" >> $file_name;
+            echo -e "mv -f data.firstShear data/storage/$dir_name/info;" >> $file_name;
+            echo -e "mv -f data.hydrogel data/storage/$dir_name/info;" >> $file_name;
+            echo -e "mv -f $dump_name data/storage/dumps;" >> $file_name;
+
+            #bash $file_name;
+
+            cd ..;
+
+            echo "Work directory: $(pwd)"
+            echo "Data directory: $dir_name"
+            echo "$(pwd)/$dir_name"
 
         done
     done

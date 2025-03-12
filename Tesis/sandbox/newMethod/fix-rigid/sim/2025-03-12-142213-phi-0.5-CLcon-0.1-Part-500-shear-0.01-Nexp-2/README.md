@@ -24,10 +24,10 @@
 
 - Number of Cross-Linkers: 50
 - Number of Monomers: 450
-- Volume of Cross-Linker: 5.060372 [sigma^3]
-- Volume of Monomer: 4.624581 [sigma^3]
-- Box Volume: 4668.160100 [sigma^3]
-- Half length of the box: 8.356359 [sigma]
+- Volume of Cross-Linker: 4.80538 [sigma^3]
+- Volume of Monomer: 4.49789 [sigma^3]
+- Box Volume: 4528.639000 [sigma^3]
+- Half length of the box: 8.272260 [sigma]
 
  ## Save parameters 
 

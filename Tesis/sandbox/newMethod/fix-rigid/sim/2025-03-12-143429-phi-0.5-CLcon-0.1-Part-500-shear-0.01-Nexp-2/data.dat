@@ -1,5 +1,4 @@
-parameter,value
-directory,2025-02-27-phi-0.5-CLcon-0.1-Part-500-shear-0.01-Nexp-2
+directory,2025-03-12-143429-phi-0.5-CLcon-0.1-Part-500-shear-0.01-Nexp-2
 sub-dir,imgs
 file0,data_system_assembly.fixf
 file1,data_stress_assembly.fixf
@@ -27,10 +26,10 @@ N_rlx2,2500000
 N_rlx3,2500000
 N_CL,50
 N_MO,450
-Vol_CL,5.060372
-Vol_MO,4.624581
-Vol_box,4668.160100
-L,8.356359
+Vol_CL,4.80538
+Vol_MO,4.49789
+Vol_box,4528.639000
+L,8.272260
 save-dump,10
 save-fix,10
 save-stress,1000
