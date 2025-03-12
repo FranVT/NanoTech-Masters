@@ -64,7 +64,7 @@ do
             files_name=(
                         "data_system_assembly.fixf" 
                         "data_stress_assembly.fixf"
-                        "data_clustP_assembly.fixf"
+                        "data_clustP_assembly.dumpf"
                         "traj_assembly.*.dumpf"
                         "data.hydrogel"
                         "data_system_shear.fixf" 
