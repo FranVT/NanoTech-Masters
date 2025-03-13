@@ -152,17 +152,14 @@ do
             touch $file_name;
             echo -e "#!/bin/bash" >> $file_name;
             echo -e "" >> $file_name;
-            #echo -e "env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.assembly.lmp -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3  -var tstep $tstep -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var dumpDir $dump_name -var steps $steps -var stepsheat $stepsheat -var Dir $dir_name -var file1_name ${files_name[1]} -var file2_name ${files_name[2]} -var file3_name ${files_name[3]} -var file4_name ${files_name[4]} -var file5_name ${files_name[5]}" >> $file_name;
+            echo -e "env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.assembly.lmp -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3  -var tstep $tstep -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var dumpDir $dump_name -var steps $steps -var stepsheat $stepsheat -var Dir $dir_name -var file1_name ${files_name[1]} -var file2_name ${files_name[2]} -var file3_name ${files_name[3]} -var file4_name ${files_name[4]} -var file5_name ${files_name[5]}" >> $file_name;
             echo -e "" >> $file_name;
-            #echo -e "env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.shear.lmp -var temp $T -var damp $damp -var tstep $tstep_defor -var shear_rate $shear_rate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var seed3 $seed3  -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var Dir $dir_name -var file1_name ${files_name[6]} -var file2_name ${files_name[7]} -var file3_name ${files_name[8]} -var file4_name ${files_name[9]} -var file5_name ${files_name[10]}" >> $file_name;
+            echo -e "mv log.lammps $dir_name/log_assembly.lammps" >> $file_name;
+            echo -e "env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.shear.lmp -var temp $T -var damp $damp -var tstep $tstep_defor -var shear_rate $shear_rate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var seed3 $seed3  -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var Dir $dir_name -var file1_name ${files_name[6]} -var file2_name ${files_name[7]} -var file3_name ${files_name[8]} -var file4_name ${files_name[9]} -var file5_name ${files_name[10]}" >> $file_name;
             echo -e "" >> $file_name;
+            echo -e "mv log.lammps $dir_name/log_shear.lammps" >> $file_name;
             echo -e "mv $dir_name ..; cd ..;" >> $file_name;
             echo -e "mv $dir_name data" >> $file_name;
-            #echo -e "mv $info_name ..; mv $dump_name ..; mv data.hydrogel ..; mv data.firstShear .." >> $file_name;echo -e "cd ..;" >> $file_name;
-            #echo -e "mv -f $info_name data/storage/$dir_name/info;" >> $file_name;
-            #echo -e "mv -f data.firstShear data/storage/$dir_name/info;" >> $file_name;
-            #echo -e "mv -f data.hydrogel data/storage/$dir_name/info;" >> $file_name;
-            #echo -e "mv -f $dump_name data/storage/dumps;" >> $file_name;
 
             bash $file_name;
 

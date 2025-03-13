@@ -59,7 +59,6 @@ compute dis CM reduce/chunk daux sum c_disc[4]
 # Cluster analysis
 compute clPatch Patches cluster/atom 0.6
 
-
 # DUMPS and FIXES
 
 thermo ${NsaveStress}
@@ -77,9 +76,8 @@ fix fixCluster Patches ave/atom 1 ${Nsave} ${Nsave} c_clPatch
 dump dmpCluster Patches custom ${Ndump} ${Dir}/${file3_name} f_fixCluster
 
 # Save atom positions
-dump dumpID all atom ${Ndump} ${Dir}/traj/${file4_name}
+dump dumpID all custom ${Ndump} ${Dir}/traj/${file4_name} id type x y z vx vy vz
 dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
-
 
 # Save Atom displacement
 #group Displ empty
@@ -107,4 +105,4 @@ run ${steps}
 
 # Write data for deformation
 
-write_data data.hydrogel
+write_data ${file5_name}
