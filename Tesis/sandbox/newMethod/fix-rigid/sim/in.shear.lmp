@@ -30,7 +30,7 @@ compute td all temp/deform
 compute p all pressure t
 compute ep all pe
 compute ek all ke
-compute eT equal etotal
+variable eT equal etotal
 variable ec equal ecouple
 variable eC equal econserve
 variable H equal enthalpy
@@ -54,7 +54,7 @@ thermo ${NsaveStress}
 
 # Save global energies and temperature
 group Energy empty
-fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_wcaPair c_patchPair c_swapPair c_ep c_ek c_etotal v_ec v_eC c_p v_H file ${Dir}/${file6_name}
+fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_wcaPair c_patchPair c_swapPair c_ep c_ek v_eT v_ec v_eC c_p v_H file ${Dir}/${file6_name}
 
 # Save Stress tensor
 group Stress empty
