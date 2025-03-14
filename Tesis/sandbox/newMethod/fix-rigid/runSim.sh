@@ -12,7 +12,7 @@ for var_shearRate in 0.01;
 do
     for var_ccL in 0.1;
     do
-        for Nexp in 2;
+        for Nexp in 1;
         do
             # Parameters for the simulation
             seed1=$((1234 + Nexp));     # MO positions
@@ -23,21 +23,21 @@ do
             # System parameters
             phi=0.5;
             CL_con=$var_ccL;
-            N_particles=50;
+            N_particles=500;
             shear_rate=$var_shearRate;
             damp=0.5;
             T=0.05;
-            max_strain=1;
+            max_strain=5;
 
             # Numeric parameters
             dt=0.001;
-            steps_heat=100; # Steps for the heating process
-            steps_isot=900; # Steps for the percolation process 
+            steps_heat=1000000; # Steps for the heating process
+            steps_isot=9000000; # Steps for the percolation process 
             Nsave=10;           # Steps for temporal average of the fix files
             Ndump=10;           # Save each Ndump steps info of dump file
-            relaxTime1=250; # Relax time steps for the first period.
-            relaxTime2=250;
-            relaxTime3=250;
+            relaxTime1=1000000; # Relax time steps for the first period.
+            relaxTime2=1000000;
+            relaxTime3=1000000;
             Vol_MO1=4.49789;
             Vol_CL1=4.80538;
 
