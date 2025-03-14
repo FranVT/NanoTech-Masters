@@ -33,8 +33,8 @@ do
             dt=0.001;
             steps_heat=1000000; # Steps for the heating process
             steps_isot=9000000; # Steps for the percolation process 
-            Nsave=10;           # Steps for temporal average of the fix files
-            Ndump=10;           # Save each Ndump steps info of dump file
+            Nsave=100;           # Steps for temporal average of the fix files
+            Ndump=1000;           # Save each Ndump steps info of dump file
             relaxTime1=1000000; # Relax time steps for the first period.
             relaxTime2=1000000;
             relaxTime3=1000000;
