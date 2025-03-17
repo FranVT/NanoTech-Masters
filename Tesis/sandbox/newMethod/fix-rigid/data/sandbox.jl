@@ -10,6 +10,5 @@
         reduce(vcat,map(s->split(s," "),readlines(f)))
     end
 
-    # Get the data.dat file of each directory
-    joinpath
-
+    # Create DataFrames from the data.dat file of each directory
+    df = DataFrame.(CSV.File.(joinpath.(dirs_aux,"data.dat")));
