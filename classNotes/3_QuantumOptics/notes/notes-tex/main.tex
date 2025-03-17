@@ -229,10 +229,48 @@ Also, we kwnow that the creation and anhilihation operators follows these commut
     \commutator{\hata_i}{\hata_j}=0.
 \end{gather*}
 
-
-From those relations we can see that,
+From those relations we can see that\footnote{
 \begin{align*}
-    \commutator{\hata_2}{\hatad_1} &= \delta_{}
+    \commutator{\hata_2}{\hatad_2} &= \hata_2\hatad_2 - \hatad_2\hata_2 \\
+                                   &= \qty(r\hata_1)\qty(r\hata_1)^\dagger - \qty(r\hata_1)^\dagger\qty(r\hata_1) \\
+                                   &= \abs{r}^2\qty(\hata_1\hatad_1) - \abs{r}^2\qty(\hatad_1\hata_1) \\
+                                    &= \abs{r}^2\commutator{\hata_1}{\hatad_1},
+\end{align*}
+with the same 
+},
+\begin{gather*}
+    \commutator{\hata_2}{\hatad_2} = \abs{r}^2, \quad 
+    \commutator{\hata_3}{\hatad_3} = \abs{t}^2, \quad 
+    \commutator{\hata_2}{\hatad_3} = rt^*.
+\end{gather*}
+When we compare this results with the commutation rules that we stablish before, we can see that can not be true.
+Therefore we need to change the definition of the operators $\hata_2$ and $\hata_3$.
 
+From previus discussions, we can consider the fluctuations of the vacuum into the system with the followinf transformations,
+\begin{align*}
+    \hata_2 &= r\hata_1 + t^{'} \hata_0, \\
+    \hata_3 &= t\hata_1 + r^{'} \hata_0,
+\end{align*}
+or,
+\begin{gather*}
+    \begin{pmatrix}
+        \hata_2 \\ \hata_3
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        t^' & r \\ r^' & t 
+    \end{pmatrix}
+    \begin{pmatrix}
+        \hata_0 \\ \hata_1
+    \end{pmatrix}.
+\end{gather*}
+
+When we compute the commutation relations\footnote{Page 154 in pdf}
+we see that the commutation relations holds with the following relations,
+\begin{align*}
+    r^*t^{'} + r^{'}t^* = 0 \quad& r^*t + r^{'}t^{'*} = 0 \\
+    \abs{r'} = \abs{r} \quad& \abs{t'} = \abs{t} \\ 
+    \abs{r}^2 + \abs{t}^2 &= 1
+\end{align*}
 
 \end{document}
