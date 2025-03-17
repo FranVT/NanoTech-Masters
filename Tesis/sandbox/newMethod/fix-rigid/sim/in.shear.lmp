@@ -43,10 +43,11 @@ compute swapPair all pair threebody/table epair
 compute disc CM displace/atom
 compute daux CM chunk/atom type pbc yes
 compute dis CM reduce/chunk daux sum c_disc[4]
-#compute disM CM reduce/chunk 2 sum c_disc[4]
 
-# Cluster analysis
+# cluster analysis
 compute clPatch Patches cluster/atom 0.6
+compute ccl Patches chunk/atom c_clPatch compress yes discard no # Define chunks based on cluster ID
+compute size Patches property/chunk ccl count # Counts the atoms in each chunk
 
 # DUMPS and FIXES
 
@@ -61,16 +62,11 @@ group Stress empty
 fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_stressVirial[*] file ${Dir}/${file7_name}
 
 # Save the cluster information
-fix fixCluster Patches ave/atom 1 ${Nsave} ${Nsave} c_clPatch
-dump dmpCluster Patches custom ${Ndump} ${Dir}/${file8_name} f_fixCluster
+fix fixCluster Patches ave/histo 1 ${Nsave} ${Nsave} 0 8 80 c_size mode vector file ${Dir}/${file8_name}
 
 # Save atom positions
 dump dumpID all custom ${Ndump} ${Dir}/traj/${file9_name} id type x y z vx vy vz
 dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
-
-# Save Atom displacement
-#group Displ empty
-#fix fixDispl Displ ave/time 1 ${NsaveStress} ${NsaveStress} c_dis[1] c_dis[2] c_dis[3] c_dis[4] file ${Dir}/cmdisplacement_assembly.fixf
 
 # Save Atom displacement
 #group Displ empty
@@ -104,4 +100,3 @@ run ${shear_it}
 unfix shear
 
 run ${rlxT3}
-

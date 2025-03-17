@@ -55,78 +55,53 @@ compute size Patches property/chunk ccl count # Counts the atoms in each chunk
 
 # DUMPS and FIXES
 
-# Save atom positions
-dump dumpID all atom ${Ndump} ${dumpDir}/shear/patchyParticles_shear.*.dumpf
-dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
-
-group Energy empty
-group PairE1 empty
-group PairE2 empty
-group PairE3 empty
+thermo ${NsaveStress}
 
 # Save global energies and temperature
-fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_ep c_ek c_p c_td v_ec v_eC v_eT v_eB v_eA v_H v_eM file ${Dir}/energy_shear.fixf
-
-fix fixwca PairE1 ave/time 1 ${Nsave} ${Nsave} c_wcaPair file ${Dir}/wcaPair_shear.fixf
-fix fixpatch PairE2 ave/time 1 ${Nsave} ${Nsave} c_patchPair file ${Dir}/patchPair_shear.fixf
-fix fixswap PairE3 ave/time 1 ${Nsave} ${Nsave} c_swapPair file ${Dir}/swapPair_shear.fixf
-
-# Save Atom displacement
-group Displ empty
-fix fixDispl Displ ave/time 1 ${NsaveStress} ${NsaveStress} c_dis[1] c_dis[2] c_dis[3] c_dis[4] file ${Dir}/cmdisplacement_shear.fixf
+group Energy empty
+fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_wcaPair c_patchPair c_swapPair c_ep c_ek v_eT v_ec v_eC c_p v_eB v_eA v_eM v_H file ${Dir}/${file6_name}
 
 # Save Stress tensor
 group Stress empty
-fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_stressVirial[*] file ${Dir}/stressVirial_shear.fixf
+fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_stressVirial[*] file ${Dir}/${file7_name}
 
 # Save the cluster information
-fix fixCluster2 Patches ave/histo 1 ${Nsave} ${Nsave} 0 8 80 c_size mode vector file ${Dir}/clusterPatches_shear.fixf
+fix fixCluster Patches ave/histo 1 ${Nsave} ${Nsave} 0 8 80 c_size mode vector file ${Dir}/${file8_name}
 
-thermo ${NsaveStress}
+# Save atom positions
+dump dumpID all custom ${Ndump} ${Dir}/traj/${file9_name} id type x y z vx vy vz
+dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
+
+# Save Atom displacement
+#group Displ empty
+#fix fixDispl Displ ave/time 1 ${NsaveStress} ${NsaveStress} c_dis[1] c_dis[2] c_dis[3] c_dis[4] file ${Dir}/cmdisplacement_shear.fixf
 
 # RUN SIMULATION
 
 # Brownian Dynamics using Langevin Thermostat
 
-# Set the time integrator
+timestep ${tstep}
+
 fix VelVerlet all nve # Use Velocity Verlet integrator
 fix ThermoLng all langevin ${temp} ${temp} ${damp} ${seed3} zero yes # Brownian Dynamics: langevin + nve
 fix_modify ThermoLng temp td
 
-timestep ${tstep}
-
-# Variables for the flip
-variable flip_treshold equal 0.5*lx
-variable xy equal xy
-
-fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box
-run ${shear_it} post no every 1 &
-    "if '${xy} >= ${flip_treshold}' then &
-        'change_box all xy final -${flip_treshold} units box' &
-        'unfix shear' &
-        'fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box'"
+fix shear all deform 1 xy erate ${shear_rate} remap x flip yes units box
+run ${shear_it}
 unfix shear
 
-write_data data.firstShear
+write_data ${file10_name}
 
 run ${rlxT1}
 
-fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box
-run ${shear_it} post no every 1 &
-    "if '${xy} >= ${flip_treshold}' then &
-        'change_box all xy final -${flip_treshold} units box' &
-        'unfix shear' &
-        'fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box'"
+fix shear all deform 1 xy erate ${shear_rate} remap x flip yes units box
+run ${shear_it}
 unfix shear
 
 run ${rlxT2}
 
-fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box
-run ${shear_it} post no every 1 &
-    "if '${xy} >= ${flip_treshold}' then &
-        'change_box all xy final -${flip_treshold} units box' &
-        'unfix shear' &
-        'fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box'"
+fix shear all deform 1 xy erate ${shear_rate} remap x flip yes units box
+run ${shear_it}
 unfix shear
 
 run ${rlxT3}
