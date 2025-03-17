@@ -1,0 +1,132 @@
+# LAMMPS script for shear deformation simulaiton
+
+# Fco. Vazquez and Felipe Benavides
+
+units lj
+dimension 3
+boundary p p p
+
+# Styles of atoms and that stuff
+atom_style full 
+bond_style harmonic
+angle_style harmonic
+pair_style hybrid/overlay zero 0.0 lj/cut/omp 1.12 table/omp linear 5000000 threebody/table
+newton on
+
+read_data data.hydrogel extra/bond/per/atom 10 extra/angle/per/atom 6 extra/special/per/atom 10
+
+change_box all triclinic
+
+# Coefficients
+include potential.in
+
+# Molecules
+include molDeform.in
+
+# COMPUTES
+
+# Compute global kinetic and potential energy and temperature
+compute t all temp
+compute td all temp/deform
+compute p all pressure t
+compute ep all pe
+compute ek all ke
+variable ec equal ecouple
+variable eC equal econserve
+variable eT equal etotal
+variable eB equal ebond
+variable eA equal eangle
+variable H equal enthalpy
+variable eM equal emol
+compute stressVirial all pressure td ke pair
+compute wcaPair all pair lj/cut/omp epair
+compute patchPair all pair table/omp epair
+compute swapPair all pair threebody/table epair
+
+# displacement of the central particles
+compute disc CM displace/atom
+compute daux CM chunk/atom type pbc yes
+compute dis CM reduce/chunk daux sum c_disc[4]
+
+# cluster analysis
+compute clPatch Patches cluster/atom 0.6
+compute ccl Patches chunk/atom c_clPatch compress yes discard no # Define chunks based on cluster ID
+compute size Patches property/chunk ccl count # Counts the atoms in each chunk
+
+# DUMPS and FIXES
+
+# Save atom positions
+dump dumpID all atom ${Ndump} ${dumpDir}/shear/patchyParticles_shear.*.dumpf
+dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
+
+group Energy empty
+group PairE1 empty
+group PairE2 empty
+group PairE3 empty
+
+# Save global energies and temperature
+fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_ep c_ek c_p c_td v_ec v_eC v_eT v_eB v_eA v_H v_eM file ${Dir}/energy_shear.fixf
+
+fix fixwca PairE1 ave/time 1 ${Nsave} ${Nsave} c_wcaPair file ${Dir}/wcaPair_shear.fixf
+fix fixpatch PairE2 ave/time 1 ${Nsave} ${Nsave} c_patchPair file ${Dir}/patchPair_shear.fixf
+fix fixswap PairE3 ave/time 1 ${Nsave} ${Nsave} c_swapPair file ${Dir}/swapPair_shear.fixf
+
+# Save Atom displacement
+group Displ empty
+fix fixDispl Displ ave/time 1 ${NsaveStress} ${NsaveStress} c_dis[1] c_dis[2] c_dis[3] c_dis[4] file ${Dir}/cmdisplacement_shear.fixf
+
+# Save Stress tensor
+group Stress empty
+fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_stressVirial[*] file ${Dir}/stressVirial_shear.fixf
+
+# Save the cluster information
+fix fixCluster2 Patches ave/histo 1 ${Nsave} ${Nsave} 0 8 80 c_size mode vector file ${Dir}/clusterPatches_shear.fixf
+
+thermo ${NsaveStress}
+
+# RUN SIMULATION
+
+# Brownian Dynamics using Langevin Thermostat
+
+# Set the time integrator
+fix VelVerlet all nve # Use Velocity Verlet integrator
+fix ThermoLng all langevin ${temp} ${temp} ${damp} ${seed3} zero yes # Brownian Dynamics: langevin + nve
+fix_modify ThermoLng temp td
+
+timestep ${tstep}
+
+# Variables for the flip
+variable flip_treshold equal 0.5*lx
+variable xy equal xy
+
+fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box
+run ${shear_it} post no every 1 &
+    "if '${xy} >= ${flip_treshold}' then &
+        'change_box all xy final -${flip_treshold} units box' &
+        'unfix shear' &
+        'fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box'"
+unfix shear
+
+write_data data.firstShear
+
+run ${rlxT1}
+
+fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box
+run ${shear_it} post no every 1 &
+    "if '${xy} >= ${flip_treshold}' then &
+        'change_box all xy final -${flip_treshold} units box' &
+        'unfix shear' &
+        'fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box'"
+unfix shear
+
+run ${rlxT2}
+
+fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box
+run ${shear_it} post no every 1 &
+    "if '${xy} >= ${flip_treshold}' then &
+        'change_box all xy final -${flip_treshold} units box' &
+        'unfix shear' &
+        'fix shear all deform 1 xy erate ${shear_rate} remap x flip no units box'"
+unfix shear
+
+run ${rlxT3}
