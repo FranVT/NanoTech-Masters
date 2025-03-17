@@ -8,9 +8,9 @@
 cs=6;
 
 ## Loops of parameters
-for var_shearRate in 0.01;
+for var_shearRate in 0.1;
 do
-    for var_ccL in 0.1;
+    for var_ccL in 0.03;
     do
         for Nexp in 1;
         do
@@ -23,16 +23,16 @@ do
             # System parameters
             phi=0.5;
             CL_con=$var_ccL;
-            N_particles=500;
+            N_particles=1500;
             shear_rate=$var_shearRate;
             damp=0.5;
             T=0.05;
-            max_strain=5;
+            max_strain=10;
 
             # Numeric parameters
             dt=0.001;
-            steps_heat=1000000; # Steps for the heating process
-            steps_isot=9000000; # Steps for the percolation process 
+            steps_heat=500000; # Steps for the heating process
+            steps_isot=8000000; # Steps for the percolation process 
             Nsave=100;           # Steps for temporal average of the fix files
             Ndump=1000;           # Save each Ndump steps info of dump file
             relaxTime1=1000000; # Relax time steps for the first period.
