@@ -2,13 +2,22 @@
     Sandbox script to test functions and stuff
 """
 
-# Create the file with the directories names in the directory
-    run(`bash getDir.sh`);
+using DataFrames, CSV
 
-    # Store the directories names
-    dirs_aux = open("dirs.txt") do f
-        reduce(vcat,map(s->split(s," "),readlines(f)))
-    end
+include("functions.jl")
 
-    # Create DataFrames from the data.dat file of each directory
-    df = DataFrame.(CSV.File.(joinpath.(dirs_aux,"data.dat")));
+# Get a data frame with all the data.dat files information
+df = getDF();
+
+# Desire parameters 
+gamma_dot=0.01;
+damp=0.5;
+
+# New data frame
+df_new = filter([:"Shear-rate",:"damp"] => (f1,f2) -> f1==gamma_dot && f2==damp,df);
+
+# Create the directories
+data_path=joinpath.(df_new."main-directory",df_new."file0");
+
+
+

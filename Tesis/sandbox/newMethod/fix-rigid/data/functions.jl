@@ -18,6 +18,6 @@ function getDF()
     # Create DataFrames from the data.dat file of each directory
     df = DataFrame.(CSV.File.(joinpath.(dirs_aux,"data.dat")));
 
-    return df
+    return vcat(df...)
 
 end
