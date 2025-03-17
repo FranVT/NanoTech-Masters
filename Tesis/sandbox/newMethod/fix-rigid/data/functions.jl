@@ -2,7 +2,7 @@
     Script to declare usefull functions to analyse data
 """
 
-function getDirs(selc_phi,selc_Npart,selc_damp,selc_T,selc_cCL,selc_ShearRate,selc_Nexp)
+function getDF()
 """
    Function that gives the data file of all directories
 """
@@ -15,7 +15,9 @@ function getDirs(selc_phi,selc_Npart,selc_damp,selc_T,selc_cCL,selc_ShearRate,se
         reduce(vcat,map(s->split(s," "),readlines(f)))
     end
 
-    # Get the data.dat file of each directory
-    joinpath
+    # Create DataFrames from the data.dat file of each directory
+    df = DataFrame.(CSV.File.(joinpath.(dirs_aux,"data.dat")));
+
+    return df
 
 end
