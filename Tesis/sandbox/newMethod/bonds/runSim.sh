@@ -114,39 +114,105 @@ do
             # .dat file
             file_name="data.dat";
 
-            touch $file_name;
-            echo -e "main-directory,"${dir_name}"" >> $file_name;
-            echo -e "states-dir,traj" >> $file_name;
-            echo -e "imgs-dir,imgs" >> $file_name;
-            echo -e "log-of-assembly,log_assembly.lammps" >> $file_name;
-            echo -e "log-of-assembly,log_assembly.lammps" >> $file_name;
+            # Initialize arrays to hold headers and values
+            headers=()
+            values=()
+
+            # Populate headers and values arrays
+            headers+=("main-directory")
+            values+=("${dir_name}")
+
+            headers+=("states-dir")
+            values+=("traj")
+
+            headers+=("imgs-dir")
+            values+=("imgs")
+
+            headers+=("log-of-assembly")
+            values+=("log_assembly.lammps")
+
+            headers+=("log-of-assembly")
+            values+=("log_assembly.lammps")
+
             for i in "${!files_name[@]}"; do
-                echo -e "file"$i","${files_name[$i]}"" >> $file_name;
+                headers+=("file$i")
+                values+=("${files_name[$i]}")
             done
-            echo -e "phi,"${phi}"" >> $file_name;
-            echo -e "CL-Con,"${CL_con}"" >> $file_name;
-            echo -e "Npart,"${N_particles}"" >> $file_name;
-            echo -e "Shear-rate,"${shear_rate}"" >> $file_name;
-            echo -e "Temperature,"${T}"" >> $file_name;
-            echo -e "damp,"${damp}"" >> $file_name;
-            echo -e "Max-strain,"${max_strain}"" >> $file_name;
-            echo -e "time-step,"${dt}"" >> $file_name;
-            echo -e "N_heat,"${steps_heat}"" >> $file_name;
-            echo -e "N_isot,"${steps_isot}"" >> $file_name;
-            echo -e "N_def,"${Nstep_per_strain}"" >> $file_name;
-            echo -e "N_rlx1,"${relaxTime1}"" >> $file_name;
-            echo -e "N_rlx2,"${relaxTime2}"" >> $file_name;
-            echo -e "N_rlx3,"${relaxTime3}"" >> $file_name;
-            echo -e "N_CL,"${N_CL}"" >> $file_name;
-            echo -e "N_MO,"${N_MO}"" >> $file_name;
-            echo -e "Vol_CL,"${Vol_CL1}"" >> $file_name;
-            echo -e "Vol_MO,"${Vol_MO1}"" >> $file_name;
-            echo -e "Vol_box,"${Vol_Tot}"" >> $file_name;
-            echo -e "L,"${L}"" >> $file_name;
-            echo -e "save-dump,"${Ndump}"" >> $file_name;
-            echo -e "save-fix,"${Nsave}"" >> $file_name;
-            echo -e "save-stress,"${NsaveStress}"" >> $file_name;
-            
+
+            headers+=("phi")
+            values+=("${phi}")
+
+            headers+=("CL-Con")
+            values+=("${CL_con}")
+
+            headers+=("Npart")
+            values+=("${N_particles}")
+
+            headers+=("Shear-rate")
+            values+=("${shear_rate}")
+
+            headers+=("Temperature")
+            values+=("${T}")
+
+            headers+=("damp")
+            values+=("${damp}")
+
+            headers+=("Max-strain")
+            values+=("${max_strain}")
+
+            headers+=("time-step")
+            values+=("${dt}")
+
+            headers+=("N_heat")
+            values+=("${steps_heat}")
+
+            headers+=("N_isot")
+            values+=("${steps_isot}")
+
+            headers+=("N_def")
+            values+=("${Nstep_per_strain}")
+
+            headers+=("N_rlx1")
+            values+=("${relaxTime1}")
+
+            headers+=("N_rlx2")
+            values+=("${relaxTime2}")
+
+            headers+=("N_rlx3")
+            values+=("${relaxTime3}")
+
+            headers+=("N_CL")
+            values+=("${N_CL}")
+
+            headers+=("N_MO")
+            values+=("${N_MO}")
+
+            headers+=("Vol_CL")
+            values+=("${Vol_CL1}")
+
+            headers+=("Vol_MO")
+            values+=("${Vol_MO1}")
+
+            headers+=("Vol_box")
+            values+=("${Vol_Tot}")
+
+            headers+=("L")
+            values+=("${L}")
+
+            headers+=("save-dump")
+            values+=("${Ndump}")
+
+            headers+=("save-fix")
+            values+=("${Nsave}")
+
+            headers+=("save-stress")
+            values+=("${NsaveStress}")
+
+            # Write headers and values to the file
+            echo "$(IFS=,; echo "${headers[*]}")" > "$file_name"
+            echo "$(IFS=,; echo "${values[*]}")" >> "$file_name"
+
+           
             # Bash script for the simulation
             cd ..;
 
