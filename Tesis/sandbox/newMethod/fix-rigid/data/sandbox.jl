@@ -3,6 +3,7 @@
 """
 
 using DataFrames, CSV
+using Plots
 
 include("functions.jl")
 
@@ -18,11 +19,20 @@ df_new = filter([:"Shear-rate",:"CL-Con"] => (f1,f2) -> f1==gamma_dot && f2==cl_
 
 # Create the directories
 data_path=joinpath.(df_new."main-directory",df_new."file0");
+aux=split.(readlines(data_path[1])," ");
+aux_head=aux[2][2:end];
+aux_info=reduce(hcat,map(s->parse.(Float64,s),aux[3:end]))
+df_aux=DataFrame(aux_info',aux_head);
 
 
-aux= open(data_path[1]) do f
-        map(s->split(s," "),readlines(f))
-    end
+data_path=joinpath.(df_new."main-directory",df_new."file6");
+aux=split.(readlines(data_path[1])," ");
+aux_head=["TimeStep","xx","yy","zz","xy","xz","yz"];#aux[2][2:end];
+aux_info=reduce(hcat,map(s->parse.(Float64,s),aux[3:end]))
+df_aux2=DataFrame(aux_info',aux_head);
+
+
+# 
 
 
 
