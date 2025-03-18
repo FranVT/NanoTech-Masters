@@ -3,50 +3,41 @@
 """
 
 using DataFrames, CSV
-using Plots
+using Plots, LaTeXStrings
 
 include("functions.jl")
+
+
+
 
 # Get a data frame with all the data.dat files information
 df = getDF();
 
 # Desire parameters 
-gamma_dot=0.1;
-cl_con=0.05;
+gamma_dot=0.001;
+cl_con=0.01;
+Npart=1500;
 
 # New data frame
-df_new = filter([:"Shear-rate",:"CL-Con"] => (f1,f2) -> f1==gamma_dot && f2==cl_con,df);
+df_new = filter([:"Shear-rate",:"CL-Con",:"Npart"] => (f1,f2,f3) -> f1==gamma_dot && f2==cl_con && f3==Npart,df);# Get the information in data frames
 
-# Create the directories
-data_path=joinpath.(df_new."main-directory",df_new."file0");
-aux=split.(readlines(data_path[1])," ");
-aux_head=aux[2][2:end];
-aux_info=reduce(hcat,map(s->parse.(Float64,s),aux[3:end]))
-df_aux=DataFrame(aux_info',aux_head);
+(df_assembly, df_shear, df_stressA, df_stressS) = extractInfo(df_new);
 
-
-data_path=joinpath.(df_new."main-directory",df_new."file6");
-aux=split.(readlines(data_path[1])," ");
-aux_head=["TimeStep","xx","yy","zz","xy","xz","yz"];#aux[2][2:end];
-aux_info=reduce(hcat,map(s->parse.(Float64,s),aux[3:end]))
-df_aux2=DataFrame(aux_info',aux_head);
-
-
-# 
-
-
-
-#map(s->split(s," "),readlines(data_path...))[2:end]; 
-#collect.(map(s->parse.(Float64,s),split.(readlines(data_path...)," ")[3:end]))
-
-
-
-function extractInfo(file_dir)
 """
-   Function that reads the files and extract all the information
+    Plots
 """
-    return reduce(hcat,map(s->parse.(Float64,s),split.(readlines(file_dir)," ")[3:end]))
-end
 
+fig_temp=plot(title=L"\mathrm{Temperature}",xlabel=L"\mathrm{LJ}~\tau",ylabel=L"T",legend_position=:bottomright);
+plot!(df_new."time-step".*df_assembly."TimeStep",df_assembly."Temp",label=L"\mathrm{Assembly}");
+plot!(df_new."time-step".*(last(df_assembly."TimeStep") .+ df_shear."TimeStep"),df_shear."Temp",label=L"\mathrm{Shear}");
+
+map(s->savefig(fig_temp,s),joinpath.(df_new."main-directory",df_new."imgs-dir","temp.png"))
+
+
+fig_stress=plot(title=L"\mathrm{Stress}~xy",xlabel=L"\mathrm{LJ}~\tau",ylabel=L"\sigma_{xy}",legend_position=:bottomright);
+plot!(df_new."time-step".*df_stressA."TimeStep",-df_stressA."xy",label=L"\mathrm{Assembly}");
+plot!(df_new."time-step".*(last(df_stressA."TimeStep") .+ df_stressS."TimeStep"),-df_stressS."xy",label=L"\mathrm{Shear}");
+
+map(s->savefig(fig_stress,s),joinpath.(df_new."main-directory",df_new."imgs-dir","stress.png"))
 
 

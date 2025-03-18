@@ -33,3 +33,11 @@ plot!(df_new."time-step".*(last(df_assembly."TimeStep") .+ df_shear."TimeStep"),
 
 map(s->savefig(fig_temp,s),joinpath.(df_new."main-directory",df_new."imgs-dir","temp.png"))
 
+
+fig_stress=plot(title=L"\mathrm{Stress}~xy",xlabel=L"\mathrm{LJ}~\tau",ylabel=L"\sigma_{xy}",legend_position=:bottomright);
+plot!(df_new."time-step".*df_stressA."TimeStep",-df_stressA."xy",label=L"\mathrm{Assembly}");
+plot!(df_new."time-step".*(last(df_stressA."TimeStep") .+ df_stressS."TimeStep"),-df_stressS."xy",label=L"\mathrm{Shear}");
+
+map(s->savefig(fig_stress,s),joinpath.(df_new."main-directory",df_new."imgs-dir","stress.png"))
+
+
