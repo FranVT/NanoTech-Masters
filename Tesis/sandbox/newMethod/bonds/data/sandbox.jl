@@ -14,7 +14,7 @@ include("functions.jl")
 df = getDF();
 
 # Desire parameters 
-gamma_dot=0.1;
+gamma_dot=0.001;
 cl_con=0.01;
 Npart=1500;
 
@@ -27,9 +27,9 @@ df_new = filter([:"Shear-rate",:"CL-Con",:"Npart"] => (f1,f2,f3) -> f1==gamma_do
     Plots
 """
 
-plot(title=L"\mathrm{Temperature}",xlabel=L"\mathrm{LJ}~\tau",ylabel=L"T");
+fig_temp=plot(title=L"\mathrm{Temperature}",xlabel=L"\mathrm{LJ}~\tau",ylabel=L"T",legend_position=:bottomright);
 plot!(df_new."time-step".*df_assembly."TimeStep",df_assembly."Temp",label=L"\mathrm{Assembly}");
 plot!(df_new."time-step".*(last(df_assembly."TimeStep") .+ df_shear."TimeStep"),df_shear."Temp",label=L"\mathrm{Shear}");
 
-
+map(s->savefig(fig_temp,s),joinpath.(df_new."main-directory",df_new."imgs-dir","temp.png"))
 
