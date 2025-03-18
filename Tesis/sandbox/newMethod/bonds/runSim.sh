@@ -27,7 +27,7 @@ do
             shear_rate=$var_shearRate;
             damp=0.5;
             T=0.05;
-            max_strain=1;
+            max_strain=10;
 
             # Numeric parameters
             dt=0.001;
