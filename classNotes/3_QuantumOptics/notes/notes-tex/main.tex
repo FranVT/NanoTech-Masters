@@ -28,6 +28,7 @@
 \usepackage{amsmath, amsfonts, amssymb, amsthm} % For math equations, theorems, symbols, etc
 \usepackage{units} % Non-stacked fractions and better unit spacing
 \usepackage{physics}
+\usepackage{cancel}
 
 \usepackage{booktabs} % Required for better horizontal rules in tables
 
@@ -102,7 +103,7 @@ Reminders of some properties.
 
 }
 
-According to the professor the sections \ref{sec:Feb12,sec:Feb17,sec:Feb19,sec:Feb24}, where the hard part of the course.
+According to the professor the sections\ref{sec:Feb12},\ref{sec:Feb17},\ref{sec:Feb19},\ref{sec:Feb24}, where the hard part of the course.
 The next sections we are going to describe different states and analize there properties.
 
 Lets remember the operator of an enlectric field with $x$ component and one mode,
@@ -258,19 +259,106 @@ or,
     \end{pmatrix}
     =
     \begin{pmatrix}
-        t^' & r \\ r^' & t 
+        t^{'} & r \\ r^{'} & t 
     \end{pmatrix}
     \begin{pmatrix}
         \hata_0 \\ \hata_1
     \end{pmatrix}.
 \end{gather*}
 
-When we compute the commutation relations\footnote{Page 154 in pdf}
+When we compute the commutation relations\footnote{
+\begin{multline*}
+ \commutator{\hata_2}{\hatad_2} =  \qty(r\hata_1 + t^{'} \hata_0)\qty(\hatad_1 r^* + \hatad_0 t^{'*}) \\- \qty(\hatad_1 r^* + \hatad_0 t^{'*})\qty(r\hata_1 + t^{'} \hata_0)
+\end{multline*}
+\begin{multline*}
+ \commutator{\hata_2}{\hatad_2}  = \abs{r}^2\hata_1\hatad_1 + rt^{'*}\hata_1\hatad_0 + t^{'}r^*\hata_0\hatad_1 + \abs{t}^2\hata_0\hatad_0 
+                                        \\-\abs{r}^2\hatad_1\hata_1 - rt^{'*}\hatad_0\hata_1 - t^{'}r^*\hatad_1\hata_0 - \abs{t}^2\hatad_0\hata_0 
+\end{multline*}
+This can be reduce if we impose that $rt^{'*}=r^*t^{'}$,
+\begin{multline*}
+    \commutator{\hata_2}{\hatad_2} = \abs{r}^2\cancelto{1}{\commutator{\hata_1}{\hatad_1}} + rt^{'*}\cancelto{0}{\commutator{\hata_1}{\hatad_0}} \\
+    + t^{'}r^*\cancelto{0}{\commutator{\hata_0}{\hatad_1}} + \abs{t}^2\cancelto{1}{\commutator{\hata_0}{\hatad_0}}
+\end{multline*}
+which holds that $\commutator{\hata_2}{\hatad_2} = \abs{r}^2 + \abs{t}^2 = 1$
+}
 we see that the commutation relations holds with the following relations,
 \begin{align*}
     r^*t^{'} + r^{'}t^* = 0 \quad& r^*t + r^{'}t^{'*} = 0 \\
     \abs{r'} = \abs{r} \quad& \abs{t'} = \abs{t} \\ 
-    \abs{r}^2 + \abs{t}^2 &= 1
+    \abs{r}^2 + \abs{t}^2 &= 1.
 \end{align*}
+Also, tese relations are known as the reciprocity relations and can be also derived on the basis of energy conservation.
+
+Now, lets analyse a 50:50 beam splitter,\footnote{If the beam splitter is constructed as a single dielectric layer, the reflected and transmitted beams will differ in phase by a factor of $\exp(\pm i\pi/2) = \pm i$.}
+assuming the reflected beam suffers a $\pi/2$ phase shifts, the input and output modes are related according to,
+\begin{gather*}
+    \begin{pmatrix}
+        \hata_2 \\ \hata_3
+    \end{pmatrix}
+    =
+    \frac{1}{\sqrt{2}}
+    \begin{pmatrix}
+        1 & i \\ i & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+        \hata_0 \\ \hata_1
+    \end{pmatrix}.
+\end{gather*}
+Since the trnasformation between input and output modes must be unitary\footnote{Not sure why}, we can write,
+\begin{gather*}
+    \begin{pmatrix}
+        \hata_2 \\ \hata_3
+    \end{pmatrix}
+    =
+    \hata{U}^\dagger
+    \begin{pmatrix}
+        \hata_0 \\ \hata_1
+    \end{pmatrix}
+    \hata{U}.
+\end{gather*}
+
+Since we are evolving the operator, this constitues a Heisenberg picture formulation of a beam spltter.
+For the specific transformation of 50:50 beam splitter, the operator $\hat{U}$ has the form,
+\begin{gather*}
+    \hat{U} = \exp\qty[i\frac{\pi}{4}\qty(\hatad_0\hata_1+\hata_0\hatad_1)].
+\end{gather*}
+
+Now, lets do the following example,
+consider the single photon input state $\ket{0}_0\ket{1}_1$ which we may write as $\hatad_1\ket{0}_0\ket{0}_1$.
+For the 50:50 beam splitter we find that\footnote{
+\begin{gather*}
+     \begin{pmatrix}
+        \hatad_0 \\ \hatad_1
+    \end{pmatrix}
+    =
+    \frac{1}{\sqrt{2}}
+    \begin{pmatrix}
+        1 & i \\ i & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+        \hatad_0 \\ \hatad_1
+    \end{pmatrix}  
+\end{gather*}
+Be careful, it is the same matrix due to the conjugate.
+} $\hatad_1=\qty(i\hatad_2+\hatad_3)/\sqrt{2}$.
+
+Tacking into account all of those properties, we can write,
+\begin{align*}
+    \ket{0}_0\ket{1}_1 &\rightarrow\hatad_1\ket{0}_2\ket{0}_3 \\
+                       &\rightarrow\frac{1}{\sqrt{2}}\qty(i\hatad_2+\hatad_3)\ket{0}_2\ket{0}_3 \\
+                       &\rightarrow\frac{1}{\sqrt{2}}\qty(i\hatad_2\ket{0}_2\ket{0}_3+\ket{0}_2\hatad_3\ket{0}_3) \\
+                       &\rightarrow\frac{1}{\sqrt{2}}\qty(i\ket{1}_2\ket{0}_3+\ket{0}_2\ket{1}_3).
+\end{align*}
+
+This result can be interpreted as a single-photon incident at one of the input ports of the beam splitter, the other port containing only vacuum, will be either trnasmitted or reflected with equal probability.
+
+\marginpar{
+Little notes of entanglement.
+The mathematical representation of an entangle state is as follows,\[\ket{\Psi}=\sum\ket{\psi_1}\ket{\psi_2}\]
+}
+
+Page 140 in book, page 156 in pdf.
+
+
 
 \end{document}
