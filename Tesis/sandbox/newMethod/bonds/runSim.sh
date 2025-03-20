@@ -10,7 +10,7 @@ cs=6;
 ## Loops of parameters
 for var_shearRate in 0.001;
 do
-    for var_ccL in 0.01;
+    for var_ccL in 0.1;
     do
         for Nexp in 1;
         do
@@ -27,7 +27,7 @@ do
             shear_rate=$var_shearRate;
             damp=0.5;
             T=0.05;
-            max_strain=10;
+            max_strain=5;
 
             # Numeric parameters
             dt=0.001;
@@ -119,6 +119,9 @@ do
             values=()
 
             # Populate headers and values arrays
+            headers+=("date")
+            values+=("$(date +%F-%H%M%S)")
+
             headers+=("main-directory")
             values+=("${dir_name}")
 

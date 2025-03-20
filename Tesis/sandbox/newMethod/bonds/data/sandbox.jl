@@ -111,9 +111,6 @@ fig_pressure=plot(
 plot!(df_new."time-step".*df_stressA."TimeStep",pressure_ass,label=L"\mathrm{Assembly}");
 plot!(df_new."time-step".*(last(df_stressA."TimeStep") .+ df_stressS."TimeStep"),pressure_she,label=L"\mathrm{Shear}");
 
-
-
-
 # Energy 
 fig_energy=plot(
                 title=L"\mathrm{Total~Energy}",
@@ -129,11 +126,12 @@ plot!(df_assembly."TimeStep",df_assembly."Etot",label=L"\mathrm{Assembly}");
 plot!(last(df_assembly."TimeStep") .+ df_shear."TimeStep",df_shear."Etot",label=L"\mathrm{Shear}");
 
 
-"""
 map(s->savefig(fig_temp,s),joinpath.(df_new."main-directory",df_new."imgs-dir","temp.png"))
 map(s->savefig(fig_p,s),joinpath.(df_new."main-directory",df_new."imgs-dir","p.png"))
 map(s->savefig(fig_h,s),joinpath.(df_new."main-directory",df_new."imgs-dir","H.png"))
 map(s->savefig(fig_stress_xy,s),joinpath.(df_new."main-directory",df_new."imgs-dir","stress_xy.png"))
+map(s->savefig(fig_stress,s),joinpath.(df_new."main-directory",df_new."imgs-dir","stress.png"))
+map(s->savefig(fig_pressure,s),joinpath.(df_new."main-directory",df_new."imgs-dir","stress_pressure.png"))
+
 map(s->savefig(fig_energy,s),joinpath.(df_new."main-directory",df_new."imgs-dir","energy-log.png"))
-"""
 
