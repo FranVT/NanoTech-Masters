@@ -1,0 +1,1 @@
+2025-03-17-192445-phi-0.5-CLcon-0.01-Part-150-shear-0.1-Nexp-1 2025-03-17-195317-phi-0.5-CLcon-0.01-Part-150-shear-0.001-Nexp-1 2025-03-17-203846-phi-0.5-CLcon-0.01-Part-1500-shear-0.001-Nexp-1 2025-03-18-060945-phi-0.5-CLcon-0.01-Part-1500-shear-0.001-Nexp-1 2025-03-20-172940-phi-0.5-CLcon-0.1-Part-1500-shear-0.001-Nexp-1
