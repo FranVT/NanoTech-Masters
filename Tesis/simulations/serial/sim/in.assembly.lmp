@@ -1,0 +1,114 @@
+# Input Script of lammps for assembly simulation of polimeric network.
+# Main code is based on: https://github.com/PipeB62/Hydrogel-Simulation
+# Patchy particles are with bond style.
+
+# Felipe Benavides modified by Fco. Vazquez
+
+# Initialization
+units lj
+dimension 3
+boundary p p p
+
+# Styles of atoms and that stuff
+atom_style full 
+bond_style harmonic
+angle_style harmonic
+pair_style hybrid/overlay zero 0.0 lj/cut 1.12 table linear 5000000 threebody/table
+
+newton on
+
+# Create simulaiton box
+region simulation_box block -$L $L -$L $L -$L $L
+# N-atom-types region-ID keyword value Is necesesary the extra/special/per/atom (# of special neighbors per atom)
+create_box 4 simulation_box &
+    bond/types 1 &
+    angle/types 2 &
+    extra/bond/per/atom 10 &
+    extra/angle/per/atom 6 &
+    extra/special/per/atom 10
+
+# Atom types
+mass 1 1.0      # CL 
+mass 2 1.0      # MO
+mass 3 0.1      # PA
+mass 4 0.1      # PB
+
+# Coefficients
+include potential.in
+
+# Molecules
+include molecules.in
+
+# COMPUTES
+
+# Compute global kinetic and potential energy and temperature
+compute t all temp
+compute p all pressure t
+compute ep all pe
+compute ek all ke
+variable eT equal etotal
+variable eB equal ebond
+variable eA equal eangle
+variable H equal enthalpy
+variable eM equal emol
+variable ec equal ecouple
+variable eC equal econserve
+compute stressVirial all pressure t ke pair
+compute wcaPair all pair lj/cut epair
+compute patchPair all pair table epair
+compute swapPair all pair threebody/table epair
+
+# Displacement of the central particles
+compute disc CM displace/atom
+compute daux CM chunk/atom type pbc yes
+compute dis CM reduce/chunk daux sum c_disc[4]
+
+# cluster analysis
+compute clPatch Patches cluster/atom 0.6
+compute ccl Patches chunk/atom c_clPatch compress yes discard no # Define chunks based on cluster ID
+compute size Patches property/chunk ccl count # Counts the atoms in each chunk
+
+# DUMPS and FIXES
+
+thermo ${NsaveStress}
+
+# Save global energies and temperature
+group Energy empty
+fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_wcaPair c_patchPair c_swapPair c_ep c_ek v_eT v_ec v_eC c_p v_eB v_eA v_eM v_H file ${Dir}/${file1_name}
+
+# Save Stress tensor
+group Stress empty
+fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_stressVirial[*] file ${Dir}/${file2_name}
+
+# Save the cluster information
+fix fixCluster Patches ave/histo 1 ${Nsave} ${Nsave} 0 8 80 c_size mode vector file ${Dir}/${file3_name}
+
+# Save atom positions
+dump dumpID all custom ${Ndump} ${Dir}/traj/${file4_name} id type x y z vx vy vz
+dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
+
+# Save Atom displacement
+#group Displ empty
+#fix fixDispl Displ ave/time 1 ${NsaveStress} ${NsaveStress} c_dis[1] c_dis[2] c_dis[3] c_dis[4] file ${Dir}/cmdisplacement_assembly.fixf
+
+# RUN SIMULATION
+
+# Brownian Dynamics using Langevin Thermostat
+
+timestep ${tstep}
+
+fix VelVerlet all nve # Use Velocity Verlet integrator
+
+# First elevate the temperature
+fix ThermoLng all langevin 0.0 ${temp} ${damp} ${seed3} # Brownian Dynamics: langevin + nve 
+run ${stepsheat}
+
+unfix ThermoLng
+
+# Now we let the system to create the polymeric network
+fix ThermoLng all langevin ${temp} ${temp} ${damp} ${seed3} # Brownian Dynamics: langevin + nve 
+run ${steps}
+
+# Write data for deformation
+
+write_data data.hydrogel
