@@ -11,9 +11,9 @@ include("functions.jl")
 df = getDF();
 
 # Desire parameters 
-date="2025-03-18-060945-phi-0.5-CLcon-0.01-Part-1500-shear-0.001-Nexp-1";
+date="2025-03-20-172940-phi-0.5-CLcon-0.1-Part-1500-shear-0.001-Nexp-1";
 gamma_dot=0.001;
-cl_con=0.01;
+cl_con=0.1;
 Npart=1500;
 
 # New data frame
