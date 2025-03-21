@@ -10,7 +10,7 @@ boundary p p p
 atom_style full 
 bond_style harmonic
 angle_style harmonic
-pair_style hybrid/overlay zero 0.0 lj/cut/omp 1.12 table/omp linear 5000000 threebody/table
+pair_style hybrid/overlay zero 0.0 lj/cut 1.12 table linear 5000000 threebody/table
 newton on
 
 read_data data.hydrogel extra/bond/per/atom 10 extra/angle/per/atom 6 extra/special/per/atom 10
@@ -39,8 +39,8 @@ variable eA equal eangle
 variable H equal enthalpy
 variable eM equal emol
 compute stressVirial all pressure td ke pair
-compute wcaPair all pair lj/cut/omp epair
-compute patchPair all pair table/omp epair
+compute wcaPair all pair lj/cut epair
+compute patchPair all pair table epair
 compute swapPair all pair threebody/table epair
 
 # displacement of the central particles
