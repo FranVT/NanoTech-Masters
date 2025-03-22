@@ -51,13 +51,13 @@ function extractInfo(df)
 
     data_path=joinpath.(df_new."main-directory",df_new."file1");
     aux=split.(readlines(data_path[1])," ");
-    aux_head=["TimeStep","xx","yy","zz","xy","xz","yz"];#aux[2][2:end];
+    aux_head=["TimeStep","xx","yy","zz","xy","xz","yz","xx_atom","yy_atom","zz_atom","xy_atom","xz_atom","yz_atom","xx_patch","yy_patch","zz_patch","xy_patch","xz_patch","yz_patch","xx_part","yy_part","zz_part","xy_part","xz_part","yz_part"];#aux[2][2:end];
     aux_info=reduce(hcat,map(s->parse.(Float64,s),aux[3:end]))
     df_stressA=DataFrame(aux_info',aux_head);
     
     data_path=joinpath.(df_new."main-directory",df_new."file6");
     aux=split.(readlines(data_path[1])," ");
-    aux_head=["TimeStep","xx","yy","zz","xy","xz","yz"];#aux[2][2:end];
+    aux_head=["TimeStep","xx","yy","zz","xy","xz","yz","xx_atom","yy_atom","zz_atom","xy_atom","xz_atom","yz_atom","xx_patch","yy_patch","zz_patch","xy_patch","xz_patch","yz_patch","xx_part","yy_part","zz_part","xy_part","xz_part","yz_part"];#aux[2][2:end];
     aux_info=reduce(hcat,map(s->parse.(Float64,s),aux[3:end]))
     df_stressS=DataFrame(aux_info',aux_head);
 

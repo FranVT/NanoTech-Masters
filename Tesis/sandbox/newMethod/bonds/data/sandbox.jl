@@ -11,13 +11,13 @@ include("functions.jl")
 df = getDF();
 
 # Desire parameters 
-date="2025-03-21-051403-phi-0.5-CLcon-0.1-Part-1500-shear-0.1-Nexp-1";
+date="2025-03-22-122133";
 gamma_dot=0.1;
 cl_con=0.1;
-Npart=1500;
+Npart=500;
 
 # New data frame
-df_new = filter([:"Shear-rate",:"CL-Con",:"Npart",:"main-directory"] => (f1,f2,f3,f4) -> f1==gamma_dot && f2==cl_con && f3==Npart && f4==date,df);# Get the information in data frames
+df_new = filter([:"Shear-rate",:"CL-Con",:"Npart",:"date"] => (f1,f2,f3,f4) -> f1==gamma_dot && f2==cl_con && f3==Npart && f4==date,df);# Get the information in data frames
 #df_new = df_new[2,:]; 
 
 (df_assembly, df_shear, df_stressA, df_stressS) = extractInfo(df_new);
@@ -111,6 +111,56 @@ fig_pressure=plot(
 plot!(df_new."time-step".*df_stressA."TimeStep",pressure_ass,label=L"\mathrm{Assembly}");
 plot!(df_new."time-step".*(last(df_stressA."TimeStep") .+ df_stressS."TimeStep"),pressure_she,label=L"\mathrm{Shear}");
 
+
+# Stress Atom 
+fig_stress_atom_xy=plot(
+                title=L"\mathrm{Stress~Atom}~xy",
+                xlabel=L"\mathrm{LJ}~\tau",
+                ylabel=L"\sigma_{xy}",
+                legend_position=:bottomright,
+                framestyle=:box,
+                formatter=:scientific,
+                size=(1050,788),
+            );
+plot!(df_new."time-step".*df_stressA."TimeStep",-df_stressA."xy_atom",label=L"\mathrm{Assembly}");
+plot!(df_new."time-step".*(last(df_stressA."TimeStep") .+ df_stressS."TimeStep"),-df_stressS."xy_atom",label=L"\mathrm{Shear}");
+
+
+stress_ass_atom = sqrt.( df_stressA."xx_atom".^2 .+ df_stressA."yy_atom".^2 .+ df_stressA."zz_atom".^2 .+ (2).*(df_stressA."xy_atom".^2 .+ df_stressA."xz_atom".^2 .+ df_stressA."yz_atom".^2)  );
+stress_she_atom = sqrt.( df_stressS."xx_atom".^2 .+ df_stressS."yy_atom".^2 .+ df_stressS."zz_atom".^2 .+ (2).*(df_stressS."xy_atom".^2 .+ df_stressS."xz_atom".^2 .+ df_stressS."yz_atom".^2)  );
+
+pressure_ass_atom = (1/3).*(df_stressA."xx_atom" .+ df_stressA."yy_atom" .+ df_stressA."zz_atom");
+pressure_she_atom = (1/3).*(df_stressS."xx_atom" .+ df_stressS."yy_atom" .+ df_stressS."zz_atom");
+
+# Stress 
+fig_stress_atom=plot(
+                title=L"\mathrm{Stress~Tensor~Atom}",
+                xlabel=L"\mathrm{LJ}~\tau",
+                ylabel=L"\sigma",
+                legend_position=:bottomright,
+                framestyle=:box,
+                formatter=:scientific,
+                size=(1050,788),
+            );
+plot!(df_new."time-step".*df_stressA."TimeStep",stress_ass_atom,label=L"\mathrm{Assembly}");
+plot!(df_new."time-step".*(last(df_stressA."TimeStep") .+ df_stressS."TimeStep"),stress_she_atom,label=L"\mathrm{Shear}");
+
+# Stress 
+fig_pressure_atom=plot(
+                title=L"\mathrm{Pressure~Tensor~Atom}",
+                xlabel=L"\mathrm{LJ}~\tau",
+                ylabel=L"p",
+                legend_position=:bottomright,
+                framestyle=:box,
+                formatter=:scientific,
+                size=(1050,788),
+            );
+plot!(df_new."time-step".*df_stressA."TimeStep",pressure_ass_atom,label=L"\mathrm{Assembly}");
+plot!(df_new."time-step".*(last(df_stressA."TimeStep") .+ df_stressS."TimeStep"),pressure_she_atom,label=L"\mathrm{Shear}");
+
+
+
+
 # Energy 
 fig_energy=plot(
                 title=L"\mathrm{Total~Energy}",
@@ -132,6 +182,9 @@ map(s->savefig(fig_h,s),joinpath.(df_new."main-directory",df_new."imgs-dir","H.p
 map(s->savefig(fig_stress_xy,s),joinpath.(df_new."main-directory",df_new."imgs-dir","stress_xy.png"))
 map(s->savefig(fig_stress,s),joinpath.(df_new."main-directory",df_new."imgs-dir","stress.png"))
 map(s->savefig(fig_pressure,s),joinpath.(df_new."main-directory",df_new."imgs-dir","stress_pressure.png"))
+map(s->savefig(fig_stress_atom_xy,s),joinpath.(df_new."main-directory",df_new."imgs-dir","stress_xy_atom.png"))
+map(s->savefig(fig_stress_atom,s),joinpath.(df_new."main-directory",df_new."imgs-dir","stress_atom.png"))
+map(s->savefig(fig_pressure_atom,s),joinpath.(df_new."main-directory",df_new."imgs-dir","stress_pressure_atom.png"))
 
 map(s->savefig(fig_energy,s),joinpath.(df_new."main-directory",df_new."imgs-dir","energy-log.png"))
 
