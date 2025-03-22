@@ -62,16 +62,16 @@ do
             # Directory stuff
             dir_name="$(date +%F-%H%M%S)-phi-${phi}-CLcon-${CL_con}-Part-${N_particles}-shear-${shear_rate}-Nexp-${Nexp}" ;
             files_name=(
-                        "data_system_assembly.fixf" 
-                        "data_stress_assembly.fixf"
-                        "data_clustP_assembly.dumpf"
-                        "traj_assembly.*.dumpf"
-                        "data.hydrogel"
-                        "data_system_shear.fixf" 
-                        "data_stress_shear.fixf"
-                        "data_clustP_shear.fixf"
-                        "traj_shear.*.dumpf"
-                        "data.firstShear"
+                        "data_system_assembly.fixf"             # 1 
+                        "data_stress_assembly.fixf"             # 2
+                        "data_clustP_assembly.dumpf"            # 3
+                        "traj_assembly.*.dumpf"                 # 4
+                        "data.hydrogel"                         # 5
+                        "data_system_shear.fixf"                # 6
+                        "data_stress_shear.fixf"                # 7
+                        "data_clustP_shear.fixf"                # 8
+                        "traj_shear.*.dumpf"                    # 9
+                        "data.firstShear"                       # 10
                         );
 
 

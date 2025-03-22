@@ -54,6 +54,9 @@ variable eM equal emol
 variable ec equal ecouple
 variable eC equal econserve
 compute stressVirial all pressure t ke pair
+compute stressVirialAtom all stress/atom t ke pair
+compute stressVirialPatch Patches stress/atom t ke pair
+compute stressVirialCentr CM stress/atom t ke pair
 compute wcaPair all pair lj/cut/omp epair
 compute patchPair all pair table/omp epair
 compute swapPair all pair threebody/table epair
@@ -78,7 +81,7 @@ fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_wcaPair c_patchPair c_swapP
 
 # Save Stress tensor
 group Stress empty
-fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_stressVirial[*] file ${Dir}/${file2_name}
+fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_stressVirial[*] c_stressVirialAtom[*] c_stressVirialPatch[*] c_stressVirialCentr[*] file ${Dir}/${file2_name}
 
 # Save the cluster information
 fix fixCluster Patches ave/histo 1 ${Nsave} ${Nsave} 0 8 80 c_size mode vector file ${Dir}/${file3_name}
