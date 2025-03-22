@@ -47,9 +47,9 @@ compute patchPair all pair table/omp epair
 compute swapPair all pair threebody/table epair
 
 # Take the atom-stress average
-compute stressAvgAtom all reduce avg c_stressVirialAtom[*]
-compute stressAvgPatc Patches reduce avg c_stressVirialPatch[*]
-compute stressAvgCent CM reduce avg c_stressVirialCentr[*]
+compute stressAvgAtom all reduce ave c_stressVirialAtom[*]
+compute stressAvgPatc Patches reduce ave c_stressVirialPatch[*]
+compute stressAvgCent CM reduce ave c_stressVirialCentr[*]
 
 # displacement of the central particles
 compute disc CM displace/atom
