@@ -8,7 +8,7 @@
 cs=6;
 
 ## Loops of parameters
-for var_shearRate in 0.1;
+for var_shearRate in 0.01;
 do
     for var_ccL in 0.1;
     do
@@ -23,11 +23,11 @@ do
             # System parameters
             phi=0.5;
             CL_con=$var_ccL;
-            N_particles=500;
+            N_particles=1500;
             shear_rate=$var_shearRate;
             damp=0.5;
             T=0.05;
-            max_strain=2;
+            max_strain=5;
 
             # Numeric parameters
             dt=0.001;
