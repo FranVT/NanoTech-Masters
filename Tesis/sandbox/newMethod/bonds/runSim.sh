@@ -10,7 +10,7 @@ cs=6;
 ## Loops of parameters
 for var_shearRate in 0.01;
 do
-    for var_ccL in 0.1;
+    for var_ccL in 0.05;
     do
         for Nexp in 1;
         do
