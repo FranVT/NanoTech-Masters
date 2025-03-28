@@ -73,73 +73,122 @@ pressure_ass_central = (1/3).*(df_stressA."xx_part" .+ df_stressA."yy_part" .+ d
 pressure_she_central = (1/3).*(df_stressS."xx_part" .+ df_stressS."yy_part" .+ df_stressS."zz_part");
 
 
-# Stress xy 
-fig_stress_xy=plot(
-                title=[L"\mathrm{Pressure~Virial}" L"\mathrm{Stress-all}" L"\mathrm{Stress-patch}" L"\mathrm{Stress-central}"],
-                xlabel=L"\mathrm{LJ}~\tau",
-                ylabel=L"\sigma_{xy}",
-                legend_position=:bottomright,
-                framestyle=:box,
-                formatter=:scientific,
-                size=(1050,788),
-                layout=4,
-            );
-plot!(df_new."time-step".*df_stressA."TimeStep",[-df_stressA."xy" -df_stressA."xy_atom" -df_stressA."xy_patch" -df_stressA."xy_part"],
-        label=repeat([L"\mathrm{Assembly}"],1,4)
-       );
-plot!(df_new."time-step".*(last(df_stressA."TimeStep") .+ df_stressS."TimeStep"),[-df_stressS."xy" -df_stressS."xy_atom" -df_stressS."xy_patch" -df_stressS."xy_part"],
-        label=repeat([L"\mathrm{Shear}"],1,4)
-       );
+# Plot of the norm
+p1 = plot(
+            title=L"-\mathrm{Norm}",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"-|\sigma|",
+            legend_position=:bottomright,
+            formatter=:scientific,
+            framestyle=:box
+           )
+plot!(time_assembly,-stress_ass,label=L"\mathrm{Assembly}")
+plot!(time_shear,-stress_she,label=L"\mathrm{Shear}")
 
-# Stress norm 
-fig_stress=plot(
-                title=[L"\mathrm{Pressure~Virial}" L"\mathrm{Stress-all}" L"\mathrm{Stress-patch}" L"\mathrm{Stress-central}"],
-                xlabel=L"\mathrm{LJ}~\tau",
-                ylabel=L"|\sigma|",
-                legend_position=:bottomright,
-                framestyle=:box,
-                formatter=:scientific,
-                size=(1050,788),
-                layout=4,
-            );
-plot!(df_new."time-step".*df_stressA."TimeStep",[-stress_ass -stress_ass_atom -stress_ass_patch -stress_ass_central],
-        label=repeat([L"\mathrm{Assembly}"],1,4)
-       );
-plot!(df_new."time-step".*(last(df_stressA."TimeStep") .+ df_stressS."TimeStep"),[-stress_she -stress_she_atom -stress_she_patch -stress_she_central],
-        label=repeat([L"\mathrm{Shear}"],1,4)
-       );
+# Plot of the trace of the stress tensor of the system
+p2 = plot(
+            title=L"1/3\mathrm{Trace}",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"\mathrm{Tr}(\sigma)",
+            legend_position=:bottomright,
+            formatter=:scientific,
+            framestyle=:box
+           )
+plot!(time_assembly,pressure_ass,label=L"\mathrm{Assembly}")
+plot!(time_shear,pressure_she,label=L"\mathrm{Shear}")
+
+# Plot of the xy component of the stress tensor
+p3 = plot(
+            title=L"-\sigma_{xy}",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"-\sigma_{xy}",
+            legend_position=:bottomright,
+            formatter=:scientific,
+            framestyle=:box
+           )
+plot!(time_assembly,-df_stressA."xy",label=L"\mathrm{Assembly}")
+plot!(time_shear,-df_stressS."xy",label=L"\mathrm{Shear}")
+
+# Plot of the xy component of the stress tensor during shear
+p4 = plot(
+            title=L"-\sigma_{xy}",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"-\sigma_{xy}",
+            legend_position=:bottomright,
+            formatter=:scientific,
+            framestyle=:box
+           )
+#plot!(time_assembly,df_stressA."xy",label=L"\mathrm{Assembly}")
+plot!(time_shear,-df_stressS."xy",label=L"\mathrm{Shear}")
+
+# Combo of all previous plots
+pressure=plot(p1,p2,p3,p4,
+                layout = (2,2),
+                suptitle = L"\mathrm{Compute~pressure}",
+                plot_titlefontsize = 15
+             )
 
 
-# Pressure from Stress tensor
-fig_pressure=plot(
-                title=[L"\mathrm{Pressure}" L"\mathrm{Stress-all}" L"\mathrm{Stress-patch}" L"\mathrm{Stress-central}"],
-                xlabel=L"\mathrm{LJ}~\tau",
-                ylabel=L"p",
-                legend_position=:bottomright,
-                framestyle=:box,
-                formatter=:scientific,
-                size=(1050,788),
-                layout=4,
-            );
-plot!(df_new."time-step".*df_stressA."TimeStep",[pressure_ass pressure_ass_atom pressure_ass_patch pressure_ass_central],
-        label=repeat([L"\mathrm{Assembly}"],1,4)
-       );
-plot!(df_new."time-step".*(last(df_stressA."TimeStep") .+ df_stressS."TimeStep"),[pressure_she pressure_she_atom pressure_she_patch pressure_she_central],
-        label=repeat([L"\mathrm{Shear}"],1,4)
-       );
+# Plot compute stress/atom
 
-# Pressure 
-fig_p=plot(
-                title=L"\mathrm{Pressure}",
-                xlabel=L"\mathrm{LJ}~\tau",
-                ylabel=L"p",
-                legend_position=:bottomright,
-                framestyle=:box,
-                formatter=:scientific,
-                size=(1050,788),
-            );
-plot!(df_new."time-step".*df_assembly."TimeStep",df_assembly."p",label=L"\mathrm{Assembly}");
-plot!(df_new."time-step".*(last(df_assembly."TimeStep") .+ df_shear."TimeStep"),df_shear."p",label=L"\mathrm{Shear}");
+# Plot of the norm
+p1 = plot(
+            title=L"-\mathrm{Norm}",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"-|\sigma|",
+            legend_position=:bottomright,
+            formatter=:scientific,
+            framestyle=:box
+           )
+plot!(time_assembly,-stress_ass_atom,label=L"\mathrm{Assembly}")
+plot!(time_shear,-stress_she_atom,label=L"\mathrm{Shear}")
+
+# Plot of the trace of the stress tensor of the system
+p2 = plot(
+            title=L"1/3~\mathrm{Trace}",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"\mathrm{Tr}(\sigma)",
+            legend_position=:bottomright,
+            formatter=:scientific,
+            framestyle=:box
+           )
+plot!(time_assembly,pressure_ass_atom,label=L"\mathrm{Assembly}")
+plot!(time_shear,pressure_she_atom,label=L"\mathrm{Shear}")
+
+# Plot of the xy component of the stress tensor
+p3 = plot(
+            title=L"\sigma_{xy}",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"\sigma_{xy}",
+            legend_position=:bottomright,
+            formatter=:scientific,
+            framestyle=:box
+           )
+plot!(time_assembly,df_stressA."xy_atom",label=L"\mathrm{Assembly}")
+plot!(time_shear,df_stressS."xy_atom",label=L"\mathrm{Shear}")
+
+# Plot of the xy component of the stress tensor during shear
+p4 = plot(
+            title=L"\sigma_{xy}",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"\sigma_{xy}",
+            legend_position=:bottomright,
+            formatter=:scientific,
+            framestyle=:box
+           )
+#plot!(time_assembly,df_stressA."xy",label=L"\mathrm{Assembly}")
+plot!(time_shear,df_stressS."xy_atom",label=L"\mathrm{Shear}")
+
+# Combo of all previous plots
+stress_atom=plot(p1,p2,p3,p4,
+                layout = (2,2),
+                suptitle = L"\mathrm{Compute~stress/atom~all}",
+                plot_titlefontsize = 15
+             )
+
+
+
+
 
 # Enthalpy 
 fig_h=plot(
@@ -169,11 +218,17 @@ plot!(df_assembly."TimeStep",df_assembly."Etot",label=L"\mathrm{Assembly}");
 plot!(last(df_assembly."TimeStep") .+ df_shear."TimeStep",df_shear."Etot",label=L"\mathrm{Shear}");
 
 
+
+map(s->savefig(stress_atom,s),joinpath.(df_new."main-directory",df_new."imgs-dir","compute_stress.png"))
+map(s->savefig(pressure,s),joinpath.(df_new."main-directory",df_new."imgs-dir","compute_pressure.png"))
+
+
+
+
+"""
 map(s->savefig(fig_temp,s),joinpath.(df_new."main-directory",df_new."imgs-dir","temp.png"))
 map(s->savefig(fig_p,s),joinpath.(df_new."main-directory",df_new."imgs-dir","p.png"))
 map(s->savefig(fig_h,s),joinpath.(df_new."main-directory",df_new."imgs-dir","H.png"))
 map(s->savefig(fig_stress_xy,s),joinpath.(df_new."main-directory",df_new."imgs-dir","stress_xy.png"))
-map(s->savefig(fig_stress,s),joinpath.(df_new."main-directory",df_new."imgs-dir","stress.png"))
-map(s->savefig(fig_pressure,s),joinpath.(df_new."main-directory",df_new."imgs-dir","stress_pressure.png"))
-
 map(s->savefig(fig_energy,s),joinpath.(df_new."main-directory",df_new."imgs-dir","energy-log.png"))
+"""
