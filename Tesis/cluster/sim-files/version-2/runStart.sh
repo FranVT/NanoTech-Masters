@@ -14,7 +14,7 @@ for var_shearRate in 0.01;
 do
     for var_ccL in 0.03;
     do
-        for Nexp in $(seq 1 5);
+        for Nexp in $(seq 1 3);
         do
             # Parameters for the simulation
             seed1=$((1234 + Nexp));     # MO positions
@@ -268,6 +268,7 @@ do
             # This command is executed in the "sim" directory
             qsub $file_name;
 
+            cd ..; # Go to general directory such that, in line 81 we can go agian into the sim directory
             sleep 1; # Wait one second to start the other simulation
 
         done

@@ -236,7 +236,7 @@ do
 
             bash $file_name;
 
-            #cd ..;
+            cd ..; # Go to the general directory, such taht in we can go into sim directory in line 79
 
             echo "Work directory: $(pwd)"
             echo "Data directory: $dir_name"
