@@ -275,3 +275,6 @@ do
     done
 done
 
+# Clean the directory
+#rm sim*
+
