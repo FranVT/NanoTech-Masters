@@ -25,21 +25,21 @@ do
             # System parameters
             phi=0.5;
             CL_con=$var_ccL;
-            N_particles=8000;
+            N_particles=100;
             shear_rate=$var_shearRate;
             damp=0.5;
             T=0.05;
-            max_strain=5;
+            max_strain=1;
 
             # Numeric parameters
             dt=0.001;
-            steps_heat=500000; # Steps for the heating process
-            steps_isot=8000000; # Steps for the percolation process 
+            steps_heat=50; # Steps for the heating process
+            steps_isot=80; # Steps for the percolation process 
             Nsave=100;           # Steps for temporal average of the fix files
             Ndump=1000;           # Save each Ndump steps info of dump file
-            relaxTime1=1000000; # Relax time steps for the first period.
-            relaxTime2=1000000;
-            relaxTime3=1000000;
+            relaxTime1=10; # Relax time steps for the first period.
+            relaxTime2=10;
+            relaxTime3=10;
             Vol_MO1=4.49789;
             Vol_CL1=4.80538;
 
@@ -57,12 +57,12 @@ do
             # Derive numeric parameters
             NsaveStress=$(echo "scale=$cs; 1 / $dt" | bc); 
             NsaveStress=${NsaveStress%.*};  # Steps for temporal average if the fix file for stress (Virial Stress)
-            Nstep_per_strain=$(echo "scale=$cs; $(echo "scale=$cs; 1 / $shear_rate" | bc) * $(echo "scale=$cs; 1 / $dt" | bc)" | bc) ;
+            Nstep_per_strain=$(echo "scale=$cs; $(echo "scale=$cs; 1 / $shear_rate" | bc) * $(echo "scale=$cs; 1 / $dt" | bc)" | bc);
             Nstep_per_strain=${Nstep_per_strain%.*};    # Number of steps to deform 1 strain.
             shear_it=$(( $max_strain * $Nstep_per_strain)); # Total number of steps to achive the max strain parameter.
 
             # Directory stuff
-            dir_name="$(date +%F-%H%M%S)-phi-${phi}-CLcon-${CL_con}-Part-${N_particles}-shear-${shear_rate}-Nexp-${Nexp}" ;
+            dir_name="$(date +%F-%H%M%S)-phi-${phi}-CLcon-${CL_con}-Part-${N_particles}-shear-${shear_rate}-Nexp-${Nexp}";
             files_name=(
                         "data_system_assembly.fixf"             # 1 
                         "data_stress_assembly.fixf"             # 2
@@ -80,6 +80,7 @@ do
             # Create the directory in the sim directory with README.md file with parameters and .dat file
             cd sim; mkdir ${dir_name}; cd ${dir_name}; mkdir imgs; mkdir traj;
 
+            # Here we are in the experiment directory
             # README.md
             file_name="README.md";
 
@@ -219,6 +220,7 @@ do
 
            
             # Bash script for the simulation
+            # Now we are in the sim directory
             cd ..;
             file_name="sim-$(date +%H%M%S-%F).sge";
             touch $file_name;
@@ -262,10 +264,12 @@ do
             echo -e "mv *.po* $dir_name" >> $file_name; 
             echo -e "mv *.o* $dir_name" >> $file_name; 
             echo -e "mv $file_name $dir_name" >> $file_name; 
-            echo -e "mv $dir_name ..; cd ..;" >> $file_name; 
-            echo -e "mv $dir_name data;" >> $file_name;
+            echo -e "mv $dir_name ../data;" >> $file_name; # It moves the experiment directory to the data directory
 
+            # This command is executed in the "sim" directory
             qsub $file_name;
+
+            sleep 1; # Wait one second to start the other simulation
 
         done
     done
