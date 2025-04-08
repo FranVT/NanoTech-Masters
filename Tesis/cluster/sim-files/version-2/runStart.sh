@@ -260,12 +260,11 @@ do
             echo -e "" >> $file_name;
             echo -e "" >> $file_name;
             echo -e "mv log.lammps $dir_name/log_shear.lammps" >> $file_name;
-            echo -e "mv *.sge $dir_name" >> $file_name;
-            echo -e "mv *.po* $dir_name" >> $file_name; 
-            echo -e "mv *.o* $dir_name" >> $file_name; 
-            echo -e "mv $file_name $dir_name" >> $file_name; 
+            echo -e "mv $file_name.po* $dir_name" >> $file_name; 
+            echo -e "mv $file_name.o* $dir_name" >> $file_name; 
             echo -e "mv $dir_name ../data;" >> $file_name; # It moves the experiment directory to the data directory
-
+            echo -e "mv $file_name ../data/$dir_name" >> $file_name; 
+            
             # This command is executed in the "sim" directory
             qsub $file_name;
 

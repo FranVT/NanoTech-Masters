@@ -78,6 +78,7 @@ do
             # Create the directory in the sim directory with README.md file with parameters and .dat file
             cd sim; mkdir ${dir_name}; cd ${dir_name}; mkdir imgs; mkdir traj;
 
+            # Inside the experiment directory
             # README.md
             file_name="README.md";
 
@@ -219,6 +220,7 @@ do
             # Bash script for the simulation
             cd ..;
 
+            # Inside the "sim directory"
             file_name="sim.sh";
             rm -f $file_name;
             touch $file_name;
@@ -230,12 +232,11 @@ do
             echo -e "env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.shear.lmp -var temp $T -var damp $damp -var tstep $dt -var shear_rate $shear_rate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var seed3 $seed3 -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var Dir $dir_name -var file6_name ${files_name[5]} -var file7_name ${files_name[6]} -var file8_name ${files_name[7]} -var file9_name ${files_name[8]} -var file10_name ${files_name[9]}" >> $file_name;
             echo -e "" >> $file_name;
             echo -e "mv log.lammps $dir_name/log_shear.lammps" >> $file_name;
-            echo -e "mv $dir_name ..; cd ..;" >> $file_name;
-            echo -e "mv $dir_name data" >> $file_name;
+            echo -e "mv $dir_name ../data;" >> $file_name;
 
             bash $file_name;
 
-            cd ..;
+            #cd ..;
 
             echo "Work directory: $(pwd)"
             echo "Data directory: $dir_name"
