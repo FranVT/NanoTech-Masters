@@ -23,21 +23,21 @@ do
             # System parameters
             phi=0.5;
             CL_con=$var_ccL;
-            N_particles=500;
+            N_particles=50;
             shear_rate=$var_shearRate;
             damp=0.5;
             T=0.05;
-            max_strain=5;
+            max_strain=1;
 
             # Numeric parameters
             dt=0.001;
-            steps_heat=500000; # Steps for the heating process
-            steps_isot=8000000; # Steps for the percolation process 
+            steps_heat=50; # Steps for the heating process
+            steps_isot=80; # Steps for the percolation process 
             Nsave=100;           # Steps for temporal average of the fix files
             Ndump=1000;           # Save each Ndump steps info of dump file
-            relaxTime1=1000000; # Relax time steps for the first period.
-            relaxTime2=1000000;
-            relaxTime3=1000000;
+            relaxTime1=10; # Relax time steps for the first period.
+            relaxTime2=10;
+            relaxTime3=10;
             Vol_MO1=4.49789;
             Vol_CL1=4.80538;
 
@@ -221,17 +221,17 @@ do
             cd ..;
 
             # Inside the "sim directory"
-            file_name="sim.sh";
+            file_name="sim-$(date +%H%M%S-%F).sh";
+            log_name="log-$(date +%H%M%S-%F).lammps";
             rm -f $file_name;
             touch $file_name;
             echo -e "#!/bin/bash" >> $file_name;
             echo -e "" >> $file_name;
-            echo -e "env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.assembly.lmp -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3  -var tstep $dt -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var steps $steps_isot -var stepsheat $steps_heat -var Dir $dir_name -var file1_name ${files_name[0]} -var file2_name ${files_name[1]} -var file3_name ${files_name[2]} -var file4_name ${files_name[3]} -var file5_name ${files_name[4]}" >> $file_name;
+            echo -e "env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.assembly.lmp -log $log_name -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3  -var tstep $dt -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var steps $steps_isot -var stepsheat $steps_heat -var Dir $dir_name -var file1_name ${files_name[0]} -var file2_name ${files_name[1]} -var file3_name ${files_name[2]} -var file4_name ${files_name[3]} -var file5_name ${files_name[4]}" >> $file_name;
             echo -e "" >> $file_name;
-            echo -e "mv log.lammps $dir_name/log_assembly.lammps" >> $file_name;
-            echo -e "env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.shear.lmp -var temp $T -var damp $damp -var tstep $dt -var shear_rate $shear_rate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var seed3 $seed3 -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var Dir $dir_name -var file6_name ${files_name[5]} -var file7_name ${files_name[6]} -var file8_name ${files_name[7]} -var file9_name ${files_name[8]} -var file10_name ${files_name[9]}" >> $file_name;
+            echo -e "env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.shear.lmp -var logname $log_name -var temp $T -var damp $damp -var tstep $dt -var shear_rate $shear_rate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var seed3 $seed3 -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var Dir $dir_name -var file6_name ${files_name[5]} -var file7_name ${files_name[6]} -var file8_name ${files_name[7]} -var file9_name ${files_name[8]} -var file10_name ${files_name[9]}" >> $file_name;
             echo -e "" >> $file_name;
-            echo -e "mv log.lammps $dir_name/log_shear.lammps" >> $file_name;
+            echo -e "mv $log_name $dir_name/log.lammps" >> $file_name;
             echo -e "mv $dir_name ../data;" >> $file_name;
 
             bash $file_name;
