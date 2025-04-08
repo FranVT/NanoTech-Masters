@@ -223,6 +223,7 @@ do
             # Now we are in the sim directory
             cd ..;
             file_name="sim-$(date +%H%M%S-%F).sge";
+            log_name="log-$(date +%H%M%S-%F).lammps";
             touch $file_name;
             echo -e "#!/bin/bash" >> $file_name;
             echo -e "# Use current working directory" >> $file_name;
@@ -276,5 +277,5 @@ do
 done
 
 # Clean the directory
-#rm sim*
+rm sim*
 
