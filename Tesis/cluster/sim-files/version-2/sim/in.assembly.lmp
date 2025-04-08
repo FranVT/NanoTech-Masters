@@ -111,4 +111,4 @@ run ${steps}
 
 # Write data for deformation
 
-write_data data.hydrogel
+write_data ${Dir}/data.hydrogel

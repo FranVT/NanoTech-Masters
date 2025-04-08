@@ -20,7 +20,7 @@ do
             seed1=$((1234 + Nexp));     # MO positions
             seed2=$((4321 + Nexp));     # CL positions
             seed3=10;                   # Langevin thermostat
-            nodes=8;                    # CPU nodes for omp variable
+            nodes=1;                    # CPU nodes for omp variable
 
             # System parameters
             phi=0.5;

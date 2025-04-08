@@ -23,7 +23,7 @@ do
             # System parameters
             phi=0.5;
             CL_con=$var_ccL;
-            N_particles=1500;
+            N_particles=500;
             shear_rate=$var_shearRate;
             damp=0.5;
             T=0.05;
