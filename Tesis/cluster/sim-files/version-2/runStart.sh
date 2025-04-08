@@ -12,9 +12,9 @@ cs=6;
 ## Loops of parameters
 for var_shearRate in 0.01;
 do
-    for var_ccL in 0.05;
+    for var_ccL in 0.03;
     do
-        for Nexp in 1;
+        for Nexp in $(seq 1 5);
         do
             # Parameters for the simulation
             seed1=$((1234 + Nexp));     # MO positions
@@ -25,7 +25,7 @@ do
             # System parameters
             phi=0.5;
             CL_con=$var_ccL;
-            N_particles=1500;
+            N_particles=8000;
             shear_rate=$var_shearRate;
             damp=0.5;
             T=0.05;
@@ -220,7 +220,7 @@ do
            
             # Bash script for the simulation
             cd ..;
-            file_name="sim-$(date +%H%M%S-%F).sh";
+            file_name="sim-$(date +%H%M%S-%F).sge";
             touch $file_name;
             echo -e "#!/bin/bash" >> $file_name;
             echo -e "# Use current working directory" >> $file_name;
