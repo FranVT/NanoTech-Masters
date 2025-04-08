@@ -23,21 +23,21 @@ do
             # System parameters
             phi=0.5;
             CL_con=$var_ccL;
-            N_particles=50;
+            N_particles=2500;
             shear_rate=$var_shearRate;
             damp=0.5;
             T=0.05;
-            max_strain=1;
+            max_strain=8;
 
             # Numeric parameters
             dt=0.001;
-            steps_heat=50; # Steps for the heating process
-            steps_isot=80; # Steps for the percolation process 
+            steps_heat=500000; # Steps for the heating process
+            steps_isot=8000000; # Steps for the percolation process 
             Nsave=100;           # Steps for temporal average of the fix files
             Ndump=1000;           # Save each Ndump steps info of dump file
-            relaxTime1=10; # Relax time steps for the first period.
-            relaxTime2=10;
-            relaxTime3=10;
+            relaxTime1=1000000; # Relax time steps for the first period.
+            relaxTime2=1000000;
+            relaxTime3=1000000;
             Vol_MO1=4.49789;
             Vol_CL1=4.80538;
 
