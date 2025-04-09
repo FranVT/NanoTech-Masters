@@ -57,99 +57,11 @@ Hence, the gradient in polar coordinates is computed, $\nabla = \partial_{r}\hat
     \vec{F}_{\mathrm{patchy}}(r) =-\left\{ -\frac{\epsilon\sigma_p}{r^5\qty(r-r_c)^2} \left[ 4r_c^2\sigma^3_p + \sigma^3_p\qty(\sigma_p-8r_c) r -2r^5 + 4r^2 \sigma^3_p \right] \exp\left[\frac{\sigma_p}{r-r_c}+2\right]\right\},\quad r_{\mu\upsilon}\in\qty[0,r_c]
 \end{gather}
 
-For the force of the swap mechanism, we analyze that $\partial_x f(x)g(y)=f(x)g'(y)$, such that,
+For the force of the swap mechanism, we analyze that is computed using a chain rule,
 \begin{align*}
-    \vec{F}_{\mathrm{swap},r_{\lambda,\mu}} &= -\partial_{r_{\lambda,\mu}}\qty(w\epsilon_{\mu,\upsilon}U_3(r_{\lambda,\mu})U_3(r_{\lambda,\upsilon})) \\
-                                            &= -w\epsilon_{\mu,\upsilon}U'_3(r_{\lambda,\mu})U_3(r_{\lambda,\upsilon})
+    U_\mathrm{swap}(r)
 \end{align*}
-and similiar for $r_{\lambda,\upsilon}$,
-\begin{gather*}
-    \vec{F}_{\mathrm{swap},r_{\lambda,\upsilon}} = -w\epsilon_{\mu,\upsilon}U_3(r_{\lambda,\mu})U'_3(r_{\lambda,\upsilon}).
-\end{gather*}
 
-Taking into account the definition of $U_3$ in terms of the patchy potential,
-\begin{align*}
-    -U'_3(r) &= -\frac{1}{\epsilon_{\mu,\upsilon}}\vec{F}_{\mathrm{patchy}}(r) \\
-             &= -\frac{\sigma_p}{r^5\qty(r-r_c)^2} \left[ 4r_c^2\sigma^3_p + \sigma^3_p\qty(\sigma_p-8r_c) r -2r^5 + 4r^2 \sigma^3_p \right] \exp\left[\frac{\sigma_p}{r-r_c}+2\right],
-\end{align*}
-hence,
-\begin{align*}
-    \vec{F}_{\mathrm{swap}}(r_{\lambda,\mu}) &= -w\epsilon_{\mu,\upsilon}U'_3(r_{\lambda,\mu})U_3(r_{\lambda,\upsilon}) \\
-                                             &= w\epsilon_{\mu,\upsilon}\left\{-U'_3(r_{\lambda,\mu})\right\}
-                                                \left\{-\frac{U_{\mathrm{patchy}}(r_{\lambda,\upsilon})}{\epsilon_{\lambda,\upsilon}}\right\} \\
-                                             &=\begin{multlined}
-                                                 w\epsilon_{\mu,\upsilon}
-                                                \left\{
-                                                       -\frac{\sigma_p}{r_{\lambda,\mu}^5\qty(r_{\lambda,\mu}-r_c)^2}
-                                                       \right.
-                                                       \\
-                                                       \left.
-                                                       \left[ 4r_c^2\sigma^3_p + \sigma^3_p\qty(\sigma_p-8r_c) r_{\lambda,\mu} -2r^5_{\lambda,\mu} + 4r^2_{\lambda,\mu} \sigma^3_p \right]
-                                                       \exp\left[\frac{\sigma_p}{r_{\lambda,\mu}-r_c}+2\right]
-                                                \right\} \\
-                                                \left\{
-                                                    -\frac{1}{\epsilon_{\lambda,\upsilon}}
-                                                    2\epsilon_{\mu\upsilon}\left(\frac{\sigma_p^4}{2 r_{\lambda,\upsilon}^4}-1\right)\exp\left[\frac{\sigma_p}{\qty(r_{\lambda,\upsilon}-r_{c})}+2\right]
-                                                \right\}
-                                            \end{multlined}
-                                                \\
-                                             &=\begin{multlined}
-                                                 w\epsilon_{\mu,\upsilon}
-                                                 \left\{
-                                                       \frac{\sigma_p}{r_{\lambda,\mu}^5\qty(r_{\lambda,\mu}-r_c)^2} 
-                                                       \left[ 4r_c^2\sigma^3_p + \sigma^3_p\qty(\sigma_p-8r_c) r_{\lambda,\mu} -2r^5_{\lambda,\mu} + 4r^2_{\lambda,\mu} \sigma^3_p \right]
-                                                \right\} \\
-                                                \left\{
-                                                    2\left(\frac{\sigma_p^4}{2 r_{\lambda,\upsilon}^4}-1\right)
-                                                \right\}
-                                            \exp\left[\frac{\sigma_p}{r_{\lambda,\mu}-r_c}+2+\frac{\sigma_p}{\qty(r_{\lambda,\upsilon}-r_{c})}+2\right]
-                                            \end{multlined}
-                                                \\
-                                             &=\begin{multlined}
-                                                 w\epsilon_{\mu,\upsilon}
-                                                 \left\{
-                                                       \frac{\sigma_p}{r_{\lambda,\mu}^5\qty(r_{\lambda,\mu}-r_c)^2} 
-                                                       \left[ 4r_c^2\sigma^3_p + \sigma^3_p\qty(\sigma_p-8r_c) r_{\lambda,\mu} -2r^5_{\lambda,\mu} + 4r^2_{\lambda,\mu} \sigma^3_p \right]
-                                                \right\} \\
-                                                \left\{
-                                                    \frac{\sigma_p^4}{r_{\lambda,\upsilon}^4}-2
-                                                \right\}
-                                            \exp\left[\sigma_p\qty(\frac{1}{r_{\lambda,\mu}-r_c}+\frac{1}{r_{\lambda,\upsilon}-r_{c}})+4\right]
-                                            \end{multlined}
-                                            \\
-                                        &=\begin{multlined}
-                                                 w\epsilon_{\mu,\upsilon}
-                                                 \left(
-                                                       \frac{\sigma_p}{\qty(r_{\lambda,\mu}-r_c)^2} 
-                                                       \frac{1}{r_{\lambda,\mu}^5}\left[ 4r_c^2\sigma^3_p + \sigma^3_p\qty(\sigma_p-8r_c) r_{\lambda,\mu} -2r^5_{\lambda,\mu} + 4r^2_{\lambda,\mu} \sigma^3_p \right]
-                                                \right)
-                                                \\
-                                                \left( \frac{\sigma_p^4}{r_{\lambda,\upsilon}^4}-2\right)
-                                            \exp\left[\sigma_p\qty(\frac{1}{r_{\lambda,\mu}-r_c}+\frac{1}{r_{\lambda,\upsilon}-r_{c}})+4\right].
-                                            \end{multlined}
-\end{align*}
-Since, the main difference between $\vec{F}_{swap}(r_{\lambda,\mu})$ and $\vec{F}_{swap}(r_{\lambda,\upsilon})$ is the evaluation of the functions, we can use the same expression and \underline{\textbf{carefully}} change the arguments, leading to,
-\begin{multline}
-    \vec{F}_{\mathrm{swap}}(r_{\lambda,\mu}) =w\epsilon_{\mu,\upsilon}
-                                                 \left(
-                                                       \frac{\sigma_p}{\qty(r_{\lambda,\mu}-r_c)^2} 
-                                                       \frac{1}{r_{\lambda,\mu}^5}\left[ 4r_c^2\sigma^3_p + \sigma^3_p\qty(\sigma_p-8r_c) r_{\lambda,\mu} -2r^5_{\lambda,\mu} + 4r^2_{\lambda,\mu} \sigma^3_p \right]
-                                                \right)
-                                                \\
-                                                \left( \frac{\sigma_p^4}{r_{\lambda,\upsilon}^4}-2\right)
-                                            \exp\left[\sigma_p\qty(\frac{1}{r_{\lambda,\mu}-r_c}+\frac{1}{r_{\lambda,\upsilon}-r_{c}})+4\right],\quad r_{\mu\upsilon}\in\qty[0,r_c],
-\end{multline}
-and
-\begin{multline}
-    \vec{F}_{\mathrm{swap}}(r_{\lambda,\upsilon}) =w\epsilon_{\mu,\upsilon}
-                                                 \left(
-                                                       \frac{\sigma_p}{\qty(r_{\lambda,\upsilon}-r_c)^2} 
-                                                       \frac{1}{r_{\lambda,\upsilon}^5}\left[ 4r_c^2\sigma^3_p + \sigma^3_p\qty(\sigma_p-8r_c) r_{\lambda,\upsilon} -2r^5_{\lambda,\upsilon} + 4r^2_{\lambda,\upsilon} \sigma^3_p \right]
-                                                \right)
-                                                \\
-                                                \left( \frac{\sigma_p^4}{r_{\lambda,\mu}^4}-2\right)
-                                            \exp\left[\sigma_p\qty(\frac{1}{r_{\lambda,\mu}-r_c}+\frac{1}{r_{\lambda,\upsilon}-r_{c}})+4\right],\quad r_{\mu\upsilon}\in\qty[0,r_c]
-\end{multline}
 
 \subsection{LAMMPS implementation}
 
