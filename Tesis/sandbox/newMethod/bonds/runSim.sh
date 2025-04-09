@@ -8,7 +8,7 @@
 cs=6;
 
 ## Loops of parameters
-for var_shearRate in 0.01;
+for var_shearRate in 0.1;
 do
     for var_ccL in 0.05;
     do
@@ -76,7 +76,7 @@ do
 
 
             # Create the directory in the sim directory with README.md file with parameters and .dat file
-            cd sim; rm sim*;
+            cd sim; 
             mkdir ${dir_name}; cd ${dir_name}; mkdir imgs; mkdir traj;
 
             # Inside the experiment directory
@@ -233,7 +233,7 @@ do
             echo -e "env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.shear.lmp -var logname $log_name -var temp $T -var damp $damp -var tstep $dt -var shear_rate $shear_rate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var seed3 $seed3 -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var Dir $dir_name -var file6_name ${files_name[5]} -var file7_name ${files_name[6]} -var file8_name ${files_name[7]} -var file9_name ${files_name[8]} -var file10_name ${files_name[9]}" >> $file_name;
             echo -e "" >> $file_name;
             echo -e "mv $log_name $dir_name/log.lammps" >> $file_name;
-            echo -e "mv sim* $dir_name"; >> $file_name;
+            echo -e "mv sim* $dir_name" >> $file_name;
             echo -e "mv $dir_name ../data;" >> $file_name;
 
             bash $file_name;

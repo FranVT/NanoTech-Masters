@@ -11,10 +11,10 @@ include("functions.jl")
 df = getDF();
 
 # Desire parameters 
-date="2025-03-23-155652";
+date="2025-04-08-162013";
 gamma_dot=0.01;
 cl_con=0.05;
-Npart=1500;
+Npart=2500;
 
 # New data frame
 df_new = filter([:"Shear-rate",:"CL-Con",:"Npart",:"date"] => (f1,f2,f3,f4) -> f1==gamma_dot && f2==cl_con && f3==Npart && f4==date,df);# Get the information in data frames
@@ -74,6 +74,9 @@ pressure_she_central = (1/3).*(df_stressS."xx_part" .+ df_stressS."yy_part" .+ d
 
 
 # Plot of the norm
+time_assembly=df_new."time-step".*df_stressA."TimeStep";
+time_shear=last(time_assembly).+(df_new."time-step".*df_stressS."TimeStep");
+
 p1 = plot(
             title=L"-\mathrm{Norm}",
             xlabel = L"\mathrm{LJ}~\tau",
