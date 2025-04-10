@@ -23,7 +23,8 @@ df_new = filter([:"Shear-rate",:"CL-Con",:"Npart",:"date"] => (f1,f2,f3,f4) -> f
 (df_assembly, df_shear, df_stressA, df_stressS) = extractInfo(df_new);
 
 # Algebraic manipulation to get the stress
-(norm_press_ass,norm_press_she,norm_virialpress_ass,norm_virialpress_she,norm_virialModpress_ass,norm_virialModpress_she,norm_stress_ass,norm_stress_she,norm_virialstress_ass,norm_virialstress_she,norm_virialModpress_ass,norm_virialModress_she)=normStressPressure(df_stressA,df_stressS);
+#ll of that info comes from a compute pressure.
+(pressure_ass,pressure_she,norm_pressure_ass,norm_pressure_she,pressure_tensor_ass,pressure_tensor_she,norm_virial_ass,norm_virial_she,pressure_virial_ass,pressure_virial_she,norm_virialMod_ass,norm_virialMod_she,pressure_virialMod_ass,pressure_virialMod_she)=pressure(df_stressA,df_stressS);
 
 """
     Plots
@@ -46,69 +47,76 @@ fig_temp=plot(
                 legend_position=:bottomright,
                 framestyle=:box,
                 formatter=:scientific,
-                size=(1050,788),
+                size=(1080,720),
             );
 plot!(time_assembly,df_assembly."Temp",label=L"\mathrm{Assembly}");
 plot!(time_shear,df_shear."Temp",label=L"\mathrm{Shear}");
 
 
-"""
+
 # Plot of the pressure
 p1 = plot(
-            title=L"-\mathrm{Norm}",
+            title=L"\mathrm{Pressure}",
             xlabel = L"\mathrm{LJ}~\tau",
-            ylabel = L"-|\sigma|",
+            ylabel = L"p",
             legend_position=:bottomright,
             formatter=:scientific,
-            framestyle=:box
+            framestyle=:box,
            )
-plot!(time_assembly,stress_ass,label=L"\mathrm{Assembly}")
-plot!(time_shear,stress_she,label=L"\mathrm{Shear}")
+plot!(time_assembly_pressure,pressure_ass,label=L"\mathrm{Assembly}")
+plot!(time_shear_pressure,pressure_she,label=L"\mathrm{Shear}")
 
 # Plot of the trace of the stress tensor of the system
 p2 = plot(
-            title=L"1/3\mathrm{Trace}",
+            title=L"\mathrm{Norm~Tensor~pressure}",
             xlabel = L"\mathrm{LJ}~\tau",
-            ylabel = L"\mathrm{Tr}(\sigma)",
+            ylabel = L"|p|",
             legend_position=:bottomright,
             formatter=:scientific,
-            framestyle=:box
+            framestyle=:box,
            )
-plot!(time_assembly,pressure_ass,label=L"\mathrm{Assembly}")
-plot!(time_shear,pressure_she,label=L"\mathrm{Shear}")
+plot!(time_assembly_pressure,norm_pressure_ass,label=L"\mathrm{Assembly}")
+plot!(time_shear_pressure,norm_pressure_she,label=L"\mathrm{Shear}")
 
 # Plot of the xy component of the stress tensor
 p3 = plot(
-            title=L"-\sigma_{xy}",
+            title=L"\mathrm{Full~Virial~pressure~norm}",
             xlabel = L"\mathrm{LJ}~\tau",
-            ylabel = L"-\sigma_{xy}",
+            ylabel = L"\mathrm{Virial}",
             legend_position=:bottomright,
             formatter=:scientific,
-            framestyle=:box
+            framestyle=:box,
            )
-plot!(time_assembly,-df_stressA."xy",label=L"\mathrm{Assembly}")
-plot!(time_shear,-df_stressS."xy",label=L"\mathrm{Shear}")
+plot!(time_assembly_pressure,norm_virial_ass,label=L"\mathrm{Assembly}")
+plot!(time_shear_pressure,norm_virial_she,label=L"\mathrm{Shear}")
 
 # Plot of the xy component of the stress tensor during shear
 p4 = plot(
-            title=L"-\sigma_{xy}",
+            title=L"\mathrm{Modified~Virial~pressure~norm}",
             xlabel = L"\mathrm{LJ}~\tau",
-            ylabel = L"-\sigma_{xy}",
+            ylabel = L"\mathrm{Virial~mod}",
             legend_position=:bottomright,
             formatter=:scientific,
-            framestyle=:box
+            framestyle=:box,
            )
 #plot!(time_assembly,df_stressA."xy",label=L"\mathrm{Assembly}")
-plot!(time_shear,-df_stressS."xy",label=L"\mathrm{Shear}")
+plot!(time_assembly_pressure,pressure_virialMod_ass,label=L"\mathrm{Assembly}")
+plot!(time_shear_pressure,pressure_virialMod_she,label=L"\mathrm{Shear}")
 
 # Combo of all previous plots
-pressure=plot(p1,p2,p3,p4,
+fig_pressure=plot(p1,p2,p3,p4,
                 layout = (2,2),
                 suptitle = L"\mathrm{Compute~pressure}",
-                plot_titlefontsize = 15
-             )
+                plot_titlefontsize = 15,
+                size=(1080,720)
+               )
+
+map(s->savefig(fig_temp,s),joinpath.(df_new."main-directory",df_new."imgs-dir","temp.png"))
+map(s->savefig(fig_pressure,s),joinpath.(df_new."main-directory",df_new."imgs-dir","pressure.png"))
 
 
+
+"""
 # Plot compute stress/atom
 
 # Plot of the norm

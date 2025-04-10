@@ -2,6 +2,20 @@
     Script to declare usefull functions to analyse data
 """
 
+function norm(xx,yy,zz,xy,xz,yz)
+"""
+    Compute the norm of a symetric tensor
+"""
+    return sqrt.(xx.^2 .+ yy.^2 .+ zz.^2 .+ (2).*(xy.^2 .+ xz.^2 .+ yz.^2))
+end
+
+function trace(xx,yy,zz)
+"""
+    Computes the trace
+"""
+    return xx.+yy.+zz
+end
+
 function getDF()
 """
    Function that gives the data file of all directories
@@ -51,51 +65,56 @@ function extractInfo(df)
 
     data_path=joinpath.(df_new."main-directory",df_new."file1");
     aux=split.(readlines(data_path[1])," ");
-    aux_head=["TimeStep","p","xx","yy","zz","xy","xz","yz","xx_virial","yy_virial","zz_virial","xy_virial","xz_virial","yz_virial","xx_virialMod","yy_virialMod","zz_virialMod","xy_virialMod","xz_virialMod","yz_virialMod"];#aux[2][2:end];
+    aux_head=["TimeStep","p","press_xx","press_yy","press_zz","press_xy","press_xz","press_yz","virialpress_xx","virialpress_yy","virialpress_zz","virialpress_xy","virialpress_xz","virialpress_yz","virialpressmod_xx","virialpressmod_yy","virialpressmod_zz","virialpressmod_xy","virialpressmod_xz","virialpressmod_yz","stress_xx","stress_yy","stress_zz","stress_xy","stress_xz","stress_yz","virialstress_xx","virialstress_yy","virialstress_zz","virialstress_xy","virialstress_xz","virialstress_yz","virialstressmod_xx","virialstressmod_yy","virialstressmod_zz","virialstressmod_xy","virialstressmod_xz","virialstressmod_yz"];#aux[2][2:end];
     aux_info=reduce(hcat,map(s->parse.(Float64,s),aux[3:end]))
     df_stressA=DataFrame(aux_info',aux_head);
     
     data_path=joinpath.(df_new."main-directory",df_new."file6");
     aux=split.(readlines(data_path[1])," ");
-    aux_head=["TimeStep","p","xx","yy","zz","xy","xz","yz","xx_virial","yy_virial","zz_virial","xy_virial","xz_virial","yz_virial","xx_virialMod","yy_virialMod","zz_virialMod","xy_virialMod","xz_virialMod","yz_virialMod"];#aux[2][2:end];
+    aux_head=["TimeStep","p","press_xx","press_yy","press_zz","press_xy","press_xz","press_yz","virialpress_xx","virialpress_yy","virialpress_zz","virialpress_xy","virialpress_xz","virialpress_yz","virialpressmod_xx","virialpressmod_yy","virialpressmod_zz","virialpressmod_xy","virialpressmod_xz","virialpressmod_yz","stress_xx","stress_yy","stress_zz","stress_xy","stress_xz","stress_yz","virialstress_xx","virialstress_yy","virialstress_zz","virialstress_xy","virialstress_xz","virialstress_yz","virialstressmod_xx","virialstressmod_yy","virialstressmod_zz","virialstressmod_xy","virialstressmod_xz","virialstressmod_yz"];#aux[2][2:end];
     aux_info=reduce(hcat,map(s->parse.(Float64,s),aux[3:end]))
     df_stressS=DataFrame(aux_info',aux_head);
 
     return (df_assembly, df_shear, df_stressA, df_stressS) 
 end
 
-function pressure(data_assembly,data_shear)
+function normStressPressure(data_ass,data_she)
 """
     data is a data frame with the following information:
     time-step pressure stress-xx stress-yy stress-zz stress-xy stress-xz stress-yz virial-xx virial-yy virial-zz virial-xy virial-xz virialMod-xx virialMod-yy virialMod-zz virialMod-xy virialMod-xz 
 """
 
-    # General pressure
-    pressure_ass = data_assembly."p";
-    pressure_she = data_shear."p";
-
     # Full pressure
-    norm_pressure_ass = sqrt.( data_assembly."xx".^2 .+ data_assembly."yy".^2 .+ data_assembly."zz".^2 .+ (2).*(data_assembly."xy".^2 .+ data_assembly."xz".^2 .+ data_assembly."yz".^2)  );
-    norm_pressure_she = sqrt.( data_shear."xx".^2 .+ data_shear."yy".^2 .+ data_shear."zz".^2 .+ (2).*(data_shear."xy".^2 .+ data_shear."xz".^2 .+ data_shear."yz".^2)  );
+    norm_press_ass = norm(data_ass."press_xx",data_ass."press_yy",data_ass."press_zz",data_ass."press_xy",data_ass."press_xz",data_ass."press_yz");
+    norm_press_she = norm(data_she."press_xx",data_she."press_yy",data_she."press_zz",data_she."press_xy",data_she."press_xz",data_she."press_yz");
 
-    pressure_tensor_ass = (1/3).*(data_assembly."xx" .+ data_assembly."yy" .+ data_assembly."zz");
-    pressure_tensor_she = (1/3).*(data_shear."xx" .+ data_shear."yy" .+ data_shear."zz");
-  
     # Virial pressure
-    norm_virial_ass = sqrt.( data_assembly."xx_virial".^2 .+ data_assembly."yy_virial".^2 .+ data_assembly."zz_virial".^2 .+ (2).*(data_assembly."xy_virial".^2 .+ data_assembly."xz_virial".^2 .+ data_assembly."yz_virial".^2)  );
-    norm_virial_she = sqrt.( data_shear."xx_virial".^2 .+ data_shear."yy_virial".^2 .+ data_shear."zz_virial".^2 .+ (2).*(data_shear."xy_virial".^2 .+ data_shear."xz_virial".^2 .+ data_shear."yz_virial".^2)  );
-
-    pressure_virial_ass = (1/3).*(data_assembly."xx_virial" .+ data_assembly."yy_virial" .+ data_assembly."zz_virial");
-    pressure_virial_she = (1/3).*(data_shear."xx_virial" .+ data_shear."yy_virial" .+ data_shear."zz_virial");
+    norm_virialpress_ass = norm(data_ass."virialpress_xx",data_ass."virialpress_yy",data_ass."virialpress_zz",data_ass."virialpress_xy",data_ass."virialpress_xz",data_ass."virialpress_yz");
+    norm_virialpress_she = norm(data_she."virialpress_xx",data_she."virialpress_yy",data_she."virialpress_zz",data_she."virialpress_xy",data_she."virialpress_xz",data_she."virialpress_yz");
 
     # Virial Mod pressure
-    norm_virialMod_ass = sqrt.( data_assembly."xx_virialMod".^2 .+ data_assembly."yy_virialMod".^2 .+ data_assembly."zz_virialMod".^2 .+ (2).*(data_assembly."xy_virialMod".^2 .+ data_assembly."xz_virialMod".^2 .+ data_assembly."yz_virialMod".^2)  );
-    norm_virialMod_she = sqrt.( data_shear."xx_virialMod".^2 .+ data_shear."yy_virialMod".^2 .+ data_shear."zz_virialMod".^2 .+ (2).*(data_shear."xy_virialMod".^2 .+ data_shear."xz_virialMod".^2 .+ data_shear."yz_virialMod".^2)  );
+    norm_virialModpress_ass = norm(data_ass."virialpressmod_xx",data_ass."virialpressmod_yy",data_ass."virialpressmod_zz",data_ass."virialpressmod_xy",data_ass."virialpressmod_xz",data_ass."virialpressmod_yz");
+    norm_virialModpress_she = norm(data_she."virialpressmod_xx",data_she."virialpressmod_yy",data_she."virialpressmod_zz",data_she."virialpressmod_xy",data_she."virialpressmod_xz",data_she."virialpressmod_yz");
 
-    pressure_virialMod_ass = (1/3).*(data_assembly."xx_virialMod" .+ data_assembly."yy_virialMod" .+ data_assembly."zz_virialMod");
-    pressure_virialMod_she = (1/3).*(data_shear."xx_virialMod" .+ data_shear."yy_virialMod" .+ data_shear."zz_virialMod");
+    # Full stress
+    norm_stress_ass = norm(data_ass."stress_xx",data_ass."stress_yy",data_ass."stress_zz",data_ass."stress_xy",data_ass."stress_xz",data_ass."stress_yz");
+    norm_stress_she = norm(data_she."stress_xx",data_she."stress_yy",data_she."stress_zz",data_she."stress_xy",data_she."stress_xz",data_she."stress_yz");
 
-    return (pressure_ass,pressure_she,norm_pressure_ass,norm_pressure_she,pressure_tensor_ass,pressure_tensor_she,norm_virial_ass,norm_virial_she,pressure_virial_ass,pressure_virial_she,norm_virialMod_ass,norm_virialMod_she,pressure_virialMod_ass,pressure_virialMod_she)
+    # Virial stress
+    norm_virialstress_ass = norm(data_ass."virialstress_xx",data_ass."virialstress_yy",data_ass."virialstress_zz",data_ass."virialstress_xy",data_ass."virialstress_xz",data_ass."virialstress_yz");
+    norm_virialstress_she = norm(data_she."virialstress_xx",data_she."virialstress_yy",data_she."virialstress_zz",data_she."virialstress_xy",data_she."virialstress_xz",data_she."virialstress_yz");
+
+    # Virial Mod stress
+    norm_virialModstress_ass = norm(data_ass."virialstressmod_xx",data_ass."virialstressmod_yy",data_ass."virialstressmod_zz",data_ass."virialstressmod_xy",data_ass."virialstressmod_xz",data_ass."virialstressmod_yz");
+    norm_virialModstress_she = norm(data_she."virialstressmod_xx",data_she."virialstressmod_yy",data_she."virialstressmod_zz",data_she."virialstressmod_xy",data_she."virialstressmod_xz",data_she."virialstressmod_yz");
+
+    return (norm_press_ass,norm_press_she,
+            norm_virialpress_ass,norm_virialpress_she,
+            norm_virialModpress_ass,norm_virialModpress_she,
+            norm_stress_ass,norm_stress_she,
+            norm_virialstress_ass,norm_virialstress_she,
+            norm_virialModpress_ass,norm_virialModress_she
+           )
 end
 
 
