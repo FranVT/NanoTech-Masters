@@ -113,7 +113,7 @@ function normStressPressure(data_ass,data_she)
             norm_virialModpress_ass,norm_virialModpress_she,
             norm_stress_ass,norm_stress_she,
             norm_virialstress_ass,norm_virialstress_she,
-            norm_virialModpress_ass,norm_virialModress_she
+            norm_virialModstress_ass,norm_virialModstress_she
            )
 end
 

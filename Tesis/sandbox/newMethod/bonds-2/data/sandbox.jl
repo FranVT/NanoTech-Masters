@@ -11,10 +11,10 @@ include("functions.jl")
 df = getDF();
 
 # Desire parameters 
-date="2025-04-10-111236";
+date="2025-04-10-124806";
 gamma_dot=0.05;
 cl_con=0.05;
-Npart=500;
+Npart=1000;
 
 # New data frame
 df_new = filter([:"Shear-rate",:"CL-Con",:"Npart",:"date"] => (f1,f2,f3,f4) -> f1==gamma_dot && f2==cl_con && f3==Npart && f4==date,df);# Get the information in data frames
@@ -23,7 +23,7 @@ df_new = filter([:"Shear-rate",:"CL-Con",:"Npart",:"date"] => (f1,f2,f3,f4) -> f
 (df_assembly, df_shear, df_stressA, df_stressS) = extractInfo(df_new);
 
 # Algebraic manipulation to get the stress
-(norm_press_ass,norm_press_she,norm_virialpress_ass,norm_virialpress_she,norm_virialModpress_ass,norm_virialModpress_she,norm_stress_ass,norm_stress_she,norm_virialstress_ass,norm_virialstress_she,norm_virialModpress_ass,norm_virialModress_she)=normStressPressure(df_stressA,df_stressS);
+(norm_press_ass,norm_press_she,norm_virialpress_ass,norm_virialpress_she,norm_virialModpress_ass,norm_virialModpress_she,norm_stress_ass,norm_stress_she,norm_virialstress_ass,norm_virialstress_she,norm_virialModstress_ass,norm_virialModstress_she)=normStressPressure(df_stressA,df_stressS);
 
 """
     Plots
