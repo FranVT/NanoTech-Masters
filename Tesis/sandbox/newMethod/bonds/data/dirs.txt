@@ -1,1 +1,1 @@
-2025-04-08-162013-phi-0.5-CLcon-0.05-Part-2500-shear-0.01-Nexp-1
+2025-04-08-162013-phi-0.5-CLcon-0.05-Part-2500-shear-0.01-Nexp-1 2025-04-09-053252-phi-0.5-CLcon-0.05-Part-2500-shear-0.1-Nexp-1

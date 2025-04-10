@@ -8,7 +8,7 @@
 cs=6;
 
 ## Loops of parameters
-for var_shearRate in 0.1;
+for var_shearRate in 0.05;
 do
     for var_ccL in 0.05;
     do
