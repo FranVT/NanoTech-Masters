@@ -53,9 +53,19 @@ variable H equal enthalpy
 variable eM equal emol
 variable ec equal ecouple
 variable eC equal econserve
-compute stress all pressure t ke pair bond angle
-compute stressVirial all pressure t virial
-compute stressVirialMod all pressure t pair bond angle
+
+compute press all pressure t ke pair bond angle
+compute pressVirial all pressure t virial
+compute pressVirialMod all pressure t pair bond angle
+
+compute cstress all stress/atom t ke pair bond angle
+compute cstressVirial all stress/atom t virial
+compute cstressVirialMod all stress/atom t pair bond angle
+compute stress all reduce sum c_cstress[*]
+compute stressVirial all reduce sum c_cstressVirial[*]
+compute stressVirialMod all reduce sum c_cstressVirialMod[*]
+
+
 compute wcaPair all pair lj/cut/omp epair
 compute patchPair all pair table/omp epair
 compute swapPair all pair threebody/table epair
@@ -78,9 +88,9 @@ thermo ${NsaveStress}
 group Energy empty
 fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_wcaPair c_patchPair c_swapPair c_ep c_ek v_eT v_ec v_eC c_p v_eB v_eA v_eM v_H file ${Dir}/${file1_name}
 
-# Save Stress tensor
+# Save Pressure and Stress tensor
 group Stress empty
-fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_p c_stress[*] c_stressVirial[*] c_stressVirialMod[*] file ${Dir}/${file2_name}
+fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_p c_press[*] c_pressVirial[*] c_pressVirialMod[*] c_stress[*] c_stressVirial[*] c_stressVirialMod[*] file ${Dir}/${file2_name}
 
 # Save the cluster information
 fix fixCluster Patches ave/histo 1 ${Nsave} ${Nsave} 0 8 80 c_size mode vector file ${Dir}/${file3_name}

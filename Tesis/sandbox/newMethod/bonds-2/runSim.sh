@@ -23,11 +23,11 @@ do
             # System parameters
             phi=0.5;
             CL_con=$var_ccL;
-            N_particles=500;
+            N_particles=1000;
             shear_rate=$var_shearRate;
             damp=0.5;
             T=0.05;
-            max_strain=5;
+            max_strain=8;
 
             # Numeric parameters
             dt=0.001;

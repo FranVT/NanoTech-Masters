@@ -4,11 +4,11 @@
 
 - Packing fraction: 0.5
 - Cross-Linker Concentration: 0.05
-- Number of particles: 5000
+- Number of particles: 500
 - Shear rate: 0.05 [1/tau]
 - Temperature: 0.05
 - Damp: 0.5
-- Max deformation per cycle: 8
+- Max deformation per cycle: 5
 
  ## Numeric parameters 
 
@@ -22,12 +22,12 @@
 
  ## Derived values from parameters 
 
-- Number of Cross-Linkers: 250
-- Number of Monomers: 4750
+- Number of Cross-Linkers: 25
+- Number of Monomers: 475
 - Volume of Cross-Linker: 4.80538 [sigma^3]
 - Volume of Monomer: 4.49789 [sigma^3]
-- Box Volume: 45132.645000 [sigma^3]
-- Half length of the box: 17.801857 [sigma]
+- Box Volume: 4513.264500 [sigma^3]
+- Half length of the box: 8.262893 [sigma]
 
  ## Save parameters 
 
