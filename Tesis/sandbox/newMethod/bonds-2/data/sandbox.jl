@@ -3,7 +3,8 @@
 """
 
 using DataFrames, CSV
-using Plots, LaTeXStrings
+using Plots, LaTeXStrings, Plots.PlotMeasures
+gr()
 
 include("functions.jl")
 
@@ -261,7 +262,7 @@ virialModStressTrace_she=(1/3).*trace(df_stressS."virialstressmod_xx",df_stressS
 p7 = plot(
             title=L"1/3\mathrm{Trace~of~Stress~tensor}",
             xlabel = L"\mathrm{LJ}~\tau",
-            ylabel = L"\mathrm{Tr}(\sigm)",
+            ylabel = L"\mathrm{Tr}(\sigma)",
             legend_position=:bottomright,
             formatter=:scientific,
             framestyle=:box
@@ -297,7 +298,12 @@ fig_stress=plot(p1,p2,p3,p4,p5,p6,p7,p8,p9,
                 layout = (3,3),
                 suptitle = L"\mathrm{Compute~stress/atom}",
                 plot_titlefontsize = 15,
-                size=(1600,900)
+                size=(1600,900),
+                right_margin=10px,
+                left_margin=25px,
+                top_margin=10px,
+                bottom_margin=15px,
+                yrotation=60,
              )
 
 map(s->savefig(fig_stress,s),joinpath.(df_new."main-directory",df_new."imgs-dir","stress.png"))
