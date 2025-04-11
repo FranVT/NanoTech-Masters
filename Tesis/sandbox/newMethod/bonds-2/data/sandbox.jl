@@ -11,7 +11,7 @@ include("functions.jl")
 df = getDF();
 
 # Desire parameters 
-date="2025-04-10-162106";
+date="2025-04-11-053347";
 gamma_dot=0.05;
 cl_con=0.05;
 Npart=1500;
@@ -50,6 +50,132 @@ fig_temp=plot(
             );
 plot!(time_assembly,df_assembly."Temp",label=L"\mathrm{Assembly}");
 plot!(time_shear,df_shear."Temp",label=L"\mathrm{Shear}");
+
+# Pressure
+p1 = plot(
+            title=L"\mathrm{Pressure}",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"p",
+            legend_position=:bottomright,
+            formatter=:scientific,
+            framestyle=:box
+           )
+plot!(time_assembly_pressure,df_stressA.p,label=L"\mathrm{Assembly}")
+plot!(time_shear_pressure,df_stressS.p,label=L"\mathrm{Shear}")
+
+# Norm of pressure
+p2 = plot(
+            title=L"\mathrm{Norm~of~Pressure~tensor}",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"|p|",
+            legend_position=:bottomright,
+            formatter=:scientific,
+            framestyle=:box
+           )
+plot!(time_assembly_pressure,norm_press_ass,label=L"\mathrm{Assembly}")
+plot!(time_shear_pressure,norm_press_she,label=L"\mathrm{Shear}")
+
+# Trace of pressure tenso
+p3 = plot(
+            title=L"\mathrm{Trace~of~Pressure~tensor}",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"\mathrm{Tr}(p)",
+            legend_position=:bottomright,
+            formatter=:scientific,
+            framestyle=:box
+           )
+plot!(time_assembly_pressure,(1/3).*trace(df_stressA."press_xx",df_stressA."press_yy",df_stressA."press_zz"),label=L"\mathrm{Assembly}")
+plot!(time_shear_pressure,(1/3).*trace(df_stressS."press_xx",df_stressS."press_yy",df_stressS."press_zz"),label=L"\mathrm{Shear}")
+
+# Virial Norm 
+p4 = plot(
+            title=L"\mathrm{Norm~of~Virial~Pressure~tensor}",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"|p|",
+            legend_position=:bottomright,
+            formatter=:scientific,
+            framestyle=:box
+           )
+plot!(time_assembly_pressure,norm_virialpress_ass,label=L"\mathrm{Assembly}")
+plot!(time_shear_pressure,norm_virialpress_she,label=L"\mathrm{Shear}")
+
+# Virial-mod norm
+p5 = plot(
+            title=L"\mathrm{Norm~of~Mod~Virial~Pressure~tensor}",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"|p|",
+            legend_position=:bottomright,
+            formatter=:scientific,
+            framestyle=:box
+           )
+plot!(time_assembly_pressure,norm_virialModpress_ass,label=L"\mathrm{Assembly}")
+plot!(time_shear_pressure,norm_virialModpress_she,label=L"\mathrm{Shear}")
+
+# Differences of the norm
+p6 = plot(
+            title=L"\mathrm{Diff~Norm~Viriral~vs~VirialMod}",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"|\mathrm{Virial}-\mathrm{Virial~Mod}|",
+            legend_position=:bottomright,
+            formatter=:scientific,
+            framestyle=:box
+           )
+plot!(time_assembly_pressure,abs.(norm_virialpress_ass.-norm_virialModpress_ass),label=L"\mathrm{Assembly}")
+plot!(time_shear_pressure,abs.(norm_virialpress_she.-norm_virialModpress_she),label=L"\mathrm{Shear}")
+
+# Trace of Virial tensor pressure (Virial pressure)
+virialPressure_ass=(1/3).*trace(df_stressA."virialpress_xx",df_stressA."virialpress_yy",df_stressA."virialpress_zz");
+virialPressure_she=(1/3).*trace(df_stressS."virialpress_xx",df_stressS."virialpress_yy",df_stressS."virialpress_zz");
+
+virialPressureMod_ass=(1/3).*trace(df_stressA."virialpressmod_xx",df_stressA."virialpressmod_yy",df_stressA."virialpressmod_zz");
+virialPressureMod_she=(1/3).*trace(df_stressS."virialpressmod_xx",df_stressS."virialpressmod_yy",df_stressS."virialpressmod_zz");
+
+p7 = plot(
+            title=L"\mathrm{Trace~of~Virial~Pressure~tensor}",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"\mathrm{Tr}(p)",
+            legend_position=:bottomright,
+            formatter=:scientific,
+            framestyle=:box
+           )
+plot!(time_assembly_pressure,virialPressure_ass,label=L"\mathrm{Assembly}")
+plot!(time_shear_pressure,virialPressure_she,label=L"\mathrm{Shear}")
+
+p8 = plot(
+            title=L"\mathrm{Trace~of~Mod~Virial~Pressure~tensor}",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"\mathrm{Tr}(p)",
+            legend_position=:bottomright,
+            formatter=:scientific,
+            framestyle=:box
+           )
+plot!(time_assembly_pressure,virialPressureMod_ass,label=L"\mathrm{Assembly}")
+plot!(time_shear_pressure,virialPressureMod_she,label=L"\mathrm{Shear}")
+
+p9 = plot(
+            title=L"\mathrm{Diff~Trace~Virial~vs~VirialMod}",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"|\mathrm{Virial}-\mathrm{Virial~Mod}|",
+            legend_position=:bottomright,
+            formatter=:scientific,
+            framestyle=:box
+           )
+plot!(time_assembly_pressure,abs.(virialPressure_ass.-virialPressureMod_ass),label=L"\mathrm{Assembly}")
+plot!(time_shear_pressure,abs.(virialPressure_she.-virialPressureMod_she),label=L"\mathrm{Shear}")
+
+
+# Combo of all previous plots
+fig_pressure=plot(p1,p2,p3,p4,p5,p6,p7,p8,p9,
+                layout = (3,3),
+                suptitle = L"\mathrm{Compute~pressure}",
+                plot_titlefontsize = 15,
+                size=(1600,900)
+             )
+
+map(s->savefig(fig_temp,s),joinpath.(df_new."main-directory",df_new."imgs-dir","temp.png"))
+map(s->savefig(fig_pressure,s),joinpath.(df_new."main-directory",df_new."imgs-dir","pressure.png"))
+
+
 
 
 """
