@@ -11,10 +11,10 @@ include("functions.jl")
 df = getDF();
 
 # Desire parameters 
-date="2025-04-10-124806";
+date="2025-04-11-053347";
 gamma_dot=0.05;
 cl_con=0.05;
-Npart=1000;
+Npart=1500;
 
 # New data frame
 df_new = filter([:"Shear-rate",:"CL-Con",:"Npart",:"date"] => (f1,f2,f3,f4) -> f1==gamma_dot && f2==cl_con && f3==Npart && f4==date,df);# Get the information in data frames
@@ -339,7 +339,7 @@ plot!(time_shear_pressure,p_stress_she,label=L"\mathrm{Shear}")
 
 # Difference Pressure from stress tensor 
 p3 = plot(
-            title=L"p-\left(-\frac{1}{V}\mathrm{Tr}(\sigma)\right)",
+            title=L"p-\left(-\frac{1}{3V}\mathrm{Tr}(\sigma)\right)",
             xlabel = L"\mathrm{LJ}~\tau",
             ylabel = L"p",
             legend_position=:bottomright,
@@ -349,10 +349,45 @@ p3 = plot(
 plot!(time_assembly_pressure,df_stressA.p .- p_stress_ass,label=L"\mathrm{Assembly}")
 plot!(time_shear_pressure,df_stressS.p .- p_stress_she,label=L"\mathrm{Shear}")
 
+# Traces of the Stress tensor
+
+p4 = plot(
+            title=L"1/3\mathrm{Tr}(\sigma)",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"\sigma",
+            legend_position=:bottomright,
+            formatter=:scientific,
+            framestyle=:box
+           )
+plot!(time_assembly_pressure,StressTrace_ass,label=L"\mathrm{Assembly}")
+plot!(time_shear_pressure,StressTrace_she,label=L"\mathrm{Shear}")
+
+p5 = plot(
+            title=L"1/3\mathrm{Tr}(\sigma_\mathrm{virial})",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"\sigma",
+            legend_position=:bottomright,
+            formatter=:scientific,
+            framestyle=:box
+           )
+plot!(time_assembly_pressure,virialStressTrace_ass,label=L"\mathrm{Assembly}")
+plot!(time_shear_pressure,virialStressTrace_she,label=L"\mathrm{Shear}")
+
+p6 = plot(
+            title=L"1/3\mathrm{Tr}(\sigma) - 1/3\mathrm{Tr}(\sigma_\mathrm{virial})",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"\sigma",
+            legend_position=:bottomright,
+            formatter=:scientific,
+            framestyle=:box
+           )
+plot!(time_assembly_pressure,StressTrace_ass.-virialStressTrace_ass,label=L"\mathrm{Assembly}")
+plot!(time_shear_pressure,StressTrace_she.-virialStressTrace_she,label=L"\mathrm{Shear}")
+
 # Combo of all previous plots
-fig_pComp=plot(p1,p2,p3,
-                layout = (1,3),
-                suptitle = L"\mathrm{Compute~stress/atom}",
+fig_pComp=plot(p1,p2,p3,p4,p5,p6,
+                layout = (2,3),
+                suptitle = L"\mathrm{Pressure~from~compute~stress/atom}",
                 plot_titlefontsize = 15,
                 size=(1600,900)
              )
