@@ -11,10 +11,10 @@ include("functions.jl")
 df = getDF();
 
 # Desire parameters 
-date="2025-04-11-053347";
+date="2025-04-10-124806";
 gamma_dot=0.05;
 cl_con=0.05;
-Npart=1500;
+Npart=1000;
 
 # New data frame
 df_new = filter([:"Shear-rate",:"CL-Con",:"Npart",:"date"] => (f1,f2,f3,f4) -> f1==gamma_dot && f2==cl_con && f3==Npart && f4==date,df);# Get the information in data frames
@@ -75,7 +75,7 @@ p2 = plot(
 plot!(time_assembly_pressure,norm_press_ass,label=L"\mathrm{Assembly}")
 plot!(time_shear_pressure,norm_press_she,label=L"\mathrm{Shear}")
 
-# Trace of pressure tenso
+# Trace of pressure tensor
 p3 = plot(
             title=L"\mathrm{Trace~of~Pressure~tensor}",
             xlabel = L"\mathrm{LJ}~\tau",
@@ -259,7 +259,7 @@ virialModStressTrace_ass=(1/3).*trace(df_stressA."virialstressmod_xx",df_stressA
 virialModStressTrace_she=(1/3).*trace(df_stressS."virialstressmod_xx",df_stressS."virialstressmod_yy",df_stressS."virialstressmod_zz");
 
 p7 = plot(
-            title=L"\mathrm{Trace~of~Stress~tensor}",
+            title=L"1/3\mathrm{Trace~of~Stress~tensor}",
             xlabel = L"\mathrm{LJ}~\tau",
             ylabel = L"\mathrm{Tr}(\sigm)",
             legend_position=:bottomright,
@@ -270,7 +270,7 @@ plot!(time_assembly_pressure,StressTrace_ass,label=L"\mathrm{Assembly}")
 plot!(time_shear_pressure,StressTrace_she,label=L"\mathrm{Shear}")
 
 p8 = plot(
-            title=L"\mathrm{Trace~of~Virial~Stress~tensor}",
+            title=L"1/3\mathrm{Trace~of~Virial~Stress~tensor}",
             xlabel = L"\mathrm{LJ}~\tau",
             ylabel = L"\mathrm{Tr}(p)",
             legend_position=:bottomright,
@@ -281,7 +281,7 @@ plot!(time_assembly_pressure,virialStressTrace_ass,label=L"\mathrm{Assembly}")
 plot!(time_shear_pressure,virialStressTrace_she,label=L"\mathrm{Shear}")
 
 p9 = plot(
-            title=L"\mathrm{Trace~of~Mod~Virial~Stress~tensor}",
+            title=L"1/3\mathrm{Trace~of~Mod~Virial~Stress~tensor}",
             xlabel = L"\mathrm{LJ}~\tau",
             ylabel = L"\mathrm{Tr}(p)",
             legend_position=:bottomright,
@@ -304,9 +304,60 @@ map(s->savefig(fig_stress,s),joinpath.(df_new."main-directory",df_new."imgs-dir"
 
 
 # Contrast of Pressure and Stress
+"""
+    So ... from the lammps documentation we get the following relation,
+    P = -1/V*Tr(sigma)
+    Lets compute that and graphic
+"""
 
+p_stress_ass=-StressTrace_ass./(df_new."Vol_box");
+p_stress_she=-StressTrace_she./(df_new."Vol_box");
 
+# Pressure from compute pressure all t
+p1 = plot(
+            title=L"\mathrm{Pressure}",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"p",
+            legend_position=:bottomright,
+            formatter=:scientific,
+            framestyle=:box
+           )
+plot!(time_assembly_pressure,df_stressA.p,label=L"\mathrm{Assembly}")
+plot!(time_shear_pressure,df_stressS.p,label=L"\mathrm{Shear}")
 
+# Pressure from stress tensor 
+p2 = plot(
+            title=L"-\frac{1}{3V}\mathrm{Tr}(\sigma)",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"p",
+            legend_position=:bottomright,
+            formatter=:scientific,
+            framestyle=:box
+           )
+plot!(time_assembly_pressure,p_stress_ass,label=L"\mathrm{Assembly}")
+plot!(time_shear_pressure,p_stress_she,label=L"\mathrm{Shear}")
+
+# Difference Pressure from stress tensor 
+p3 = plot(
+            title=L"p-\left(-\frac{1}{V}\mathrm{Tr}(\sigma)\right)",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"p",
+            legend_position=:bottomright,
+            formatter=:scientific,
+            framestyle=:box
+           )
+plot!(time_assembly_pressure,df_stressA.p .- p_stress_ass,label=L"\mathrm{Assembly}")
+plot!(time_shear_pressure,df_stressS.p .- p_stress_she,label=L"\mathrm{Shear}")
+
+# Combo of all previous plots
+fig_pComp=plot(p1,p2,p3,
+                layout = (1,3),
+                suptitle = L"\mathrm{Compute~stress/atom}",
+                plot_titlefontsize = 15,
+                size=(1600,900)
+             )
+
+map(s->savefig(fig_pComp,s),joinpath.(df_new."main-directory",df_new."imgs-dir","stress-pressure.png"))
 
 
 
