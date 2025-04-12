@@ -54,7 +54,7 @@ variable eM equal emol
 variable ec equal ecouple
 variable eC equal econserve
 
-compute press all pressure t ke pair bond angle
+compute press all pressure t ke virial
 compute pressVirial all pressure t virial
 compute pressVirialMod all pressure t pair bond angle
 

@@ -41,7 +41,7 @@ variable eA equal eangle
 variable H equal enthalpy
 variable eM equal emol
 
-compute press all pressure td ke pair bond angle
+compute press all pressure td ke virial
 compute pressVirial all pressure td virial
 compute pressVirialMod all pressure td pair bond angle
 
