@@ -8,7 +8,7 @@
 cs=6;
 
 ## Loops of parameters
-for var_shearRate in 0.005;
+for var_shearRate in 0.05;
 do
     for var_ccL in 0.05;
     do
@@ -54,7 +54,7 @@ do
 
             # Derive numeric parameters
             NsaveStress=$(echo "scale=$cs; 1 / $dt" | bc); 
-            NsaveStress=1000;#${NsaveStress%.*};  # Steps for temporal average if the fix file for stress (Virial Stress)
+            NsaveStress=5000;#${NsaveStress%.*};  # Steps for temporal average if the fix file for stress (Virial Stress)
             Nstep_per_strain=$(echo "scale=$cs; $(echo "scale=$cs; 1 / $shear_rate" | bc) * $(echo "scale=$cs; 1 / $dt" | bc)" | bc) ;
             Nstep_per_strain=${Nstep_per_strain%.*};    # Number of steps to deform 1 strain.
             shear_it=$(( $max_strain * $Nstep_per_strain)); # Total number of steps to achive the max strain parameter.
