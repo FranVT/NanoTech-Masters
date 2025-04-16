@@ -12,10 +12,10 @@ include("functions.jl")
 df = getDF();
 
 # Desire parameters 
-date="2025-04-15-204245";
-gamma_dot=0.005;
+date="2025-04-16-092532";
+gamma_dot=0.05;
 cl_con=0.05;
-Npart=500;
+Npart=1000;
 
 # New data frame
 df_new = filter([:"Shear-rate",:"CL-Con",:"Npart",:"date"] => (f1,f2,f3,f4) -> f1==gamma_dot && f2==cl_con && f3==Npart && f4==date,df);# Get the information in data frames
