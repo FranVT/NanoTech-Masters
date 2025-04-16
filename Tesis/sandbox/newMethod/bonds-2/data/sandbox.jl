@@ -12,7 +12,7 @@ include("functions.jl")
 df = getDF();
 
 # Desire parameters 
-date="2025-04-12-191149";
+date="2025-04-15-110740";
 gamma_dot=0.005;
 cl_con=0.05;
 Npart=1500;
