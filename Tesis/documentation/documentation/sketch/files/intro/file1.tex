@@ -34,12 +34,12 @@ Both refer to the force per unit area which two bodies in contact, or two parts 
 Both tensorial quantities\citep{Tsai_1979}.
 Under hydrostatic conditions, the relationship between external pressure and internal stress is particurlarly simple:
 \begin{gather}
-    P = \frac{1}{3}\qty(\simga_{xx}+\sigma_{yy}+\sigma_{zz}),
+    P = \frac{1}{3}\qty(\sigma_{xx}+\sigma_{yy}+\sigma_{zz}),
 \end{gather}
-where $\simga_{xx}=\sigma_{yy}=\sigma_{zz}$ and $\sigma_{xy}=\sigma_{yz}=\sigma_{zx}=0$, that is, at equilibirum, the external pressure $P$ is equal to the internal normal stress components and throught the system, the shear components being zero.
+where $\sigma_{xx}=\sigma_{yy}=\sigma_{zz}$ and $\sigma_{xy}=\sigma_{yz}=\sigma_{zx}=0$, that is, at equilibirum, the external pressure $P$ is equal to the internal normal stress components and throught the system, the shear components being zero.
 Under these conditions, the external pressure may be calculated from the virial theorem:
 \begin{gather}
-    PV = NkT-\frac{1}{3}\right\langle\left\sum_{i,j<1}^N\vec{r}_{ij}\cdot\pdv{\Phi_{ij}}{r_{ij}}\right\rangle,
+    PV = NkT-\frac{1}{3}\left\langle\sum_{i,j<1}^N\vec{r}_{ij}\cdot\pdv{\Phi_{ij}}{r_{ij}}\right\rangle,
 \end{gather}
 where $V$ is the volume, $N$ is the number of particles, $T$ is the tmeperature of the system, $k$ is the Boltzmann's constante, $r_{ij}$  is the vector joining particles $i$ and $j$ and $\Phi_{ij}$ is the interatomic potential between $i$ and $j$.
 The angular brackets denote average over time\footnote{Is the same expression for the scalar pressure used by the compute pressure in lammps: \href{https://docs.lammps.org/compute_pressure.html}{documentation page}.}.
@@ -69,8 +69,9 @@ The stress method, on the other hand, can be used to calculated the stress not o
 
 The virial is defined as 
 \begin{gather}
-    \Upsilon
+    \Upsilon=\sum_i^N \vec{r}\cdot\vec{F}_i,
 \end{gather}
+
 
 \subsection{Lammps implementation}
 
