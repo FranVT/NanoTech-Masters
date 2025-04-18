@@ -1,0 +1,120 @@
+# LAMMPS script for shear deformation simulaiton
+
+# Fco. Vazquez and Felipe Benavides
+
+log ${logname} append
+
+units lj
+dimension 3
+boundary p p p
+
+# Styles of atoms and that stuff
+atom_style full 
+bond_style harmonic
+angle_style harmonic
+pair_style hybrid/overlay zero 0.0 lj/cut/omp 1.12 table/omp linear 5000000 threebody/table
+newton on
+
+read_data ${Dir}/data.hydrogel extra/bond/per/atom 10 extra/angle/per/atom 6 extra/special/per/atom 10
+
+change_box all triclinic
+
+# Coefficients
+include potential.in
+
+# Molecules
+include molDeform.in
+
+# COMPUTES
+
+# Compute global kinetic and potential energy and temperature
+compute t all temp
+compute td all temp/deform
+compute p all pressure td
+compute ep all pe
+compute ek all ke
+variable ec equal ecouple
+variable eC equal econserve
+variable eT equal etotal
+variable eB equal ebond
+variable eA equal eangle
+variable H equal enthalpy
+variable eM equal emol
+
+compute press all pressure td ke virial
+compute pressVirial all pressure td virial
+compute pressVirialMod all pressure td pair bond angle
+
+compute cstress all stress/atom td ke pair bond angle
+compute cstressVirial all stress/atom td virial
+compute cstressVirialMod all stress/atom td pair bond angle
+compute stress all reduce sum c_cstress[*]
+compute stressVirial all reduce sum c_cstressVirial[*]
+compute stressVirialMod all reduce sum c_cstressVirialMod[*]
+
+compute wcaPair all pair lj/cut/omp epair
+compute patchPair all pair table/omp epair
+compute swapPair all pair threebody/table epair
+
+# displacement of the central particles
+compute disc CM displace/atom
+compute daux CM chunk/atom type pbc yes
+compute dis CM reduce/chunk daux sum c_disc[4]
+
+# cluster analysis
+compute clPatch Patches cluster/atom 0.6
+compute ccl Patches chunk/atom c_clPatch compress yes discard no # Define chunks based on cluster ID
+compute size Patches property/chunk ccl count # Counts the atoms in each chunk
+
+# DUMPS and FIXES
+
+thermo ${NsaveStress}
+
+# Save global energies and temperature
+group Energy empty
+fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_td c_wcaPair c_patchPair c_swapPair c_ep c_ek v_eT v_ec v_eC c_p v_eB v_eA v_eM v_H file ${Dir}/${file6_name}
+
+# Save Pressure and Stress tensor
+group Stress empty
+fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_p c_press[*] c_pressVirial[*] c_pressVirialMod[*] c_stress[*] c_stressVirial[*] c_stressVirialMod[*] file ${Dir}/${file7_name}
+
+# Save the cluster information
+fix fixCluster Patches ave/histo 1 ${Nsave} ${Nsave} 0 8 80 c_size mode vector file ${Dir}/${file8_name}
+
+# Save atom positions
+dump dumpID all custom ${Ndump} ${Dir}/traj/${file9_name} id type x y z vx vy vz
+dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
+
+# Save Atom displacement
+#group Displ empty
+#fix fixDispl Displ ave/time 1 ${NsaveStress} ${NsaveStress} c_dis[1] c_dis[2] c_dis[3] c_dis[4] file ${Dir}/cmdisplacement_shear.fixf
+
+# RUN SIMULATION
+
+# Brownian Dynamics using Langevin Thermostat
+
+timestep ${tstep}
+
+fix VelVerlet all nve # Use Velocity Verlet integrator
+fix ThermoLng all langevin ${temp} ${temp} ${damp} ${seed3} zero yes # Brownian Dynamics: langevin + nve
+fix_modify ThermoLng temp td
+
+fix shear all deform 1 xy erate ${shear_rate} remap x flip yes units box
+run ${shear_it}
+unfix shear
+
+write_data ${Dir}/${file10_name}
+
+run ${rlxT1}
+
+fix shear all deform 1 xy erate ${shear_rate} remap x flip yes units box
+run ${shear_it}
+unfix shear
+
+run ${rlxT2}
+
+fix shear all deform 1 xy erate ${shear_rate} remap x flip yes units box
+run ${shear_it}
+unfix shear
+
+run ${rlxT3}

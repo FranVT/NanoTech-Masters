@@ -7,57 +7,66 @@
 # Significant decimals
 cs=6;
 
+# General parameters
+nodes=8;                    # CPU nodes for omp variable
+
+damp=1;
+T=0.05;
+
+# Numeric parameters
+dt=0.001;
+steps_heat=500000; # Steps for the heating process
+steps_isot=8000000; # Steps for the percolation process 
+Nsave=100;           # Steps for temporal average of the fix files
+Ndump=1000;           # Save each Ndump steps info of dump file
+
+# Volume of the particles
+Vol_MO1=4.49789;
+Vol_CL1=4.80538;
+
+# Derived parameters
+N_CL=$(echo "scale=0; $CL_con * $N_particles" | bc);
+N_CL=${N_CL%.*};
+N_MO=$(( $N_particles - $N_CL ));
+Vol_MO=$(echo "scale=$cs; $Vol_MO1 * $N_MO" | bc);         # Vol of N f=2 patchy particles
+Vol_CL=$(echo "scale=$cs; $Vol_CL1 * $N_CL" | bc);          # Vol of N f=4 patchy particles 
+Vol_Totg=$(echo "scale=$cs; $Vol_MO + $Vol_CL" | bc);       # Total volume of a mixture of N f=2 and M f=4 patchy particles
+Vol_Tot=$(echo "scale=$cs; $Vol_Totg / $phi" | bc);
+L_real=$(echo "scale=$cs; e( (1/3) * l($Vol_Tot) )" | bc -l );
+L=$(echo "scale=$cs; $L_real / 2" | bc);
+
+
 ## Loops of parameters
-for var_shearRate in 0.01;
+for var_ccL in 0.05;
 do
-    for var_ccL in 0.05;
+    # Assembly parameters
+    phi=0.5;
+    CL_con=$var_ccL;
+    N_particles=1000;
+
+    for var_shearRate in 0.01;
     do
+    
+        # Shear parameters
+        shear_rate=$var_shearRate;
+        max_strain=8;
+        relaxTime1=1000000; # Relax time steps for the first period.
+        relaxTime2=1000000;
+        relaxTime3=1000000;
+
+        # Derive numeric parameters
+        NsaveStress=$(echo "scale=$cs; 1 / $dt" | bc); 
+        NsaveStress=2500;#${NsaveStress%.*};  # Steps for temporal average if the fix file for stress (Virial Stress)
+        Nstep_per_strain=$(echo "scale=$cs; $(echo "scale=$cs; 1 / $shear_rate" | bc) * $(echo "scale=$cs; 1 / $dt" | bc)" | bc) ;
+        Nstep_per_strain=${Nstep_per_strain%.*};    # Number of steps to deform 1 strain.
+        shear_it=$(( $max_strain * $Nstep_per_strain)); # Total number of steps to achive the max strain parameter.
+
         for Nexp in $(seq 10);
         do
-            # Parameters for the simulation
+            # Seed for the langevin thermostat and initial positions
             seed1=$((1234 + Nexp));     # MO positions
             seed2=$((4321 + Nexp));     # CL positions
-            seed3=10;                   # Langevin thermostat
-            nodes=8;                    # CPU nodes for omp variable
-
-            # System parameters
-            phi=0.5;
-            CL_con=$var_ccL;
-            N_particles=1000;
-            shear_rate=$var_shearRate;
-            damp=1;
-            T=0.05;
-            max_strain=8;
-
-            # Numeric parameters
-            dt=0.001;
-            steps_heat=500000; # Steps for the heating process
-            steps_isot=8000000; # Steps for the percolation process 
-            Nsave=100;           # Steps for temporal average of the fix files
-            Ndump=1000;           # Save each Ndump steps info of dump file
-            relaxTime1=1000000; # Relax time steps for the first period.
-            relaxTime2=1000000;
-            relaxTime3=1000000;
-            Vol_MO1=4.49789;
-            Vol_CL1=4.80538;
-
-            # Derived parameters
-            N_CL=$(echo "scale=0; $CL_con * $N_particles" | bc);
-            N_CL=${N_CL%.*};
-            N_MO=$(( $N_particles - $N_CL ));
-            Vol_MO=$(echo "scale=$cs; $Vol_MO1 * $N_MO" | bc);         # Vol of N f=2 patchy particles
-            Vol_CL=$(echo "scale=$cs; $Vol_CL1 * $N_CL" | bc);          # Vol of N f=4 patchy particles 
-            Vol_Totg=$(echo "scale=$cs; $Vol_MO + $Vol_CL" | bc);       # Total volume of a mixture of N f=2 and M f=4 patchy particles
-            Vol_Tot=$(echo "scale=$cs; $Vol_Totg / $phi" | bc);
-            L_real=$(echo "scale=$cs; e( (1/3) * l($Vol_Tot) )" | bc -l );
-            L=$(echo "scale=$cs; $L_real / 2" | bc);
-
-            # Derive numeric parameters
-            NsaveStress=$(echo "scale=$cs; 1 / $dt" | bc); 
-            NsaveStress=2500;#${NsaveStress%.*};  # Steps for temporal average if the fix file for stress (Virial Stress)
-            Nstep_per_strain=$(echo "scale=$cs; $(echo "scale=$cs; 1 / $shear_rate" | bc) * $(echo "scale=$cs; 1 / $dt" | bc)" | bc) ;
-            Nstep_per_strain=${Nstep_per_strain%.*};    # Number of steps to deform 1 strain.
-            shear_it=$(( $max_strain * $Nstep_per_strain)); # Total number of steps to achive the max strain parameter.
+            seed3=$((10 + Nexp));                   # Langevin thermostat
 
             # Directory stuff
             dir_name="$(date +%F-%H%M%S)-phi-${phi}-CLcon-${CL_con}-Part-${N_particles}-shear-${shear_rate}-Nexp-${Nexp}" ;
@@ -73,7 +82,6 @@ do
                         "traj_shear.*.dumpf"                    # 9
                         "data.firstShear"                       # 10
                         );
-
 
             # Create the directory in the sim directory with README.md file with parameters and .dat file
             cd sim; 
