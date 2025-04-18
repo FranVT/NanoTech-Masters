@@ -50,10 +50,6 @@ L=$(echo "scale=$cs; $L_real / 2" | bc);
                         "data.firstShear"                       # 10
                         );
 
-
-
-
-
 ## Loops of parameters
 for var_ccL in 0.05;
 do
@@ -61,10 +57,23 @@ do
     phi=0.5;
     CL_con=$var_ccL;
     N_particles=1000;
+    aux=$(echo "scale=0; $CL_con * $N_particles" | bc); aux=${aux%.*};
+
+    # Seed for the langevin thermostat and initial positions
+    seed1=$((1234 + aux));     # MO positions
+    seed2=$((4321 + aux));     # CL positions
+    seed3=$((10 + aux));       # Langevin thermostat
+
+    sys_dir_name="$(date +%F-%H%M%S)-phi-${phi}-CLcon-${CL_con}-Part-${N_particles}";
+
+    # Create the directory in the sim directory with README.md file with parameters and .dat file
+    cd sim; mkdir ${sys_dir_name}; cd ${dir_name}; 
+
+   # mkdir imgs; mkdir traj;
 
     for var_shearRate in 0.01;
     do
-    
+        
         # Shear parameters
         shear_rate=$var_shearRate;
         max_strain=8;
@@ -79,23 +88,11 @@ do
         Nstep_per_strain=${Nstep_per_strain%.*};    # Number of steps to deform 1 strain.
         shear_it=$(( $max_strain * $Nstep_per_strain)); # Total number of steps to achive the max strain parameter.
 
-        exp_dir_name="$(date +%F-%H%M%S)-phi-${phi}-CLcon-${CL_con}-Part-${N_particles}-shear-${shear_rate}";
-
-        for Nexp in $(seq 10);
-        do
-            # Seed for the langevin thermostat and initial positions
-            seed1=$((1234 + Nexp));     # MO positions
-            seed2=$((4321 + Nexp));     # CL positions
-            seed3=$((10 + Nexp));                   # Langevin thermostat
-
-            # Directory stuff
-            dir_name="$(date +%F-%H%M%S)-phi-${phi}-CLcon-${CL_con}-Part-${N_particles}-shear-${shear_rate}-Nexp-${Nexp}" ;
-            # Create the directory in the sim directory with README.md file with parameters and .dat file
-            cd sim; 
-            mkdir ${dir_name}; cd ${dir_name}; mkdir imgs; mkdir traj;
-
-            # Inside the experiment directory
-            # README.md
+        shear_dir_name="$(date +%F-%H%M%S)-shear-${shear_rate}";
+        mkdir ${shear_dir_name}; cd ${shear_dir_name};
+       
+        # Inside the experiment directory
+        # README.md
             file_name="README.md";
 
             touch $file_name;
@@ -232,7 +229,16 @@ do
             echo "$(IFS=,; echo "${headers[*]}")" > "$file_name"
             echo "$(IFS=,; echo "${values[*]}")" >> "$file_name"
 
-           
+
+
+        for Nexp in $(seq 10);
+        do
+            seed3=$((seed3 + Nexp));       # Langevin thermostat
+
+            # Directory stuff
+            exp_dir_name="$(date +%F-%H%M%S)-Nexp-${Nexp}";
+            mkdir ${shear_dir_name}; cd ${shear_dir_name};
+            
             # Bash script for the simulation
             cd ..;
 
