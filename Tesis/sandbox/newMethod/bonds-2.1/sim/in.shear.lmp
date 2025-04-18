@@ -15,7 +15,7 @@ angle_style harmonic
 pair_style hybrid/overlay zero 0.0 lj/cut/omp 1.12 table/omp linear 5000000 threebody/table
 newton on
 
-read_data ${Dir}/data.hydrogel extra/bond/per/atom 10 extra/angle/per/atom 6 extra/special/per/atom 10
+read_data ../../data.hydrogel extra/bond/per/atom 10 extra/angle/per/atom 6 extra/special/per/atom 10
 
 change_box all triclinic
 
