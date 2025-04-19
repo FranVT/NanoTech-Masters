@@ -5,7 +5,9 @@
 #!/bin/bash
 
 # Directories
-dir_home=$pwd;
+dir_home=$(pwd);
+
+echo $dir_home;
 
 # Significant decimals
 cs=6;
@@ -245,20 +247,22 @@ do
             # Directory stuff
             exp_dir_name="$(date +%F-%H%M%S)-Nexp-${Nexp}";
             mkdir ${exp_dir_name}; cd ${exp_dir_name}; mkdir traj;
-            full_path="$pwd/$sys_dir_name/$shear_dir_name/$exp_dir_name";
+            full_path="$dir_home/sim/$sys_dir_name/$shear_dir_name/$exp_dir_name";
             
             # Run the shear protocol
             log_name="log-shear-$(date +%H%M%S-%F).lammps";
-            pwd;
             cd "$dir_home/sim";
+            pwd;
             env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.shear.lmp -log $log_name -var dirSys $sys_dir_name -var temp $T -var damp $damp -var tstep $dt -var shear_rate $shear_rate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var seed3 $seed3 -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var Dir $full_path -var file6_name ${files_name[5]} -var file7_name ${files_name[6]} -var file8_name ${files_name[7]} -var file9_name ${files_name[8]} -var file10_name ${files_name[9]};
             
         done
         
     done
 
-        mv ${sys_dir_name} ../data;
-
         cd ..; # Go to the general directory, such that in we can go into sim directory in line 79
 
 done
+
+mv sim/${sys_dir_name} data;
+
+
