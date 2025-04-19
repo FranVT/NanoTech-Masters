@@ -74,17 +74,14 @@ do
     sys_dir_name="$(date +%F-%H%M%S)-phi-${phi}-CLcon-${CL_con}-Part-${N_particles}";
 
     # Create the directory in the sim directory with README.md file with parameters and .dat file
-    cd sim; mkdir ${sys_dir_name}; cd ${sys_dir_name}; mkdir traj; cd ..;
+    cd sim; mkdir ${sys_dir_name}; cd ${sys_dir_name}; mkdir traj;
 
     # Run the assembly protocol
+    cd "$dir_home/sim";
     log_name="log-assembly-$(date +%H%M%S-%F).lammps";
-    pwd;
     env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.assembly.lmp -log $log_name -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3  -var tstep $dt -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var steps $steps_isot -var stepsheat $steps_heat -var Dir $sys_dir_name -var file1_name ${files_name[0]} -var file2_name ${files_name[1]} -var file3_name ${files_name[2]} -var file4_name ${files_name[3]} -var file5_name ${files_name[4]};
 
-    cd ${sys_dir_name};
-    pwd;
-
-    for var_shearRate in 0.01;
+    for var_shearRate in 0.1;
     do
         
         # Shear parameters
@@ -100,8 +97,10 @@ do
         shear_it=$(( $max_strain * $Nstep_per_strain)); # Total number of steps to achive the max strain parameter.
 
         shear_dir_name="$(date +%F-%H%M%S)-shear-${shear_rate}";
-        mkdir ${shear_dir_name}; cd ${shear_dir_name};
-       
+        cd "$dir_home/sim/$sys_dir_name";   
+        mkdir ${shear_dir_name}; 
+        cd ${shear_dir_name};
+      
         # Inside the experiment directory
         # README.md
             file_name="README.md";
@@ -246,23 +245,27 @@ do
 
             # Directory stuff
             exp_dir_name="$(date +%F-%H%M%S)-Nexp-${Nexp}";
-            mkdir ${exp_dir_name}; cd ${exp_dir_name}; mkdir traj;
+            cd "$dir_home/sim/$sys_dir_name";
+            mkdir ${exp_dir_name}; 
+            cd "$dir_home/sim/$sys_dir_name/$exp_dir_name";
+            mkdir traj;
             full_path="$dir_home/sim/$sys_dir_name/$shear_dir_name/$exp_dir_name";
             
             # Run the shear protocol
             log_name="log-shear-$(date +%H%M%S-%F).lammps";
             cd "$dir_home/sim";
-            pwd;
             env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.shear.lmp -log $log_name -var dirSys $sys_dir_name -var temp $T -var damp $damp -var tstep $dt -var shear_rate $shear_rate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var seed3 $seed3 -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var Dir $full_path -var file6_name ${files_name[5]} -var file7_name ${files_name[6]} -var file8_name ${files_name[7]} -var file9_name ${files_name[8]} -var file10_name ${files_name[9]};
-            
+           
+            echo -e "Fin de un experimento de Shear\n"
+
         done
         
     done
 
-        cd ..; # Go to the general directory, such that in we can go into sim directory in line 79
+        cd $dir_home; # Go to the general directory, such that in we can go into sim directory in line 79
 
 done
 
-mv sim/${sys_dir_name} data;
+mv "$dir_home/sim/$sys_dir_name" "$dir_home/data";
 
 
