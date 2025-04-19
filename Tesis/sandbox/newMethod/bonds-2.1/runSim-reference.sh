@@ -1,5 +1,5 @@
 : '
-    Script that runs the assembly procotol once per cross link concentration and the shear protocol Nexp times.
+    Script that runs a set of simulations given parameters
 '
 
 #!/bin/bash
@@ -18,7 +18,6 @@ dt=0.001;
 steps_heat=500000; # Steps for the heating process
 steps_isot=8000000; # Steps for the percolation process 
 Nsave=100;           # Steps for temporal average of the fix files
-NsaveStress=2500;
 Ndump=1000;           # Save each Ndump steps info of dump file
 
 # Volume of the particles
@@ -37,7 +36,40 @@ L_real=$(echo "scale=$cs; e( (1/3) * l($Vol_Tot) )" | bc -l );
 L=$(echo "scale=$cs; $L_real / 2" | bc);
 
 
-# Files names of the data
+## Loops of parameters
+for var_ccL in 0.05;
+do
+    # Assembly parameters
+    phi=0.5;
+    CL_con=$var_ccL;
+    N_particles=1000;
+
+    for var_shearRate in 0.01;
+    do
+    
+        # Shear parameters
+        shear_rate=$var_shearRate;
+        max_strain=8;
+        relaxTime1=1000000; # Relax time steps for the first period.
+        relaxTime2=1000000;
+        relaxTime3=1000000;
+
+        # Derive numeric parameters
+        NsaveStress=$(echo "scale=$cs; 1 / $dt" | bc); 
+        NsaveStress=2500;#${NsaveStress%.*};  # Steps for temporal average if the fix file for stress (Virial Stress)
+        Nstep_per_strain=$(echo "scale=$cs; $(echo "scale=$cs; 1 / $shear_rate" | bc) * $(echo "scale=$cs; 1 / $dt" | bc)" | bc) ;
+        Nstep_per_strain=${Nstep_per_strain%.*};    # Number of steps to deform 1 strain.
+        shear_it=$(( $max_strain * $Nstep_per_strain)); # Total number of steps to achive the max strain parameter.
+
+        for Nexp in $(seq 10);
+        do
+            # Seed for the langevin thermostat and initial positions
+            seed1=$((1234 + Nexp));     # MO positions
+            seed2=$((4321 + Nexp));     # CL positions
+            seed3=$((10 + Nexp));                   # Langevin thermostat
+
+            # Directory stuff
+            dir_name="$(date +%F-%H%M%S)-phi-${phi}-CLcon-${CL_con}-Part-${N_particles}-shear-${shear_rate}-Nexp-${Nexp}" ;
             files_name=(
                         "data_system_assembly.fixf"             # 1 
                         "data_stress_assembly.fixf"             # 2
@@ -51,50 +83,12 @@ L=$(echo "scale=$cs; $L_real / 2" | bc);
                         "data.firstShear"                       # 10
                         );
 
-## Loops of parameters
-for var_ccL in 0.05;
-do
+            # Create the directory in the sim directory with README.md file with parameters and .dat file
+            cd sim; 
+            mkdir ${dir_name}; cd ${dir_name}; mkdir imgs; mkdir traj;
 
-    # Assembly parameters
-    phi=0.5;
-    CL_con=$var_ccL;
-    N_particles=1000;
-    aux=$(echo "scale=0; $CL_con * $N_particles" | bc); aux=${aux%.*};
-
-    # Seed for the langevin thermostat and initial positions
-    seed1=$((1234 + aux));     # MO positions
-    seed2=$((4321 + aux));     # CL positions
-    seed3=$((10 + aux));       # Langevin thermostat
-
-    sys_dir_name="$(date +%F-%H%M%S)-phi-${phi}-CLcon-${CL_con}-Part-${N_particles}";
-
-    # Create the directory in the sim directory with README.md file with parameters and .dat file
-    cd sim; mkdir ${sys_dir_name}; cd ${dir_name}; mkdir traj;
-
-    # Run the assembly protocol
-    log_name="log-assembly-$(date +%H%M%S-%F).lammps"
-    env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in ../in.assembly.lmp -log $log_name -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3  -var tstep $dt -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var steps $steps_isot -var stepsheat $steps_heat -var Dir $sys_dir_name -var file1_name ${files_name[0]} -var file2_name ${files_name[1]} -var file3_name ${files_name[2]} -var file4_name ${files_name[3]} -var file5_name ${files_name[4]}
-
-    for var_shearRate in 0.01;
-    do
-        
-        # Shear parameters
-        shear_rate=$var_shearRate;
-        max_strain=8;
-        relaxTime1=1000000; # Relax time steps for the first period.
-        relaxTime2=1000000;
-        relaxTime3=1000000;
-
-        # Derive numeric parameters
-        Nstep_per_strain=$(echo "scale=$cs; $(echo "scale=$cs; 1 / $shear_rate" | bc) * $(echo "scale=$cs; 1 / $dt" | bc)" | bc) ;
-        Nstep_per_strain=${Nstep_per_strain%.*};    # Number of steps to deform 1 strain.
-        shear_it=$(( $max_strain * $Nstep_per_strain)); # Total number of steps to achive the max strain parameter.
-
-        shear_dir_name="$(date +%F-%H%M%S)-shear-${shear_rate}";
-        mkdir ${shear_dir_name}; cd ${shear_dir_name};
-       
-        # Inside the experiment directory
-        # README.md
+            # Inside the experiment directory
+            # README.md
             file_name="README.md";
 
             touch $file_name;
@@ -231,27 +225,33 @@ do
             echo "$(IFS=,; echo "${headers[*]}")" > "$file_name"
             echo "$(IFS=,; echo "${values[*]}")" >> "$file_name"
 
-        for Nexp in $(seq 10);
-        do
-            seed3=$((seed3 + Nexp));       # Langevin thermostat
-
-            # Directory stuff
-            exp_dir_name="$(date +%F-%H%M%S)-Nexp-${Nexp}";
-            mkdir ${shear_dir_name}; cd ${shear_dir_name}; mkdir traj;
-            
-            # Run the shear protocol
-            log_name="log-shear-$(date +%H%M%S-%F).lammps";
-            env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in ../../..in.shear.lmp -var $log_name $log_name -var temp $T -var damp $damp -var tstep $dt -var shear_rate $shear_rate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var seed3 $seed3 -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var Dir $pwd -var file6_name ${files_name[5]} -var file7_name ${files_name[6]} -var file8_name ${files_name[7]} -var file9_name ${files_name[8]} -var file10_name ${files_name[9]};
-
+           
+            # Bash script for the simulation
             cd ..;
+
+            # Inside the "sim directory"
+            file_name="sim-$(date +%H%M%S-%F).sh";
+            log_name="log-$(date +%H%M%S-%F).lammps";
+            rm -f $file_name;
+            touch $file_name;
+            echo -e "#!/bin/bash" >> $file_name;
+            echo -e "" >> $file_name;
+            echo -e "env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.assembly.lmp -log $log_name -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3  -var tstep $dt -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var steps $steps_isot -var stepsheat $steps_heat -var Dir $dir_name -var file1_name ${files_name[0]} -var file2_name ${files_name[1]} -var file3_name ${files_name[2]} -var file4_name ${files_name[3]} -var file5_name ${files_name[4]}" >> $file_name;
+            echo -e "" >> $file_name;
+            echo -e "env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.shear.lmp -var logname $log_name -var temp $T -var damp $damp -var tstep $dt -var shear_rate $shear_rate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var seed3 $seed3 -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var Dir $dir_name -var file6_name ${files_name[5]} -var file7_name ${files_name[6]} -var file8_name ${files_name[7]} -var file9_name ${files_name[8]} -var file10_name ${files_name[9]}" >> $file_name;
+            echo -e "" >> $file_name;
+            echo -e "mv $log_name $dir_name/log.lammps" >> $file_name;
+            echo -e "mv sim* $dir_name" >> $file_name;
+            echo -e "mv $dir_name ../data;" >> $file_name;
+
+            bash $file_name;
+
+            cd ..; # Go to the general directory, such taht in we can go into sim directory in line 79
+
+            echo "Work directory: $(pwd)"
+            echo "Data directory: $dir_name"
+            echo "$(pwd)/$dir_name"
+
         done
-
-        cd ..;
     done
-
-        cd ..;
-        mv ${sys_dir_name} ../data;
-
-        cd ..; # Go to the general directory, such taht in we can go into sim directory in line 79
-
 done
