@@ -2,8 +2,6 @@
 
 # Fco. Vazquez and Felipe Benavides
 
-log ${logname} append
-
 units lj
 dimension 3
 boundary p p p
