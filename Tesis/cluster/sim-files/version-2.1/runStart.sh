@@ -99,7 +99,7 @@ do
         Nstep_per_strain=${Nstep_per_strain%.*};    # Number of steps to deform 1 strain.
         shear_it=$(( $max_strain * $Nstep_per_strain)); # Total number of steps to achive the max strain parameter.
 
-        shear_dir_name="$(date +%F-%H%M%S)-shear-${shear_rate}";
+        shear_dir="$(date +%F-%H%M%S)-shear-${shear_rate}";
         cd ${dir_home};
         mkdir "$sys_dir/$shear_dir";
         cd "$sys_dir/$shear_dir";
@@ -247,16 +247,20 @@ do
             seed3=$((seed3 + Nexp));       # Langevin thermostat
 
             # Directory stuff
-            exp_dir_name="Nexp-${Nexp}";
-            full_path="$dir_home/sim/$sys_dir_name/$shear_dir_name/$exp_dir_name";
-            
-            cd "$dir_home/sim/$sys_dir_name/$shear_dir_name";
-            mkdir ${exp_dir_name}; 
-            cd $full_path;
-            mkdir traj;
+            exp_dir="Nexp-${Nexp}";
+          
+            # Create the directory in the data directory
+            cd $dir_home; 
+            mkdir "$dir_data/$sys_dir/$shear_dir/$exp_dir";
+            mkdir "$dir_data/$sys_dir/$shear_dir/$exp_dir/traj";
                         # Run the shear protocol
-            log_name="log-shear.lammps";
+            log_name="log-shear-Nexp-${Nexp}.lammps";
             cd "$dir_home/sim";
+            
+            file_name="sim-${shear_dir}-${exp_dir}.sge";
+            touch $file_name;
+            echo 
+
             env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.shear.lmp -log $log_name -var dirSys $sys_dir_name -var temp $T -var damp $damp -var tstep $dt -var shear_rate $shear_rate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var seed3 $seed3 -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var Dir $full_path -var file6_name ${files_name[5]} -var file7_name ${files_name[6]} -var file8_name ${files_name[7]} -var file9_name ${files_name[8]} -var file10_name ${files_name[9]};
            
             echo -e "Fin de un experimento de Shear\n"
