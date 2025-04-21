@@ -11,7 +11,7 @@ dir_data="$dir_home/data";
 echo $dir_home;
 
 # Clean the simulation directory from previus simulations
-rm "$dir_home/sim/*.sge";
+rm -f "$dir_home/sim/*.sge";
 
 # Significant decimals
 cs=6;
@@ -78,7 +78,7 @@ do
     sys_dir="$dir_data/$(date +%F-%H%M%S)-phi-${phi}-CLcon-${CL_con}-Part-${N_particles}";
 
     # Create the directory in the sim directory with README.md file with parameters and .dat file
-    mkdir "data/$sys_dir"; mkdir "data/$sys_dir/traj";
+    mkdir "$sys_dir/data"; mkdir "$sys_dir/data/traj";
 
     # Run the assembly protocol
     cd "$dir_home/sim";
