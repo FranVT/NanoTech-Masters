@@ -78,7 +78,7 @@ do
     sys_dir="$dir_data/$(date +%F-%H%M%S)-phi-${phi}-CLcon-${CL_con}-Part-${N_particles}";
 
     # Create the directory in the sim directory with README.md file with parameters and .dat file
-    mkdir "$sys_dir/data"; mkdir "$sys_dir/data/traj";
+    mkdir "$sys_dir"; mkdir "$sys_dir/traj";
 
     # Run the assembly protocol
     cd "$dir_home/sim";
