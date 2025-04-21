@@ -297,6 +297,8 @@ do
             echo -e "mv $file_name.o* $final_dir;" >> $file_name;
             echo -e "Fin de un experimento de Shear\n"
 
+            qsub $file_name;
+            sleep 2;
         done
         
     done
