@@ -17,7 +17,7 @@ rm -f "$dir_home/sim/*.sge";
 cs=6;
 
 # General parameters
-nodes=8;                    # CPU nodes for omp variable
+nodes=4;                    # CPU nodes for omp variable
 
 damp=1;
 T=0.05;
