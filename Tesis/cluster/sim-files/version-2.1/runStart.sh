@@ -4,11 +4,14 @@
 
 #!/bin/bash
 
-# Directories
+# Main Directories
 dir_home=$(pwd);
 dir_data="$dir_home/data";
 
 echo $dir_home;
+
+# Clean the simulation directory from previus simulations
+rm "$dir_home/sim/*.sge";
 
 # Significant decimals
 cs=6;
@@ -248,21 +251,50 @@ do
 
             # Directory stuff
             exp_dir="Nexp-${Nexp}";
-          
+            final_dir="$dir_data/$sys_dir/$shear_dir/$exp_dir";
+
             # Create the directory in the data directory
             cd $dir_home; 
             mkdir "$dir_data/$sys_dir/$shear_dir/$exp_dir";
             mkdir "$dir_data/$sys_dir/$shear_dir/$exp_dir/traj";
-                        # Run the shear protocol
+            
             log_name="log-shear-Nexp-${Nexp}.lammps";
             cd "$dir_home/sim";
             
             file_name="sim-${shear_dir}-${exp_dir}.sge";
             touch $file_name;
-            echo 
-
-            env OMP_RUN_THREADS=1 mpirun -np ${nodes} lmp -sf omp -in in.shear.lmp -log $log_name -var dirSys $sys_dir_name -var temp $T -var damp $damp -var tstep $dt -var shear_rate $shear_rate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var seed3 $seed3 -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var Dir $full_path -var file6_name ${files_name[5]} -var file7_name ${files_name[6]} -var file8_name ${files_name[7]} -var file9_name ${files_name[8]} -var file10_name ${files_name[9]};
-           
+            echo -e "#!/bin/bash" >> $file_name;
+            echo -e "# Use current working directory" >> $file_name;
+            echo -e "#$ -cwd" >> $file_name;
+            echo -e "#" >> $file_name;
+            echo -e "# Join stdout and stderr" >> $file_name;
+            echo -e "#$ -j yes" >> $file_name;
+            echo -e "#" >> $file_name;
+            echo -e "# Run job through bash shell" >> $file_name;
+            echo -e "#$ -S /bin/bash" >> $file_name;
+            echo -e "# " >> $file_name;
+            echo -e "# Set the number of nodes for parallel computation" >> $file_name;
+            echo -e "#$ -pe mpich ${nodes}" >> $file_name;
+            echo -e "# " >> $file_name;
+            echo -e "# Job name" >> $file_name;
+            echo -e "# -N Experiment_tries" >> $file_name;
+            echo -e "# " >> $file_name;
+            echo -e "# Send an email after the job has finished" >> $file_name;
+            echo -e "# -m e" >> $file_name;
+            echo -e "# -M vazqueztf@proton.me" >> $file_name;
+            echo -e "# " >> $file_name;
+            echo -e "# Modules needed" >> $file_name;
+            echo -e ". /etc/profile.d/modules.sh" >> $file_name;
+            echo -e "# " >> $file_name;
+            echo -e "# Add modules that you might require:" >> $file_name;
+            echo -e "module load python37/3.7.6;" >> $file_name;
+            echo -e "module load gcc/10.2.0;" >> $file_name;
+            echo -e "module load openmpi/gcc/64/1.10.1;" >> $file_name;
+            echo -e "" >> $file_name;
+            echo -e "/mnt/MD1200A/cferreiro/fvazquez/mylammps/src/lmp_serial -in in.shear.lmp -var logname $log_name -var temp $T -var damp $damp -var tstep $dt -var shear_rate $shear_rate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var seed3 $seed3 -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var Dir $final_dir -var file6_name ${files_name[5]} -var file7_name ${files_name[6]} -var file8_name ${files_name[7]} -var file9_name ${files_name[8]} -var file10_name ${files_name[9]};" >> $file_name;
+            echo -e "mv $log_name $final_dir;" >> $file_name;
+            echo -e "mv $file_name.po* $final_dir;" >> $file_name; 
+            echo -e "mv $file_name.o* $final_dir;" >> $file_name;
             echo -e "Fin de un experimento de Shear\n"
 
         done
@@ -272,10 +304,4 @@ do
         cd $dir_home; # Go to the general directory, such that in we can go into sim directory in line 79
 
 done
-
-cd "$dir_home/sim";
-mv log* "$dir_home/sim/$sys_dir_name";
-cd ..;
-mv "$dir_home/sim/$sys_dir_name" "$dir_home/data";
-
 
