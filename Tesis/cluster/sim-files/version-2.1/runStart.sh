@@ -21,15 +21,15 @@ nodes=8;                    # CPU nodes for omp variable
 
 damp=1;
 T=0.05;
-N_particles=1000;
+N_particles=10;
 
 # Numeric parameters
 dt=0.001;
-steps_heat=500000; # Steps for the heating process
-steps_isot=8000000; # Steps for the percolation process 
-Nsave=1000;           # Steps for temporal average of the fix files
-NsaveStress=2500;
-Ndump=100;           # Save each Ndump steps info of dump file
+steps_heat=5; # Steps for the heating process
+steps_isot=8; # Steps for the percolation process 
+Nsave=1;           # Steps for temporal average of the fix files
+NsaveStress=2;
+Ndump=1;           # Save each Ndump steps info of dump file
 
 # Volume of the particles
 Vol_MO1=4.49789;
@@ -75,15 +75,15 @@ do
     seed2=$((4321 + aux));     # CL positions
     seed3=$((10 + aux));       # Langevin thermostat
 
-    sys_dir="$dir_data/$(date +%F-%H%M%S)-phi-${phi}-CLcon-${CL_con}-Part-${N_particles}";
+    sys_dir="$(date +%F-%H%M%S)-phi-${phi}-CLcon-${CL_con}-Part-${N_particles}";
 
     # Create the directory in the sim directory with README.md file with parameters and .dat file
-    mkdir "$sys_dir"; mkdir "$sys_dir/traj";
+    mkdir "$dir_data/$sys_dir"; mkdir "$dir_data/$sys_dir/traj";
 
     # Run the assembly protocol
     cd "$dir_home/sim";
     log_name="log-assembly-$(date +%H%M%S-%F).lammps";
-    /mnt/MD1200A/cferreiro/fvazquez/mylammps/src/lmp_serial -in in.assembly.lmp -log $log_name -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3  -var tstep $dt -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var steps $steps_isot -var stepsheat $steps_heat -var Dir $sys_dir -var file1_name ${files_name[0]} -var file2_name ${files_name[1]} -var file3_name ${files_name[2]} -var file4_name ${files_name[3]} -var file5_name ${files_name[4]};
+    /mnt/MD1200A/cferreiro/fvazquez/mylammps/src/lmp_serial -in in.assembly.lmp -log $log_name -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3  -var tstep $dt -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var steps $steps_isot -var stepsheat $steps_heat -var Dir "$dir_data/$sys_dir" -var file1_name ${files_name[0]} -var file2_name ${files_name[1]} -var file3_name ${files_name[2]} -var file4_name ${files_name[3]} -var file5_name ${files_name[4]};
 
     mv $log_name $sys_dir;
 
@@ -92,10 +92,10 @@ do
         
         # Shear parameters
         shear_rate=$var_shearRate;
-        max_strain=8;
-        relaxTime1=1000000; # Relax time steps for the first period.
-        relaxTime2=1000000;
-        relaxTime3=1000000;
+        max_strain=1;
+        relaxTime1=1; # Relax time steps for the first period.
+        relaxTime2=1;
+        relaxTime3=1;
 
         # Derive numeric parameters
         Nstep_per_strain=$(echo "scale=$cs; $(echo "scale=$cs; 1 / $shear_rate" | bc) * $(echo "scale=$cs; 1 / $dt" | bc)" | bc) ;
@@ -104,8 +104,8 @@ do
 
         shear_dir="$(date +%F-%H%M%S)-shear-${shear_rate}";
         cd ${dir_home};
-        mkdir "$sys_dir/$shear_dir";
-        cd "$sys_dir/$shear_dir";
+        mkdir "$dir_data/$sys_dir/$shear_dir";
+        cd "$dir_data/$sys_dir/$shear_dir";
       
         # Inside the experiment directory
         # README.md
