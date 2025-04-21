@@ -87,7 +87,7 @@ do
 
     mv $log_name $sys_dir;
 
-    for var_shearRate in 0.001;
+    for var_shearRate in 1;
     do
         
         # Shear parameters
