@@ -10,6 +10,8 @@ source ./load_parameters.sh parameters.txt
 CL_con=$1
 shear_rate=$2
 dir_name=$3
+Vol_Tot=$4
+L=$5
 
 # Create README file
 
@@ -150,6 +152,4 @@ dir_name=$3
             # Write headers and values to the file
             echo "$(IFS=,; echo "${headers[*]}")" > "$file_name"
             echo "$(IFS=,; echo "${values[*]}")" >> "$file_name"
-
-
 

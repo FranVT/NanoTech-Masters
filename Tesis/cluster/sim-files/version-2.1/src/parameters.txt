@@ -20,3 +20,7 @@ max_strain=1
 relaxTime1=1
 relaxTime2=1
 relaxTime3=1
+dgamma_o=1
+dgamma_f=1
+dgamma_d=0
+Nexp=3
