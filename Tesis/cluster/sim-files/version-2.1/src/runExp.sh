@@ -8,5 +8,6 @@ chmod +x load_parameters.sh
 source ./load_parameters.sh parameters.txt
 
 echo "Number of particles in the simulation: $N_particles"
-echo "Files names: ${files_name[3]}"
+echo "Files names: ${files_name[0]}"
+echo "All files names: ${files_name[@]}"
 

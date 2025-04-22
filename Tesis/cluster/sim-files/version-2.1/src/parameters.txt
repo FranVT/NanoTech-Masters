@@ -14,18 +14,7 @@ NsaveStress=2
 Ndump=1
 Vol_MO1=4.49789
 Vol_CL1=4.80538
-files_name=(
-    "data_system_assembly.fixf"             
-    "data_stress_assembly.fixf"             
-    "data_clustP_assembly.dumpf"            
-    "traj_assembly.*.dumpf"                 
-    "data.hydrogel"                         
-    "data_system_shear.fixf"                
-    "data_stress_shear.fixf"                
-    "data_clustP_shear.fixf"                
-    "traj_shear.*.dumpf"                    
-    "data.firstShear"                       
-);
+files_name=("data_system_assembly.fixf" "data_stress_assembly.fixf" "data_clustP_assembly.dumpf" "traj_assembly.*.dumpf" "data.hydrogel" "data_system_shear.fixf" "data_stress_shear.fixf" "data_clustP_shear.fixf" "traj_shear.*.dumpf" "data.firstShear")
 phi=0.5
 max_strain=1
 relaxTime1=1
