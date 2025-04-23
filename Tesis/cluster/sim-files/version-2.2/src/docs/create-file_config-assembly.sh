@@ -19,7 +19,7 @@ chmod +x $dir_src/docs/load_parameters.sh
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters
 
 # Define variables
-N_CL=$(echo "scale=0; $CL_con * $N_particles" | bc);
+N_CL=$(echo "scale=0; $cl_con * $N_particles" | bc);
 N_CL=${N_CL%.*};
 N_MO=$(( $N_particles - $N_CL ));
 Vol_MO=$(echo "scale=$cs; $Vol_MO1 * $N_MO" | bc);         # Vol of N f=2 patchy particles
