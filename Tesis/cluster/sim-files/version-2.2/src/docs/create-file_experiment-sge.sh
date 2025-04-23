@@ -15,6 +15,7 @@ cl_con=$6
 dir_system="$dir_data/system-$id-CL-$cl_con"
 # Create directory to save the simulation data
 mkdir $dir_system
+mkdir "$dir_system/traj"
 
 # Create the sge file for the numerical simulation
 filename="system-$id-CL$cl_con.sge"
@@ -81,8 +82,8 @@ do
     do
         echo $(pwd)
         echo "Before bash shear"
-        bash $dir_src/docs/create-file_shear-sge.sh $dir_home $dir_src $dir_sim $dir_data $id $cl_con $var_shearRate $N-exp
-        echo "qsub in the for loop of shear"
+        #bash $dir_src/docs/create-file_shear-sge.sh $dir_home $dir_src $dir_sim $dir_data $id $cl_con $var_shearRate $N-exp
+        #echo "qsub in the for loop of shear"
         #qsub system-$var_ccL.sge
     done
 done
