@@ -56,6 +56,9 @@ module load openmpi/gcc/64/1.10.1;
 # HERE CREATE THE CONFIG FILE for shear 
 bash $dir_src/docs/create-file_config-shear.sh $dir_home $dir_src $dir_sim $dir_data $id $shearRate $Nexp
 
+# CREATE README and DATA.DAT file
+bash $dir_src/docs/create-file_reference.sh $dir_home $dir_src $dir_sim $dir_data $id $shearRate $Nexp
+
 # Load the parameters file
 chmod +x $dir_src/docs/load_parameters.sh
 source $dir_src/docs/load_parameters.sh system.parameters 

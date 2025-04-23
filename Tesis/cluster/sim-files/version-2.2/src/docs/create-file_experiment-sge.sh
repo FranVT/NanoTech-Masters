@@ -4,12 +4,6 @@
 
 #!/bin/bash
 
-# Check if a filename is provided
-if [ $# -eq 0 ]; then
-    echo "Usage: $0 <new_script_name.sh>"
-    exit 1
-fi
-
 dir_home=$1
 dir_src=$2
 dir_sim=$3
@@ -17,15 +11,17 @@ dir_data=$4
 id=$5
 cl_con=$6
 
+# Directories
 dir_system="system-$id-CL$cl_con"
-filename="system-$id-CL$cl_con.sge"
-
 # Create directory to save the simulation data
 mkdir $dir_data/$dir_system
 
+# Create the sge file for the numerical simulation
+filename="system-$id-CL$cl_con.sge"
+
 # Create the new script with a template
-cat > "$NEW_SCRIPT" << 'EOF'
-# SGE script as a reference
+cat > "$filename" << 'EOF'
+# SGE file to run the assembly and create sge files for the shear simulations
 
 #!/bin/bash
 # Use current working directory
