@@ -61,11 +61,11 @@ bash $dir_src/docs/create-file_config-assembly.sh $dir_home $dir_src $dir_sim $d
 
 # Load the parameters file
 chmod +x $dir_src/docs/load_parameters.sh
-source $dir_src/docs/load_parameters.sh system.parameters 
+source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters 
 
 # Load the config file for assembly
 chmod +x $dir_src/docs/load_parameters.sh
-source $dir_src/docs/load_parameters.sh assembly$id-$cl_con.parameters
+source $dir_src/docs/load_parameters.sh $dir_src/docs/assembly$id-$cl_con.parameters
 
 # Run the assembly
 cd $dir_sim
