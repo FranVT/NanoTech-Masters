@@ -28,6 +28,6 @@ for var_ccL in 0.5;
 do
     # Run the assembly protocol and create necessary files
     bash $dir_src/docs/create-file_experiment-sge.sh $dir_home $dir_src $dir_sim $dir_data $id $var_ccL
-    #qsub system-$var_ccL.sge
+    qsub system-$var_ccL.sge
 done
 

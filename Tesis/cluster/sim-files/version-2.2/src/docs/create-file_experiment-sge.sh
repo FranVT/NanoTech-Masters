@@ -78,11 +78,11 @@ do
     for N-exp in $seq( $Nexp)
     do
         bash $dir_src/docs/create-file_shear-sge.sh $dir_home $dir_src $dir_sim $dir_data $id $cl_con $var_shearRate $N-exp
-        #qsub system-$var_ccL.sge
+        qsub system-$var_ccL.sge
     done
 done
 
 EOF
 
-# qsub $filename $dir_home $dir_src $dir_sim $dir_data $dir_system $id $var_ccL
+qsub $filename $dir_home $dir_src $dir_sim $dir_data $dir_system $id $var_ccL
 

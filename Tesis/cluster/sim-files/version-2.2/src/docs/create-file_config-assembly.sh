@@ -13,8 +13,8 @@ id=$5
 cl_con=$6
 
 # Load the parameter file for assembly
-chmod +x dir_src/docs/load_parameters.sh
-source dir_src/docs/load_parameters.sh system.parameters
+chmod +x $dir_src/docs/load_parameters.sh
+source $dir_src/docs/load_parameters.sh system.parameters
 
 # Define variables
 N_CL=$(echo "scale=0; $CL_con * $N_particles" | bc);
