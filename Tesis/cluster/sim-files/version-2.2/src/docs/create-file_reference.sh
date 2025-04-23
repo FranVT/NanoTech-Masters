@@ -16,7 +16,7 @@ Nexp=$9
 
 # Load the parameters file
 chmod +x $dir_src/docs/load_parameters.sh
-source $dir_src/docs/load_parameters.sh system.parameters
+source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters
 
 # Load the assembly config file
 source $dir_src/docs/load_parameters.sh assembly$id-$cl_con.parameters
