@@ -78,13 +78,13 @@ echo "Now in the docs directory from experiment-sge file"
 # Create the sge file to run the deformation simulations
 for var_shearRate in $(seq $dgamma_o $dgamma_d $dgamma_f);
 do
-    for N-exp in $(seq $Nexp)
+    for N in $(seq $Nexp)
     do
         echo $(pwd)
         echo "Before bash shear"
-        #bash $dir_src/docs/create-file_shear-sge.sh $dir_home $dir_src $dir_sim $dir_data $id $cl_con $var_shearRate $N-exp
+        bash $dir_src/docs/create-file_shear-sge.sh $dir_home $dir_src $dir_sim $dir_data $id $cl_con $var_shearRate $N
         #echo "qsub in the for loop of shear"
-        #qsub system-$var_ccL.sge
+        qsub system-$var_ccL.sge
     done
 done
 
