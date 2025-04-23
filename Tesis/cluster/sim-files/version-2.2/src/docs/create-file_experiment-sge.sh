@@ -57,14 +57,12 @@ id=$6
 cl_con=$7
 
 # HERE CREATE THE CONFIG FILE for assembly
-bash $dir_src/docs/create-file_config-assembly.sh $dir_home $dir_src $dir_sim $dir_data $id $var_ccL
+bash $dir_src/docs/create-file_config-assembly.sh $dir_home $dir_src $dir_sim $dir_data $id $cl_con
 
 # Load the parameters file
-chmod +x $dir_src/docs/load_parameters.sh
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters 
 
 # Load the config file for assembly
-chmod +x $dir_src/docs/load_parameters.sh
 source $dir_src/docs/load_parameters.sh $dir_src/docs/assembly$id-$cl_con.parameters
 
 # Run the assembly
@@ -84,5 +82,5 @@ done
 
 EOF
 
-qsub $filename $dir_home $dir_src $dir_sim $dir_data $dir_system $id $var_ccL
+qsub $filename $dir_home $dir_src $dir_sim $dir_data $dir_system $id $cl_con
 
