@@ -47,6 +47,8 @@ module load python37/3.7.6;
 module load gcc/10.2.0;
 module load openmpi/gcc/64/1.10.1;
 
+echo "Running the system.sge file"
+
 # Recieve the outer parameters
 dir_home=$1
 dir_src=$2
