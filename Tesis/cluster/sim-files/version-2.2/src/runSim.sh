@@ -14,8 +14,8 @@ dir_data="$dir_home/data";
 # Id for the filenames and directories for simulations
 id=$(date +%F-%H%M);
 
-# Clean the simulation directory from previus simulations
-rm -f "$dir_sim/*.sge";
+# Clean the source directory from previus simulations
+rm -f "$dir_src/docs/*.sge";
 
 # Go to source directory
 cd $dir_src;

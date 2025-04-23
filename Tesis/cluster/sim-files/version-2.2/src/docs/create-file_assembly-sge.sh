@@ -16,7 +16,7 @@ dir_sim=$3
 dir_data=$4
 id=$5
 cl_con=$6
-filename="system-CL$cl_con"
+filename="system-CL$cl_con.sge"
 
 
 
@@ -62,12 +62,9 @@ source path/load_parameters.sh config-assembly.txt
 # Run the assembly
 /mnt/MD1200A/cferreiro/fvazquez/mylammps/src/lmp_serial -in in.assembly.lmp -log $log_name -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3  -var tstep $dt -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var steps $steps_isot -var stepsheat $steps_heat -var Dir "$dir_data/$sys_dir" -var file1_name ${files_name[0]} -var file2_name ${files_name[1]} -var file3_name ${files_name[2]} -var file4_name ${files_name[3]} -var file5_name ${files_name[4]};
 
-
-
 EOF
 
-# Make the new script executable
-#chmod +x "$NEW_SCRIPT"
+# qsub $filename $dir_home $dir_src $dir_sim $dir_data $id $var_ccL
 
 
 

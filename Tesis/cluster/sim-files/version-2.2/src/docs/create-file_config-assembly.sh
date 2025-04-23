@@ -5,23 +5,48 @@
 
 #!/bin/bash
 
-# Load the parameters
+dir_home=$1
+dir_src=$2
+dir_sim=$3
+dir_data=$4
+id=$5
+cl_con=$6
 
-# Define variables (customize these as needed)
-variable_name1="value1"
-variable_name2="value2"
-variable_name3="value3"
-variable_nameN="valueN"
+# Load the config file for assembly
+chmod +x path/load_parameters.sh
+source path/load_parameters.sh config-assembly.txt
+
+# Define variables
+N_CL=$(echo "scale=0; $CL_con * $N_particles" | bc);
+N_CL=${N_CL%.*};
+N_MO=$(( $N_particles - $N_CL ));
+Vol_MO=$(echo "scale=$cs; $Vol_MO1 * $N_MO" | bc);         # Vol of N f=2 patchy particles
+Vol_CL=$(echo "scale=$cs; $Vol_CL1 * $N_CL" | bc);          # Vol of N f=4 patchy particles 
+Vol_Totg=$(echo "scale=$cs; $Vol_MO + $Vol_CL" | bc);       # Total volume of a mixture of N f=2 and M f=4 patchy particles
+Vol_Tot=$(echo "scale=$cs; $Vol_Totg / $phi" | bc);
+L_real=$(echo "scale=$cs; e( (1/3) * l($Vol_Tot) )" | bc -l );
+L=$(echo "scale=$cs; $L_real / 2" | bc);
+
+aux=$(echo "scale=0; $CL_con * $N_particles" | bc); aux=${aux%.*};
+
+# Seed for the langevin thermostat and initial positions
+seed1=$((1234 + aux));     # MO positions
+seed2=$((4321 + aux));     # CL positions
+seed3=$((10 + aux));       # Langevin thermostat
 
 # Define the output parameters file (default: parameters.config)
-OUTPUT_FILE="${1:-parameters.config}"
+OUTPUT_FILE="${1:-assembly.config}"
 
 # List of variable names to include in the parameters file
 VAR_NAMES=(
-  "variable_name1"
-  "variable_name2"
-  "variable_name3"
-  "variable_nameN"
+  "N_CL"
+  "Vol_MO"
+  "Vol_CL"
+  "Vol_Totg"
+  "L"
+  "seed1"
+  "seed2"
+  "seed3"
 )
 
 # Create or overwrite the parameters file
