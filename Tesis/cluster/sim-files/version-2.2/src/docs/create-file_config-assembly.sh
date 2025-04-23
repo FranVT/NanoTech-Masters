@@ -35,7 +35,7 @@ seed2=$((4321 + aux));     # CL positions
 seed3=$((10 + aux));       # Langevin thermostat
 
 # Directory to save the data. Make it available for the sge script
-dir_system="system-$id-CL-$cl_con"
+dir_system="$dir_data/system-$id-CL-$cl_con"
 
 # Define the output parameters file (default: parameters.config)
 OUTPUT_FILE="${1:-assembly$id-$cl_con.parameters}"

@@ -68,11 +68,14 @@ headers=()
 values=()
 
 # Populate headers and values arrays
-headers+=("date")
-values+=("$(date +%F-%H%M%S)")
+headers+=("id")
+values+=("${id}")
 
-headers+=("main-directory")
-values+=("${dir_name}")
+headers+=("data-directory")
+values+=("${dir_data}")
+
+headers+=("shear-directory")
+values+=("${dir_shear}")
 
 headers+=("states-dir")
 values+=("traj")
@@ -163,4 +166,7 @@ values+=("${NsaveStress}")
 # Write headers and values to the file
 echo "$(IFS=,; echo "${headers[*]}")" > "$file_name"
 echo "$(IFS=,; echo "${values[*]}")" >> "$file_name"
+
+mv "README.md" $dir_shear
+mv "data.dat" $dir_shear
 
