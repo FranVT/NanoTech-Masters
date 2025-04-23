@@ -77,7 +77,7 @@ done
 
 EOF
 
-# qsub $filename $dir_home $dir_src $dir_sim $dir_data $id $var_ccL
+# qsub $filename $dir_home $dir_src $dir_sim $dir_data $dir_system $id $var_ccL
 
 
 
