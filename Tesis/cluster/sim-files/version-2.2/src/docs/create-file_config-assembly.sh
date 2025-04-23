@@ -39,8 +39,10 @@ seed3=$((10 + aux));       # Langevin thermostat
 # Directory to save the data. Make it available for the sge script
 dir_system="$dir_data/system-$id-CL-$cl_con"
 
+echo "Start writting the assembly config file"
+
 # Define the output parameters file (default: parameters.config)
-OUTPUT_FILE="${1:-assembly$id-$cl_con.parameters}"
+OUTPUT_FILE="assembly$id-$cl_con.parameters"
 
 # List of variable names to include in the parameters file
 VAR_NAMES=(
