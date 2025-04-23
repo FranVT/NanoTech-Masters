@@ -15,7 +15,7 @@ Nexp=$8
 
 # Load the parameter file for assembly
 chmod +x dir_src/docs/load_parameters.sh
-source dir_src/docs/load_parameters.sh system.parameters
+source dir_src/docs/load_parameters.sh dir_src/docs/system.parameters
 
 Nstep_per_strain=$(echo "scale=$cs; $(echo "scale=$cs; 1 / $var_shearRate" | bc) * $(echo "scale=$cs; 1 / $dt" | bc)" | bc) ;
 Nstep_per_strain=${Nstep_per_strain%.*};    # Number of steps to deform 1 strain.

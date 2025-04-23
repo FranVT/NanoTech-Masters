@@ -5,6 +5,8 @@
 
 #!/bin/bash
 
+echo "Running the create config assembly"
+
 dir_home=$1
 dir_src=$2
 dir_sim=$3
@@ -14,7 +16,7 @@ cl_con=$6
 
 # Load the parameter file for assembly
 chmod +x $dir_src/docs/load_parameters.sh
-source $dir_src/docs/load_parameters.sh system.parameters
+source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters
 
 # Define variables
 N_CL=$(echo "scale=0; $CL_con * $N_particles" | bc);
