@@ -28,8 +28,8 @@ source docs/load_parameters.sh parameters.txt
 for var_ccL in 0.5;
 do
 
-    bash $dir_src/create-file_assembly-sge.sh $var_ccL
-    #qsub assembly-$var_ccL.sge
+    bash $dir_src/create-file_experiment-sge.sh $dir_home $dir_src $dir_sim $dir_data $id $var_ccL
+    #qsub system-$var_ccL.sge
 
 done
 
