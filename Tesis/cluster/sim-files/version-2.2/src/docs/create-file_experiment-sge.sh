@@ -85,7 +85,7 @@ do
     do
         bash $dir_src/docs/create-file_shear-sge.sh $dir_home $dir_src $dir_sim $dir_data $id $cl_con $var_shearRate $N-exp
         echo "qsub in the for loop of shear"
-        qsub system-$var_ccL.sge
+        #qsub system-$var_ccL.sge
     done
 done
 

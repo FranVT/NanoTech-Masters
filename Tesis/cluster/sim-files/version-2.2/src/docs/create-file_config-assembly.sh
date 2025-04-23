@@ -46,6 +46,7 @@ OUTPUT_FILE="assembly$id-$cl_con.parameters"
 # List of variable names to include in the parameters file
 VAR_NAMES=(
   "N_CL"
+  "N_MO"
   "Vol_MO"
   "Vol_CL"
   "Vol_Totg"
