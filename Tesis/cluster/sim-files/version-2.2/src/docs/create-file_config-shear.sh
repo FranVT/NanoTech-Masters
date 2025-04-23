@@ -46,3 +46,5 @@ for var in "${VAR_NAMES[@]}"; do
 done
 
 echo "Parameters file generated: $OUTPUT_FILE"
+
+mv $OUTPUT_FILE "$dir_src/docs"
