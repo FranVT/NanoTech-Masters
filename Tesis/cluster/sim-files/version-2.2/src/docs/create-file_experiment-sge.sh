@@ -12,9 +12,9 @@ id=$5
 cl_con=$6
 
 # Directories
-dir_system="system-$id-CL$cl_con"
+dir_system="$dir_data/system-$id-CL$cl_con"
 # Create directory to save the simulation data
-mkdir $dir_data/$dir_system
+mkdir $dir_system
 
 # Create the sge file for the numerical simulation
 filename="system-$id-CL$cl_con.sge"
@@ -68,8 +68,10 @@ chmod +x $dir_src/docs/load_parameters.sh
 source $dir_src/docs/load_parameters.sh assembly$id-$cl_con.parameters
 
 # Run the assembly
+cd $dir_sim
 /mnt/MD1200A/cferreiro/fvazquez/mylammps/src/lmp_serial -in in.assembly.lmp -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3  -var tstep $dt -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var steps $steps_isot -var stepsheat $steps_heat -var Dir "$dir_system" -var file1_name ${files_name[0]} -var file2_name ${files_name[1]} -var file3_name ${files_name[2]} -var file4_name ${files_name[3]} -var file5_name ${files_name[4]};
 
+cd $dir_src/docs
 # Create the sge file to run the deformation simulations
 for var_shearRate in $(seq $dgamma_o $dgamma_d $dgamma_f);
 do
