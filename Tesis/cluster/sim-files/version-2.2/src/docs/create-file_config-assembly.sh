@@ -15,8 +15,9 @@ id=$5
 cl_con=$6
 
 # Load the parameter file for assembly
-chmod +x $dir_src/docs/load_parameters.sh
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters
+
+echo "Parameters loaded in config assembly script"
 
 # Define variables
 N_CL=$(echo "scale=0; $cl_con * $N_particles" | bc);
@@ -29,12 +30,10 @@ Vol_Tot=$(echo "scale=$cs; $Vol_Totg / $phi" | bc);
 L_real=$(echo "scale=$cs; e( (1/3) * l($Vol_Tot) )" | bc -l );
 L=$(echo "scale=$cs; $L_real / 2" | bc);
 
-aux=$(echo "scale=0; $CL_con * $N_particles" | bc); aux=${aux%.*};
-
 # Seed for the langevin thermostat and initial positions
-seed1=$((1234 + aux));     # MO positions
-seed2=$((4321 + aux));     # CL positions
-seed3=$((10 + aux));       # Langevin thermostat
+seed1=$((1234 + $N_CL));     # MO positions
+seed2=$((4321 + $N_CL));     # CL positions
+seed3=$((10 + $N_CL));       # Langevin thermostat
 
 # Directory to save the data. Make it available for the sge script
 dir_system="$dir_data/system-$id-CL-$cl_con"
