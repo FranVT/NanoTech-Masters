@@ -20,39 +20,12 @@ rm -f "$dir_src/docs/*.sge";
 # Go to source directory
 cd $dir_src;
 
-# Get the parameters from the parameter file
-chmod +x docs/load_parameters.sh
-source docs/load_parameters.sh parameters.txt
-
 ## Loops of parameters
 for var_ccL in 0.5;
 do
 
-    bash $dir_src/create-file_experiment-sge.sh $dir_home $dir_src $dir_sim $dir_data $id $var_ccL
+    bash $dir_src/docs/create-file_experiment-sge.sh $dir_home $dir_src $dir_sim $dir_data $id $var_ccL
     #qsub system-$var_ccL.sge
-
-done
-
-
-
-
-
-
-
-
-
-
-
-
-## Loops of parameters
-for var_ccL in 0.5;
-do
-
-    # Assembly parameters
-    CL_con=$var_ccL;
-    # Create the sge file 
-    bash create_sge-file.sh filenname.sge
-        cd $dir_home; # Go to the general directory, such that in we can go into sim directory in line 79
 
 done
 

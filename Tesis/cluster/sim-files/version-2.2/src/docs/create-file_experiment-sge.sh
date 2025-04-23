@@ -16,9 +16,12 @@ dir_sim=$3
 dir_data=$4
 id=$5
 cl_con=$6
-filename="system-CL$cl_con.sge"
 
+dir_system="system-$id-CL$cl_con"
+filename="system-$id-CL$cl_con.sge"
 
+# Create directory to save the simulation data
+mkdir $dir_data/$dir_system
 
 # Create the new script with a template
 cat > "$NEW_SCRIPT" << 'EOF'
@@ -38,11 +41,7 @@ cat > "$NEW_SCRIPT" << 'EOF'
 #$ -pe mpich ${nodes}
 #
 # Job name
-# -N Experiment_tries
-#
-# Send an email after the job has finished
-# -m e
-# -M vazqueztf@proton.me
+# -N experiment
 #
 # Modules needed
 . /etc/profile.d/modules.sh
@@ -55,12 +54,16 @@ module load openmpi/gcc/64/1.10.1;
 # HERE CREATE THE CONFIG FILE for assembly
 bash $dir_src/docs/create-file_config-assembly.sh $dir_home $dir_src $dir_sim $dir_data $id $var_ccL
 
+# Load the parameters file
+chmod +x $dir_src/docs/load_parameters.sh
+source $dir_src/docs/load_parameters.sh system.parameters 
+
 # Load the config file for assembly
-chmod +x path/load_parameters.sh
-source path/load_parameters.sh config-assembly.txt
+chmod +x $dir_src/docs/load_parameters.sh
+source $dir_src/docs/load_parameters.sh assembly$id.parameters
 
 # Run the assembly
-/mnt/MD1200A/cferreiro/fvazquez/mylammps/src/lmp_serial -in in.assembly.lmp -log $log_name -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3  -var tstep $dt -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var steps $steps_isot -var stepsheat $steps_heat -var Dir "$dir_data/$sys_dir" -var file1_name ${files_name[0]} -var file2_name ${files_name[1]} -var file3_name ${files_name[2]} -var file4_name ${files_name[3]} -var file5_name ${files_name[4]};
+/mnt/MD1200A/cferreiro/fvazquez/mylammps/src/lmp_serial -in in.assembly.lmp -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3  -var tstep $dt -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var steps $steps_isot -var stepsheat $steps_heat -var Dir "$dir_system" -var file1_name ${files_name[0]} -var file2_name ${files_name[1]} -var file3_name ${files_name[2]} -var file4_name ${files_name[3]} -var file5_name ${files_name[4]};
 
 EOF
 

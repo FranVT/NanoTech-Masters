@@ -12,9 +12,9 @@ dir_data=$4
 id=$5
 cl_con=$6
 
-# Load the config file for assembly
-chmod +x path/load_parameters.sh
-source path/load_parameters.sh config-assembly.txt
+# Load the parameter file for assembly
+chmod +x dir_src/docs/load_parameters.sh
+source dir_src/docs/load_parameters.sh system.parameters
 
 # Define variables
 N_CL=$(echo "scale=0; $CL_con * $N_particles" | bc);
@@ -34,8 +34,11 @@ seed1=$((1234 + aux));     # MO positions
 seed2=$((4321 + aux));     # CL positions
 seed3=$((10 + aux));       # Langevin thermostat
 
+# Directory to save the data
+dir_system="system-$id-CL-$cl_con"
+
 # Define the output parameters file (default: parameters.config)
-OUTPUT_FILE="${1:-assembly.config}"
+OUTPUT_FILE="${1:-assembly$id.parameters}"
 
 # List of variable names to include in the parameters file
 VAR_NAMES=(
@@ -47,6 +50,7 @@ VAR_NAMES=(
   "seed1"
   "seed2"
   "seed3"
+  "dir_system"
 )
 
 # Create or overwrite the parameters file
