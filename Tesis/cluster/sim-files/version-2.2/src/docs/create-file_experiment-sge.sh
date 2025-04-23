@@ -12,7 +12,7 @@ id=$5
 cl_con=$6
 
 # Directories
-dir_system="$dir_data/system-$id-CL$cl_con"
+dir_system="$dir_data/system-$id-CL-$cl_con"
 # Create directory to save the simulation data
 mkdir $dir_system
 
@@ -59,7 +59,7 @@ id=$6
 cl_con=$7
 
 # HERE CREATE THE CONFIG FILE for assembly
-bash $dir_src/docs/create-file_config-assembly.sh $dir_home $dir_src $dir_sim $dir_data $id $cl_con
+bash $dir_src/docs/create-file_config-assembly.sh $dir_home $dir_src $dir_sim $dir_data $dir_system $id $cl_con
 
 # Load the parameters file
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters 
@@ -67,13 +67,9 @@ source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters
 # Load the config file for assembly
 source $dir_src/docs/load_parameters.sh $dir_src/docs/assembly$id-$cl_con.parameters
 
-echo "Seed1: $seed1"
-echo "Seed2: $seed2"
-echo "Seed3: $seed3"
-
 # Run the assembly
 cd $dir_sim
-/mnt/MD1200A/cferreiro/fvazquez/mylammps/src/lmp_serial -in in.assembly.lmp -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 1 -var seed2 2 -var seed3 3  -var tstep $dt -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var steps $steps_isot -var stepsheat $steps_heat -var Dir "$dir_system" -var file1_name ${files_name[0]} -var file2_name ${files_name[1]} -var file3_name ${files_name[2]} -var file4_name ${files_name[3]} -var file5_name ${files_name[4]};
+/mnt/MD1200A/cferreiro/fvazquez/mylammps/src/lmp_serial -in in.assembly.lmp -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3 -var tstep $dt -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var steps $steps_isot -var stepsheat $steps_heat -var Dir "$dir_system" -var file1_name ${files_name[0]} -var file2_name ${files_name[1]} -var file3_name ${files_name[2]} -var file4_name ${files_name[3]} -var file5_name ${files_name[4]};
 
 cd $dir_src/docs
 echo "Now in the docs directory from experiment-sge file"
@@ -83,6 +79,8 @@ for var_shearRate in $(seq $dgamma_o $dgamma_d $dgamma_f);
 do
     for N-exp in $(seq $Nexp)
     do
+        echo $(pwd)
+        echo "Before bash shear"
         bash $dir_src/docs/create-file_shear-sge.sh $dir_home $dir_src $dir_sim $dir_data $id $cl_con $var_shearRate $N-exp
         echo "qsub in the for loop of shear"
         #qsub system-$var_ccL.sge

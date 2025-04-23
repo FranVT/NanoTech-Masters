@@ -11,8 +11,9 @@ dir_home=$1
 dir_src=$2
 dir_sim=$3
 dir_data=$4
-id=$5
-cl_con=$6
+dir_system=$5
+id=$6
+cl_con=$7
 
 # Load the parameter file for assembly
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters
@@ -34,9 +35,6 @@ L=$(echo "scale=$cs; $L_real / 2" | bc);
 seed1=$((1234 + $N_CL));     # MO positions
 seed2=$((4321 + $N_CL));     # CL positions
 seed3=$((10 + $N_CL));       # Langevin thermostat
-
-# Directory to save the data. Make it available for the sge script
-dir_system="$dir_data/system-$id-CL-$cl_con"
 
 echo "Start writting the assembly config file"
 
