@@ -2,6 +2,7 @@
     Parameters for the assembly and shear simulations
 '
 
+cs=6
 nodes=4
 damp=1
 T=0.05
