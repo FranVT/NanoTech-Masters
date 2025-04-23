@@ -1,5 +1,5 @@
 : '
-    Create a sge file that runs a assembly protocol and creates a shear sge file.
+    Script that create the sge file to perform a shear deformation simulation
 '
 
 #!/bin/bash
@@ -15,7 +15,8 @@ dir_src=$2
 dir_sim=$3
 dir_data=$4
 id=$5
-cl_con=$6
+shearRate=$6
+N-exp=$7
 
 dir_system="system-$id-CL$cl_con"
 filename="system-$id-CL$cl_con.sge"
@@ -62,22 +63,6 @@ source $dir_src/docs/load_parameters.sh system.parameters
 chmod +x $dir_src/docs/load_parameters.sh
 source $dir_src/docs/load_parameters.sh assembly$id.parameters
 
-# Run the assembly
-/mnt/MD1200A/cferreiro/fvazquez/mylammps/src/lmp_serial -in in.assembly.lmp -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3  -var tstep $dt -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var steps $steps_isot -var stepsheat $steps_heat -var Dir "$dir_system" -var file1_name ${files_name[0]} -var file2_name ${files_name[1]} -var file3_name ${files_name[2]} -var file4_name ${files_name[3]} -var file5_name ${files_name[4]};
-
-# Create the sge file to run the deformation simulations
-for var_shearRate in $(seq $dgamma_o $dgamma_d $dgamma_f);
-do
-    for N-exp in $seq( $Nexp)
-    do
-        bash $dir_src/docs/create-file_shear-sge.sh $dir_home $dir_src $dir_sim $dir_data $id $var_shearRate $N-exp
-        #qsub system-$var_ccL.sge
-    done
-done
-
 EOF
-
-# qsub $filename $dir_home $dir_src $dir_sim $dir_data $id $var_ccL
-
 
 
