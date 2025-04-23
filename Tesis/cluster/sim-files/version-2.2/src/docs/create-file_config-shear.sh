@@ -23,7 +23,7 @@ shear_it=$(( $max_strain * $Nstep_per_strain)); # Total number of steps to achiv
 seed3=$(date +%F%H%M%S | tr -d '-')
 
 # Define the output parameters file (default: parameters.config)
-OUTPUT_FILE="${1:-assembly$id.parameters}"
+OUTPUT_FILE="${1:-shear$id-$shearRate-$Nexp.parameters}"
 
 # List of variable names to include in the parameters file
 VAR_NAMES=(

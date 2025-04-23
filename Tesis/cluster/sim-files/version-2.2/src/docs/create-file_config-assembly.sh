@@ -38,7 +38,7 @@ seed3=$((10 + aux));       # Langevin thermostat
 dir_system="system-$id-CL-$cl_con"
 
 # Define the output parameters file (default: parameters.config)
-OUTPUT_FILE="${1:-assembly$id.parameters}"
+OUTPUT_FILE="${1:-assembly$id-$cl_con.parameters}"
 
 # List of variable names to include in the parameters file
 VAR_NAMES=(

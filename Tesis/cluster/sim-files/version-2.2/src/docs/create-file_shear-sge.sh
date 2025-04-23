@@ -16,8 +16,9 @@ dir_sim=$3
 dir_data=$4
 dir_system=$5
 id=$6
-shearRate=$7
-Nexp=$8
+cl_con=$7
+shearRate=$8
+Nexp=$9
 
 dir_shear=$dir_system/"shear-$id-shearRate$shearRate-Nexp$Nexp"
 filename="shear-$id-shearRate$shearRate-exp$Nexp.sge"
@@ -26,7 +27,7 @@ filename="shear-$id-shearRate$shearRate-exp$Nexp.sge"
 mkdir $dir_data/$dir_shear
 
 # Create the new script with a template
-cat > "$NEW_SCRIPT" << 'EOF'
+cat > "$filename" << 'EOF'
 # SGE script as a reference
 
 #!/bin/bash
@@ -53,23 +54,35 @@ module load python37/3.7.6;
 module load gcc/10.2.0;
 module load openmpi/gcc/64/1.10.1;
 
+# Recieve outer parameters
+dir_home=$1
+dir_src=$2
+dir_sim=$3
+dir_data=$4
+dir_system=$5
+dir_shear=$6
+id=$7
+cl_con=$8
+shearRate=$9
+Nexp=$10
+
+
 # HERE CREATE THE CONFIG FILE for shear 
 bash $dir_src/docs/create-file_config-shear.sh $dir_home $dir_src $dir_sim $dir_data $id $shearRate $Nexp
 
 # CREATE README and DATA.DAT file
-bash $dir_src/docs/create-file_reference.sh $dir_home $dir_src $dir_sim $dir_data $id $shearRate $Nexp
+bash $dir_src/docs/create-file_reference.sh $dir_home $dir_src $dir_sim $dir_data $id $cl_con $shearRate $Nexp
 
 # Load the parameters file
 chmod +x $dir_src/docs/load_parameters.sh
 source $dir_src/docs/load_parameters.sh system.parameters 
 
 # Load the config file for shear
-chmod +x $dir_src/docs/load_parameters.sh
-source $dir_src/docs/load_parameters.sh shear$id.parameters
+source $dir_src/docs/load_parameters.sh shear$id-$shearRate-$Nexp.parameters
 
 # Simulation of shear
 /mnt/MD1200A/cferreiro/fvazquez/mylammps/src/lmp_serial -in in.shear.lmp -var logname $log_name -var temp $T -var damp $damp -var tstep $dt -var shear_rate $var_shearRate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var seed3 $seed3 -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var Dir $final_dir -var dataDir $dir_data/$sys_dir -var file6_name ${files_name[5]} -var file7_name ${files_name[6]} -var file8_name ${files_name[7]} -var file9_name ${files_name[8]} -var file10_name ${files_name[9]}
 EOF
 
-# qsub $filename $dir_home $dir_src $dir_sim $dir_data $dir_shear $id $shearRate $Nexp
+# qsub $filename $dir_home $dir_src $dir_sim $dir_data $dir_system $dir_shear $id $cl_con $shearRate $Nexp
 
