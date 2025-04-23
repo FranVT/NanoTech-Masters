@@ -4,11 +4,7 @@
 
 #!/bin/bash
 
-# Check if a filename is provided
-if [ $# -eq 0 ]; then
-    echo "Usage: $0 <new_script_name.sh>"
-    exit 1
-fi
+echo "In the shear se file!!"
 
 dir_home=$1
 dir_src=$2
