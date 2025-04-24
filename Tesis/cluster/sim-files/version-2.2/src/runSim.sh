@@ -32,7 +32,7 @@ source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters
 for var_ccL in 0.5;
 do
 
-    dir_system=dir_system="$dir_data/system-$id-CL-$var_ccL"
+    dir_system="$dir_data/system-$id-CL-$var_ccL"
     filename="system-$id-CL-$var_ccL.sge"
 
     # Create the sge file to run the assembly protocol
@@ -41,13 +41,13 @@ do
     # Create the sge files to run the shear protocol
     for var_shearRate in $(seq $dgamma_o $dgamma_d $dgamma_f);
     do
-        for N in $(seq $Nexp)
+        for var_N in $(seq $Nexp)
         do
             echo $(pwd)
             echo "Before bash shear"
-            dir_shearexp="$dir_system/shear-$id-shearRate$shearRate-Nexp$Nexp"
-            fileshearname="shear-$id-shearRate-$var_shearRate-exp$N.sge"
-            bash $dir_src/docs/create-file_shear-sge.sh $dir_home $dir_src $dir_sim $dir_data $id $cl_con $var_shearRate $N $dir_shearexp $fileshearname
+            dir_shearexp="$dir_system/shear-$id-shearRate$shearRate-Nexp$var_N"
+            fileshearname="shear-$id-shearRate-$var_shearRate-exp$var_N.sge"
+            bash $dir_src/docs/create-file_shear-sge.sh $dir_home $dir_src $dir_sim $dir_data $id $cl_con $var_shearRate $var_N $dir_shearexp $fileshearname
         done
     done
 
