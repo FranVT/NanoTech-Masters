@@ -10,15 +10,13 @@ dir_sim=$3
 dir_data=$4
 id=$5
 cl_con=$6
+filename=$7
 
 # Directories
 dir_system="$dir_data/system-$id-CL-$cl_con"
 # Create directory to save the simulation data
 mkdir $dir_system
 mkdir "$dir_system/traj"
-
-# Create the sge file for the numerical simulation
-filename="system-$id-CL$cl_con.sge"
 
 # Create the new script with a template
 cat > "$filename" << 'EOF'
@@ -70,8 +68,10 @@ source $dir_src/docs/load_parameters.sh $dir_src/docs/assembly$id-$cl_con.parame
 
 # Run the assembly
 cd $dir_sim
-/mnt/MD1200A/cferreiro/fvazquez/mylammps/src/lmp_serial -in in.assembly.lmp -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3 -var tstep $dt -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var steps $steps_isot -var stepsheat $steps_heat -var Dir "$dir_system" -var file1_name ${files_name[0]} -var file2_name ${files_name[1]} -var file3_name ${files_name[2]} -var file4_name ${files_name[3]} -var file5_name ${files_name[4]};
+/mnt/MD1200A/cferreiro/fvazquez/mylammps/src/lmp_serial -in in.assembly.lmp -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3 -var tstep $dt -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var steps $steps_isot -var stepsheat $steps_heat -var Dir $dir_system -var file1_name ${files_name[0]} -var file2_name ${files_name[1]} -var file3_name ${files_name[2]} -var file4_name ${files_name[3]} -var file5_name ${files_name[4]};
+EOF
 
+# Create the sge files at the same time as the assembly simulation is running
 cd $dir_src/docs
 echo "Now in the docs directory from experiment-sge file"
 
@@ -82,13 +82,41 @@ do
     do
         echo $(pwd)
         echo "Before bash shear"
-        bash $dir_src/docs/create-file_shear-sge.sh $dir_home $dir_src $dir_sim $dir_data $id $cl_con $var_shearRate $N
+        fileshearname="shear-$id-shearRate-$var_shearRate-exp$N.sge"
+        bash $dir_src/docs/create-file_shear-sge.sh $dir_home $dir_src $dir_sim $dir_data $id $cl_con $var_shearRate $N $fileshearname
         #echo "qsub in the for loop of shear"
-        qsub system-$var_ccL.sge
+        #qsub system-$var_ccL.sge
     done
 done
 
-EOF
 
-qsub $filename $dir_home $dir_src $dir_sim $dir_data $dir_system $id $cl_con
+# WAIT UNTIL ASSEMBLY SIMULATION HAS FINISHED
+# This while loop will exit when the data.hydrogel file is available for the deformation simulations
+dir_file="$dir_system/data.hydrogel"
+
+# Continuously check if the file exists
+while [ ! -e "$dir_file" ]; do
+    echo "Waiting for $dir_file to be created..."
+    sleep 30  # Wait for 30 second before checking again to reduce CPU usage
+done
+
+# Exit the loop once the file exists
+echo "$dir_file found! Exiting."
+
+# Execute the deformation files
+for var_shearRate in $(seq $dgamma_o $dgamma_d $dgamma_f);
+do
+    for N in $(seq $Nexp)
+    do
+        echo $(pwd)
+        echo "Before bash shear"
+        fileshearname="shear-$id-shearRate-$var_shearRate-exp$N.sge"
+        qsub $fileshearname
+    done
+done
+
+
+
+
+#qsub $filename $dir_home $dir_src $dir_sim $dir_data $dir_system $id $cl_con # This qsub runs the assembly
 
