@@ -25,18 +25,36 @@ rm -f "$dir_src/assembly*"
 # Go to source directory
 cd $dir_src;
 
+# Load the parameters file
+source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters 
+
 ## Loops of parameters
 for var_ccL in 0.5;
 do
 
-    dir_system=dir_system="$dir_data/system-$id-CL-$cl_con"
+    dir_system=dir_system="$dir_data/system-$id-CL-$var_ccL"
     filename="system-$id-CL-$var_ccL.sge"
 
-    # Run the assembly protocol and create necessary files
+    # Create the sge file to run the assembly protocol
     bash $dir_src/docs/create-file_experiment-sge.sh $dir_home $dir_src $dir_sim $dir_data $dir_system $id $var_ccL $filename
 
-    echo "Running the assembly" # This qsub runs the assembly
-    qsub $dir_src/$filename
+    # Create the sge files to run the shear protocol
+    for var_shearRate in $(seq $dgamma_o $dgamma_d $dgamma_f);
+    do
+        for N in $(seq $Nexp)
+        do
+            echo $(pwd)
+            echo "Before bash shear"
+            dir_shearexp="$dir_system/shear-$id-shearRate$shearRate-Nexp$Nexp"
+            fileshearname="shear-$id-shearRate-$var_shearRate-exp$N.sge"
+            bash $dir_src/docs/create-file_shear-sge.sh $dir_home $dir_src $dir_sim $dir_data $id $cl_con $var_shearRate $N $dir_shearexp $fileshearname
+        done
+    done
+
+
+
+    #echo "Running the assembly" # This qsub runs the assembly
+    #qsub $dir_src/$filename
 
     # WAIT UNTIL ASSEMBLY SIMULATION HAS FINISHED
     # This while loop will exit when the data.hydrogel file is available for the deformation simulations

@@ -73,22 +73,3 @@ cd $dir_sim
 /mnt/MD1200A/cferreiro/fvazquez/mylammps/src/lmp_serial -in in.assembly.lmp -var temp $T -var damp $damp -var L $L -var NCL $N_CL -var NMO $N_MO -var seed1 $seed1 -var seed2 $seed2 -var seed3 $seed3 -var tstep $dt -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var steps $steps_isot -var stepsheat $steps_heat -var Dir $dir_system -var file1_name ${files_name[0]} -var file2_name ${files_name[1]} -var file3_name ${files_name[2]} -var file4_name ${files_name[3]} -var file5_name ${files_name[4]};
 EOF
 
-# Create the sge files at the same time as the assembly simulation is running
-cd $dir_src/docs
-echo "Now in the docs directory from experiment-sge file"
-
-# Create the sge file to run the deformation simulations
-for var_shearRate in $(seq $dgamma_o $dgamma_d $dgamma_f);
-do
-    for N in $(seq $Nexp)
-    do
-        echo $(pwd)
-        echo "Before bash shear"
-        dir_shearexp="$dir_system/shear-$id-shearRate$shearRate-Nexp$Nexp"
-        fileshearname="shear-$id-shearRate-$var_shearRate-exp$N.sge"
-        bash $dir_src/docs/create-file_shear-sge.sh $dir_home $dir_src $dir_sim $dir_data $id $cl_con $var_shearRate $N $dir_shearexp $fileshearname
-    done
-done
-
-echo "Done writting the sge files"
-
