@@ -15,9 +15,8 @@ id=$6
 cl_con=$7
 shearRate=$8
 Nexp=$9
-filename=$10
-
-dir_shear=$dir_system/"shear-$id-shearRate$shearRate-Nexp$Nexp"
+dir_shear=$10
+filename=$11
 
 # Create directory to save the simulation data
 mkdir $dir_shear

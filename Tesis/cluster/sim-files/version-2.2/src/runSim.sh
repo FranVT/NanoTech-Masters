@@ -33,11 +33,10 @@ do
     filename="system-$id-CL-$var_ccL.sge"
 
     # Run the assembly protocol and create necessary files
-    bash $dir_src/docs/create-file_experiment-sge.sh $dir_home $dir_src $dir_sim $dir_data $id $var_ccL $filename
+    bash $dir_src/docs/create-file_experiment-sge.sh $dir_home $dir_src $dir_sim $dir_data $dir_system $id $var_ccL $filename
 
     echo "Running the assembly" # This qsub runs the assembly
-    qsub $dir_src/docs/$filename
-
+    qsub $dir_src/$filename
 
     # WAIT UNTIL ASSEMBLY SIMULATION HAS FINISHED
     # This while loop will exit when the data.hydrogel file is available for the deformation simulations
@@ -65,9 +64,4 @@ do
     #done
 
 done
-
-
-
-
-
 

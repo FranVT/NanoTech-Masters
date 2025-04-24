@@ -8,12 +8,11 @@ dir_home=$1
 dir_src=$2
 dir_sim=$3
 dir_data=$4
-id=$5
-cl_con=$6
-filename=$7
+dir_system=$5
+id=$6
+cl_con=$7
+filename=$8
 
-# Directories
-dir_system="$dir_data/system-$id-CL-$cl_con"
 # Create directory to save the simulation data
 mkdir $dir_system
 mkdir "$dir_system/traj"
@@ -85,8 +84,9 @@ do
     do
         echo $(pwd)
         echo "Before bash shear"
+        dir_shearexp="$dir_system/shear-$id-shearRate$shearRate-Nexp$Nexp"
         fileshearname="shear-$id-shearRate-$var_shearRate-exp$N.sge"
-        bash $dir_src/docs/create-file_shear-sge.sh $dir_home $dir_src $dir_sim $dir_data $id $cl_con $var_shearRate $N $fileshearname
+        bash $dir_src/docs/create-file_shear-sge.sh $dir_home $dir_src $dir_sim $dir_data $id $cl_con $var_shearRate $N $dir_shearexp $fileshearname
     done
 done
 
