@@ -84,8 +84,8 @@ do
         echo "Before bash shear"
         fileshearname="shear-$id-shearRate-$var_shearRate-exp$N.sge"
         bash $dir_src/docs/create-file_shear-sge.sh $dir_home $dir_src $dir_sim $dir_data $id $cl_con $var_shearRate $N $fileshearname
-        #echo "qsub in the for loop of shear"
-        #qsub system-$var_ccL.sge
     done
 done
+
+echo "Done writting the sge files"
 

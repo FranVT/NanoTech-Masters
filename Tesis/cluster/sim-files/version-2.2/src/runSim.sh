@@ -35,7 +35,7 @@ do
     # Run the assembly protocol and create necessary files
     bash $dir_src/docs/create-file_experiment-sge.sh $dir_home $dir_src $dir_sim $dir_data $id $var_ccL $filename
 
-    echo "Running the qsub system-var_ccL.sge" # This qsub runs the assembly
+    echo "Running the assembly" # This qsub runs the assembly
     qsub $dir_src/docs/$filename
 
 
