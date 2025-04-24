@@ -10,13 +10,12 @@ dir_home=$1
 dir_src=$2
 dir_sim=$3
 dir_data=$4
-dir_system=$5
-id=$6
-cl_con=$7
-shearRate=$8
-Nexp=$9
-dir_shear=$10
-filename=$11
+id=$5
+cl_con=$6
+shearRate=$7
+Nexp=$8
+dir_shear=$9
+filename=$10
 
 # Create directory to save the simulation data
 mkdir $dir_shear
