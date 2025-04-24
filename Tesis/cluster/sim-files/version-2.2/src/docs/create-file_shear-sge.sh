@@ -45,13 +45,13 @@ echo "Running the shear.sge file"
 
 # Recieve outer parameters
 dir_home=$1
-dir_data=$4
-dir_system=$5
-dir_shear=$6
-id=$7
-cl_con=$8
-shearRate=$9
-Nexp=$10
+dir_data=$2
+dir_system=$3
+dir_shear=$4
+id=$5
+cl_con=$6
+shearRate=$7
+Nexp=$8
 
 dir_src=$dir_home/src
 dir_sim=$dir_src/sim
@@ -72,6 +72,19 @@ echo "Finished loading parameters and confi files."
 
 # Simulation of shear
 cd $dir_sim
+
+# Wait until the assembly protocol finished
+
+dir_file="$dir_system/data.hydrogel"
+
+# Continuously check if the file exists
+while [ ! -e "$dir_file" ]; do
+    echo "Waiting for $dir_file to be created..."
+    sleep 30  # Wait for 30 second before checking again to reduce CPU usage
+done
+
+# Exit the loop once the file exists
+echo "$dir_file found! Exiting."
 
 echo "Start the assembly simulation"
 
