@@ -41,28 +41,28 @@ do
 
     # WAIT UNTIL ASSEMBLY SIMULATION HAS FINISHED
     # This while loop will exit when the data.hydrogel file is available for the deformation simulations
-    dir_file="$dir_system/data.hydrogel"
+    #dir_file="$dir_system/data.hydrogel"
 
     # Continuously check if the file exists
-    while [ ! -e "$dir_file" ]; do
-        echo "Waiting for $dir_file to be created..."
-        sleep 30  # Wait for 30 second before checking again to reduce CPU usage
-    done
+    #while [ ! -e "$dir_file" ]; do
+    #    echo "Waiting for $dir_file to be created..."
+    #    sleep 30  # Wait for 30 second before checking again to reduce CPU usage
+    #done
 
     # Exit the loop once the file exists
-    echo "$dir_file found! Exiting."
+    #echo "$dir_file found! Exiting."
 
     # Execute the deformation files
-    for var_shearRate in $(seq $dgamma_o $dgamma_d $dgamma_f);
-    do
-        for N in $(seq $Nexp)
-        do
-            echo $(pwd)
-            echo "Before bash shear"
-            fileshearname="shear-$id-shearRate-$var_shearRate-exp$N.sge"
-            qsub $dir_src/docs/$fileshearname
-        done
-    done
+    #for var_shearRate in $(seq $dgamma_o $dgamma_d $dgamma_f);
+    #do
+    #    for N in $(seq $Nexp)
+    #    do
+    #        echo $(pwd)
+    #        echo "Before bash shear"
+    #        fileshearname="shear-$id-shearRate-$var_shearRate-exp$N.sge"
+    #        qsub $dir_src/docs/$fileshearname
+    #    done
+    #done
 
 done
 

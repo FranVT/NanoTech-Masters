@@ -18,6 +18,9 @@ dir_system="$dir_data/system-$id-CL-$cl_con"
 mkdir $dir_system
 mkdir "$dir_system/traj"
 
+# Load the parameters file
+source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters 
+
 # Create the new script with a template
 cat > "$filename" << 'EOF'
 # SGE file to run the assembly and create sge files for the shear simulations
