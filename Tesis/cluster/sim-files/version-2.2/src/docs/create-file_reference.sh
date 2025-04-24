@@ -15,14 +15,13 @@ shearRate=$8
 Nexp=$9
 
 # Load the parameters file
-chmod +x $dir_src/docs/load_parameters.sh
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters
 
 # Load the assembly config file
-source $dir_src/docs/load_parameters.sh assembly$id-$cl_con.parameters
+source $dir_src/docs/load_parameters.sh $dir_src/docs/assembly$id-$cl_con.parameters
 
 # Load the shear config file
-source $dir_src/docs/load_parameters.sh sheear$id-$shearRate-$Nexp.parameters
+source $dir_src/docs/load_parameters.sh $dir_src/docs/shear$id-$shearRate-$Nexp.parameters
 
 # Create README file
 
