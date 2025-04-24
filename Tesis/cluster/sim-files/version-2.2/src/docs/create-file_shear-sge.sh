@@ -6,16 +6,8 @@
 
 echo "In the shear se file!!"
 
-dir_home=$1
-dir_src=$2
-dir_sim=$3
-dir_data=$4
-id=$5
-cl_con=$6
-shearRate=$7
-Nexp=$8
-dir_shear=$9
-filename=$10
+dir_shear=$1
+filename=$2
 
 # Create directory to save the simulation data
 mkdir $dir_shear

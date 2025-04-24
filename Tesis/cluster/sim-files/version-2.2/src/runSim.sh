@@ -47,7 +47,7 @@ do
             echo "Before bash shear"
             dir_shearexp="$dir_system/shear-$id-shearRate$shearRate-Nexp$var_N"
             fileshearname="shear-$id-shearRate-$var_shearRate-exp$var_N.sge"
-            bash $dir_src/docs/create-file_shear-sge.sh $dir_home $dir_src $dir_sim $dir_data $id $cl_con $var_shearRate $var_N $dir_shearexp $fileshearname
+            bash $dir_src/docs/create-file_shear-sge.sh $dir_shearexp $fileshearname
         done
     done
 
