@@ -45,7 +45,7 @@ do
         do
             echo $(pwd)
             echo "Before bash shear"
-            dir_shearexp="$dir_system/shear-$id-shearRate$shearRate-Nexp$var_N"
+            dir_shearexp="$dir_system/shear-$id-shearRate$var_shearRate-Nexp$var_N"
             fileshearname="shear-$id-shearRate-$var_shearRate-exp$var_N.sge"
             bash $dir_src/docs/create-file_shear-sge.sh $dir_shearexp $fileshearname
         done
@@ -58,12 +58,12 @@ do
     # Execute the deformation files
     for var_shearRate in $(seq $dgamma_o $dgamma_d $dgamma_f);
     do
-        for N in $(seq $Nexp)
+        for var_N in $(seq $Nexp)
         do
             echo $(pwd)
-            dir_shearexp="$dir_system/shear-$id-shearRate$shearRate-Nexp$var_N"
+            dir_shearexp="$dir_system/shear-$id-shearRate$var_shearRate-Nexp$var_N"
             fileshearname="shear-$id-shearRate-$var_shearRate-exp$var_N.sge"
-            qsub $dir_src/$fileshearname $dir_home $dir_data $dir_system $dir_shearexp $id $cl_con $shearRate $N
+            qsub $dir_src/$fileshearname $dir_home $dir_data $dir_system $dir_shearexp $id $cl_con $var_shearRate $var_N
         done
     done
 
