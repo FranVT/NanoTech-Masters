@@ -63,7 +63,7 @@ do
             echo $(pwd)
             dir_shearexp="$dir_system/shear-$id-shearRate$shearRate-Nexp$var_N"
             fileshearname="shear-$id-shearRate-$var_shearRate-exp$var_N.sge"
-            qsub $dir_src/$fileshearname $dir_home $dir_data $dir_system $dir_shearexp $id $cl_con $shearRate $Nexp
+            qsub $dir_src/$fileshearname $dir_home $dir_data $dir_system $dir_shearexp $id $cl_con $shearRate $N
         done
     done
 
