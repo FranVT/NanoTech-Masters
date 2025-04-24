@@ -11,6 +11,7 @@ filename=$2
 
 # Create directory to save the simulation data
 mkdir $dir_shear
+mkdir $dir_shear/traj
 
 # Create the new script with a template
 cat > "$filename" << 'EOF'
@@ -44,8 +45,6 @@ echo "Running the shear.sge file"
 
 # Recieve outer parameters
 dir_home=$1
-dir_src=$2
-dir_sim=$3
 dir_data=$4
 dir_system=$5
 dir_shear=$6
@@ -54,6 +53,8 @@ cl_con=$8
 shearRate=$9
 Nexp=$10
 
+dir_src=$dir_home/src
+dir_sim=$dir_src/sim
 
 # HERE CREATE THE CONFIG FILE for shear 
 bash $dir_src/docs/create-file_config-shear.sh $dir_home $dir_src $dir_sim $dir_data $id $shearRate $Nexp
