@@ -4,14 +4,8 @@
 
 #!/bin/bash
 
-dir_home=$1
-dir_src=$2
-dir_sim=$3
-dir_data=$4
-dir_system=$5
-id=$6
-cl_con=$7
-filename=$8
+dir_src=$1
+filename=$2
 
 # Load the parameters file
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters 
@@ -47,19 +41,16 @@ module load openmpi/gcc/64/1.10.1;
 echo "Running the system.sge file"
 
 # Recieve the outer parameters
-dir_home=$1
-dir_src=$2
-dir_sim=$3
-dir_data=$4
-dir_system=$5
-id=$6
-cl_con=$7
+dir_src=$1
+dir_system=$2
+id=$2
+var_ccL=$3
 
 # Load the parameters file
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters 
 
 # Load the config file for assembly
-source $dir_src/docs/load_parameters.sh $dir_src/docs/assembly$id-$cl_con.parameters
+source $dir_src/docs/load_parameters.sh $dir_src/docs/assembly$id-$var_ccL.parameters
 
 # Run the assembly
 cd $dir_sim

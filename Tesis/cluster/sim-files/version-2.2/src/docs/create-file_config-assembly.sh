@@ -9,7 +9,7 @@ echo "Running the create config assembly"
 
 dir_src=$1
 id=$2
-cl_con=$3
+var_ccL=$3
 
 # Load the parameter file for assembly
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters
@@ -17,7 +17,7 @@ source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters
 echo "Parameters loaded in config assembly script"
 
 # Define variables
-N_CL=$(echo "scale=0; $cl_con * $N_particles" | bc);
+N_CL=$(echo "scale=0; $var_ccL * $N_particles" | bc);
 N_CL=${N_CL%.*};
 N_MO=$(( $N_particles - $N_CL ));
 Vol_MO=$(echo "scale=$cs; $Vol_MO1 * $N_MO" | bc);         # Vol of N f=2 patchy particles
@@ -35,19 +35,19 @@ seed3=$((10 + $N_CL));       # Langevin thermostat
 echo "Start writting the assembly config file"
 
 # Define the output parameters file (default: parameters.config)
-OUTPUT_FILE="assembly$id-$cl_con.parameters"
+OUTPUT_FILE="assembly$id-$var_ccL.parameters"
 
 # List of variable names to include in the parameters file
 VAR_NAMES=(
-  "N_CL"
-  "N_MO"
-  "Vol_MO"
-  "Vol_CL"
-  "Vol_Totg"
-  "L"
-  "seed1"
-  "seed2"
-  "seed3"
+    "N_CL"
+    "N_MO"
+    "Vol_MO"
+    "Vol_CL"
+    "Vol_Totg"
+    "L"
+    "seed1"
+    "seed2"
+    "seed3"
 )
 
 # Create or overwrite the parameters file

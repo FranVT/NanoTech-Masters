@@ -4,23 +4,17 @@
 
 #!/bin/bash
 
-dir_home=$1
+dir_src=$1
 dir_shear=$2
-dir_system=$3
-id=$4
-cl_con=$5
-shearRate=$6
-
-# Directories
-dir_src="$dir_home/src"
-dir_sim="$dir_src/sim"
-dir_data="$dir_home/data"
+id=$3
+var_ccL=$4
+var_shearRate=$5
 
 # Load the parameters file
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters
 
 # Load the assembly config file
-source $dir_src/docs/load_parameters.sh $dir_src/docs/assembly$id-$cl_con.parameters
+source $dir_src/docs/load_parameters.sh $dir_src/docs/assembly$id-$var_ccL.parameters
 
 # Load the shear config file
 source $dir_src/docs/load_parameters.sh $dir_src/docs/shear$id-$shearRate.parameters
@@ -38,9 +32,9 @@ touch $file_name;
 echo -e "# Parameters of the simulation\n" >> $file_name;
 echo -e "## System parameters \n" >> $file_name;
 echo -e ""- Packing fraction: "${phi}" >> $file_name;
-echo -e ""- Cross-Linker Concentration: "${cl_con}" >> $file_name;
+echo -e ""- Cross-Linker Concentration: "${var_ccL}" >> $file_name;
 echo -e ""- Number of particles: "${N_particles}" >> $file_name;
-echo -e ""- Shear rate: "${shearRate}" [1/tau]"" >> $file_name;
+echo -e ""- Shear rate: "${var_shearRate}" [1/tau]"" >> $file_name;
 echo -e ""- Temperature: "${T}" >> $file_name;
 echo -e ""- Damp: "${damp}" >> $file_name;
 echo -e ""- Max deformation per cycle: "${max_strain}" >> $file_name;
@@ -95,13 +89,13 @@ headers+=("phi")
 values+=("${phi}")
 
 headers+=("CL-Con")
-values+=("${cl_con}")
+values+=("${var_ccL}")
 
 headers+=("Npart")
 values+=("${N_particles}")
 
 headers+=("Shear-rate")
-values+=("${shearRate}")
+values+=("${var_shearRate}")
 
 headers+=("Temperature")
 values+=("${T}")

@@ -43,13 +43,13 @@ do
     bash $dir_src/docs/create-file_config-assembly.sh $dir_src $id $var_ccL
 
     # Create the sge file to run the assembly protocol
-    bash $dir_src/docs/create-file_experiment-sge.sh $dir_home $dir_src $dir_sim $dir_data $dir_system $id $var_ccL $filename
+    bash $dir_src/docs/create-file_experiment-sge.sh $dir_src $filename
 
     # Create directory to save the simulation data
     mkdir $dir_system; mkdir "$dir_system/traj"
 
     # Run the assembly
-    qsub $dir_src/$filename $dir_home $dir_src $dir_sim $dir_data $dir_system $id $var_ccL
+    qsub $dir_src/$filename $dir_src $dir_system $id $var_ccL
 
     # Create the sge files to run the shear protocol
     for var_shearRate in $(seq $dgamma_o $dgamma_d $dgamma_f);
@@ -63,7 +63,7 @@ do
         bash $dir_src/docs/create-file_config-shear.sh $dir_src $id $var_shearRate
 
         # Create the README and data.dat files in the shear directory
-        bash $dir_src/docs/create-file_reference.sh $dir_home $dir_shearexp $dir_system $id $var_ccL $var_shearRate
+        bash $dir_src/docs/create-file_reference.sh $dir_src $dir_shearexp $id $var_ccL $var_shearRate
 
         for var_N in $(seq $Nexp)
         do
@@ -88,7 +88,7 @@ do
 
             # Run the shear simulation
             echo "qsub of $fileshearname with experiment $var_N"
-            qsub $dir_src/$fileshearname $dir_home $dir_data $dir_system $dir_shearexp $id $var_ccL $var_shearRate $var_N
+            qsub $dir_src/$fileshearname $dir_src $dir_system $dir_shearexp $id $var_shearRate $var_N
         done
     done
 

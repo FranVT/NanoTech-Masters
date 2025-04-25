@@ -39,16 +39,13 @@ module load openmpi/gcc/64/1.10.1;
 echo "Running the shear.sge file"
 
 # Recieve outer parameters
-dir_home=$1
-dir_data=$2
-dir_system=$3
-dir_shear=$4
-id=$5
-cl_con=$6
-shearRate=$7
-Nexp=$8
+dir_src=$1
+dir_system=$2
+dir_shear=$3
+id=$4
+var_shearRate=$5
+var_N=$6
 
-dir_src=$dir_home/src
 dir_sim=$dir_src/sim
 
 # Wait until the assembly protocol finished
@@ -68,13 +65,15 @@ echo "$dir_file found! Exiting."
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters 
 
 # Load the config file for shear
-source $dir_src/docs/load_parameters.sh $dir_src/docs/shear$id-$shearRate.parameters
+source $dir_src/docs/load_parameters.sh $dir_src/docs/shear$id-$var_shearRate.parameters
 
 # Create the seed for the langevin thermostat
 seed3=$(date +%F%H%M%S | tr -d '-' | sed 's/./&+/g; s/+$//' | bc)
-seed3=$(( $seed3 + $Nexp ))
+seed3=$(( $seed3 + $var_N ))
 
-dir_saveinfo="$dir_shear/Exp$Nexp"
+dir_saveinfo="$dir_shear/Exp$var_N"
+
+echo "Saving info in $dir_saveinfo"
 
 echo "Finished loading parameters and confi files."
 
