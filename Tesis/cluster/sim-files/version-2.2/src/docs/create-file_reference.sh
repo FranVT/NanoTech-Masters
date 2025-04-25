@@ -38,9 +38,9 @@ touch $file_name;
 echo -e "# Parameters of the simulation\n" >> $file_name;
 echo -e "## System parameters \n" >> $file_name;
 echo -e ""- Packing fraction: "${phi}" >> $file_name;
-echo -e ""- Cross-Linker Concentration: "${CL_con}" >> $file_name;
+echo -e ""- Cross-Linker Concentration: "${cl_con}" >> $file_name;
 echo -e ""- Number of particles: "${N_particles}" >> $file_name;
-echo -e ""- Shear rate: "${shear_rate}" [1/tau]"" >> $file_name;
+echo -e ""- Shear rate: "${shearRate}" [1/tau]"" >> $file_name;
 echo -e ""- Temperature: "${T}" >> $file_name;
 echo -e ""- Damp: "${damp}" >> $file_name;
 echo -e ""- Max deformation per cycle: "${max_strain}" >> $file_name;
@@ -57,7 +57,6 @@ echo -e ""- Number of Cross-Linkers: "${N_CL}" >> $file_name;
 echo -e ""- Number of Monomers: "${N_MO}" >> $file_name;
 echo -e ""- Volume of Cross-Linker: "${Vol_CL1}" [sigma^3]"" >> $file_name;
 echo -e ""- Volume of Monomer: "${Vol_MO1}" [sigma^3]"" >> $file_name;
-echo -e ""- Box Volume: "${Vol_Tot}" [sigma^3]"" >> $file_name;
 echo -e ""- Half length of the box: "${L}" [sigma]"" >> $file_name;
 echo -e "\n ## Save parameters \n" >> $file_name;
 echo -e ""- Save every "${Ndump}" time steps for dumps files"" >> $file_name;
@@ -96,13 +95,13 @@ headers+=("phi")
 values+=("${phi}")
 
 headers+=("CL-Con")
-values+=("${CL_con}")
+values+=("${cl_con}")
 
 headers+=("Npart")
 values+=("${N_particles}")
 
 headers+=("Shear-rate")
-values+=("${shear_rate}")
+values+=("${shearRate}")
 
 headers+=("Temperature")
 values+=("${T}")
@@ -145,9 +144,6 @@ values+=("${Vol_CL1}")
 
 headers+=("Vol_MO")
 values+=("${Vol_MO1}")
-
-headers+=("Vol_box")
-values+=("${Vol_Tot}")
 
 headers+=("L")
 values+=("${L}")
