@@ -43,8 +43,8 @@ echo "Running the system.sge file"
 # Recieve the outer parameters
 dir_src=$1
 dir_system=$2
-id=$2
-var_ccL=$3
+id=$3
+var_ccL=$4
 
 # Load the parameters file
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters 
