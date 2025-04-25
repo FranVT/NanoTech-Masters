@@ -68,7 +68,7 @@ echo "$dir_file found! Exiting."
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters 
 
 # Load the config file for shear
-source $dir_src/docs/load_parameters.sh $dir_src/docs/shear$id-$shearRate-$Nexp.parameters
+source $dir_src/docs/load_parameters.sh $dir_src/docs/shear$id-$shearRate.parameters
 
 # Create the seed for the langevin thermostat
 seed3=$(date +%F%H%M%S | tr -d '-' | sed 's/./&+/g; s/+$//' | bc)
