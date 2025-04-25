@@ -10,7 +10,6 @@ dir_system=$3
 id=$4
 cl_con=$5
 shearRate=$6
-Nexp=$7
 
 # Directories
 dir_src="$dir_home/src"

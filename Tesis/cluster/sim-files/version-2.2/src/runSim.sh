@@ -43,6 +43,9 @@ do
     # Create the sge file to run the assembly protocol
     bash $dir_src/docs/create-file_experiment-sge.sh $dir_home $dir_src $dir_sim $dir_data $dir_system $id $var_ccL $filename
 
+    # Create directory to save the simulation data
+    mkdir $dir_system; mkdir "$dir_system/traj"
+
     # Run the assembly
     qsub $dir_src/$filename $dir_home $dir_src $dir_sim $dir_data $dir_system $id $var_ccL
 
@@ -58,7 +61,7 @@ do
         bash $dir_src/docs/create-file_config-shear.sh $dir_home $dir_src $dir_sim $dir_data $dir_shear $id $shearRate $Nexp
 
         # Create the README and data.dat files in the shear directory
-        bash $dir_src/docs/create-file_reference.sh $dir_home $dir_src $dir_sim $dir_data $dir_shearexp $id $var_ccL $var_shearRate
+        bash $dir_src/docs/create-file_reference.sh $dir_home $dir_shearexp $dir_system $id $var_ccL $var_shearRate
 
         for var_N in $(seq $Nexp)
         do

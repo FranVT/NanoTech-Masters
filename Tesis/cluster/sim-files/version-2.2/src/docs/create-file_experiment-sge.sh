@@ -13,10 +13,6 @@ id=$6
 cl_con=$7
 filename=$8
 
-# Create directory to save the simulation data
-mkdir $dir_system
-mkdir "$dir_system/traj"
-
 # Load the parameters file
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters 
 
