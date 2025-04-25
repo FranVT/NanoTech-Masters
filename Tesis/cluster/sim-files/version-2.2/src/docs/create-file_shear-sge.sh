@@ -60,7 +60,7 @@ dir_sim=$dir_src/sim
 bash $dir_src/docs/create-file_config-shear.sh $dir_home $dir_src $dir_sim $dir_data $dir_shear $id $shearRate $Nexp
 
 # CREATE README and DATA.DAT file
-bash $dir_src/docs/create-file_reference.sh $dir_home $dir_src $dir_sim $dir_data $id $cl_con $shearRate $Nexp
+bash $dir_src/docs/create-file_reference.sh $dir_home $dir_src $dir_sim $dir_data $dir_shear $id $cl_con $shearRate $Nexp
 
 # Load the parameters file
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters 
