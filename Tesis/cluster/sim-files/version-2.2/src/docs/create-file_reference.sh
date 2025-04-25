@@ -17,7 +17,7 @@ source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters
 source $dir_src/docs/load_parameters.sh $dir_src/docs/assembly$id-$var_ccL.parameters
 
 # Load the shear config file
-source $dir_src/docs/load_parameters.sh $dir_src/docs/shear$id-$shearRate.parameters
+source $dir_src/docs/load_parameters.sh $dir_src/docs/shear$id-$var_shearRate.parameters
 
 # Go to the directory in which the files are going to be created 
 cd $dir_shear;
