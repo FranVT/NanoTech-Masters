@@ -56,6 +56,19 @@ Nexp=$8
 dir_src=$dir_home/src
 dir_sim=$dir_src/sim
 
+# Wait until the assembly protocol finished
+
+dir_file="$dir_system/data.hydrogel"
+
+# Continuously check if the file exists
+while [ ! -e "$dir_file" ]; do
+    echo "Waiting for $dir_file to be created..."
+    sleep 30  # Wait for 30 second before checking again to reduce CPU usage
+done
+
+# Exit the loop once the file exists
+echo "$dir_file found! Exiting."
+
 # HERE CREATE THE CONFIG FILE for shear 
 bash $dir_src/docs/create-file_config-shear.sh $dir_home $dir_src $dir_sim $dir_data $dir_shear $id $shearRate $Nexp
 
@@ -73,20 +86,7 @@ echo "Finished loading parameters and confi files."
 # Simulation of shear
 cd $dir_sim
 
-# Wait until the assembly protocol finished
-
-dir_file="$dir_system/data.hydrogel"
-
-# Continuously check if the file exists
-while [ ! -e "$dir_file" ]; do
-    echo "Waiting for $dir_file to be created..."
-    sleep 30  # Wait for 30 second before checking again to reduce CPU usage
-done
-
-# Exit the loop once the file exists
-echo "$dir_file found! Exiting."
-
-echo "Start the assembly simulation"
+echo "Start the shear simulation"
 
 /mnt/MD1200A/cferreiro/fvazquez/mylammps/src/lmp_serial -in in.shear.lmp -var temp $T -var damp $damp -var tstep $dt -var shear_rate $shearRate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var seed3 $seed3 -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var Dir $dir_shear -var dataDir $dir_system -var file6_name ${files_name[5]} -var file7_name ${files_name[6]} -var file8_name ${files_name[7]} -var file9_name ${files_name[8]} -var file10_name ${files_name[9]}
 EOF
