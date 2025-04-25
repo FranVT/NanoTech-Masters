@@ -83,11 +83,11 @@ do
     do
         for var_N in $(seq $Nexp)
         do
-            echo $(pwd)
             dir_shearexp="$dir_system/shear-$id-shearRate$var_shearRate"
             fileshearname="shear-$id-shearRate-$var_shearRate-exp$var_N.sge"
 
             # Run the shear simulation
+            echo "qsub of $fileshearname with experiment $var_N"
             qsub $dir_src/$fileshearname $dir_home $dir_data $dir_system $dir_shearexp $id $var_ccL $var_shearRate $var_N
         done
     done

@@ -48,7 +48,6 @@ VAR_NAMES=(
   "seed1"
   "seed2"
   "seed3"
-  "dir_system"
 )
 
 # Create or overwrite the parameters file
