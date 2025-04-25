@@ -64,9 +64,6 @@ done
 # Exit the loop once the file exists
 echo "$dir_file found! Exiting."
 
-# HERE CREATE THE CONFIG FILE for shear 
-bash $dir_src/docs/create-file_config-shear.sh $dir_home $dir_src $dir_sim $dir_data $dir_shear $id $shearRate $Nexp
-
 # Load the parameters file
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters 
 

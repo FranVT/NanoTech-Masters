@@ -59,9 +59,6 @@ dir_system=$5
 id=$6
 cl_con=$7
 
-# HERE CREATE THE CONFIG FILE for assembly
-bash $dir_src/docs/create-file_config-assembly.sh $dir_home $dir_src $dir_sim $dir_data $dir_system $id $cl_con
-
 # Load the parameters file
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters 
 

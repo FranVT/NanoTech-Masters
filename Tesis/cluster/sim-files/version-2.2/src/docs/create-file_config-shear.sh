@@ -21,7 +21,7 @@ Nstep_per_strain=${Nstep_per_strain%.*};    # Number of steps to deform 1 strain
 shear_it=$(( $max_strain * $Nstep_per_strain)); # Total number of steps to achive the max strain parameter
 
 # Define the output parameters file (default: parameters.config)
-OUTPUT_FILE="shear$id-$shearRate-$Nexp.parameters"
+OUTPUT_FILE="shear$id-$shearRate.parameters"
 
 # List of variable names to include in the parameters file
 VAR_NAMES=(

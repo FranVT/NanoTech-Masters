@@ -5,17 +5,17 @@
 #!/bin/bash
 
 dir_home=$1
-dir_src=$2
-dir_sim=$3
-dir_data=$4
-dir_shear=$5
-id=$6
-cl_con=$7
-shearRate=$8
-Nexp=$9
+dir_shear=$2
+dir_system=$3
+id=$4
+cl_con=$5
+shearRate=$6
+Nexp=$7
 
-# Go to the directory in which the files are going to be created 
-cd $dir_shear;
+# Directories
+dir_src="$dir_home/src"
+dir_sim="$dir_src/sim"
+dir_data="$dir_home/data"
 
 # Load the parameters file
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters
@@ -25,6 +25,9 @@ source $dir_src/docs/load_parameters.sh $dir_src/docs/assembly$id-$cl_con.parame
 
 # Load the shear config file
 source $dir_src/docs/load_parameters.sh $dir_src/docs/shear$id-$shearRate.parameters
+
+# Go to the directory in which the files are going to be created 
+cd $dir_shear;
 
 # Create README file
 
