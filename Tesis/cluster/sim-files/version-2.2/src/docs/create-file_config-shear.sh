@@ -19,8 +19,6 @@ source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters
 Nstep_per_strain=$(echo "scale=$cs; $(echo "scale=$cs; 1 / $shearRate" | bc) * $(echo "scale=$cs; 1 / $dt" | bc)" | bc) ;
 Nstep_per_strain=${Nstep_per_strain%.*};    # Number of steps to deform 1 strain.
 shear_it=$(( $max_strain * $Nstep_per_strain)); # Total number of steps to achive the max strain parameter
-seed3=$(date +%F%H%M%S | tr -d '-' | sed 's/./&+/g; s/+$//' | bc)
-seed3=$(( $seed3 + $Nexp ))
 
 # Define the output parameters file (default: parameters.config)
 OUTPUT_FILE="shear$id-$shearRate-$Nexp.parameters"
@@ -29,7 +27,6 @@ OUTPUT_FILE="shear$id-$shearRate-$Nexp.parameters"
 VAR_NAMES=(
   "Nstep_per_strain"
   "shear_it"
-  "seed3"
 )
 
 # Create or overwrite the parameters file

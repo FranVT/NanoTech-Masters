@@ -14,6 +14,9 @@ cl_con=$7
 shearRate=$8
 Nexp=$9
 
+# Go to the directory in which the files are going to be created 
+cd $dir_shear;
+
 # Load the parameters file
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters
 
@@ -21,10 +24,7 @@ source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters
 source $dir_src/docs/load_parameters.sh $dir_src/docs/assembly$id-$cl_con.parameters
 
 # Load the shear config file
-source $dir_src/docs/load_parameters.sh $dir_src/docs/shear$id-$shearRate-$Nexp.parameters
-
-# Go to the directory and create the readme
-cd $dir_shear;
+source $dir_src/docs/load_parameters.sh $dir_src/docs/shear$id-$shearRate.parameters
 
 # Create README file
 

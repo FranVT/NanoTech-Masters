@@ -41,13 +41,19 @@ do
     # Create the sge files to run the shear protocol
     for var_shearRate in $(seq $dgamma_o $dgamma_d $dgamma_f);
     do
+   
+        dir_shearexp="$dir_system/shear-$id-shearRate$var_shearRate"
+        mkdir $dir_shearexp
+        # CREATE README and DATA.DAT file
+        bash $dir_src/docs/create-file_reference.sh $dir_home $dir_src $dir_sim $dir_data $dir_shearexp $id $var_ccL $var_shearRate
+
         for var_N in $(seq $Nexp)
         do
-            echo $(pwd)
-            echo "Before bash shear"
-            dir_shearexp="$dir_system/shear-$id-shearRate$var_shearRate-Nexp$var_N"
             fileshearname="shear-$id-shearRate-$var_shearRate-exp$var_N.sge"
-            bash $dir_src/docs/create-file_shear-sge.sh $dir_shearexp $fileshearname
+            # Create the directory to save the data
+            mkdir "$dir_shearexp/Exp$var_N"
+            mkdir "$dir_shearexp/Exp$var_N/traj"
+            bash $dir_src/docs/create-file_shear-sge.sh $fileshearname
         done
     done
 
@@ -61,7 +67,7 @@ do
         for var_N in $(seq $Nexp)
         do
             echo $(pwd)
-            dir_shearexp="$dir_system/shear-$id-shearRate$var_shearRate-Nexp$var_N"
+            dir_shearexp="$dir_system/shear-$id-shearRate$var_shearRate"
             fileshearname="shear-$id-shearRate-$var_shearRate-exp$var_N.sge"
             qsub $dir_src/$fileshearname $dir_home $dir_data $dir_system $dir_shearexp $id $var_ccL $var_shearRate $var_N
         done
