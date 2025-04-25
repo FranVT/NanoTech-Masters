@@ -38,7 +38,7 @@ do
     filename="system-$id-CL-$var_ccL.sge"
 
     # Create the config file for the assembly
-    bash $dir_src/docs/create-file_config-assembly.sh $dir_home $dir_src $dir_sim $dir_data $dir_system $id $var_ccL
+    bash $dir_src/docs/create-file_config-assembly.sh $dir_src $id $var_ccL
 
     # Create the sge file to run the assembly protocol
     bash $dir_src/docs/create-file_experiment-sge.sh $dir_home $dir_src $dir_sim $dir_data $dir_system $id $var_ccL $filename
@@ -58,7 +58,7 @@ do
         mkdir $dir_shearexp; 
        
         # Create the config file for the shear simulations
-        bash $dir_src/docs/create-file_config-shear.sh $dir_home $dir_src $dir_sim $dir_data $dir_shear $id $var_shearRate
+        bash $dir_src/docs/create-file_config-shear.sh $dir_src $id $var_shearRate
 
         # Create the README and data.dat files in the shear directory
         bash $dir_src/docs/create-file_reference.sh $dir_home $dir_shearexp $dir_system $id $var_ccL $var_shearRate

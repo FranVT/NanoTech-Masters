@@ -4,13 +4,9 @@
 
 #!/bin/bash
 
-dir_home=$1
-dir_src=$2
-dir_sim=$3
-dir_data=$4
-dir_shear=$5
-id=$6
-shearRate=$7
+dir_src=$1
+id=$2
+shearRate=$3
 
 # Load the parameter file for assembly
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters

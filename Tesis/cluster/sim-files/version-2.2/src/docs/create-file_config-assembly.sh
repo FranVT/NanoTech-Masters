@@ -7,13 +7,9 @@
 
 echo "Running the create config assembly"
 
-dir_home=$1
-dir_src=$2
-dir_sim=$3
-dir_data=$4
-dir_system=$5
-id=$6
-cl_con=$7
+dir_src=$1
+id=$2
+cl_con=$3
 
 # Load the parameter file for assembly
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters
