@@ -18,8 +18,9 @@ dir_data="$dir_home/data";
 id=$(date +%F-%H%M%S);
 
 # Clean the source directory from previus simulations
-rm -f "$dir_src/*.sge";
-rm -f "$dir_src/assembly*"
+rm -f "$dir_src/*.sge*";
+rm -f "$dir_src/docs/assembly*"
+rm -f "$dir_src/docs/shear*"
 
 # Go to source directory
 cd $dir_src;
