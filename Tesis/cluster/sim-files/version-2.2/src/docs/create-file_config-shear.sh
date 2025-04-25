@@ -11,7 +11,6 @@ dir_data=$4
 dir_shear=$5
 id=$6
 shearRate=$7
-Nexp=$8
 
 # Load the parameter file for assembly
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters

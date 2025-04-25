@@ -58,7 +58,7 @@ do
         mkdir $dir_shearexp; 
        
         # Create the config file for the shear simulations
-        bash $dir_src/docs/create-file_config-shear.sh $dir_home $dir_src $dir_sim $dir_data $dir_shear $id $shearRate $Nexp
+        bash $dir_src/docs/create-file_config-shear.sh $dir_home $dir_src $dir_sim $dir_data $dir_shear $id $var_shearRate
 
         # Create the README and data.dat files in the shear directory
         bash $dir_src/docs/create-file_reference.sh $dir_home $dir_shearexp $dir_system $id $var_ccL $var_shearRate
