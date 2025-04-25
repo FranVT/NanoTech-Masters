@@ -23,6 +23,9 @@ source $dir_src/docs/load_parameters.sh $dir_src/docs/assembly$id-$cl_con.parame
 # Load the shear config file
 source $dir_src/docs/load_parameters.sh $dir_src/docs/shear$id-$shearRate-$Nexp.parameters
 
+# Go to the directory and create the readme
+cd $dir_shear;
+
 # Create README file
 
 # Inside the experiment directory
@@ -81,12 +84,6 @@ values+=("traj")
 
 headers+=("imgs-dir")
 values+=("imgs")
-
-headers+=("log-of-assembly")
-values+=("log_assembly.lammps")
-
-headers+=("log-of-assembly")
-values+=("log_assembly.lammps")
 
 for i in "${!files_name[@]}"; do
     headers+=("file$i")
@@ -165,7 +162,4 @@ values+=("${NsaveStress}")
 # Write headers and values to the file
 echo "$(IFS=,; echo "${headers[*]}")" > "$file_name"
 echo "$(IFS=,; echo "${values[*]}")" >> "$file_name"
-
-mv "README.md" $dir_shear
-mv "data.dat" $dir_shear
 
