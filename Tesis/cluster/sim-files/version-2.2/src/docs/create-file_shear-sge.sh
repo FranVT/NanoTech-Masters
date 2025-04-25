@@ -39,12 +39,13 @@ module load openmpi/gcc/64/1.10.1;
 echo "Running the shear.sge file"
 
 # Recieve outer parameters
-dir_src=$1
-dir_system=$2
-dir_shear=$3
-id=$4
-var_shearRate=$5
-var_N=$6
+dir_sim=$1
+dir_src=$2
+dir_system=$3
+dir_shear=$4
+id=$5
+var_shearRate=$6
+var_N=$7
 
 dir_sim=$dir_src/sim
 

@@ -49,7 +49,7 @@ do
     mkdir $dir_system; mkdir "$dir_system/traj"
 
     # Run the assembly
-    qsub $dir_src/$filename $dir_src $dir_system $id $var_ccL
+    qsub $dir_src/$filename $dir_sim $dir_src $dir_system $id $var_ccL
 
     # Create the sge files to run the shear protocol
     for var_shearRate in $(seq $dgamma_o $dgamma_d $dgamma_f);
@@ -88,7 +88,7 @@ do
 
             # Run the shear simulation
             echo "qsub of $fileshearname with experiment $var_N"
-            qsub $dir_src/$fileshearname $dir_src $dir_system $dir_shearexp $id $var_shearRate $var_N
+            qsub $dir_src/$fileshearname $dir_sim $dir_src $dir_system $dir_shearexp $id $var_shearRate $var_N
         done
     done
 

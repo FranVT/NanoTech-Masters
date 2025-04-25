@@ -41,10 +41,11 @@ module load openmpi/gcc/64/1.10.1;
 echo "Running the system.sge file"
 
 # Recieve the outer parameters
-dir_src=$1
-dir_system=$2
-id=$3
-var_ccL=$4
+dir_sim=$1
+dir_src=$2
+dir_system=$3
+id=$4
+var_ccL=$5
 
 # Load the parameters file
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters 
