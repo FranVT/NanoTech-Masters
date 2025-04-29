@@ -64,6 +64,11 @@ compute clPatch Patches cluster/atom 0.6
 compute ccl Patches chunk/atom c_clPatch compress yes discard no # Define chunks based on cluster ID
 compute size Patches property/chunk ccl count # Counts the atoms in each chunk
 
+# Velocity stream in the Y axis
+compute velChunks CM chunk/atom bin/3d x lower ${L_real} y lower ${bin_y} z center ${L_real} nchunk every
+
+fix fixVelStream CM ave/chunk 1 ${Nsave} ${Nsave} velChunks vx vy vz ave new file ${Dir}/velStream.fixf
+
 # DUMPS and FIXES
 
 thermo ${NsaveStress}
