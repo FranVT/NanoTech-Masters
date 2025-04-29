@@ -42,6 +42,7 @@ OUTPUT_FILE="assembly$id-$var_ccL.parameters"
 
 # List of variable names to include in the parameters file
 VAR_NAMES=(
+    "N_particles"
     "N_CL"
     "N_MO"
     "L"

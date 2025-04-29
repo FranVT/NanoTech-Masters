@@ -49,8 +49,6 @@ echo -e ""- Number of time steps for Relax steps 3: "${relaxTime3}" >> $file_nam
 echo -e "\n ## Derived values from parameters \n" >> $file_name;
 echo -e ""- Number of Cross-Linkers: "${N_CL}" >> $file_name;
 echo -e ""- Number of Monomers: "${N_MO}" >> $file_name;
-echo -e ""- Volume of Cross-Linker: "${Vol_CL1}" [sigma^3]"" >> $file_name;
-echo -e ""- Volume of Monomer: "${Vol_MO1}" [sigma^3]"" >> $file_name;
 echo -e ""- Half length of the box: "${L}" [sigma]"" >> $file_name;
 echo -e "\n ## Save parameters \n" >> $file_name;
 echo -e ""- Save every "${Ndump}" time steps for dumps files"" >> $file_name;
@@ -132,12 +130,6 @@ values+=("${N_CL}")
 
 headers+=("N_MO")
 values+=("${N_MO}")
-
-headers+=("Vol_CL")
-values+=("${Vol_CL1}")
-
-headers+=("Vol_MO")
-values+=("${Vol_MO1}")
 
 headers+=("L")
 values+=("${L}")

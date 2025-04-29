@@ -4,13 +4,12 @@
 
 #!/bin/bash
 
-chmod +x load_parameters.sh
 source ./load_parameters.sh parameters.txt
 
 CL_con=$1
 shear_rate=$2
 dir_name=$3
-L=$5
+L=$4
 
 # Create README file
 
