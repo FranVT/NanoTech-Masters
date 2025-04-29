@@ -21,6 +21,8 @@ id=$(date +%F-%H%M%S);
 rm -f $dir_src/system*
 rm -f $dir_src/shear*
 rm -f $dir_src/docs/*.config
+rm -f $dir_src/docs/assembly*
+rm -f $dir_src/docs/shear*
 
 # Go to source directory
 cd $dir_src;
