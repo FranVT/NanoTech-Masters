@@ -12,9 +12,7 @@ source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters
 
 # Create the new script with a template
 cat > "$filename" << 'EOF'
-# SGE file to run the assembly and create sge files for the shear simulations
-
-echo "Running the system.sge file"
+echo "Running the system.sh file"
 
 # Recieve the outer parameters
 dir_sim=$1
