@@ -1,0 +1,27 @@
+: '
+    Parameters for the assembly and shear simulations
+'
+
+cs=6
+nodes=4
+damp=1
+T=0.05
+N_particles=10
+dt=0.001
+steps_heat=5
+steps_isot=8
+Nsave=1
+NsaveStress=2
+Ndump=1
+Vol_MO1=4.49789
+Vol_CL1=4.80538
+files_name=("data_system_assembly.fixf" "data_stress_assembly.fixf" "data_clustP_assembly.dumpf" "traj_assembly.*.dumpf" "data.hydrogel" "data_system_shear.fixf" "data_stress_shear.fixf" "data_clustP_shear.fixf" "traj_shear.*.dumpf" "data.firstShear")
+phi=0.5
+max_strain=1
+relaxTime1=1
+relaxTime2=1
+relaxTime3=1
+dgamma_o=1
+dgamma_f=1
+dgamma_d=1
+Nexp=3
