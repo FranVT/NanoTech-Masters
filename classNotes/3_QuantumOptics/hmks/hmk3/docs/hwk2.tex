@@ -2,62 +2,44 @@
 
 \begin{document}
 
-\section{Problem 4.2}
+\section{Problem 4.25}
 
-Use separation of variable in \textit{cartesian} coordinates to solve the infinite \textit{cubical} well (or particle in a box):
+If the electron were a classical solid sphere, with radius,
 \begin{gather*}
-    V(x,y,z) = 
-    \left\{
-        \begin{array}{cc}
-            0, & \forall x,y,z \in \qty[0,a] \\
-            \infty, & \forall x,y,z \notin \qty[0,a] 
-        \end{array}
-    \right.
+    r_c = \frac{e^2}{4\pi\epsilon_omc^2}
+\end{gather*}
+(the so-called classical electron radius, obtained by assuming the electron's mass is attributable to energy sotred in its electric field, via the Einstein formula $E=mc^2$),
+and its angular momentum is $\hbar/2$, then how fast (in $m/s$) would a point on the "equator" be moving?
+Does this model make sense?
+(Actually, the radius of the electrin is known experimentally to be much less than $r_c$ but this only makes matters worse.)
+
+\section{Problem 4.26}
+
+\begin{itemize}
+    \item Check that the spin matrices 4,145 and 4,147 obey the fundamental commutation relations for angular momentum eqn 4.134
+    \item Show that the Pauli spin matrices 4.148 satisfy the product rule 
+        \begin{gather*}
+            \sigma_j\sigma_k=\delta_{jk}+i\sum_l\epsilon_{jkl}\sigma_l,
+        \end{gather*}
+        where the indices stand for $x,y,z$ and $\epsilon_{jkl}$ is the Levi-Civita symbol.
+\end{itemize}
+
+\section{Problem 4.27}
+
+An electron is in the spin state,
+\begin{gather*}
+    \Xi=A\begin{pmatrix}3i\\4\end{pmatrix}
 \end{gather*}
 
 \begin{itemize}
-    \item Find the stationary states, and the corresponding energies.
-    \item Call the distinct energies $E_1,E_2,\dots$ in order of increasing energy.
-        Find $E_1,E_2,E_3,E_4,E_5$ and $E_6$.
-        Determine their degeneracies (that is, the number of different states that share the same energy).
-    \item What is the degeneracy of $E_{14}$, and why is this case interesting?
+    \item Determine the normalization constant $A$.
+    \item Find the expectation values of $S_x, S_y$ and $S_z$.
+    \item Find the ``uncertanties'' $\sigma_{S_x},\sigma_{S_y}$ and $\sigma_{S_z}$. (Note: These sigmas are standard deviations, not Pauli matrices!)
+    \item Confirm that your results are consistent with all three uncertanty principles 4.100 and its cyclic permutations-only with $S$ in place of $L$, of course.)
 \end{itemize}
 
-\section{Problem 4.3}
+\section{Problem 4.32 a)}
 
-Use 
-\begin{align*}
-    P^m_l(x)&\equiv\qty(1-x^2)^{\abs{m}/2}\qty(\dv{x})^{\abs{m}}P_l(x) \\
-    P_l\qty(x) &\equiv\frac{1}{2 l!}\qty(\dv{x})^l\qty(x^2-1)^l \\
-    Y^m_l\qty(\theta,\phi) &=\epsilon\sqrt{\frac{\qty(2l+1)}{4\pi}\frac{\qty(l-\abs{m})!}{\qty(l+\abs{m})!}}e^{im\phi}P^m_l\qty(\cos\qty[\theta]) 
-\end{align*}
-to construct $Y^0_0$ and $Y^l_2$.
-Check that they are normalized and orthogonal.
-
-\section{Problem 4.13}
-
-\begin{itemize}
-    \item Find $\expval{r}$ and $\expval{r^2}$ for an electron in the ground state of hydrogen.
-        Express your answers in terms of the Bohr radius.
-    \item Find $\expval{x}$ and $\expval{x^2}$ for an electron in the ground stat of hydrogen.
-        \textit{Hint:} this requires no noew integration-note that $r^2=x^2+y^2+z^2$, and explot the symmetry of the ground state.
-    \item Find $\expval{x^2}$ in the state $n=2,l=1,m=1$. \textit{Warning:} This state is not symmetrical in $x,y,z$.
-        Use $x=r\sin\theta\cos\phi$.
-\end{itemize}
-
-\section{Problem 4.14}
-
-What is the \textit{most probable} value of $r$, in the ground state of hydrogen?
-(The answer is not zero!)
-\textit{Hint:} First ypu must figure out the probability that the electron would be found between $r$ and $r+dr$.
-
-\section{Problem 4.23}
-
-In problem 4.3 you showed that 
-\begin{gather*}
-    Y^l_2\qty(\theta,\phi) = -\sqrt{\frac{15}{8\pi}}\sin\theta\cos\theta e^{i\phi}.
-\end{gather*}
-Apply the raising operator to find $Y^2_2\qty(\theta,\phi)$.
-Use equation $ A^m_l =\hbar\sqrt{l\qty(l+1)-m\qty(m\pm1)}=\hbar\sqrt{\qty(l\mp m)\qty(l\pm m+1)} $ to get the normalization.
+If ypu measure the component of spin angular momentum along the $x$ direction, at time $t$, what is the probability that ypu would get $+\hbar/2$?
 
 \end{document}
