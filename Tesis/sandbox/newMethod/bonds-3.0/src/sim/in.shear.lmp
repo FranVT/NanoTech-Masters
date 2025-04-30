@@ -66,7 +66,7 @@ compute size Patches property/chunk ccl count # Counts the atoms in each chunk
 
 # Velocity stream in the Y axis
 variable L equal ${L_real}
-compute velChunks CM chunk/atom bin/3d x lower $L y lower $L z lower ${bin_y} nchunk every units reduced
+compute velChunks CM chunk/atom bin/3d x lower $L y lower $L z center ${bin_y} nchunk every units reduced
 
 # The ave/chunk creates a temporal average. The ave keyword creates a spatial average.
 fix fixVelStream CM ave/chunk 1 ${Nsave} ${Nsave} velChunks vx vy vz ave one file ${Dir}/velStream.fixf
