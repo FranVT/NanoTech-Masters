@@ -32,9 +32,10 @@
 \RequirePackage{fancybox}		% Recuadros
 \RequirePackage[inline]{enumitem} % Cambiar la enumeración de enumerate
 \RequirePackage{listings}       % Modificación para códigos
-\RequirePackage[backend=biber,style=science]{biblatex}           % Bibliografía
-\addbibresource{bibliografia.bib}
-\AtBeginBibliography{\normalsize}
+%\RequirePackage[backend=biber,style=science]{biblatex}           % Bibliografía
+%\addbibresource{bibliografia.bib}
+%\AtBeginBibliography{\normalsize}
+\RequirePackage[many]{tcolorbox}
 
 % https://www.overleaf.com/learn/latex/Biblatex_bibliography_styles
 
@@ -121,6 +122,22 @@
 %------------OTRAS COSAS------------%
 
 \pagestyle{fancy}            % Header style.
+
+\newtcbtheorem[]{sol}{Solution}%
+    {enhanced,
+    colback = black!5, %white,
+    colbacktitle = black!5,
+    coltitle = black,
+    boxrule = 0pt,
+    frame hidden,
+    borderline west = {0.5mm}{0.0mm}{black},
+    fonttitle = \bfseries\sffamily,
+    breakable,
+    before skip = 3ex,
+    after skip = 3ex
+}{def}
+
+
 
 
 \RequirePackage{subfiles}

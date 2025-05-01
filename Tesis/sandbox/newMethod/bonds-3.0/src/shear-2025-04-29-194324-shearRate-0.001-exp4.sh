@@ -1,15 +1,3 @@
-: '
-    Script that create the sge file to perform a shear deformation simulation
-'
-
-#!/bin/bash
-
-echo "In the shear se file!!"
-
-filename=$1
-
-# Create the new script with a template
-cat > "$filename" << 'EOF'
 echo "Running the shear.sh file"
 
 # Recieve outer parameters
@@ -58,5 +46,3 @@ cd $dir_sim
 echo "Start the shear simulation"
 
 env OMP_RUN_THREADS=1 mpirun -np 6 lmp -sf omp -in in.shear.lmp -var L_real $L_real -var bin_y $bin_y -var temp $T -var damp $damp -var tstep $dt -var shear_rate $var_shearRate -var max_strain $max_strain -var Nstep_per_strain $Nstep_per_strain -var shear_it $shear_it -var Nsave $Nsave -var NsaveStress $NsaveStress -var Ndump $Ndump -var seed3 $seed3 -var rlxT1 $relaxTime1 -var rlxT2 $relaxTime2 -var rlxT3 $relaxTime3 -var Dir $dir_saveinfo -var dataDir $dir_system -var file6_name ${files_name[5]} -var file7_name ${files_name[6]} -var file8_name ${files_name[7]} -var file9_name ${files_name[8]} -var file10_name ${files_name[9]}
-EOF
-

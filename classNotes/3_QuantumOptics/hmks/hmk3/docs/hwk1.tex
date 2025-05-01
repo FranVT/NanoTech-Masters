@@ -15,13 +15,31 @@ Use separation of variable in \textit{cartesian} coordinates to solve the infini
     \right.
 \end{gather*}
 
-\begin{itemize}
+\begin{enumerate}
     \item Find the stationary states, and the corresponding energies.
     \item Call the distinct energies $E_1,E_2,\dots$ in order of increasing energy.
         Find $E_1,E_2,E_3,E_4,E_5$ and $E_6$.
         Determine their degeneracies (that is, the number of different states that share the same energy).
     \item What is the degeneracy of $E_{14}$, and why is this case interesting?
-\end{itemize}
+\end{enumerate}
+
+\begin{sol}{Stationary states}{label-1}
+    To find the stationary states of the infinite cubical well, we are going to solve the time independent Schrödinger equation,
+    \begin{gather*}
+        -\frac{\hbar^2}{2m}\nabla\psi=E\psi,~\forall x,y,z \in \qty[0,a],
+    \end{gather*}
+    with the following boundary conditions $\psi(0,0,0)=\psi(a,a,a)=0$.
+    To solve the equation we are going to use the method of separation of variables, that is, that we assume that the solution of the differential equation has the following form $\psi(x,y,z)=X(x)Y(y)Z(z)$.
+    Substituting this solution to the differential equation, we can perfom some algebraic manipulation,
+    \begin{gather*}
+        -\frac{\hbar^2}{2m}\nabla\psi =E\psi \\
+        \qty(\pdv[2]{x}+\pdv[2]{y}+\pdv[2]{z})X(x)Y(y)Z(z) = -\frac{2m}{\hbar^2}EX(x)Y(y)Z(z) \\
+        Y(y)Z(z)\pdv[2]{x}X(x)+X(x)Z(z)\pdv[2]{y}Y(y)+X(x)Y(y)\pdv[2]{z}Z(z) = -\frac{2m}{\hbar^2}EX(x)Y(y)Z(z) \\
+        \frac{1}{X(x)}\pdv[2]{x}X(x)+\frac{1}{Y(y)}\pdv[2]{y}Y(y)+\frac{1}{Z(z)}\pdv[2]{z}Z(z)= -\frac{2m}{\hbar^2}E
+    \end{gather*}
+
+\end{sol}
+
 
 \section{Problem 4.3}
 
