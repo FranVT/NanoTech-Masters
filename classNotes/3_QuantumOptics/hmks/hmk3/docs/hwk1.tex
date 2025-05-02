@@ -35,8 +35,40 @@ Use separation of variable in \textit{cartesian} coordinates to solve the infini
         -\frac{\hbar^2}{2m}\nabla\psi =E\psi \\
         \qty(\pdv[2]{x}+\pdv[2]{y}+\pdv[2]{z})X(x)Y(y)Z(z) = -\frac{2m}{\hbar^2}EX(x)Y(y)Z(z) \\
         Y(y)Z(z)\pdv[2]{x}X(x)+X(x)Z(z)\pdv[2]{y}Y(y)+X(x)Y(y)\pdv[2]{z}Z(z) = -\frac{2m}{\hbar^2}EX(x)Y(y)Z(z) \\
-        \frac{1}{X(x)}\pdv[2]{x}X(x)+\frac{1}{Y(y)}\pdv[2]{y}Y(y)+\frac{1}{Z(z)}\pdv[2]{z}Z(z)= -\frac{2m}{\hbar^2}E
+        \frac{1}{X(x)}\pdv[2]{x}X(x)+\frac{1}{Y(y)}\pdv[2]{y}Y(y)+\frac{1}{Z(z)}\pdv[2]{z}Z(z)= -\frac{2m}{\hbar^2}E.
     \end{gather*}
+    Now we can re-write this partial differential equation into three diferential equations assumming that $E=\frac{\hbar^2}{2m}\qty(k_x^2+k_y^2+k_z^2)$,
+    \begin{align*}
+        \dv[2]{X(x)}{x} = -k_x^2X(x) &\rightarrow X(x)=A_x\sin\qty[k_x x]+B_x\cos\qty[k_x x],\\
+        \dv[2]{Y(y)}{y} = -k_y^2Y(y) &\rightarrow Y(y)=A_y\sin\qty[k_y y]+B_y\cos\qty[k_y y],\\
+        \dv[2]{Z(z)}{z} = -k_z^2Z(z) &\rightarrow Z(z)=A_z\sin\qty[k_z z]+B_z\cos\qty[k_z z].
+    \end{align*}
+    In order to find the expression for the coefficients $A_n,~B_n$ and $k_n$, we start by applying the boundary conditions.
+    Since $\sin$ and $\cos$ are periodic functions, they satisfy $f(0)=f(a)$, however only the $\sin$ function satisfy the condition $f(0)=f(a)=0$, hence, we set $B_x=B_y=B_z=0$ leading to,
+     \begin{gather*}
+        X(x)=A_x\sin\qty[k_x x],\quad Y(y)=A_y\sin\qty[k_y y],\quad Z(z)=A_z\sin\qty[k_z z].
+    \end{gather*}
+    Now we recall the fact that $x,y$ and $z$ have units of distance and that the argument of the $\sin$ function must be dimensonless, combining this restriction with the property of periodicity we can define the constants $k_n$ as, $k_x=n_x\pi/a,~k_y=n_y\pi/a,~k_z=n_z\pi/a$, where $\qty(n_x,n_y,n_z)\in\mathbb{Z}^+$.
+    With this information we can re-write the solution as,
+    \begin{gather*}
+        \psi\qty(x,y,z)=A_x A_y A_z\sin\qty[\frac{n_x\pi}{a} x]\sin\qty[\frac{n_y\pi}{a} y]\sin\qty[\frac{n_z\pi}{a} z],
+    \end{gather*} 
+    with
+    \begin{gather*}
+        E=\frac{\pi^2\hbar^2}{2ma^2}\qty(n_x^2+n_y^2+n_z^2), \quad \qty(n_x,n_y,n_z)\in\mathbb{Z}^+.
+    \end{gather*}
+    Finally, in order to get the expression for $A_x,A_y$ and $A_z$ we apply the normalization restiction to each spatial dimension,
+    \begin{align*}
+        \int_0^a A_l^2\sin^2\qty[\frac{n_l\pi}{a} s] ds &= A^2_l\frac{a}{4}\qty(2-\frac{1}{\pi n}\sin\qty[2\pi n]) = 1,
+    \end{align*}
+    since $n\in\mathbb{Z}^+$ we get that $A_l=\sqrt{2/a}$, therefore,
+    \begin{empheq}[box=\shadowbox]{equation*}
+        \psi\qty(x,y,z)=\sqrt{\frac{8}{a^3}}\sin\qty[\frac{n_x\pi}{a} x]\sin\qty[\frac{n_y\pi}{a} y]\sin\qty[\frac{n_z\pi}{a} z], \quad \qty(n_x,n_y,n_z)\in\mathbb{Z}^+
+    \end{empheq}
+\end{sol}
+
+
+\begin{sol}{Energy analysis}{label-2}
 
 \end{sol}
 
