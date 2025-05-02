@@ -261,7 +261,23 @@ Check that they are normalized and orthogonal.
 
 What is the \textit{most probable} value of $r$, in the ground state of hydrogen?
 (The answer is not zero!)
-\textit{Hint:} First ypu must figure out the probability that the electron would be found between $r$ and $r+dr$.
+\textit{Hint:} First you must figure out the probability that the electron would be found between $r$ and $r+dr$.
+
+\begin{sol}{Most probable value of the position in the ground state.}{label-3c}
+    To compute the most probable value of $r$ we integrate thru space $\abs{\psi_{1,0,0}\qty(r,\theta,\phi)}^2$ to get the probability density function.
+    \begin{align*}
+        p(r) &= \int_{0}^{r}\int_0^\pi\int_0^{2\pi}\abs{\psi_{1,0,0}\qty(r,\theta,\phi)}^2 r^2\sin\theta d\theta d\phi dr \\
+             &= \frac{1}{\pi a^3}\int_{0}^{\infty} e^{-2r/a} r^2 dr \int_0^\pi\sin\theta d\theta\int_0^{2\pi}  d\phi \\
+             &= \frac{1}{\pi a^3}\qty()
+    \end{align*}
+
+    need to take into account that the probability density for the ground state is given by $P=4\pi$, due to normalization restrictions.
+    Now we can compute the mos probable value we perfom the integral thru the radial component, because it has angular symmetry,
+    
+Since it has angular symmetry we only integrate the radial component,
+\end{sol}
+
+
 
 \section{Problem 4.23}
 
