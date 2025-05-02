@@ -69,6 +69,14 @@ Use separation of variable in \textit{cartesian} coordinates to solve the infini
 
 
 \begin{sol}{Energy analysis}{label-2}
+    %In order to compute the degeneracy we need to get the amount of combinations of $(n_x,n_y,n_z)$ that get the same same energy.
+    %This can be done using 
+
+\end{sol}
+
+\begin{sol}{Energy 14}{label-3}
+    %In order to compute the degeneracy we need to get the amount of combinations of $(n_x,n_y,n_z)$ that get the same same energy.
+    %This can be done using 
 
 \end{sol}
 
@@ -78,11 +86,37 @@ Use separation of variable in \textit{cartesian} coordinates to solve the infini
 Use 
 \begin{align*}
     P^m_l(x)&\equiv\qty(1-x^2)^{\abs{m}/2}\qty(\dv{x})^{\abs{m}}P_l(x) \\
-    P_l\qty(x) &\equiv\frac{1}{2 l!}\qty(\dv{x})^l\qty(x^2-1)^l \\
-    Y^m_l\qty(\theta,\phi) &=\epsilon\sqrt{\frac{\qty(2l+1)}{4\pi}\frac{\qty(l-\abs{m})!}{\qty(l+\abs{m})!}}e^{im\phi}P^m_l\qty(\cos\qty[\theta]) 
+    P_l\qty(x) &\equiv\frac{1}{2^l l!}\qty(\dv{x})^l\qty(x^2-1)^l \\
+    Y^m_l\qty(\theta,\phi) &=\sqrt{\frac{\qty(2l+1)}{4\pi}\frac{\qty(l-\abs{m})!}{\qty(l+\abs{m})!}}e^{im\phi}P^m_l\qty(\cos\qty[\theta]) 
 \end{align*}
-to construct $Y^0_0$ and $Y^l_2$.
+to construct $Y^0_0$ and $Y^1_2$.
 Check that they are normalized and orthogonal.
+
+\begin{sol}{Spherical harmonic}{label-4}
+    We start with $Y^0_0\qty(\theta,\phi)$, $m=l=0$ which gives that, $P^0_0(x)=P_0(x)=1$, hence,
+    \begin{align*}
+        Y^0_0\qty(\theta,\phi) &=\frac{1}{\sqrt{4\pi}}.
+    \end{align*}
+    Now, to check if it is normalize we integrate in spherical coordinates from $\theta\in\qty(0,\pi)$ and $\phi\in\qty(0,2\pi)$,
+    \begin{align*}
+        \int_0^\pi\int_0^{2\pi}\abs{Y^0_0\qty(\theta,\phi)}^2\sin\theta d\theta d\phi &= \int_0^\pi\int_0^{2\pi}\frac{1}{4\pi}\sin\theta d\theta d\phi \\
+                                                                                      &= \frac{1}{4\pi}\qty[\int_0^\pi\sin\theta d\theta]\qty[\int_0^{2\pi} d\phi] \\
+                                                                                      &= \frac{1}{4\pi}\qty[2]\qty[2\pi] \\
+                                                                                      &= 1 
+    \end{align*}
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        \int_0^\pi\int_0^{2\pi}\abs{Y^0_0\qty(\theta,\phi)}^2\sin\theta d\theta d\phi = 1
+    \end{empheq}
+
+    Now we do the same procedure with $Y^1_2$, $m=1$ and $l=2$, which gives that $P^1_2(x)=\sqrt{1-x^2}\dv{x}P_2(x)$ and $P_2(x)=1/2\qty(3x^2-1)$, hence,
+    \begin{align*}
+        Y^1_2\qty(\theta,\phi) &=\sqrt{\frac{5}{4\pi}\frac{1}{6}}e^{i\phi}\sqrt{1-x^2}\dv{x}\frac{1}{2}\qty(3x^2-1)\qty(\cos\qty[\theta]) \\
+                               &=\sqrt{\frac{5}{4\pi}\frac{1}{6}}e^{i\phi}\sqrt{1-x^2}3x
+    \end{align*}
+
+\end{sol}
+
 
 \section{Problem 4.13}
 
@@ -94,6 +128,13 @@ Check that they are normalized and orthogonal.
     \item Find $\expval{x^2}$ in the state $n=2,l=1,m=1$. \textit{Warning:} This state is not symmetrical in $x,y,z$.
         Use $x=r\sin\theta\cos\phi$.
 \end{itemize}
+
+\begin{sol}{}{label-2}
+    %In order to compute the degeneracy we need to get the amount of combinations of $(n_x,n_y,n_z)$ that get the same same energy.
+    %This can be done using 
+
+\end{sol}
+
 
 \section{Problem 4.14}
 
