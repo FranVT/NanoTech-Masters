@@ -23,7 +23,7 @@ Use separation of variable in \textit{cartesian} coordinates to solve the infini
     \item What is the degeneracy of $E_{14}$, and why is this case interesting?
 \end{enumerate}
 
-\begin{sol}{Stationary states}{label-1}
+\begin{sol}{Stationary states}{label-1a}
     To find the stationary states of the infinite cubical well, we are going to solve the time independent Schrödinger equation,
     \begin{gather*}
         -\frac{\hbar^2}{2m}\nabla\psi=E\psi,~\forall x,y,z \in \qty[0,a],
@@ -68,13 +68,13 @@ Use separation of variable in \textit{cartesian} coordinates to solve the infini
 \end{sol}
 
 
-\begin{sol}{Energy analysis}{label-2}
+\begin{sol}{Energy analysis}{label-1b}
     %In order to compute the degeneracy we need to get the amount of combinations of $(n_x,n_y,n_z)$ that get the same same energy.
     %This can be done using 
 
 \end{sol}
 
-\begin{sol}{Energy 14}{label-3}
+\begin{sol}{Energy 14}{label-1c}
     %In order to compute the degeneracy we need to get the amount of combinations of $(n_x,n_y,n_z)$ that get the same same energy.
     %This can be done using 
 
@@ -92,7 +92,7 @@ Use
 to construct $Y^0_0$ and $Y^1_2$.
 Check that they are normalized and orthogonal.
 
-\begin{sol}{Spherical harmonic}{label-4}
+\begin{sol}{Spherical harmonic}{label-2}
     We start with $Y^0_0\qty(\theta,\phi)$, $m=l=0$ subsistuting those values into the associate Legendre prolynomials,
     \begin{align*}
         P_0\qty(x) &\equiv\frac{1}{2^0 0!}\qty(\dv{x})^0\qty(x^2-1)^0 = 1,
@@ -162,16 +162,97 @@ Check that they are normalized and orthogonal.
 
 \begin{itemize}
     \item Find $\expval{r}$ and $\expval{r^2}$ for an electron in the ground state of hydrogen.
-        Express your answers in terms of the Bohr radius.
-    \item Find $\expval{x}$ and $\expval{x^2}$ for an electron in the ground stat of hydrogen.
-        \textit{Hint:} this requires no noew integration-note that $r^2=x^2+y^2+z^2$, and explot the symmetry of the ground state.
+        Express your answers in terms of the Bohr radius ($\rho$).
+    \item Find $\expval{x}$ and $\expval{x^2}$ for an electron in the ground state of hydrogen.
+        \textit{Hint:} this requires no new integration-note that $r^2=x^2+y^2+z^2$, and exploit the symmetry of the ground state.
     \item Find $\expval{x^2}$ in the state $n=2,l=1,m=1$. \textit{Warning:} This state is not symmetrical in $x,y,z$.
         Use $x=r\sin\theta\cos\phi$.
 \end{itemize}
 
-\begin{sol}{}{label-2}
-    %In order to compute the degeneracy we need to get the amount of combinations of $(n_x,n_y,n_z)$ that get the same same energy.
-    %This can be done using 
+\begin{sol}{Expected value of position.}{label-3a}
+    By solving the Schrodinger equation in spherical coordinates with the Coulomb's law as the potential energy, the stationary states are in terms of the Bohr's radius,
+    \begin{gather*}
+        \psi_{\qty(n,m,l)}\qty(r,\theta,\phi) = \frac{1}{r}\rho^{l+1}e^{-\rho}\upsilon\qty(\rho)Y^m_l\qty(\theta,\phi),
+    \end{gather*}
+    with $\upsilon\qty(\rho)$ being a polynimial of degree $j_{\max}=n-l-1$ with coefficients,
+    \begin{gather*}
+        c_{j+1} = \frac{2\qty(j+l+1-n)}{\qty(j+1)\qty(j+2l+2)}c_j.
+    \end{gather*}
+    For the ground state of the Hydrogen atom we set the parameters to $\qty(n=1,l=0,m=0)$, which gives,
+    \begin{gather*}
+        \psi_{1,0,0}\qty(r,\theta,\phi) = \frac{1}{\sqrt{\pi a^3}}e^{-r/a}.
+    \end{gather*}
+
+    To compute the expected value we perform the following operation,
+    \begin{align*}
+        \expval{r} &= \int_V r\abs{\psi_{1,0,0}\qty(r,\theta,\phi)}^2 dV \\
+                   &= \int_{0}^{\infty}\int_0^\pi\int_0^{2\pi} r \frac{1}{\pi a^3}e^{-2r/a} r^2\sin\theta d\theta d\phi dr \\
+                   &= \frac{1}{\pi a^3}\int_{0}^{\infty} e^{-2r/a} r^3 dr\int_0^\pi\sin\theta d\theta\int_0^{2\pi} d\phi \\ 
+                   &= \frac{1}{\pi a^3}\qty(\frac{3}{8}a^4)\qty(2)\qty(2\pi) \\ 
+                   &= \frac{3}{2}a.
+    \end{align*}
+    Now, for $\expval{r^2}$,
+    \begin{align*}
+        \expval{r^2} &= \int_V r^2 \abs{\psi_{1,0,0}\qty(r,\theta,\phi)}^2 dV \\
+                     &= \int_{0}^{\infty}\int_0^\pi\int_0^{2\pi} r^2 \frac{1}{\pi a^3}e^{-2r/a} r^2\sin\theta d\theta d\phi dr \\
+                     &= \frac{1}{\pi a^3}\int_{0}^{\infty} e^{-2r/a} r^4 dr\int_0^\pi\sin\theta d\theta\int_0^{2\pi} d\phi \\ 
+                     &= \frac{1}{\pi a^3}\qty(\frac{3}{4}a^5)\qty(2)\qty(2\pi) \\ 
+                     &= 3a^2.
+    \end{align*}
+    Therefore,
+    \begin{empheq}[box=\shadowbox]{equation*}
+        \expval{r} = \frac{3}{2}a,\quad \expval{r^2} = 3a^2
+    \end{empheq}
+\end{sol}
+
+\begin{sol}{Expected values and standard deviation of the $x$ component.}{label-3b}
+    Recalling the hint, $r^2=x^2+y^2+z^2$ and using the symmetry of the ground state we can conclude that,
+    \begin{align*}
+        \expval{x^2} &= \frac{1}{3}\expval{r^2} \\
+                     &= a^2.
+    \end{align*}
+    On the other hand, for $\expval{x}$ we can write the integrals considering that $x=r\sin\theta\cos\phi$,
+    \begin{align*}
+        \expval{x} &= \int_{0}^{\infty}\int_0^\pi\int_0^{2\pi} \qty(r\sin\theta\cos\phi) \frac{1}{\pi a^3}e^{-2r/a} r^2\sin\theta d\theta d\phi dr \\
+                  &= \frac{1}{\pi a^3}\int_{0}^{\infty}e^{-2r/a} r^3 dr\int_0^\pi\sin^2\theta d\theta\int_0^{2\pi}\cos\phid\phi  \\
+                  &= \frac{1}{\pi a^3}\qty(\frac{3}{8}a^4)\qty(\frac{\pi}{2})\qty(0) \\
+                  &= 0
+    \end{align*}
+
+    Hence,
+    \begin{empheq}[box=\shadowbox]{equation*}
+        \expval{x} = 0,\quad \expval{x^2} = a^2
+    \end{empheq}
+
+\end{sol}
+
+\begin{sol}{Stationary state $(n=2,l=1,m=1)$}{label-3c}
+    For this case we recall the stationay state of the hydrogen atom,
+    \begin{gather*}
+        \psi_{\qty(n,m,l)}\qty(r,\theta,\phi) = \frac{1}{r}\rho^{l+1}e^{-\rho}\upsilon\qty(\rho)Y^m_l\qty(\theta,\phi),
+    \end{gather*}
+    with $\upsilon\qty(\rho)$ being a polynimial of degree $j_{\max}=n-l-1$ with coefficients,
+    \begin{gather*}
+        c_{j+1} = \frac{2\qty(j+l+1-n)}{\qty(j+1)\qty(j+2l+2)}c_j.
+    \end{gather*}
+    Applying the values of the parameters,
+    \begin{gather*}
+        \psi_{\qty(2,1,1)}\qty(r,\theta,\phi) = -\frac{1}{\sqrt{\pi a}}\frac{1}{8a^2}re^{-r/2a}e^{i\phi}\sin\theta. 
+    \end{gather*}
+
+    Now we can perform the previous procedures to compute $\expval{x^2}$,
+    \begin{align*}
+        \expval{x^2} &= \int_V r^2 \abs{\psi_{1,0,0}\qty(r,\theta,\phi)}^2 dV \\
+                     &= \int_{0}^{\infty}\int_0^\pi\int_0^{2\pi} \qty(r\sin\theta\cos\phi)^2 \frac{1}{64\pi a^5}r^2e^{-r/a}\sin^2\theta r^2\sin\theta d\theta d\phi dr \\
+                     &= \frac{1}{64\pi a^5}\int_{0}^{\infty}r^6e^{-r/a}dr\int_0^\pi\sin^5\theta d\theta\int_0^{2\pi}\cos^2\phi d\phi \\
+                     &= \frac{1}{64\pi a^5}\qty(720a^7)\qty(\frac{16}{15})\qty(\pi) \\
+                     &= 12a^2
+    \end{align*}
+
+    Therefore,
+    \begin{empheq}[box=\shadowbox]{equation*}
+        \expval{x^2} = 12a^2
+    \end{empheq}
 
 \end{sol}
 
