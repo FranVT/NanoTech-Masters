@@ -93,7 +93,15 @@ to construct $Y^0_0$ and $Y^1_2$.
 Check that they are normalized and orthogonal.
 
 \begin{sol}{Spherical harmonic}{label-4}
-    We start with $Y^0_0\qty(\theta,\phi)$, $m=l=0$ which gives that, $P^0_0(x)=P_0(x)=1$, hence,
+    We start with $Y^0_0\qty(\theta,\phi)$, $m=l=0$ subsistuting those values into the associate Legendre prolynomials,
+    \begin{align*}
+        P_0\qty(x) &\equiv\frac{1}{2^0 0!}\qty(\dv{x})^0\qty(x^2-1)^0 = 1,
+    \end{align*}
+   and 
+    \begin{align*}
+        P^0_0(x)&\equiv\qty(1-x^2)^{\abs{0}/2}\qty(\dv{x})^{\abs{0}}P_0(x) = 1,
+    \end{align*}
+     hence,
     \begin{align*}
         Y^0_0\qty(\theta,\phi) &=\frac{1}{\sqrt{4\pi}}.
     \end{align*}
@@ -111,8 +119,24 @@ Check that they are normalized and orthogonal.
 
     Now we do the same procedure with $Y^1_2$, $m=1$ and $l=2$, which gives that $P^1_2(x)=\sqrt{1-x^2}\dv{x}P_2(x)$ and $P_2(x)=1/2\qty(3x^2-1)$, hence,
     \begin{align*}
-        Y^1_2\qty(\theta,\phi) &=\sqrt{\frac{5}{4\pi}\frac{1}{6}}e^{i\phi}\sqrt{1-x^2}\dv{x}\frac{1}{2}\qty(3x^2-1)\qty(\cos\qty[\theta]) \\
-                               &=\sqrt{\frac{5}{4\pi}\frac{1}{6}}e^{i\phi}\sqrt{1-x^2}3x
+        P_2\qty(x) &\equiv\frac{1}{2^2 2!}\qty(\dv{x})^2\qty(x^2-1)^2 = \frac{1}{2}\qty(3x^2-1)
+    \end{align*}
+    and
+    \begin{align*}
+        P^1_2(x)&\equiv\qty(1-x^2)^{\abs{1}/2}\qty(\dv{x})^{\abs{1}}P_2(x)=3x\sqrt{1-x^2}
+    \end{align*}
+
+    \begin{align*}
+        Y^1_2\qty(\theta,\phi) &=\sqrt{\frac{\qty(2(2)+1)}{4\pi}\frac{\qty(2-\abs{1})!}{\qty(2+\abs{1})!}}e^{im\phi}P^1_2\qty(\cos\qty[\theta]) \\ 
+                               &=\sqrt{\frac{5}{4\pi}\frac{1}{6}}e^{i\phi}3\cos\qty[\theta]\sqrt{1-\cos^2\qty[\theta]} \\
+                               &=\sqrt{\frac{5}{24\pi}}e^{i\phi}3\cos\qty[\theta]\sqrt{\sin^2\qty[\theta]}.
+    \end{align*}
+    Now we check if the function is normalize,
+    \begin{align*}
+        \int_0^\pi\int_0^{2\pi}\abs{Y^1_2\qty(\theta,\phi)}^2\sin\theta d\theta d\phi &= \int_0^\pi\int_0^{2\pi}\frac{15}{8\pi}\cos^2\qty[\theta]\sin^2\qty[\theta] \sin\theta d\theta d\phi \\
+                                                                                      &= \frac{15}{8\pi}\qty[\int_0^\pi \cos^2\qty[\theta]\sin^2\qty[\theta] \sin\theta d\theta]\qty[\int_0^{2\pi} d\phi] \\
+                                                                                      &= \frac{1}{4\pi}\qty[2]\qty[2\pi] \\
+                                                                                      &= 1 
     \end{align*}
 
 \end{sol}
