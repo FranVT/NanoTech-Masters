@@ -87,7 +87,7 @@ Use
 \begin{align*}
     P^m_l(x)&\equiv\qty(1-x^2)^{\abs{m}/2}\qty(\dv{x})^{\abs{m}}P_l(x) \\
     P_l\qty(x) &\equiv\frac{1}{2^l l!}\qty(\dv{x})^l\qty(x^2-1)^l \\
-    Y^m_l\qty(\theta,\phi) &=\sqrt{\frac{\qty(2l+1)}{4\pi}\frac{\qty(l-\abs{m})!}{\qty(l+\abs{m})!}}e^{im\phi}P^m_l\qty(\cos\qty[\theta]) 
+    Y^m_l\qty(\theta,\phi) &=\qty(-1)^{m}\sqrt{\frac{\qty(2l+1)}{4\pi}\frac{\qty(l-\abs{m})!}{\qty(l+\abs{m})!}}e^{im\phi}P^m_l\qty(\cos\qty[\theta]) 
 \end{align*}
 to construct $Y^0_0$ and $Y^1_2$.
 Check that they are normalized and orthogonal.
@@ -123,21 +123,37 @@ Check that they are normalized and orthogonal.
     \end{align*}
     and
     \begin{align*}
-        P^1_2(x)&\equiv\qty(1-x^2)^{\abs{1}/2}\qty(\dv{x})^{\abs{1}}P_2(x)=3x\sqrt{1-x^2}
+        P^1_2(x)&\equiv\qty(1-x^2)^{\abs{1}/2}\qty(\dv{x})^{\abs{1}}P^1_2(x)=3x\sqrt{1-x^2}
     \end{align*}
 
     \begin{align*}
-        Y^1_2\qty(\theta,\phi) &=\sqrt{\frac{\qty(2(2)+1)}{4\pi}\frac{\qty(2-\abs{1})!}{\qty(2+\abs{1})!}}e^{im\phi}P^1_2\qty(\cos\qty[\theta]) \\ 
-                               &=\sqrt{\frac{5}{4\pi}\frac{1}{6}}e^{i\phi}3\cos\qty[\theta]\sqrt{1-\cos^2\qty[\theta]} \\
-                               &=\sqrt{\frac{5}{24\pi}}e^{i\phi}3\cos\qty[\theta]\sqrt{\sin^2\qty[\theta]}.
+        Y^1_2\qty(\theta,\phi) &=-\sqrt{\frac{\qty(2(2)+1)}{4\pi}\frac{\qty(2-\abs{1})!}{\qty(2+\abs{1})!}}e^{im\phi}P^1_2\qty(\cos\qty[\theta]) \\ 
+                               &=-\sqrt{\frac{5}{4\pi}\frac{1}{6}}e^{i\phi}3\cos\qty[\theta]\sqrt{1-\cos^2\qty[\theta]} =-\sqrt{\frac{5}{24\pi}}e^{i\phi}\sqrt{9}\cos\qty[\theta]\sin\qty[\theta] \\
+                               &=-\sqrt{\frac{15}{8\pi}}e^{i\phi}\cos\qty[\theta]\sin\qty[\theta]
     \end{align*}
     Now we check if the function is normalize,
     \begin{align*}
         \int_0^\pi\int_0^{2\pi}\abs{Y^1_2\qty(\theta,\phi)}^2\sin\theta d\theta d\phi &= \int_0^\pi\int_0^{2\pi}\frac{15}{8\pi}\cos^2\qty[\theta]\sin^2\qty[\theta] \sin\theta d\theta d\phi \\
                                                                                       &= \frac{15}{8\pi}\qty[\int_0^\pi \cos^2\qty[\theta]\sin^2\qty[\theta] \sin\theta d\theta]\qty[\int_0^{2\pi} d\phi] \\
-                                                                                      &= \frac{1}{4\pi}\qty[2]\qty[2\pi] \\
+                                                                                      &= \frac{15}{8\pi}\qty[\frac{4}{15}]\qty[2\pi] \\
                                                                                       &= 1 
     \end{align*}
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        \int_0^\pi\int_0^{2\pi}\abs{Y^1_2\qty(\theta,\phi)}^2\sin\theta d\theta d\phi = 1
+    \end{empheq}
+
+    Finally, to check orthogonality we perform th following procedure,
+    \begin{align*}
+        \int_0^\pi\int_0^{2\pi}\qty[Y^0_0\qty(\theta,\phi)]^* Y^1_2\qty(\theta,\phi)\sin\theta d\theta d\phi &= \int_0^\pi\int_0^{2\pi}\qty(\frac{1}{\sqrt{4\pi}})^*\qty(-\sqrt{\frac{15}{8\pi}}e^{i\phi}\cos\qty[\theta]\sin\qty[\theta]) \sin\theta d\theta d\phi \\
+                                                                                                             &= -\frac{1}{\sqrt{4\pi}}\sqrt{\frac{15}{8\pi}}\qty[\int_0^\pi\cos\qty[\theta]\sin\qty[\theta] \sin\theta d\theta]\qty[\int_0^{2\pi}e^{i\phi}d\phi] \\
+                                                                                                             &=-\sqrt{\frac{15}{32\pi^2}}\qty[0]\qty[0] \\
+                                                                                                             &=0
+    \end{align*}
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        \int_0^\pi\int_0^{2\pi}\qty[Y^0_0\qty(\theta,\phi)]^* Y^1_2\qty(\theta,\phi)\sin\theta d\theta d\phi = 0
+    \end{empheq}
 
 \end{sol}
 
