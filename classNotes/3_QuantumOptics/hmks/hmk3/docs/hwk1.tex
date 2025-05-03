@@ -301,9 +301,38 @@ What is the \textit{most probable} value of $r$, in the ground state of hydrogen
 
 In problem 4.3 you showed that 
 \begin{gather*}
-    Y^l_2\qty(\theta,\phi) = -\sqrt{\frac{15}{8\pi}}\sin\theta\cos\theta e^{i\phi}.
+    Y^1_2\qty(\theta,\phi) = -\sqrt{\frac{15}{8\pi}}\sin\theta\cos\theta e^{i\phi}.
 \end{gather*}
 Apply the raising operator to find $Y^2_2\qty(\theta,\phi)$.
 Use equation $ A^m_l =\hbar\sqrt{l\qty(l+1)-m\qty(m\pm1)}=\hbar\sqrt{\qty(l\mp m)\qty(l\pm m+1)} $ to get the normalization.
+
+\begin{sol}{Raising operator of angular momentum.}{label-5}
+    Recalling the raising operator,
+    \begin{gather*}
+        L_+=\hbar e^{i\phi}\qty(\pdv{\theta}+i\cos\qty[\theta]\pdv{\theta}).
+    \end{gather*}
+    Applying the operator into $Y^1_2$,
+    \begin{align*}
+        L_+ Y^1_2 &= \hbar e^{i\phi}\qty(\pdv{\theta}+i\cos\qty[\theta]\pdv{\theta})\qty[-\sqrt{\frac{15}{8\pi}}\sin\theta\cos\theta e^{i\phi}] \\
+                  &= -\sqrt{\frac{15}{8\pi}}\hbar e^{i\phi}\qty(\pdv{\theta}\qty[\sin\theta\cos\theta e^{i\phi}]+i\cos\qty[\theta]\pdv{\theta}\qty[\sin\theta\cos\theta e^{i\phi}]) \\
+                  &= -\sqrt{\frac{15}{8\pi}}\hbar e^{i2\phi}\qty(\cos^2\qty[\theta]-\sin^2\qty[\theta]-\cos^2\qty[\theta]) \\
+                  &= \sqrt{\frac{15}{8\pi}}\hbar\qty(e^{i\phi}\sin\qty[\theta])^2,
+    \end{align*}
+    due to future convinience, we can re-write the expression as follows,
+    \begin{gather*}
+        L_+ Y^1_2 = \frac{1}{2}\sqrt{\frac{15}{2\pi}}\hbar\qty(e^{i\phi}\sin\qty[\theta])^2.
+    \end{gather*}
+
+    Finally, we apply the normalization constant $A^1_2$,
+    \begin{align*}
+        \frac{1}{A^1_2}\qty(L_+ Y^1_2) &= \frac{1}{\hbar\sqrt{2\cdot3-1\cdot2}}\qty(\frac{1}{2}\sqrt{\frac{15}{2\pi}}\hbar\qty(e^{i\phi}\sin\qty[\theta])^2) \\
+                                       &= \frac{1}{4}\sqrt{\frac{15}{2\pi}}\qty(e^{i\phi}\sin\qty[\theta])^2
+    \end{align*}
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        Y^2_2\qty(\theta,\phi) = \frac{1}{A^1_2}\qty(L_+ Y^1_2) = \frac{1}{4}\sqrt{\frac{15}{2\pi}}\qty(e^{i\phi}\sin\qty[\theta])^2
+    \end{empheq}
+
+\end{sol}
 
 \end{document}
