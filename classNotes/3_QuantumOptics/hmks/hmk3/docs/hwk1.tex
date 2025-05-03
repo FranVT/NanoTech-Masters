@@ -263,18 +263,36 @@ What is the \textit{most probable} value of $r$, in the ground state of hydrogen
 (The answer is not zero!)
 \textit{Hint:} First you must figure out the probability that the electron would be found between $r$ and $r+dr$.
 
-\begin{sol}{Most probable value of the position in the ground state.}{label-3c}
-    To compute the most probable value of $r$ we integrate thru space $\abs{\psi_{1,0,0}\qty(r,\theta,\phi)}^2$ to get the probability density function.
+\begin{sol}{Most probable value of the position in the ground state.}{label-4}
+    To compute the most probable value of $r$ we need to compute the maximum value of the probability density function associate with the ground state.
+    In order to get the probability density function we formulate the following integral,
+    \begin{gather*}
+        P = \int_{0}^{r}\int_0^\pi\int_0^{2\pi}\abs{\psi_{1,0,0}\qty(r,\theta,\phi)}^2 r^2\sin\theta d\theta d\phi dr,
+    \end{gather*}
+    since the angular symmetry is a guaranteed feature of the ground state, we can simplify the expression to,
+    \begin{gather*}
+        P = \int_{0}^{r}4\pi\abs{\psi_{1,0,0}\qty(r,\theta,\phi)}^2 r^2 dr.
+    \end{gather*}
+    Now, from the context of probability, we known that the probability density function is the integran,
+    \begin{gather*}
+        p(r) = 4\pi r^2\abs{\psi_{1,0,0}\qty(r,\theta,\phi)}^2.
+    \end{gather*}
+    Now we can get the most probable value of $r$,
     \begin{align*}
-        p(r) &= \int_{0}^{r}\int_0^\pi\int_0^{2\pi}\abs{\psi_{1,0,0}\qty(r,\theta,\phi)}^2 r^2\sin\theta d\theta d\phi dr \\
-             &= \frac{1}{\pi a^3}\int_{0}^{\infty} e^{-2r/a} r^2 dr \int_0^\pi\sin\theta d\theta\int_0^{2\pi}  d\phi \\
-             &= \frac{1}{\pi a^3}\qty()
+        \dv{p(r)}{x} &= \dv{x}4\pi r^2\abs{\psi_{1,0,0}\qty(r,\theta,\phi)}^2 \\
+                     &= \dv{x}4\pi r^2\frac{1}{\pi a^3}e^{-2r/a} \\
+                     &= \frac{1}{a^3}\qty(\frac{2}{a}\qty(a-r)re^{-2r/a}),
+    \end{align*}
+    finally, $\dv{x}p(r)=0$,
+    \begin{align*}
+        \frac{1}{a^3}\qty(\frac{2}{a}\qty(a-r)re^{-2r/a}) &= 0 \\
+        are^{-2r/a} &= r^2e^{-2r/a} \\
+        a &= r.
     \end{align*}
 
-    need to take into account that the probability density for the ground state is given by $P=4\pi$, due to normalization restrictions.
-    Now we can compute the mos probable value we perfom the integral thru the radial component, because it has angular symmetry,
-    
-Since it has angular symmetry we only integrate the radial component,
+    \begin{empheq}[box=\shadowbox]{equation*}
+        \dv{p(r)}{x} = 0\rightarrow r=a
+    \end{empheq}
 \end{sol}
 
 
