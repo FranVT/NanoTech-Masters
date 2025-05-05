@@ -75,10 +75,12 @@ compute disc CM displace/atom
 compute daux CM chunk/atom type pbc yes
 compute dis CM reduce/chunk daux sum c_disc[4]
 
-# cluster analysis
+# cluster output
 compute clusters all aggregate/atom 0.6
-#compute ccl Patches chunk/atom c_clPatch compress yes discard no # Define chunks based on cluster ID
-#compute size Patches property/chunk ccl count # Counts the atoms in each chunk
+
+# Get the number of clusters
+compute Nclusters all chunk/atom c_clusters compress yes discard no # Convert the ids into computable info ish
+compute size all property/chunk Nclusters count # Counts the atoms in each chunk # Count how many ids 
 
 # DUMPS and FIXES
 
@@ -92,12 +94,11 @@ fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_wcaPair c_patchPair c_swapP
 group Stress empty
 fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_p c_press[*] c_pressVirial[*] c_pressVirialMod[*] c_stress[*] c_stressVirial[*] c_stressVirialMod[*] file ${Dir}/${file2_name}
 
-# Save the cluster information
-#fix fixCluster all ave/histo 1 ${Nsave} ${Nsave} 0 8 80 c_size mode vector file ${Dir}/${file3_name}
-dump cluster all custom ${Ndump} ${Dir}/cluster.dump id mol c_clusters
+group CLUST empty
+fix Nclust CLUST ave/time 1 1 ${Nsave} c_Nclusters ${Dir}/${file3_name}
 
-# Save atom positions
-dump dumpID all custom ${Ndump} ${Dir}/traj/${file4_name} id type x y z vx vy vz
+# Save atom positions with cluster id
+dump dumpID all custom ${Ndump} ${Dir}/traj/${file4_name} id mol c_clusters type x y z vx vy vz
 dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
 
 # Save Atom displacement
