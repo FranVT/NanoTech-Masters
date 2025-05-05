@@ -91,7 +91,7 @@ compute idcl CM property/chunk Nclpart id # Get the ids of the clusters
 
 #variable groupCL atom "c_idcl"  
 #group CMclusters variable groupCL
-compute distCM CMclusters pair/local dist cutoff 1.12
+compute distCM CM pair/local dist cutoff type
 
 
 
@@ -107,12 +107,12 @@ fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_wcaPair c_patchPair c_swapP
 group Stress empty
 fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_p c_press[*] c_pressVirial[*] c_pressVirialMod[*] c_stress[*] c_stressVirial[*] c_stressVirialMod[*] file ${Dir}/${file2_name}
 
-group CLUST empty
-dump dumpCL all custom ${Ndump} ${Dir}/${file3_name} c_Nclusters c_Nclpart
+#group CLUST empty
+#dump dumpCL all custom ${Ndump} ${Dir}/${file3_name} c_Nclusters c_Nclpart
 
-fix 1 all ave/time 1 1 ${Ndump} c_idcl c_clsize file ${Dir}/cluster_assembly.fixf mode vector
+fix 1 CM ave/time 1 1 ${Ndump} c_idcl c_clsize file ${Dir}/cluster_assembly.fixf mode vector
 
-fix 2 all ave/time 1 1 ${Ndump} c_distCM file ${Dir}/tests_assembly.fixf mode vector
+fix 2 CM ave/time 1 1 ${Ndump} c_distCM file ${Dir}/tests_assembly.fixf mode vector
 
 
 
