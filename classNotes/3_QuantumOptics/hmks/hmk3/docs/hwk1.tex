@@ -69,14 +69,80 @@ Use separation of variable in \textit{cartesian} coordinates to solve the infini
 
 
 \begin{sol}{Energy analysis}{label-1b}
-    %In order to compute the degeneracy we need to get the amount of combinations of $(n_x,n_y,n_z)$ that get the same same energy.
-    %This can be done using 
+    To find the values of the energy we recall the following expression,
+    \begin{gather*}
+        E=\frac{\pi^2\hbar^2}{2ma^2}\qty(n_x^2+n_y^2+n_z^2), \quad \qty(n_x,n_y,n_z)\in\mathbb{Z}^+.
+    \end{gather*}
+    Since the energy is determine by $\qty(n_x^2+n_y^2+n_z^2)$ we can focus our analysis in that value.
+    On the other hand, to find the degeneracies of the states, we can study the possible permutation of the tuples form by $(n_x,n_y,n_z)$ with a maximum value of $m$, and compute the sum of the squares to get the associate energy to each tuple.
+    \vspace{1.5em}
+
+    As a heads up, we can expect degeneracies the following degeneracies: $1,3,6$.
+    If all the values are equal, the we can only form one unique tuple $(a,a,a)$, hence, degeneracy $1$.
+    For the case in which we have two distinct values, then we can form $3$ unique tuples, $(a,b,b)$, $(a,b,b)$ and $(b,b,a)$, hence, degeneracy $3$.
+    Finally, for the case in which all the values are different we can get $6$ unique tuples,$(a,b,c)$, $(a,c,b)$, $\dots$, $(c,a,b)$, hence degeneracy $6$.
+    In order to facilitate the numeric computation, the following julia script was implmented,
+
+\begin{lstlisting}
+# Posible values for nx, ny and nz
+n_max=3;
+n = (1:1:n_max);
+
+# Energy function
+function getEnergy(nx,ny,nz)
+    return nx.^2 .+ ny.^2 .+ nz.^2
+end
+
+# Create the tuples/states
+tuples=Iterators.product(n,n,n);
+
+# Get the energy of each state an array with that
+states = reshape([ [getEnergy(it...),it] for it in tuples],prod(size(tuples)),1);
+
+# Get the states and degeneracy
+sort_states=sort(states,dims=1);
+
+# Take the unique energies
+energies = unique(first.(sort_states));
+
+# Get the states and compute the degeneracy
+index=map(s-> searchsorted(reduce(vcat,first.(sort_states)),s), energies);
+degeneracy=length.(index);
+ 
+\end{lstlisting}
+
+\newpage
+
+    which results in the following values,
+\begin{longtable}{|c|c|} 
+\hline
+Energy   & Degeneracy  \endfirsthead 
+\hline
+$E_1 = \frac{\pi^2\hbar^2}{2ma^2}3$ & $1$           \\
+$E_2= \frac{\pi^2\hbar^2}{2ma^2}6$  & $3$           \\
+$E_3=\frac{\pi^2\hbar^2}{2ma^2}9$   & $3$           \\
+$E_4=\frac{\pi^2\hbar^2}{2ma^2}11$  & $3$           \\
+$E_5=\frac{\pi^2\hbar^2}{2ma^2}12$  & $1$           \\
+$E_6=\frac{\pi^2\hbar^2}{2ma^2}14$  & $6$           \\
+\hline
+\end{longtable}
+
 
 \end{sol}
 
-\begin{sol}{Energy 14}{label-1c}
-    %In order to compute the degeneracy we need to get the amount of combinations of $(n_x,n_y,n_z)$ that get the same same energy.
-    %This can be done using 
+\begin{sol}{$E_14$}{label-1c}
+
+    For this case, we use the same script as before, but we need to increase the value $m$ at least to $4$ to get $20$ values of unique energies.
+    When the maximum value of $n_x,~n_y$ or $n_z$ is $4$, we only get one state for $E_{14}=27$, $(3,3,3)$.
+    However, when we increase the maximum value to $m=5$, we get $32$ values of unique energies and a degeneracy of $4$ for $E_{14}$,
+    \begin{align*}
+        (1,1,5),\quad(1,5,1),\quad(3,3,3),\quad(5,1,1).
+    \end{align*}
+
+    Here we can see that this case is interesting, because it can not be well describe using combinatorics.
+    As we can see from the tuples, the total degeneracy of $E_{14}$ is the sum of the case when the parameters $n_x,~n_y$ and $n_z$ are equal (degeneracy of $1$), and when two of the parameters are equal (degeneracy of $3$).
+    Another curiosity is that each case is associated with two distinct maximum values of the parameters, where the case of all parameters are equal, the maximum value is $3$, and when we have two parameters equal, the maximum value is $5$.
+
 
 \end{sol}
 
@@ -145,7 +211,7 @@ Check that they are normalized and orthogonal.
 
     Finally, to check orthogonality we perform th following procedure,
     \begin{align*}
-        \int_0^\pi\int_0^{2\pi}\qty[Y^0_0\qty(\theta,\phi)]^* Y^1_2\qty(\theta,\phi)\sin\theta d\theta d\phi &= \int_0^\pi\int_0^{2\pi}\qty(\frac{1}{\sqrt{4\pi}})^*\qty(-\sqrt{\frac{15}{8\pi}}e^{i\phi}\cos\qty[\theta]\sin\qty[\theta]) \sin\theta d\theta d\phi \\
+        \int_0^\pi\int_0^{2\pi}\qty[Y^0_0\qty(\theta,\phi)]^* Y^1_2\qty(\theta,\phi)\sin\theta d\theta d\phi &= \int_0^\pi\int_0^{2\pi}\qty[\frac{1}{\sqrt{4\pi}}]\qty[-\sqrt{\frac{15}{8\pi}}e^{i\phi}\cos\qty[\theta]\sin\qty[\theta]] \sin\theta d\theta d\phi \\
                                                                                                              &= -\frac{1}{\sqrt{4\pi}}\sqrt{\frac{15}{8\pi}}\qty[\int_0^\pi\cos\qty[\theta]\sin\qty[\theta] \sin\theta d\theta]\qty[\int_0^{2\pi}e^{i\phi}d\phi] \\
                                                                                                              &=-\sqrt{\frac{15}{32\pi^2}}\qty[0]\qty[0] \\
                                                                                                              &=0
@@ -214,7 +280,7 @@ Check that they are normalized and orthogonal.
     On the other hand, for $\expval{x}$ we can write the integrals considering that $x=r\sin\theta\cos\phi$,
     \begin{align*}
         \expval{x} &= \int_{0}^{\infty}\int_0^\pi\int_0^{2\pi} \qty(r\sin\theta\cos\phi) \frac{1}{\pi a^3}e^{-2r/a} r^2\sin\theta d\theta d\phi dr \\
-                  &= \frac{1}{\pi a^3}\int_{0}^{\infty}e^{-2r/a} r^3 dr\int_0^\pi\sin^2\theta d\theta\int_0^{2\pi}\cos\phid\phi  \\
+                  &= \frac{1}{\pi a^3}\int_{0}^{\infty}e^{-2r/a} r^3 dr\int_0^\pi\sin^2\theta d\theta\int_0^{2\pi}\cos\phi d\phi  \\
                   &= \frac{1}{\pi a^3}\qty(\frac{3}{8}a^4)\qty(\frac{\pi}{2})\qty(0) \\
                   &= 0
     \end{align*}

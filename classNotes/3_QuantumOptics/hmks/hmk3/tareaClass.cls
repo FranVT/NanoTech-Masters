@@ -36,6 +36,7 @@
 %\addbibresource{bibliografia.bib}
 %\AtBeginBibliography{\normalsize}
 \RequirePackage[many]{tcolorbox}
+\RequirePackage{xcolor}
 
 % https://www.overleaf.com/learn/latex/Biblatex_bibliography_styles
 
@@ -59,7 +60,7 @@
 \RequirePackage{multicol} 		% Formato doble columna
 \RequirePackage{multirow} 		% Multi row is for tables with multiple rows within one cell.
 \RequirePackage{booktabs} 		% For even nicer tables.
-
+\RequirePackage{longtable}
 %------------COMANDOS Y AMBIENTES------------%
 
 \makeatletter     
@@ -136,6 +137,32 @@
     before skip = 3ex,
     after skip = 3ex
 }{def}
+
+
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
 
 
 
