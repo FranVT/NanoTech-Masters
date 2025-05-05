@@ -3,7 +3,7 @@
 """
 
 # Posible values for nx, ny and nz
-n_max=25;
+n_max=5;
 n = (1:1:n_max);
 
 # Energy function

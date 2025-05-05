@@ -76,9 +76,9 @@ compute daux CM chunk/atom type pbc yes
 compute dis CM reduce/chunk daux sum c_disc[4]
 
 # cluster analysis
-compute clPatch Patches cluster/atom 0.6
-compute ccl Patches chunk/atom c_clPatch compress yes discard no # Define chunks based on cluster ID
-compute size Patches property/chunk ccl count # Counts the atoms in each chunk
+compute clusters all aggregate/atom 0.6
+#compute ccl Patches chunk/atom c_clPatch compress yes discard no # Define chunks based on cluster ID
+#compute size Patches property/chunk ccl count # Counts the atoms in each chunk
 
 # DUMPS and FIXES
 
@@ -93,7 +93,8 @@ group Stress empty
 fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_p c_press[*] c_pressVirial[*] c_pressVirialMod[*] c_stress[*] c_stressVirial[*] c_stressVirialMod[*] file ${Dir}/${file2_name}
 
 # Save the cluster information
-fix fixCluster Patches ave/histo 1 ${Nsave} ${Nsave} 0 8 80 c_size mode vector file ${Dir}/${file3_name}
+#fix fixCluster all ave/histo 1 ${Nsave} ${Nsave} 0 8 80 c_size mode vector file ${Dir}/${file3_name}
+dump cluster all custom ${Ndump} ${Dir}/cluster.dump id mol c_clusters
 
 # Save atom positions
 dump dumpID all custom ${Ndump} ${Dir}/traj/${file4_name} id type x y z vx vy vz
