@@ -79,8 +79,21 @@ compute dis CM reduce/chunk daux sum c_disc[4]
 compute clusters all aggregate/atom 0.6
 
 # Get the number of clusters
-compute Nclusters all chunk/atom c_clusters compress yes discard no # Convert the ids into computable info ish
-compute size all property/chunk Nclusters count # Counts the atoms in each chunk # Count how many ids 
+compute Nclusters all chunk/atom c_clusters compress yes discard no # Count how many clusters are  
+compute Nclsize all property/chunk Nclusters count # Counts the atoms in each chunk # Count how many ids 
+
+# Get the number of central particles per cluster
+compute Nclpart CM chunk/atom c_clusters compress yes discard yes # Get the number of clusters
+compute clsize CM property/chunk Nclpart count # Counts the atoms in each chunk
+
+
+# Compute the distances betwee central particles in the same cluster
+compute idcl CM property/chunk Nclpart id
+#variable groupCL equal c_idcl   # Get the ids of the clusters
+#group CMclusters variable v_groupCL
+#compute distCM CMclusters pair/local dist cutoff 1.12
+
+
 
 # DUMPS and FIXES
 
@@ -95,7 +108,9 @@ group Stress empty
 fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_p c_press[*] c_pressVirial[*] c_pressVirialMod[*] c_stress[*] c_stressVirial[*] c_stressVirialMod[*] file ${Dir}/${file2_name}
 
 group CLUST empty
-fix Nclust CLUST ave/time 1 1 ${Nsave} c_Nclusters ${Dir}/${file3_name}
+dump dumpCL all custom ${Ndump} ${Dir}/${file3_name} c_Nclusters c_Nclpart
+
+fix 1 all ave/time 1 1 ${Ndump} c_clsize c_idcl file ${Dir}/cluster_assembly.fixf mode vector
 
 # Save atom positions with cluster id
 dump dumpID all custom ${Ndump} ${Dir}/traj/${file4_name} id mol c_clusters type x y z vx vy vz
