@@ -114,7 +114,7 @@ fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_p c_press[*] c_
 
 fix 1 CM ave/time 1 1 ${Ndump} c_idcl c_clsize file ${Dir}/cluster_assembly.fixf mode vector
 
-dump IDdump CM local ${Ndump} ${Dir}/tests_assembly.fixf index c_auxdistCM[1] c_auxdistCM[2] c_distCM[1]
+dump IDdump CM local ${Ndump} ${Dir}/tests_assembly.fixf index c_auxdistCM[1] c_auxdistCM[2] c_distCM
 
 
 # Save atom positions with cluster id
