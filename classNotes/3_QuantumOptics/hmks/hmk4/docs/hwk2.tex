@@ -6,16 +6,35 @@
 
 If the electron were a classical solid sphere, with radius,
 \begin{gather*}
-    r_c = \frac{e^2}{4\pi\epsilon_omc^2}
+    r_c = \frac{e^2}{4\pi\epsilon_o mc^2}
 \end{gather*}
 (the so-called classical electron radius, obtained by assuming the electron's mass is attributable to energy sotred in its electric field, via the Einstein formula $E=mc^2$),
-and its angular momentum is $\hbar/2$, then how fast (in $m/s$) would a point on the "equator" be moving?
+and its angular momentum is $\hbar/2$, then how fast (in $m/s$) would a point on the ``equator'' be moving?
 Does this model make sense?
 (Actually, the radius of the electrin is known experimentally to be much less than $r_c$ but this only makes matters worse.)
 
-\begin{sol}{Stationary states}{label-1a}
+\begin{sol}{Classical spinning}{label-1a}
+    From the classical framework the angular momentum is modeled with the following relation,
+    \begin{gather*}
+        L = I\omega,
+    \end{gather*}
+    where $I$ is the moment of interia, which in this case is $I=2/5mr^2$ and $w$ is the angular frequency, that can be express as $\omega=v/r$.
+    Replacing this equivalences into the angular momentum equation we can get the following expression for $v$,
+    \begin{gather*}
+        v = \frac{5}{2}\frac{L}{mr_c},
+    \end{gather*}
+    substituting the values of $L$ and $r_c$,
+    \begin{gather*}
+        v = \frac{5\pi\hbar\epsilon_o}{e^2}c^2.
+    \end{gather*}
+    Recalling the order of magnitud of the constants, $e\approx\num{d-19}$, $\hbar\approx\num{d-34}$, $\epsilon_o\approx\num{d-12}$ and $c\approx\num{d8}$, we get that,
+    \begin{gather*}
+        \frac{5\pi\hbar\epsilon_o}{e^2}c\approx 90,
+    \end{gather*}
+    which tells us that the velocity at the ecuator is $90$ times the velocity of light, which does not make sense.
+
     \begin{empheq}[box=\shadowbox]{equation*}
-        \text{Sol}
+        v\approx90c.
     \end{empheq}
 \end{sol}
 
@@ -32,6 +51,13 @@ Does this model make sense?
         where the indices stand for $x,y,z$ and $\epsilon_{jkl}$ is the Levi-Civita symbol.
 \end{itemize}
 
+\begin{sol}{Mathematical spin properties}{label-2a}
+    \begin{empheq}[box=\shadowbox]{equation*}
+        \text{Sol}
+    \end{empheq}
+\end{sol}
+
+
 \section{Problem 4.27}
 
 An electron is in the spin state,
@@ -43,11 +69,26 @@ An electron is in the spin state,
     \item Determine the normalization constant $A$.
     \item Find the expectation values of $S_x, S_y$ and $S_z$.
     \item Find the ``uncertanties'' $\sigma_{S_x},\sigma_{S_y}$ and $\sigma_{S_z}$. (Note: These sigmas are standard deviations, not Pauli matrices!)
-    \item Confirm that your results are consistent with all three uncertanty principles 4.100 and its cyclic permutations-only with $S$ in place of $L$, of course.)
+    \item Confirm that your results are consistent with all three uncertanty principles 4.100 and its cyclic permutations-only with $S$ in place of $L$, of course.
 \end{itemize}
 
-\section{Problem 4.32 a)}
+\begin{sol}{Practice spin state}{label-3a}
+    \begin{empheq}[box=\shadowbox]{equation*}
+        \text{Sol}
+    \end{empheq}
+\end{sol}
 
-If ypu measure the component of spin angular momentum along the $x$ direction, at time $t$, what is the probability that ypu would get $+\hbar/2$?
+
+\section{Problem 4.32 a}
+
+If you measure the component of spin angular momentum along the $x$ direction, at time $t$, what is the probability that you would get $+\hbar/2$?
+
+\begin{sol}{Practice spin state}{label-4}
+    \begin{empheq}[box=\shadowbox]{equation*}
+        \text{Sol}
+    \end{empheq}
+\end{sol}
+
+
 
 \end{document}
