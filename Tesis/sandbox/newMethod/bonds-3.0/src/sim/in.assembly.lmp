@@ -91,7 +91,9 @@ compute idcl CM property/chunk Nclpart id # Get the ids of the clusters
 
 #variable groupCL atom "c_idcl"  
 #group CMclusters variable groupCL
-compute distCM CM pair/local dist cutoff type
+
+compute auxdistCM CM property/local patom1 patom2
+compute distCM CM pair/local dist cutoff type # Compute the distance
 
 
 
@@ -112,8 +114,7 @@ fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_p c_press[*] c_
 
 fix 1 CM ave/time 1 1 ${Ndump} c_idcl c_clsize file ${Dir}/cluster_assembly.fixf mode vector
 
-fix 2 CM ave/time 1 1 ${Ndump} c_distCM file ${Dir}/tests_assembly.fixf mode vector
-
+dump IDdump CM local ${Ndump} ${Dir}/tests_assembly.fixf index c_auxdistCM[1] c_auxdistCM[2] c_distCM[1]
 
 
 # Save atom positions with cluster id

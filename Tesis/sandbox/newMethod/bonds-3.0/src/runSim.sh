@@ -6,6 +6,8 @@
 
 #!/bin/bash
 
+clear;
+
 cd ..;
 
 # Main Directories
