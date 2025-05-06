@@ -22,6 +22,6 @@ relaxTime1=500000
 relaxTime2=500000
 relaxTime3=500000
 dgamma_o=0.01
-dgamma_f=0.01
+dgamma_f=0.02
 dgamma_d=0.01
 Nexp=3

@@ -9,8 +9,8 @@ gr()
 include("functions.jl")
 
 # Parameters to select the system (The hydrogel to be analyse)
-id="2025-04-16-214916";
-cl_con=0.05;
+id="2025-05-06-124111";
+cl_con=0.5;
 dir_simulation="bonds-3.0";
 
 

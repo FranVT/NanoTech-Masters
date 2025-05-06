@@ -22,12 +22,17 @@ function getDF(dir_name,id,cl_con)
 """
 
     # Get the paths
-    parent_dir=splitdir(pwd())[1];
-    data_dir=joinpath(parent_dir,dir_name,data);
-    name_dir=string("system-",id,"CL",cl_con);
+    parent_dir=dirname(pwd());
+    data_dir=joinpath(parent_dir,dir_name,"data");
+    name_dir=string("system-",id,"-CL-",cl_con);
+
+    # Read all shear experiments perform to the system
+    shear_dirs=readdir(joinpath(data_dir,name_dir));
+    aux=findall(s->s==1,occursin.("shear",shear_dirs));
+    shear_dirs=shear_dirs[aux...];
 
     # Create DataFrames from the data.dat file of each directory
-    df = DataFrame.(CSV.File.(joinpath.(data_dir,name_dir,"data.dat")));
+    df = DataFrame.(CSV.File.(joinpath.(data_dir,name_dir,shear_dirs,"data.dat")));
 
     return df
 
