@@ -6,6 +6,8 @@
 
 #!/bin/bash
 
+clear;
+
 cd ..;
 
 # Main Directories
@@ -74,20 +76,6 @@ do
 
             # Create the sge files for the simulations
             bash $dir_src/docs/create-file_shear-sge.sh $fileshearname
-        done
-    done
-
-    # This while loop will exit when the data.hydrogel file is available for the deformation simulations
-    # Execute the deformation files
-    for var_shearRate in $(seq $dgamma_o $dgamma_d $dgamma_f);
-    do
-        for var_N in $(seq $Nexp)
-        do
-            dir_shearexp="$dir_system/shear-$id-shearRate$var_shearRate"
-            fileshearname="shear-$id-shearRate-$var_shearRate-exp$var_N.sge"
-
-            # Run the shear simulation
-            echo "qsub of $fileshearname with experiment $var_N"
             qsub $dir_src/$fileshearname $dir_sim $dir_src $dir_system $dir_shearexp $id $var_shearRate $var_N
         done
     done

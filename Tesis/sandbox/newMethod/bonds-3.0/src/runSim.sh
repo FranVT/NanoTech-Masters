@@ -20,8 +20,7 @@ dir_data="$dir_home/data";
 id=$(date +%F-%H%M%S);
 
 # Clean the source directory from previus simulations
-rm -f $dir_src/system*
-rm -f $dir_src/shear*
+rm -f $dir_src/system*;     rm -f $dir_src/shear*;
 rm -f $dir_src/docs/*.config
 rm -f $dir_src/docs/assembly*
 rm -f $dir_src/docs/shear*
