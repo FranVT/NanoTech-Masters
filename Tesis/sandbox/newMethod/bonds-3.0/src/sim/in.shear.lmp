@@ -75,19 +75,19 @@ compute spatialChunks CM chunk/atom bin/3d x lower 1 y lower 1 z center ${bin_y}
 thermo ${NsaveStress}
 
 # Save global energies and temperature
-fix fixEng all ave/time 1 ${Nsave} ${Nsave} c_td c_wcaPair c_patchPair c_swapPair c_ep c_ek v_eT v_ec v_eC c_p v_eB v_eA v_eM v_H c_redDisp[*] file ${Dir}/${file6_name}
+fix fixEng all ave/time 1 ${Nsave} ${Nsave} c_td c_wcaPair c_patchPair c_swapPair c_ep c_ek v_eT v_ec v_eC c_p v_eB v_eA v_eM v_H c_redDisp[*] file ${Dir}/${file7_name}
 
 # Save Pressure and Stress tensor
-fix fixStress5 all ave/time 1 ${NsaveStress} ${NsaveStress} c_p c_press[*] c_pressVirial[*] c_pressVirialMod[*] c_stress[*] c_stressVirial[*] c_stressVirialMod[*] file ${Dir}/${file7_name}
+fix fixStress5 all ave/time 1 ${NsaveStress} ${NsaveStress} c_p c_press[*] c_pressVirial[*] c_pressVirialMod[*] c_stress[*] c_stressVirial[*] c_stressVirialMod[*] file ${Dir}/${file8_name}
 
 # Save the global cluster information
-fix 1 CM ave/time 1 1 ${Ndump} c_idcl c_clsize file ${Dir}/${file3_name} mode vector
+fix 1 CM ave/time 1 1 ${Ndump} c_idcl c_clsize file ${Dir}/${file9_name} mode vector
 
 # The ave/chunk creates a temporal average. The ave keyword creates a spatial average.
-fix fixChunks CM ave/chunk 1 ${Nsave} ${Nsave} spatialChunks vx vy vz c_disp[*] ave one file ${Dir}/profiles_shear.fixf
+fix fixChunks CM ave/chunk 1 ${Nsave} ${Nsave} spatialChunks vx vy vz c_disp[*] ave one file ${Dir}/${file10_name}
 
 # Save atom positions
-dump dumpID all custom ${Ndump} ${Dir}/traj/${file9_name} id mol c_clusters type x y z vx vy vz
+dump dumpID all custom ${Ndump} ${Dir}/traj/${file11_name} id mol c_clusters type x y z vx vy vz
 dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
 
 # RUN SIMULATION
@@ -104,7 +104,7 @@ fix shear all deform 1 xy erate ${shear_rate} remap x flip yes units box
 run ${shear_it}
 unfix shear
 
-write_data ${Dir}/${file10_name}
+write_data ${Dir}/${file12_name}
 
 run ${rlxT1}
 
