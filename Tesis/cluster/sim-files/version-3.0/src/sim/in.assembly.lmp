@@ -53,43 +53,57 @@ variable H equal enthalpy
 variable eM equal emol
 variable ec equal ecouple
 variable eC equal econserve
-compute stressVirial all pressure t ke pair
+
+# Potencial energy per pair-wise interaction
 compute wcaPair all pair lj/cut epair
 compute patchPair all pair table epair
 compute swapPair all pair threebody/table epair
 
-# Displacement of the central particles
-compute disc CM displace/atom
-compute daux CM chunk/atom type pbc yes
-compute dis CM reduce/chunk daux sum c_disc[4]
+# Compute the pressure
+compute press all pressure t ke virial
+compute pressVirial all pressure t virial
+compute pressVirialMod all pressure t pair bond angle
 
-# cluster analysis
-compute clPatch Patches cluster/atom 0.6
-compute ccl Patches chunk/atom c_clPatch compress yes discard no # Define chunks based on cluster ID
-compute size Patches property/chunk ccl count # Counts the atoms in each chunk
+# Computes for the stress
+compute cstress all stress/atom t ke pair bond angle
+compute cstressVirial all stress/atom t virial
+compute cstressVirialMod all stress/atom t pair bond angle
+compute stress all reduce sum c_cstress[*]
+compute stressVirial all reduce sum c_cstressVirial[*]
+compute stressVirialMod all reduce sum c_cstressVirialMod[*]
+
+# Displacement of the central particles
+compute disp CM displace/atom
+compute redDisp CM reduce ave c_disp[*] # All, because yes
+
+# Get the number of central particles per cluster
+compute clusters all aggregate/atom 0.6                             # Create the clusters
+compute Nclpart CM chunk/atom c_clusters compress yes discard yes   # Get the number of clusters
+compute clsize CM property/chunk Nclpart count                      # Counts the atoms in each chunk
+compute idcl CM property/chunk Nclpart id                           # Get the ids of the clusters
+
+# Discretize the height into small boxes
+compute spatialChunks CM chunk/atom bin/3d x lower 1 y lower 1 z center ${bin_y} nchunk every units reduced
 
 # DUMPS and FIXES
 
 thermo ${NsaveStress}
 
 # Save global energies and temperature
-group Energy empty
-fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_wcaPair c_patchPair c_swapPair c_ep c_ek v_eT v_ec v_eC c_p v_eB v_eA v_eM v_H file ${Dir}/${file1_name}
+fix Energy all ave/time 1 ${Nsave} ${Nsave} c_t c_wcaPair c_patchPair c_swapPair c_ep c_ek v_eT v_ec v_eC c_p v_eB v_eA v_eM v_H c_redDisp[*] file ${Dir}/${file1_name}
 
-# Save Stress tensor
-group Stress empty
-fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_stressVirial[*] file ${Dir}/${file2_name}
+# Save Pressure and Stress tensor
+fix fixStress5 all ave/time 1 ${NsaveStress} ${NsaveStress} c_p c_press[*] c_pressVirial[*] c_pressVirialMod[*] c_stress[*] c_stressVirial[*] c_stressVirialMod[*] file ${Dir}/${file2_name}
 
-# Save the cluster information
-fix fixCluster Patches ave/histo 1 ${Nsave} ${Nsave} 0 8 80 c_size mode vector file ${Dir}/${file3_name}
+# Save the global cluster information
+fix 1 CM ave/time 1 1 ${Ndump} c_idcl c_clsize file ${Dir}/${file3_name} mode vector
 
-# Save atom positions
-dump dumpID all custom ${Ndump} ${Dir}/traj/${file4_name} id type x y z vx vy vz
+# The ave/chunk creates a temporal average. The ave keyword creates a spatial average.
+fix fixChunks CM ave/chunk 1 ${Nsave} ${Nsave} spatialChunks vx vy vz c_disp[*] ave one file ${Dir}/${file4_name}.fixf
+
+# Save atom positions with cluster id
+dump dumpID all custom ${Ndump} ${Dir}/traj/${file5_name} id mol c_clusters type x y z vx vy vz
 dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
-
-# Save Atom displacement
-#group Displ empty
-#fix fixDispl Displ ave/time 1 ${NsaveStress} ${NsaveStress} c_dis[1] c_dis[2] c_dis[3] c_dis[4] file ${Dir}/cmdisplacement_assembly.fixf
 
 # RUN SIMULATION
 
@@ -111,4 +125,4 @@ run ${steps}
 
 # Write data for deformation
 
-write_data ${Dir}/data.hydrogel
+write_data ${Dir}/${file6_name}
