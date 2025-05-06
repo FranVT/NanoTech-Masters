@@ -54,10 +54,15 @@ variable eM equal emol
 variable ec equal ecouple
 variable eC equal econserve
 
+# Potencial energy per pair-wise interaction
+compute wcaPair all pair lj/cut/omp epair
+compute patchPair all pair table/omp epair
+compute swapPair all pair threebody/table epair
+
+# Computes for the stress analysis
 compute press all pressure t ke virial
 compute pressVirial all pressure t virial
 compute pressVirialMod all pressure t pair bond angle
-
 compute cstress all stress/atom t ke pair bond angle
 compute cstressVirial all stress/atom t virial
 compute cstressVirialMod all stress/atom t pair bond angle
@@ -65,36 +70,15 @@ compute stress all reduce sum c_cstress[*]
 compute stressVirial all reduce sum c_cstressVirial[*]
 compute stressVirialMod all reduce sum c_cstressVirialMod[*]
 
-
-compute wcaPair all pair lj/cut/omp epair
-compute patchPair all pair table/omp epair
-compute swapPair all pair threebody/table epair
-
 # Displacement of the central particles
-compute disc CM displace/atom
-compute daux CM chunk/atom type pbc yes
-compute dis CM reduce/chunk daux sum c_disc[4]
-
-# cluster output
-compute clusters all aggregate/atom 0.6
+compute disp CM displace/atom
+compute redDisp CM reduce ave c_disp[*] # All, because yes
 
 # Get the number of central particles per cluster
-compute Nclpart CM chunk/atom c_clusters compress yes discard yes # Get the number of clusters
-compute clsize CM property/chunk Nclpart count # Counts the atoms in each chunk
-
-
-# Compute the distances betwee central particles in the same cluster
-compute idcl CM property/chunk Nclpart id # Get the ids of the clusters
-
-
-#compute 1 CM reduce ave c_
-
-#variable groupCL atom "c_idcl"  
-#group CMclusters variable groupCL
-
-compute auxdistCM CM property/local patom1 patom2
-compute distCM CM pair/local dist cutoff type # Compute the distance
-
+compute clusters all aggregate/atom 0.6                             # Create the clusters
+compute Nclpart CM chunk/atom c_clusters compress yes discard yes   # Get the number of clusters
+compute clsize CM property/chunk Nclpart count                      # Counts the atoms in each chunk
+compute idcl CM property/chunk Nclpart id                           # Get the ids of the clusters
 
 
 # DUMPS and FIXES
@@ -103,27 +87,18 @@ thermo ${NsaveStress}
 
 # Save global energies and temperature
 group Energy empty
-fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_wcaPair c_patchPair c_swapPair c_ep c_ek v_eT v_ec v_eC c_p v_eB v_eA v_eM v_H file ${Dir}/${file1_name}
+fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_wcaPair c_patchPair c_swapPair c_ep c_ek v_eT v_ec v_eC c_p v_eB v_eA v_eM v_H c_redDisp[*] file ${Dir}/${file1_name}
 
 # Save Pressure and Stress tensor
 group Stress empty
 fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_p c_press[*] c_pressVirial[*] c_pressVirialMod[*] c_stress[*] c_stressVirial[*] c_stressVirialMod[*] file ${Dir}/${file2_name}
 
-#group CLUST empty
-#dump dumpCL all custom ${Ndump} ${Dir}/${file3_name} c_Nclusters c_Nclpart
-
-fix 1 CM ave/time 1 1 ${Ndump} c_idcl c_clsize file ${Dir}/cluster_assembly.fixf mode vector
-
-dump IDdump CM local ${Ndump} ${Dir}/tests_assembly.fixf index c_auxdistCM[1] c_auxdistCM[2] c_distCM
-
+# Save the global cluster information
+fix 1 CM ave/time 1 1 ${Ndump} c_idcl c_clsize file ${Dir}/${file3_name} mode vector
 
 # Save atom positions with cluster id
 dump dumpID all custom ${Ndump} ${Dir}/traj/${file4_name} id mol c_clusters type x y z vx vy vz
 dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
-
-# Save Atom displacement
-#group Displ empty
-#fix fixDispl Displ ave/time 1 ${NsaveStress} ${NsaveStress} c_dis[1] c_dis[2] c_dis[3] c_dis[4] file ${Dir}/cmdisplacement_assembly.fixf
 
 # RUN SIMULATION
 
