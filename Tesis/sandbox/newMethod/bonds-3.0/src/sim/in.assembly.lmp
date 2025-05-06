@@ -59,10 +59,12 @@ compute wcaPair all pair lj/cut/omp epair
 compute patchPair all pair table/omp epair
 compute swapPair all pair threebody/table epair
 
-# Computes for the stress analysis
+# Compute the pressure
 compute press all pressure t ke virial
 compute pressVirial all pressure t virial
 compute pressVirialMod all pressure t pair bond angle
+
+# Computes for the stress
 compute cstress all stress/atom t ke pair bond angle
 compute cstressVirial all stress/atom t virial
 compute cstressVirialMod all stress/atom t pair bond angle
@@ -80,21 +82,24 @@ compute Nclpart CM chunk/atom c_clusters compress yes discard yes   # Get the nu
 compute clsize CM property/chunk Nclpart count                      # Counts the atoms in each chunk
 compute idcl CM property/chunk Nclpart id                           # Get the ids of the clusters
 
+# Discretize the height into small boxes
+compute spatialChunks CM chunk/atom bin/3d x lower 1 y lower 1 z center ${bin_y} nchunk every units reduced
 
 # DUMPS and FIXES
 
 thermo ${NsaveStress}
 
 # Save global energies and temperature
-group Energy empty
-fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_t c_wcaPair c_patchPair c_swapPair c_ep c_ek v_eT v_ec v_eC c_p v_eB v_eA v_eM v_H c_redDisp[*] file ${Dir}/${file1_name}
+fix all Energy ave/time 1 ${Nsave} ${Nsave} c_t c_wcaPair c_patchPair c_swapPair c_ep c_ek v_eT v_ec v_eC c_p v_eB v_eA v_eM v_H c_redDisp[*] file ${Dir}/${file1_name}
 
 # Save Pressure and Stress tensor
-group Stress empty
-fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_p c_press[*] c_pressVirial[*] c_pressVirialMod[*] c_stress[*] c_stressVirial[*] c_stressVirialMod[*] file ${Dir}/${file2_name}
+fix fixStress5 all ave/time 1 ${NsaveStress} ${NsaveStress} c_p c_press[*] c_pressVirial[*] c_pressVirialMod[*] c_stress[*] c_stressVirial[*] c_stressVirialMod[*] file ${Dir}/${file2_name}
 
 # Save the global cluster information
 fix 1 CM ave/time 1 1 ${Ndump} c_idcl c_clsize file ${Dir}/${file3_name} mode vector
+
+# The ave/chunk creates a temporal average. The ave keyword creates a spatial average.
+fix fixChunks CM ave/chunk 1 ${Nsave} ${Nsave} spatialChunks vx vy vz c_disp[*] ave one file ${Dir}/profiles_assembly.fixf
 
 # Save atom positions with cluster id
 dump dumpID all custom ${Ndump} ${Dir}/traj/${file4_name} id mol c_clusters type x y z vx vy vz

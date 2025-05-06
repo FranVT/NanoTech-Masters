@@ -28,21 +28,28 @@ include molDeform.in
 # Compute global kinetic and potential energy and temperature
 compute t all temp
 compute td all temp/deform
-compute p all pressure td
+compute p all pressure t
 compute ep all pe
 compute ek all ke
-variable ec equal ecouple
-variable eC equal econserve
 variable eT equal etotal
 variable eB equal ebond
 variable eA equal eangle
 variable H equal enthalpy
 variable eM equal emol
+variable ec equal ecouple
+variable eC equal econserve
 
+# Potential energy per pair-wise interaction
+compute wcaPair all pair lj/cut/omp epair
+compute patchPair all pair table/omp epair
+compute swapPair all pair threebody/table epair
+
+# Compute the pressure
 compute press all pressure td ke virial
 compute pressVirial all pressure td virial
 compute pressVirialMod all pressure td pair bond angle
 
+# Compute the stress 
 compute cstress all stress/atom td ke pair bond angle
 compute cstressVirial all stress/atom td virial
 compute cstressVirialMod all stress/atom td pair bond angle
@@ -50,49 +57,38 @@ compute stress all reduce sum c_cstress[*]
 compute stressVirial all reduce sum c_cstressVirial[*]
 compute stressVirialMod all reduce sum c_cstressVirialMod[*]
 
-compute wcaPair all pair lj/cut/omp epair
-compute patchPair all pair table/omp epair
-compute swapPair all pair threebody/table epair
+# Displacement of the central particles
+compute disp CM displace/atom
+compute redDisp CM reduce ave c_disp[*] # All, because yes
 
-# displacement of the central particles
-compute disc CM displace/atom
-compute daux CM chunk/atom type pbc yes
-compute dis CM reduce/chunk daux sum c_disc[4]
+# Get the number of central particles per cluster
+compute clusters all aggregate/atom 0.6                             # Create the clusters
+compute Nclpart CM chunk/atom c_clusters compress yes discard yes   # Get the number of clusters
+compute clsize CM property/chunk Nclpart count                      # Counts the atoms in each chunk
+compute idcl CM property/chunk Nclpart id                           # Get the ids of the clusters
 
-# cluster analysis
-compute clPatch Patches cluster/atom 0.6
-compute ccl Patches chunk/atom c_clPatch compress yes discard no # Define chunks based on cluster ID
-compute size Patches property/chunk ccl count # Counts the atoms in each chunk
-
-# Velocity stream in the Y axis
-variable L equal ${L_real}
-compute velChunks CM chunk/atom bin/3d x lower 1 y lower 1 z center ${bin_y} nchunk every units reduced
-
-# The ave/chunk creates a temporal average. The ave keyword creates a spatial average.
-fix fixVelStream CM ave/chunk 1 ${Nsave} ${Nsave} velChunks vx vy vz ave one file ${Dir}/velStream.fixf
+# Discretize the height into small boxes
+compute spatialChunks CM chunk/atom bin/3d x lower 1 y lower 1 z center ${bin_y} nchunk every units reduced
 
 # DUMPS and FIXES
 
 thermo ${NsaveStress}
 
 # Save global energies and temperature
-group Energy empty
-fix fixEng Energy ave/time 1 ${Nsave} ${Nsave} c_td c_wcaPair c_patchPair c_swapPair c_ep c_ek v_eT v_ec v_eC c_p v_eB v_eA v_eM v_H file ${Dir}/${file6_name}
+fix fixEng all ave/time 1 ${Nsave} ${Nsave} c_td c_wcaPair c_patchPair c_swapPair c_ep c_ek v_eT v_ec v_eC c_p v_eB v_eA v_eM v_H c_redDisp[*] file ${Dir}/${file6_name}
 
 # Save Pressure and Stress tensor
-group Stress empty
-fix fixStress5 Stress ave/time 1 ${NsaveStress} ${NsaveStress} c_p c_press[*] c_pressVirial[*] c_pressVirialMod[*] c_stress[*] c_stressVirial[*] c_stressVirialMod[*] file ${Dir}/${file7_name}
+fix fixStress5 all ave/time 1 ${NsaveStress} ${NsaveStress} c_p c_press[*] c_pressVirial[*] c_pressVirialMod[*] c_stress[*] c_stressVirial[*] c_stressVirialMod[*] file ${Dir}/${file7_name}
 
-# Save the cluster information
-fix fixCluster Patches ave/histo 1 ${Nsave} ${Nsave} 0 8 80 c_size mode vector file ${Dir}/${file8_name}
+# Save the global cluster information
+fix 1 CM ave/time 1 1 ${Ndump} c_idcl c_clsize file ${Dir}/${file3_name} mode vector
+
+# The ave/chunk creates a temporal average. The ave keyword creates a spatial average.
+fix fixChunks CM ave/chunk 1 ${Nsave} ${Nsave} spatialChunks vx vy vz c_disp[*] ave one file ${Dir}/profiles_shear.fixf
 
 # Save atom positions
-dump dumpID all custom ${Ndump} ${Dir}/traj/${file9_name} id type x y z vx vy vz
+dump dumpID all custom ${Ndump} ${Dir}/traj/${file9_name} id mol c_clusters type x y z vx vy vz
 dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
-
-# Save Atom displacement
-#group Displ empty
-#fix fixDispl Displ ave/time 1 ${NsaveStress} ${NsaveStress} c_dis[1] c_dis[2] c_dis[3] c_dis[4] file ${Dir}/cmdisplacement_shear.fixf
 
 # RUN SIMULATION
 
