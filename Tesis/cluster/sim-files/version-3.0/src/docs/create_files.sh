@@ -4,14 +4,12 @@
 
 #!/bin/bash
 
-chmod +x load_parameters.sh
 source ./load_parameters.sh parameters.txt
 
 CL_con=$1
 shear_rate=$2
 dir_name=$3
-Vol_Tot=$4
-L=$5
+L=$4
 
 # Create README file
 
@@ -40,9 +38,6 @@ L=$5
             echo -e "\n ## Derived values from parameters \n" >> $file_name;
             echo -e ""- Number of Cross-Linkers: "${N_CL}" >> $file_name;
             echo -e ""- Number of Monomers: "${N_MO}" >> $file_name;
-            echo -e ""- Volume of Cross-Linker: "${Vol_CL1}" [sigma^3]"" >> $file_name; 
-            echo -e ""- Volume of Monomer: "${Vol_MO1}" [sigma^3]"" >> $file_name;
-            echo -e ""- Box Volume: "${Vol_Tot}" [sigma^3]"" >> $file_name;
             echo -e ""- Half length of the box: "${L}" [sigma]"" >> $file_name;
             echo -e "\n ## Save parameters \n" >> $file_name;
             echo -e ""- Save every "${Ndump}" time steps for dumps files"" >> $file_name;
@@ -127,15 +122,6 @@ L=$5
 
             headers+=("N_MO")
             values+=("${N_MO}")
-
-            headers+=("Vol_CL")
-            values+=("${Vol_CL1}")
-
-            headers+=("Vol_MO")
-            values+=("${Vol_MO1}")
-
-            headers+=("Vol_box")
-            values+=("${Vol_Tot}")
 
             headers+=("L")
             values+=("${L}")
