@@ -127,7 +127,20 @@ Does this model make sense?
 \end{sol}
 
 \begin{sol}{Pauli spin matrices properties}{label-2b}
-    To proof that the product rule is satified by the Pauli matrices, we compute all the products,
+    To proof that the product rule is satified by the Pauli matrices, we compute all the products.
+    Strating with $\sigma_x\sigma_x$, $\sigma_y\sigma_y$, $\sigma_z\sigma_z$,
+    \begin{align*}
+        \sigma_x\sigma_x  &= \mqty(\pmat{x})\mqty(\pmat{x}) = \mqty(\imat{2}), \\
+        \sigma_y\sigma_y  &= \mqty(\pmat{y})\mqty(\pmat{y}) = \mqty(\imat{2}), \\
+        \sigma_z\sigma_z  &= \mqty(\pmat{z})\mqty(\pmat{z}) = \mqty(\imat{2}).
+    \end{align*}
+
+    Now, for the cross terms,
+    \begin{align*}
+        \sigma_x\sigma_y  &= \mqty(\pmat{x})\mqty(\pmat{y}) = \mqty(\imat{2}), \\
+        \sigma_y\sigma_z  &= \mqty(\pmat{y})\mqty(\pmat{z}) = \mqty(\imat{2}), \\
+        \sigma_x\sigma_z  &= \mqty(\pmat{x})\mqty(\pmat{z}) = \mqty(\imat{2}).
+    \end{align*}
 
 
     \begin{empheq}[box=\shadowbox]{equation*}
