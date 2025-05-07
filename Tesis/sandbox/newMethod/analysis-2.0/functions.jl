@@ -16,25 +16,25 @@ function trace(xx,yy,zz)
     return xx.+yy.+zz
 end
 
-function getDF(dir_name,id,cl_con)
+function getDF(dir_scheme,id,cl_con)
 """
    Function that gives the data file of the desire directory
 """
 
     # Get the paths
     parent_dir=dirname(pwd());
-    data_dir=joinpath(parent_dir,dir_name,"data");
+    data_dir=joinpath(parent_dir,dir_scheme,"data");
     name_dir=string("system-",id,"-CL-",cl_con);
 
     # Read all shear experiments perform to the system
     shear_dirs=readdir(joinpath(data_dir,name_dir));
     aux=findall(s->s==1,occursin.("shear",shear_dirs));
-    shear_dirs=shear_dirs[aux...];
+    shear_dirs=shear_dirs[aux];
 
     # Create DataFrames from the data.dat file of each directory
     df = DataFrame.(CSV.File.(joinpath.(data_dir,name_dir,shear_dirs,"data.dat")));
 
-    return df
+    return vcat(df...)
 
 end
 

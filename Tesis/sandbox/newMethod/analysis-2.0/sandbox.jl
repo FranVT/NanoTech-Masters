@@ -9,13 +9,15 @@ gr()
 include("functions.jl")
 
 # Parameters to select the system (The hydrogel to be analyse)
+id="2025-05-06-163629";
 id="2025-05-06-124111";
+
 cl_con=0.5;
-dir_simulation="bonds-3.0";
+dir_scheme="bonds-3.0";
 
 
 # Get a data frame with all the data.dat files information
-df = getDF(dir_simulation,id,cl_con);
+df = getDF(dir_scheme,id,cl_con);
 
 
 """
