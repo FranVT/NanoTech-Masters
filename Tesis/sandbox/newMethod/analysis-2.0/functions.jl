@@ -79,11 +79,11 @@ function extractInfoAssembly(path_system,df)
     stress_assembly=DataFrame(info',head);
 
     # Extract info from the cluster files
-    info=extractInfo(path_system,df,vcat(df."file2")...);
+    #info=extractInfo(path_system,df,vcat(df."file2")...);
     #head=[""];
     #clust_assembly=DataFrame(info',head);
 
-    return df_assembly 
+    #return df_assembly 
 
 end
 
