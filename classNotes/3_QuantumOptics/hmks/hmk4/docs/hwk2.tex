@@ -43,7 +43,22 @@ Does this model make sense?
 \section{Problem 4.26}
 
 \begin{itemize}
-    \item Check that the spin matrices 4,145 and 4,147 obey the fundamental commutation relations for angular momentum eqn 4.134
+    \item Check that the spin matrices\eqref{eqn:spin-matrices} obey the fundamental commutation relations for angular momentum\eqref{eqn:comm-rela}.
+        \begin{gather}
+            \hat{S}_x = \frac{\hbar}{2}\begin{pmatrix}0&1\\1&0\end{pmatrix},
+            \quad
+            \hat{S}_y = \frac{\hbar}{2}\begin{pmatrix}0&-i\\i&0\end{pmatrix},
+            \quad
+            \hat{S}_z = \frac{\hbar}{2}\begin{pmatrix}1&0\\0&-1\end{pmatrix}
+            \label{eqn:spin-matrices} 
+            \\
+            \comm{\hat{S}_x}{\hat{S}_y}=i\hbar\hat{S}_z,
+            \quad
+            \comm{\hat{S}_y}{\hat{S}_z}=i\hbar\hat{S}_x,
+            \quad
+            \comm{\hat{S}_z}{\hat{S}_x}=i\hbar\hat{S}_y
+            \label{eqn:comm-rela} 
+        \end{gather}
     \item Show that the Pauli spin matrices 4.148 satisfy the product rule 
         \begin{gather*}
             \sigma_j\sigma_k=\delta_{jk}+i\sum_l\epsilon_{jkl}\sigma_l,
