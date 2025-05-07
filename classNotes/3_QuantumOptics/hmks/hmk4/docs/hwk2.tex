@@ -59,19 +59,81 @@ Does this model make sense?
             \comm{\hat{S}_z}{\hat{S}_x}=i\hbar\hat{S}_y
             \label{eqn:comm-rela} 
         \end{gather}
-    \item Show that the Pauli spin matrices 4.148 satisfy the product rule 
-        \begin{gather*}
-            \sigma_j\sigma_k=\delta_{jk}+i\sum_l\epsilon_{jkl}\sigma_l,
-        \end{gather*}
-        where the indices stand for $x,y,z$ and $\epsilon_{jkl}$ is the Levi-Civita symbol.
+    \item Show that the Pauli spin matrices\eqref{eqn:pauli-matrices} satisfy the product rule\eqref{eqn:prod_rule}, where the indices stand for $x,y,z$ and $\epsilon_{jkl}$ is the Levi-Civita symbol.
+        \begin{gather}
+            \sigma_x = \frac{\hbar}{2}\begin{pmatrix}0&1\\1&0\end{pmatrix},
+            \quad
+            \sigma_y = \frac{\hbar}{2}\begin{pmatrix}0&-i\\i&0\end{pmatrix},
+            \quad
+            \sigma_z = \frac{\hbar}{2}\begin{pmatrix}1&0\\0&-1\end{pmatrix}
+            \label{eqn:pauli-matrices} 
+            \\
+            \sigma_j\sigma_k=\delta_{jk}+i\sum_l\epsilon_{jkl}\sigma_l\label{eqn:prod_rule}.
+        \end{gather}
+        
 \end{itemize}
 
-\begin{sol}{Mathematical spin properties}{label-2a}
+\begin{sol}{Commutation relations}{label-2a}
+    We start computing $\comm{\hat{S}_x}{\hat{S}_y}$,
+    \begin{align*}
+        \comm{\hat{S}_x}{\hat{S}_y} &=
+            \frac{\hbar^2}{4}\left[
+                \begin{pmatrix}i&0\\0&-i\end{pmatrix}
+                -
+                \begin{pmatrix}-i&0\\0&i\end{pmatrix}
+            \right]
+            \\
+                                 &=i\hbar\frac{\hbar}{2}\begin{pmatrix}1&0\\0&-1\end{pmatrix}
+                                 \\
+                                 &=i\hbar\hat{S}_z.
+    \end{align*}
+
+    Now $\comm{\hat{S}_y}{\hat{S}_z}$,
+    \begin{align*}
+        \comm{\hat{S}_y}{\hat{S}_z} &=
+            \frac{\hbar^2}{4}\left[
+                \begin{pmatrix}0&i\\i&0\end{pmatrix}
+                -
+                \begin{pmatrix}0&-i\\-i&0\end{pmatrix}
+            \right]
+            \\
+                                 &=i\hbar\frac{\hbar}{2}\begin{pmatrix}0&1\\1&0\end{pmatrix}
+                                 \\
+                                 &=i\hbar\hat{S}_x.
+    \end{align*}
+
+    Finally $\comm{\hat{S}_z}{\hat{S}_x}$,
+    \begin{align*}
+        \comm{\hat{S}_z}{\hat{S}_x} &=
+            \frac{\hbar^2}{4}\left[
+        \begin{pmatrix}0&1\\-1&0\end{pmatrix}
+                -
+                \begin{pmatrix}0&-1\\1&0\end{pmatrix}
+            \right]
+            \\
+                                 &=\qty(-ii)\frac{\hbar}{2}\begin{pmatrix}0&1\\-1&0\end{pmatrix}
+                                 \\
+                                 &=i\hbar\hat{S}_y.
+    \end{align*}
+
+    Hence, it is proof that,
     \begin{empheq}[box=\shadowbox]{equation*}
-        \text{Sol}
+        \comm{\hat{S}_x}{\hat{S}_y}=i\hbar\hat{S}_z,
+            \quad
+            \comm{\hat{S}_y}{\hat{S}_z}=i\hbar\hat{S}_x,
+            \quad
+            \comm{\hat{S}_z}{\hat{S}_x}=i\hbar\hat{S}_y    
     \end{empheq}
 \end{sol}
 
+\begin{sol}{Pauli spin matrices properties}{label-2b}
+    To proof that the product rule is satified by the Pauli matrices, we compute all the products,
+
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        \text{Yes, it worked}
+    \end{empheq}
+\end{sol}
 
 \section{Problem 4.27}
 
