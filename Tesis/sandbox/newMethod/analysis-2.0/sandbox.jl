@@ -8,19 +8,46 @@ gr()
 
 include("functions.jl")
 
-# Parameters to select the system (The hydrogel to be analyse)
-id="2025-05-06-163629";
-id="2025-05-06-124111";
+#= 
+    D I R E C T O R I E S   AND   P A T H S
+=#
 
+# Get the parent directory
+parent_dir=dirname(pwd());
+# Select the siimulation scheme (Version and stuff)
+scheme_dir="bonds-3.0";
+# Select the "system" by id
+id="2025-05-06-163629";
+# Select the system by "cross-linker" concentration
 cl_con=0.5;
-dir_scheme="bonds-3.0";
+
+
+# Path to the data directory of the simulation scheme
+path_data=joinpath(parent_dir,scheme_dir,"data");
+# Path to the data directory of the specific system
+path_system=joinpath(path_data,string("system-",id,"-CL-",cl_con));
 
 
 # Get a data frame with all the data.dat files information
-df = getDF(dir_scheme,id,cl_con);
+df = getDF(path_system);
+
+# Get the shear rates
+#gamma_dot=df."Shear-rate";
 
 
-"""
+# Get the info
+#(df_assembly, df_shear, df_stressA, df_stressS) = extractInfo(df);
+
+
+#=
+    A S S E M B L Y     P L O T S  
+=#
+
+# Energy
+
+
+
+#=
 # New data frame
 df_new = filter([:"Shear-rate",:"CL-Con",:"Npart",:"date"] => (f1,f2,f3,f4) -> f1==gamma_dot && f2==cl_con && f3==Npart && f4==date,df);# Get the information in data frames
 #df_new = df_new[2,:]; 
@@ -403,7 +430,5 @@ fig_pComp=plot(p1,p2,p3,p4,p5,p6,
              )
 
 map(s->savefig(fig_pComp,s),joinpath.(df_new."main-directory",df_new."imgs-dir","stress-pressure.png"))
-
-
-"""
+=#
 

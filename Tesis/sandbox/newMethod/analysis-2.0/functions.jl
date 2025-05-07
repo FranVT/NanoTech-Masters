@@ -16,42 +16,47 @@ function trace(xx,yy,zz)
     return xx.+yy.+zz
 end
 
-function getDF(dir_scheme,id,cl_con)
+function getDF(path_system)
 """
    Function that gives the data file of the desire directory
 """
 
-    # Get the paths
-    parent_dir=dirname(pwd());
-    data_dir=joinpath(parent_dir,dir_scheme,"data");
-    name_dir=string("system-",id,"-CL-",cl_con);
-
     # Read all shear experiments perform to the system
-    shear_dirs=readdir(joinpath(data_dir,name_dir));
+    shear_dirs=readdir(path_system);
     aux=findall(s->s==1,occursin.("shear",shear_dirs));
     shear_dirs=shear_dirs[aux];
 
     # Create DataFrames from the data.dat file of each directory
-    df = DataFrame.(CSV.File.(joinpath.(data_dir,name_dir,shear_dirs,"data.dat")));
+    df = DataFrame.(CSV.File.(joinpath.(path_system,shear_dirs,"data.dat")));
 
     return vcat(df...)
 
 end
 
-
-function extractInfo(df)
+function extractInfoAssembly(parent_dir,df)
 """
     Function that reads the files and extract all the information
-    file0 -> data_system_assembly
-    file1 -> data_stress_assembly
-    file2 -> data_clustP_assembly
-    file3 -> traj_assembly
-    file4 -> data.hydrogel
-    file5 -> data_system_shear
-    file6 -> data_stress_shear
-    file7 -> data_clustP_shear
-    file8 -> traj_shear
-    file9 -> data.FirstShear
+    file0 -> system_assembly
+    file1 -> stress_assembly
+    file2 -> clust_assembly
+    file3 -> profiles_assembly
+    file4 -> traj_assembly
+    file5 -> data.hydrogel
+"""
+
+
+end
+
+
+function extractInfoShear(shear_rate,parent_dir,df)
+"""
+    Function that reads the files and extract all the information
+    file6 -> system_shear
+    file7 -> stress_shear
+    file8 -> clust_shear
+    file9 -> profiles_shear
+    file10 -> traj_shear
+    file11 -> data.FirstShear
 """
     data_path=joinpath.(df_new."main-directory",df_new."file0");
     aux=split.(readlines(data_path[1])," ");
