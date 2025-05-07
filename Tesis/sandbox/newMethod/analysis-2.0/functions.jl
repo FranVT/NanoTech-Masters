@@ -33,7 +33,15 @@ function getDF(path_system)
 
 end
 
-function extractInfoAssembly(parent_dir,df)
+function extractInfo(path_system,df,file_name)
+"""
+    Function that extracts the information of fix files
+"""
+    aux=split.(readlines(joinpath(path_system,file_name))," ");
+    return reduce(hcat,map(s->parse.(Float64,s),aux[3:end]));
+end
+
+function extractInfoAssembly(path_system,df)
 """
     Function that reads the files and extract all the information
     file0 -> system_assembly
@@ -44,6 +52,14 @@ function extractInfoAssembly(parent_dir,df)
     file5 -> data.hydrogel
 """
 
+    # Extract info from file 0
+    info=extractInfo(path_system,df,vcat(df."file0")...);
+    head=["TimeStep","Temp","wca","patch","swap","V","K","Etot","ec","eC","p","eB","eA","eM","H","CM_dx","CM_dy","CM_dz","CM_d"];
+    df_assembly=DataFrame(info',head);
+
+    
+
+    return df_assembly 
 
 end
 
