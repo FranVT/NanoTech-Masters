@@ -36,6 +36,22 @@ df_assembly=extractInfoAssembly(path_system,df);
 
 
 
+
+# Create the function to extract fix mode vector files info
+file_name=vcat(df."file2");
+aux=split.(readlines(joinpath(path_system,file_name...))," ");
+    # Get time step and number of rows
+    (TimeStep,nrows)=parse(Int64,aux[3]);
+
+
+
+
+
+
+
+
+
+
 # Get the shear rates
 #gamma_dot=df."Shear-rate";
 

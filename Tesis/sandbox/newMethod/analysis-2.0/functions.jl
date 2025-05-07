@@ -33,13 +33,29 @@ function getDF(path_system)
 
 end
 
-function extractInfo(path_system,df,file_name)
+function extractFixScalar(path_system,df,file_name)
 """
-    Function that extracts the information of fix files
+    Function that extracts the information of fix files that stores global scalar values
 """
     aux=split.(readlines(joinpath(path_system,file_name))," ");
     return reduce(hcat,map(s->parse.(Float64,s),aux[3:end]));
 end
+
+function extractFixVector(path_system,df,file_name)
+"""
+    Function that extracts the information of fix mode vector files 
+"""
+    aux=split.(readlines(joinpath(path_system,file_name))," ");
+   
+    # Get time step and number of rows
+    (TimeStep,nrows)=parse(Int64,aux[3]);
+
+
+
+
+    return reduce(hcat,map(s->parse.(Float64,s),aux[3:end]));
+end
+
 
 function extractInfoAssembly(path_system,df)
 """
@@ -52,12 +68,20 @@ function extractInfoAssembly(path_system,df)
     file5 -> data.hydrogel
 """
 
-    # Extract info from file 0
-    info=extractInfo(path_system,df,vcat(df."file0")...);
+    # Extract info from system system
+    info=extractFixScalar(path_system,df,vcat(df."file0")...);
     head=["TimeStep","Temp","wca","patch","swap","V","K","Etot","ec","eC","p","eB","eA","eM","H","CM_dx","CM_dy","CM_dz","CM_d"];
-    df_assembly=DataFrame(info',head);
+    system_assembly=DataFrame(info',head);
 
-    
+    # Extract info from stress
+    info=extractFixScalar(path_system,df,vcat(df."file1")...);
+    head=["TimeStep","p","p_xx","p_yy","p_zz","p_xy","p_xz","p_yz","virialp_xx","virialp_yy","virialp_zz","virialp_xy","virialp_xz","virialp_yz","virialmodp_xx","virialmodp_yy","virialmodp_zz","virialmodp_xy","virialmodp_xz","virialmodp_yz","stress_xx","stress_yy","stress_zz","stress_xy","stress_xz","stress_yz","virialstress_xx","virialstress_yy","virialstress_zz","virialstress_xy","virialstress_xz","virialstress_yz","virialmodstress_xx","virialmodstress_yy","virialmodstress_zz","virialmodstress_xy","virialmodstress_xz","virialmodstress_yz"];
+    stress_assembly=DataFrame(info',head);
+
+    # Extract info from the cluster files
+    info=extractInfo(path_system,df,vcat(df."file2")...);
+    #head=[""];
+    #clust_assembly=DataFrame(info',head);
 
     return df_assembly 
 
