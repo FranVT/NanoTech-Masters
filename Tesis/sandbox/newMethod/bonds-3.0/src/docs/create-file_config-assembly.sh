@@ -17,7 +17,7 @@ source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters
 echo "Parameters loaded in config assembly script"
 
 # Compute the parameters
-N_CL=$(echo "scale=0; $CL_con * $N_particles" | bc);
+N_CL=$(echo "scale=0; $var_ccL * $N_particles" | bc);
 N_CL=${N_CL%.*};
 N_MO=$(( $N_particles - $N_CL ));
 Vol_MO=$(echo "scale=$cs; $Vol_MO1 * $N_MO" | bc);         # Vol of N f=2 patchy particles

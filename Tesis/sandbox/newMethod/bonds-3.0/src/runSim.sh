@@ -54,7 +54,7 @@ do
     bash  $dir_src/docs/create-file_README.sh $dir_system $dir_src $var_ccL
 
     # Create the data file for the assembly simulation
-    bash  $dir_src/docs/create-file_dataAssembly.sh $dir_system $dir_src $var_ccL
+    bash  $dir_src/docs/create-file_dataAssembly.sh $dir_system $dir_src $var_ccL $id
 
     # Run the assembly
     bash $dir_src/$filename $dir_sim $dir_src $dir_system $id $var_ccL
@@ -71,7 +71,7 @@ do
         bash $dir_src/docs/create-file_config-shear.sh $dir_src $id $var_shearRate
 
         # Create the data file for the assembly simulation
-    bash  $dir_src/docs/create-file_dataShear.sh $dir_src $dir_shear $var_shearRate
+    bash  $dir_src/docs/create-file_dataShear.sh $dir_src $dir_shear $id $var_shearRate
 
         for var_N in $(seq $Nexp)
         do
