@@ -27,7 +27,7 @@ function getDF(path_system)
     shear_dirs=shear_dirs[aux];
 
     # Create DataFrames from the data.dat file of each directory
-    df = DataFrame.(CSV.File.(joinpath.(path_system,shear_dirs,"data.dat")));
+    df=DataFrame.(CSV.File.(joinpath.(path_system,shear_dirs,"data.dat")));
 
     return vcat(df...)
 
@@ -46,6 +46,7 @@ function extractFixCluster(path_system,df,file_name)
     Function that extracts the information of fix mode vector files 
 """
     aux=split.(readlines(joinpath(path_system,file_name))," ");
+    ind_o=4;
     nrows=[];
     data=[];
 
@@ -79,7 +80,7 @@ function extractFixCluster(path_system,df,file_name)
         
     end
 
-    return DetaFrame(data);
+    return DataFrame(data);
 end
 
 
@@ -95,21 +96,23 @@ function extractInfoAssembly(path_system,df)
 """
 
     # Extract info from system system
-    info=extractFixScalar(path_system,df,vcat(df."file0")...);
+    info=extractFixScalar(path_system,df,df."file0"...);
     head=["TimeStep","Temp","wca","patch","swap","V","K","Etot","ec","eC","p","eB","eA","eM","H","CM_dx","CM_dy","CM_dz","CM_d"];
     system_assembly=DataFrame(info',head);
 
     # Extract info from stress
-    info=extractFixScalar(path_system,df,vcat(df."file1")...);
+    info=extractFixScalar(path_system,df,df."file1"...);
     head=["TimeStep","p","p_xx","p_yy","p_zz","p_xy","p_xz","p_yz","virialp_xx","virialp_yy","virialp_zz","virialp_xy","virialp_xz","virialp_yz","virialmodp_xx","virialmodp_yy","virialmodp_zz","virialmodp_xy","virialmodp_xz","virialmodp_yz","stress_xx","stress_yy","stress_zz","stress_xy","stress_xz","stress_yz","virialstress_xx","virialstress_yy","virialstress_zz","virialstress_xy","virialstress_xz","virialstress_yz","virialmodstress_xx","virialmodstress_yy","virialmodstress_zz","virialmodstress_xy","virialmodstress_xz","virialmodstress_yz"];
     stress_assembly=DataFrame(info',head);
 
     # Extract info from the cluster files
+    clust_assembly=extractFixCluster(path_system,df,df."file2"...);
+
     #info=extractInfo(path_system,df,vcat(df."file2")...);
     #head=[""];
     #clust_assembly=DataFrame(info',head);
 
-    #return df_assembly 
+    return (system_assembly,stress_assembly,clust_assembly)
 
 end
 
