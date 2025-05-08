@@ -34,7 +34,6 @@ echo -e "## System parameters \n" >> $file_name;
 echo -e ""- Packing fraction: "${phi}" >> $file_name;
 echo -e ""- Cross-Linker Concentration: "${var_ccL}" >> $file_name;
 echo -e ""- Number of particles: "${N_particles}" >> $file_name;
-echo -e ""- Shear rate: "${var_shearRate}" [1/tau]"" >> $file_name;
 echo -e ""- Temperature: "${T}" >> $file_name;
 echo -e ""- Damp: "${damp}" >> $file_name;
 echo -e ""- Max deformation per cycle: "${max_strain}" >> $file_name;
