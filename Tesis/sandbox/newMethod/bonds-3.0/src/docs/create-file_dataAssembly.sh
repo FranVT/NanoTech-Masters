@@ -25,9 +25,6 @@ headers=()
 values=()
 
 # Populate headers and values arrays
-headers+=("id")
-values+=("${id}")
-
 for i in "${!files_name[@]}"; do
     headers+=("file$i")
     values+=("${files_name[$i]}")

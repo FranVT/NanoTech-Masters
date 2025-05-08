@@ -70,7 +70,8 @@ do
         # Create the config file for the shear simulations
         bash $dir_src/docs/create-file_config-shear.sh $dir_src $id $var_shearRate
 
-        # Create the README and data.dat files in the shear directory
+        # Create the data file for the assembly simulation
+    bash  $dir_src/docs/create-file_dataShear.sh $dir_src $dir_shear $var_shearRate
 
         for var_N in $(seq $Nexp)
         do
