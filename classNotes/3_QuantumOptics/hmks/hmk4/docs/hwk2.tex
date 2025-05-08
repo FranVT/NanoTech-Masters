@@ -137,15 +137,13 @@ Does this model make sense?
 
     Now, for the cross terms,
     \begin{align*}
-        \sigma_x\sigma_y  &= \mqty(\pmat{x})\mqty(\pmat{y}) = \mqty(\pmat{z}), \\
-        \sigma_y\sigma_z  &= \mqty(\pmat{y})\mqty(\pmat{z}) = \mqty(\pmat{x}), \\
-        \sigma_x\sigma_z  &= \mqty(\pmat{x})\mqty(\pmat{z}) = \mqty(\pmat{y}).
+        \sigma_x\sigma_y  &= \mqty(\pmat{x})\mqty(\pmat{y}) = i\mqty(\pmat{z}), \\
+        \sigma_y\sigma_z  &= \mqty(\pmat{y})\mqty(\pmat{z}) = i\mqty(\pmat{x}), \\
+        \sigma_x\sigma_z  &= \mqty(\pmat{x})\mqty(\pmat{z}) = i\mqty(\pmat{y}).
     \end{align*}
 
+    Which confirms that Pauli's matrices satifies the product relation.
 
-    \begin{empheq}[box=\shadowbox]{equation*}
-        \text{Yes, it worked}
-    \end{empheq}
 \end{sol}
 
 \section{Problem 4.27}
@@ -155,14 +153,57 @@ An electron is in the spin state,
     \chi=A\begin{pmatrix}3i\\4\end{pmatrix}
 \end{gather*}
 
-\begin{itemize}
+\begin{enumerate}
     \item Determine the normalization constant $A$.
     \item Find the expectation values of $S_x, S_y$ and $S_z$.
     \item Find the ``uncertanties'' $\sigma_{S_x},\sigma_{S_y}$ and $\sigma_{S_z}$. (Note: These sigmas are standard deviations, not Pauli matrices!)
     \item Confirm that your results are consistent with all three uncertanty principles 4.100 and its cyclic permutations-only with $S$ in place of $L$, of course.
-\end{itemize}
+\end{enumerate}
 
-\begin{sol}{Practice spin state}{label-3a}
+\begin{sol}{Normalization constant}{label-3a}
+    To find the normalization constant we need to get the squared modulus of the state and solve for $A$,
+    \begin{align*}
+        \abs{\chi}^2 &= A\begin{pmatrix}-3i&4\end{pmatrix}A\begin{pmatrix}3i\\4\end{pmatrix} \\
+                     &= 25A^2,
+    \end{align*}
+    tacking into account that $\abs{\chi}^2=1$ we get that $A=1/5$.
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        A=\frac{1}{5}
+    \end{empheq}
+\end{sol}
+
+\begin{sol}{Expected values of spin}{label-3b}
+    To find $\expval{\hat{S}_x},\expval{\hat{S}_y}$ and $\expval{\hat{S}_z}$ we compute, $\expval{\hat{S}_n}{\chi}$,
+    \begin{align*}
+        \expval{\hat{S}_x}{\chi} &=\frac{\hbar}{50}\mqty(-3i&4)\mqty(\pmat{x})\mqty(-3i\\4)=\frac{\hbar}{50}\qty(-12i+12i)=0, \\
+        \expval{\hat{S}_y}{\chi} &=\frac{\hbar}{50}\mqty(-3i&4)\mqty(\pmat{y})\mqty(-3i\\4)=\frac{\hbar}{50}\qty(-12-12)=-\frac{12}{25}\hbar, \\
+        \expval{\hat{S}_z}{\chi} &=\frac{\hbar}{50}\mqty(-3i&4)\mqty(\pmat{z})\mqty(-3i\\4)=\frac{\hbar}{50}\qty(9-16)=-\frac{7}{50}\hbar. 
+    \end{align*}
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        \expval{\hat{S}_x}=0,\quad 
+        \expval{\hat{S}_y}=-\frac{12}{25}\hbar,\quad
+        \expval{\hat{S}_z}=-\frac{7}{50}\hbar.
+    \end{empheq}
+\end{sol}
+
+\begin{sol}{Uncertanties}{label-3c}
+    To compute the uncertanty we recall that $\sigma=\sqrt{\expval{\hat{S}^2} - \expval{\hat{S}}^2}$.
+    From the previous task we already known $\expval{\hat{S}}$, hence we only need to compute $\expval{\hat{S}^2}$.
+    \begin{align*}
+        \expval{\hat{S}_x^2}{\chi} &=\frac{\hbar^2}{100}\mqty(-3i&4)\mqty(\pmat{x})\mqty(\pmat{x})\mqty(-3i\\4)=\frac{\hbar}{50}\qty(9+16)=\frac{\hbar^2}{4}, \\
+        \expval{\hat{S}_y^2}{\chi} &=\frac{\hbar^2}{100}\mqty(-3i&4)\mqty(\pmat{y})\mqty(\pmat{y})\mqty(-3i\\4)=\frac{\hbar}{50}\qty(9+16)=\frac{\hbar^2}{4}, \\
+        \expval{\hat{S}_z^2}{\chi} &=\frac{\hbar^2}{100}\mqty(-3i&4)\mqty(\pmat{z})\mqty(\pmat{z})\mqty(-3i\\4)=\frac{\hbar}{50}\qty(9+16)=\frac{\hbar^2}{4}. 
+    \end{align*}
+
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        \text{Sol}
+    \end{empheq}
+\end{sol}
+
+\begin{sol}{Checking consistency}{label-3d}
     \begin{empheq}[box=\shadowbox]{equation*}
         \text{Sol}
     \end{empheq}
