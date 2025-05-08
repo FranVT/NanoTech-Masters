@@ -32,7 +32,7 @@ cd $dir_src;
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters 
 
 ## Loops of parameters
-for var_ccL in 0.5;
+for var_ccL in $(seq $cl_con_o $cl_con_d $cl_con_f);
 do
 
     # Directory to store the data from the simulations
@@ -50,6 +50,12 @@ do
     # Create directory to save the simulation data
     mkdir $dir_system; mkdir "$dir_system/traj"
 
+    # Create the Readme file
+    bash  $dir_src/docs/create-file_README.sh $dir_system $dir_src $var_ccL
+
+    # Create the data file for the assembly simulation
+    bash  $dir_src/docs/create-file_dataAssembly.sh $dir_system $dir_src $var_ccL $id
+
     # Run the assembly
     qsub $dir_src/$filename $dir_sim $dir_src $dir_system $id $var_ccL
 
@@ -64,8 +70,8 @@ do
         # Create the config file for the shear simulations
         bash $dir_src/docs/create-file_config-shear.sh $dir_src $id $var_shearRate
 
-        # Create the README and data.dat files in the shear directory
-        bash $dir_src/docs/create-file_reference.sh $dir_src $dir_shearexp $id $var_ccL $var_shearRate
+        # Create the data file for the assembly simulation
+        bash  $dir_src/docs/create-file_dataShear.sh $dir_src $dir_shearexp $id $var_shearRate
 
         for var_N in $(seq $Nexp)
         do
@@ -79,6 +85,8 @@ do
             qsub $dir_src/$fileshearname $dir_sim $dir_src $dir_system $dir_shearexp $id $var_shearRate $var_N
         done
     done
+
+    sleep 2
 
 done
 
