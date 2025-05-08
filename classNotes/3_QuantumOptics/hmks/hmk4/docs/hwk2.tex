@@ -197,13 +197,28 @@ An electron is in the spin state,
         \expval{\hat{S}_z^2}{\chi} &=\frac{\hbar^2}{100}\mqty(-3i&4)\mqty(\pmat{z})\mqty(\pmat{z})\mqty(-3i\\4)=\frac{\hbar}{50}\qty(9+16)=\frac{\hbar^2}{4}. 
     \end{align*}
 
+    Now we can compute the uncertanties,
+    \begin{align*}
+        \sigma_x&=\sqrt{\frac{\hbar^2}{4} - 0}=\frac{\hbar}{2}, \\
+        \sigma_y&=\sqrt{\frac{\hbar^2}{4} - \frac{144}{625}\hbar^2}=\frac{7}{50}\hbar, \\
+        \sigma_z&=\sqrt{\frac{\hbar^2}{4} - \frac{49}{2500}\hbar^2}=\frac{12}{25}\hbar. 
+    \end{align*}
+
 
     \begin{empheq}[box=\shadowbox]{equation*}
-        \text{Sol}
+        \sigma_x=\frac{\hbar}{2},\quad
+        \sigma_y=\frac{7}{50}\hbar,\quad
+        \sigma_z=\frac{12}{25}\hbar.
     \end{empheq}
 \end{sol}
 
-\begin{sol}{Checking consistency}{label-3d}
+\begin{sol}{Checking consistency with the uncertanty principle.}{label-3d}
+    With the uncertanty relation, $\sigma_A\sigma_B\geq1/2\abs{\expval{\comm{\hat{A}}{\hat{B}}}}$, we can test the previous results,
+
+    \begin{align*}
+        \sigma_{\hat{S}_x}\sigma_{\hat{S}_y}&\geq\frac{1}{2}\abs{\expval{\hat{S}_z}}=\frac{1}{2}\frac{7}{50}\hbar^2
+    \end{align*}
+
     \begin{empheq}[box=\shadowbox]{equation*}
         \text{Sol}
     \end{empheq}
