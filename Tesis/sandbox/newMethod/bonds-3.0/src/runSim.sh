@@ -32,7 +32,7 @@ cd $dir_src;
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters 
 
 ## Loops of parameters
-for var_ccL in 0.5;
+for var_ccL in $(seq $cl_con_o $cl_con_d $cl_con_f);
 do
 
     # Directory to store the data from the simulations

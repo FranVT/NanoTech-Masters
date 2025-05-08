@@ -17,18 +17,15 @@ source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters
 echo "Parameters loaded in config assembly script"
 
 # Compute the parameters
-L=$(echo "scale=$cs; $L_real / 2" | bc);
-var_cmo=$(echo "scale=$cs; 1 - $var_ccL" | bc);
-Vol_MO=$(echo "scale=$cs; $Vol_CL1 * $var_ccL" | bc);
-Vol_CL=$(echo "scale=$cs; $Vol_MO1 * $var_cmo" | bc);
-aux3=$(echo "scale=$cs; $Vol_MO + $Vol_CL" | bc);
-aux4=$(echo "scale=$cs; $L_real^3 * $phi" | bc);
-N_particles=$(echo "scale=0; $aux4 / $aux3" | bc);
-N_particles=${N_particles%.*};
-
-N_CL=$(echo "scale=0; $var_ccL * $N_particles" | bc);
+N_CL=$(echo "scale=0; $CL_con * $N_particles" | bc);
 N_CL=${N_CL%.*};
 N_MO=$(( $N_particles - $N_CL ));
+Vol_MO=$(echo "scale=$cs; $Vol_MO1 * $N_MO" | bc);         # Vol of N f=2 patchy particles
+Vol_CL=$(echo "scale=$cs; $Vol_CL1 * $N_CL" | bc);          # Vol of N f=4 patchy particles 
+Vol_Totg=$(echo "scale=$cs; $Vol_MO + $Vol_CL" | bc);       # Total volume of a mixture of N f=2 and M f=4 patchy particles
+Vol_Tot=$(echo "scale=$cs; $Vol_Totg / $phi" | bc);
+L_real=$(echo "scale=$cs; e( (1/3) * l($Vol_Tot) )" | bc -l );
+L=$(echo "scale=$cs; $L_real / 2" | bc);
 
 # Seed for the langevin thermostat and initial positions
 seed1=$((1234 + $N_CL));     # MO positions
