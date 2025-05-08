@@ -50,6 +50,9 @@ do
     # Create directory to save the simulation data
     mkdir $dir_system; mkdir "$dir_system/traj"
 
+    # Create the Readme file
+    bash  $dir_src/docs/create-file_README.sh $dir_system $dir_src $var_ccL
+
     # Run the assembly
     bash $dir_src/$filename $dir_sim $dir_src $dir_system $id $var_ccL
 
