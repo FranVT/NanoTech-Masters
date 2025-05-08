@@ -41,33 +41,38 @@ df_assembly=extractInfoAssembly(path_system,df);
 file_name=vcat(df."file2");
 aux=split.(readlines(joinpath(path_system,file_name...))," ");
 ind_o=4;
-TimeStep=[];
 nrows=[];
-inds=[];
 data=[];
 
     # Initializa the stuff 
+    # Get the time headder information 
     (ts,nr)=parse.(Int64,aux[ind_o]);
-    #append!(TimeStep,ts); append!(nrows,nr); append!(inds,ind_o);
+    # Get the ids of each cluster 
+    idclust=map(s->parse.(Int64,s[2]),aux[ind_o+1:ind_o+nr]);   
+    # Get the size of each cluster
     sizes=map(s->parse.(Int64,s),last.(aux[ind_o+1:ind_o+nr]));
-    push!(data,(TimeStep=ts,NClust=nr,SizeClust=sizes));
+    # Add the data into auxiliary varaible for future dataframe
+    push!(data,(TimeStep=ts,NClust=nr,IDClust=idclust,SizeClust=sizes));
+    
+    append!(nrows,nr); # Keep track of the length of the file
 
-#=
-    # Get time step and number of rows
-#    ind=ind_o+sum(nrows)+length(nrows);
     while isassigned(aux,ind_o+sum(nrows)+length(nrows))
         local ts 
         local nr
-        
-        
-
-
+        local idclust
+        local sizes
         ind=ind_o+sum(nrows)+length(nrows);
         (ts,nr)=parse.(Int64,aux[ind]);
-        append!(TimeStep,ts); append!(nrows,nr); append!(inds,ind);
+        # Get the ids of each cluster 
+        idclust=map(s->parse.(Int64,s[2]),aux[ind+1:ind+nr]);   
+        # Get the size of each cluster
+        sizes=map(s->parse.(Int64,s),last.(aux[ind+1:ind+nr]));
+        # Add the data into auxiliary varaible for future dataframe
+        push!(data,(TimeStep=ts,NClust=nr,IDClust=idclust,SizeClust=sizes));
+        
+        append!(nrows,nr); # Keep track of the length of the file
         
     end
-=#
 
 
 
