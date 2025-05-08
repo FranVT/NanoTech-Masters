@@ -32,47 +32,8 @@ path_system=joinpath(path_data,string("system-",id,"-CL-",cl_con));
 df = getDF(path_system);
 
 # Get the data from assembly simulation
-df_assembly=extractInfoAssembly(path_system,df);
+(system_assembly,stress_assembly,clust_assembly)=extractInfoAssembly(path_system,df);
 
-
-
-
-# Create the function to extract fix mode vector files info
-file_name=vcat(df."file2");
-aux=split.(readlines(joinpath(path_system,file_name...))," ");
-ind_o=4;
-nrows=[];
-data=[];
-
-    # Initializa the stuff 
-    # Get the time headder information 
-    (ts,nr)=parse.(Int64,aux[ind_o]);
-    # Get the ids of each cluster 
-    idclust=map(s->parse.(Int64,s[2]),aux[ind_o+1:ind_o+nr]);   
-    # Get the size of each cluster
-    sizes=map(s->parse.(Int64,s),last.(aux[ind_o+1:ind_o+nr]));
-    # Add the data into auxiliary varaible for future dataframe
-    push!(data,(TimeStep=ts,NClust=nr,IDClust=idclust,SizeClust=sizes));
-    
-    append!(nrows,nr); # Keep track of the length of the file
-
-    while isassigned(aux,ind_o+sum(nrows)+length(nrows))
-        local ts 
-        local nr
-        local idclust
-        local sizes
-        ind=ind_o+sum(nrows)+length(nrows);
-        (ts,nr)=parse.(Int64,aux[ind]);
-        # Get the ids of each cluster 
-        idclust=map(s->parse.(Int64,s[2]),aux[ind+1:ind+nr]);   
-        # Get the size of each cluster
-        sizes=map(s->parse.(Int64,s),last.(aux[ind+1:ind+nr]));
-        # Add the data into auxiliary varaible for future dataframe
-        push!(data,(TimeStep=ts,NClust=nr,IDClust=idclust,SizeClust=sizes));
-        
-        append!(nrows,nr); # Keep track of the length of the file
-        
-    end
 
 
 

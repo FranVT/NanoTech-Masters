@@ -41,19 +41,45 @@ function extractFixScalar(path_system,df,file_name)
     return reduce(hcat,map(s->parse.(Float64,s),aux[3:end]));
 end
 
-function extractFixVector(path_system,df,file_name)
+function extractFixCluster(path_system,df,file_name)
 """
     Function that extracts the information of fix mode vector files 
 """
     aux=split.(readlines(joinpath(path_system,file_name))," ");
-   
-    # Get time step and number of rows
-    (TimeStep,nrows)=parse(Int64,aux[3]);
+    nrows=[];
+    data=[];
 
+    # Initializa the stuff 
+    # Get the time headder information 
+    (ts,nr)=parse.(Int64,aux[ind_o]);
+    # Get the ids of each cluster 
+    idclust=map(s->parse.(Int64,s[2]),aux[ind_o+1:ind_o+nr]);   
+    # Get the size of each cluster
+    sizes=map(s->parse.(Int64,s),last.(aux[ind_o+1:ind_o+nr]));
+    # Add the data into auxiliary varaible for future dataframe
+    push!(data,(TimeStep=ts,NClust=nr,IDClust=idclust,SizeClust=sizes));
+    
+    append!(nrows,nr); # Keep track of the length of the file
 
+    while isassigned(aux,ind_o+sum(nrows)+length(nrows))
+        local ts 
+        local nr
+        local idclust
+        local sizes
+        ind=ind_o+sum(nrows)+length(nrows);
+        (ts,nr)=parse.(Int64,aux[ind]);
+        # Get the ids of each cluster 
+        idclust=map(s->parse.(Int64,s[2]),aux[ind+1:ind+nr]);   
+        # Get the size of each cluster
+        sizes=map(s->parse.(Int64,s),last.(aux[ind+1:ind+nr]));
+        # Add the data into auxiliary varaible for future dataframe
+        push!(data,(TimeStep=ts,NClust=nr,IDClust=idclust,SizeClust=sizes));
+        
+        append!(nrows,nr); # Keep track of the length of the file
+        
+    end
 
-
-    return reduce(hcat,map(s->parse.(Float64,s),aux[3:end]));
+    return DetaFrame(data);
 end
 
 
