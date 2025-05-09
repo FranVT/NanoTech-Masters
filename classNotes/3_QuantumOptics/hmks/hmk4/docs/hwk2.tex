@@ -215,12 +215,38 @@ An electron is in the spin state,
 \begin{sol}{Checking consistency with the uncertanty principle.}{label-3d}
     With the uncertanty relation, $\sigma_A\sigma_B\geq1/2\abs{\expval{\comm{\hat{A}}{\hat{B}}}}$, we can test the previous results,
 
-    \begin{align*}
-        \sigma_{\hat{S}_x}\sigma_{\hat{S}_y}&\geq\frac{1}{2}\abs{\expval{\hat{S}_z}}=\frac{1}{2}\frac{7}{50}\hbar^2
-    \end{align*}
+    
+    \begin{minipage}[c]{0.3\textwidth}
+        \begin{align*}
+            \sigma_{\hat{S}_x}\sigma_{\hat{S}_y}&\geq\frac{1}{2}\abs{i\hbar\expval{\hat{S}_z}} \\
+            \frac{\hbar}{2}\frac{7}{50}\hbar&\geq\frac{1}{2}\frac{7}{50}\hbar^2\\
+            \frac{7}{100}\hbar^2&\geq\frac{7}{100}\hbar^2
+        \end{align*}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.3\textwidth}
+        \begin{align*}
+            \sigma_{\hat{S}_y}\sigma_{\hat{S}_z}&\geq\frac{1}{2}\abs{i\hbar\expval{\hat{S}_x}} \\
+            \frac{7}{50}\frac{12}{25}\hbar&\geq\frac{1}{2}0\\
+            \frac{42}{625}\hbar^2&\geq0
+        \end{align*}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.3\textwidth}
+        \begin{align*}
+            \sigma_{\hat{S}_x}\sigma_{\hat{S}_z}&\geq\frac{1}{2}\abs{i\hbar\expval{\hat{S}_y}} \\
+            \frac{\hbar}{2}\frac{12}{25}\hbar&\geq\frac{1}{2}\frac{12}{25}\hbar^2\\
+            \frac{12}{50}\hbar^2&\geq\frac{12}{50}\hbar^2
+        \end{align*}
+    \end{minipage}
+  
+    \vspace{1.5em}
+    This tells us that the previous results are consistent with the uncerntainty principle.
 
     \begin{empheq}[box=\shadowbox]{equation*}
-        \text{Sol}
+        \sigma_{\hat{S}_x}\sigma_{\hat{S}_y}\geq\frac{1}{2}\abs{i\hbar\expval{\hat{S}_z}},\quad 
+        \sigma_{\hat{S}_y}\sigma_{\hat{S}_z}\geq\frac{1}{2}\abs{i\hbar\expval{\hat{S}_x}},\quad 
+        \sigma_{\hat{S}_x}\sigma_{\hat{S}_z}\geq\frac{1}{2}\abs{i\hbar\expval{\hat{S}_y}}
     \end{empheq}
 \end{sol}
 
