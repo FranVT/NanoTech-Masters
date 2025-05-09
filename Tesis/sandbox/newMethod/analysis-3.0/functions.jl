@@ -178,21 +178,27 @@ function extractInfoShear(path_shear,df)
     file10 -> traj_shear
     file11 -> data.FirstShear
 """
+
+    # Get the number of experiments done with the same shear
+    path_shear=map(s->joinpath(path_shear,string("Exp",s)),1:df."Nexp"[1]);
+
+    println(path_shear)
+
     # Extract info from system system
-    info=extractFixScalar(path_shear,df,df."file6"...);
+    info=map(s->extractFixScalar(s,df,df."file6"...),path_shear);
     head=["TimeStep","Temp","wca","patch","swap","V","K","Etot","ec","eC","p","eB","eA","eM","H","CM_dx","CM_dy","CM_dz","CM_d"];
-    system_shear=DataFrame(info',head);
+    system_shear=map(s->DataFrame(s',head),info);
 
     # Extract info from stress
-    info=extractFixScalar(path_shear,df,df."file7"...);
+    info=map(s->extractFixScalar(s,df,df."file7"...),path_shear);
     head=["TimeStep","p","p_xx","p_yy","p_zz","p_xy","p_xz","p_yz","virialp_xx","virialp_yy","virialp_zz","virialp_xy","virialp_xz","virialp_yz","virialmodp_xx","virialmodp_yy","virialmodp_zz","virialmodp_xy","virialmodp_xz","virialmodp_yz","stress_xx","stress_yy","stress_zz","stress_xy","stress_xz","stress_yz","virialstress_xx","virialstress_yy","virialstress_zz","virialstress_xy","virialstress_xz","virialstress_yz","virialmodstress_xx","virialmodstress_yy","virialmodstress_zz","virialmodstress_xy","virialmodstress_xz","virialmodstress_yz"];
-    stress_shear=DataFrame(info',head);
+    stress_shear=map(s->DataFrame(s',head),info);
 
     # Extract info from the cluster files
-    clust_shear=extractFixCluster(path_shear,df,df."file8"...);
+    clust_shear=map(s->extractFixCluster(s,df,df."file8"...),path_shear);
 
     # Extract the information from the profiles file
-    profile_shear=extractFixProfile(path_shear,df,df."file9"...)
+    profile_shear=map(s->extractFixProfile(s,df,df."file9"...),path_shear)
 
     return (system_shear,stress_shear,clust_shear,profile_shear)
 
