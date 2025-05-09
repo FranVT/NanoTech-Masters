@@ -28,16 +28,21 @@ path_data=joinpath(parent_dir,scheme_dir,"data");
 path_system=joinpath(path_data,string("system-",id,"-CL-",cl_con));
 
 # Get data files of assembly (system)
+assembly_dat=getDataFiles(path_system,"dataAssembly.dat");
 
+# Path to the shear directory
+aux=readdir(path_system);
+path_shear=joinpath(path_system,aux[findall(s->s==1,occursin.("shear",aux))]...);
 
-# Get a data frame with all the data.dat files information
-df = getDF(path_system);
+# Get data files of shear
+shear_dat=getDataFiles(path_shear,"dataShear.dat");
+
 
 # Get the data from assembly simulation
-(system_assembly,stress_assembly,clust_assembly)=extractInfoAssembly(path_system,df);
+(system_assembly,stress_assembly,clust_assembly,profile_assembly)=extractInfoAssembly(path_system,assembly_dat);
 
-
-
+# Get the data from shear simulation
+(system_shear,stress_shear,clust_shear,profile_shear)=extractInfoShear(path_shear,shear_dat);
 
 
 

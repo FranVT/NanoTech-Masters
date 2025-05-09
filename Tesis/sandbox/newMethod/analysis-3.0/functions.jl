@@ -16,21 +16,12 @@ function trace(xx,yy,zz)
     return xx.+yy.+zz
 end
 
-function getDF(path_system)
+function getDataFiles(path,file_name)
 """
-   Function that gives the data file of the desire directory
+    Function that retrieves data files from the path
 """
-
-    # Read all shear experiments perform to the system
-    shear_dirs=readdir(path_system);
-    aux=findall(s->s==1,occursin.("shear",shear_dirs));
-    shear_dirs=shear_dirs[aux];
-
-    # Create DataFrames from the data.dat file of each directory
-    df=DataFrame.(CSV.File.(joinpath.(path_system,shear_dirs,"data.dat")));
-
-    return vcat(df...)
-
+    # Read the file from the path
+    return DataFrame(CSV.File(joinpath(path,file_name)))
 end
 
 function extractFixScalar(path_system,df,file_name)
@@ -83,6 +74,67 @@ function extractFixCluster(path_system,df,file_name)
     return DataFrame(data);
 end
 
+function extractFixProfile(path_system,df,file_name)
+"""
+    Function that extracts the information of fix mode vector files 
+"""
+    aux=split.(readlines(joinpath(path_system,file_name))," ");
+    ind_o=4;
+    nrows=[];
+    data=[];
+
+    # Initializa the stuff 
+    # Get the time headder information 
+    (ts,nr)=parse.(Int64,aux[ind_o]);
+    # Get x coordinate of spatial chunk 
+    chunk_x=map(s->parse.(Float64,s[4]),aux[ind_o+1:ind_o+nr]);
+    chunk_y=map(s->parse.(Float64,s[5]),aux[ind_o+1:ind_o+nr]);
+    chunk_z=map(s->parse.(Float64,s[6]),aux[ind_o+1:ind_o+nr]);
+    count=map(s->parse.(Float64,s[7]),aux[ind_o+1:ind_o+nr]);
+    chunk_vx=map(s->parse.(Float64,s[8]),aux[ind_o+1:ind_o+nr]);
+    chunk_vy=map(s->parse.(Float64,s[9]),aux[ind_o+1:ind_o+nr]);
+    chunk_vz=map(s->parse.(Float64,s[10]),aux[ind_o+1:ind_o+nr]);
+    chunk_dx=map(s->parse.(Float64,s[11]),aux[ind_o+1:ind_o+nr]);
+    chunk_dy=map(s->parse.(Float64,s[12]),aux[ind_o+1:ind_o+nr]);
+    chunk_dz=map(s->parse.(Float64,s[13]),aux[ind_o+1:ind_o+nr]);
+    chunk_dd=map(s->parse.(Float64,s[14]),aux[ind_o+1:ind_o+nr]);
+
+    # Add the data into auxiliary varaible for future dataframe
+    push!(data,(TimeStep=ts,X=chunk_x,Y=chunk_y,Z=chunk_z,Count=count,vx=chunk_vx,vy=chunk_vy,vz=chunk_vz,Dx=chunk_dx,Dy=chunk_dy,Dz=chunk_dz,Dd=chunk_dd));
+    
+    append!(nrows,nr); # Keep track of the length of the file
+
+    while isassigned(aux,ind_o+sum(nrows)+length(nrows))
+        local ts; local nr; local count; local chunk_dd;
+        local chunk_x; local chunk_y; local chunk_z;
+        local chunk_vx; local chunk_vy; local chunk_vz;
+        local chunk_dx; local chunk_dy; local chunk_dz; 
+
+        ind=ind_o+sum(nrows)+length(nrows);
+        (ts,nr)=parse.(Int64,aux[ind]);
+        # Get x coordinate of spatial chunk 
+        chunk_x=map(s->parse.(Float64,s[4]),aux[ind_o+1:ind_o+nr]);
+        chunk_y=map(s->parse.(Float64,s[5]),aux[ind_o+1:ind_o+nr]);
+        chunk_z=map(s->parse.(Float64,s[6]),aux[ind_o+1:ind_o+nr]);
+        count=map(s->parse.(Float64,s[7]),aux[ind_o+1:ind_o+nr]);
+        chunk_vx=map(s->parse.(Float64,s[8]),aux[ind_o+1:ind_o+nr]);
+        chunk_vy=map(s->parse.(Float64,s[9]),aux[ind_o+1:ind_o+nr]);
+        chunk_vz=map(s->parse.(Float64,s[10]),aux[ind_o+1:ind_o+nr]);
+        chunk_dx=map(s->parse.(Float64,s[11]),aux[ind_o+1:ind_o+nr]);
+        chunk_dy=map(s->parse.(Float64,s[12]),aux[ind_o+1:ind_o+nr]);
+        chunk_dz=map(s->parse.(Float64,s[13]),aux[ind_o+1:ind_o+nr]);
+        chunk_dd=map(s->parse.(Float64,s[14]),aux[ind_o+1:ind_o+nr]);
+
+    # Add the data into auxiliary varaible for future dataframe
+        push!(data,(TimeStep=ts,X=chunk_x,Y=chunk_y,Z=chunk_z,Count=count,vx=chunk_vx,vy=chunk_vy,vz=chunk_vz,Dx=chunk_dx,Dy=chunk_dy,Dz=chunk_dz,Dd=chunk_dd));
+    
+        append!(nrows,nr); # Keep track of the length of the file
+        
+    end
+
+    return DataFrame(data);
+end
+
 
 function extractInfoAssembly(path_system,df)
 """
@@ -108,16 +160,15 @@ function extractInfoAssembly(path_system,df)
     # Extract info from the cluster files
     clust_assembly=extractFixCluster(path_system,df,df."file2"...);
 
-    #info=extractInfo(path_system,df,vcat(df."file2")...);
-    #head=[""];
-    #clust_assembly=DataFrame(info',head);
+    # Extract the information from the profiles file
+    profile_assembly=extractFixProfile(path_system,df,df."file3"...)
 
-    return (system_assembly,stress_assembly,clust_assembly)
+    return (system_assembly,stress_assembly,clust_assembly,profile_assembly)
 
 end
 
 
-function extractInfoShear(shear_rate,parent_dir,df)
+function extractInfoShear(path_shear,df)
 """
     Function that reads the files and extract all the information
     file6 -> system_shear
@@ -127,31 +178,24 @@ function extractInfoShear(shear_rate,parent_dir,df)
     file10 -> traj_shear
     file11 -> data.FirstShear
 """
-    data_path=joinpath.(df_new."main-directory",df_new."file0");
-    aux=split.(readlines(data_path[1])," ");
-    aux_head=["TimeStep","Temp","wca","patch","swap","V","K","Etot","ec","eC","p","eB","eA","eM","H"]; #aux[2][2:end];
-    aux_info=reduce(hcat,map(s->parse.(Float64,s),aux[3:end]))
-    df_assembly=DataFrame(aux_info',aux_head);
+    # Extract info from system system
+    info=extractFixScalar(path_shear,df,df."file6"...);
+    head=["TimeStep","Temp","wca","patch","swap","V","K","Etot","ec","eC","p","eB","eA","eM","H","CM_dx","CM_dy","CM_dz","CM_d"];
+    system_shear=DataFrame(info',head);
 
-    data_path=joinpath.(df_new."main-directory",df_new."file5");
-    aux=split.(readlines(data_path[1])," ");
-    aux_head=["TimeStep","Temp","wca","patch","swap","V","K","Etot","ec","eC","p","eB","eA","eM","H"];
-    aux_info=reduce(hcat,map(s->parse.(Float64,s),aux[3:end]))
-    df_shear=DataFrame(aux_info',aux_head);
+    # Extract info from stress
+    info=extractFixScalar(path_shear,df,df."file7"...);
+    head=["TimeStep","p","p_xx","p_yy","p_zz","p_xy","p_xz","p_yz","virialp_xx","virialp_yy","virialp_zz","virialp_xy","virialp_xz","virialp_yz","virialmodp_xx","virialmodp_yy","virialmodp_zz","virialmodp_xy","virialmodp_xz","virialmodp_yz","stress_xx","stress_yy","stress_zz","stress_xy","stress_xz","stress_yz","virialstress_xx","virialstress_yy","virialstress_zz","virialstress_xy","virialstress_xz","virialstress_yz","virialmodstress_xx","virialmodstress_yy","virialmodstress_zz","virialmodstress_xy","virialmodstress_xz","virialmodstress_yz"];
+    stress_shear=DataFrame(info',head);
 
-    data_path=joinpath.(df_new."main-directory",df_new."file1");
-    aux=split.(readlines(data_path[1])," ");
-    aux_head=["TimeStep","p","press_xx","press_yy","press_zz","press_xy","press_xz","press_yz","virialpress_xx","virialpress_yy","virialpress_zz","virialpress_xy","virialpress_xz","virialpress_yz","virialpressmod_xx","virialpressmod_yy","virialpressmod_zz","virialpressmod_xy","virialpressmod_xz","virialpressmod_yz","stress_xx","stress_yy","stress_zz","stress_xy","stress_xz","stress_yz","virialstress_xx","virialstress_yy","virialstress_zz","virialstress_xy","virialstress_xz","virialstress_yz","virialstressmod_xx","virialstressmod_yy","virialstressmod_zz","virialstressmod_xy","virialstressmod_xz","virialstressmod_yz"];#aux[2][2:end];
-    aux_info=reduce(hcat,map(s->parse.(Float64,s),aux[3:end]))
-    df_stressA=DataFrame(aux_info',aux_head);
-    
-    data_path=joinpath.(df_new."main-directory",df_new."file6");
-    aux=split.(readlines(data_path[1])," ");
-    aux_head=["TimeStep","p","press_xx","press_yy","press_zz","press_xy","press_xz","press_yz","virialpress_xx","virialpress_yy","virialpress_zz","virialpress_xy","virialpress_xz","virialpress_yz","virialpressmod_xx","virialpressmod_yy","virialpressmod_zz","virialpressmod_xy","virialpressmod_xz","virialpressmod_yz","stress_xx","stress_yy","stress_zz","stress_xy","stress_xz","stress_yz","virialstress_xx","virialstress_yy","virialstress_zz","virialstress_xy","virialstress_xz","virialstress_yz","virialstressmod_xx","virialstressmod_yy","virialstressmod_zz","virialstressmod_xy","virialstressmod_xz","virialstressmod_yz"];#aux[2][2:end];
-    aux_info=reduce(hcat,map(s->parse.(Float64,s),aux[3:end]))
-    df_stressS=DataFrame(aux_info',aux_head);
+    # Extract info from the cluster files
+    clust_shear=extractFixCluster(path_shear,df,df."file8"...);
 
-    return (df_assembly, df_shear, df_stressA, df_stressS) 
+    # Extract the information from the profiles file
+    profile_shear=extractFixProfile(path_shear,df,df."file9"...)
+
+    return (system_shear,stress_shear,clust_shear,profile_shear)
+
 end
 
 function normStressPressure(data_ass,data_she)
