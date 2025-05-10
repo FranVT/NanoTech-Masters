@@ -1,0 +1,125 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+NT5001 - Manuscript Template
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[a4paper, 11pt]{article}
+\usepackage{amsmath, amssymb, graphicx, subcaption, geometry, float, longtable, pdflscape}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[left, modulo]{lineno} % Line numbers package
+\linenumbers
+\modulolinenumbers[1] % Display line numbers for every line
+\geometry{margin=1in}
+
+\title{Manuscript Title}
+\author{
+	First Author$^{1}$, Second Author$^{2}$, Third Author$^{3}$ \and Last Author$^{4,*}$ \\
+	$^1$Department, Institution or Organization, Address \\
+	$^2$Department, Institution or Organization, Address \\
+	$^3$Department, Institution or Organization, Address \\
+	$^4$Department, Institution or Organization, Address \\
+	\texttt{email@example.com}
+}
+
+\date{}
+
+\begin{document}
+	
+	\maketitle
+	
+	\begin{abstract}
+		Abstract text goes here.
+	\end{abstract}
+	
+	\textbf{Keywords:} keyword1, keyword2, keyword3, keyword4, keyword5
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{Introduction}
+	\linenumbers
+	Introduction text goes here.
+	
+	\section{Theory and/or Mathematical Model}
+	Theory or mathematical model text goes here.
+	
+	\subsection{Second Level Heading}
+	Details go here.
+	
+	\subsubsection{Third Level Heading}
+	Further details go here.
+	
+	\begin{equation}
+		E = mc^2
+	\end{equation}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{Materials and Methods}
+	Materials and methods text goes here.
+	
+	\subsection{Second Level Heading}
+	Details go here.
+	
+	\subsubsection{Third Level Heading}
+	Further details go here.
+	
+	\begin{landscape}
+		\begin{longtable}{|c|c|c|c|}
+			\hline
+			Heading 1 & Heading 2 & Heading 3 & Heading 4 \\
+			\hline
+			Data 1 & Data 2 & Data 3 & Data 4 \\
+			\hline
+			Data 5 & Data 6 & Data 7 & Data 8 \\
+			\hline
+		\end{longtable}
+	\end{landscape}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{Results and Discussion}
+	Results and discussion text goes here.
+	
+	\subsection{Second Level Heading}
+	Details go here.
+	
+	\subsubsection{Third Level Heading}
+	Further details go here.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{example_image.png}
+		\caption{Write here a detailed figure description. (A) First part; (B) Second part.}
+		\label{fig:example}
+	\end{figure}
+	
+	\begin{table}[H]
+		\centering
+		\caption{Type here a detailed caption for the table}
+		\begin{tabular}{|c|c|c|}
+			\hline
+			Heading 1 & Heading 2 & Heading 3 \\
+			\hline
+			Data 1 & Data 2 & Data 3 \\
+			\hline
+		\end{tabular}
+		\label{tab:example}
+	\end{table}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{Concluding Remarks}
+	Concluding remarks text goes here.
+	
+	\section*{Acknowledgements}
+	Acknowledgement text goes here.
+	
+	\section*{Conflict of Interest}
+	The authors declare no conflict of interest.
+	
+	\section*{Data Availability Statement}
+	Data availability statement text goes here.
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\bibliographystyle{vancouver}
+	\bibliography{references}
+	
+	\section*{Supporting Information}
+	List here briefly the contents of the supporting information file, which will be a single PDF file containing any supporting information Tables and Figures.
+	
+\end{document}

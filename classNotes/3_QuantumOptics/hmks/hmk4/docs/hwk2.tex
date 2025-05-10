@@ -253,12 +253,50 @@ An electron is in the spin state,
 
 \section{Problem 4.32 a}
 
+In Example 4.3,
+\begin{align*}
+    \chi\qty(t) = a\ket{\chi_+} e^{-iE_+t/\hbar }+b\ket{\chi_-} e^{-iE_-t/\hbar }.
+\end{align*}
 If you measure the component of spin angular momentum along the $x$ direction, at time $t$, what is the probability that you would get $+\hbar/2$?
 
-\begin{sol}{Practice spin state}{label-4}
+\begin{sol}{Probability of measuring spin angular momentum along the $x$ direction.}{label-4}
+    First we recall that $a=\cos\qty[\alpha/2]$ and $b=\sin\qty[\alpha/2]$ are the initial conditions of the state and that
+    \begin{gather*}
+        \ket{\chi_+} = \frac{1}{\sqrt{2}}\mqty(1\\1),\quad
+        \ket{\chi_-} = \frac{1}{\sqrt{2}}\mqty(1\\-1).
+    \end{gather*}
+    Taking into account that, we can re-write $\chi(t)$ as,
+    \begin{align*}
+        \ket{\chi\qty(t)} = \mqty(\cos\qty[\alpha/2]e^{i\gamma B_0t/2 }\\\sin\qty[\alpha/2]e^{-i\gamma B_0t/2 }).
+    \end{align*}
+
+    Now, to compute the probability of measuring $\hbar/2$ we need remember that the expected value of $\ket{\chi_+}$ is $\hbar/2$, therefore, we need to compute the modulus square of the projection of the state $\ket{\chi\qty(t)}$ into $\ket{\chi_+}$ to get the probability.
+    The mathematical procedure is shown below,
+    \begin{align*}
+        \braket{\chi_+}{\chi\qty(t)} &= \frac{1}{\sqrt{2}}\mqty(1&1)\mqty(\cos\qty[\alpha/2]e^{i\gamma B_0t/2}\\\sin\qty[\alpha/2]e^{-i\gamma B_0t/2 }) \\
+                                     &= \frac{1}{\sqrt{2}}\qty(\cos\qty[\alpha/2]e^{i\gamma B_0t/2}+\sin\qty[\alpha/2]e^{-i\gamma B_0t/2}).
+    \end{align*}
+    Now we can compute the probability,
+    \begin{multline*}
+        \abs{\braket{\chi_+}{\chi\qty(t)}}^2 = 
+            \left[
+                \frac{1}{\sqrt{2}}\qty(\cos\qty[\alpha/2]e^{-i\gamma B_0t/2}+\sin\qty[\alpha/2]e^{i\gamma B_0t/2})
+            \right] \\
+            \left[
+                \frac{1}{\sqrt{2}}\qty(\cos\qty[\alpha/2]e^{i\gamma B_0t/2}+\sin\qty[\alpha/2]e^{-i\gamma B_0t/2})
+            \right]
+    \end{multline*}
+
+    \begin{align*}
+        \abs{\braket{\chi_+}{\chi\qty(t)}}^2 &=\frac{1}{2}\qty[1+\cos\qty[\alpha/2]\sin\qty[\alpha/2]\qty(e^{-i\gamma B_0t}+e^{i\gamma B_0t})] \\
+                                             &=\frac{1}{2}\qty[1+\frac{1}{2}\sin\qty[\alpha]2\cos\qty[\gamma B_0t]] \\
+                                             &=\frac{1}{2}\qty[1+\sin\qty[\alpha]\cos\qty[\gamma B_0t]]
+    \end{align*}
+
     \begin{empheq}[box=\shadowbox]{equation*}
-        \text{Sol}
+        \abs{\braket{\chi_+}{\chi\qty(t)}}^2 =\frac{1}{2}\qty[1+\sin\qty[\alpha]\cos\qty[\gamma B_0t]]
     \end{empheq}
+
 \end{sol}
 
 
