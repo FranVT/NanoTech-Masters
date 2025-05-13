@@ -41,8 +41,27 @@ shear_dat=getDataFiles(path_shear,"dataShear.dat");
 # Get the data from assembly simulation
 (system_assembly,stress_assembly,clust_assembly,profile_assembly)=extractInfoAssembly(path_system,assembly_dat);
 
+
+    # Get the number of experiments done with the same shear
+    path_shear=map(s->joinpath(path_shear,string("Exp",s)),1:shear_dat."Nexp"[1]);
+
+    # Extract info from system system
+    #map(s->,path_shear);
+    #system_shear=map(s->DataFrame(s',headers),info);
+
+   system_shear=map(path_shear) do s
+        (headers,info)=extractFixScalar(s,shear_dat,shear_dat."file6"...);
+        DataFrame(info',headers)
+    end
+
+
+
+
+
+
+
 # Get the data from ALL shear simulations (N experiments)
-(system_shear,stress_shear,clust_shear,profile_shear)=extractInfoShear(path_shear,shear_dat);
+#(system_shear,stress_shear,clust_shear,profile_shear)=extractInfoShear(path_shear,shear_dat);
 
 
 #=

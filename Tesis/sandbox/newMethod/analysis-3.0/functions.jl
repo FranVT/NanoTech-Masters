@@ -180,15 +180,21 @@ function extractInfoShear(path_shear,df)
     # Get the number of experiments done with the same shear
     path_shear=map(s->joinpath(path_shear,string("Exp",s)),1:df."Nexp"[1]);
 
-    println(path_shear)
-
     # Extract info from system system
-    (headers,info)=map(s->extractFixScalar(s,df,df."file6"...),path_shear);
-    system_shear=map(s->DataFrame(s',headers),info);
+    #map(s->,path_shear);
+    #system_shear=map(s->DataFrame(s',headers),info);
+
+    system_shear=map(path_shear) do s
+        (headers,info)=extractFixScalar(s,df,df."file6"...);
+        DataFrame(info',headers)
+    end
+
 
     # Extract info from stress
-    (headers,info)=map(s->extractFixScalar(s,df,df."file7"...),path_shear);
-    stress_shear=map(s->DataFrame(s',headers),info);
+    stress_shear=map(path_shear) do s
+        (headers,info)=extractFixScalar(s,df,df."file7"...);
+        DataFrame(info',headers)
+    end
 
     # Extract info from the cluster files
     clust_shear=map(s->extractFixCluster(s,df,df."file8"...),path_shear);
