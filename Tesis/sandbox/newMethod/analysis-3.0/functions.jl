@@ -29,7 +29,7 @@ function extractFixScalar(path_system,df,file_name)
     Function that extracts the information of fix files that stores global scalar values
 """
     aux=split.(readlines(joinpath(path_system,file_name))," ");
-    return reduce(hcat,map(s->parse.(Float64,s),aux[3:end]));
+    return (aux[2],reduce(hcat,map(s->parse.(Float64,s),aux[3:end])));
 end
 
 function extractFixCluster(path_system,df,file_name)
@@ -148,14 +148,16 @@ function extractInfoAssembly(path_system,df)
 """
 
     # Extract info from system system
-    info=extractFixScalar(path_system,df,df."file0"...);
-    head=["TimeStep","Temp","wca","patch","swap","V","K","Etot","ec","eC","p","eB","eA","eM","H","CM_dx","CM_dy","CM_dz","CM_d"];
-    system_assembly=DataFrame(info',head);
+    (headers,info)=extractFixScalar(path_system,df,df."file0"...);
+    println(headers)
+    #head=["TimeStep","Temp","wca","patch","swap","V","K","Etot","ec","eC","p","eB","eA","eM","H","CM_dx","CM_dy","CM_dz","CM_d"];
+    system_assembly=DataFrame(info',headers);
 
     # Extract info from stress
-    info=extractFixScalar(path_system,df,df."file1"...);
-    head=["TimeStep","p","p_xx","p_yy","p_zz","p_xy","p_xz","p_yz","virialp_xx","virialp_yy","virialp_zz","virialp_xy","virialp_xz","virialp_yz","virialmodp_xx","virialmodp_yy","virialmodp_zz","virialmodp_xy","virialmodp_xz","virialmodp_yz","stress_xx","stress_yy","stress_zz","stress_xy","stress_xz","stress_yz","virialstress_xx","virialstress_yy","virialstress_zz","virialstress_xy","virialstress_xz","virialstress_yz","virialmodstress_xx","virialmodstress_yy","virialmodstress_zz","virialmodstress_xy","virialmodstress_xz","virialmodstress_yz"];
-    stress_assembly=DataFrame(info',head);
+    (headers,info)=extractFixScalar(path_system,df,df."file1"...);
+    #head=["TimeStep","p","p_xx","p_yy","p_zz","p_xy","p_xz","p_yz","virialp_xx","virialp_yy","virialp_zz","virialp_xy","virialp_xz","virialp_yz","virialmodp_xx","virialmodp_yy","virialmodp_zz","virialmodp_xy","virialmodp_xz","virialmodp_yz","stress_xx","stress_yy","stress_zz","stress_xy","stress_xz","stress_yz","virialstress_xx","virialstress_yy","virialstress_zz","virialstress_xy","virialstress_xz","virialstress_yz","virialmodstress_xx","virialmodstress_yy","virialmodstress_zz","virialmodstress_xy","virialmodstress_xz","virialmodstress_yz"];
+    println(headers)
+    stress_assembly=DataFrame(info',headers);
 
     # Extract info from the cluster files
     clust_assembly=extractFixCluster(path_system,df,df."file2"...);
