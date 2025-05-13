@@ -38,10 +38,6 @@ path_shear=joinpath(path_system,aux[findall(s->s==1,occursin.("shear",aux))]...)
 shear_dat=getDataFiles(path_shear,"dataShear.dat");
 
 
-# sandbox
-(headers,info)=extractFixScalar(path_system,df,df."file0"...)
-
-
 # Get the data from assembly simulation
 (system_assembly,stress_assembly,clust_assembly,profile_assembly)=extractInfoAssembly(path_system,assembly_dat);
 
