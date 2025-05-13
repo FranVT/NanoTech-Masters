@@ -52,35 +52,11 @@ shear_dat=getDataFiles(path_shear,"dataShear.dat");
 
 # Time domains
 time_assembly=assembly_dat."time-step".*system_assembly."TimeStep";
-time_assembly_stress=assembly_dat."time-step".*system_shear."TimeStep";
-
-# Total Energy
-p1 = plot(
-            title=L"\mathrm{Total~Energy}",
-            xlabel = L"\mathrm{LJ}~\tau",
-            ylabel = L"'J'",
-            legend_position=:bottomright,
-            formatter=:scientific,
-            framestyle=:box
-           )
-plot!(time_assembly_assembly,df_stressA.p,label=L"\mathrm{Assembly}")
-#plot!(time_shear_pressure,df_stressS.p,label=L"\mathrm{Shear}")
-
-
-
-# Combo of all previous plots
-fig_system_assembly=plot(p1,p2,p3,p4,
-                layout = (2,2),
-                suptitle = L"\mathrm{Assembly}",
-                plot_titlefontsize = 15,
-                size=(1600,900)
-             )
-
-
+time_assembly_stress=assembly_dat."time-step".*stress_assembly."TimeStep";
 
 
 # Total energy, temperature, potential and kinetic energy
-
+fig_system=sanityCheckFig(time_assembly,system_assembly,"Assembly");
 
 
 

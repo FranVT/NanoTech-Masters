@@ -21,6 +21,7 @@ function getDataFiles(path,file_name)
     Function that retrieves data files from the path
 """
     # Read the file from the path
+
     return DataFrame(CSV.File(joinpath(path,file_name)))
 end
 
@@ -246,6 +247,67 @@ function normStressPressure(data_ass,data_she)
 end
 
 
+function sanityCheckFig(time,df,title)
+"""
+    Function that create a figure with:
+    - Temperature
+    - Total Energy
+    - Potential Energy
+    - Kinetic Energy
+"""
+
+# Total Energy
+p1 = plot(
+            title=L"\mathrm{Total~Energy}",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"'J'",
+            framestyle=:box
+           )
+plot!(time,df."v_eT")
+
+p2 = plot(
+            title=L"\mathrm{Temperature}",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"'K'",
+            framestyle=:box
+           )
+plot!(time,df."c_t")
+
+p3 = plot(
+            title=L"\mathrm{Potential~Energy}",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"'J'",
+            framestyle=:box
+           )
+plot!(time,df."c_ek")
+
+p4 = plot(
+            title=L"\mathrm{Kinetic~Energy}",
+            xlabel = L"\mathrm{LJ}~\tau",
+            ylabel = L"'J'",
+            framestyle=:box
+           )
+plot!(time,df."c_ep")
+
+# Combo of all previous plots
+fig_system=plot(p1,p2,p3,p4,
+                layout = (2,2),
+                suptitle = latexstring(string("\\mathrm{",title,"}")),
+                plot_titlefontsize = 15,
+                size=(1600,900),
+                right_margin=10px,
+                left_margin=30px,
+                top_margin=10px,
+                bottom_margin=15px
+             )
+
+    return fig_system
+
+end
+
+
+
+
 #=
 """
     Plots
@@ -253,11 +315,8 @@ end
 default(fontfamily = "times", fontsize = 18)
 
 # Temporal domains
-time_assembly=df_new."time-step".*df_assembly."TimeStep";
-time_shear=last(time_assembly).+(df_new."time-step".*df_shear."TimeStep");
-
-time_assembly_pressure=df_new."time-step".*df_stressA."TimeStep";
-time_shear_pressure=last(time_assembly_pressure).+(df_new."time-step".*df_stressS."TimeStep");
+time_shear=shear_dat."time-step".*system_shear."TimeStep";
+time_shear_stress=shear_dat."time-step".*system_shear."TimeStep";
 
 
 # Temperature
