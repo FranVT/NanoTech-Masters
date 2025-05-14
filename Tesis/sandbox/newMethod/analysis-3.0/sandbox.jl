@@ -17,7 +17,7 @@ parent_dir=dirname(pwd());
 # Select the siimulation scheme (Version and stuff)
 scheme_dir="bonds-3.0";
 # Select the "system" by id
-id="2025-05-06-163629";
+id="2025-05-13-085310";
 # Select the system by "cross-linker" concentration
 cl_con=0.5;
 
@@ -28,7 +28,7 @@ path_data=joinpath(parent_dir,scheme_dir,"data");
 path_system=joinpath(path_data,string("system-",id,"-CL-",cl_con));
 
 # Get data files of assembly (system)
-assembly_dat=getDataFiles(path_system,"dataAssembly.dat");
+#assembly_dat=getDataFiles(path_system,"dataAssembly.dat");
 
 # Path to the shear directory
 aux=readdir(path_system);
@@ -56,7 +56,7 @@ time_assembly_stress=assembly_dat."time-step".*stress_assembly."TimeStep";
 
 
 # Total energy, temperature, potential and kinetic energy
-fig_system=sanityCheckFig(time_assembly,system_assembly,"Assembly");
+fig_system_assembly=plot_systemAssembly(time_assembly,system_assembly,"Assembly");
 
 
 
