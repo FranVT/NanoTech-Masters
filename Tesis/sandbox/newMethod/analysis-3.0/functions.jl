@@ -86,7 +86,7 @@ function extractFixProfile(path_system,df,file_name)
 
     # Initializa the stuff 
     # Get the time headder information 
-    (ts,nr)=parse.(Int64,aux[ind_o]);
+    (ts,nr)=round.(Int64,parse.(Float64,aux[ind_o]));
     # Get x coordinate of spatial chunk 
     chunk_x=map(s->parse.(Float64,s[4]),aux[ind_o+1:ind_o+nr]);
     chunk_y=map(s->parse.(Float64,s[5]),aux[ind_o+1:ind_o+nr]);
@@ -112,7 +112,7 @@ function extractFixProfile(path_system,df,file_name)
         local chunk_dx; local chunk_dy; local chunk_dz; 
 
         ind=ind_o+sum(nrows)+length(nrows);
-        (ts,nr)=parse.(Int64,aux[ind]);
+        (ts,nr)=round.(Int64,parse.(Float64,aux[ind_o]));
         # Get x coordinate of spatial chunk 
         chunk_x=map(s->parse.(Float64,s[4]),aux[ind_o+1:ind_o+nr]);
         chunk_y=map(s->parse.(Float64,s[5]),aux[ind_o+1:ind_o+nr]);
@@ -207,47 +207,8 @@ function extractInfoShear(path_shear,df)
 
 end
 
-function normStressPressure(data_ass,data_she)
-"""
-    data is a data frame with the following information:
-    time-step pressure stress-xx stress-yy stress-zz stress-xy stress-xz stress-yz virial-xx virial-yy virial-zz virial-xy virial-xz virialMod-xx virialMod-yy virialMod-zz virialMod-xy virialMod-xz 
-"""
 
-    # Full pressure
-    norm_press_ass = norm(data_ass."press_xx",data_ass."press_yy",data_ass."press_zz",data_ass."press_xy",data_ass."press_xz",data_ass."press_yz");
-    norm_press_she = norm(data_she."press_xx",data_she."press_yy",data_she."press_zz",data_she."press_xy",data_she."press_xz",data_she."press_yz");
-
-    # Virial pressure
-    norm_virialpress_ass = norm(data_ass."virialpress_xx",data_ass."virialpress_yy",data_ass."virialpress_zz",data_ass."virialpress_xy",data_ass."virialpress_xz",data_ass."virialpress_yz");
-    norm_virialpress_she = norm(data_she."virialpress_xx",data_she."virialpress_yy",data_she."virialpress_zz",data_she."virialpress_xy",data_she."virialpress_xz",data_she."virialpress_yz");
-
-    # Virial Mod pressure
-    norm_virialModpress_ass = norm(data_ass."virialpressmod_xx",data_ass."virialpressmod_yy",data_ass."virialpressmod_zz",data_ass."virialpressmod_xy",data_ass."virialpressmod_xz",data_ass."virialpressmod_yz");
-    norm_virialModpress_she = norm(data_she."virialpressmod_xx",data_she."virialpressmod_yy",data_she."virialpressmod_zz",data_she."virialpressmod_xy",data_she."virialpressmod_xz",data_she."virialpressmod_yz");
-
-    # Full stress
-    norm_stress_ass = norm(data_ass."stress_xx",data_ass."stress_yy",data_ass."stress_zz",data_ass."stress_xy",data_ass."stress_xz",data_ass."stress_yz");
-    norm_stress_she = norm(data_she."stress_xx",data_she."stress_yy",data_she."stress_zz",data_she."stress_xy",data_she."stress_xz",data_she."stress_yz");
-
-    # Virial stress
-    norm_virialstress_ass = norm(data_ass."virialstress_xx",data_ass."virialstress_yy",data_ass."virialstress_zz",data_ass."virialstress_xy",data_ass."virialstress_xz",data_ass."virialstress_yz");
-    norm_virialstress_she = norm(data_she."virialstress_xx",data_she."virialstress_yy",data_she."virialstress_zz",data_she."virialstress_xy",data_she."virialstress_xz",data_she."virialstress_yz");
-
-    # Virial Mod stress
-    norm_virialModstress_ass = norm(data_ass."virialstressmod_xx",data_ass."virialstressmod_yy",data_ass."virialstressmod_zz",data_ass."virialstressmod_xy",data_ass."virialstressmod_xz",data_ass."virialstressmod_yz");
-    norm_virialModstress_she = norm(data_she."virialstressmod_xx",data_she."virialstressmod_yy",data_she."virialstressmod_zz",data_she."virialstressmod_xy",data_she."virialstressmod_xz",data_she."virialstressmod_yz");
-
-    return (norm_press_ass,norm_press_she,
-            norm_virialpress_ass,norm_virialpress_she,
-            norm_virialModpress_ass,norm_virialModpress_she,
-            norm_stress_ass,norm_stress_she,
-            norm_virialstress_ass,norm_virialstress_she,
-            norm_virialModstress_ass,norm_virialModstress_she
-           )
-end
-
-
-function sanityCheckFig(time,df,title)
+function plot_systemAssembly(time,df,title)
 """
     Function that create a figure with:
     - Temperature
@@ -259,33 +220,41 @@ function sanityCheckFig(time,df,title)
 # Total Energy
 p1 = plot(
             title=L"\mathrm{Total~Energy}",
-            xlabel = L"\mathrm{LJ}~\tau",
+            xlabel = L"\mathrm{Time~steps}~\log",
             ylabel = L"'J'",
-            framestyle=:box
+            xscale=:log,
+            framestyle=:box,
+            legend=false
            )
 plot!(time,df."v_eT")
 
 p2 = plot(
             title=L"\mathrm{Temperature}",
-            xlabel = L"\mathrm{LJ}~\tau",
+            xlabel = L"\mathrm{Time~steps}~\log",
             ylabel = L"'K'",
-            framestyle=:box
+            xscale=:log,
+            framestyle=:box,
+            legend=false
            )
 plot!(time,df."c_t")
 
 p3 = plot(
-            title=L"\mathrm{Potential~Energy}",
-            xlabel = L"\mathrm{LJ}~\tau",
+            title=L"\mathrm{Kinetic~Energy}",
+            xlabel = L"\mathrm{Time~steps}~\log",
             ylabel = L"'J'",
-            framestyle=:box
+            xscale=:log,
+            framestyle=:box,
+            legend=false
            )
 plot!(time,df."c_ek")
 
 p4 = plot(
-            title=L"\mathrm{Kinetic~Energy}",
-            xlabel = L"\mathrm{LJ}~\tau",
+            title=L"\mathrm{Potential~Energy}",
+            xlabel = L"\mathrm{Time~steps}~\log",
             ylabel = L"'J'",
-            framestyle=:box
+            xscale=:log,
+            framestyle=:box,
+            legend=false
            )
 plot!(time,df."c_ep")
 
@@ -302,9 +271,130 @@ fig_system=plot(p1,p2,p3,p4,
              )
 
     return fig_system
-
 end
 
+function plot_stressAssembly(time_shear,stress_assembly)
+"""
+    Graph of the stress during assembly
+"""
+p1 = plot(
+            title=L"\mathrm{Stress~Norm}",
+            xlabel = L"\mathrm{Time}",
+            ylabel = L"\sigma",
+            legend=false,
+            framestyle=:box
+           )
+plot!(time_shear,norm(stress_assembly."c_stress[1]",stress_assembly."c_stress[2]",stress_assembly."c_stress[3]",stress_assembly."c_stress[4]",stress_assembly."c_stress[5]",stress_assembly."c_stress[6]"))
+
+p2 = plot(
+            title=L"\mathrm{Stress}~\sigma_{xy}",
+            xlabel = L"\mathrm{Time}",
+            ylabel = L"\sigma",
+            framestyle=:box,
+            legend=false
+           )
+plot!(time_shear,stress_assembly."c_stress[4]")
+
+p3 = plot(
+            title=L"\mathrm{Virial~Stress~Norm}",
+            xlabel = L"\mathrm{Time}",
+            ylabel = L"\sigma",
+            framestyle=:box,
+            legend=false
+           )
+plot!(time_shear,norm(stress_assembly."c_stressVirial[1]",stress_assembly."c_stressVirial[2]",stress_assembly."c_stressVirial[3]",stress_assembly."c_stressVirial[4]",stress_assembly."c_stressVirial[5]",stress_assembly."c_stressVirial[6]"))
+
+p4 = plot(
+            title=L"\mathrm{Virial~Stress}~\sigma_{xy}",
+            xlabel = L"\mathrm{Time}",
+            ylabel = L"\sigma",
+            framestyle=:box,
+            legend=false
+           )
+plot!(time_shear,stress_assembly."c_stressVirial[4]")
+
+
+
+# Combo of all previous plots
+fig_stress=plot(p1,p2,p3,p4,
+                layout = (2,2),
+                suptitle = latexstring(string("\\mathrm{","Assembly~Stress~and~Virial~Stress","}")),
+                plot_titlefontsize = 15,
+                size=(1600,900),
+                right_margin=10px,
+                left_margin=30px,
+                top_margin=10px,
+                bottom_margin=15px
+             )
+
+    return fig_stress
+end
+
+
+function plot_systemShear(time,df,title)
+"""
+    Function that create a figure with:
+    - Temperature
+    - Total Energy
+    - Potential Energy
+    - Kinetic Energy
+"""
+
+# Total Energy
+p1 = plot(
+            title=L"\mathrm{Total~Energy}",
+            xlabel = L"\mathrm{Time~steps}~\log",
+            ylabel = L"'J'",
+            xscale=:log,
+            framestyle=:box,
+            legend=false
+           )
+plot!(time,df."v_eT")
+
+p2 = plot(
+            title=L"\mathrm{Temperature}",
+            xlabel = L"\mathrm{Time~steps}~\log",
+            ylabel = L"'K'",
+            xscale=:log,
+            framestyle=:box,
+            legend=false
+           )
+plot!(time,df."c_td")
+
+p3 = plot(
+            title=L"\mathrm{Kinetic~Energy}",
+            xlabel = L"\mathrm{Time~steps}~\log",
+            ylabel = L"'J'",
+            xscale=:log,
+            framestyle=:box,
+            legend=false
+           )
+plot!(time,df."c_ek")
+
+p4 = plot(
+            title=L"\mathrm{Potential~Energy}",
+            xlabel = L"\mathrm{Time~steps}~\log",
+            ylabel = L"'J'",
+            xscale=:log,
+            framestyle=:box,
+            legend=false
+           )
+plot!(time,df."c_ep")
+
+# Combo of all previous plots
+fig_system=plot(p1,p2,p3,p4,
+                layout = (2,2),
+                suptitle = latexstring(string("\\mathrm{",title,"}")),
+                plot_titlefontsize = 15,
+                size=(1600,900),
+                right_margin=10px,
+                left_margin=30px,
+                top_margin=10px,
+                bottom_margin=15px
+             )
+
+    return fig_system
+end
 
 
 
