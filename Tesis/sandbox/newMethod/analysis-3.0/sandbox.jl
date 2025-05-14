@@ -70,9 +70,30 @@ time_system_shear=shear_dat."save-fix".*shear_dat."time-step".*system_shear."Tim
 
 # Strain domain
 
+# Indixes for the shear moments
+aux=shear_dat."time-step".*shear_dat."Shear-rate".*shear_dat."save-stress";
+# Time steps per set of deformations
+N_deform=shear_dat."Max-strain".*shear_dat."N_def";
+# Time steps stored due to time average/Total of index per deformation cycle
+ind_cycle=div.(N_deform,shear_dat."save-stress");
+
+cycle=(1:1:ind_cycle[1]);
+
+
+# Create strain and time domains
+strain=aux[1].*cycle;
+
 
 # Total energy, temperature, potential and kinetic energy
 fig_system_shear=plot_systemShear(time_system_shear,system_shear,"Shear")
 
 # Stress stuff
 
+fig_stress_atom_shear=plot_stressShear(stress_shear."c_stress[1]",stress_shear."c_stress[2]",stress_shear."c_stress[3]",stress_shear."c_stress[4]",stress_shear."c_stress[5]",stress_shear."c_stress[6]",cycle,strain,"Stress~Atom")
+
+fig_stress_atomVirial_shear=plot_stressShear(stress_shear."c_stressVirial[1]",stress_shear."c_stressVirial[2]",stress_shear."c_stressVirial[3]",stress_shear."c_stressVirial[4]",stress_shear."c_stressVirial[5]",stress_shear."c_stressVirial[6]",cycle,strain,"Stress~Virial~Atom")
+
+fig_press_virial_shear=plot_stressShear(stress_shear."c_pressVirial[1]",stress_shear."c_pressVirial[2]",stress_shear."c_pressVirial[3]",stress_shear."c_pressVirial[4]",stress_shear."c_pressVirial[5]",stress_shear."c_pressVirial[6]",cycle,strain,"PRESSURE~Virial")
+
+
+nothing

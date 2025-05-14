@@ -402,8 +402,51 @@ fig_system=plot(p1,p2,p3,p4,
     return fig_system
 end
 
+function plot_stressShear(xx,yy,zz,xy,xz,yz,cycle,strain,title)
 
+norm_stress=norm(xx,yy,zz,xy,xz,yz);
+trace_stress=trace(xx,yy,zz)./3
 
+p1 = plot(
+            title=L"\sigma_{xy}",
+            xlabel = L"\mathrm{Strain}",
+            ylabel = L"\sigma",
+            legend=false,
+            framestyle=:box
+           )
+plot!(strain,xy[cycle])
+
+p2 = plot(
+            title=L"\mathrm{Stress~Norm}",
+            xlabel = L"\mathrm{Strain}",
+            ylabel = L"\sigma",
+            legend=false,
+            framestyle=:box
+           )
+plot!(strain,norm_stress[cycle])
+
+p3 = plot(
+            title=L"\frac{1}{3}\mathrm{Trace~Norm}",
+            xlabel = L"\mathrm{Strain}",
+            ylabel = L"\sigma",
+            legend=false,
+            framestyle=:box
+           )
+plot!(strain,trace_stress[cycle])
+
+# Combo of all previous plots
+fig_system=plot(p1,p2,p3,
+                layout = (2,2),
+                suptitle = latexstring(string("\\mathrm{",title,"}")),
+                plot_titlefontsize = 15,
+                size=(1600,900),
+                right_margin=10px,
+                left_margin=30px,
+                top_margin=10px,
+                bottom_margin=15px
+             )
+    return fig_system
+end
 #=
 """
     Plots
