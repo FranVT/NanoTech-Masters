@@ -42,7 +42,7 @@ shear_dat=getDataFiles(path_shear,"dataShear.dat");
 #(system_assembly,stress_assembly,clust_assembly,profile_assembly)=extractInfoAssembly(path_system,assembly_dat);
 
 
-# Get the data from ALL shear simulations (N experiments)
+# Get the data from ALL shear simulations (N experiments) as an average
 #(system_shear,stress_shear,clust_shear,profile_shear)=extractInfoShear(path_shear,shear_dat);
 
 
@@ -61,4 +61,18 @@ fig_system_assembly=plot_systemAssembly(time_system_assembly,system_assembly,"As
 # Stress stuff
 fig_stress_assembly=plot_stressAssembly(time_shear_assembly,stress_assembly)
 
+#=
+    S H E A R     P L O T S  
+=#
+
+# Time domain
+time_system_shear=shear_dat."save-fix".*shear_dat."time-step".*system_shear."TimeStep"
+
+# Strain domain
+
+
+# Total energy, temperature, potential and kinetic energy
+fig_system_shear=plot_systemShear(time_system_shear,system_shear,"Shear")
+
+# Stress stuff
 

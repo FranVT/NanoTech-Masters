@@ -203,6 +203,12 @@ function extractInfoShear(path_shear,df)
     # Extract the information from the profiles file
     profile_shear=map(s->extractFixProfile(s,df,df."file9"...),path_shear)
 
+
+    # Compute the averages of the Nexperiments
+    system_shear=reduce(.+,system_shear)./first(df."Nexp")
+    stress_shear=reduce(.+,stress_shear)./first(df."Nexp")
+
+
     return (system_shear,stress_shear,clust_shear,profile_shear)
 
 end
