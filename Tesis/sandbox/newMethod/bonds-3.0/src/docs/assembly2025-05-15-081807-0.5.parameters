@@ -5,3 +5,6 @@ L=2.265589
 seed1=1239
 seed2=4326
 seed3=15
+Nsave=10000
+Nsavestress=Nsave
+Ndump=1000000
