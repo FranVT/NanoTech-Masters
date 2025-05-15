@@ -12,8 +12,8 @@
  ## Numeric parameters 
 
 - Time step: 0.001 [tau]
-- Number of time steps in heating process: 500
-- Number of time steps in isothermal process: 1000
+- Number of time steps in heating process: 1000
+- Number of time steps in isothermal process: 10000
 
  ## Derived values from parameters 
 

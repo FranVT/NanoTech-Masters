@@ -17,9 +17,10 @@ shear_it=$(( $max_strain * $Nstep_per_strain)); # Total number of steps to achiv
 aux=$(echo "scale=$cs; 1 / $dt" | bc);
 Nsave=$(echo "scale=0; 100 * $damp * $aux" | bc);
 Nsave=${Nsave%.*};
-Nsavestress=$(echo "scale=0; $Nstep_per_strain * 0.1 * $aux" | bc);
+NsaveStress=$(echo "scale=0; $Nstep_per_strain * 0.1 * $aux" | bc);
+NsaveStress=${NsaveStress%.*};
 Ndump=$(echo "scale=0; $Nstep_per_strain *  $aux" | bc);
-
+Ndump=${Ndump%.*};
 
 
 
@@ -31,7 +32,7 @@ VAR_NAMES=(
     "Nstep_per_strain"
     "shear_it"
     "Nsave"
-    "Nsavestress"
+    "NsaveStress"
     "Ndump"
 )
 

@@ -29,7 +29,8 @@ L=$(echo "scale=$cs; $L_real / 2" | bc);
 aux=$(echo "scale=$cs; 1 / $dt" | bc);
 Nsave=$(echo "scale=0; 100 * $damp * $aux" | bc);
 Nsave=${Nsave%.*};
-Nsavestress=$Nsave;
+NsaveStress=$(echo "scale=0; 100 * $damp * $aux" | bc);
+NsaveStress=${NsaveStress%.*};
 Ndump=$(echo "scale=0; 1000 *  $aux" | bc);
 Ndump=${Ndump%.*};
 
@@ -53,7 +54,7 @@ VAR_NAMES=(
     "seed2"
     "seed3"
     "Nsave"
-    "Nsavestress"
+    "NsaveStress"
     "Ndump"
 )
 
