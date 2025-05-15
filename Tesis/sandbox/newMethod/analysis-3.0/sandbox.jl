@@ -17,7 +17,7 @@ parent_dir=dirname(pwd());
 # Select the siimulation scheme (Version and stuff)
 scheme_dir="bonds-3.0";
 # Select the "system" by id
-id="2025-05-13-085310";
+id="2025-05-14-082310";
 # Select the system by "cross-linker" concentration
 cl_con=0.5;
 
@@ -39,11 +39,11 @@ shear_dat=getDataFiles(path_shear,"dataShear.dat");
 
 
 # Get the data from assembly simulation
-#(system_assembly,stress_assembly,clust_assembly,profile_assembly)=extractInfoAssembly(path_system,assembly_dat);
+(system_assembly,stress_assembly,clust_assembly,profile_assembly)=extractInfoAssembly(path_system,assembly_dat);
 
 
 # Get the data from ALL shear simulations (N experiments) as an average
-#(system_shear,stress_shear,clust_shear,profile_shear)=extractInfoShear(path_shear,shear_dat);
+(system_shear,stress_shear,clust_shear,profile_shear)=extractInfoShear(path_shear,shear_dat);
 
 
 #=
