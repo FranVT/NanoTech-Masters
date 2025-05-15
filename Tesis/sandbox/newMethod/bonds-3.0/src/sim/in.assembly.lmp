@@ -99,7 +99,7 @@ fix fixStress5 all ave/time 1 ${NsaveStress} ${NsaveStress} c_p c_press[*] c_pre
 fix 1 CM ave/time 1 1 ${Ndump} c_idcl c_clsize file ${Dir}/${file3_name} mode vector
 
 # The ave/chunk creates a temporal average. The ave keyword creates a spatial average.
-fix fixChunks CM ave/chunk 1 ${Nsave} ${Nsave} spatialChunks vx vy vz c_disp[*] ave one file ${Dir}/${file4_name}.fixf
+fix fixChunks CM ave/chunk 1 ${Nsave} ${Nsave} spatialChunks vx vy vz c_disp[*] ave one file ${Dir}/${file4_name}
 
 # Save atom positions with cluster id
 dump dumpID all custom ${Ndump} ${Dir}/traj/${file5_name} id mol c_clusters type x y z vx vy vz
@@ -125,4 +125,4 @@ run ${steps}
 
 # Write data for deformation
 
-write_data ${Dir}/${file6_name}
+write_restart ${Dir}/${file6_name}
