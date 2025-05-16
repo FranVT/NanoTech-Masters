@@ -32,9 +32,6 @@
 \RequirePackage{fancybox}		% Recuadros
 \RequirePackage[inline]{enumitem} % Cambiar la enumeración de enumerate
 \RequirePackage{listings}       % Modificación para códigos
-%\RequirePackage[backend=biber,style=science]{biblatex}           % Bibliografía
-%\addbibresource{bibliografia.bib}
-%\AtBeginBibliography{\normalsize}
 \RequirePackage[many]{tcolorbox}
 \RequirePackage{xcolor}
 

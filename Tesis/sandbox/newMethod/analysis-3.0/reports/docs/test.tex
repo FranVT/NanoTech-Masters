@@ -2,9 +2,6 @@
 % Esta platilla se creo para facilitar la creación de documentos para tareas.
 
 \documentclass{tareaClass}
-%\selectlanguage{spanish} 
-%\usepackage[spanish,onelanguage]{algorithm2e} %for psuedo code
-\usepackage{listings}
 
 \title{ System ID: system-2025-05-15-230326-CL-0.5 }
 
@@ -15,35 +12,41 @@
 
 \section{General Parameters}
 
-\begin{longtable}{|c|c|} 
+\begin{table}[ht!]
+\centering
+\begin{tabular}{|c|c|} 
 \hline
-Parameter & Value  \endfirsthead 
+Parameter & Value  \\ 
   \hline
-  Packing fraction $\phi$ & 0.5 \
-  Crosslinker concentration & 0.5 \
-  Total central particles & 1500 \
-  Temperature & 0.05 \
-  time step & 0.001 \
-  Box length (L) & 12.037717 \
+    Packing fraction $\phi$ & 0.5 \\
+    Crosslinker concentration & 0.5 \\
+    Total central particles & 1500 \\
+    Temperature & 0.05 \\
+    Time step & 0.001 \\
+    Box length (L) & 12.037717 \\
   \hline
-\end{longtable}
+\end{tabular}
+\end{table}
+
+
 
 \section{Assembly}
 
-\begin{longtable}{|c|c|} 
+\begin{table}[ht!]
+\centering
+\begin{tabular}{|c|c|} 
 \hline
-Parameter & Value  \endfirsthead 
+Parameter & Value  \\ 
   \hline
-    Damp value & 0.1 \
-    Time steps for heat up process & 500000 \
-    Time steps for isothermic process & 8000000 \
-    Fix saving frequency  & 10000 \
-    Stress saving frequency & 10000 \
-    Dump saving frquency  & 1000000 \
+    Damp value & 0.1 \\
+    Time steps for heat up process & 500000 \\
+    Time steps for isothermic process & 8000000 \\
+    Fix saving frequency  & 10000 \\
+    Stress saving frequency & 10000 \\
+    Dump saving frquency  & 1000000 \\
   \hline
-\end{longtable}
-
-
+\end{tabular}
+\end{table}
 
 \section{Shear}
 
