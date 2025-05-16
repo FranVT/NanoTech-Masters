@@ -167,7 +167,7 @@ function extractInfoAssembly(path_system,df)
 end
 
 
-function extractInfoShear(path_shear,df)
+function extractInfoShear(path_shear,df,Nexp)
 """
     Function that reads the files and extract all the information
     file6 -> system_shear
@@ -179,7 +179,7 @@ function extractInfoShear(path_shear,df)
 """
 
     # Get the number of experiments done with the same shear
-    path_shear=map(s->joinpath(path_shear,string("Exp",s)),1:df."Nexp"[1]);
+    path_shear=map(s->joinpath(path_shear,string("Exp",s)),1:Nexp);
 
     # Extract info from system system
     #map(s->,path_shear);
@@ -198,18 +198,18 @@ function extractInfoShear(path_shear,df)
     end
 
     # Extract info from the cluster files
-    clust_shear=map(s->extractFixCluster(s,df,df."file8"...),path_shear);
+    #clust_shear=map(s->extractFixCluster(s,df,df."file8"...),path_shear);
 
     # Extract the information from the profiles file
     profile_shear=map(s->extractFixProfile(s,df,df."file9"...),path_shear)
 
 
     # Compute the averages of the Nexperiments
-    system_shear=reduce(.+,system_shear)./first(df."Nexp")
-    stress_shear=reduce(.+,stress_shear)./first(df."Nexp")
+    system_shear=reduce(.+,system_shear)./Nexp
+    stress_shear=reduce(.+,stress_shear)./Nexp
 
 
-    return (system_shear,stress_shear,clust_shear,profile_shear)
+    return (system_shear,stress_shear,profile_shear)
 
 end
 
