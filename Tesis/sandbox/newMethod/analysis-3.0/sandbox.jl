@@ -32,7 +32,8 @@ assembly_dat=getDataFiles(path_system,"dataAssembly.dat");
 
 # Path to the shear directory
 aux=readdir(path_system);
-path_shear=joinpath(path_system,aux[findall(s->s==1,occursin.("shear",aux))]...);
+path_shear=joinpath.(path_system,aux[findall(s->s==1,occursin.("shear",aux))]);
+path_shear=path_shear[1];
 
 # Get data files of shear
 shear_dat=getDataFiles(path_shear,"dataShear.dat");
@@ -43,7 +44,7 @@ shear_dat=getDataFiles(path_shear,"dataShear.dat");
 
 
 # Get the data from ALL shear simulations (N experiments) as an average
-(system_shear,stress_shear,profile_shear)=extractInfoShear(path_shear,shear_dat,1);
+(system_shear,stress_shear)=extractInfoShear(path_shear,shear_dat,shear_dat."Nexp");
 
 
 #=
