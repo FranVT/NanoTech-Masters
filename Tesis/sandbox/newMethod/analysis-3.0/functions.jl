@@ -422,13 +422,28 @@ fig_system=plot(p1,p2,p3,p4,
     return fig_system
 end
 
-function plot_stressShear(xx,yy,zz,xy,xz,yz,cycle,strain,title)
+function plot_stressShearComp(stress_shear,cycle,strain,title)
+
+xx=stress_shear."c_stress[1]";
+yy=stress_shear."c_stress[2]";
+zz=stress_shear."c_stress[3]";
+xy=stress_shear."c_stress[4]";
+xz=stress_shear."c_stress[5]";
+yz=stress_shear."c_stress[6]";
 
 norm_stress=norm(xx,yy,zz,xy,xz,yz);
-trace_stress=trace(xx,yy,zz)./3
+
+xx_virial=stress_shear."c_stressVirial[1]";
+yy_virial=stress_shear."c_stressVirial[2]";
+zz_virial=stress_shear."c_stressVirial[3]";
+xy_virial=stress_shear."c_stressVirial[4]";
+xz_virial=stress_shear."c_stressVirial[5]";
+yz_virial=stress_shear."c_stressVirial[6]";
+
+norm_stressVirial=norm(xx_virial,yy_virial,zz_virial,xy_virial,xz_virial,yz_virial);
 
 p1 = plot(
-            title=L"\sigma_{xy}",
+              title=L"\sigma_{xy}~\mathrm{all}",
             xlabel = L"\mathrm{Strain}",
             ylabel = L"\sigma",
             legend=false,
@@ -437,6 +452,15 @@ p1 = plot(
 plot!(strain,xy[cycle])
 
 p2 = plot(
+            title=L"\sigma_{xy}~\mathrm{virial}",
+            xlabel = L"\mathrm{Strain}",
+            ylabel = L"\sigma",
+            legend=false,
+            framestyle=:box
+           )
+plot!(strain,xy_virial[cycle])
+
+p3 = plot(
             title=L"\mathrm{Stress~Norm}",
             xlabel = L"\mathrm{Strain}",
             ylabel = L"\sigma",
@@ -445,17 +469,87 @@ p2 = plot(
            )
 plot!(strain,norm_stress[cycle])
 
-p3 = plot(
-            title=L"\frac{1}{3}\mathrm{Trace~Norm}",
+p4 = plot(
+            title=L"\mathrm{Stress~Norm~Virial}",
             xlabel = L"\mathrm{Strain}",
             ylabel = L"\sigma",
             legend=false,
             framestyle=:box
            )
-plot!(strain,trace_stress[cycle])
+plot!(strain,norm_stressVirial[cycle])
 
 # Combo of all previous plots
-fig_system=plot(p1,p2,p3,
+fig_system=plot(p1,p2,p3,p4,
+                layout = (2,2),
+                suptitle = latexstring(string("\\mathrm{",title,"}")),
+                plot_titlefontsize = 15,
+                size=(1600,900),
+                right_margin=10px,
+                left_margin=30px,
+                top_margin=10px,
+                bottom_margin=15px
+             )
+    return fig_system
+end
+
+function plot_pressShearComp(stress_shear,cycle,strain,title)
+
+xx=stress_shear."c_press[1]";
+yy=stress_shear."c_press[2]";
+zz=stress_shear."c_press[3]";
+xy=stress_shear."c_press[4]";
+xz=stress_shear."c_press[5]";
+yz=stress_shear."c_press[6]";
+
+norm_stress=norm(xx,yy,zz,xy,xz,yz);
+
+xx_virial=stress_shear."c_pressVirial[1]";
+yy_virial=stress_shear."c_pressVirial[2]";
+zz_virial=stress_shear."c_pressVirial[3]";
+xy_virial=stress_shear."c_pressVirial[4]";
+xz_virial=stress_shear."c_pressVirial[5]";
+yz_virial=stress_shear."c_pressVirial[6]";
+
+norm_stressVirial=norm(xx_virial,yy_virial,zz_virial,xy_virial,xz_virial,yz_virial);
+
+p1 = plot(
+              title=L"\sigma_{xy}~\mathrm{all}",
+            xlabel = L"\mathrm{Strain}",
+            ylabel = L"\sigma",
+            legend=false,
+            framestyle=:box
+           )
+plot!(strain,xy[cycle])
+
+p2 = plot(
+            title=L"\sigma_{xy}~\mathrm{virial}",
+            xlabel = L"\mathrm{Strain}",
+            ylabel = L"\sigma",
+            legend=false,
+            framestyle=:box
+           )
+plot!(strain,xy_virial[cycle])
+
+p3 = plot(
+            title=L"\mathrm{Press~Norm}",
+            xlabel = L"\mathrm{Strain}",
+            ylabel = L"\sigma",
+            legend=false,
+            framestyle=:box
+           )
+plot!(strain,norm_stress[cycle])
+
+p4 = plot(
+            title=L"\mathrm{Press~Norm~Virial}",
+            xlabel = L"\mathrm{Strain}",
+            ylabel = L"\sigma",
+            legend=false,
+            framestyle=:box
+           )
+plot!(strain,norm_stressVirial[cycle])
+
+# Combo of all previous plots
+fig_system=plot(p1,p2,p3,p4,
                 layout = (2,2),
                 suptitle = latexstring(string("\\mathrm{",title,"}")),
                 plot_titlefontsize = 15,
@@ -469,6 +563,137 @@ fig_system=plot(p1,p2,p3,
 end
 
 
+function plot_stress_pressShear(stress_shear,cycle,strain,title)
+
+xx=stress_shear."c_stress[1]";
+yy=stress_shear."c_stress[2]";
+zz=stress_shear."c_stress[3]";
+xy=stress_shear."c_stress[4]";
+xz=stress_shear."c_stress[5]";
+yz=stress_shear."c_stress[6]";
+
+trace_stress=-trace(xx,yy,zz);
+
+xx_virial=stress_shear."c_stressVirial[1]";
+yy_virial=stress_shear."c_stressVirial[2]";
+zz_virial=stress_shear."c_stressVirial[3]";
+xy_virial=stress_shear."c_stressVirial[4]";
+xz_virial=stress_shear."c_stressVirial[5]";
+yz_virial=stress_shear."c_stressVirial[6]";
+
+trace_stressVirial=-trace(xx,yy,zz);
+
+xx=stress_shear."c_press[1]";
+yy=stress_shear."c_press[2]";
+zz=stress_shear."c_press[3]";
+xy=stress_shear."c_press[4]";
+xz=stress_shear."c_press[5]";
+yz=stress_shear."c_press[6]";
+
+norm_press=norm(xx,yy,zz,xy,xz,yz);
+
+xx_virial=stress_shear."c_pressVirial[1]";
+yy_virial=stress_shear."c_pressVirial[2]";
+zz_virial=stress_shear."c_pressVirial[3]";
+xy_virial=stress_shear."c_pressVirial[4]";
+xz_virial=stress_shear."c_pressVirial[5]";
+yz_virial=stress_shear."c_pressVirial[6]";
+
+norm_pressVirial=norm(xx,yy,zz,xy,xz,yz);
+
+p1 = plot(
+            title=L"\mathrm{Pressure}",
+            xlabel = L"\mathrm{Strain}",
+            ylabel = L"\sigma",
+            legend=false,
+            framestyle=:box
+           )
+plot!(strain,norm_press[cycle])
+
+p2 = plot(
+            title=L"-\frac{1}{3}\mathrm{Tr}(\sigma)~\mathrm{atom}",
+            xlabel = L"\mathrm{Strain}",
+            ylabel = L"\sigma",
+            legend=false,
+            framestyle=:box
+           )
+plot!(strain,trace_stress[cycle]./3)
+
+p3 = plot(
+            title=L"\mathrm{Virial~Pressure}",
+            xlabel = L"\mathrm{Strain}",
+            ylabel = L"\sigma",
+            legend=false,
+            framestyle=:box
+           )
+plot!(strain,norm_pressVirial[cycle])
+
+p4 = plot(
+          title=L"-\frac{1}{3}\mathrm{Tr}(\sigma)~\mathrm{Virial~atom}",
+            xlabel = L"\mathrm{Strain}",
+            ylabel = L"\sigma",
+            legend=false,
+            framestyle=:box
+           )
+plot!(strain,trace_stressVirial[cycle]./3)
+
+# Combo of all previous plots
+fig_system=plot(p1,p2,p3,p4,
+                layout = (2,2),
+                suptitle = latexstring(string("\\mathrm{",title,"}")),
+                plot_titlefontsize = 15,
+                size=(1600,900),
+                right_margin=10px,
+                left_margin=30px,
+                top_margin=10px,
+                bottom_margin=15px
+             )
+    return fig_system
+end
+
+function plotsShear(id,pwd,shear_dat,system_shear,stress_shear)
+"""
+    Holap
+"""
+
+    # Time domain
+    time_system_shear=shear_dat."save-fix".*shear_dat."time-step".*system_shear."TimeStep"
+
+    # Strain domain
+
+    # Indixes for the shear moments
+    aux=shear_dat."time-step".*shear_dat."Shear-rate".*shear_dat."save-stress";
+    # Time steps per set of deformations
+    N_deform=shear_dat."Max-strain".*shear_dat."N_def";
+    # Time steps stored due to time average/Total of index per deformation cycle
+    ind_cycle=div.(N_deform,shear_dat."save-stress");
+
+    cycle=(1:1:ind_cycle[1]);
+
+
+    # Create strain and time domains
+    strain=aux[1].*cycle;
+
+    # Total energy, temperature, potential and kinetic energy
+    fig_system_shear=plot_systemShear(time_system_shear,system_shear,"Shear")
+
+    # Stress stuff
+    #fig_stress_atom_shear=plot_stressShear(stress_shear."c_stress[1]",stress_shear."c_stress[2]",stress_shear."c_stress[3]",stress_shear."c_stress[4]",stress_shear."c_stress[5]",stress_shear."c_stress[6]",cycle,strain,"Stress~Atom")
+
+    fig_stress_atom_shear=plot_stressShearComp(stress_shear,cycle,strain,"Stress~Atom")
+       
+    fig_pressure_shear=plot_pressShearComp(stress_shear,cycle,strain,"Pressure")
+
+    fig_comp_stress_press=plot_stress_pressShear(stress_shear,cycle,strain,"Comparation")
+#    fig_stress_atomVirial_shear=plot_stressShear(stress_shear."c_stressVirial[1]",stress_shear."c_stressVirial[2]",stress_shear."c_stressVirial[3]",stress_shear."c_stressVirial[4]",stress_shear."c_stressVirial[5]",stress_shear."c_stressVirial[6]",cycle,strain,"Stress~Virial~Atom")
+
+#    fig_press_virial_shear=plot_stressShear(stress_shear."c_pressVirial[1]",stress_shear."c_pressVirial[2]",stress_shear."c_pressVirial[3]",stress_shear."c_pressVirial[4]",stress_shear."c_pressVirial[5]",stress_shear."c_pressVirial[6]",cycle,strain,"PRESSURE~Virial")
+
+
+    return (fig_system_shear,fig_stress_atom_shear,fig_pressure_shear,fig_comp_stress_press)
+
+
+end
 
 #=
 """
