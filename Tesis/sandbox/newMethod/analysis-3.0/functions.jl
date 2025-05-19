@@ -167,7 +167,7 @@ function extractInfoAssembly(path_system,df)
 end
 
 
-function extractInfoShear(path_shear,df,Nexp)
+function extractInfoShear(path_shear,df)
 """
     Function that reads the files and extract all the information
     file6 -> system_shear
@@ -178,13 +178,10 @@ function extractInfoShear(path_shear,df,Nexp)
     file11 -> data.FirstShear
 """
 
+    Nexp=df."Nexp";
     # Get the number of experiments done with the same shear
     path_shear=map(s->joinpath(path_shear,string("Exp",s)),1:first(Nexp));
 
-    # Extract info from system system
-    #map(s->,path_shear);
-    #system_shear=map(s->DataFrame(s',headers),info);
-    
     system_shear=map(path_shear) do s
         (headers,info)=extractFixScalar(s,df,df."file6"...);
         DataFrame(info',headers)
@@ -337,6 +334,29 @@ fig_stress=plot(p1,p2,p3,p4,
 end
 
 
+function plotsAssembly(id,path,assembly_dat,system_assembly,stress_assembly)
+"""
+    Function that creates the assembly plots and store them in a given directory.
+"""
+
+    # Time domains
+    time_system_assembly=assembly_dat."save-fix".*assembly_dat."time-step".*system_assembly."TimeStep";
+    time_shear_assembly=assembly_dat."time-step".*stress_assembly."TimeStep";
+
+    # Total energy, temperature, potential and kinetic energy
+    fig_system_assembly=plot_systemAssembly(time_system_assembly,system_assembly,"Assembly");
+
+    # Stress stuff
+    fig_stress_assembly=plot_stressAssembly(time_shear_assembly,stress_assembly)
+
+    savefig(fig_system_assembly,joinpath(path,join([id,"-system_assembly.png"])))
+    savefig(fig_stress_assembly,joinpath(path,join([id,"-stress_assembly.png"])))
+
+    println("Figures stored")
+
+end
+
+
 function plot_systemShear(time,df,title)
 """
     Function that create a figure with:
@@ -447,6 +467,9 @@ fig_system=plot(p1,p2,p3,
              )
     return fig_system
 end
+
+
+
 #=
 """
     Plots
