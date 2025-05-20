@@ -6,9 +6,10 @@
 
 parentdir=$(cd .. && pwd);
 
+id=2025-05-15-230326;
 dir_home=$(pwd);
 dir_method="bonds-3.0";
-dir_system="system-2025-05-15-230326-CL-0.5";
+dir_system="system-$id-CL-0.5";
 dir_report="reports";
 
 
@@ -72,6 +73,13 @@ Parameter & Value  \\\\
 \end{tabular}
 \end{table}
 
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=\textwidth]{imgs/$id-system_assembly.png}
+\end{figure}
+
+\newpage
+
 \section{Shear}
 
 \end{document}
@@ -86,7 +94,6 @@ latexmk -pdf $filename
 
 
 # Obtener directorios
-
 get_file_paths() {
     local dir="$1"
     local pattern="$2"
