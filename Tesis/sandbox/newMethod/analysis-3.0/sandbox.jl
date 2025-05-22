@@ -17,7 +17,7 @@ parent_dir=dirname(pwd());
 # Select the siimulation scheme (Version and stuff)
 scheme_dir="bonds-3.0";
 # Select the "system" by id
-id="2025-05-20-100954";
+id="2025-05-21-082224";
 # Select the system by "cross-linker" concentration
 cl_con=0.5;
 
@@ -58,7 +58,7 @@ end
     A S S E M B L Y     P L O T S  
 =#
 
-#plotsAssembly(id,pwd(),assembly_dat,system_assembly,stress_assembly)
+plotsAssembly(id,path_system,assembly_dat,system_assembly,stress_assembly)
 
 #=
     S H E A R     P L O T S  

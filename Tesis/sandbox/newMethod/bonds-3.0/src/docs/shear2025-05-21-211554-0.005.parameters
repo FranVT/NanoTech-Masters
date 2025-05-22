@@ -1,5 +1,5 @@
 Nstep_per_strain=200000
 shear_it=2000000
 Nsave=10000
-NsaveStress=2000
+NsaveStress=200
 Ndump=20000

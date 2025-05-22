@@ -5,7 +5,7 @@
 cs=6
 damp=0.1
 T=0.05
-N_particles=1500
+N_particles=2500
 cl_con_o=0.5
 cl_con_f=0.5
 cl_con_d=0.5
