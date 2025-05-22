@@ -17,12 +17,16 @@ parent_dir=dirname(pwd());
 # Select the siimulation scheme (Version and stuff)
 scheme_dir="bonds-3.0";
 # Select the "system" by id
-id="2025-05-21-082224";
+id="2025-05-17-131655";
 # Select the system by "cross-linker" concentration
 cl_con=0.5;
 
+doAssembly=1;
+doShear=1;
 
-if !(@isdefined stress_assembly)
+
+
+if doAssembly == 1 
     # Path to the data directory of the simulation scheme
     path_data=joinpath(parent_dir,scheme_dir,"data");
     # Path to the data directory of the specific system
@@ -37,7 +41,7 @@ if !(@isdefined stress_assembly)
     println("Assembly information loaded")
 end
 
-if !(@isdefined shear_info)
+if doShear == 1
     # Path to ALL shear directories
     aux=readdir(path_system);
     path_shear=joinpath.(path_system,aux[findall(s->s==1,occursin.("shear",aux))]);
@@ -64,8 +68,9 @@ plotsAssembly(id,path_system,assembly_dat,system_assembly,stress_assembly)
     S H E A R     P L O T S  
 =#
 
-
-(fig_system_shear,fig_stress_atom_shear,fig_pressure_shear,fig_comp_stress_press)=plotsShear(id,pwd(),shear_dat[1],shear_info[1][1],shear_info[1][2]) 
+map(eachindex(path_shear)) do s
+    plotsShear(id,path_shear[s],assembly_dat."L"...,shear_dat[s],shear_info[s][1],shear_info[s][2]) 
+end
 
 nothing
 
