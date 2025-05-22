@@ -17,7 +17,7 @@ parent_dir=dirname(pwd());
 # Select the siimulation scheme (Version and stuff)
 scheme_dir="bonds-3.0";
 # Select the "system" by id
-id="2025-05-15-083809";
+id="2025-05-21-211554";
 # Select the system by "cross-linker" concentration
 cl_con=0.5;
 
