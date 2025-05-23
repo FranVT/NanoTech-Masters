@@ -125,4 +125,4 @@ run ${steps}
 
 # Write data for deformation
 
-write_data ${Dir}/${file6_name}
+write_restart ${Dir}/${file6_name}

@@ -98,4 +98,3 @@ restart ${Nstep_per_strain} ${Dir}/${file12_name}
 run ${shear_it}
 unfix shear
 
-

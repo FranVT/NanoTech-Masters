@@ -11,6 +11,9 @@ var_ccL=$3
 # Load the parameters file
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters
 
+# Load the config file for assembly
+source $dir_src/docs/load_parameters.sh $dir_src/docs/assembly$id-$var_ccL.parameters
+
 # Go to the directory in which the files are going to be created 
 cd $dir_system;
 

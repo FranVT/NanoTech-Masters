@@ -26,6 +26,13 @@ Vol_Totg=$(echo "scale=$cs; $Vol_MO + $Vol_CL" | bc);       # Total volume of a 
 Vol_Tot=$(echo "scale=$cs; $Vol_Totg / $phi" | bc);
 L_real=$(echo "scale=$cs; e( (1/3) * l($Vol_Tot) )" | bc -l );
 L=$(echo "scale=$cs; $L_real / 2" | bc);
+aux=$(echo "scale=$cs; 1 / $dt" | bc);
+Nsave=$(echo "scale=0; 100 * $damp * $aux" | bc);
+Nsave=${Nsave%.*};
+NsaveStress=$(echo "scale=0; 100 * $damp * $aux" | bc);
+NsaveStress=${NsaveStress%.*};
+Ndump=$(echo "scale=0; 1000 *  $aux" | bc);
+Ndump=${Ndump%.*};
 
 # Seed for the langevin thermostat and initial positions
 seed1=$((1234 + $N_CL));     # MO positions
@@ -46,6 +53,9 @@ VAR_NAMES=(
     "seed1"
     "seed2"
     "seed3"
+    "Nsave"
+    "NsaveStress"
+    "Ndump"
 )
 
 # Create or overwrite the parameters file
