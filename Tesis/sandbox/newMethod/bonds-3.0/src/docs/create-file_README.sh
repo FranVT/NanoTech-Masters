@@ -11,9 +11,6 @@ var_ccL=$3
 # Load the parameters file
 source $dir_src/docs/load_parameters.sh $dir_src/docs/system.parameters
 
-# Load the config file for assembly
-source $dir_src/docs/load_parameters.sh $dir_src/docs/assembly$id-$var_ccL.parameters
-
 # Go to the directory in which the files are going to be created 
 cd $dir_system;
 
@@ -36,9 +33,5 @@ echo -e "\n ## Numeric parameters \n" >> $file_name;
 echo -e ""- Time step: "${dt}" [tau]"" >> $file_name;
 echo -e ""- Number of time steps in heating process: "${steps_heat}" >> $file_name;
 echo -e ""- Number of time steps in isothermal  process: "${steps_isot}" >> $file_name;
-echo -e "\n ## Derived values from parameters \n" >> $file_name;
-echo -e "\n ## Save parameters \n" >> $file_name;
-echo -e ""- Save every "${Ndump}" time steps for dumps files"" >> $file_name;
-echo -e ""- Save every "${Nsave}" time steps for fix files"" >> $file_name;
-echo -e ""- Save every "${NsaveStress}" time steps for Stress fix files"" >> $file_name;
+
 
