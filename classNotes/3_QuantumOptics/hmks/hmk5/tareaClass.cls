@@ -12,8 +12,8 @@
 \RequirePackage{csquotes,xpatch}
 \RequirePackage[T1]{fontenc}
 \RequirePackage[
-  inner	=	2.5cm, % Margen interior
-  outer	=	2.5cm, % Margen exterior
+  inner	=	1.5cm, % Margen interior
+  outer	=	1.5cm, % Margen exterior
   top	=	1.5cm, % Margen superior
   bottom=	1.5cm, % Margen inferior
   includeheadfoot, % Incluye cabecera y pie de página en los márgenes
@@ -64,6 +64,20 @@
 %------------COMANDOS Y AMBIENTES------------%
 
 \makeatletter     
+
+\newcommand{\hata}{\hat{a}}
+\newcommand{\hatad}{\ensuremath{\hat{a}^{\dagger}}}
+\newcommand{\QDi}{\ensuremath{\hat{X}_{1}}}
+\newcommand{\QDj}{\ensuremath{\hat{X}_{2}}}
+\newcommand{\upa}{\uparrow}
+\newcommand{\doa}{\downarrow}
+\newcommand{\Ss}{\hat{S}}
+\newcommand{\Sm}{\ensuremath{\hat{S}_{-}}}
+\newcommand{\Sp}{\ensuremath{\hat{S}_{+}}}
+\newcommand{\sx}{\ensuremath{\hat{S}_{x}}}
+\newcommand{\sy}{\ensuremath{\hat{S}_{y}}}
+\newcommand{\sz}{\ensuremath{\hat{S}_{z}}}
+
 \newcommand\matriculas[1]{\renewcommand\@matriculas{#1\\ }}
 \newcommand\@matriculas{\@latex@error{No \noexpand\matriculas given}\@ehc}
 

@@ -4,11 +4,114 @@
 
 \section{Problem 4.34}
 
-\begin{itemize}
-    \item Aplly $\hat{S}_{-}$ to $\ket{10}$ and confirm that ypu get $\sqrt{2}\hbar\ket{1-1}$
+\begin{enumerate}
+    \item Aplly $\hat{S}_{-}$ to $\ket{10}$ and confirm that you get $\sqrt{2}\hbar\ket{1-1}$
     \item Apply $\hat{S}_{+}$ to $\ket{00}$ and confirm that you get zero.
-    \item Show that $ket{11}$ and $ket{1-1}$ are eqigenstates of $hat{S}^2$, with the appropriate eigenvalue.
-\end{itemize}
+    \item Show that $\ket{11}$ and $\ket{1-1}$ are eqigenstates of $\hat{S}^2$, with the appropriate eigenvalue.
+\end{enumerate}
+
+\begin{sol}{$\hat{S}_{-}\ket{10}$}{label-1a}
+    Recalling that $\ket{10}=1/\sqrt{2}(\ket{\upa\doa}+\ket{\doa\upa})$ we can compute as follows,
+    \begin{align*}
+        \Sm^{(T)}\ket{10} &= \qty(\Sm^{(1)}\oplus\Sm^{(2)})\frac{1}{\sqrt{2}}\qty(\ket{\upa\doa}+\ket{\doa\upa}) \\
+                          &= \frac{1}{\sqrt{2}}\left[
+                                    \qty(\Sm^{(1)}\ket{\upa}_{(1)})\ket{\doa}_{(2)}
+                                    \oplus
+                                    \ket{\upa}_{(1)}\cancelto{0}{\qty(\Sm^{(2)}\ket{\doa}_{(2)})}
+                                +
+                                    \cancelto{0}{\qty(\Sm^{(1)}\ket{\doa}_{(1)})}\ket{\upa}_{(2)}
+                                    \oplus
+                                    \ket{\doa}_{(1)}\qty(\Sm^{(2)}\ket{\upa}_{(2)})
+                                \right]\\
+                          &= \frac{1}{\sqrt{2}}\left[\hbar\ket{\doa}_{(1)}\ket{\doa}_{(2)} + \hbar\ket{\doa}_{(1)}\ket{\doa}_{(2)}\right] \\
+                          &= \frac{\hbar}{\sqrt{2}}\left(\ket{\doa\doa} + \ket{\doa\doa}\right)
+    \end{align*}
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        \Sm^{(T)}\ket{10} = \sqrt{2}\hbar\ket{1-1}.
+    \end{empheq}
+\end{sol}
+
+\begin{sol}{$\hat{S}_{+}\ket{00}$}{label-1b}
+    Recalling that $\ket{00}=1/\sqrt{2}(\ket{\upa\doa}-\ket{\doa\upa})$ we can compute as follows,
+    \begin{align*}
+        \Sp^{(T)}\ket{10} &= \qty(\Sp^{(1)}\oplus\Sp^{(2)})\frac{1}{\sqrt{2}}\qty(\ket{\upa\doa}+\ket{\doa\upa}) \\
+                          &= \frac{1}{\sqrt{2}}\left[
+                                    \cancelto{0}{\qty(\Sp^{(1)}\ket{\upa}_{(1)})}\ket{\doa}_{(2)}
+                                    \oplus
+                                    \ket{\upa}_{(1)}\qty(\Sp^{(2)}\ket{\doa}_{(2)})
+                                -
+                                    \qty(\Sp^{(1)}\ket{\doa}_{(1)})\ket{\upa}_{(2)}
+                                    \oplus
+                                    \ket{\doa}_{(1)}\cancelto{0}{\qty(\Sp^{(2)}\ket{\upa}_{(2)})}
+                                \right]\\
+                          &= \frac{1}{\sqrt{2}}\left[\hbar\ket{\upa}_{(1)}\ket{\upa}_{(2)} - \hbar\ket{\upa}_{(1)}\ket{\upa}_{(2)}\right] \\
+                          &= \frac{\hbar}{\sqrt{2}}\left(\ket{\upa\upa} - \ket{\upa\upa}\right)
+    \end{align*}
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        \Sp^{(T)}\ket{00} = 0.
+    \end{empheq}
+\end{sol}
+
+\begin{sol}{Eigenstates of $\hat{S}^{2}$}{label-1c}
+    First we compute the expression of $\hat{S}^{2}$ for a system with two Hilbert spaces,
+    \begin{align*}
+        \qty(\Ss^{(T)})^2 &= \qty(\Ss^{(1)}\oplus\Ss^{(2)})\cdot\qty(\Ss^{(1)}\oplus\Ss^{(2)}) \\
+                          &= \qty(\Ss^{(1)})^2 \oplus \qty(\Ss^{(2)})^2 \oplus 2 \vec{\Ss}^{(1)}\cdot\vec{\Ss}^{(2)}
+    \end{align*}
+
+    Starting with $\ket{11} = \ket{\uparrow\uparrow}$,
+    \begin{align*}
+        \qty(\Sp^{(T)})^2\ket{11} &= \qty(\qty(\Ss^{(1)})^2 \oplus \qty(\Ss^{(2)})^2 \oplus 2 \vec{\Ss}^{(1)}\cdot\vec{\Ss}^{(2)})\ket{\upa\upa} \\
+                                  &= \left[
+                                        \qty(\Ss^{(1)})^{2}\ket{\upa}_{(1)}\ket{\upa}_{(2)}
+                                     \right]
+                                     \oplus
+                                     \left[
+                                        \ket{\upa}_{(1)}\qty(\Ss^{(2)})^{2}\ket{\upa}_{(2)}
+                                     \right] 
+                                    \oplus
+                                    2\left[
+                                        \sx^{(1)}\ket{\upa}_{(1)}\sx^{(2)}\ket{\upa}_{(2)} 
+                                        \oplus
+                                        \sy^{(1)}\ket{\upa}_{(1)}\sy^{(2)}\ket{\upa}_{(2)}
+                                        \oplus
+                                        \sz^{(1)}\ket{\upa}_{(1)}\sz^{(2)}\ket{\upa}_{(2)}
+                                    \right]
+                                     \\
+                          &= \frac{3}{4}\hbar^2\ket{\upa}_{(1)}\ket{\upa}_{(2)}\oplus\frac{3}{4}\hbar^2\ket{\upa}_{(1)}\ket{\upa}_{(2)} \\
+                          &= \frac{3}{2}\hbar^2\ket{\upa\upa}
+    \end{align*}
+
+    \begin{multline*}
+        \qty(\Sp^{(T)})^2\ket{11} = \left[
+                                        \qty(\Ss^{(1)})^{2}\ket{\upa}_{(1)}\ket{\upa}_{(2)}
+                                     \right]
+                                     \oplus
+                                     \left[
+                                        \ket{\upa}_{(1)}\qty(\Ss^{(2)})^{2}\ket{\upa}_{(2)}
+                                     \right]
+                                     \\
+                                    \oplus
+                                    2\left[
+                                        \sx^{(1)}\ket{\upa}_{(1)}\sx^{(2)}\ket{\upa}_{(2)} 
+                                        \oplus
+                                        \sy^{(1)}\ket{\upa}_{(1)}\sy^{(2)}\ket{\upa}_{(2)}
+                                        \oplus
+                                        \sz^{(1)}\ket{\upa}_{(1)}\sz^{(2)}\ket{\upa}_{(2)}
+                                    \right]
+                                     \\
+
+    \end{multline*}
+
+        \begin{empheq}[box=\shadowbox]{equation*}
+        \Sp^{(T)}\ket{00} = 0.
+    \end{empheq}
+\end{sol}
+
+
+
 
 \begin{align*}
     \ket{11} &= \uparrow\uparrow \\
