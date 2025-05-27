@@ -142,24 +142,60 @@ Quarks carry spin $1/2$.
 Three quarks bind together to make a make baryon (such as a proton or neutron): two quarks (or more precisely a quark and an antiquark) bind together to make a meson (such as the pion or the kaon).
 Assume the quarks are in the ground (so the orbital angular momentum is zero).
 
-\begin{itemize}
+\begin{enumerate}
     \item What spins are possible for baryons?
     \item What spins are possible for mesons?
-\end{itemize}
+\end{enumerate}
 
 \section{Problem 5.4}
 
-\begin{itemize}
-    \item If $\psi_a$ are orthogonal, and both normalized, what is the constant $A$ in 5.10?
+\begin{enumerate}
+    \item If $\psi_a$ are orthogonal, and both normalized, what is the constant $A$ in \[\Psi_{\pm}\qty(\vec{r}_1,\vec{r}_2) = A\left[\psi_a\qty(\vec{r}_1)\psi_b\qty(\vec{r}_2)\pm\psi_b\qty(\vec{r}_1)\psi_a\qty(\vec{r}_2)\right]?\]
     \item If $\psi_a=\psi_b$ (and it is normalized), what is $A$? (This case, of course, occurs only for bosons.)
-\end{itemize}
+\end{enumerate}
+
+\begin{sol}{Constant of normalization $A$}{label-3a}
+    First we can re-write the $\Psi$ as follows, $\Psi_{\pm} = A\left(\ket{\psi_a\psi_b}\pm\ket{\psi_b\psi_a}\left)$.
+    Now we can compute the inner product of the state and apply the ortho-normal properties of $\ket{\psi_a}$ and $\ket{\psi_b}$,
+    \begin{align*}
+        \braket{\Psi} &= \abs{A}^2\left(\bra{\psi_a\psi_b}\pm\bra{\psi_b\psi_a}\left)\left(\ket{\psi_a\psi_b}\pm\ket{\psi_b\psi_a}\left) \\
+                      &= \abs{A}^2\left(
+                            \bra{\psi_a\psi_b}\ket{\psi_a\psi_b}
+                            \pm
+                            \bra{\psi_a\psi_b}\ket{\psi_b\psi_a}
+                            \pm
+                            \bra{\psi_b\psi_a}\ket{\psi_a\psi_b}
+                            +
+                            \bra{\psi_b\psi_a}\ket{\psi_b\psi_a}
+                            \right) \\
+                      &= 2\abs{A}^2,
+    \end{align*}
+    since, $\braket{\Psi}$ should be $1$, $A=1/\sqrt{2}$. 
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        A = \frac{1}{\sqrt{2}}.
+    \end{empheq}
+\end{sol}
+
+\begin{sol}{Constant of normalization $A$ with $\psi_a=\psi_b$}{label-3b}
+    From the previous procedure, we see that the second and third terms are equal to $1$, leading to hte following results,
+    \begin{align*}
+        \braket{\Psi} &= 4\abs{A}^2,
+    \end{align*}
+    since, $\braket{\Psi}$ should be $1$, $A=1/2$. 
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        A = \frac{1}{2}.
+    \end{empheq}
+\end{sol}
+
 
 \section{Problem 5.5}
 
-\begin{itemize}
+\begin{enumerate}
     \item Write down the Hamiltonian for two noninteracting identical particles in the infinite square well.
         Verify that the fermion ground state given in Example 5.1 is an eienfunction of $H$, with the appropriate eigenvalue.
     \item Find the next two excited states (beyond the ones in Example 5.1)-wave functions and energies-for each of the three cases (distinguishable, identical bosons, identical fermions).
-\end{itemize}
+\end{enumerate}
 
 \end{document}
