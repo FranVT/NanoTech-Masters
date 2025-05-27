@@ -77,6 +77,7 @@
 \newcommand{\sx}{\ensuremath{\hat{S}_{x}}}
 \newcommand{\sy}{\ensuremath{\hat{S}_{y}}}
 \newcommand{\sz}{\ensuremath{\hat{S}_{z}}}
+\newcommand{\hbs}{\ensuremath{\hbar^2}}
 
 \newcommand\matriculas[1]{\renewcommand\@matriculas{#1\\ }}
 \newcommand\@matriculas{\@latex@error{No \noexpand\matriculas given}\@ehc}
