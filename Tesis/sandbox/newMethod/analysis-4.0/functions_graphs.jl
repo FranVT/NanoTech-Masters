@@ -498,9 +498,46 @@ function plotsShear(id,path,L,shear_dat,system_shear,stress_shear)
 
 end
 
+function plotStrain_Shear(id,path,L,shear_dat,system_shear,stress_shear)
+"""
+    Plot the strain vs stress given ONE dataframe
+"""
+
+    # Indixes for the shear moments
+    aux=shear_dat."time-step".*shear_dat."Shear-rate".*shear_dat."save-stress";
+    # Time steps per set of deformations
+    N_deform=shear_dat."Max-strain".*shear_dat."N_def";
+    # Time steps stored due to time average/Total of index per deformation cycle
+    ind_cycle=div.(N_deform,shear_dat."save-stress",RoundDown);
+
+    cycle=(1:1:length(stress_shear."TimeStep"));
 
 
+    # Create strain and time domains
+    strain=aux[1].*cycle;
 
+
+xx=stress_shear."c_stress[1]";
+yy=stress_shear."c_stress[2]";
+zz=stress_shear."c_stress[3]";
+xy=stress_shear."c_stress[4]";
+xz=stress_shear."c_stress[5]";
+yz=stress_shear."c_stress[6]";
+
+norm_stress=norm(xx,yy,zz,xy,xz,yz);
+
+xx_virial=stress_shear."c_stressVirial[1]";
+yy_virial=stress_shear."c_stressVirial[2]";
+zz_virial=stress_shear."c_stressVirial[3]";
+xy_virial=stress_shear."c_stressVirial[4]";
+xz_virial=stress_shear."c_stressVirial[5]";
+yz_virial=stress_shear."c_stressVirial[6]";
+
+norm_stressVirial=norm(xx_virial,yy_virial,zz_virial,xy_virial,xz_virial,yz_virial);
+
+return (gamma=strain,sxy=xy[cycle],svirxy=xy_virial[cycle],snorm=norm_stress[cycle],svirnorm=norm_stressVirial[cycle],dgamma=string(shear_dat."Shear-rate"...))
+
+end
 
 #=
 """

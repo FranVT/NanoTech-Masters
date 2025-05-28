@@ -27,7 +27,7 @@ cl_con=0.03;
 
 # Extract the info or go directly to the graphs
 doAssembly=0;
-doShear=1;
+doShear=0;
 
 if doAssembly == 1 
     # Path to the data directory of the simulation scheme
@@ -71,9 +71,46 @@ end
     S H E A R     P L O T S  
 =#
 
-map(eachindex(path_shear)) do s
-    plotsShear(id,path_shear[s],assembly_dat."L"...,shear_dat[s],shear_info[s][1],shear_info[s][2]) 
+#map(eachindex(path_shear)) do s
+#    plotsShear(id,path_shear[s],assembly_dat."L"...,shear_dat[s],shear_info[s][1],shear_info[s][2]) 
+#end
+
+# Get inidivual plots of each shear rate
+strain_stress=map(eachindex(path_shear)) do s
+    plotStrain_Shear(id,path_shear[s],assembly_dat."L"...,shear_dat[s],shear_info[s][1],shear_info[s][2]) 
 end
+
+strain_stress=DataFrame(strain_stress);
+
+fig_system=plot(
+                layout = (1,1),
+                suptitle = latexstring(string("\\mathrm{Comparison}")),
+                plot_titlefontsize = 15,
+                size=(1600,900),
+                right_margin=10px,
+                left_margin=30px,
+                top_margin=10px,
+                bottom_margin=15px
+             )
+
+
+fig_comp=plot(strain_stress.gamma,strain_stress.sxy,
+              layout = (1,1),
+              title =L"\sigma_{xy}",#latexstring(string("\\mathrm{Comparison}")),
+                plot_titlefontsize = 15,
+                size=(1600,900),
+                right_margin=10px,
+                left_margin=30px,
+                top_margin=10px,
+                bottom_margin=15px,
+                labels = strain_stress.dgamma
+               )
+
+
+#plot!(labels=string.(1:10))
+#map(s->plot!(fig_system,s[1]),strain_stress)
+#annotate!(0.5, 0.95, text.(strain_stress.dgamma, 8), 
+#          coords = :figure)
 
 nothing
 
