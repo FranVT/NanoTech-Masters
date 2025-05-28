@@ -201,7 +201,7 @@ Assume the quarks are in the ground (so the orbital angular momentum is zero).
     \item Find the next two excited states (beyond the ones in Example 5.1)-wave functions and energies-for each of the three cases (distinguishable, identical bosons, identical fermions).
 \end{enumerate}
 
-\begin{sol}{Hamiltonian of non-interacting identical particles}{label-3b}
+\begin{sol}{Hamiltonian of non-interacting identical particles}{label-4a}
     The hamiltonian that describe this system is 
     \begin{gather*}
         -\frac{\hbs}{2m}\pdv[2]{\psi}{x_1}-\frac{\hbs}{2m}\pdv[2]{\psi}{x_2} = E\psi,\quad 0\leq x_1,x_2\leq a.
@@ -240,6 +240,38 @@ Assume the quarks are in the ground (so the orbital angular momentum is zero).
     \end{empheq}
 
 \end{sol}
+
+\begin{sol}{Energies and states of the next two excited states}{label-4b}
+    {\bfseries Distinguishable states} \vspace{1.5em}
+
+    For distinguishable particles we known that $\psi_{n_1,n_2}=\psi_{n_1}\qty(x_1)\psi_{n_2}\qty(x_2),\quad E_{n_1,n_2}=\qty(n_1^2+n_2^2)K$.
+    So now we compute $\psi_{2,2},\psi_{1,3}$ and $\psi_{3,1}$,
+    \begin{empheq}[box=\shadowbox]{align*}
+        \psi_{2,2} &= \frac{2}{a}\sin\qty(2\pi\frac{x_1}{a})\sin\qty(2\pi\frac{x_2}{a}),\quad E=8K \\
+        \psi_{1,3} &= \frac{2}{a}\sin\qty(\pi\frac{x_1}{a})\sin\qty(3\pi\frac{x_2}{a}),\quad E=10K \\
+        \psi_{3,1} &= \frac{2}{a}\sin\qty(3\pi\frac{x_1}{a})\sin\qty(\pi\frac{x_2}{a}),\quad E=10K 
+    \end{empheq}
+
+    {\bfseries Identical Bosons} \vspace{1.5em}
+
+    For this case we know that the state is $\psi_{n_1,n_2}=\left[\psi_{n_1}\qty(x_1)\psi_{n_2}\qty(x_2)+\psi_{n_2}\qty(x_1)\psi_{n_1}\qty(x_2)\right]/\sqrt{2},\quad E_{n_1,n_2}=\qty(n_1^2+n_2^2)K$, therefore,
+    \begin{empheq}[box=\shadowbox]{align*}
+        \psi_{2,2} &= \frac{2}{a}\sin\qty(2\pi\frac{x_1}{a})\sin\qty(2\pi\frac{x_2}{a}),\quad E=8K \\
+        \psi_{1,3} &= \frac{\sqrt{2}}{a}\left[\sin\qty(\pi\frac{x_1}{a})\sin\qty(3\pi\frac{x_2}{a}) + \sin\qty(3\pi\frac{x_2}{a})\sin\qty(\pi\frac{x_1}{a})\right],\quad E=10K \\
+    \end{empheq}
+
+    {\bfseries Identical Fermions} \vspace{1.5em}
+
+    Finally, the identical fermions state is $\psi_{n_1,n_2}=\left[\psi_{n_1}\qty(x_1)\psi_{n_2}\qty(x_2)-\psi_{n_2}\qty(x_1)\psi_{n_1}\qty(x_2)\right]/\sqrt{2},\quad E_{n_1,n_2}=\qty(n_1^2+n_2^2)K$, therefore,
+    \begin{empheq}[box=\shadowbox]{align*}
+        \psi_{1,3} &= \frac{\sqrt{2}}{a}\left[\sin\qty(\pi\frac{x_1}{a})\sin\qty(3\pi\frac{x_2}{a}) - \sin\qty(3\pi\frac{x_2}{a})\sin\qty(\pi\frac{x_1}{a})\right],\quad E=10K \\
+        \psi_{2,3} &= \frac{\sqrt{2}}{a}\left[\sin\qty(2\pi\frac{x_1}{a})\sin\qty(3\pi\frac{x_2}{a}) - \sin\qty(3\pi\frac{x_2}{a})\sin\qty(2\pi\frac{x_1}{a})\right],\quad E=13K 
+    \end{empheq}
+
+
+
+\end{sol}
+
 
 
 \end{document}
