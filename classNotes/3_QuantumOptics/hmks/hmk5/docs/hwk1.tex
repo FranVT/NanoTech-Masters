@@ -155,10 +155,10 @@ Assume the quarks are in the ground (so the orbital angular momentum is zero).
 \end{enumerate}
 
 \begin{sol}{Constant of normalization $A$}{label-3a}
-    First we can re-write the $\Psi$ as follows, $\Psi_{\pm} = A\left(\ket{\psi_a\psi_b}\pm\ket{\psi_b\psi_a}\left)$.
+    First we can re-write the $\Psi$ as follows, $\Psi_{\pm} = A\left(\ket{\psi_a\psi_b}\pm\ket{\psi_b\psi_a}\right)$.
     Now we can compute the inner product of the state and apply the ortho-normal properties of $\ket{\psi_a}$ and $\ket{\psi_b}$,
     \begin{align*}
-        \braket{\Psi} &= \abs{A}^2\left(\bra{\psi_a\psi_b}\pm\bra{\psi_b\psi_a}\left)\left(\ket{\psi_a\psi_b}\pm\ket{\psi_b\psi_a}\left) \\
+        \braket{\Psi} &= \abs{A}^2\left(\bra{\psi_a\psi_b}\pm\bra{\psi_b\psi_a}\right)\left(\ket{\psi_a\psi_b}\pm\ket{\psi_b\psi_a}\right) \\
                       &= \abs{A}^2\left(
                             \bra{\psi_a\psi_b}\ket{\psi_a\psi_b}
                             \pm
@@ -194,8 +194,52 @@ Assume the quarks are in the ground (so the orbital angular momentum is zero).
 
 \begin{enumerate}
     \item Write down the Hamiltonian for two noninteracting identical particles in the infinite square well.
-        Verify that the fermion ground state given in Example 5.1 is an eienfunction of $H$, with the appropriate eigenvalue.
+        Verify that the fermion ground state given in Example 5.1 is an eienfunction of $\hat{H}$, with the appropriate eigenvalue.
+        \begin{gather*}
+            \psi_n\qty(x)=\sqrt{\frac{2}{a}}\sin\qty(n\pi\frac{a}{x}),\quad E_n=n^2\frac{\pi^2\hbs}{2ma^2}.
+        \end{gather*}
     \item Find the next two excited states (beyond the ones in Example 5.1)-wave functions and energies-for each of the three cases (distinguishable, identical bosons, identical fermions).
 \end{enumerate}
+
+\begin{sol}{Hamiltonian of non-interacting identical particles}{label-3b}
+    The hamiltonian that describe this system is 
+    \begin{gather*}
+        -\frac{\hbs}{2m}\pdv[2]{\psi}{x_1}-\frac{\hbs}{2m}\pdv[2]{\psi}{x_2} = E\psi,\quad 0\leq x_1,x_2\leq a.
+    \end{gather*}
+    From the Example 5.1 we have,
+    \begin{gather*}
+        \psi\qty(x_1,x_2) = \frac{\sqrt{2}}{a}\left[ \sin\qty(\pi\frac{x_1}{a})\sin\qty(2\pi\frac{x_2}{a}) - \sin\qty(2\pi\frac{x_1}{a})\sin\qty(\pi\frac{x_2}{a})\right].
+    \end{gather*}
+
+    Now we compute the partial derivatives,
+    \begin{align*}
+        \pdv[2]{\psi}{x_1} &= \frac{\sqrt{2}}{a}\left[
+                                    -\qty(\frac{\pi}{a})^2\sin\qty(\pi\frac{x_1}{a})\sin\qty(2\pi\frac{x_2}{a}) 
+                                    + \qty(\frac{2\pi}{a})^2\sin\qty(2\pi\frac{x_1}{a})\sin\qty(\pi\frac{x_2}{a})
+                                \right] \\
+        \pdv[2]{\psi}{x_2} &= \frac{\sqrt{2}}{a}\left[
+                                    -\qty(\frac{2\pi}{a})^2\sin\qty(\pi\frac{x_1}{a})\sin\qty(2\pi\frac{x_2}{a}) 
+                                    + \qty(\frac{\pi}{a})^2\sin\qty(2\pi\frac{x_1}{a})\sin\qty(\pi\frac{x_2}{a})
+                                \right].
+    \end{align*}
+    Substituing those results into the hamiltonian we get,
+    \begin{align*}
+        -\frac{\hbs}{2m}\pdv[2]{\psi}{x_1}-\frac{\hbs}{2m}\pdv[2]{\psi}{x_2} &= \frac{\hbs}{2m}\qty(-\pdv[2]{\psi}{x_1}-\pdv[2]{\psi}{x_2}) \\
+                                                                             &= \frac{\hbs}{2m}\qty(\frac{\sqrt{2}}{a}\left[\qty(\frac{2\pi}{a})^2+\qty(\frac{\pi}{a})^2\right]\left[\sin\qty(\pi\frac{x_1}{a})\sin\qty(2\pi\frac{x_2}{a}) - \sin\qty(2\pi\frac{x_1}{a})\sin\qty(\pi\frac{x_2}{a})\right]) \\
+                                                                             &= \frac{\hbs}{2m}\qty(\left[5\frac{\pi^2}{a^2}\right]\psi) \\
+                                                                             &= 5\frac{\pi^2\hbs}{2a^2m}\psi.
+    \end{align*}
+    therefore,
+    \begin{align*}
+        \hat{H}\psi\qty(x_1,x_2)&=5\frac{\pi^2\hbs}{2a^2m}\psi\qty(x_1,x_2),
+    \end{align*}
+    which ensures that the fermion ground state is an eigenfunction with appropriate eigenvalue.
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        \hat{H}\psi\qty(x_1,x_2)=5K\psi\qty(x_1,x_2),\quad K=\frac{\pi^2\hbs}{2a^2m}.
+    \end{empheq}
+
+\end{sol}
+
 
 \end{document}
