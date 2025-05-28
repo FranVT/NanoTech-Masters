@@ -6,7 +6,11 @@ using DataFrames, CSV
 using Plots, LaTeXStrings, Plots.PlotMeasures
 gr()
 
-include("functions.jl")
+# Functions to get the data and norm and trace
+include("functions_data.jl")
+# Functions to graph
+include("functions_graphs.jl")
+
 
 #= 
     D I R E C T O R I E S   AND   P A T H S
@@ -15,14 +19,14 @@ include("functions.jl")
 # Get the parent directory
 parent_dir=dirname(pwd());
 # Select the siimulation scheme (Version and stuff)
-scheme_dir="bonds-3.0";
+scheme_dir="aux-cluster";
 # Select the "system" by id
-id="2025-05-23-152432";
+id="2025-05-09-134206";
 # Select the system by "cross-linker" concentration
-cl_con=0.5;
+cl_con=0.03;
 
 # Extract the info or go directly to the graphs
-doAssembly=1;
+doAssembly=0;
 doShear=1;
 
 if doAssembly == 1 
@@ -61,7 +65,7 @@ end
     A S S E M B L Y     P L O T S  
 =#
 
-plotsAssembly(id,path_system,assembly_dat,system_assembly,stress_assembly)
+#plotsAssembly(id,path_system,assembly_dat,system_assembly,stress_assembly)
 
 #=
     S H E A R     P L O T S  

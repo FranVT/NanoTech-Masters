@@ -1,0 +1,2 @@
+file0,file1,file2,file3,file4,file5,file6,file7,file8,file9,file10,file11,phi,CL-Con,Npart,Temperature,damp,time-step,N_heat,N_isot,N_CL,N_MO,L,save-dump,save-fix,save-stress
+system_assembly.fixf,stress_assembly.fixf,clust_assembly.fixf,profiles_assembly.fixf,traj_assembly.*.dumpf,data.hydrogel,system_shear.fixf,stress_shear.fixf,clust_shear.fixf,profiles_shear.fixf,traj_shear.*.dumpf,data.firstShear,0.5,0.03,8000,0.05,1,0.001,500000,8000000,240,7760,20.811710,2500,2500,2500
