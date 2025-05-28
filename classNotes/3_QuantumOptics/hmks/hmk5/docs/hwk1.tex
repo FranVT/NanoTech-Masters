@@ -147,6 +147,151 @@ Assume the quarks are in the ground (so the orbital angular momentum is zero).
     \item What spins are possible for mesons?
 \end{enumerate}
 
+\begin{sol}{Possible spins for baryons}{label-2a}
+    For this case we need to analyze the spin of a three particle system with spin $1/2$ each.
+    In general we can have the following states,
+
+    \begin{minipage}[c]{0.3\textwidth}
+        \centering
+        Quartet
+    \begin{gather*}
+        \ket{\upa\upa\upa} \\
+        \frac{1}{\sqrt{3}}\qty(\ket{\upa\upa\doa}+\ket{\upa\doa\upa}+\ket{\doa\upa\upa}) \\
+        \frac{1}{\sqrt{3}}\qty(\ket{\doa\doa\upa}+\ket{\doa\upa\doa}+\ket{\upa\doa\doa}) \\
+        \ket{\doa\doa\doa}
+    \end{gather*}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.3\textwidth}
+        \centering
+        Doublet I
+    \begin{gather*}
+        \frac{1}{\sqrt{6}}\qty(\ket{\upa\upa\doa}+\ket{\upa\doa\upa}-2\ket{\doa\upa\upa}) \\
+        \frac{1}{\sqrt{6}}\qty(\ket{\doa\doa\upa}+\ket{\doa\upa\doa}-2\ket{\upa\doa\doa})
+    \end{gather*}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.3\textwidth}
+        \centering
+        Doublet II
+    \begin{gather*}
+        \frac{1}{\sqrt{2}}\qty(\ket{\upa\doa\upa}-\ket{\doa\upa\upa}) \\
+        \frac{1}{\sqrt{2}}\qty(\ket{\upa\doa\doa}-\ket{\doa\upa\doa})
+    \end{gather*}
+    \end{minipage}
+
+    We are going to compute $\qty(\Ss^{(T)})^2$ for one state of each group of the doublets states, due to the symmetric relations between them and two cases for the quartet group.
+    In this case we have that,
+    \begin{gather*}
+        \qty(\Ss^{(T)})^2 = \qty(\Ss^{(1)})^2 \oplus \qty(\Ss^{(2)})^2  \oplus \qty(\Ss^{(3)})^2 \oplus 2 \qty(\vec{\Ss}^{(1)}\cdot\vec{\Ss}^{(2)} \oplus \vec{\Ss}^{(1)}\cdot\vec{\Ss}^{(3)} \oplus \vec{\Ss}^{(2)}\cdot\vec{\Ss}^{(3)}).
+    \end{gather*}
+    This is because, as a general property of angular momentum, we get that $\hat{L}\ket{f}=\hbs l\qty(l+1)\ket{f}$, therefore, getting the eigenvalue of the state we can compute the value of the spin.
+\\
+    {\bfseries Quartet}\vspace{1.5em}
+
+    Starting with $\ket{\upa\upa\upa}$,
+    \begin{align*}
+        \qty(\Ss^{(T)})^2\ket{\upa\upa\upa} &= 3\frac{3}{4}\hbs\ket{\upa\upa\upa} 
+                                                    \oplus 2 \left(
+                                                        \frac{\hbs}{4}\ket{\upa\upa\upa}
+                                                        \oplus
+                                                        \frac{\hbs}{4}\ket{\upa\upa\upa}
+                                                        \oplus
+                                                        \frac{\hbs}{4}\ket{\upa\upa\upa}
+                                                    \right) \\
+                                            &= \frac{15}{4}\hbs\ket{\upa\upa\upa}.
+    \end{align*}
+    Now we equate $\hbs l\qty(l+1) = 15/4\hbs$ which results in $l=3/4$.
+    By symmetry this same result is for the state $\ket{\doa\doa\doa}$.
+    Following with $\qty(\ket{\upa\upa\doa}+\ket{\upa\doa\upa}+\ket{\doa\upa\upa})$,
+    \begin{multline*}
+        \qty(\Ss^{(T)})^2\qty(\ket{\upa\upa\doa}+\ket{\upa\doa\upa}+\ket{\doa\upa\upa}) = 3\frac{3}{4}\hbs\qty(\ket{\upa\upa\doa}+\ket{\upa\doa\upa}+\ket{\doa\upa\upa}) 
+                                                    \\
+                                                        \oplus 2 \left(
+                                                        \frac{\hbs}{4}\qty(\ket{\upa\upa\doa}+\ket{\upa\doa\upa}+\ket{\doa\upa\upa})
+                                                        \oplus
+                                                        \frac{\hbs}{4}\qty(\ket{\upa\upa\doa}+\ket{\upa\doa\upa}+\ket{\doa\upa\upa})
+                                                        \oplus
+                                                        \frac{\hbs}{4}\qty(\ket{\upa\upa\doa}+\ket{\upa\doa\upa}+\ket{\doa\upa\upa})
+                                                    \right)
+    \end{multline*}
+    \begin{gather*}
+        \qty(\Ss^{(T)})^2\qty(\ket{\upa\upa\doa}+\ket{\upa\doa\upa}+\ket{\doa\upa\upa}) = \frac{15}{4}\hbs\qty(\ket{\upa\upa\doa}+\ket{\upa\doa\upa}+\ket{\doa\upa\upa}).
+    \end{gather*}
+    As before we get $l=3/4$, and we have the same value for the state $\frac{1}{\sqrt{3}}\qty(\ket{\doa\doa\upa}+\ket{\doa\upa\doa}+\ket{\upa\doa\doa})$. \\
+
+    {\bfseries Doublet I}\vspace{1.5em}
+
+    Now we compute as follows,
+    \begin{multline*}
+        \qty(\Ss^{(T)})^2\qty(\ket{\upa\upa\doa}+\ket{\upa\doa\upa}-2\ket{\doa\upa\upa}) = 3\frac{3}{4}\hbs\qty(\ket{\upa\upa\doa}+\ket{\upa\doa\upa}-2\ket{\doa\upa\upa}) 
+                                                    \\
+                                                        \oplus 2 \left(
+                                                        \frac{\hbs}{4}\qty(\ket{\upa\upa\doa}-5\ket{\upa\doa\upa}+4\ket{\doa\upa\upa})
+                                                        \oplus
+                                                        \frac{\hbs}{4}\qty(5\ket{\upa\upa\doa}+\ket{\upa\doa\upa}+4\ket{\doa\upa\upa})
+                                                        \oplus
+                                                        \frac{\hbs}{4}\qty(\ket{\upa\upa\doa}+\ket{\upa\doa\upa}-2\ket{\doa\upa\upa})
+                                                    \right)
+    \end{multline*}
+    \begin{align*}
+        \qty(\Ss^{(T)})^2\qty(\ket{\upa\upa\doa}+\ket{\upa\doa\upa}-2\ket{\doa\upa\upa}) &= 3\frac{3}{4}\hbs\qty(\ket{\upa\upa\doa}+\ket{\upa\doa\upa}-2\ket{\doa\upa\upa}) \ominus 2\frac{3}{4}\hbs\qty(\ket{\upa\upa\doa}+\ket{\upa\doa\upa}-2\ket{\doa\upa\upa}) \\
+                                                                                         &= \frac{3}{4}\hbs\qty(\ket{\upa\upa\doa}+\ket{\upa\doa\upa}-2\ket{\doa\upa\upa}),
+    \end{align*}
+    which leads to $l=1/2$ and the same goes for $\frac{1}{\sqrt{6}}\qty(\ket{\doa\doa\upa}+\ket{\doa\upa\doa}-2\ket{\upa\doa\doa})$. \\
+
+    {\bfseries Doublet II}\vspace{1.5em}
+    Finally we compute
+    \begin{multline*}
+        \qty(\Ss^{(T)})^2\qty(\ket{\upa\doa\upa}-\ket{\doa\upa\upa}) = 3\frac{3}{4}\qty(\ket{\upa\doa\upa}-\ket{\doa\upa\upa}) \\
+        \oplus 2 \left(
+            \frac{\hbs}{4}\qty(-3\ket{\upa\doa\upa}+3\ket{\doa\upa\upa})
+            \oplus
+            \frac{\hbs}{4}\qty(\ket{\upa\doa\upa}+\ket{\doa\upa\upa}-2\ket{\upa\upa\doa})
+            \oplus
+            \frac{\hbs}{4}\qty(-\ket{\upa\doa\upa}-\ket{\doa\upa\upa}+2\ket{\upa\upa\doa})
+        \right)
+    \end{multline*}
+    \begin{align*}
+        \qty(\Ss^{(T)})^2\qty(\ket{\upa\doa\upa}-\ket{\doa\upa\upa}) &= 3\frac{3}{4}\qty(\ket{\upa\doa\upa}-\ket{\doa\upa\upa})\ominus 2\frac{3}{4}\hbs\qty(\ket{\upa\doa\upa}-\ket{\doa\upa\upa}) \\
+                                                                     &= \frac{3}{4}\qty(\ket{\upa\doa\upa}-\ket{\doa\upa\upa}).
+    \end{align*}
+    As before we get $l=1/2$ and the same goes for $\frac{1}{\sqrt{2}}\qty(\ket{\upa\doa\doa}-\ket{\doa\upa\doa})$.
+
+    Hence we can get spins of $3/2$ and $1/2$ in baryon systems.
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        s = \left\{\frac{3}{2},\frac{1}{2}\right\}.
+    \end{empheq}
+
+\end{sol}
+
+\begin{sol}{Possible spins for mesons}{label-2b}
+    For this case, we already compute the eigenvalues of $\qty(\Ss^{(T)})^2$ for the states $\ket{\upa\upa}$ and $\ket{\doa\doa}$, which results in an eigenvalue of $2\hbs$, that is $l=1$.
+    Finally, we compute the eigenvalues for the states $\ket{\upa\doa}\pm\ket{\doa\upa}$.
+
+    \begin{align*}
+        \qty(\Ss^{(T)})^2\qty(\ket{\upa\doa}+\ket{\doa\upa}) &= 2\frac{3}{4}\hbs\qty(\ket{\upa\doa}+\ket{\doa\upa}) \oplus 2\frac{\hbs}{4}\qty(\ket{\upa\doa}+\ket{\doa\upa}) \\
+                                                             &= 2\hbs\qty(\ket{\upa\doa}+\ket{\doa\upa}).
+    \end{align*}
+    Hence, $l=1$.
+
+    Finally,
+    \begin{align*}
+        \qty(\Ss^{(T)})^2\qty(\ket{\upa\doa}-\ket{\doa\upa}) &= 2\frac{3}{4}\hbs\qty(\ket{\upa\doa}-\ket{\doa\upa}) \oplus 2\frac{3}{4}\hbs\qty(\ket{\doa\upa}-\ket{\upa\doa}) \\
+                                                             &= 0,
+    \end{align*}
+    leading to $l=0$.
+
+    Therefore we can get spini of $1$ and $0$ in mesons systems.
+    
+    \begin{empheq}[box=\shadowbox]{equation*}
+        s = \left\{1,0\right\}.
+    \end{empheq}
+
+\end{sol}
+
+
 \section{Problem 5.4}
 
 \begin{enumerate}
