@@ -216,3 +216,45 @@ function extractInfoShear(path_shear,df)
 
 end
 
+
+function shearData(path_shear,shear_dat)
+"""
+    Function the transforms N data frames into one data frames
+    df is shear info
+"""
+
+    # Extract N dataframes. Each data frame represent one shear rate
+    df=map(eachindex(path_shear)) do s
+        (system_shear,stress_shear)=extractInfoShear(path_shear[s],shear_dat[s]);
+    end
+    a=first.(df);
+    b=last.(df);
+
+    system=DataFrame(map(eachindex(shear_dat)) do s
+                         (
+                          dgamma=shear_dat[s]."Shear-rate",
+                          timeShear=shear_dat[s]."save-fix".*shear_dat[s]."time-step".*b[s]."TimeStep",
+                          strain=(shear_dat[s]."time-step".*shear_dat[s]."Shear-rate".*shear_dat[s]."save-stress").*(1:1:length(b[s]."TimeStep")),
+                          temp=a[s]."c_td",
+                          wca=a[s]."c_wcaPair",
+                          patch=a[s]."c_patchPair",
+                          swap=a[s]."c_swapPair",
+                          ep=a[s]."c_ep",
+                          ek=a[s]."c_ek",
+                          et=a[s]."v_eT",
+                          sigNorm=norm(b[s]."c_stress[1]",b[s]."c_stress[2]",b[s]."c_stress[3]",b[s]."c_stress[4]",b[s]."c_stress[5]",b[s]."c_stress[6]"),
+                          sigTr=trace(b[s]."c_stress[1]",b[s]."c_stress[2]",b[s]."c_stress[3]"),
+                          sigXY=b[s]."c_stress[4]",
+                          sigVirNorm=norm(b[s]."c_stressVirial[1]",b[s]."c_stressVirial[2]",b[s]."c_stressVirial[3]",b[s]."c_stressVirial[4]",b[s]."c_stressVirial[5]",b[s]."c_stressVirial[6]"),
+                          sigVirTr=trace(b[s]."c_stressVirial[1]",b[s]."c_stressVirial[2]",b[s]."c_stressVirial[3]"),
+                          sigVirXY=b[s]."c_stressVirial[4]",
+                          pressNorm=norm(b[s]."c_press[1]",b[s]."c_press[2]",b[s]."c_press[3]",b[s]."c_press[4]",b[s]."c_press[5]",b[s]."c_press[6]"),
+                          press=b[s]."c_p"
+                         )
+                     end
+                    )
+                    
+    return system
+
+end
+
