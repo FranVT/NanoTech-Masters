@@ -27,17 +27,19 @@ cl_con=0.03;
 
 # Extract the info or go directly to the graphs
 doAssembly=0;
-doShear=1;
+doShear=0;
 
 # Path to the data directory of the simulation scheme
 path_data=joinpath(parent_dir,scheme_dir,"data");
 # Path to the data directory of the specific system
 path_system=joinpath(path_data,string("system-",id,"-CL-",cl_con));
 
-if doAssembly == 1 
-    # Get data files of assembly (system)
-    assembly_dat=getDataFiles(path_system,"dataAssembly.dat");
+# Get data files of assembly (system)
+assembly_dat=getDataFiles(path_system,"dataAssembly.dat");
 
+
+
+if doAssembly == 1 
     # Get the data from assembly simulation
     (system_assembly,stress_assembly,clust_assembly,profile_assembly)=extractInfoAssembly(path_system,assembly_dat);
 
@@ -67,39 +69,27 @@ end
 
 #=
     S H E A R     P L O T S  
-time_system=map(eachindex(path_shear)) do s
-    Time_System(shear_dat[s],shear_info[s][1]) 
-end
+=#
 
-time_system=DataFrame(time_system);
 
 # Same plot/graph
-comp_temp=plotSystem(time_system.gamma,time_system.temp,time_system.dgamma,"Temperature")
+comp_temp=plotSystem(systemShear.strain,systemShear.temp,systemShear.dgamma,"Temperature")
 
-comp_ep=plotSystem(time_system.gamma,time_system.ep,time_system.dgamma,"Total potential energy")
+comp_ep=plotSystem(systemShear.strain,systemShear.ep,systemShear.dgamma,"Total potential energy")
 
-comp_ek=plotSystem(time_system.gamma,time_system.ek,time_system.dgamma,"Total Kinetic energy")
+comp_ek=plotSystem(systemShear.strain,systemShear.ek,systemShear.dgamma,"Total Kinetic energy")
 
 # Stress
 
-# Get inidivual plots of each shear rate
-strain_stress=map(eachindex(path_shear)) do s
-    Strain_Shear(assembly_dat."L"...,shear_dat[s],shear_info[s][1],shear_info[s][2]) 
-end
-
-strain_stress=DataFrame(strain_stress);
-
 Plots.default(palette = :tab10)
 
-comp_sgxy=plotStrain_Shear(strain_stress.gamma,strain_stress.sxy,strain_stress.dgamma,"xy-Stress component")
-
-comp_sg=plotStrain_Shear(strain_stress.gamma,strain_stress.snorm,strain_stress.dgamma," Norm of Stress")
-
-comp_sgvirxy=plotStrain_Shear(strain_stress.gamma,strain_stress.svirxy,strain_stress.dgamma,"xy-Virial Stress component")
-
-=#
-
 comp_sgxy=plotStrain_Shear(systemShear.strain,systemShear.sigXY,systemShear.dgamma,"xy-Stress component")
+
+comp_sg=plotStrain_Shear(systemShear.strain,systemShear.sigNorm,systemShear.dgamma," Norm of Stress")
+
+comp_sgvirxy=plotStrain_Shear(systemShear.strain,systemShear.sigVirXY,systemShear.dgamma,"xy-Virial Stress component",assembly_dat,shear_dat)
+
+
 
 
 

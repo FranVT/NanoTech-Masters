@@ -563,7 +563,7 @@ return (gamma=strain,sxy=xy[cycle],svirxy=xy_virial[cycle],snorm=norm_stress[cyc
 
 end
 
-function plotStrain_Shear(strain,stress,lbl,title)
+function plotStrain_Shear(strain,stress,lbl,title,datA,datS)
 """
     Plot the strain vs stress given ONE dataframe
 """
@@ -589,10 +589,19 @@ fig_comp=plot(strain,stress,
                 xlabel = "strain"
                )
 map(s->plot!([NaN],[NaN],label=string(1000*s...)),lbl)
+plot!([NaN],[NaN],label=string("Total particles: ",datA."Npart"[1]),
+      linealpha = 0,markeralpha = 0)
+plot!([NaN],[NaN],label=string("damp: ",datA."damp"...),linealpha = 0,markeralpha = 0)
+plot!([NaN],[NaN],label=string("Number of experiments: ",datS[1]."Nexp"...),linealpha = 0,markeralpha = 0)
+plot!([NaN],[NaN],label=string("Packing fraction: ",datA."phi"...),linealpha = 0,markeralpha = 0)
+plot!([NaN],[NaN],label=string("Cl Concentration: ",datA."CL-Con"...),linealpha = 0,markeralpha = 0)
+
+
 plot!(
       legend_title = L"\dot{\gamma}\times10^{-3}",
         legend_title_font_pointsize = 16,
-        legend_column = div(length(lbl),2)
+        legend_column = 3, #div(length(lbl),2),
+        legend=:outerbottom
      )
 
     return fig_comp
