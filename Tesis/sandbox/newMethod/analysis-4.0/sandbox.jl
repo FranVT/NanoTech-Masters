@@ -26,8 +26,8 @@ id="2025-05-09-134206";
 cl_con=0.03;
 
 # Extract the info or go directly to the graphs
-doAssembly=1;
-doShear=1;
+doAssembly=0;
+doShear=0;
 
 if doAssembly == 1 
     # Path to the data directory of the simulation scheme
@@ -75,48 +75,28 @@ end
 #    plotsShear(id,path_shear[s],assembly_dat."L"...,shear_dat[s],shear_info[s][1],shear_info[s][2]) 
 #end
 
+time_system=map(eachindex(path_shear)) do s
+    Time_System(shear_dat[s],shear_info[s][1]) 
+end
+
+time_system=DataFrame(time_system);
+
+comp_temp=plotSystem(time_system.gamma,time_system.temp,strain_stress.dgamma,"Temperature")
+
+comp_ep=plotSystem(time_system.gamma,time_system.ep,strain_stress.dgamma,"Total potential energy")
+
+comp_ek=plotSystem(time_system.gamma,time_system.ek,strain_stress.dgamma,"Total Kinetic energy")
+
+# Stress
+
 # Get inidivual plots of each shear rate
 strain_stress=map(eachindex(path_shear)) do s
-    Strain_Shear(id,path_shear[s],assembly_dat."L"...,shear_dat[s],shear_info[s][1],shear_info[s][2]) 
+    Strain_Shear(assembly_dat."L"...,shear_dat[s],shear_info[s][1],shear_info[s][2]) 
 end
 
 strain_stress=DataFrame(strain_stress);
 
 Plots.default(palette = :tab10)
-
-#=
-fig_comp=plot(strain_stress.gamma,strain_stress.sxy,
-                framestyle = :box,
-                layout = (1,1),
-                size=(1600,900),
-                right_margin=10px,
-                left_margin=30px,
-                top_margin=10px,
-                bottom_margin=30px,
-                labels = false,
-                titlefontsize = 24,
-                xlabelfontsize=20,
-                legendfontsize = 12,
-                xtickfontsize = 14,
-                ytickfontsize = 14,
-                xguidefontsize = 12,
-                yguidefontsize = 12,
-                annotationfontsize = 12,
-                title =L"\sigma_{xy}",#latexstring(string("\\mathrm{Comparison}")),
-                xlabel = L"\gamma"
-               )
-map(s->plot!([NaN],[NaN],label=string(1000*s...)),strain_stress.dgamma,)
-plot!(
-      legend_title = L"\dot{\gamma}\times10^{-3}",
-        legend_title_font_pointsize = 16,
-        legend_column = div(length(strain_stress.dgamma),2)
-     )
-=#
-#plot!(labels=string.(1:10))
-#map(s->plot!(fig_system,s[1]),strain_stress)
-#annotate!(0.5, 0.95, text.(strain_stress.dgamma, 8), 
-#          coords = :figure)
-
 
 comp_sgxy=plotStrain_Shear(strain_stress.gamma,strain_stress.sxy,strain_stress.dgamma,"xy-Stress component")
 
