@@ -26,8 +26,8 @@ id="2025-05-09-134206";
 cl_con=0.03;
 
 # Extract the info or go directly to the graphs
-doAssembly=0;
-doShear=0;
+doAssembly=1;
+doShear=1;
 
 if doAssembly == 1 
     # Path to the data directory of the simulation scheme
