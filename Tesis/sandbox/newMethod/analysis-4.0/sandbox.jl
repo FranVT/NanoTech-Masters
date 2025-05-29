@@ -77,13 +77,14 @@ end
 
 # Get inidivual plots of each shear rate
 strain_stress=map(eachindex(path_shear)) do s
-    plotStrain_Shear(id,path_shear[s],assembly_dat."L"...,shear_dat[s],shear_info[s][1],shear_info[s][2]) 
+    Strain_Shear(id,path_shear[s],assembly_dat."L"...,shear_dat[s],shear_info[s][1],shear_info[s][2]) 
 end
 
 strain_stress=DataFrame(strain_stress);
 
 Plots.default(palette = :tab10)
 
+#=
 fig_comp=plot(strain_stress.gamma,strain_stress.sxy,
                 framestyle = :box,
                 layout = (1,1),
@@ -110,11 +111,21 @@ plot!(
         legend_title_font_pointsize = 16,
         legend_column = div(length(strain_stress.dgamma),2)
      )
-
+=#
 #plot!(labels=string.(1:10))
 #map(s->plot!(fig_system,s[1]),strain_stress)
 #annotate!(0.5, 0.95, text.(strain_stress.dgamma, 8), 
 #          coords = :figure)
+
+
+comp_sgxy=plotStrain_Shear(strain_stress.gamma,strain_stress.sxy,strain_stress.dgamma,"xy-Stress component")
+
+comp_sg=plotStrain_Shear(strain_stress.gamma,strain_stress.snorm,strain_stress.dgamma," Norm of Stress")
+
+
+comp_sgvirxy=plotStrain_Shear(strain_stress.gamma,strain_stress.svirxy,strain_stress.dgamma,"xy-Virial Stress component")
+
+
 
 nothing
 

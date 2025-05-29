@@ -498,9 +498,9 @@ function plotsShear(id,path,L,shear_dat,system_shear,stress_shear)
 
 end
 
-function plotStrain_Shear(id,path,L,shear_dat,system_shear,stress_shear)
+function Strain_Shear(id,path,L,shear_dat,system_shear,stress_shear)
 """
-    Plot the strain vs stress given ONE dataframe
+    Prepare the data to plot
 """
 
     # Indixes for the shear moments
@@ -538,6 +538,44 @@ norm_stressVirial=norm(xx_virial,yy_virial,zz_virial,xy_virial,xz_virial,yz_viri
 return (gamma=strain,sxy=xy[cycle],svirxy=xy_virial[cycle],snorm=norm_stress[cycle],svirnorm=norm_stressVirial[cycle],dgamma=shear_dat."Shear-rate")
 
 end
+
+function plotStrain_Shear(strain,stress,lbl,title)
+"""
+    Plot the strain vs stress given ONE dataframe
+"""
+
+fig_comp=plot(strain,stress,
+                framestyle = :box,
+                layout = (1,1),
+                size=(1600,900),
+                right_margin=10px,
+                left_margin=30px,
+                top_margin=10px,
+                bottom_margin=30px,
+                labels = false,
+                titlefontsize = 24,
+                xlabelfontsize=20,
+                legendfontsize = 12,
+                xtickfontsize = 14,
+                ytickfontsize = 14,
+                xguidefontsize = 12,
+                yguidefontsize = 12,
+                annotationfontsize = 12,
+                title = title,
+                xlabel = "strain"
+               )
+map(s->plot!([NaN],[NaN],label=string(1000*s...)),lbl)
+plot!(
+      legend_title = L"\dot{\gamma}\times10^{-3}",
+        legend_title_font_pointsize = 16,
+        legend_column = div(length(lbl),2)
+     )
+
+    return fig_comp
+end
+
+
+
 
 #=
 """
