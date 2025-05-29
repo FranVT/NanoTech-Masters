@@ -535,7 +535,7 @@ yz_virial=stress_shear."c_stressVirial[6]";
 
 norm_stressVirial=norm(xx_virial,yy_virial,zz_virial,xy_virial,xz_virial,yz_virial);
 
-return (gamma=strain,sxy=xy[cycle],svirxy=xy_virial[cycle],snorm=norm_stress[cycle],svirnorm=norm_stressVirial[cycle],dgamma=string(shear_dat."Shear-rate"...))
+return (gamma=strain,sxy=xy[cycle],svirxy=xy_virial[cycle],snorm=norm_stress[cycle],svirnorm=norm_stressVirial[cycle],dgamma=shear_dat."Shear-rate")
 
 end
 

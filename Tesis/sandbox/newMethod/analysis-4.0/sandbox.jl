@@ -82,30 +82,34 @@ end
 
 strain_stress=DataFrame(strain_stress);
 
-fig_system=plot(
-                layout = (1,1),
-                suptitle = latexstring(string("\\mathrm{Comparison}")),
-                plot_titlefontsize = 15,
-                size=(1600,900),
-                right_margin=10px,
-                left_margin=30px,
-                top_margin=10px,
-                bottom_margin=15px
-             )
-
+Plots.default(palette = :tab10)
 
 fig_comp=plot(strain_stress.gamma,strain_stress.sxy,
-              layout = (1,1),
-              title =L"\sigma_{xy}",#latexstring(string("\\mathrm{Comparison}")),
-                plot_titlefontsize = 15,
+                framestyle = :box,
+                layout = (1,1),
                 size=(1600,900),
                 right_margin=10px,
                 left_margin=30px,
                 top_margin=10px,
-                bottom_margin=15px,
-                labels = strain_stress.dgamma
+                bottom_margin=30px,
+                labels = false,
+                titlefontsize = 24,
+                xlabelfontsize=20,
+                legendfontsize = 12,
+                xtickfontsize = 14,
+                ytickfontsize = 14,
+                xguidefontsize = 12,
+                yguidefontsize = 12,
+                annotationfontsize = 12,
+                title =L"\sigma_{xy}",#latexstring(string("\\mathrm{Comparison}")),
+                xlabel = L"\gamma"
                )
-
+map(s->plot!([NaN],[NaN],label=string(1000*s...)),strain_stress.dgamma,)
+plot!(
+      legend_title = L"\dot{\gamma}\times10^{-3}",
+        legend_title_font_pointsize = 16,
+        legend_column = div(length(strain_stress.dgamma),2)
+     )
 
 #plot!(labels=string.(1:10))
 #map(s->plot!(fig_system,s[1]),strain_stress)
