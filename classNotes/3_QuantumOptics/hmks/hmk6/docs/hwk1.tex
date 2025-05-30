@@ -1,0 +1,110 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\section{Problem 4.16}
+A hydrogenic atom consists of a single electron orbiting a nucleus with $Z$ protons ($Z=1$ would be itself, $Z=2$ is ionized helium, $Z=3$ is doubly ionized lithium, and so on).
+Determine
+\begin{enumerate}
+    \item Bohr energies $E_n(Z)$
+    \item Binding energy $E_1(z)$
+    \item Bohr radius $a(Z)$
+    \item Rydberg constant $R(Z)$
+\end{enumerate}
+for a hydrogenic atom.
+(Express your answers as appropriate multiples of the hydrogen values.)
+Where in the electromagnetic spectrum would the Lyman series fall, for $Z=2$ and $Z=3$?
+Hint: There's nothing much to calculate here-in the potential \[V(r)=-\frac{e^2}{4\pi\epsilon_0}\frac{1}{r}\]
+$e^2\to Ze^2$, so all you have to do is make the same substitution in all the final results.
+
+\begin{sol}{Possible spins for baryons}{label-2a}
+    \begin{empheq}[box=\shadowbox]{equation*}
+        s = \left\{\frac{3}{2},\frac{1}{2}\right\}.
+    \end{empheq}
+
+\end{sol}
+
+\begin{sol}{Possible spins for mesons}{label-2b}
+   
+    \begin{empheq}[box=\shadowbox]{equation*}
+        s = \left\{1,0\right\}.
+    \end{empheq}
+
+\end{sol}
+
+
+\section{Problem 5.6}
+
+Imagine teo noninteracting particles, each of mass $m$, in the infinite square well.
+If one is in the state $\psi_n$ (eqn 2.28), and the other in state $\psi_l$ ($l\neq n$), calculate $\braket{(x_1-x_2)^2}$, assuming
+
+2.28
+
+\begin{enumerate}
+    \item they are distinguishable particles
+    \item they are identical bosons
+    \item they are identical fermions
+\end{enumerate}
+
+\begin{sol}{Constant of normalization $A$}{label-3a}
+    \begin{empheq}[box=\shadowbox]{equation*}
+        A = \frac{1}{\sqrt{2}}.
+    \end{empheq}
+\end{sol}
+
+\begin{sol}{Constant of normalization $A$ with $\psi_a=\psi_b$}{label-3b}
+    \begin{empheq}[box=\shadowbox]{equation*}
+        A = \frac{1}{2}.
+    \end{empheq}
+\end{sol}
+
+
+\section{Problem 5.9}
+
+\begin{enumerate}
+    \item Suppose you put both electrons in a helium atom into the $n=2$ state; what would the energy of the emitted electron be?
+    \item Describe (quantitatively) the spectrum of the helium ion, $\mathrm{He}^+$.
+\end{enumerate}
+
+\begin{sol}{Hamiltonian of non-interacting identical particles}{label-4a}
+    \begin{empheq}[box=\shadowbox]{equation*}
+        \hat{H}\psi\qty(x_1,x_2)=5K\psi\qty(x_1,x_2),\quad K=\frac{\pi^2\hbs}{2a^2m}.
+    \end{empheq}
+
+\end{sol}
+
+\begin{sol}{Energies and states of the next two excited states}{label-4b}
+
+    \begin{empheq}[box=\shadowbox]{align*}
+        \psi_{1,3} &= \frac{\sqrt{2}}{a}\left[\sin\qty(\pi\frac{x_1}{a})\sin\qty(3\pi\frac{x_2}{a}) - \sin\qty(3\pi\frac{x_2}{a})\sin\qty(\pi\frac{x_1}{a})\right],\quad E=10K \\
+        \psi_{2,3} &= \frac{\sqrt{2}}{a}\left[\sin\qty(2\pi\frac{x_1}{a})\sin\qty(3\pi\frac{x_2}{a}) - \sin\qty(3\pi\frac{x_2}{a})\sin\qty(2\pi\frac{x_1}{a})\right],\quad E=13K 
+    \end{empheq}
+
+
+
+\end{sol}
+
+\section{Problem 5.10}
+
+Discuss (qualitatively) the energy level scheme for thelium if
+\begin{enumerate}
+    \item electrons were identical bosons
+    \item if electrons were distinguishable particles (but with the same mass and charge).
+        Pretend these "electrons" still have spin $1/2$, so the spin configuration are the singlet and the triplet.
+\end{enumerate}
+
+\section{Problem 5.12}
+
+\begin{enumerate}
+    \item Figure out the electron configurations (in the notation of eqn 5.33) for the first two rows of the periodic table (up to neon), and check your results against table 5.1
+    \item Figure out the corresponding total angular momenta, in the notation of eqn 5.34, for the first four elements.
+        List all possibilities for boron, carbon and nitrogen.
+\end{enumerate}
+
+\section{Problem 5.14}
+
+The ground state of dysprosium (element 66, in the 6th row of the Periodic Table) is listed as $^5I_8$.
+What are the total spin, total arbital and grand total angular momentum quantum numbers?
+Suggest a likely electron configuration for dysprosium.
+
+\end{document}
