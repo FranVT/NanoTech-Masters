@@ -29,7 +29,7 @@ cl_con=0.5;
 
 # Extract the info or go directly to the graphs
 doAssembly=0;
-doShear=1;
+doShear=0;
 
 # Path to the data directory of the simulation scheme
 path_data=joinpath(parent_dir,scheme_dir,"data");
@@ -63,12 +63,13 @@ if doShear == 1
 end
 
 
-fig=Figure(size=(1920,1080));
+fig=Figure(size=(1400,900));
 
 # Legend 
-ax_leg=Axis(fig[1:1,2],limits=(0.01,0.1,0.01,0.1));
-hidespines!(ax_leg)
-hidedecorations!(ax_leg)
+#ax_leg=Axis(fig[1:1,2],limits=(0.01,0.1,0.01,0.1));
+#hidespines!(ax_leg)
+#hidedecorations!(ax_leg)
+clbr=:managua10;
 
 ax=Axis(fig[1:1,1:1],
     title=L"\mathrm{Shear~rate~vs~Stress}~xy~\mathrm{component}",
@@ -83,18 +84,33 @@ ax=Axis(fig[1:1,1:1],
     xminorgridvisible=true
    )
 
-map(s->lines!(s,colormap=:viridis),systemShear.sigXY)
+
+series!([Point2f.(systemShear.strain[s],systemShear.sigXY[s]) for s in eachindex(shear_dat)],color=clbr)
+Colorbar(fig[1,2],
+         limits=(
+                 minimum(reduce(vcat,systemShear.dgamma)),
+                 maximum(reduce(vcat,systemShear.dgamma))
+                ),
+         colormap=clbr, #cgrad(clbr,length(shear_dat),categorical=true),
+        ticks = reduce(vcat,systemShear.dgamma)
+         #:berlin10
+)
 
 
-map(s->lines!(ax_leg,0,0,label=latexstring(s...,"~\\mathrm{Cycle}"),colormap=:viridis),systemShear.dgamma)
 
-Legend(fig[1:1,2],ax_leg,
-       framevisible=true,
-       halign=:center,
-       orientation=:vertical,
-       title=L"\mathrm{Legends}",
-       patchsize=(35,35)
-      )
+g, ax2, pl = series([Point2f.(systemShear.strain[s],systemShear.sigVirXY[s]) for s in eachindex(shear_dat)],color=clbr)
+
+
+#map(s->lines!(s,colormap=:viridis),systemShear.sigXY)
+#map(s->lines!(ax_leg,0,0,label=latexstring(s...,"~\\mathrm{Cycle}"),colormap=:viridis),systemShear.dgamma)
+
+#Legend(fig[1:1,2],ax_leg,
+#       framevisible=true,
+#       halign=:center,
+#       orientation=:vertical,
+#       title=L"\mathrm{Legends}",
+#       patchsize=(35,35)
+#      )
 
 
 
