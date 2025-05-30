@@ -233,7 +233,7 @@ function shearData(path_shear,shear_dat)
     system=DataFrame(map(eachindex(shear_dat)) do s
                          (
                           dgamma=shear_dat[s]."Shear-rate",
-                          timeShear=shear_dat[s]."save-fix".*shear_dat[s]."time-step".*b[s]."TimeStep",
+                          timeShear=shear_dat[s]."save-fix".*shear_dat[s]."time-step".*a[s]."TimeStep",
                           strain=(shear_dat[s]."time-step".*shear_dat[s]."Shear-rate".*shear_dat[s]."save-stress").*(1:1:length(b[s]."TimeStep")),
                           temp=a[s]."c_td",
                           wca=a[s]."c_wcaPair",
@@ -257,4 +257,28 @@ function shearData(path_shear,shear_dat)
     return system
 
 end
+
+
+function Time_System(shear_dat,system_shear)
+"""
+    Prepare the data to plot
+"""
+    time_system=shear_dat."save-fix".*shear_dat."time-step".*system_shear."TimeStep";
+
+    # Indixes for the shear moments
+    aux=shear_dat."time-step".*shear_dat."Shear-rate".*shear_dat."save-stress";
+    # Time steps per set of deformations
+    N_deform=shear_dat."Max-strain".*shear_dat."N_def";
+    # Time steps stored due to time average/Total of index per deformation cycle
+    ind_cycle=div.(N_deform,shear_dat."save-stress",RoundDown);
+
+    cycle=(1:1:length(system_shear."TimeStep"));
+
+
+    # Create strain and time domains
+    strain=aux[1].*cycle;
+
+    return (gamma=strain,time=time_system,temp=system_shear."c_td",ep=system_shear."c_ep",ek=system_shear."c_ek",dgamma=shear_dat."Shear-rate")
+end
+
 

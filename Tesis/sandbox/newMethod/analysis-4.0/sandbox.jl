@@ -3,8 +3,10 @@
 """
 
 using DataFrames, CSV
-using Plots, LaTeXStrings, Plots.PlotMeasures
-gr()
+#using Plots, LaTeXStrings, Plots.PlotMeasures
+#gr()
+
+using GLMakie
 
 # Functions to get the data and norm and trace
 include("functions_data.jl")
@@ -27,7 +29,7 @@ cl_con=0.5;
 
 # Extract the info or go directly to the graphs
 doAssembly=0;
-doShear=0;
+doShear=1;
 
 # Path to the data directory of the simulation scheme
 path_data=joinpath(parent_dir,scheme_dir,"data");
@@ -61,6 +63,41 @@ if doShear == 1
 end
 
 
+fig=Figure(size=(1920,1080));
+
+# Legend 
+ax_leg=Axis(fig[1:1,2],limits=(0.01,0.1,0.01,0.1));
+hidespines!(ax_leg)
+hidedecorations!(ax_leg)
+
+ax=Axis(fig[1:1,1:1],
+    title=L"\mathrm{Shear~rate~vs~Stress}~xy~\mathrm{component}",
+    xlabel=L"\mathrm{Shear~Rate}",
+    ylabel=L"\mathrm{Mean~Stress}~xy~\mathrm{component}",
+    titlesize=24.0f0,
+    xticklabelsize=18.0f0,
+    yticklabelsize=18.0f0,
+    xlabelsize=20.0f0,
+    ylabelsize=20.0f0,
+    xminorticksvisible=true,
+    xminorgridvisible=true
+   )
+
+map(s->lines!(s,colormap=:viridis),systemShear.sigXY)
+
+
+map(s->lines!(ax_leg,0,0,label=latexstring(s...,"~\\mathrm{Cycle}"),colormap=:viridis),systemShear.dgamma)
+
+Legend(fig[1:1,2],ax_leg,
+       framevisible=true,
+       halign=:center,
+       orientation=:vertical,
+       title=L"\mathrm{Legends}",
+       patchsize=(35,35)
+      )
+
+
+
 #=
     A S S E M B L Y     P L O T S  
 =#
@@ -69,30 +106,26 @@ end
 
 #=
     S H E A R     P L O T S  
-=#
+
 
 
 # Same plot/graph
-comp_temp=plotSystem(systemShear.strain,systemShear.temp,systemShear.dgamma,"Temperature")
+comp_temp=plotSystem(systemShear.timeShear,systemShear.temp,systemShear.dgamma,"Temperature")
 
-comp_ep=plotSystem(systemShear.strain,systemShear.ep,systemShear.dgamma,"Total potential energy")
+comp_ep=plotSystem(systemShear.timeShear,systemShear.ep,systemShear.dgamma,"Total potential energy")
 
-comp_ek=plotSystem(systemShear.strain,systemShear.ek,systemShear.dgamma,"Total Kinetic energy")
+comp_ek=plotSystem(systemShear.timeShear,systemShear.ek,systemShear.dgamma,"Total Kinetic energy")
 
 # Stress
 
-Plots.default(palette = :navia10)
+#Plots.default(palette = :navia10)
 
 comp_sgxy=plotStrain_Shear(systemShear.strain,systemShear.sigXY,systemShear.dgamma,"xy-Stress component",assembly_dat,shear_dat)
 
 comp_sg=plotStrain_Shear(systemShear.strain,systemShear.sigNorm,systemShear.dgamma," Norm of Stress",assembly_dat,shear_dat)
 
 comp_sgvirxy=plotStrain_Shear(systemShear.strain,systemShear.sigVirXY,systemShear.dgamma,"xy-Virial Stress component",assembly_dat,shear_dat)
-
-
-
-
-
+=#
 
 nothing
 
