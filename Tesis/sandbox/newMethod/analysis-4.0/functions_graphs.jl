@@ -571,11 +571,11 @@ function plotStrain_Shear(strain,stress,lbl,title,datA,datS)
 fig_comp=plot(strain,stress,
                 framestyle = :box,
                 layout = (1,1),
-                size=(1600,900),
-                right_margin=10px,
-                left_margin=30px,
-                top_margin=10px,
-                bottom_margin=30px,
+                size=(1400,900),
+                right_margin=5mm,
+                left_margin=5mm,
+                top_margin=5mm,
+                bottom_margin=5mm,
                 labels = false,
                 titlefontsize = 24,
                 xlabelfontsize=20,
@@ -589,20 +589,58 @@ fig_comp=plot(strain,stress,
                 xlabel = "strain"
                )
 map(s->plot!([NaN],[NaN],label=string(1000*s...)),lbl)
-plot!([NaN],[NaN],label=string("Total particles: ",datA."Npart"[1]),
-      linealpha = 0,markeralpha = 0)
-plot!([NaN],[NaN],label=string("damp: ",datA."damp"...),linealpha = 0,markeralpha = 0)
-plot!([NaN],[NaN],label=string("Number of experiments: ",datS[1]."Nexp"...),linealpha = 0,markeralpha = 0)
-plot!([NaN],[NaN],label=string("Packing fraction: ",datA."phi"...),linealpha = 0,markeralpha = 0)
-plot!([NaN],[NaN],label=string("Cl Concentration: ",datA."CL-Con"...),linealpha = 0,markeralpha = 0)
-
-
 plot!(
       legend_title = L"\dot{\gamma}\times10^{-3}",
         legend_title_font_pointsize = 16,
-        legend_column = 3, #div(length(lbl),2),
-        legend=:outerbottom
+        legend_column = 1, #div(length(lbl),2),
+        legend=:outerright
      )
+
+
+
+inset_bbox = bbox(0.5, 0.65, 0.3, 0.25, :bottom, :left)
+
+plot!([NaN],[NaN],
+      label=string("Total particles: ",datA."Npart"[1]),
+      linealpha = 0,
+      markeralpha = 0,
+      inset=inset_bbox,
+      subplot=2,
+      grid=false,
+      axis=false,
+      bg_inside=:transparent,
+      framestyle=:none,
+      legend=:topright,
+      legend_column = 2,
+        legend_font_pointsize=12
+     )
+plot!([NaN],[NaN],
+      label=string("damp: ",datA."damp"...),
+      linealpha = 0,
+      markeralpha = 0,
+      subplot=2
+     )
+plot!([NaN],[NaN],
+      label=string("Number of experiments: ",datS[1]."Nexp"...),
+      linealpha = 0,
+      markeralpha = 0,
+      subplot=2
+     )
+plot!([NaN],[NaN],
+      label=string("Packing fraction: ",datA."phi"...),
+      linealpha = 0,
+      markeralpha = 0,
+      subplot=2
+    )
+plot!([NaN],[NaN],
+      label=string("Cl Concentration: ",datA."CL-Con"...),
+      linealpha = 0,
+      markeralpha = 0,
+     subplot=2
+    )
+
+
+
 
     return fig_comp
 end

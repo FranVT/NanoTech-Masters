@@ -19,11 +19,11 @@ include("functions_graphs.jl")
 # Get the parent directory
 parent_dir=dirname(pwd());
 # Select the siimulation scheme (Version and stuff)
-scheme_dir="aux-cluster";
+scheme_dir="bonds-3.0";
 # Select the "system" by id
-id="2025-05-09-134206";
+id="2025-05-26-082159";
 # Select the system by "cross-linker" concentration
-cl_con=0.03;
+cl_con=0.5;
 
 # Extract the info or go directly to the graphs
 doAssembly=0;
@@ -81,11 +81,11 @@ comp_ek=plotSystem(systemShear.strain,systemShear.ek,systemShear.dgamma,"Total K
 
 # Stress
 
-Plots.default(palette = :tab10)
+Plots.default(palette = :navia10)
 
-comp_sgxy=plotStrain_Shear(systemShear.strain,systemShear.sigXY,systemShear.dgamma,"xy-Stress component")
+comp_sgxy=plotStrain_Shear(systemShear.strain,systemShear.sigXY,systemShear.dgamma,"xy-Stress component",assembly_dat,shear_dat)
 
-comp_sg=plotStrain_Shear(systemShear.strain,systemShear.sigNorm,systemShear.dgamma," Norm of Stress")
+comp_sg=plotStrain_Shear(systemShear.strain,systemShear.sigNorm,systemShear.dgamma," Norm of Stress",assembly_dat,shear_dat)
 
 comp_sgvirxy=plotStrain_Shear(systemShear.strain,systemShear.sigVirXY,systemShear.dgamma,"xy-Virial Stress component",assembly_dat,shear_dat)
 
