@@ -85,7 +85,14 @@ ax=Axis(fig[1:1,1:1],
    )
 
 
-series!([Point2f.(systemShear.strain[s],systemShear.sigXY[s]) for s in eachindex(shear_dat)],color=clbr)
+series!([Point2f.(systemShear.strain[s],systemShear.sigXY[s]) for s in eachindex(shear_dat)],labels=string.((1000).*reduce(vcat,systemShear.dgamma)),color=clbr)
+#axislegend(ax)
+Legend(fig[1,2],ax,
+       L"\dot{\gamma}\times 10^{-3}",
+       linewidth=5
+      )
+
+#=
 Colorbar(fig[1,2],
          limits=(
                  minimum(reduce(vcat,systemShear.dgamma)),
@@ -99,7 +106,7 @@ Colorbar(fig[1,2],
 
 
 g, ax2, pl = series([Point2f.(systemShear.strain[s],systemShear.sigVirXY[s]) for s in eachindex(shear_dat)],color=clbr)
-
+=#
 
 #map(s->lines!(s,colormap=:viridis),systemShear.sigXY)
 #map(s->lines!(ax_leg,0,0,label=latexstring(s...,"~\\mathrm{Cycle}"),colormap=:viridis),systemShear.dgamma)
