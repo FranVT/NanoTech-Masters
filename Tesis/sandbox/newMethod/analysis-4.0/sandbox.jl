@@ -21,11 +21,11 @@ include("functions_graphs.jl")
 # Get the parent directory
 parent_dir=dirname(pwd());
 # Select the siimulation scheme (Version and stuff)
-scheme_dir="bonds-3.0";
+scheme_dir="aux-cluster";
 # Select the "system" by id
-id="2025-05-26-082159";
+id="2025-05-22-194804";
 # Select the system by "cross-linker" concentration
-cl_con=0.5;
+cl_con=0.03;
 
 # Extract the info or go directly to the graphs
 doAssembly=0;
@@ -72,9 +72,9 @@ fig=Figure(size=(1400,900));
 clbr=:managua10;
 
 ax=Axis(fig[1:1,1:1],
-    title=L"\mathrm{Shear~rate~vs~Stress}~xy~\mathrm{component}",
-    xlabel=L"\mathrm{Shear~Rate}",
-    ylabel=L"\mathrm{Mean~Stress}~xy~\mathrm{component}",
+    title=L"\mathrm{Strain~vs~Stress}~xy~\mathrm{component}",
+    xlabel=L"\mathrm{Strain}",
+    ylabel=L"\langle\sigma_{xy}\rangle",
     titlesize=24.0f0,
     xticklabelsize=18.0f0,
     yticklabelsize=18.0f0,
@@ -86,10 +86,37 @@ ax=Axis(fig[1:1,1:1],
 
 
 series!([Point2f.(systemShear.strain[s],systemShear.sigXY[s]) for s in eachindex(shear_dat)],labels=string.((1000).*reduce(vcat,systemShear.dgamma)),color=clbr)
+
+# Vector de anotaciones
+positions = [Point2f(0.8, 0.95), 
+             Point2f(0.8, 0.9), 
+             Point2f(0.8, 0.85), 
+             Point2f(0.8, 0.8), 
+             Point2f(0.8, 0.75), 
+             Point2f(0.8, 0.7)
+            ]
+labels = [latexstring("\\mathrm{Number~of~particles}: ",assembly_dat."Npart"...),
+          latexstring("\\mathrm{Packing~fraction}: ",assembly_dat."phi"...), 
+          latexstring("\\mathrm{Cl~concentration}: ",assembly_dat."CL-Con"...), 
+          latexstring("\\mathrm{Damp}: ",assembly_dat."damp"...), 
+          latexstring("\\mathrm{Number~of~experiments}: ",first(shear_dat)."Nexp"...), 
+          latexstring("\\mathrm{Avg~stress}: ",first(shear_dat)."save-stress"...)
+         ]
+
+annotations!(labels, 
+    position = positions,
+    space=:relative,
+    fontsize = 20,
+    align = (:left, :center)
+)
+
+
 #axislegend(ax)
 Legend(fig[1,2],ax,
        L"\dot{\gamma}\times 10^{-3}",
-       linewidth=5
+       linewidth=5,
+       titlesize=20,
+       labelsize=18
       )
 
 #=
