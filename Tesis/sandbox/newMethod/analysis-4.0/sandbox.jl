@@ -63,11 +63,13 @@ if doShear == 1
 end
 
 
-fig_sigXY=plotStrainShear(systemShear.strain,systemShear.sigXY,assembly_dat,shear_dat,"xy~\\mathrm{component}","\\langle\\sigma_{xy}\\rangle");
+fig_sigXY=plotStrainShear(systemShear.strain,systemShear.sigXY,assembly_dat,shear_dat,"\\mathrm{Strain~vs~Stress}","xy~\\mathrm{component}","\\langle\\sigma_{xy}\\rangle");
 
-fig_sigNorm=plotStrainShear(systemShear.strain,systemShear.sigNorm,assembly_dat,shear_dat,"\\mathrm{Norm}","\\langle\\sigma\\rangle");
+fig_sigNorm=plotStrainShear(systemShear.strain,systemShear.sigNorm,assembly_dat,shear_dat,"\\mathrm{Strain~vs~Stress}","\\mathrm{Norm}","\\langle\\sigma\\rangle");
 
-fig_sigVirXY=plotStrainShear(systemShear.strain,systemShear.sigVirXY,assembly_dat,shear_dat,"xy~\\mathrm{Virial~component}","\\langle\\sigma_{xy}\\rangle");
+fig_sigVirXY=plotStrainShear(systemShear.strain,systemShear.sigVirXY,assembly_dat,shear_dat,"\\mathrm{Strain~vs~Virial~Stress}","xy~\\mathrm{component}","\\langle\\sigma_{xy}\\rangle");
+
+fig_temp=plotTimeSystem(systemShear.timeShear,systemShear.temp,assembly_dat,shear_dat,"\\mathrm{Strain~vs~Temperature}","\\mathrm{Temp}","\\mathrm{Temp}")
 
 
 #=
