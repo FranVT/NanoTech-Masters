@@ -63,89 +63,11 @@ if doShear == 1
 end
 
 
-fig=Figure(size=(1400,900));
+fig_sigXY=plotStrainShear(systemShear.strain,systemShear.sigXY,assembly_dat,shear_dat,"xy~\\mathrm{component}","\\langle\\sigma_{xy}\\rangle");
 
-# Legend 
-#ax_leg=Axis(fig[1:1,2],limits=(0.01,0.1,0.01,0.1));
-#hidespines!(ax_leg)
-#hidedecorations!(ax_leg)
-clbr=:managua10;
+fig_sigNorm=plotStrainShear(systemShear.strain,systemShear.sigNorm,assembly_dat,shear_dat,"\\mathrm{Norm}","\\langle\\sigma\\rangle");
 
-ax=Axis(fig[1:1,1:1],
-    title=L"\mathrm{Strain~vs~Stress}~xy~\mathrm{component}",
-    xlabel=L"\mathrm{Strain}",
-    ylabel=L"\langle\sigma_{xy}\rangle",
-    titlesize=24.0f0,
-    xticklabelsize=18.0f0,
-    yticklabelsize=18.0f0,
-    xlabelsize=20.0f0,
-    ylabelsize=20.0f0,
-    xminorticksvisible=true,
-    xminorgridvisible=true
-   )
-
-
-series!([Point2f.(systemShear.strain[s],systemShear.sigXY[s]) for s in eachindex(shear_dat)],labels=string.((1000).*reduce(vcat,systemShear.dgamma)),color=clbr)
-
-# Vector de anotaciones
-positions = [Point2f(0.8, 0.95), 
-             Point2f(0.8, 0.9), 
-             Point2f(0.8, 0.85), 
-             Point2f(0.8, 0.8), 
-             Point2f(0.8, 0.75), 
-             Point2f(0.8, 0.7)
-            ]
-labels = [latexstring("\\mathrm{Number~of~particles}: ",assembly_dat."Npart"...),
-          latexstring("\\mathrm{Packing~fraction}: ",assembly_dat."phi"...), 
-          latexstring("\\mathrm{Cl~concentration}: ",assembly_dat."CL-Con"...), 
-          latexstring("\\mathrm{Damp}: ",assembly_dat."damp"...), 
-          latexstring("\\mathrm{Number~of~experiments}: ",first(shear_dat)."Nexp"...), 
-          latexstring("\\mathrm{Avg~stress}: ",first(shear_dat)."save-stress"...)
-         ]
-
-annotations!(labels, 
-    position = positions,
-    space=:relative,
-    fontsize = 20,
-    align = (:left, :center)
-)
-
-
-#axislegend(ax)
-Legend(fig[1,2],ax,
-       L"\dot{\gamma}\times 10^{-3}",
-       linewidth=5,
-       titlesize=20,
-       labelsize=18
-      )
-
-#=
-Colorbar(fig[1,2],
-         limits=(
-                 minimum(reduce(vcat,systemShear.dgamma)),
-                 maximum(reduce(vcat,systemShear.dgamma))
-                ),
-         colormap=clbr, #cgrad(clbr,length(shear_dat),categorical=true),
-        ticks = reduce(vcat,systemShear.dgamma)
-         #:berlin10
-)
-
-
-
-g, ax2, pl = series([Point2f.(systemShear.strain[s],systemShear.sigVirXY[s]) for s in eachindex(shear_dat)],color=clbr)
-=#
-
-#map(s->lines!(s,colormap=:viridis),systemShear.sigXY)
-#map(s->lines!(ax_leg,0,0,label=latexstring(s...,"~\\mathrm{Cycle}"),colormap=:viridis),systemShear.dgamma)
-
-#Legend(fig[1:1,2],ax_leg,
-#       framevisible=true,
-#       halign=:center,
-#       orientation=:vertical,
-#       title=L"\mathrm{Legends}",
-#       patchsize=(35,35)
-#      )
-
+fig_sigVirXY=plotStrainShear(systemShear.strain,systemShear.sigVirXY,assembly_dat,shear_dat,"xy~\\mathrm{Virial~component}","\\langle\\sigma_{xy}\\rangle");
 
 
 #=

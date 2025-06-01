@@ -37,9 +37,67 @@ plot!(
     return fig_comp
 end
 
+function plotStrainShear(strain,shear,assembly_dat,shear_dat,subtitle,ylbl)
+"""
+    Plot strain vs shear
+"""
 
+fig=Figure(size=(1080,900));
 
+clbr=:managua10;
 
+ax=Axis(fig[1:1,1:1],
+    title=L"\mathrm{Strain~vs~Stress}",
+    subtitle=latexstring(subtitle),
+    xlabel=L"\mathrm{Strain}",
+    ylabel=latexstring(ylbl), #L"\langle\sigma_{xy}\rangle",
+    titlesize=24.0f0,
+    subtitlesize=20.0f0,
+    xticklabelsize=18.0f0,
+    yticklabelsize=18.0f0,
+    xlabelsize=22.0f0,
+    ylabelsize=22.0f0,
+    xminorticksvisible=true,
+    xminorgridvisible=true
+   )
+
+series!([Point2f.(strain[s],shear[s]) for s in eachindex(shear_dat)],labels=string.((1000).*reduce(vcat,systemShear.dgamma)),color=clbr)
+
+# Vector de anotaciones
+positions = [Point2f(0.7, 0.95), 
+             Point2f(0.7, 0.9), 
+             Point2f(0.7, 0.85), 
+             Point2f(0.7, 0.8), 
+             Point2f(0.7, 0.75), 
+             Point2f(0.7, 0.7)
+            ]
+labels = [latexstring("\\mathrm{Number~of~particles}: ",assembly_dat."Npart"...),
+          latexstring("\\mathrm{Packing~fraction}: ",assembly_dat."phi"...), 
+          latexstring("\\mathrm{Cl~concentration}: ",assembly_dat."CL-Con"...), 
+          latexstring("\\mathrm{Damp}: ",assembly_dat."damp"...), 
+          latexstring("\\mathrm{Number~of~experiments}: ",first(shear_dat)."Nexp"...), 
+          latexstring("\\mathrm{Avg~stress}: ",first(shear_dat)."save-stress"...)
+         ]
+
+annotations!(labels, 
+    position = positions,
+    space=:relative,
+    fontsize = 20,
+    align = (:left, :center)
+)
+
+Legend(fig[1,2],ax,
+       L"\dot{\gamma}\times 10^{-3}",
+       linewidth=5,
+       titlesize=20,
+       labelsize=18
+      )
+
+    return fig
+
+end
+
+#=
 function Strain_Shear(L,shear_dat,system_shear,stress_shear)
 """
     Prepare the data to plot
@@ -163,6 +221,6 @@ plot!([NaN],[NaN],
 
     return fig_comp
 end
-
+=#
 
 
