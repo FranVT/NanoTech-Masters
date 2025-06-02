@@ -6,7 +6,7 @@ using DataFrames, CSV
 #using Plots, LaTeXStrings, Plots.PlotMeasures
 #gr()
 
-using GLMakie
+using GLMakie, LaTeXStrings
 
 # Functions to get the data and norm and trace
 include("functions_data.jl")
@@ -21,15 +21,15 @@ include("functions_graphs.jl")
 # Get the parent directory
 parent_dir=dirname(pwd());
 # Select the siimulation scheme (Version and stuff)
-scheme_dir="aux-cluster";
+scheme_dir="bonds-3.0";
 # Select the "system" by id
-id="2025-05-22-194804";
+id="2025-05-31-095535";
 # Select the system by "cross-linker" concentration
-cl_con=0.03;
+cl_con=0.5;
 
 # Extract the info or go directly to the graphs
-doAssembly=0;
-doShear=0;
+doAssembly=1;
+doShear=1;
 
 # Path to the data directory of the simulation scheme
 path_data=joinpath(parent_dir,scheme_dir,"data");

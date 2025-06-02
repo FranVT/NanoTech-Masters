@@ -1,5 +1,0 @@
-Nstep_per_strain=50000
-shear_it=750000
-Nsave=10000
-NsaveStress=500
-Ndump=5000
