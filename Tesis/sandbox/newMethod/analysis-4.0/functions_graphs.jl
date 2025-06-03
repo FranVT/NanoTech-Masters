@@ -121,7 +121,8 @@ ax=Axis(fig[1:1,1:1],
     xminorgridvisible=true
    )
 
-series!([Point2f.(strain[s].*eachindex(strain[s]).*shear_dat[s]."save-dump".*systemShear.dgamma[s],shear[s]) for s in eachindex(shear_dat)],labels=string.((1000).*reduce(vcat,systemShear.dgamma)),color=clbr)
+#strain[s].*
+series!([Point2f.(eachindex(strain[s]).*shear_dat[s]."time-step".*shear_dat[s]."save-fix".*systemShear.dgamma[s],shear[s]) for s in eachindex(shear_dat)],labels=string.((1000).*reduce(vcat,systemShear.dgamma)),color=clbr)
 
 # Vector de anotaciones
 positions = [Point2f(0.7, 0.95), 
