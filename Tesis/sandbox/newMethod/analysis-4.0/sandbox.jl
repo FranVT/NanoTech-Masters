@@ -5,7 +5,7 @@
 using DataFrames, CSV
 #using Plots, LaTeXStrings, Plots.PlotMeasures
 #gr()
-
+using Statistics
 using GLMakie, LaTeXStrings
 
 # Functions to get the data and norm and trace
@@ -75,8 +75,12 @@ fig_patch=plotTimeSystem(systemShear.timeShear,systemShear.patch,assembly_dat,sh
 fig_swap=plotTimeSystem(systemShear.timeShear,systemShear.swap,assembly_dat,shear_dat,"\\mathrm{Strain~vs~swap}","\\mathrm{swap}","\\mathrm{WCA}")
 
 
+## Compute the shear-rate vs stress at steady state
 
+aux=map(s->div(first(div.(shear_dat[s]."Max-strain".*shear_dat[s]."N_def",shear_dat[s]."save-stress")),4),eachindex(shear_dat))
+stress_steady=mean.(map(s->systemShear.sigXY[s][end-aux[s]+1:end],eachindex(shear_dat)));
 
+fig=plotGeneral(mapreduce(s->s."Shear-rate",vcat,shear_dat),stress_steady,assembly_dat,shear_dat,"\\mathrm{Shear~rate~vs~Stress}","\\mathrm{Last~quarter~of~total~strain}","\\langle\\sigma_{xy}\\rangle")
 
 #=
     A S S E M B L Y     P L O T S  

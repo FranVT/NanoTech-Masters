@@ -153,6 +153,66 @@ Legend(fig[2,1],
 
 end
 
+function plotGeneral(domain,range,assembly_dat,shear_dat,title,subtitle,ylbl)
+"""
+    Plot strain vs shear
+"""
+
+fig=Figure(size=(1080,900));
+
+clbr=:managua10;
+
+ax=Axis(fig[1:1,1:1],
+    title=latexstring(title),
+    subtitle=latexstring(subtitle),
+    xlabel=L"\mathrm{Shear~rate}~\dot{\gamma}",
+    ylabel=latexstring(ylbl), #L"\langle\sigma_{xy}\rangle",
+    titlesize=24.0f0,
+    subtitlesize=20.0f0,
+    xticklabelsize=18.0f0,
+    yticklabelsize=18.0f0,
+    xlabelsize=22.0f0,
+    ylabelsize=22.0f0,
+    xminorticksvisible=true,
+    xminorgridvisible=true
+   )
+
+#strain[s].*
+#series!([Point2f.(eachindex(strain[s]).*shear_dat[s]."time-step".*shear_dat[s]."save-fix".*systemShear.dgamma[s],shear[s]) for s in eachindex(shear_dat)],labels=string.((1000).*reduce(vcat,systemShear.dgamma)),color=clbr)
+scatterlines!(domain,range, strokewidth=2,markersize=15)
+
+labels = [latexstring("\\mathrm{Number~of~particles}: ",assembly_dat."Npart"...),
+          latexstring("\\mathrm{Packing~fraction}: ",assembly_dat."phi"...), 
+          latexstring("\\mathrm{Cl~concentration}: ",assembly_dat."CL-Con"...), 
+          latexstring("\\mathrm{Damp}: ",assembly_dat."damp"...), 
+          latexstring("\\mathrm{Number~of~experiments}: ",first(shear_dat)."Nexp"...), 
+          latexstring("\\mathrm{Time~Avg}: ",first(shear_dat)."save-fix"./first(shear_dat)."N_def"...,"\\gamma")
+         ]
+
+#=
+Legend(fig[1,2],ax,
+       L"\dot{\gamma}\times 10^{-3}",
+       linewidth=5,
+       titlesize=24,
+       labelsize=20
+      )
+=#
+elem = MarkerElement(color = :black, marker = :circle, markersize = 0.1, strokecolor = :black)
+
+
+Legend(fig[2,1],
+       [elem for i in eachindex(labels)],
+    labels,
+    nbanks = 2,
+    patchsize = (5, 5), rowgap = 10,
+    orientation = :horizontal,
+    labelsize=20
+   )
+
+    return fig
+
+end
+
 
 
 
