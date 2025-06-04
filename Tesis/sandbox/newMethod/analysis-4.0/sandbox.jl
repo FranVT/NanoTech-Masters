@@ -18,8 +18,8 @@ include("functions_graphs.jl")
     D I R E C T O R I E S   AND   P A T H S
 =#
 
-# Get the parent directory
-parent_dir=dirname(pwd());
+# Directory to the stored data 
+parent_dir="/run/media/franpad/rogelio/NanoTech-Masters/minipc/"; #dirname(pwd());
 # Select the siimulation scheme (Version and stuff)
 scheme_dir="bonds-3.0";
 # Select the "system" by id
@@ -70,6 +70,12 @@ fig_sigNorm=plotStrainShear(systemShear.strain,systemShear.sigNorm,assembly_dat,
 fig_sigVirXY=plotStrainShear(systemShear.strain,systemShear.sigVirXY,assembly_dat,shear_dat,"\\mathrm{Strain~vs~Virial~Stress}","xy~\\mathrm{component}","\\langle\\sigma_{xy}\\rangle");
 
 fig_temp=plotTimeSystem(systemShear.timeShear,systemShear.temp,assembly_dat,shear_dat,"\\mathrm{Strain~vs~Temperature}","\\mathrm{Temp}","\\mathrm{Temp}")
+fig_wca=plotTimeSystem(systemShear.timeShear,systemShear.wca,assembly_dat,shear_dat,"\\mathrm{Strain~vs~WCA}","\\mathrm{WCA}","\\mathrm{WCA}")
+fig_patch=plotTimeSystem(systemShear.timeShear,systemShear.patch,assembly_dat,shear_dat,"\\mathrm{Strain~vs~patch}","\\mathrm{patch}","\\mathrm{WCA}")
+fig_swap=plotTimeSystem(systemShear.timeShear,systemShear.swap,assembly_dat,shear_dat,"\\mathrm{Strain~vs~swap}","\\mathrm{swap}","\\mathrm{WCA}")
+
+
+
 
 
 #=

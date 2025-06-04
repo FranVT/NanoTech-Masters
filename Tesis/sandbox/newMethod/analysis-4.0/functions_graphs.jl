@@ -63,28 +63,13 @@ ax=Axis(fig[1:1,1:1],
 
 series!([Point2f.(strain[s],shear[s]) for s in eachindex(shear_dat)],labels=string.((1000).*reduce(vcat,systemShear.dgamma)),color=clbr)
 
-# Vector de anotaciones
-positions = [Point2f(0.7, 0.95), 
-             Point2f(0.7, 0.9), 
-             Point2f(0.7, 0.85), 
-             Point2f(0.7, 0.8), 
-             Point2f(0.7, 0.75), 
-             Point2f(0.7, 0.7)
-            ]
 labels = [latexstring("\\mathrm{Number~of~particles}: ",assembly_dat."Npart"...),
           latexstring("\\mathrm{Packing~fraction}: ",assembly_dat."phi"...), 
           latexstring("\\mathrm{Cl~concentration}: ",assembly_dat."CL-Con"...), 
           latexstring("\\mathrm{Damp}: ",assembly_dat."damp"...), 
           latexstring("\\mathrm{Number~of~experiments}: ",first(shear_dat)."Nexp"...), 
-          latexstring("\\mathrm{Avg~stress}: ",first(shear_dat)."save-stress"...)
+          latexstring("\\mathrm{Time~Avg}: ",first(shear_dat)."save-fix"./first(shear_dat)."N_def"...,"\\gamma")
          ]
-
-annotations!(labels, 
-    position = positions,
-    space=:relative,
-    fontsize = 20,
-    align = (:left, :center)
-)
 
 Legend(fig[1,2],ax,
        L"\dot{\gamma}\times 10^{-3}",
@@ -92,6 +77,16 @@ Legend(fig[1,2],ax,
        titlesize=20,
        labelsize=18
       )
+
+elem = MarkerElement(color = :black, marker = :circle, markersize = 0.1, strokecolor = :black)
+
+
+Legend(fig[2,1],
+       [elem for i in eachindex(labels)],
+    labels,
+    patchsize = (5, 5), rowgap = 10,
+    orientation = :horizontal
+   )
 
     return fig
 
@@ -124,28 +119,14 @@ ax=Axis(fig[1:1,1:1],
 #strain[s].*
 series!([Point2f.(eachindex(strain[s]).*shear_dat[s]."time-step".*shear_dat[s]."save-fix".*systemShear.dgamma[s],shear[s]) for s in eachindex(shear_dat)],labels=string.((1000).*reduce(vcat,systemShear.dgamma)),color=clbr)
 
-# Vector de anotaciones
-positions = [Point2f(0.7, 0.95), 
-             Point2f(0.7, 0.9), 
-             Point2f(0.7, 0.85), 
-             Point2f(0.7, 0.8), 
-             Point2f(0.7, 0.75), 
-             Point2f(0.7, 0.7)
-            ]
+
 labels = [latexstring("\\mathrm{Number~of~particles}: ",assembly_dat."Npart"...),
           latexstring("\\mathrm{Packing~fraction}: ",assembly_dat."phi"...), 
           latexstring("\\mathrm{Cl~concentration}: ",assembly_dat."CL-Con"...), 
           latexstring("\\mathrm{Damp}: ",assembly_dat."damp"...), 
           latexstring("\\mathrm{Number~of~experiments}: ",first(shear_dat)."Nexp"...), 
-          latexstring("\\mathrm{Time~Avg}: ",first(shear_dat)."save-dump"...)
+          latexstring("\\mathrm{Time~Avg}: ",first(shear_dat)."save-fix"./first(shear_dat)."N_def"...,"\\gamma")
          ]
-
-annotations!(labels, 
-    position = positions,
-    space=:relative,
-    fontsize = 20,
-    align = (:left, :center)
-)
 
 Legend(fig[1,2],ax,
        L"\dot{\gamma}\times 10^{-3}",
@@ -153,6 +134,16 @@ Legend(fig[1,2],ax,
        titlesize=20,
        labelsize=18
       )
+
+elem = MarkerElement(color = :black, marker = :circle, markersize = 0.1, strokecolor = :black)
+
+
+Legend(fig[2,1],
+       [elem for i in eachindex(labels)],
+    labels,
+    patchsize = (5, 5), rowgap = 10,
+    orientation = :horizontal
+   )
 
     return fig
 
