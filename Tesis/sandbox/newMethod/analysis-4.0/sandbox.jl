@@ -19,13 +19,13 @@ include("functions_graphs.jl")
 =#
 
 # Directory to the stored data 
-parent_dir="/run/media/franpad/rogelio/NanoTech-Masters/minipc/"; #dirname(pwd());
+parent_dir="/run/media/franpad/rogelio/NanoTech-Masters/cluster/"; #dirname(pwd());
 # Select the siimulation scheme (Version and stuff)
 scheme_dir="bonds-3.0";
 # Select the "system" by id
-id="2025-06-01-111319";
+id="2025-05-09-134206";
 # Select the system by "cross-linker" concentration
-cl_con=0.5;
+cl_con=0.03;
 
 # Extract the info or go directly to the graphs
 doAssembly=0;
