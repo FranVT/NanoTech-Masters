@@ -84,29 +84,47 @@ $e^2\to Ze^2$, so all you have to do is make the same substitution in all the fi
 \end{sol}
 
 
-
-
-
 \section{Problem 5.6}
 
-Imagine teo noninteracting particles, each of mass $m$, in the infinite square well.
-If one is in the state $\psi_n$ (eqn 2.28), and the other in state $\psi_l$ ($l\neq n$), calculate $\braket{(x_1-x_2)^2}$, assuming
-
-2.28
-
+Imagine two noninteracting particles, each of mass $m$, in the infinite square well.
+If one is in the state \[\psi_n(x)=\sqrt{\frac{2}{a}}\sin\qty(\frac{n\pi}{a}x).\], and the other in state $\psi_l$ ($l\neq n$), calculate $\expval{(x_1-x_2)^2}$, assuming
 \begin{enumerate}
     \item they are distinguishable particles
     \item they are identical bosons
     \item they are identical fermions
 \end{enumerate}
 
-\begin{sol}{Constant of normalization $A$}{label-3a}
+\begin{sol}{Distinguishable particles}{label-3a}
+    From previous results in the chapter, the expectation value for distinguishable particles  we get that,
+    \begin{gather*}
+        \expval{(x_1-x_2)^2}_d = \expval{x^2}_a + \expval{x^2}_b - 2\expval{x}_a\expval{x}_b.
+    \end{gather*}
+    Also, from the state we get that,
+    \begin{align*}
+        \expval{x}_n = \frac{a}{2},\quad 
+        \expval{x^2}_n = a^2\qty(\frac{1}{3}-\frac{1}{2(n\pi)^2}). 
+    \end{align*}
+
+    Subsistuing the values we get the following result,
+    \begin{align*}
+        \expval{(x_1-x_2)^2}_d &= a^2\qty(\frac{1}{3}-\frac{1}{2(n\pi)^2}) + a^2\qty(\frac{1}{3}-\frac{1}{2(n\pi)^2}) - 2\frac{a}{2}\frac{a}{2} \\
+                               &= a^2\left[\frac{1}{6}-\frac{1}{2\pi^2}\qty(\frac{1}{n^2}+\frac{1}{m^2})\right].
+    \end{align*}
+
     \begin{empheq}[box=\shadowbox]{equation*}
-        A = \frac{1}{\sqrt{2}}.
+        \expval{(x_1-x_2)^2}_d =a^2\left[\frac{1}{6}-\frac{1}{2\pi^2}\qty(\frac{1}{n^2}+\frac{1}{m^2})\right]
     \end{empheq}
 \end{sol}
 
-\begin{sol}{Constant of normalization $A$ with $\psi_a=\psi_b$}{label-3b}
+\begin{sol}{Identical bosons}{label-3b}
+    Now that we are going to analyze bosons, the state is represented by \[\Psi_+(x_1,x_2)=\frac{1}{\sqrt{2}}\left[\psi_a(x_1)\psi_b(x_2)+\psi_b(x_1)\psi_a(x_2)\right]\]
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        A = \frac{1}{2}.
+    \end{empheq}
+\end{sol}
+
+\begin{sol}{Identical fermions}{label-3b}
     \begin{empheq}[box=\shadowbox]{equation*}
         A = \frac{1}{2}.
     \end{empheq}
