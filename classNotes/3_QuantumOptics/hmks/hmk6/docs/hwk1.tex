@@ -17,20 +17,74 @@ Where in the electromagnetic spectrum would the Lyman series fall, for $Z=2$ and
 Hint: There's nothing much to calculate here-in the potential \[V(r)=-\frac{e^2}{4\pi\epsilon_0}\frac{1}{r}\]
 $e^2\to Ze^2$, so all you have to do is make the same substitution in all the final results.
 
-\begin{sol}{Possible spins for baryons}{label-2a}
+\begin{sol}{Bohr energies}{label-1a}
+    Recalling that the energy of the Hydrogen atom is given by \[E_n=-\frac{m_e e^4}{2(4\pi\epsilon_o)^2\hbar^2}\frac{1}{n^2},\]
+    and tacking into account the hint of introducing the following change of variable $e^2\to Ze^2$ we get the following expression,
+    \begin{align*}
+        E_n(Z) &= -\frac{m_e (Ze^2)^2}{2(4\pi\epsilon_o)^2\hbar^2}\frac{1}{n^2} \\
+            &= -\frac{m_e e^4}{2(4\pi\epsilon_o)^2\hbar^2}\frac{1}{n^2}Z^2 \\
+            &= E_n Z^2.
+    \end{align*}
+
+    Therefore, the Boher energies are
     \begin{empheq}[box=\shadowbox]{equation*}
-        s = \left\{\frac{3}{2},\frac{1}{2}\right\}.
+        E_n (Z) = E_n Z^2
+    \end{empheq}
+\end{sol}
+
+\begin{sol}{Binding energy $E_1(Z)$}{label-2a}
+    From the previous result we can easily compute $E_1(Z)$ as follows,
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        E_1 (Z) = E_1 Z^2
+    \end{empheq}
+\end{sol}
+
+\begin{sol}{Bohr radius $a(Z)$}{label-3a}
+    With the same methodology of the first question, we start by recalling the Bohr's radius expression and introducing the suggested change of variable,
+    \begin{align*}
+        a(Z) &= \frac{4\pi\epsilon_o\hbar^2}{e^2 m_e} \\
+          &= \frac{4\pi\epsilon_o\hbar^2}{Ze^2 m_e} \\
+          &= \frac{4\pi\epsilon_o\hbar^2}{e^2 m_e}\frac{1}{Z} \\
+          &= \frac{a}{Z}
+    \end{align*}
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        a(Z) = \frac{a}{Z}
+    \end{empheq}
+\end{sol}
+
+\begin{sol}{Rydberg constant $R(Z)$}{label-4a}
+    Now, we apply the same procedure as before to compute the Rydberg constant,
+    \begin{align*}
+        R(Z) &= \frac{m_e e^4}{8\epsilon_o\hbar^3 c} \\
+          &= \frac{m_e \qty(Ze^2)^2}{8\epsilon_o\hbar^3 c} \\
+          &= \frac{m_e e^4}{8\epsilon_o\hbar^3 c}Z^2 \\
+          &= R Z^2
+    \end{align*}
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        R(Z) = R Z^2
+    \end{empheq}
+\end{sol}
+
+
+\begin{sol}{Electromagnetic spectrum}{label-5a}
+    To compute the Lyman lines we need to recall the following relation, \[\frac{1}{\lambda_2}=R\qty(1-\frac{1}{4})\implies\lambda_2=\frac{4}{3R}\] and \[\frac{1}{\lambda_1}=R\qty(1-\frac{1}{\infty})\implies\lambda_1=\frac{1}{R}.\]
+    
+    Now that we known the Ryberg constat in terms of $Z$ we compute the lines for $Z=2$ and $3$.
+    For $Z=2$ we get that $\lambda_1=1/R 2^2$ and $\lambda_2=4/(3R 2^2)$.
+    For $Z=3$ we get that $\lambda_1=1/R 3^2$ and $\lambda_2=4/(3R 3^2)$
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        Z=2 \rightarrow \lambda_{1}\SI{2.28d-8}{\meter},~\lambda_{2}\SI{3.04d-8}{\meter} \\
+        Z=3 \rightarrow \lambda_{1}\SI{1.01d-8}{\meter},~\lambda_{2}\SI{1.35d-8}{\meter} \\
     \end{empheq}
 
 \end{sol}
 
-\begin{sol}{Possible spins for mesons}{label-2b}
-   
-    \begin{empheq}[box=\shadowbox]{equation*}
-        s = \left\{1,0\right\}.
-    \end{empheq}
 
-\end{sol}
+
 
 
 \section{Problem 5.6}
