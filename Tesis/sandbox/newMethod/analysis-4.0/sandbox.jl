@@ -23,7 +23,7 @@ parent_dir="/run/media/franpad/rogelio/NanoTech-Masters/cluster/"; #dirname(pwd(
 # Select the siimulation scheme (Version and stuff)
 scheme_dir="bonds-3.0";
 # Select the "system" by id
-id="2025-05-09-134206";
+id="2025-05-22-194804";
 # Select the system by "cross-linker" concentration
 cl_con=0.03;
 
@@ -77,10 +77,20 @@ fig_swap=plotTimeSystem(systemShear.timeShear,systemShear.swap,assembly_dat,shea
 
 ## Compute the shear-rate vs stress at steady state
 
+# Take the last quarter strain 
 aux=map(s->div(first(div.(shear_dat[s]."Max-strain".*shear_dat[s]."N_def",shear_dat[s]."save-stress")),4),eachindex(shear_dat))
 stress_steady=mean.(map(s->systemShear.sigXY[s][end-aux[s]+1:end],eachindex(shear_dat)));
 
 fig=plotGeneral(mapreduce(s->s."Shear-rate",vcat,shear_dat),stress_steady,assembly_dat,shear_dat,"\\mathrm{Shear~rate~vs~Stress}","\\mathrm{Last~quarter~of~total~strain}","\\langle\\sigma_{xy}\\rangle")
+
+
+# Take the first quarter strain 
+aux=map(s->div(first(div.(shear_dat[s]."Max-strain".*shear_dat[s]."N_def",shear_dat[s]."save-stress")),8),eachindex(shear_dat))
+stress_trans=map(s->systemShear.sigVirXY[s][1:aux[s]],eachindex(shear_dat));
+strain_trans=map(s->systemShear.strain[s][1:aux[s]],eachindex(shear_dat));
+
+fig_sigXYtrans=plotStrainShear(strain_trans,stress_trans,assembly_dat,shear_dat,"\\mathrm{Strain~vs~Virial~Stress}","xy~\\mathrm{component}","\\langle\\sigma_{xy}\\rangle");
+
 
 #=
     A S S E M B L Y     P L O T S  

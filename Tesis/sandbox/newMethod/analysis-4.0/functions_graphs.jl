@@ -174,7 +174,9 @@ ax=Axis(fig[1:1,1:1],
     xlabelsize=22.0f0,
     ylabelsize=22.0f0,
     xminorticksvisible=true,
-    xminorgridvisible=true
+    xminorgridvisible=true,
+    limits=(0,nothing,0,nothing),
+    xticks=domain
    )
 
 #strain[s].*
