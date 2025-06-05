@@ -143,9 +143,24 @@ If one is in the state \[\psi_n(x)=\sqrt{\frac{2}{a}}\sin\qty(\frac{n\pi}{a}x).\
 \end{sol}
 
 \begin{sol}{Identical fermions}{label-3b}
+    Now that we are going to analyze bosons, the state is represented by \[\Psi_{-}(x_1,x_2)=\frac{1}{\sqrt{2}}\left[\psi_n(x_1)\psi_m(x_2)-\psi_m(x_1)\psi_n(x_2)\right]\] and the expectation value, computed previously in the chapter, is given by, \[\expval{(x_1-x_2)^2}_{+} = \expval{x^2}_n + \expval{x^2}_m - 2\expval{x}_n\expval{x}_m-2\abs{\expval{x}_{nm}}^2.\]
+    Due to the symmetry with the previus state we can re-cycle the results with the proper sign modification,
+    \begin{align*}
+        \expval{x} &= \frac{a}{2}\\
+        \expval{x^2} &= a^2\left[\frac{1}{3}-\frac{1}{4\pi}\qty(\frac{1}{n^2}+\frac{1}{m^2}) \right] \\
+        \expval{x_n x_m} &= 
+            \left\{
+                \begin{array}{cl}
+                    \frac{a\qty(-8mn)}{\pi^2\qty(m^2-n^2)^2} & n,~m~\mathrm{have~opposite~parity}\\
+                    0 & n,~m~\mathrm{have~same~parity}
+                \end{array}
+            \right.
+    \end{align*}
+    Hence,
     \begin{empheq}[box=\shadowbox]{equation*}
-        A = \frac{1}{2}.
+        \expval{(x_1-x_2)^2}_d =a^2\left[\frac{1}{6}-\frac{1}{2\pi^2}\qty(\frac{1}{n^2}+\frac{1}{m^2})\right]+\frac{128a^2m^2n^2}{\pi^4\qty(m^2-n^2)^4}
     \end{empheq}
+
 \end{sol}
 
 
@@ -156,18 +171,44 @@ If one is in the state \[\psi_n(x)=\sqrt{\frac{2}{a}}\sin\qty(\frac{n\pi}{a}x).\
     \item Describe (quantitatively) the spectrum of the helium ion, $\mathrm{He}^+$.
 \end{enumerate}
 
-\begin{sol}{Hamiltonian of non-interacting identical particles}{label-4a}
+\begin{sol}{Energy of emitted electron}{label-4a}
+    We start by computing the total energy in the system as follows,
+    \begin{align*}
+        E_s &= 2\fraC{Z^2}{n^2}E_1 \\
+          &= 2\fraC{2^2}{2^2}E_1 \\
+          &= -27.2\mathrm{eV}.
+    \end{align*}
+
+    Now, we compute the energy of one electron that goes into the ground state,
+    \begin{align*}
+        E_d &= \fraC{Z^2}{n^2}E_1 \\
+          &= \fraC{2^2}{1^2}E_1 \\
+          &= -108.8\mathrm{eV}.
+    \end{align*}
+
+    Computing the difference of energy we get,
+    \begin{align*}
+        E &= -27.2\mathrm{eV}- -108.8\mathrm{eV}\\
+          &= 27.2\mathrm{eV}. \\
+    \end{align*}
+
+    Therefore,
     \begin{empheq}[box=\shadowbox]{equation*}
-        \hat{H}\psi\qty(x_1,x_2)=5K\psi\qty(x_1,x_2),\quad K=\frac{\pi^2\hbs}{2a^2m}.
+        E = 27.2\mathrm{eV}
     \end{empheq}
 
 \end{sol}
 
-\begin{sol}{Energies and states of the next two excited states}{label-4b}
+\begin{sol}{spectrum of helium ion}{label-4b}
+
+    For this case, we recall the last solution from problem 4.16 in which compute the spectrum of an hydrogen like atom as follows,
+    \begin{gather*}
+        \frac{1}{\lambda}=4R\left(\frac{1}{n_f^2}-\frac{1}{n_i^2}\right),
+    \end{gather*}
+    tacking into account the the helium ion is a hydrogenic ion, we can apply this relation to compute the spectrum.
 
     \begin{empheq}[box=\shadowbox]{align*}
-        \psi_{1,3} &= \frac{\sqrt{2}}{a}\left[\sin\qty(\pi\frac{x_1}{a})\sin\qty(3\pi\frac{x_2}{a}) - \sin\qty(3\pi\frac{x_2}{a})\sin\qty(\pi\frac{x_1}{a})\right],\quad E=10K \\
-        \psi_{2,3} &= \frac{\sqrt{2}}{a}\left[\sin\qty(2\pi\frac{x_1}{a})\sin\qty(3\pi\frac{x_2}{a}) - \sin\qty(3\pi\frac{x_2}{a})\sin\qty(2\pi\frac{x_1}{a})\right],\quad E=13K 
+        \frac{1}{\lambda}=4R\left(\frac{1}{n_f^2}-\frac{1}{n_i^2}\right) 
     \end{empheq}
 
 
