@@ -43,6 +43,9 @@ values+=("${max_strain}")
 headers+=("N_def")
 values+=("${Nstep_per_strain}")
 
+headers+=("Nrlx0")
+values+=("${Nrlx0}")
+
 headers+=("time-step")
 values+=("${dt}")
 

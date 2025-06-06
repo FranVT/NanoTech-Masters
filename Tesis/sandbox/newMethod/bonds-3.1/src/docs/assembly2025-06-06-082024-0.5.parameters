@@ -1,0 +1,10 @@
+N_particles=40
+N_CL=20
+N_MO=20
+L=3.596394
+seed1=1254
+seed2=4341
+seed3=30
+Nsave=10000
+NsaveStress=10000
+Ndump=1000000

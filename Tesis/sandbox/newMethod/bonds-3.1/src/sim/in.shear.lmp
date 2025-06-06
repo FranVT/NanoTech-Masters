@@ -93,6 +93,8 @@ fix VelVerlet all nve # Use Velocity Verlet integrator
 fix ThermoLng all langevin ${temp} ${temp} ${damp} ${seed3} zero yes # Brownian Dynamics: langevin + nve
 fix_modify ThermoLng temp td
 
+run ${Nrlx0}
+
 fix shear all deform 1 xy erate ${shear_rate} remap x flip yes units box
 restart ${Nstep_per_strain} ${Dir}/${file12_name}
 run ${shear_it}
