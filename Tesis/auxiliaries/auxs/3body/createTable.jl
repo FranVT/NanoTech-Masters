@@ -93,9 +93,6 @@ end
 
 ## Parameters for the file
 
-filename1 = "swapMechTab1.table";
-filename2 = "swapMechTab2.table";
-
 N = 100;
 
 eps_ij = 1.0;
@@ -107,7 +104,12 @@ rmin = sig/1000;
 rmax = 2*sig;
 thi = 180/(4*N)
 thf = 180 - thi;
-w=10;
+w=5;
+
+filename1 = string("swapMechTab1_w",w,".table");
+filename2 = string("swapMechTab2_w",w,".table");
+
+
 
 # Create the domains of evaluation according filename nessetities
 th_dom = range(thi,thf,2*N);
