@@ -21,7 +21,7 @@ NsaveStress=$(echo "scale=0; $Nstep_per_strain * 0.1" | bc);
 NsaveStress=${NsaveStress%.*};
 Ndump=$(echo "scale=0; $Nstep_per_strain *  0.1" | bc);
 Ndump=${Ndump%.*};
-Nrlx0=100;
+Nrlx0=1000000;
 
 # Define the output parameters file (default: parameters.config)
 OUTPUT_FILE="shear$id-$var_shearRate.parameters"
