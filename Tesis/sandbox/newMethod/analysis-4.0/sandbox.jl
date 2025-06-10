@@ -19,17 +19,18 @@ include("functions_graphs.jl")
 =#
 
 # Directory to the stored data 
-parent_dir="/run/media/franpad/rogelio/NanoTech-Masters/cluster/"; #dirname(pwd());
+parent_dir=dirname(pwd());
+#"/run/media/franpad/rogelio/NanoTech-Masters/cluster/"; #
 # Select the siimulation scheme (Version and stuff)
-scheme_dir="bonds-3.0";
+scheme_dir="bonds-3.1";
 # Select the "system" by id
-id="2025-05-22-194804";
+id="2025-06-06-082323";
 # Select the system by "cross-linker" concentration
-cl_con=0.03;
+cl_con=0.5;
 
 # Extract the info or go directly to the graphs
 doAssembly=0;
-doShear=0;
+doShear=1;
 
 # Path to the data directory of the simulation scheme
 path_data=joinpath(parent_dir,scheme_dir,"data");
@@ -52,6 +53,7 @@ if doShear == 1
     # Path to ALL shear directories
     aux=readdir(path_system);
     path_shear=joinpath.(path_system,aux[findall(s->s==1,occursin.("shear",aux))]);
+    #path_shear=path_shear[1:2];
 
     # Get data files of each shear
     shear_dat=map(s->getDataFiles(s,"dataShear.dat"),path_shear);
