@@ -74,42 +74,61 @@ if doShear == 1
 end
 
 
+#=
+    S H E A R   S I M U L A T I O N
+=#
+# Figures of stress
 fig_sigXY=plotStrainShear(systemShear.strain,systemShear.sigXY,assembly_dat,shear_dat,"\\mathrm{Strain~vs~Stress}","xy~\\mathrm{component}","\\langle\\sigma_{xy}\\rangle");
-
 fig_sigNorm=plotStrainShear(systemShear.strain,systemShear.sigNorm,assembly_dat,shear_dat,"\\mathrm{Strain~vs~Stress}","\\mathrm{Norm}","\\langle\\sigma\\rangle");
-
 fig_sigVirXY=plotStrainShear(systemShear.strain,systemShear.sigVirXY,assembly_dat,shear_dat,"\\mathrm{Strain~vs~Virial~Stress}","xy~\\mathrm{component}","\\langle\\sigma_{xy}\\rangle");
 
+
+# Figures of energy and that stuff
 fig_temp=plotTimeSystem(systemShear.timeShear,systemShear.temp,assembly_dat,shear_dat,"\\mathrm{Strain~vs~Temperature}","\\mathrm{Shear~deformation}","\\mathrm{Temp}")
-fig_wca=plotTimeSystem(systemShear.timeShear,systemShear.wca,assembly_dat,shear_dat,"\\mathrm{Strain~vs~WCA}","\\mathrm{WCA}","\\mathrm{WCA}")
-fig_patch=plotTimeSystem(systemShear.timeShear,systemShear.patch,assembly_dat,shear_dat,"\\mathrm{Strain~vs~patch}","\\mathrm{patch}","\\mathrm{WCA}")
-fig_swap=plotTimeSystem(systemShear.timeShear,systemShear.swap,assembly_dat,shear_dat,"\\mathrm{Strain~vs~swap}","\\mathrm{swap}","\\mathrm{WCA}")
+fig_wca=plotTimeSystem(systemShear.timeShear,systemShear.wca,assembly_dat,shear_dat,"\\mathrm{Strain~vs~WCA}","\\mathrm{Shear~deformation}","\\mathrm{WCA}")
+fig_patch=plotTimeSystem(systemShear.timeShear,systemShear.patch,assembly_dat,shear_dat,"\\mathrm{Strain~vs~patch}","\\mathrm{Shear~deformation}","\\mathrm{WCA}")
+fig_swap=plotTimeSystem(systemShear.timeShear,systemShear.swap,assembly_dat,shear_dat,"\\mathrm{Strain~vs~swap}","\\mathrm{Shear~deformation}","\\mathrm{WCA}")
 
-#plotTimeAssSystem(domain,range,assembly_dat,shear_dat,title,subtitle,ylbl)
-l_t=div(assembly_dat."N_heat".+assembly_dat."N_isot"...,assembly_dat."save-fix"...);
-l_o=div(assembly_dat."N_heat"...,assembly_dat."save-fix"...);
-
-domain=system_assembly."TimeStep"[l_o:end].*assembly_dat."time-step";
-range=system_assembly."c_t"[l_o:end];
-fig_temp_as=plotTimeAssSystem(domain,range,assembly_dat,shear_dat,"\\mathrm{Time~Step~vs~Temperature}","\\mathrm{Assembly}","\\mathrm{Temp}")
-
-
-
-## Compute the shear-rate vs stress at steady state
+# Compute the shear-rate vs stress at steady state
 
 # Take the last quarter strain 
 aux=map(s->div(first(div.(shear_dat[s]."Max-strain".*shear_dat[s]."N_def",shear_dat[s]."save-stress")),4),eachindex(shear_dat))
 stress_steady=mean.(map(s->systemShear.sigXY[s][end-aux[s]+1:end],eachindex(shear_dat)));
 
+# Plot the the shear-rate vs yield stress
 fig=plotGeneral(mapreduce(s->s."Shear-rate",vcat,shear_dat),stress_steady,assembly_dat,shear_dat,"\\mathrm{Shear~rate~vs~Stress}","\\mathrm{Last~quarter~of~total~strain}","\\langle\\sigma_{xy}\\rangle")
 
 
+# Zoom at the stress break
 # Take the first quarter strain 
 aux=map(s->div(first(div.(shear_dat[s]."Max-strain".*shear_dat[s]."N_def",shear_dat[s]."save-stress")),8),eachindex(shear_dat))
 stress_trans=map(s->systemShear.sigVirXY[s][1:aux[s]],eachindex(shear_dat));
 strain_trans=map(s->systemShear.strain[s][1:aux[s]],eachindex(shear_dat));
 
 fig_sigXYtrans=plotStrainShear(strain_trans,stress_trans,assembly_dat,shear_dat,"\\mathrm{Strain~vs~Virial~Stress}","xy~\\mathrm{component}","\\langle\\sigma_{xy}\\rangle");
+
+
+#plotTimeAssSystem(domain,range,assembly_dat,shear_dat,title,subtitle,ylbl)
+l_t=div(assembly_dat."N_heat".+assembly_dat."N_isot"...,assembly_dat."save-fix"...);
+l_o=1;#div(assembly_dat."N_heat"...,assembly_dat."save-fix"...);
+
+domain=system_assembly."TimeStep"[l_o:end].*assembly_dat."time-step";
+range=system_assembly."c_t"[l_o:end];
+fig_temp_as=plotTimeAssSystem(domain,range,assembly_dat,shear_dat,"\\mathrm{Time~vs~Temperature}","\\mathrm{Assembly}","\\mathrm{Temp}")
+
+domain=system_assembly."TimeStep"[l_o:end].*assembly_dat."time-step";
+range=system_assembly."v_eT"[l_o:end];
+fig_eng_as=plotTimeAssSystem(domain,range,assembly_dat,shear_dat,"\\mathrm{Time~vs~Total~energy}","\\mathrm{Assembly}","\\mathrm{Energy}")
+
+domain=system_assembly."TimeStep"[l_o:end].*assembly_dat."time-step";
+range=system_assembly."c_ep"[l_o:end];
+fig_engPot_as=plotTimeAssSystem(domain,range,assembly_dat,shear_dat,"\\mathrm{Time~vs~Potential~energy}","\\mathrm{Assembly}","\\mathrm{Energy}")
+
+domain=system_assembly."TimeStep"[l_o:end].*assembly_dat."time-step";
+range=system_assembly."c_ek"[l_o:end];
+fig_engKin_as=plotTimeAssSystem(domain,range,assembly_dat,shear_dat,"\\mathrm{Time~vs~Kinetic~energy}","\\mathrm{Assembly}","\\mathrm{Energy}")
+
+
 
 
 #=

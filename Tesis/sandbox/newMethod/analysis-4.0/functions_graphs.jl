@@ -155,7 +155,7 @@ end
 
 function plotTimeAssSystem(domain,range,assembly_dat,shear_dat,title,subtitle,ylbl)
 """
-    Plot strain vs shear
+    Plot time vs something
 """
 
 fig=Figure(size=(1080,900));
