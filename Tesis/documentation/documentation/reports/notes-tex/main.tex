@@ -1,0 +1,80 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tufte Essay
+% LaTeX Template
+% Version 2.0 (19/1/19)
+%
+% This template originates from:
+% http://www.LaTeXTemplates.com
+%
+% Authors:
+% The Tufte-LaTeX Developers (https://www.ctan.org/pkg/tufte-latex)
+% Vel (vel@LaTeXTemplates.com)
+%
+% License:
+% Apache License, version 2.0
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[a4paper]{tufte-handout} % Use A4 paper by default, remove 'a4paper' for US letter
+
+\usepackage{graphicx} % Required for including images
+\setkeys{Gin}{width=\linewidth, totalheight=\textheight, keepaspectratio} % Default images settings
+%\graphicspath{{Figures/}{./}} % Specifies where to look for included images (trailing slash required)
+
+\usepackage{amsmath, amsfonts, amssymb, amsthm} % For math equations, theorems, symbols, etc
+\usepackage{units} % Non-stacked fractions and better unit spacing
+\usepackage{physics}
+\usepackage{cancel}
+
+\usepackage{booktabs} % Required for better horizontal rules in tables
+\usepackage{subfiles}
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\title{ Quantumm Optics Class-Notes and others }
+
+\author{Francisco Vazquez-Tavares}
+
+\date{\today} % Date, use \date{} for no date
+
+
+%----------------------------------------------------------------------------------------
+%	COMMANDS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hata}{\hat{a}}
+\newcommand{\hatad}{\hat{a}^\dagger}
+\newcommand{\QDi}{\hat{X}_1}
+\newcommand{\QDj}{\hat{X}_2}
+
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle % Print the title section
+
+%----------------------------------------------------------------------------------------
+%	ABSTRACT/SUMMARY
+%----------------------------------------------------------------------------------------
+
+\begin{abstract}
+	\textbf{Summary}
+        Class notes, post-class notes and others for the course of Quantum Optics.
+        Semester February-June 2025
+\end{abstract}
+
+%----------------------------------------------------------------------------------------
+%	ESSAY BODY
+%----------------------------------------------------------------------------------------
+
+\subfile{docs/report-3th.tex}
+
+
+\end{document}
