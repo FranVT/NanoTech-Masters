@@ -40,8 +40,8 @@ id="2025-05-22-194804";
 cl_con=0.03;
 
 # Extract the info or go directly to the graphs
-doAssembly=1;
-doShear=1;
+doAssembly=0;
+doShear=0;
 
 # Path to the data directory of the simulation scheme
 path_data=joinpath(parent_dir,scheme_dir,"data");
@@ -50,8 +50,6 @@ path_system=joinpath(path_data,string("system-",id,"-CL-",cl_con));
 
 # Get data files of assembly (system)
 assembly_dat=getDataFiles(path_system,"dataAssembly.dat");
-
-
 
 if doAssembly == 1 
     # Get the data from assembly simulation
@@ -82,10 +80,19 @@ fig_sigNorm=plotStrainShear(systemShear.strain,systemShear.sigNorm,assembly_dat,
 
 fig_sigVirXY=plotStrainShear(systemShear.strain,systemShear.sigVirXY,assembly_dat,shear_dat,"\\mathrm{Strain~vs~Virial~Stress}","xy~\\mathrm{component}","\\langle\\sigma_{xy}\\rangle");
 
-fig_temp=plotTimeSystem(systemShear.timeShear,systemShear.temp,assembly_dat,shear_dat,"\\mathrm{Strain~vs~Temperature}","\\mathrm{Temp}","\\mathrm{Temp}")
+fig_temp=plotTimeSystem(systemShear.timeShear,systemShear.temp,assembly_dat,shear_dat,"\\mathrm{Strain~vs~Temperature}","\\mathrm{Shear~deformation}","\\mathrm{Temp}")
 fig_wca=plotTimeSystem(systemShear.timeShear,systemShear.wca,assembly_dat,shear_dat,"\\mathrm{Strain~vs~WCA}","\\mathrm{WCA}","\\mathrm{WCA}")
 fig_patch=plotTimeSystem(systemShear.timeShear,systemShear.patch,assembly_dat,shear_dat,"\\mathrm{Strain~vs~patch}","\\mathrm{patch}","\\mathrm{WCA}")
 fig_swap=plotTimeSystem(systemShear.timeShear,systemShear.swap,assembly_dat,shear_dat,"\\mathrm{Strain~vs~swap}","\\mathrm{swap}","\\mathrm{WCA}")
+
+#plotTimeAssSystem(domain,range,assembly_dat,shear_dat,title,subtitle,ylbl)
+l_t=div(assembly_dat."N_heat".+assembly_dat."N_isot"...,assembly_dat."save-fix"...);
+l_o=div(assembly_dat."N_heat"...,assembly_dat."save-fix"...);
+
+domain=system_assembly."TimeStep"[l_o:end].*assembly_dat."time-step";
+range=system_assembly."c_t"[l_o:end];
+fig_temp_as=plotTimeAssSystem(domain,range,assembly_dat,shear_dat,"\\mathrm{Time~Step~vs~Temperature}","\\mathrm{Assembly}","\\mathrm{Temp}")
+
 
 
 ## Compute the shear-rate vs stress at steady state
