@@ -238,11 +238,12 @@ ax=Axis(fig[1:1,1:1],
     xminorgridvisible=true
    )
 
-#strain[s].*
-#series!([Point2f.(eachindex(strain[s]).*shear_dat[s]."time-step".*shear_dat[s]."save-fix".*systemShear.dgamma[s],shear[s]) for s in eachindex(shear_dat)],labels=string.((1000).*reduce(vcat,systemShear.dgamma)),color=clbr)
-lines!(domain,range1,label=L"\mathrm{WCA}")
-lines!(domain,range2,label=L"\mathrm{Patch}")
-lines!(domain,range3,label=L"\mathrm{Swap}")
+E_ref=1;
+lines!(domain,(range1.+range2.+range3)./E_ref,label=L"\mathrm{Total}")
+lines!(domain,range1./E_ref,label=L"\mathrm{WCA}")
+lines!(domain,range2./E_ref,label=L"\mathrm{Patch}")
+lines!(domain,range3./E_ref,label=L"\mathrm{Swap}")
+
 
 labels = [latexstring("\\mathrm{Number~of~particles}: ",assembly_dat."Npart"...),
           latexstring("\\mathrm{Packing~fraction}: ",assembly_dat."phi"...), 

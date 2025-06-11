@@ -88,6 +88,7 @@ fig_temp=plotTimeSystem(systemShear.timeShear,systemShear.temp,assembly_dat,shea
 fig_wca=plotTimeSystem(systemShear.timeShear,systemShear.wca,assembly_dat,shear_dat,"\\mathrm{Strain~vs~WCA}","\\mathrm{Shear~deformation}","\\mathrm{WCA}")
 fig_patch=plotTimeSystem(systemShear.timeShear,systemShear.patch,assembly_dat,shear_dat,"\\mathrm{Strain~vs~patch}","\\mathrm{Shear~deformation}","\\mathrm{WCA}")
 fig_swap=plotTimeSystem(systemShear.timeShear,systemShear.swap,assembly_dat,shear_dat,"\\mathrm{Strain~vs~swap}","\\mathrm{Shear~deformation}","\\mathrm{WCA}")
+fig_pot=plotTimeSystem(systemShear.timeShear,systemShear.ep,assembly_dat,shear_dat,"\\mathrm{Strain~vs~Potential~energy}","\\mathrm{Shear~deformation}","\\mathrm{U}")
 
 # Compute the shear-rate vs stress at steady state
 
@@ -135,6 +136,31 @@ range2=system_assembly."c_patchPair"[l_o:end];
 range3=system_assembly."c_swapPair"[l_o:end];
 fig_engPots_as=plotTimeAssPotential(domain,range1,range2,range3,assembly_dat,shear_dat,"\\mathrm{Time~vs~Potential~energies}","\\mathrm{Assembly}","\\mathrm{Energy}")
 
+
+do_save=1;
+
+if do_save == 1
+    save(joinpath(path_system,"Strain-vs-StressXY.png"),fig_sigXY)
+    save(joinpath(path_system,"Strain-vs-StressNORM.png"),fig_sigNorm)
+    save(joinpath(path_system,"Strain-vs-StressVirialXY.png"),fig_sigVirXY)
+
+    save(joinpath(path_system,"Time-vs-Temp-shear.png"),fig_temp)
+    save(joinpath(path_system,"Time-vs-WCA-shear.png"),fig_wca)
+    save(joinpath(path_system,"Time-vs-Patch-shear.png"),fig_patch)
+    save(joinpath(path_system,"Time-vs-Swap-shear.png"),fig_swap)
+    save(joinpath(path_system,"Time-vs-Pot-shear.png"),fig_pot)
+
+    save(joinpath(path_system,"ShearRate-vs-Stress.png"),fig)
+    save(joinpath(path_system,"Strain-vs-Stress-Zoom.png"),fig_sigXYtrans)
+
+     save(joinpath(path_system,"Time-vs-Temp-assembly.png"),fig_temp_as)
+    save(joinpath(path_system,"Time-vs-Totalenergy-assembly.png"),fig_eng_as)
+    save(joinpath(path_system,"Time-vs-Potential-assembly.png"),fig_engPots_as)
+#    save(joinpath(path_system,"Time-vs-Swap-shear.png"),fig_swap)
+#    save(joinpath(path_system,"Time-vs-Pot-shear.png"),fig_pot)
+    println("Figures saved")
+   
+end
 
 #=
     A S S E M B L Y     P L O T S  
