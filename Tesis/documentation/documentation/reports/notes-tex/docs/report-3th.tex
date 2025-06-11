@@ -3,17 +3,46 @@
 \begin{document}
 
 
-\subsection{Summary of the semester}
+\subsection{Resumen de actividades}
 
-words
+Durante el semestre se trabajó principalmente en realizar correcciones al protocolo de simulaciones y realizar simulaciones de prueba con el protocolo correguido.
+Las principales correcciones que se realizaron fueron:
+\begin{enumerate}
+    \item Correguir la implmentación del potencial de 3 cuerpos en LAMMPS
+    \item Cambiar el comando \texttt{write\_data} por el comando \texttt{restart}.
+    \item Adaptar el promedio temporal de los commandos \texttt{fix} para los observables de energía y estrés.
+    \item Corrección en el cálculo de densidad de empaquetamiento de las simulaciones.
+\end{enumerate}
+Por otro lado las simulaciones de pruebas fueron realizandose para ir monitoreando que las comabios realizados no alteraran significativamente el comportamiento cualitativo esperado de las relaciones entre deformación y estrés.
+Una vez que se implementaron todas las correcciones, se empezarona ralizar simulaciones de exploración de parametros con el objetivo de ir analizando el sistema.
+Se vario el ritmo de deformación y el \texttt{damp}.
 
-\subsection{Main results}
+
+
+\subsection{Resultados principales}
+
+Los resultados principales del semestre son la relación preliminar entre el ritmo de deformación con el estrés en estado estacionario durante una deformación de cizallamiento (figura~\ref{fig:shear-rate-vs-stress}) y la evolución del estrés virial durante una deformación de cizallamiento (figura~\ref{fig:strain-vs-stress}), junto con las correcciones realizadas en el protocolo de simulación.
+
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.8\textwidth]{../Figures/system-2025-05-22-194804-CL-0.03/ShearRate-vs-Stress.png}
-    \caption{Caption}
+    \caption{
+        Promedio temporal del estrés en estado estacionario para distintos ritmos de deformación.
+    }\label{fig:shear-rate-vs-stress}
 \end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{../Figures/system-2025-05-22-194804-CL-0.03/Strain-vs-StressVirialXY.png}
+    \caption{
+        Promedio temporal del estrés virial durante una deformación de tipo cizallamiento para distintos ritmos de deformación.
+    }\label{fig:strain-vs-stress}
+\end{figure}
+
+
+
+\subsection{Resultados generales}
 
 
 \end{document}
