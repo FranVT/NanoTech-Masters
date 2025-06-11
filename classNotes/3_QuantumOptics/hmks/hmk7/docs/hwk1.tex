@@ -1,0 +1,306 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\section{Problem 4.16}
+A hydrogenic atom consists of a single electron orbiting a nucleus with $Z$ protons ($Z=1$ would be itself, $Z=2$ is ionized helium, $Z=3$ is doubly ionized lithium, and so on).
+Determine
+\begin{enumerate}
+    \item Bohr energies $E_n(Z)$
+    \item Binding energy $E_1(z)$
+    \item Bohr radius $a(Z)$
+    \item Rydberg constant $R(Z)$
+\end{enumerate}
+for a hydrogenic atom.
+(Express your answers as appropriate multiples of the hydrogen values.)
+Where in the electromagnetic spectrum would the Lyman series fall, for $Z=2$ and $Z=3$?
+Hint: There's nothing much to calculate here-in the potential \[V(r)=-\frac{e^2}{4\pi\epsilon_0}\frac{1}{r}\]
+$e^2\to Ze^2$, so all you have to do is make the same substitution in all the final results.
+
+\begin{sol}{Bohr energies}{label-1a}
+    Recalling that the energy of the Hydrogen atom is given by \[E_n=-\frac{m_e e^4}{2(4\pi\epsilon_o)^2\hbar^2}\frac{1}{n^2},\]
+    and tacking into account the hint of introducing the following change of variable $e^2\to Ze^2$ we get the following expression,
+    \begin{align*}
+        E_n(Z) &= -\frac{m_e (Ze^2)^2}{2(4\pi\epsilon_o)^2\hbar^2}\frac{1}{n^2} \\
+            &= -\frac{m_e e^4}{2(4\pi\epsilon_o)^2\hbar^2}\frac{1}{n^2}Z^2 \\
+            &= E_n Z^2.
+    \end{align*}
+
+    Therefore, the Boher energies are
+    \begin{empheq}[box=\shadowbox]{equation*}
+        E_n (Z) = E_n Z^2
+    \end{empheq}
+\end{sol}
+
+\begin{sol}{Binding energy $E_1(Z)$}{label-2a}
+    From the previous result we can easily compute $E_1(Z)$ as follows,
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        E_1 (Z) = E_1 Z^2
+    \end{empheq}
+\end{sol}
+
+\begin{sol}{Bohr radius $a(Z)$}{label-3a}
+    With the same methodology of the first question, we start by recalling the Bohr's radius expression and introducing the suggested change of variable,
+    \begin{align*}
+        a(Z) &= \frac{4\pi\epsilon_o\hbar^2}{e^2 m_e} \\
+          &= \frac{4\pi\epsilon_o\hbar^2}{Ze^2 m_e} \\
+          &= \frac{4\pi\epsilon_o\hbar^2}{e^2 m_e}\frac{1}{Z} \\
+          &= \frac{a}{Z}
+    \end{align*}
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        a(Z) = \frac{a}{Z}
+    \end{empheq}
+\end{sol}
+
+\begin{sol}{Rydberg constant $R(Z)$}{label-4a}
+    Now, we apply the same procedure as before to compute the Rydberg constant,
+    \begin{align*}
+        R(Z) &= \frac{m_e e^4}{8\epsilon_o\hbar^3 c} \\
+          &= \frac{m_e \qty(Ze^2)^2}{8\epsilon_o\hbar^3 c} \\
+          &= \frac{m_e e^4}{8\epsilon_o\hbar^3 c}Z^2 \\
+          &= R Z^2
+    \end{align*}
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        R(Z) = R Z^2
+    \end{empheq}
+\end{sol}
+
+
+\begin{sol}{Electromagnetic spectrum}{label-5a}
+    To compute the Lyman lines we need to recall the following relation, \[\frac{1}{\lambda_2}=R\qty(1-\frac{1}{4})\implies\lambda_2=\frac{4}{3R}\] and \[\frac{1}{\lambda_1}=R\qty(1-\frac{1}{\infty})\implies\lambda_1=\frac{1}{R}.\]
+    
+    Now that we known the Ryberg constat in terms of $Z$ we compute the lines for $Z=2$ and $3$.
+    For $Z=2$ we get that $\lambda_1=1/R 2^2$ and $\lambda_2=4/(3R 2^2)$.
+    For $Z=3$ we get that $\lambda_1=1/R 3^2$ and $\lambda_2=4/(3R 3^2)$
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        Z=2 \rightarrow \lambda_{1}\SI{2.28d-8}{\meter},~\lambda_{2}\SI{3.04d-8}{\meter}
+    \end{empheq}
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        Z=3 \rightarrow \lambda_{1}\SI{1.01d-8}{\meter},~\lambda_{2}\SI{1.35d-8}{\meter}
+    \end{empheq}
+
+
+\end{sol}
+
+
+\section{Problem 5.6}
+
+Imagine two noninteracting particles, each of mass $m$, in the infinite square well.
+If one is in the state \[\psi_n(x)=\sqrt{\frac{2}{a}}\sin\qty(\frac{n\pi}{a}x).\], and the other in state $\psi_l$ ($l\neq n$), calculate $\expval{(x_1-x_2)^2}$, assuming
+\begin{enumerate}
+    \item they are distinguishable particles
+    \item they are identical bosons
+    \item they are identical fermions
+\end{enumerate}
+
+\begin{sol}{Distinguishable particles}{label-3a}
+    From previous results in the chapter, the expectation value for distinguishable particles  we get that,
+    \begin{gather*}
+        \expval{(x_1-x_2)^2}_d = \expval{x^2}_a + \expval{x^2}_b - 2\expval{x}_a\expval{x}_b.
+    \end{gather*}
+    Also, from the state we get that,
+    \begin{align*}
+        \expval{x}_n = \frac{a}{2},\quad 
+        \expval{x^2}_n = a^2\qty(\frac{1}{3}-\frac{1}{2(n\pi)^2}). 
+    \end{align*}
+
+    Subsistuing the values we get the following result,
+    \begin{align*}
+        \expval{(x_1-x_2)^2}_d &= a^2\qty(\frac{1}{3}-\frac{1}{2(n\pi)^2}) + a^2\qty(\frac{1}{3}-\frac{1}{2(n\pi)^2}) - 2\frac{a}{2}\frac{a}{2} \\
+                               &= a^2\left[\frac{1}{6}-\frac{1}{2\pi^2}\qty(\frac{1}{n^2}+\frac{1}{m^2})\right].
+    \end{align*}
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        \expval{(x_1-x_2)^2}_d =a^2\left[\frac{1}{6}-\frac{1}{2\pi^2}\qty(\frac{1}{n^2}+\frac{1}{m^2})\right]
+    \end{empheq}
+\end{sol}
+
+\begin{sol}{Identical bosons}{label-3b}
+    Now that we are going to analyze bosons, the state is represented by \[\Psi_+(x_1,x_2)=\frac{1}{\sqrt{2}}\left[\psi_n(x_1)\psi_m(x_2)+\psi_m(x_1)\psi_n(x_2)\right]\] and the expectation value, computed previously in the chapter, is given by, \[\expval{(x_1-x_2)^2}_{+} = \expval{x^2}_n + \expval{x^2}_m - 2\expval{x}_n\expval{x}_m-2\abs{\expval{x}_{nm}}^2.\]
+
+    We need to compute $\expval{x}_n,~\expval{x^2}_n$ and $\expval{x_n x_m}$, due to time restrictions I will add the results and summit the procedures in another document,
+    \begin{align*}
+        \expval{x} &= \frac{a}{2}\\
+        \expval{x^2} &= a^2\left[\frac{1}{3}-\frac{1}{4\pi}\qty(\frac{1}{n^2}+\frac{1}{m^2}) \right] \\
+        \expval{x_n x_m} &= 
+            \left\{
+                \begin{array}{cl}
+                    \frac{a\qty(-8mn)}{\pi^2\qty(m^2-n^2)^2} & n,~m~\mathrm{have~opposite~parity}\\
+                    0 & n,~m~\mathrm{have~same~parity}
+                \end{array}
+            \right.
+    \end{align*}
+    with those results we can compute the answer,
+    \begin{align*}
+        \expval{(x_1-x_2)^2}_d &= a^2\left[\frac{1}{3}-\frac{1}{4\pi}\qty(\frac{1}{n^2}+\frac{1}{m^2}) \right]  + a^2\left[\frac{1}{3}-\frac{1}{4\pi}\qty(\frac{1}{n^2}+\frac{1}{m^2}) \right] -2\frac{a}{2}\frac{a}{2} - 2\left[\frac{a\qty(-8mn)}{\pi^2\qty(m^2-n^2)^2}\right]^2\\
+                               &= a^2\left[\frac{1}{6}-\frac{1}{2\pi^2}\qty(\frac{1}{n^2}+\frac{1}{m^2})\right]-\frac{128a^2m^2n^2}{\pi^4\qty(m^2-n^2)^4}.
+    \end{align*}
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        \expval{(x_1-x_2)^2}_d =a^2\left[\frac{1}{6}-\frac{1}{2\pi^2}\qty(\frac{1}{n^2}+\frac{1}{m^2})\right]-\frac{128a^2m^2n^2}{\pi^4\qty(m^2-n^2)^4}
+    \end{empheq}
+\end{sol}
+
+\begin{sol}{Identical fermions}{label-3b}
+    Now that we are going to analyze bosons, the state is represented by \[\Psi_{-}(x_1,x_2)=\frac{1}{\sqrt{2}}\left[\psi_n(x_1)\psi_m(x_2)-\psi_m(x_1)\psi_n(x_2)\right]\] and the expectation value, computed previously in the chapter, is given by, \[\expval{(x_1-x_2)^2}_{+} = \expval{x^2}_n + \expval{x^2}_m - 2\expval{x}_n\expval{x}_m-2\abs{\expval{x}_{nm}}^2.\]
+    Due to the symmetry with the previus state we can re-cycle the results with the proper sign modification,
+    \begin{align*}
+        \expval{x} &= \frac{a}{2}\\
+        \expval{x^2} &= a^2\left[\frac{1}{3}-\frac{1}{4\pi}\qty(\frac{1}{n^2}+\frac{1}{m^2}) \right] \\
+        \expval{x_n x_m} &= 
+            \left\{
+                \begin{array}{cl}
+                    \frac{a\qty(-8mn)}{\pi^2\qty(m^2-n^2)^2} & n,~m~\mathrm{have~opposite~parity}\\
+                    0 & n,~m~\mathrm{have~same~parity}
+                \end{array}
+            \right.
+    \end{align*}
+    Hence,
+    \begin{empheq}[box=\shadowbox]{equation*}
+        \expval{(x_1-x_2)^2}_d =a^2\left[\frac{1}{6}-\frac{1}{2\pi^2}\qty(\frac{1}{n^2}+\frac{1}{m^2})\right]+\frac{128a^2m^2n^2}{\pi^4\qty(m^2-n^2)^4}
+    \end{empheq}
+
+\end{sol}
+
+
+\section{Problem 5.9}
+
+\begin{enumerate}
+    \item Suppose you put both electrons in a helium atom into the $n=2$ state; what would the energy of the emitted electron be?
+    \item Describe (quantitatively) the spectrum of the helium ion, $\mathrm{He}^+$.
+\end{enumerate}
+
+\begin{sol}{Energy of emitted electron}{label-4a}
+    We start by computing the total energy in the system as follows,
+    \begin{align*}
+        E_s &= 2\frac{Z^2}{n^2}E_1 \\
+          &= 2\frac{2^2}{2^2}E_1 \\
+          &= -27.2\mathrm{eV}.
+    \end{align*}
+
+    Now, we compute the energy of one electron that goes into the ground state,
+    \begin{align*}
+        E_d &= \frac{Z^2}{n^2}E_1 \\
+          &= \frac{2^2}{1^2}E_1 \\
+          &= -108.8\mathrm{eV}.
+    \end{align*}
+
+    Computing the difference of energy we get,
+    \begin{align*}
+        E &= -27.2\mathrm{eV}- -108.8\mathrm{eV}\\
+          &= 27.2\mathrm{eV}. \\
+    \end{align*}
+
+    Therefore,
+    \begin{empheq}[box=\shadowbox]{equation*}
+        E = 27.2\mathrm{eV}
+    \end{empheq}
+
+\end{sol}
+
+\begin{sol}{Spectrum of helium ion}{label-4b}
+
+    For this case, we recall the last solution from problem 4.16 in which compute the spectrum of an hydrogen like atom as follows,
+    \begin{gather*}
+        \frac{1}{\lambda}=4R\left(\frac{1}{n_f^2}-\frac{1}{n_i^2}\right),
+    \end{gather*}
+    tacking into account the the helium ion is a hydrogenic ion, we can apply this relation to compute the spectrum.
+
+    \begin{empheq}[box=\shadowbox]{align*}
+        \frac{1}{\lambda}=4R\left(\frac{1}{n_f^2}-\frac{1}{n_i^2}\right) 
+    \end{empheq}
+
+\end{sol}
+
+\section{Problem 5.10}
+
+Discuss (qualitatively) the energy level scheme for helium if
+\begin{enumerate}
+    \item electrons were identical bosons
+    \item if electrons were distinguishable particles (but with the same mass and charge).
+        Pretend these ``electrons'' still have spin $1/2$, so the spin configuration are the singlet and the triplet.
+\end{enumerate}
+
+\begin{sol}{Electrons as identical bosons}{label-5a}
+
+To answer we need to take into account the triplets states with total spin angular momentum $s=1$ are symmetric, meanwhile the singlet with total angular momentum $s=0$ is antisymetric.
+Also that a property of describing a particle as a boson, implies that the state of the particle is symmetric under exchange.
+Therefore we have the following cases:
+\paragraph{Triplets} In this case the spin state is symmetric, hence to make a total state symmetric, the spatial state that is associated with the triplets must be symmetric.
+As a consequence, the probability of the particles getting closer is favoured.
+\paragraph{Singlet} Since the spin state is antisymmetric, the related spatial state must be antisymmetric to accomplish a symmetric total state.
+Hence, the probability of the particles getting closer is reduced.
+
+From this qualitatively analysis, we expect thet the total state of the particle associated with triplets have higher energies than those associated with the singlet states.
+
+\end{sol}
+
+
+\begin{sol}{Electron as distinguisable particles}{label-5b}
+
+In this situation the spin state can be describe as separable states, hence the restrictions that applied from the previous case can not be applied in this situation, since each particle can be well defined.
+This cause that we can not make educated guess about the energies of the states.
+\end{sol}
+
+\section{Problem 5.12}
+
+\begin{enumerate}
+    \item Figure out the electron configurations (in the notation of eqn 5.33) for the first two rows of the periodic table (up to neon), and check your results against table 5.1
+    \item Figure out the corresponding total angular momenta, in the notation of $^{2S+1}L_J$ , for the first four elements.
+        List all possibilities for boron, carbon and nitrogen.
+\end{enumerate}
+
+
+\begin{sol}{Electron configurations}{label-6a}
+
+    \begin{enumerate}
+        \item Hydrogen: $(1s)$
+        \item Helium: $(1s)^2$
+        \item Lithium: $(1s)^2(2s)$
+        \item Beryllium: $(1s)^2(2s)^2$
+        \item Boron: $(1s)^2(2s)^2(2p)$
+        \item Carbon: $(1s)^2(2s)^2(2p)^2$
+        \item Nitrogen: $(1s)^2(2s)^2(2p)^3$
+        \item Oxygen: $(1s)^2(2s)^2(2p)^4$ 
+        \item Fluorine: $(1s)^2(2s)^2(2p)^5$ 
+        \item Neon: $(1s)^2(2s)^2(2p)^6$ 
+    \end{enumerate}
+
+\end{sol}
+
+\begin{sol}{Total angular momenta}{label-6b}
+    Remembering that $S$ refers to the total spin angular number and $J$ the total general angular momentum.
+
+    \begin{enumerate}
+        \item Hydrogen: $S=1/2,~J=1/2\rightarrow~^{2}S_{1/2}$
+        \item Helium: $S=0,~J=0\rightarrow~^{1}S_{0}$
+        \item Lithium: $S=1/2,~J=1/2\rightarrow~^{2}S_{1/2}$
+        \item Beryllium: $S=0,~J=0\rightarrow~^{1}S_{0}$
+        \item Boron: $S=1/2,~J=\{1/2,3/2\}\rightarrow~^{2}P_{1/2},^{2}P_{3/2}$
+        \item Carbon: $S=\{0,1\},~J=\{0,1,2\}\rightarrow~^{1}S_{0},^{3}S_{0},^{1}P_{1},^{3}P_{2},^{3}P_{1},^{3}P_{0},^{1}D_{2},^{3}D_{3},^{3}D_{2},^{3}D_{1}$ 
+        \item Nitrogen: $S=\{1/2,3/2\},~J=\{0,1,2,3\}\rightarrow~^{2}S_{1/2},^{4}S_{3/2},^{2}P_{1/2},^{2}P_{3/2},^{4}P_{1/2},^{4}P_{3/2},^{4}P_{5/2},^{2}D_{3/2}$, $^{2}D_{5/2},^{4}D_{1/2},^{4}D_{3/2},^{4}D_{5/2},^{4}D_{5/2},^{4}D_{7/2},^2F_{5/2},^2F_{3/2},^4F_{3/2},^4F_{5/2},^4F_{7/2},^4F_{9/2}$ 
+    \end{enumerate}
+
+\end{sol}
+
+
+\section{Problem 5.14}
+
+The ground state of dysprosium (element 66, in the 6th row of the Periodic Table) is listed as $^5I_8$.
+What are the total spin, total arbital and grand total angular momentum quantum numbers?
+Suggest a likely electron configuration for dysprosium.
+
+\begin{sol}{Electron configuration for Dysprosium}{label-7a}
+    So, from the notation we can deduce that $S=2,L=\{6,8\}$ therefore \[(1s)^2(2s)^2(2p)^6(3s)^2(3p)^6(3d)^{10}(4s)^2(4p)^6(4d)^{10}(5s)^2(5p)^6(4f)^{10}(6s)^2\]
+
+\end{sol}
+
+
+
+
+\end{document}

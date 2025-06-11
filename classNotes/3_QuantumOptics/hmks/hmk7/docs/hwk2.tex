@@ -1,0 +1,304 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\section{Problem 4.25}
+
+If the electron were a classical solid sphere, with radius,
+\begin{gather*}
+    r_c = \frac{e^2}{4\pi\epsilon_o mc^2}
+\end{gather*}
+(the so-called classical electron radius, obtained by assuming the electron's mass is attributable to energy sotred in its electric field, via the Einstein formula $E=mc^2$),
+and its angular momentum is $\hbar/2$, then how fast (in $m/s$) would a point on the ``equator'' be moving?
+Does this model make sense?
+(Actually, the radius of the electrin is known experimentally to be much less than $r_c$ but this only makes matters worse.)
+
+\begin{sol}{Classical spinning}{label-1a}
+    From the classical framework the angular momentum is modeled with the following relation,
+    \begin{gather*}
+        L = I\omega,
+    \end{gather*}
+    where $I$ is the moment of interia, which in this case is $I=2/5mr^2$ and $w$ is the angular frequency, that can be express as $\omega=v/r$.
+    Replacing this equivalences into the angular momentum equation we can get the following expression for $v$,
+    \begin{gather*}
+        v = \frac{5}{2}\frac{L}{mr_c},
+    \end{gather*}
+    substituting the values of $L$ and $r_c$,
+    \begin{gather*}
+        v = \frac{5\pi\hbar\epsilon_o}{e^2}c^2.
+    \end{gather*}
+    Recalling the order of magnitud of the constants, $e\approx\num{d-19}$, $\hbar\approx\num{d-34}$, $\epsilon_o\approx\num{d-12}$ and $c\approx\num{d8}$, we get that,
+    \begin{gather*}
+        \frac{5\pi\hbar\epsilon_o}{e^2}c\approx 90,
+    \end{gather*}
+    which tells us that the velocity at the ecuator is $90$ times the velocity of light, which does not make sense.
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        v\approx90c.
+    \end{empheq}
+\end{sol}
+
+
+
+\section{Problem 4.26}
+
+\begin{itemize}
+    \item Check that the spin matrices\eqref{eqn:spin-matrices} obey the fundamental commutation relations for angular momentum\eqref{eqn:comm-rela}.
+        \begin{gather}
+            \hat{S}_x = \frac{\hbar}{2}\begin{pmatrix}0&1\\1&0\end{pmatrix},
+            \quad
+            \hat{S}_y = \frac{\hbar}{2}\begin{pmatrix}0&-i\\i&0\end{pmatrix},
+            \quad
+            \hat{S}_z = \frac{\hbar}{2}\begin{pmatrix}1&0\\0&-1\end{pmatrix}
+            \label{eqn:spin-matrices} 
+            \\
+            \comm{\hat{S}_x}{\hat{S}_y}=i\hbar\hat{S}_z,
+            \quad
+            \comm{\hat{S}_y}{\hat{S}_z}=i\hbar\hat{S}_x,
+            \quad
+            \comm{\hat{S}_z}{\hat{S}_x}=i\hbar\hat{S}_y
+            \label{eqn:comm-rela} 
+        \end{gather}
+    \item Show that the Pauli spin matrices\eqref{eqn:pauli-matrices} satisfy the product rule\eqref{eqn:prod_rule}, where the indices stand for $x,y,z$ and $\epsilon_{jkl}$ is the Levi-Civita symbol.
+        \begin{gather}
+            \sigma_x = \frac{\hbar}{2}\begin{pmatrix}0&1\\1&0\end{pmatrix},
+            \quad
+            \sigma_y = \frac{\hbar}{2}\begin{pmatrix}0&-i\\i&0\end{pmatrix},
+            \quad
+            \sigma_z = \frac{\hbar}{2}\begin{pmatrix}1&0\\0&-1\end{pmatrix}
+            \label{eqn:pauli-matrices} 
+            \\
+            \sigma_j\sigma_k=\delta_{jk}+i\sum_l\epsilon_{jkl}\sigma_l\label{eqn:prod_rule}.
+        \end{gather}
+        
+\end{itemize}
+
+\begin{sol}{Commutation relations}{label-2a}
+    We start computing $\comm{\hat{S}_x}{\hat{S}_y}$,
+    \begin{align*}
+        \comm{\hat{S}_x}{\hat{S}_y} &=
+            \frac{\hbar^2}{4}\left[
+                \begin{pmatrix}i&0\\0&-i\end{pmatrix}
+                -
+                \begin{pmatrix}-i&0\\0&i\end{pmatrix}
+            \right]
+            \\
+                                 &=i\hbar\frac{\hbar}{2}\begin{pmatrix}1&0\\0&-1\end{pmatrix}
+                                 \\
+                                 &=i\hbar\hat{S}_z.
+    \end{align*}
+
+    Now $\comm{\hat{S}_y}{\hat{S}_z}$,
+    \begin{align*}
+        \comm{\hat{S}_y}{\hat{S}_z} &=
+            \frac{\hbar^2}{4}\left[
+                \begin{pmatrix}0&i\\i&0\end{pmatrix}
+                -
+                \begin{pmatrix}0&-i\\-i&0\end{pmatrix}
+            \right]
+            \\
+                                 &=i\hbar\frac{\hbar}{2}\begin{pmatrix}0&1\\1&0\end{pmatrix}
+                                 \\
+                                 &=i\hbar\hat{S}_x.
+    \end{align*}
+
+    Finally $\comm{\hat{S}_z}{\hat{S}_x}$,
+    \begin{align*}
+        \comm{\hat{S}_z}{\hat{S}_x} &=
+            \frac{\hbar^2}{4}\left[
+        \begin{pmatrix}0&1\\-1&0\end{pmatrix}
+                -
+                \begin{pmatrix}0&-1\\1&0\end{pmatrix}
+            \right]
+            \\
+                                 &=\qty(-ii)\frac{\hbar}{2}\begin{pmatrix}0&1\\-1&0\end{pmatrix}
+                                 \\
+                                 &=i\hbar\hat{S}_y.
+    \end{align*}
+
+    Hence, it is proof that,
+    \begin{empheq}[box=\shadowbox]{equation*}
+        \comm{\hat{S}_x}{\hat{S}_y}=i\hbar\hat{S}_z,
+            \quad
+            \comm{\hat{S}_y}{\hat{S}_z}=i\hbar\hat{S}_x,
+            \quad
+            \comm{\hat{S}_z}{\hat{S}_x}=i\hbar\hat{S}_y    
+    \end{empheq}
+\end{sol}
+
+\begin{sol}{Pauli spin matrices properties}{label-2b}
+    To proof that the product rule is satified by the Pauli matrices, we compute all the products.
+    Strating with $\sigma_x\sigma_x$, $\sigma_y\sigma_y$, $\sigma_z\sigma_z$,
+    \begin{align*}
+        \sigma_x\sigma_x  &= \mqty(\pmat{x})\mqty(\pmat{x}) = \mqty(\imat{2}), \\
+        \sigma_y\sigma_y  &= \mqty(\pmat{y})\mqty(\pmat{y}) = \mqty(\imat{2}), \\
+        \sigma_z\sigma_z  &= \mqty(\pmat{z})\mqty(\pmat{z}) = \mqty(\imat{2}).
+    \end{align*}
+
+    Now, for the cross terms,
+    \begin{align*}
+        \sigma_x\sigma_y  &= \mqty(\pmat{x})\mqty(\pmat{y}) = i\mqty(\pmat{z}), \\
+        \sigma_y\sigma_z  &= \mqty(\pmat{y})\mqty(\pmat{z}) = i\mqty(\pmat{x}), \\
+        \sigma_x\sigma_z  &= \mqty(\pmat{x})\mqty(\pmat{z}) = i\mqty(\pmat{y}).
+    \end{align*}
+
+    Which confirms that Pauli's matrices satifies the product relation.
+
+\end{sol}
+
+\section{Problem 4.27}
+
+An electron is in the spin state,
+\begin{gather*}
+    \chi=A\begin{pmatrix}3i\\4\end{pmatrix}
+\end{gather*}
+
+\begin{enumerate}
+    \item Determine the normalization constant $A$.
+    \item Find the expectation values of $S_x, S_y$ and $S_z$.
+    \item Find the ``uncertanties'' $\sigma_{S_x},\sigma_{S_y}$ and $\sigma_{S_z}$. (Note: These sigmas are standard deviations, not Pauli matrices!)
+    \item Confirm that your results are consistent with all three uncertanty principles 4.100 and its cyclic permutations-only with $S$ in place of $L$, of course.
+\end{enumerate}
+
+\begin{sol}{Normalization constant}{label-3a}
+    To find the normalization constant we need to get the squared modulus of the state and solve for $A$,
+    \begin{align*}
+        \abs{\chi}^2 &= A\begin{pmatrix}-3i&4\end{pmatrix}A\begin{pmatrix}3i\\4\end{pmatrix} \\
+                     &= 25A^2,
+    \end{align*}
+    tacking into account that $\abs{\chi}^2=1$ we get that $A=1/5$.
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        A=\frac{1}{5}
+    \end{empheq}
+\end{sol}
+
+\begin{sol}{Expected values of spin}{label-3b}
+    To find $\expval{\hat{S}_x},\expval{\hat{S}_y}$ and $\expval{\hat{S}_z}$ we compute, $\expval{\hat{S}_n}{\chi}$,
+    \begin{align*}
+        \expval{\hat{S}_x}{\chi} &=\frac{\hbar}{50}\mqty(-3i&4)\mqty(\pmat{x})\mqty(-3i\\4)=\frac{\hbar}{50}\qty(-12i+12i)=0, \\
+        \expval{\hat{S}_y}{\chi} &=\frac{\hbar}{50}\mqty(-3i&4)\mqty(\pmat{y})\mqty(-3i\\4)=\frac{\hbar}{50}\qty(-12-12)=-\frac{12}{25}\hbar, \\
+        \expval{\hat{S}_z}{\chi} &=\frac{\hbar}{50}\mqty(-3i&4)\mqty(\pmat{z})\mqty(-3i\\4)=\frac{\hbar}{50}\qty(9-16)=-\frac{7}{50}\hbar. 
+    \end{align*}
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        \expval{\hat{S}_x}=0,\quad 
+        \expval{\hat{S}_y}=-\frac{12}{25}\hbar,\quad
+        \expval{\hat{S}_z}=-\frac{7}{50}\hbar.
+    \end{empheq}
+\end{sol}
+
+\begin{sol}{Uncertanties}{label-3c}
+    To compute the uncertanty we recall that $\sigma=\sqrt{\expval{\hat{S}^2} - \expval{\hat{S}}^2}$.
+    From the previous task we already known $\expval{\hat{S}}$, hence we only need to compute $\expval{\hat{S}^2}$.
+    \begin{align*}
+        \expval{\hat{S}_x^2}{\chi} &=\frac{\hbar^2}{100}\mqty(-3i&4)\mqty(\pmat{x})\mqty(\pmat{x})\mqty(-3i\\4)=\frac{\hbar}{50}\qty(9+16)=\frac{\hbar^2}{4}, \\
+        \expval{\hat{S}_y^2}{\chi} &=\frac{\hbar^2}{100}\mqty(-3i&4)\mqty(\pmat{y})\mqty(\pmat{y})\mqty(-3i\\4)=\frac{\hbar}{50}\qty(9+16)=\frac{\hbar^2}{4}, \\
+        \expval{\hat{S}_z^2}{\chi} &=\frac{\hbar^2}{100}\mqty(-3i&4)\mqty(\pmat{z})\mqty(\pmat{z})\mqty(-3i\\4)=\frac{\hbar}{50}\qty(9+16)=\frac{\hbar^2}{4}. 
+    \end{align*}
+
+    Now we can compute the uncertanties,
+    \begin{align*}
+        \sigma_x&=\sqrt{\frac{\hbar^2}{4} - 0}=\frac{\hbar}{2}, \\
+        \sigma_y&=\sqrt{\frac{\hbar^2}{4} - \frac{144}{625}\hbar^2}=\frac{7}{50}\hbar, \\
+        \sigma_z&=\sqrt{\frac{\hbar^2}{4} - \frac{49}{2500}\hbar^2}=\frac{12}{25}\hbar. 
+    \end{align*}
+
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        \sigma_x=\frac{\hbar}{2},\quad
+        \sigma_y=\frac{7}{50}\hbar,\quad
+        \sigma_z=\frac{12}{25}\hbar.
+    \end{empheq}
+\end{sol}
+
+\begin{sol}{Checking consistency with the uncertanty principle.}{label-3d}
+    With the uncertanty relation, $\sigma_A\sigma_B\geq1/2\abs{\expval{\comm{\hat{A}}{\hat{B}}}}$, we can test the previous results,
+
+    
+    \begin{minipage}[c]{0.3\textwidth}
+        \begin{align*}
+            \sigma_{\hat{S}_x}\sigma_{\hat{S}_y}&\geq\frac{1}{2}\abs{i\hbar\expval{\hat{S}_z}} \\
+            \frac{\hbar}{2}\frac{7}{50}\hbar&\geq\frac{1}{2}\frac{7}{50}\hbar^2\\
+            \frac{7}{100}\hbar^2&\geq\frac{7}{100}\hbar^2
+        \end{align*}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.3\textwidth}
+        \begin{align*}
+            \sigma_{\hat{S}_y}\sigma_{\hat{S}_z}&\geq\frac{1}{2}\abs{i\hbar\expval{\hat{S}_x}} \\
+            \frac{7}{50}\frac{12}{25}\hbar&\geq\frac{1}{2}0\\
+            \frac{42}{625}\hbar^2&\geq0
+        \end{align*}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[c]{0.3\textwidth}
+        \begin{align*}
+            \sigma_{\hat{S}_x}\sigma_{\hat{S}_z}&\geq\frac{1}{2}\abs{i\hbar\expval{\hat{S}_y}} \\
+            \frac{\hbar}{2}\frac{12}{25}\hbar&\geq\frac{1}{2}\frac{12}{25}\hbar^2\\
+            \frac{12}{50}\hbar^2&\geq\frac{12}{50}\hbar^2
+        \end{align*}
+    \end{minipage}
+  
+    \vspace{1.5em}
+    This tells us that the previous results are consistent with the uncerntainty principle.
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        \sigma_{\hat{S}_x}\sigma_{\hat{S}_y}\geq\frac{1}{2}\abs{i\hbar\expval{\hat{S}_z}},\quad 
+        \sigma_{\hat{S}_y}\sigma_{\hat{S}_z}\geq\frac{1}{2}\abs{i\hbar\expval{\hat{S}_x}},\quad 
+        \sigma_{\hat{S}_x}\sigma_{\hat{S}_z}\geq\frac{1}{2}\abs{i\hbar\expval{\hat{S}_y}}
+    \end{empheq}
+\end{sol}
+
+
+\section{Problem 4.32 a}
+
+In Example 4.3,
+\begin{align*}
+    \chi\qty(t) = a\ket{\chi_+} e^{-iE_+t/\hbar }+b\ket{\chi_-} e^{-iE_-t/\hbar }.
+\end{align*}
+If you measure the component of spin angular momentum along the $x$ direction, at time $t$, what is the probability that you would get $+\hbar/2$?
+
+\begin{sol}{Probability of measuring spin angular momentum along the $x$ direction.}{label-4}
+    First we recall that $a=\cos\qty[\alpha/2]$ and $b=\sin\qty[\alpha/2]$ are the initial conditions of the state and that
+    \begin{gather*}
+        \ket{\chi_+} = \frac{1}{\sqrt{2}}\mqty(1\\1),\quad
+        \ket{\chi_-} = \frac{1}{\sqrt{2}}\mqty(1\\-1).
+    \end{gather*}
+    Taking into account that, we can re-write $\chi(t)$ as,
+    \begin{align*}
+        \ket{\chi\qty(t)} = \mqty(\cos\qty[\alpha/2]e^{i\gamma B_0t/2 }\\\sin\qty[\alpha/2]e^{-i\gamma B_0t/2 }).
+    \end{align*}
+
+    Now, to compute the probability of measuring $\hbar/2$ we need remember that the expected value of $\ket{\chi_+}$ is $\hbar/2$, therefore, we need to compute the modulus square of the projection of the state $\ket{\chi\qty(t)}$ into $\ket{\chi_+}$ to get the probability.
+    The mathematical procedure is shown below,
+    \begin{align*}
+        \braket{\chi_+}{\chi\qty(t)} &= \frac{1}{\sqrt{2}}\mqty(1&1)\mqty(\cos\qty[\alpha/2]e^{i\gamma B_0t/2}\\\sin\qty[\alpha/2]e^{-i\gamma B_0t/2 }) \\
+                                     &= \frac{1}{\sqrt{2}}\qty(\cos\qty[\alpha/2]e^{i\gamma B_0t/2}+\sin\qty[\alpha/2]e^{-i\gamma B_0t/2}).
+    \end{align*}
+    Now we can compute the probability,
+    \begin{multline*}
+        \abs{\braket{\chi_+}{\chi\qty(t)}}^2 = 
+            \left[
+                \frac{1}{\sqrt{2}}\qty(\cos\qty[\alpha/2]e^{-i\gamma B_0t/2}+\sin\qty[\alpha/2]e^{i\gamma B_0t/2})
+            \right] \\
+            \left[
+                \frac{1}{\sqrt{2}}\qty(\cos\qty[\alpha/2]e^{i\gamma B_0t/2}+\sin\qty[\alpha/2]e^{-i\gamma B_0t/2})
+            \right]
+    \end{multline*}
+
+    \begin{align*}
+        \abs{\braket{\chi_+}{\chi\qty(t)}}^2 &=\frac{1}{2}\qty[1+\cos\qty[\alpha/2]\sin\qty[\alpha/2]\qty(e^{-i\gamma B_0t}+e^{i\gamma B_0t})] \\
+                                             &=\frac{1}{2}\qty[1+\frac{1}{2}\sin\qty[\alpha]2\cos\qty[\gamma B_0t]] \\
+                                             &=\frac{1}{2}\qty[1+\sin\qty[\alpha]\cos\qty[\gamma B_0t]]
+    \end{align*}
+
+    \begin{empheq}[box=\shadowbox]{equation*}
+        \abs{\braket{\chi_+}{\chi\qty(t)}}^2 =\frac{1}{2}\qty[1+\sin\qty[\alpha]\cos\qty[\gamma B_0t]]
+    \end{empheq}
+
+\end{sol}
+
+
+
+\end{document}
