@@ -129,6 +129,11 @@ range=system_assembly."c_ek"[l_o:end];
 fig_engKin_as=plotTimeAssSystem(domain,range,assembly_dat,shear_dat,"\\mathrm{Time~vs~Kinetic~energy}","\\mathrm{Assembly}","\\mathrm{Energy}")
 
 
+domain=system_assembly."TimeStep"[l_o:end].*assembly_dat."time-step";
+range1=system_assembly."c_wcaPair"[l_o:end];
+range2=system_assembly."c_patchPair"[l_o:end];
+range3=system_assembly."c_swapPair"[l_o:end];
+fig_engPots_as=plotTimeAssPotential(domain,range1,range2,range3,assembly_dat,shear_dat,"\\mathrm{Time~vs~Potential~energies}","\\mathrm{Assembly}","\\mathrm{Energy}")
 
 
 #=

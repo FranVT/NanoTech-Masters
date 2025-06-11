@@ -213,6 +213,69 @@ Legend(fig[2,1],
 end
 
 
+function plotTimeAssPotential(domain,range1,range2,range3,assembly_dat,shear_dat,title,subtitle,ylbl)
+"""
+    Plot time vs something
+    Each potential is normalize with respect the sum of the absolut value of each potential at a given time
+"""
+
+fig=Figure(size=(1080,900));
+
+clbr=:managua10;
+
+ax=Axis(fig[1:1,1:1],
+    title=latexstring(title),
+    subtitle=latexstring(subtitle),
+    xlabel=L"\mathrm{Strain}",
+    ylabel=latexstring(ylbl), #L"\langle\sigma_{xy}\rangle",
+    titlesize=24.0f0,
+    subtitlesize=20.0f0,
+    xticklabelsize=18.0f0,
+    yticklabelsize=18.0f0,
+    xlabelsize=22.0f0,
+    ylabelsize=22.0f0,
+    xminorticksvisible=true,
+    xminorgridvisible=true
+   )
+
+#strain[s].*
+#series!([Point2f.(eachindex(strain[s]).*shear_dat[s]."time-step".*shear_dat[s]."save-fix".*systemShear.dgamma[s],shear[s]) for s in eachindex(shear_dat)],labels=string.((1000).*reduce(vcat,systemShear.dgamma)),color=clbr)
+lines!(domain,range1,label=L"\mathrm{WCA}")
+lines!(domain,range2,label=L"\mathrm{Patch}")
+lines!(domain,range3,label=L"\mathrm{Swap}")
+
+labels = [latexstring("\\mathrm{Number~of~particles}: ",assembly_dat."Npart"...),
+          latexstring("\\mathrm{Packing~fraction}: ",assembly_dat."phi"...), 
+          latexstring("\\mathrm{Cl~concentration}: ",assembly_dat."CL-Con"...), 
+          latexstring("\\mathrm{Damp}: ",assembly_dat."damp"...), 
+          latexstring("\\mathrm{Number~of~experiments}: ",first(shear_dat)."Nexp"...), 
+          latexstring("\\mathrm{Time~Avg}: ",first(shear_dat)."save-fix"./first(shear_dat)."N_def"...,"\\gamma")
+         ]
+
+Legend(fig[1,2],ax,
+       L"\mathrm{Potential}",
+       linewidth=5,
+       titlesize=24,
+       labelsize=20
+      )
+
+elem = MarkerElement(color = :black, marker = :circle, markersize = 0.1, strokecolor = :black)
+
+
+Legend(fig[2,1],
+       [elem for i in eachindex(labels)],
+    labels,
+    nbanks = 2,
+    patchsize = (5, 5), rowgap = 10,
+    orientation = :horizontal,
+    labelsize=20
+   )
+
+    return fig
+
+end
+
+
 
 function plotGeneral(domain,range,assembly_dat,shear_dat,title,subtitle,ylbl)
 """
