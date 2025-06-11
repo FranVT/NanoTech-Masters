@@ -1,0 +1,22 @@
+molecule CL sysFiles/molecule.patchy.CL
+molecule MO sysFiles/molecule.patchy.MO
+
+# Create patchy particles
+group CrossLinker type 1 3
+group Monomer type 2 4
+group Patches type 3 4
+group CL type 1
+group MO type 2
+group PA type 3
+group CM type 1 2
+
+# Neighbor list
+neighbor 0.6 multi
+
+comm_style brick
+comm_modify mode multi group all vel yes
+comm_modify cutoff/multi * 0.6
+neigh_modify delay 0 every 1 check no
+
+neigh_modify exclude molecule/intra CrossLinker
+neigh_modify exclude molecule/intra Monomer
