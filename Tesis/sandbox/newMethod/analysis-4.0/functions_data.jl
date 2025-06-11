@@ -238,7 +238,7 @@ function shearData(path_shear,shear_dat)
                           temp=a[s]."c_td",
                           wca=a[s]."c_wcaPair",
                           patch=a[s]."c_patchPair",
-                          #swap=a[s]."c_swapPair",
+                          swap=a[s]."c_swapPair",
                           ep=a[s]."c_ep",
                           ek=a[s]."c_ek",
                           et=a[s]."v_eT",

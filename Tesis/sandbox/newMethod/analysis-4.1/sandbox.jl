@@ -40,8 +40,8 @@ id="2025-06-06-082323";
 cl_con=0.5;
 
 # Extract the info or go directly to the graphs
-doAssembly=1;
-doShear=1;
+doAssembly=0;
+doShear=0;
 
 # Path to the data directory of the simulation scheme
 path_data=joinpath(parent_dir,scheme_dir,"data");
@@ -85,7 +85,7 @@ fig_sigVirXY=plotStrainShear(systemShear.strain,systemShear.sigVirXY,assembly_da
 fig_temp=plotTimeSystem(systemShear.timeShear,systemShear.temp,assembly_dat,shear_dat,"\\mathrm{Strain~vs~Temperature}","\\mathrm{Temp}","\\mathrm{Temp}")
 fig_wca=plotTimeSystem(systemShear.timeShear,systemShear.wca,assembly_dat,shear_dat,"\\mathrm{Strain~vs~WCA}","\\mathrm{WCA}","\\mathrm{WCA}")
 fig_patch=plotTimeSystem(systemShear.timeShear,systemShear.patch,assembly_dat,shear_dat,"\\mathrm{Strain~vs~patch}","\\mathrm{patch}","\\mathrm{WCA}")
-fig_swap=plotTimeSystem(systemShear.timeShear,systemShear.swap,assembly_dat,shear_dat,"\\mathrm{Strain~vs~swap}","\\mathrm{swap}","\\mathrm{WCA}")
+#fig_swap=plotTimeSystem(systemShear.timeShear,systemShear.swap,assembly_dat,shear_dat,"\\mathrm{Strain~vs~swap}","\\mathrm{swap}","\\mathrm{WCA}")
 
 
 ## Compute the shear-rate vs stress at steady state

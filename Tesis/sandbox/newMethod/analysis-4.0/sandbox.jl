@@ -18,15 +18,26 @@ include("functions_graphs.jl")
     D I R E C T O R I E S   AND   P A T H S
 =#
 
+dir_home=1;
+
 # Directory to the stored data 
-parent_dir=dirname(pwd());
-#"/run/media/franpad/rogelio/NanoTech-Masters/cluster/"; #
+if dir_home == 0
+    parent_dir=dirname(pwd());
+elseif dir_home == 1
+    parent_dir="/run/media/franpad/rogelio/NanoTech-Masters/cluster/";
+elseif dir_home == 2
+    parent_dir="/run/media/franpad/rogelio/NanoTech-Masters/minipc/";
+else
+    println("No parent directory")
+    exit()
+end
+
 # Select the siimulation scheme (Version and stuff)
-scheme_dir="bonds-3.2";
+scheme_dir="bonds-3.0";
 # Select the "system" by id
-id="2025-06-09-202818";
+id="2025-05-22-194804";
 # Select the system by "cross-linker" concentration
-cl_con=0.5;
+cl_con=0.03;
 
 # Extract the info or go directly to the graphs
 doAssembly=1;
