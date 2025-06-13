@@ -40,7 +40,7 @@ end
 # Parameters
 N = 1000000;
 sig = 0.4;
-eps = 1.0;
+eps = 2.5;
 rc=1.5*sig;
 rmin = sig/1000;
 rmax = 2*sig;

@@ -21,4 +21,4 @@ max_strain=15
 dgamma_o=0.05
 dgamma_f=0.1
 dgamma_d=0.01
-Nexp=1
+Nexp=2
