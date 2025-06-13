@@ -28,10 +28,84 @@ r_pac = (sig_pac,1.5*sig_pac);
 r_pc2 = (sig_pac,1.5*sig_pac);
 
 # Evaluation of the functions and the forces
-#wca_eval = map(r->WCA(eps_wca,sig_pat,r),r_pat);
+m=2^5;
+rlim=3;
+xdom=-rlim:rad_pat/m:rlim;
+ydom=-rlim:rad_pat/m:rlim;
+
+fig=Figure(size=(920,920));
+
+# Patch potential
+ax_pot = Axis(fig[1,1],
+            title = L"\mathrm{Patch~potential}",
+            xlabel = L"x",
+            ylabel = L"y",
+            titlesize = 24.0f0,
+            xticklabelsize = 18.0f0,
+            yticklabelsize = 18.0f0,
+            xlabelsize = 20.0f0,
+            ylabelsize = 20.0f0,
+            xminorticksvisible = true, 
+            xminorgridvisible = true,
+            xminorticks = IntervalsBetween(5),
+            #limits=(r_pac...,-3,3)
+         )
+
+xp_1=sig_pat/2;
+yp_1=0;
+patch1_eval=reduce(hcat,map(y->map(x->Upatch(eps_ij,sig_pac,sqrt((x-xp_1)^2+(y-yp_1)^2)),xdom),ydom));
+
+xp_2=-sig_pat/2;
+yp_2=0;
+patch2_eval=reduce(hcat,map(y->map(x->Upatch(eps_ij,sig_pac,sqrt((x-xp_2)^2+(y-yp_2)^2)),xdom),ydom));
+
+xp_3=0;
+yp_3=sig_pat/2;
+patch3_eval=reduce(hcat,map(y->map(x->Upatch(eps_ij,sig_pac,sqrt((x-xp_3)^2+(y-yp_3)^2)),xdom),ydom));
+
+tot=patch1_eval.+patch2_eval.+patch3_eval;
+heatmap!(ax_pot,xdom,ydom,tot,colormap=clmap,colorrange=(-2,2))
+
+Colorbar(fig[1,2],colormap=clmap,limits=(-2,2))
 
 
-clmap = :Dark2_8;
+# Swap potential
+fig_swap=Figure(size=(920,920));
+ax_swap = Axis(fig_swap[1,1],
+            title = L"\mathrm{Swap~potential}",
+            xlabel = L"d_{ij}",
+            ylabel = L"d_{ik}",
+            titlesize = 24.0f0,
+            xticklabelsize = 18.0f0,
+            yticklabelsize = 18.0f0,
+            xlabelsize = 20.0f0,
+            ylabelsize = 20.0f0,
+            xminorticksvisible = true, 
+            xminorgridvisible = true,
+            xminorticks = IntervalsBetween(5),
+            #limits=(r_pac...,-3,3)
+         )
+
+
+n=2;
+m=2^7;
+rlim=3;
+
+d_ij=0:sig_pac/m:2*sig_pac;
+d_ik=0:sig_pac/m:2*sig_pac;
+
+swap_eval = reduce(hcat,map(s->map(r->SwapU(w,eps_ij,eps_ik,eps_jk,sig_pac,r,s,1.5*sig_pac),d_ij),d_ik));
+
+heatmap!(ax_swap,d_ij,d_ik,swap_eval,colormap=clmap,colorrange=(-2,2))
+
+Colorbar(fig_swap[1,2],colormap=clmap,limits=(-2,2))
+
+
+
+
+function figureMonPot()
+
+clmap = :berlin;
 
 fig=Figure(size=(920,920));
 ax_pot = Axis(fig[1,1],
@@ -66,13 +140,13 @@ patch2_eval=reduce(hcat,map(y->map(x->Upatch(eps_ij,sig_pac,sqrt((x-xp)^2+(y-yp)
 
 
 tot=wca_eval.+patch1_eval.+patch2_eval;
-heatmap!(ax_pot,xdom,ydom,tot,colormap=:berlin,colorrange=(-2,2))
+heatmap!(ax_pot,xdom,ydom,tot,colormap=clmap,colorrange=(-2,2))
 #heatmap!(ax_pot,xdom,ydom,wca_eval)
 
-Colorbar(fig[1,2],colormap=:berlin,limits=(-2,2))
+Colorbar(fig[1,2],colormap=clmap,limits=(-2,2))
 
+end
 
-patch_eval = map(r->Upatch(eps_ij,sig_pac,r),abs.(xdom));
 
 
 #=
