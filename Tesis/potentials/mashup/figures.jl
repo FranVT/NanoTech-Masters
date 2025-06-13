@@ -102,6 +102,54 @@ Colorbar(fig_swap[1,2],colormap=clmap,limits=(-2,2))
 
 
 
+# Try to analyze the swap potential
+fig_3body=Figure(size=(920,920));
+ax_3body = Axis(fig_3body[1,1],
+            title = L"\mathrm{Swap~potential}",
+            xlabel = L"x",
+            ylabel = L"y",
+            titlesize = 24.0f0,
+            xticklabelsize = 18.0f0,
+            yticklabelsize = 18.0f0,
+            xlabelsize = 20.0f0,
+            ylabelsize = 20.0f0,
+            xminorticksvisible = true, 
+            xminorgridvisible = true,
+            xminorticks = IntervalsBetween(5),
+            #limits=(r_pac...,-3,3)
+         )
+
+th_1=0;
+th_2=pi/3;
+th_3=-pi/3;
+
+patch_1=(0,0);
+patch_2=(0.25,0.5);
+patch_3=(0.5,0);
+
+
+jsjs=[[rad_pac*cos(s) rad_pac*sin(s)] for s in 0:pi/32:2*pi]
+
+
+# Patches
+scatter!(ax_3body,patch_1, marker = Circle, markersize = 15)
+lines!(ax_3body,first.(jsjs).+first(patch_1),last.(jsjs).+last(patch_1))
+
+scatter!(ax_3body,patch_2, marker = Circle, markersize = 15)
+lines!(ax_3body,first.(jsjs).+first(patch_2),last.(jsjs).+last(patch_2))
+
+scatter!(ax_3body,patch_3, marker = Circle, markersize = 15)
+lines!(ax_3body,first.(jsjs).+first(patch_3),last.(jsjs).+last(patch_3))
+
+# Distances and stuff
+bracket!(patch_1..., patch_2..., offset = 5, text = "Distance ij", style = :square)
+bracket!(patch_1..., patch_3..., offset = 5, text = "Distance ik", style = :square)
+bracket!(patch_2..., patch_3..., offset = 5, text = "Distance kj", style = :square)
+
+
+
+
+
 
 function figureMonPot()
 
