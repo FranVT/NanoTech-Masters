@@ -1,0 +1,41 @@
+% Plantilla creada por Francisco Javier Vázquez Tavares
+% Esta platilla se creo para facilitar la creación de documentos para tareas.
+
+\documentclass{tareaClass}
+%\selectlanguage{spanish} 
+%\usepackage[spanish,onelanguage]{algorithm2e} %for psuedo code
+\usepackage{listings}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\materia{Computer simultaions}
+\profe{ Dr. Antonio Ortiz Ambriz}
+\title{ Finite Element Method }
+%\title{Diffusion and Wave Propagation}
+\integrantes{Francisco Javier Vázquez Tavares}
+\matriculas{A00827546}
+%\date{18 de Agosto 2023}
+
+\begin{document}
+\lhead{Computer simulations}\rhead{ May 31, 2024}
+\maketitle
+
+\subfile{docs/hwk1.tex}
+\subfile{docs/hwk2.tex}
+\subfile{docs/hwk3.tex}
+\subfile{docs/hwk4.tex}
+
+\nocite{2dPoisson}
+\printbibliography[heading=bibintoc,title={References}]
+
+\newpage
+
+%\section{Appendix}
+%\subfile{docs/hwk3.A.tex}
+%\printbibliography[type=article,title={Artículos}]
+%\printbibliography[type=book,title={Libros}]
+%\printbibliography[type=online,title={Web}]
+%\maketitle
+
+
+\end{document}

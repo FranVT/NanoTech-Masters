@@ -18,7 +18,7 @@ include("functions_graphs.jl")
     D I R E C T O R I E S   AND   P A T H S
 =#
 
-dir_home=1;
+dir_home=0;
 
 # Directory to the stored data 
 if dir_home == 0
@@ -35,9 +35,9 @@ end
 # Select the siimulation scheme (Version and stuff)
 scheme_dir="bonds-3.0";
 # Select the "system" by id
-id="2025-05-22-194804";
+id="2025-06-12-213838";
 # Select the system by "cross-linker" concentration
-cl_con=0.03;
+cl_con=0.5;
 
 # Extract the info or go directly to the graphs
 doAssembly=0;
@@ -89,6 +89,8 @@ fig_wca=plotTimeSystem(systemShear.timeShear,systemShear.wca,assembly_dat,shear_
 fig_patch=plotTimeSystem(systemShear.timeShear,systemShear.patch,assembly_dat,shear_dat,"\\mathrm{Strain~vs~patch}","\\mathrm{Shear~deformation}","\\mathrm{WCA}")
 fig_swap=plotTimeSystem(systemShear.timeShear,systemShear.swap,assembly_dat,shear_dat,"\\mathrm{Strain~vs~swap}","\\mathrm{Shear~deformation}","\\mathrm{WCA}")
 fig_pot=plotTimeSystem(systemShear.timeShear,systemShear.ep,assembly_dat,shear_dat,"\\mathrm{Strain~vs~Potential~energy}","\\mathrm{Shear~deformation}","\\mathrm{U}")
+fig_tot=plotTimeSystem(systemShear.timeShear,systemShear.et,assembly_dat,shear_dat,"\\mathrm{Strain~vs~Total~energy}","\\mathrm{Shear~deformation}","\\mathrm{U}")
+
 
 # Compute the shear-rate vs stress at steady state
 
