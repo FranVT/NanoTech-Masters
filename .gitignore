@@ -17,6 +17,7 @@
 *.table
 *.dumpf
 *.fixf
+*.restart
 #**/clusterOvito/
 #**/assembly/
 #**/assembly_variations/
