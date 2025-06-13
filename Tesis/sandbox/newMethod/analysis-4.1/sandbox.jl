@@ -18,7 +18,7 @@ include("functions_graphs.jl")
     D I R E C T O R I E S   AND   P A T H S
 =#
 
-dir_home=2;
+dir_home=0;
 
 # Directory to the stored data 
 if dir_home == 0
@@ -33,15 +33,15 @@ else
 end
 
 # Select the siimulation scheme (Version and stuff)
-scheme_dir="bonds-3.1";
+scheme_dir="bonds-3.2";
 # Select the "system" by id
-id="2025-06-06-082323";
+id="2025-06-10-073713";
 # Select the system by "cross-linker" concentration
 cl_con=0.5;
 
 # Extract the info or go directly to the graphs
-doAssembly=0;
-doShear=0;
+doAssembly=1;
+doShear=1;
 
 # Path to the data directory of the simulation scheme
 path_data=joinpath(parent_dir,scheme_dir,"data");
