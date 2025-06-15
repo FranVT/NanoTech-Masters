@@ -2,7 +2,7 @@
     Script to create figures of the potentials with different parameters
 =#
 
-using GLMakie
+using GLMakie, LaTeXStrings
 
 include("functions.jl")
 
@@ -21,6 +21,111 @@ eps_ik = 1;
 eps_jk = 1;
 
 w = 2;
+
+
+# Try to analyze the swap potential
+fig_3body=Figure(size=(920,920));
+
+# Position of the patches
+th_1=0;
+th_2=pi/3;
+th_3=-pi/3;
+
+patch_1=(0,0);
+patch_2=(0.2,0.4);
+patch_3=(0.4,0);
+
+# distnaces between the patches
+r_ij=dist(patch_1,patch_2);
+r_ik=dist(patch_1,patch_3);
+r_jk=dist(patch_2,patch_3);
+
+
+# Compute the patch potential
+Upatch_ij=Upatch(eps_ij,sig_pac,r_ij);
+Upatch_ik=Upatch(eps_ij,sig_pac,r_ik);
+Upatch_jk=Upatch(eps_jk,sig_pac,r_jk);
+
+# Swap potential
+Uswap_ij=SwapU(w,eps_ij,eps_ik,eps_jk,sig_pac,r_ik,r_jk,1.5*sig_pac);
+Uswap_ik=SwapU(w,eps_ij,eps_ik,eps_jk,sig_pac,r_jk,r_ij,1.5*sig_pac);
+Uswap_jk=SwapU(w,eps_ij,eps_ik,eps_jk,sig_pac,r_ij,r_ik,1.5*sig_pac);
+
+
+
+
+# All patch potential
+dom=sig_pac/2:sig_pac/100:2*sig_pac;
+Upatch_all=map(r->Upatch(eps_ij,sig_pac,r),dom);
+
+
+
+# Plot the position of the patches
+ax_pos = Axis(fig_3body[1,1],
+            title = L"\mathrm{Position~of~the~patches}",
+            xlabel = L"x",
+            ylabel = L"y",
+            titlesize = 24.0f0,
+            xticklabelsize = 18.0f0,
+            yticklabelsize = 18.0f0,
+            xlabelsize = 20.0f0,
+            ylabelsize = 20.0f0,
+            xminorticksvisible = true, 
+            xminorgridvisible = true,
+            xminorticks = IntervalsBetween(5),
+            #limits=(r_pac...,-3,3)
+         )
+
+# Circle for the scatter
+jsjs=[[rad_pac*cos(s) rad_pac*sin(s)] for s in 0:pi/32:2*pi]
+
+# Patches
+scatter!(ax_pos,patch_1, marker = Circle, markersize = 15)
+lines!(ax_pos,first.(jsjs).+first(patch_1),last.(jsjs).+last(patch_1))
+
+scatter!(ax_pos,patch_2, marker = Circle, markersize = 15)
+lines!(ax_pos,first.(jsjs).+first(patch_2),last.(jsjs).+last(patch_2))
+
+scatter!(ax_pos,patch_3, marker = Circle, markersize = 15)
+lines!(ax_pos,first.(jsjs).+first(patch_3),last.(jsjs).+last(patch_3))
+
+# Distances and stuff
+bracket!(patch_1..., patch_2..., offset = 5, text = latexstring("r_{ij}=",r_ij), fontsize = 30 , style = :square)
+bracket!(patch_1..., patch_3..., offset = 5, text = latexstring("r_{ij}=",r_ik), fontsize = 30 , style = :square)
+bracket!(patch_2..., patch_3..., offset = 5, text = latexstring("r_{ij}=",r_jk), fontsize = 30 , style = :square)
+
+
+# Plot the potential of the patches
+ax_pot = Axis(fig_3body[1,2],
+            title = L"\mathrm{Potential}",
+            xlabel = L"\mathrm{Distance~between~patches}",
+            ylabel = L"U(r)",
+            titlesize = 24.0f0,
+            xticklabelsize = 18.0f0,
+            yticklabelsize = 18.0f0,
+            xlabelsize = 20.0f0,
+            ylabelsize = 20.0f0,
+            xminorticksvisible = true, 
+            xminorgridvisible = true,
+            xminorticks = IntervalsBetween(5),
+            limits=(first(dom),last(dom),-1.5*eps_ij,1.5*w)
+         )
+lines!(ax_pot,dom,Upatch_all,color=:black)
+stem!(ax_pot,r_ij,Upatch_ij)
+stem!(ax_pot,r_ik,Upatch_ik)
+stem!(ax_pot,r_jk,Upatch_jk)
+
+stem!(ax_pot,r_ij,Uswap_ij)
+stem!(ax_pot,r_ik,Uswap_ik)
+stem!(ax_pot,r_jk,Uswap_jk)
+
+hlines!(ax_pot,Upatch_ij+Uswap_ij)
+hlines!(ax_pot,Upatch_ik+Uswap_ik)
+hlines!(ax_pot,Upatch_jk+Uswap_jk)
+
+
+
+#=
 
 # Distance domain
 r_pat = range(sig_pac,sig_pat*2^(1/6),length=N);
@@ -195,7 +300,7 @@ Colorbar(fig[1,2],colormap=clmap,limits=(-2,2))
 
 end
 
-
+=#
 
 #=
 wcaF_eval = map(r->-DiffWCAEval(eps_wca,sig_pat,r),range(r_pat...,length=100));

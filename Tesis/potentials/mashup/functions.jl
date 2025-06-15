@@ -2,6 +2,13 @@
     Script with the functions
 """
 
+function dist(pnt1,pnt2)
+"""
+    Compute the cartesian distance
+"""
+    return sqrt(sum((pnt1.-pnt2).^2))
+end
+
 # Create the functions
 function WCA(eps_pair,sig_p,r)
 """
