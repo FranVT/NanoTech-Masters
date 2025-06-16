@@ -26,16 +26,17 @@ w = 2;
 # Try to analyze the swap potential
 fig_3body=Figure(size=(920,920));
 
-# Position of the patches
-th_1=0;
-th_2=pi/3;
-th_3=-pi/3;
-
+# Position of the patches and color code
 patch_1=(0,0);
 patch_2=(0.2,0.4);
-patch_3=(0.4,0);
+patch_3=(0.45,0);
 
-# distnaces between the patches
+cl_1=Makie.wong_colors()[1];
+cl_2=Makie.wong_colors()[2];
+cl_3=Makie.wong_colors()[3];
+
+
+# Distances between the patches
 r_ij=dist(patch_1,patch_2);
 r_ik=dist(patch_1,patch_3);
 r_jk=dist(patch_2,patch_3);
@@ -51,12 +52,40 @@ Uswap_ij=SwapU(w,eps_ij,eps_ik,eps_jk,sig_pac,r_ik,r_jk,1.5*sig_pac);
 Uswap_ik=SwapU(w,eps_ij,eps_ik,eps_jk,sig_pac,r_jk,r_ij,1.5*sig_pac);
 Uswap_jk=SwapU(w,eps_ij,eps_ik,eps_jk,sig_pac,r_ij,r_ik,1.5*sig_pac);
 
-
-
-
 # All patch potential
 dom=sig_pac/2:sig_pac/100:2*sig_pac;
 Upatch_all=map(r->Upatch(eps_ij,sig_pac,r),dom);
+
+
+# Compute forces in each patch 
+Fpatch_ij=-DiffUpatchEval(eps_ij,sig_pac,r_ij);
+Fpatch_ik=-DiffUpatchEval(eps_ij,sig_pac,r_ik);
+Fpatch_jk=-DiffUpatchEval(eps_jk,sig_pac,r_jk);
+
+Fswap_ij=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_pac,r_ik,r_jk);
+Fswap_ik=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_pac,r_jk,r_ij);
+Fswap_jk=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_pac,r_ij,r_ik);
+
+# Patch i
+F_ij=vectorForce(Fpatch_ij,patch_1,patch_2)
+F_ik=vectorForce(Fpatch_ik,patch_1,patch_3)
+
+# Patch j
+F_ji=vectorForce(Fpatch_ij,patch_2,patch_1)
+F_jk=vectorForce(Fpatch_jk,patch_2,patch_3)
+
+
+# Total force
+Ftotal_i=(F_ij .+ F_ik)./norm((F_ij .+ F_ik)...);
+Ftotal_j=(F_ji .+ F_jk)./norm((F_ji .+ F_jk)...);
+
+
+#+Fswap_ij;
+
+#Ftotal_i=Fpatch_ik#+Fswap_ik;
+#Ftotal_j=Fpatch_jk#+Fswap_jk;
+
+
 
 
 
@@ -80,14 +109,28 @@ ax_pos = Axis(fig_3body[1,1],
 jsjs=[[rad_pac*cos(s) rad_pac*sin(s)] for s in 0:pi/32:2*pi]
 
 # Patches
-scatter!(ax_pos,patch_1, marker = Circle, markersize = 15)
-lines!(ax_pos,first.(jsjs).+first(patch_1),last.(jsjs).+last(patch_1))
+scatter!(ax_pos,patch_1, marker = Circle, markersize = 15, color = cl_1)
+lines!(ax_pos,first.(jsjs).+first(patch_1),last.(jsjs).+last(patch_1), color = cl_1)
 
-scatter!(ax_pos,patch_2, marker = Circle, markersize = 15)
-lines!(ax_pos,first.(jsjs).+first(patch_2),last.(jsjs).+last(patch_2))
+scatter!(ax_pos,patch_2, marker = Circle, markersize = 15, color = cl_2)
+lines!(ax_pos,first.(jsjs).+first(patch_2),last.(jsjs).+last(patch_2), color = cl_2)
 
-scatter!(ax_pos,patch_3, marker = Circle, markersize = 15)
-lines!(ax_pos,first.(jsjs).+first(patch_3),last.(jsjs).+last(patch_3))
+scatter!(ax_pos,patch_3, marker = Circle, markersize = 15, color = cl_3)
+lines!(ax_pos,first.(jsjs).+first(patch_3),last.(jsjs).+last(patch_3), color = cl_3)
+
+# Force of patch
+arrows!(ax_pos,[first(patch_1)],[last(patch_1)],[first(F_ij)],[last(F_ij)], color = cl_1,lengthscale=0.25,linewidth=3)
+arrows!(ax_pos,[first(patch_1)],[last(patch_1)],[first(F_ik)],[last(F_ik)], color = cl_1,lengthscale=0.25,linewidth=3)
+arrows!(ax_pos,[first(patch_1)],[last(patch_1)],[first(Ftotal_i)],[last(Ftotal_i)], color = cl_1,lengthscale=0.25,linewidth=3)
+
+# Force of patch
+arrows!(ax_pos,[first(patch_2)],[last(patch_2)],[first(F_ji)],[last(F_ji)], color = cl_2,lengthscale=0.25,linewidth=3)
+arrows!(ax_pos,[first(patch_2)],[last(patch_2)],[first(F_jk)],[last(F_jk)], color = cl_2,lengthscale=0.25,linewidth=3)
+#arrows!(ax_pos,[first(patch_2)],[last(patch_2)],[first(Ftotal_j)],[last(Ftotal_j)], color = cl_2,lengthscale=0.25,linewidth=3)
+
+
+
+
 
 # Distances and stuff
 bracket!(patch_1..., patch_2..., offset = 5, text = latexstring("r_{ij}=",r_ij), fontsize = 30 , style = :square)
@@ -111,17 +154,17 @@ ax_pot = Axis(fig_3body[1,2],
             limits=(first(dom),last(dom),-1.5*eps_ij,1.5*w)
          )
 lines!(ax_pot,dom,Upatch_all,color=:black)
-stem!(ax_pot,r_ij,Upatch_ij)
-stem!(ax_pot,r_ik,Upatch_ik)
-stem!(ax_pot,r_jk,Upatch_jk)
+stem!(ax_pot,r_ij,Upatch_ij, color = cl_1)
+stem!(ax_pot,r_ik,Upatch_ik, color = cl_2)
+stem!(ax_pot,r_jk,Upatch_jk, color = cl_3)
 
-stem!(ax_pot,r_ij,Uswap_ij)
-stem!(ax_pot,r_ik,Uswap_ik)
-stem!(ax_pot,r_jk,Uswap_jk)
+stem!(ax_pot,r_ij,Uswap_ij, color = cl_1)
+stem!(ax_pot,r_ik,Uswap_ik, color = cl_2)
+stem!(ax_pot,r_jk,Uswap_jk, color = cl_3)
 
-hlines!(ax_pot,Upatch_ij+Uswap_ij)
-hlines!(ax_pot,Upatch_ik+Uswap_ik)
-hlines!(ax_pot,Upatch_jk+Uswap_jk)
+hlines!(ax_pot,Upatch_ij+Uswap_ij, color = cl_1)
+hlines!(ax_pot,Upatch_ik+Uswap_ik, color = cl_2)
+hlines!(ax_pot,Upatch_jk+Uswap_jk, color = cl_3)
 
 
 

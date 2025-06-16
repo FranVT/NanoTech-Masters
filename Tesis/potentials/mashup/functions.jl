@@ -2,12 +2,35 @@
     Script with the functions
 """
 
+function norm(pnt1,pnt2)
+"""
+    Compute the norm of two points
+"""
+    return sqrt(sum((pnt1.+pnt2).^2))
+end
+
 function dist(pnt1,pnt2)
 """
     Compute the cartesian distance
 """
     return sqrt(sum((pnt1.-pnt2).^2))
 end
+
+function direction(pnt1,pnt2)
+"""
+    Compute the direction of the position
+"""
+    return (pnt1.-pnt2)./norm(pnt1,pnt2)
+end
+
+function vectorForce(magnitude,pnt1,pnt2)
+"""
+    Compute a normalize vector for graphic purposes
+"""
+    aux = magnitude.*direction(pnt1,pnt2);
+    return aux./norm(aux...)
+end
+
 
 # Create the functions
 function WCA(eps_pair,sig_p,r)
