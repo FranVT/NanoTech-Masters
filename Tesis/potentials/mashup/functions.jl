@@ -108,7 +108,7 @@ function forceSwapvector(w,eps_ij,eps_ik,eps_jk,sig_p,r_i,r_j,r_k)
     c=U3(eps_ij,eps_jk,sig_p,r_ij);
     d=vectorForce(-DiffU3(eps_ik,eps_jk,sig_p,r_ik),r_i,r_k);
 
-    return -w.*eps_jk.*(a.*b .+ c.*d) 
+    return w.*eps_jk.*(a.*b .+ c.*d) 
 
 end
 

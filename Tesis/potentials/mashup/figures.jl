@@ -20,7 +20,7 @@ eps_ij = 1;
 eps_ik = 1;
 eps_jk = 1;
 
-w = 1;
+w = 2;
 
 
 # Try to analyze the swap potential
@@ -28,8 +28,8 @@ fig_3body=Figure(size=(920,920));
 
 # Position of the patches and color code
 patch_1=(0,0);
-patch_2=(-0.4,0);
-patch_3=(0.45,0);
+patch_2=(0.25,0.45);
+patch_3=(0.41,0);
 
 cl_1=Makie.wong_colors()[1];
 cl_2=Makie.wong_colors()[2];
@@ -56,6 +56,8 @@ Uswap_jk=SwapU(w,eps_ij,eps_ik,eps_jk,sig_pac,r_ij,r_ik,1.5*sig_pac);
 dom=sig_pac/2:sig_pac/100:2*sig_pac;
 Upatch_all=map(r->Upatch(eps_ij,sig_pac,r),dom);
 
+# All force 
+Fpatch_all=map(r->-DiffUpatchEval(eps_ij,sig_pac,r),dom);
 
 # Compute forces in each patch 
 Fpatch_ij=-DiffUpatchEval(eps_ij,sig_pac,r_ij);
@@ -93,20 +95,8 @@ Ftotal_i=F_ij .+ F_ik .+ Fswap_i;
 Ftotal_j=F_ji .+ F_jk .+ Fswap_j;
 Ftotal_k=F_ki .+ F_kj .+ Fswap_k;
 
-
-
-
-#+Fswap_ij;
-
-#Ftotal_i=Fpatch_ik#+Fswap_ik;
-#Ftotal_j=Fpatch_jk#+Fswap_jk;
-
-
-
-
-
 # Plot the position of the patches
-ax_pos = Axis(fig_3body[1,1],
+ax_pos = Axis(fig_3body[1:2,1],
             title = L"\mathrm{Position~of~the~patches}",
             xlabel = L"x",
             ylabel = L"y",
@@ -180,17 +170,44 @@ ax_pot = Axis(fig_3body[1,2],
             limits=(first(dom),last(dom),-1.5*eps_ij,1.5*w)
          )
 lines!(ax_pot,dom,Upatch_all,color=:black)
-stem!(ax_pot,r_ij,Upatch_ij, color = cl_1)
-stem!(ax_pot,r_ik,Upatch_ik, color = cl_2)
-stem!(ax_pot,r_jk,Upatch_jk, color = cl_3)
+stem!(ax_pot,r_ij,Upatch_ij, color = cl_1,markersize=15)
+stem!(ax_pot,r_ik,Upatch_ik, color = cl_2,markersize=15)
+stem!(ax_pot,r_jk,Upatch_jk, color = cl_3,markersize=15)
 
-stem!(ax_pot,r_ij,Uswap_ij, color = cl_1)
-stem!(ax_pot,r_ik,Uswap_ik, color = cl_2)
-stem!(ax_pot,r_jk,Uswap_jk, color = cl_3)
+stem!(ax_pot,r_ij,Uswap_ij, color = cl_1, marker=:rect,markersize=15)
+stem!(ax_pot,r_ik,Uswap_ik, color = cl_2, marker=:rect,markersize=15)
+stem!(ax_pot,r_jk,Uswap_jk, color = cl_3, marker=:rect,markersize=15)
 
 hlines!(ax_pot,Upatch_ij+Uswap_ij, color = cl_1)
 hlines!(ax_pot,Upatch_ik+Uswap_ik, color = cl_2)
 hlines!(ax_pot,Upatch_jk+Uswap_jk, color = cl_3)
+
+ax_pot = Axis(fig_3body[2,2],
+            title = L"\mathrm{Forces}",
+            xlabel = L"\mathrm{Distance~between~patches}",
+            ylabel = L"U(r)",
+            titlesize = 24.0f0,
+            xticklabelsize = 18.0f0,
+            yticklabelsize = 18.0f0,
+            xlabelsize = 20.0f0,
+            ylabelsize = 20.0f0,
+            xminorticksvisible = true, 
+            xminorgridvisible = true,
+            xminorticks = IntervalsBetween(5),
+            limits=(first(dom),last(dom),-15*eps_ij,15*w)
+         )
+lines!(ax_pot,dom,Fpatch_all,color=:black)
+stem!(ax_pot,r_ij,Fpatch_ij, color = cl_1,markersize=15)
+stem!(ax_pot,r_ik,Fpatch_ik, color = cl_2,markersize=15)
+stem!(ax_pot,r_jk,Fpatch_jk, color = cl_3,markersize=15)
+
+stem!(ax_pot,r_ij,norm(Fswap_i...), color = cl_1, marker=:rect,markersize=15)
+stem!(ax_pot,r_ik,norm(Fswap_j...), color = cl_2, marker=:rect,markersize=15)
+stem!(ax_pot,r_jk,norm(Fswap_k...), color = cl_3, marker=:rect,markersize=15)
+
+hlines!(ax_pot,Fpatch_ij+norm(Fswap_i...), color = cl_1)
+hlines!(ax_pot,Fpatch_ik+norm(Fswap_j...), color = cl_2)
+hlines!(ax_pot,Fpatch_jk+norm(Fswap_k...), color = cl_3)
 
 
 
