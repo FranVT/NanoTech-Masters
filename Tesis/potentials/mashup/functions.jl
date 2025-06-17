@@ -99,6 +99,22 @@ function forceSwap(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik)
 
 end
 
+function forceSwapvector(w,eps_ij,eps_ik,eps_jk,sig_p,r_i,r_j,r_k)
+"""
+    Compute the force of the swap potential
+    F_i(r_ij,r_ik) = w*eps*( U3(r_ik)*F(r_ij) + U(r_ij)*F(r_ik) )
+"""
+    a=U3(eps_ik,eps_jk,sig_p,r_ik); 
+    b=vectorForce(-DiffU3(eps_ij,eps_jk,sig_p,r_ij),r_i,r_j) ;
+    c=U3(eps_ij,eps_jk,sig_p,r_ij);
+    d=vectorForce(-DiffU3(eps_ik,eps_jk,sig_p,r_ik),r_i,r_k);
+
+    return -w.*eps_jk.*(a.*b .+ c.*d) 
+
+end
+
+
+
 function DiffUpatchEval(eps_pair,sig_p,r)
 """
     Get the central finite difference of the patch interaction potential given the value of the position.

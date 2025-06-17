@@ -69,6 +69,7 @@ Fswap_jk=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_pac,r_ij,r_ik);
 # Patch i
 F_ij=vectorForce(Fpatch_ij,patch_1,patch_2)
 F_ik=vectorForce(Fpatch_ik,patch_1,patch_3)
+Fswap_i=forceSwapvector(w,eps_ij,eps_ik,eps_jk,sig_pac,patch_1,patch_2,patch_3)
 
 # Patch j
 F_ji=vectorForce(Fpatch_ij,patch_2,patch_1)
