@@ -27,8 +27,7 @@ function vectorForce(magnitude,pnt1,pnt2)
 """
     Compute a normalize vector for graphic purposes
 """
-    aux = magnitude.*direction(pnt1,pnt2);
-    return aux./norm(aux...)
+    return magnitude.*direction(pnt1,pnt2)
 end
 
 

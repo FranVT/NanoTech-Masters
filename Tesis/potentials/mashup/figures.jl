@@ -20,7 +20,7 @@ eps_ij = 1;
 eps_ik = 1;
 eps_jk = 1;
 
-w = 2;
+w = 1;
 
 
 # Try to analyze the swap potential
@@ -28,7 +28,7 @@ fig_3body=Figure(size=(920,920));
 
 # Position of the patches and color code
 patch_1=(0,0);
-patch_2=(0.2,0.4);
+patch_2=(-0.4,0);
 patch_3=(0.45,0);
 
 cl_1=Makie.wong_colors()[1];
@@ -74,11 +74,26 @@ Fswap_i=forceSwapvector(w,eps_ij,eps_ik,eps_jk,sig_pac,patch_1,patch_2,patch_3)
 # Patch j
 F_ji=vectorForce(Fpatch_ij,patch_2,patch_1)
 F_jk=vectorForce(Fpatch_jk,patch_2,patch_3)
+Fswap_j=forceSwapvector(w,eps_ij,eps_ik,eps_jk,sig_pac,patch_2,patch_1,patch_3)
+
+
+# Patch k
+F_ki=(-1).*F_ik;
+F_kj=(-1).*F_jk;
+Fswap_k=forceSwapvector(w,eps_ij,eps_ik,eps_jk,sig_pac,patch_3,patch_1,patch_2)
+
+# Patch force
+Fpatch_i=F_ij .+ F_ik;
+Fpatch_j=F_ji .+ F_jk;
+Fpatch_k=F_ki .+ F_kj;
 
 
 # Total force
-Ftotal_i=(F_ij .+ F_ik)./norm((F_ij .+ F_ik)...);
-Ftotal_j=(F_ji .+ F_jk)./norm((F_ji .+ F_jk)...);
+Ftotal_i=F_ij .+ F_ik .+ Fswap_i;
+Ftotal_j=F_ji .+ F_jk .+ Fswap_j;
+Ftotal_k=F_ki .+ F_kj .+ Fswap_k;
+
+
 
 
 #+Fswap_ij;
@@ -103,7 +118,8 @@ ax_pos = Axis(fig_3body[1,1],
             xminorticksvisible = true, 
             xminorgridvisible = true,
             xminorticks = IntervalsBetween(5),
-            #limits=(r_pac...,-3,3)
+            aspect = AxisAspect(4/4),
+            limits=(-1,1,-1,1)
          )
 
 # Circle for the scatter
@@ -119,15 +135,24 @@ lines!(ax_pos,first.(jsjs).+first(patch_2),last.(jsjs).+last(patch_2), color = c
 scatter!(ax_pos,patch_3, marker = Circle, markersize = 15, color = cl_3)
 lines!(ax_pos,first.(jsjs).+first(patch_3),last.(jsjs).+last(patch_3), color = cl_3)
 
-# Force of patch
-arrows!(ax_pos,[first(patch_1)],[last(patch_1)],[first(F_ij)],[last(F_ij)], color = cl_1,lengthscale=0.25,linewidth=3)
-arrows!(ax_pos,[first(patch_1)],[last(patch_1)],[first(F_ik)],[last(F_ik)], color = cl_1,lengthscale=0.25,linewidth=3)
-arrows!(ax_pos,[first(patch_1)],[last(patch_1)],[first(Ftotal_i)],[last(Ftotal_i)], color = cl_1,lengthscale=0.25,linewidth=3)
+# Force of patch i
+#arrows!(ax_pos,[first(patch_1)],[last(patch_1)],[first(F_ij)],[last(F_ij)], color = cl_1,linewidth=3,normalize=true,lengthscale=0.25)
+#arrows!(ax_pos,[first(patch_1)],[last(patch_1)],[first(F_ik)],[last(F_ik)], color = cl_1,linewidth=3,normalize=true,lengthscale=0.25)
+arrows!(ax_pos,[first(patch_1)],[last(patch_1)],[first(Fpatch_i)],[last(Fswap_i)], color = (cl_1,0.5),linewidth=3,normalize=true,lengthscale=0.25)
+arrows!(ax_pos,[first(patch_1)],[last(patch_1)],[first(Ftotal_i)],[last(Ftotal_i)], color = cl_1,linewidth=3,normalize=true,lengthscale=0.25)
 
-# Force of patch
-arrows!(ax_pos,[first(patch_2)],[last(patch_2)],[first(F_ji)],[last(F_ji)], color = cl_2,lengthscale=0.25,linewidth=3)
-arrows!(ax_pos,[first(patch_2)],[last(patch_2)],[first(F_jk)],[last(F_jk)], color = cl_2,lengthscale=0.25,linewidth=3)
-#arrows!(ax_pos,[first(patch_2)],[last(patch_2)],[first(Ftotal_j)],[last(Ftotal_j)], color = cl_2,lengthscale=0.25,linewidth=3)
+
+# Force of patch j
+#arrows!(ax_pos,[first(patch_2)],[last(patch_2)],[first(F_ji)],[last(F_ji)], color = cl_2,linewidth=3,normalize=true,lengthscale=0.25)
+#arrows!(ax_pos,[first(patch_2)],[last(patch_2)],[first(F_jk)],[last(F_jk)], color = cl_2,linewidth=3,normalize=true,lengthscale=0.25)
+arrows!(ax_pos,[first(patch_2)],[last(patch_2)],[first(Fpatch_j)],[last(Fswap_j)], color = (cl_2,0.5),linewidth=3,normalize=true,lengthscale=0.25)
+arrows!(ax_pos,[first(patch_2)],[last(patch_2)],[first(Ftotal_j)],[last(Ftotal_j)], color = cl_2,linewidth=3,normalize=true,lengthscale=0.25)
+
+# Force of patch k
+#arrows!(ax_pos,[first(patch_3)],[last(patch_3)],[first(F_ki)],[last(F_ki)], color = cl_3,linewidth=3,normalize=true,lengthscale=0.25)
+#arrows!(ax_pos,[first(patch_3)],[last(patch_3)],[first(F_kj)],[last(F_kj)], color = cl_3,linewidth=3,normalize=true,lengthscale=0.25)
+arrows!(ax_pos,[first(patch_3)],[last(patch_3)],[first(Fpatch_k)],[last(Fswap_k)], color = (cl_3,0.5),linewidth=3,normalize=true,lengthscale=0.25)
+arrows!(ax_pos,[first(patch_3)],[last(patch_3)],[first(Ftotal_k)],[last(Ftotal_k)], color = cl_3,linewidth=3,normalize=true,lengthscale=0.25)
 
 
 
