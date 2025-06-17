@@ -35,6 +35,9 @@ cl_1=Makie.wong_colors()[1];
 cl_2=Makie.wong_colors()[2];
 cl_3=Makie.wong_colors()[3];
 
+cl_12=Makie.wong_colors()[4];
+cl_13=Makie.wong_colors()[5];
+cl_23=Makie.wong_colors()[6];
 
 # Distances between the patches
 r_ij=dist(patch_1,patch_2);
@@ -170,13 +173,13 @@ ax_pot = Axis(fig_3body[1,2],
             limits=(first(dom),last(dom),-1.5*eps_ij,1.5*w)
          )
 lines!(ax_pot,dom,Upatch_all,color=:black)
-stem!(ax_pot,r_ij,Upatch_ij, color = cl_1,markersize=15)
-stem!(ax_pot,r_ik,Upatch_ik, color = cl_2,markersize=15)
-stem!(ax_pot,r_jk,Upatch_jk, color = cl_3,markersize=15)
+stem!(ax_pot,r_ij,Upatch_ij, color = cl_12,markersize=15)
+stem!(ax_pot,r_ik,Upatch_ik, color = cl_13,markersize=15)
+stem!(ax_pot,r_jk,Upatch_jk, color = cl_23,markersize=15)
 
-stem!(ax_pot,r_ij,Uswap_ij, color = cl_1, marker=:rect,markersize=15)
-stem!(ax_pot,r_ik,Uswap_ik, color = cl_2, marker=:rect,markersize=15)
-stem!(ax_pot,r_jk,Uswap_jk, color = cl_3, marker=:rect,markersize=15)
+stem!(ax_pot,r_ij,Uswap_ij, color = cl_12, marker=:rect,markersize=15)
+stem!(ax_pot,r_ik,Uswap_ik, color = cl_13, marker=:rect,markersize=15)
+stem!(ax_pot,r_jk,Uswap_jk, color = cl_23, marker=:rect,markersize=15)
 
 hlines!(ax_pot,Upatch_ij+Uswap_ij, color = cl_1)
 hlines!(ax_pot,Upatch_ik+Uswap_ik, color = cl_2)
@@ -197,9 +200,9 @@ ax_pot = Axis(fig_3body[2,2],
             limits=(first(dom),last(dom),-15*eps_ij,15*w)
          )
 lines!(ax_pot,dom,Fpatch_all,color=:black)
-stem!(ax_pot,r_ij,Fpatch_ij, color = cl_1,markersize=15)
-stem!(ax_pot,r_ik,Fpatch_ik, color = cl_2,markersize=15)
-stem!(ax_pot,r_jk,Fpatch_jk, color = cl_3,markersize=15)
+stem!(ax_pot,r_ij,Fpatch_ij, color = cl_12,markersize=15)
+stem!(ax_pot,r_ik,Fpatch_ik, color = cl_13,markersize=15)
+stem!(ax_pot,r_jk,Fpatch_jk, color = cl_23,markersize=15)
 
 stem!(ax_pot,r_ij,norm(Fswap_i...), color = cl_1, marker=:rect,markersize=15)
 stem!(ax_pot,r_ik,norm(Fswap_j...), color = cl_2, marker=:rect,markersize=15)
