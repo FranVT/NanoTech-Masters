@@ -27,7 +27,7 @@ fig_3body=Figure(size=(920,920));
 
 # Position of the patches and color code
 patch_1=(0,0);
-patch_2=(-0.3,0.35);
+patch_2=(-0.32,0.25);
 patch_3=(0.3,0.35);
 
 cl_1=Makie.wong_colors()[1];
@@ -124,13 +124,13 @@ jsjs=[[rad_pac*cos(s) rad_pac*sin(s)] for s in 0:pi/32:2*pi]
 
 # Patches
 scatter!(ax_pos,patch_1, marker = Circle, markersize = 15, color = cl_1)
-lines!(ax_pos,first.(jsjs).+first(patch_1),last.(jsjs).+last(patch_1), color = cl_1)
+poly!(Circle(Point2f(patch_1...), 0.2), color = (cl_1,0.2))
 
 scatter!(ax_pos,patch_2, marker = Circle, markersize = 15, color = cl_2)
-lines!(ax_pos,first.(jsjs).+first(patch_2),last.(jsjs).+last(patch_2), color = cl_2)
+poly!(Circle(Point2f(patch_2...), 0.2), color = (cl_2,0.2))
 
 scatter!(ax_pos,patch_3, marker = Circle, markersize = 15, color = cl_3)
-lines!(ax_pos,first.(jsjs).+first(patch_3),last.(jsjs).+last(patch_3), color = cl_3)
+poly!(Circle(Point2f(patch_3...), 0.2), color = (cl_3,0.2))
 
 # Force of patch i
 #arrows!(ax_pos,[first(patch_1)],[last(patch_1)],[first(F_ij)],[last(F_ij)], color = cl_1,linewidth=3,normalize=true,lengthscale=0.25)
@@ -150,8 +150,6 @@ arrows!(ax_pos,[first(patch_2)],[last(patch_2)],[first(Ftotalvec_j)],[last(Ftota
 #arrows!(ax_pos,[first(patch_3)],[last(patch_3)],[first(F_kj)],[last(F_kj)], color = cl_3,linewidth=3,normalize=true,lengthscale=0.25)
 arrows!(ax_pos,[first(patch_3)],[last(patch_3)],[first(Fswapvec_k)],[last(Fswapvec_k)], color = (cl_3,0.5),linewidth=3,normalize=true,lengthscale=0.25)
 arrows!(ax_pos,[first(patch_3)],[last(patch_3)],[first(Ftotalvec_k)],[last(Ftotalvec_k)], color = cl_3,linewidth=3,normalize=true,lengthscale=0.25)
-
-
 
 # Distances and stuff
 bracket!(patch_1..., patch_2..., offset = 5, text = latexstring("r_{ij}=",round(r_ij,digits=3)), fontsize = 30 , style = :square)
@@ -174,22 +172,19 @@ ax_pot = Axis(fig_3body[1:2,3:4],
             xminorticks = IntervalsBetween(5),
             limits=(first(dom),last(dom),-1.5*eps_ij,1.5*w)
          )
+hlines!(ax_pot,Uswap_i, color = (cl_1,0.5), linestyle=:dash, linewidth=2.5)
+hlines!(ax_pot,Uswap_j, color = (cl_2,0.5), linestyle=:dash, linewidth=2.5)
+hlines!(ax_pot,Uswap_k, color = (cl_3,0.5), linestyle=:dash, linewidth=2.5)
+
+hlines!(ax_pot,Utotal_i, color = (cl_1,1), linestyle=:solid, linewidth=2.5)
+hlines!(ax_pot,Utotal_j, color = (cl_2,1), linestyle=:solid, linewidth=2.5)
+hlines!(ax_pot,Utotal_k, color = (cl_3,1), linestyle=:solid, linewidth=2.5)
+
 lines!(ax_pot,dom,Upatch_all,color=:black)
+
 stem!(ax_pot,r_ij,Upatch_ij, color = cl_12,markersize=15)
 stem!(ax_pot,r_ik,Upatch_ik, color = cl_13,markersize=15)
 stem!(ax_pot,r_jk,Upatch_jk, color = cl_23,markersize=15)
-
-#stem!(ax_pot,r_ij,Uswap_i, color = cl_1, marker=:rect,markersize=15)
-#stem!(ax_pot,r_ik,Uswap_j, color = cl_2, marker=:rect,markersize=15)
-#stem!(ax_pot,r_jk,Uswap_k, color = cl_3, marker=:rect,markersize=15)
-
-hlines!(ax_pot,Uswap_i, color = (cl_1,0.5), linestyle=:dash)
-hlines!(ax_pot,Uswap_j, color = (cl_2,0.5), linestyle=:dash)
-hlines!(ax_pot,Uswap_k, color = (cl_3,0.5), linestyle=:dash)
-
-hlines!(ax_pot,Utotal_i, color = (cl_1,1), linestyle=:solid)
-hlines!(ax_pot,Utotal_j, color = (cl_2,1), linestyle=:solid)
-hlines!(ax_pot,Utotal_k, color = (cl_3,1), linestyle=:solid)
 
 ax_for = Axis(fig_3body[3:4,3:4],
             title = L"\mathrm{Force}",
@@ -205,44 +200,72 @@ ax_for = Axis(fig_3body[3:4,3:4],
             xminorticks = IntervalsBetween(5),
             limits=(first(dom),last(dom),-15*eps_ij,15*w)
          )
+hlines!(ax_for,r_ij,Fswap_i, color = (cl_1,0.5), linestyle=:dash, linewidth=2.5)
+hlines!(ax_for,r_ik,Fswap_j, color = (cl_2,0.5), linestyle=:dash, linewidth=2.5)
+hlines!(ax_for,r_jk,Fswap_k, color = (cl_3,0.5), linestyle=:dash, linewidth=2.5)
+
+hlines!(ax_for,Ftotal_i, color = cl_1, linewidth=2.5)
+hlines!(ax_for,Ftotal_j, color = cl_2, linewidth=2.5)
+hlines!(ax_for,Ftotal_k, color = cl_3, linewidth=2.5)
+
 lines!(ax_for,dom,Fpatch_all,color=:black)
 stem!(ax_for,r_ij,Fpatch_ij, color = cl_12,markersize=15)
 stem!(ax_for,r_ik,Fpatch_ik, color = cl_13,markersize=15)
 stem!(ax_for,r_jk,Fpatch_jk, color = cl_23,markersize=15)
 
-hlines!(ax_for,r_ij,Fswap_i, color = (cl_1,0.5), linestyle=:dash)
-hlines!(ax_for,r_ik,Fswap_j, color = (cl_2,0.5), linestyle=:dash)
-hlines!(ax_for,r_jk,Fswap_k, color = (cl_3,0.5), linestyle=:dash)
-
-
-hlines!(ax_for,Ftotal_i, color = cl_1)
-hlines!(ax_for,Ftotal_j, color = cl_2)
-hlines!(ax_for,Ftotal_k, color = cl_3)
-
 
 linkxaxes!(ax_pot, ax_for)
 
-elem_1 = [LineElement(color = :red, linestyle = nothing),
-          MarkerElement(color = :blue, marker = 'x', markersize = 15,
-          strokecolor = :black)]
 
-elem_2 = [PolyElement(color = :red, strokecolor = :blue, strokewidth = 1),
-          LineElement(color = :black, linestyle = :dash)]
+FigLegend = fig_3body[4,1:2] = GridLayout()
 
-elem_3 = LineElement(color = :green, linestyle = nothing,
-        points = Point2f[(0, 0), (0, 1), (1, 0), (1, 1)])
 
-elem_4 = MarkerElement(color = :blue, marker = 'π', markersize = 15,
-        points = Point2f[(0.2, 0.2), (0.5, 0.8), (0.8, 0.2)])
+elem_1 = PolyElement(color = cl_1)
 
-elem_5 = PolyElement(color = :green, strokecolor = :black, strokewidth = 2,
-        points = Point2f[(0, 0), (1, 0), (0, 1)])
+elem_2 = PolyElement(color = cl_2)
 
-Legend(fig_3body[4,1:2],
-    [elem_1, elem_2, elem_3, elem_4, elem_5],
-    ["Line & Marker", "Poly & Line", "Line", "Marker", "Poly"],
+elem_3 = PolyElement(color = cl_3)
+
+elem_4 = PolyElement(color = cl_12)
+
+elem_5 = PolyElement(color = cl_13)
+
+elem_6 = PolyElement(color = cl_23)
+
+
+Legend(FigLegend[1,1],
+    [elem_1, elem_2, elem_3, elem_4, elem_5, elem_6],
+    [L"\mathrm{Patch}~i", L"\mathrm{Patch}~j", L"\mathrm{Patch}~k", L"\mathrm{Interaction}~i\leftrightarrow j", L"\mathrm{Interaction}~j\leftrightarrow k", L"\mathrm{Interaction}~j\leftrightarrow k"],
+    L"\mathrm{Color~code}",
     patchsize = (35, 35), rowgap = 10,
-    nbanks=2
+    orientation=:horizontal,
+    titlesize=28,
+    labelsize=24,
+    nbanks=3
+   )
+
+elem_1 = LineElement(color = cl_1, linestyle = :solid)
+
+elem_2 = LineElement(color = cl_2, linestyle = :solid)
+
+elem_3 = LineElement(color = cl_3, linestyle = :solid)
+
+elem_4 = LineElement(color = cl_12, linestyle = :solid)
+
+elem_5 = LineElement(color = cl_13, linestyle = :solid)
+
+elem_6 = LineElement(color = cl_23, linestyle = :solid)
+
+
+Legend(FigLegend[1,2],
+    [elem_1, elem_2, elem_3, elem_4, elem_5, elem_6],
+    [L"\mathrm{Patch}~i", L"\mathrm{Patch}~j", L"\mathrm{Patch}~k", L"\mathrm{Interaction}~i\leftrightarrow j", L"\mathrm{Interaction}~j\leftrightarrow k", L"\mathrm{Interaction}~j\leftrightarrow k"],
+    L"\mathrm{Line~code}",
+    patchsize = (35, 35), rowgap = 10,
+    orientation=:horizontal,
+    titlesize=28,
+    labelsize=24,
+    nbanks=3
    )
 
 
