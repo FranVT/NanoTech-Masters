@@ -20,7 +20,7 @@ eps_ij = 1;
 eps_ik = 1;
 eps_jk = 1;
 
-w = 2;
+w = 1;
 
 # Try to analyze the swap potential
 fig_3body=Figure(size=(920,920));
@@ -123,38 +123,32 @@ ax_pos = Axis(fig_3body[1:3,1:2],
 jsjs=[[rad_pac*cos(s) rad_pac*sin(s)] for s in 0:pi/32:2*pi]
 
 # Patches
-scatter!(ax_pos,patch_1, marker = Circle, markersize = 15, color = cl_1)
+#scatter!(ax_pos,patch_1, marker = Circle, markersize = 15, color = cl_1)
 poly!(Circle(Point2f(patch_1...), 0.2), color = (cl_1,0.2))
 
-scatter!(ax_pos,patch_2, marker = Circle, markersize = 15, color = cl_2)
+#scatter!(ax_pos,patch_2, marker = Circle, markersize = 15, color = cl_2)
 poly!(Circle(Point2f(patch_2...), 0.2), color = (cl_2,0.2))
 
-scatter!(ax_pos,patch_3, marker = Circle, markersize = 15, color = cl_3)
+#scatter!(ax_pos,patch_3, marker = Circle, markersize = 15, color = cl_3)
 poly!(Circle(Point2f(patch_3...), 0.2), color = (cl_3,0.2))
 
 # Force of patch i
-#arrows!(ax_pos,[first(patch_1)],[last(patch_1)],[first(F_ij)],[last(F_ij)], color = cl_1,linewidth=3,normalize=true,lengthscale=0.25)
-#arrows!(ax_pos,[first(patch_1)],[last(patch_1)],[first(F_ik)],[last(F_ik)], color = cl_1,linewidth=3,normalize=true,lengthscale=0.25)
-arrows!(ax_pos,[first(patch_1)],[last(patch_1)],[first(Fswapvec_i)],[last(Fswapvec_i)], color = (cl_1,0.5),linewidth=3,normalize=true,lengthscale=0.25)
-arrows!(ax_pos,[first(patch_1)],[last(patch_1)],[first(Ftotalvec_i)],[last(Ftotalvec_i)], color = cl_1,linewidth=3,normalize=true,lengthscale=0.25)
+arrows!(ax_pos,[first(patch_1)],[last(patch_1)],[first(Fswapvec_i)],[last(Fswapvec_i)], color = (cl_1,1),linewidth=3.5,arrowsize=15,normalize=true,lengthscale=1/4,linestyle=:dot)
+arrows!(ax_pos,[first(patch_1)],[last(patch_1)],[first(Ftotalvec_i)],[last(Ftotalvec_i)], color = cl_1,linewidth=3.5,arrowsize=15,normalize=true,lengthscale=3/8,linestyle=:dash)
 
 
 # Force of patch j
-#arrows!(ax_pos,[first(patch_2)],[last(patch_2)],[first(F_ji)],[last(F_ji)], color = cl_2,linewidth=3,normalize=true,lengthscale=0.25)
-#arrows!(ax_pos,[first(patch_2)],[last(patch_2)],[first(F_jk)],[last(F_jk)], color = cl_2,linewidth=3,normalize=true,lengthscale=0.25)
-arrows!(ax_pos,[first(patch_2)],[last(patch_2)],[first(Fswapvec_j)],[last(Fswapvec_j)], color = (cl_2,0.5),linewidth=3,normalize=true,lengthscale=0.25)
-arrows!(ax_pos,[first(patch_2)],[last(patch_2)],[first(Ftotalvec_j)],[last(Ftotalvec_j)], color = cl_2,linewidth=3,normalize=true,lengthscale=0.25)
+arrows!(ax_pos,[first(patch_2)],[last(patch_2)],[first(Fswapvec_j)],[last(Fswapvec_j)], color = (cl_2,1),linewidth=3.5,arrowsize=15,normalize=true,lengthscale=1/4,linestyle=:dot)
+arrows!(ax_pos,[first(patch_2)],[last(patch_2)],[first(Ftotalvec_j)],[last(Ftotalvec_j)], color = cl_2,linewidth=3.5,arrowsize=15,normalize=true,lengthscale=3/8,linestyle=:dash)
 
 # Force of patch k
-#arrows!(ax_pos,[first(patch_3)],[last(patch_3)],[first(F_ki)],[last(F_ki)], color = cl_3,linewidth=3,normalize=true,lengthscale=0.25)
-#arrows!(ax_pos,[first(patch_3)],[last(patch_3)],[first(F_kj)],[last(F_kj)], color = cl_3,linewidth=3,normalize=true,lengthscale=0.25)
-arrows!(ax_pos,[first(patch_3)],[last(patch_3)],[first(Fswapvec_k)],[last(Fswapvec_k)], color = (cl_3,0.5),linewidth=3,normalize=true,lengthscale=0.25)
-arrows!(ax_pos,[first(patch_3)],[last(patch_3)],[first(Ftotalvec_k)],[last(Ftotalvec_k)], color = cl_3,linewidth=3,normalize=true,lengthscale=0.25)
+arrows!(ax_pos,[first(patch_3)],[last(patch_3)],[first(Fswapvec_k)],[last(Fswapvec_k)], color = (cl_3,1),linewidth=3.5,arrowsize=15,normalize=true,lengthscale=1/4,linestyle=:dot)
+arrows!(ax_pos,[first(patch_3)],[last(patch_3)],[first(Ftotalvec_k)],[last(Ftotalvec_k)], color = cl_3,linewidth=3.5,arrowsize=15,normalize=true,lengthscale=3/8,linestyle=:dash)
 
 # Distances and stuff
-bracket!(patch_1..., patch_2..., offset = 5, text = latexstring("r_{ij}=",round(r_ij,digits=3)), fontsize = 30 , style = :square)
-bracket!(patch_1..., patch_3..., offset = 5, text = latexstring("r_{ij}=",round(r_ik,digits=3)), fontsize = 30 , style = :square)
-bracket!(patch_2..., patch_3..., offset = 5, text = latexstring("r_{ij}=",round(r_jk,digits=3)), fontsize = 30 , style = :square)
+bracket!(patch_1..., patch_2..., offset = 5, text = latexstring("r_{ij}"), fontsize = 30 , style = :square)
+bracket!(patch_1..., patch_3..., offset = 5, text = latexstring("r_{ik}"), fontsize = 30 , style = :square)
+bracket!(patch_2..., patch_3..., offset = 5, text = latexstring("r_{kj}"), fontsize = 30 , style = :square)
 
 
 # Plot the potential of the patches
@@ -172,13 +166,13 @@ ax_pot = Axis(fig_3body[1:2,3:4],
             xminorticks = IntervalsBetween(5),
             limits=(first(dom),last(dom),-1.5*eps_ij,1.5*w)
          )
-hlines!(ax_pot,Uswap_i, color = (cl_1,0.5), linestyle=:dash, linewidth=2.5)
-hlines!(ax_pot,Uswap_j, color = (cl_2,0.5), linestyle=:dash, linewidth=2.5)
-hlines!(ax_pot,Uswap_k, color = (cl_3,0.5), linestyle=:dash, linewidth=2.5)
+hlines!(ax_pot,Uswap_i, color = (cl_1,0.8), linestyle=:dot, linewidth=2.5)
+hlines!(ax_pot,Uswap_j, color = (cl_2,0.8), linestyle=:dot, linewidth=2.5)
+hlines!(ax_pot,Uswap_k, color = (cl_3,0.8), linestyle=:dot, linewidth=2.5)
 
-hlines!(ax_pot,Utotal_i, color = (cl_1,1), linestyle=:solid, linewidth=2.5)
-hlines!(ax_pot,Utotal_j, color = (cl_2,1), linestyle=:solid, linewidth=2.5)
-hlines!(ax_pot,Utotal_k, color = (cl_3,1), linestyle=:solid, linewidth=2.5)
+hlines!(ax_pot,Utotal_i, color = (cl_1,1), linestyle=:dash, linewidth=2.5)
+hlines!(ax_pot,Utotal_j, color = (cl_2,1), linestyle=:dash, linewidth=2.5)
+hlines!(ax_pot,Utotal_k, color = (cl_3,1), linestyle=:dash, linewidth=2.5)
 
 lines!(ax_pot,dom,Upatch_all,color=:black)
 
@@ -200,13 +194,13 @@ ax_for = Axis(fig_3body[3:4,3:4],
             xminorticks = IntervalsBetween(5),
             limits=(first(dom),last(dom),-15*eps_ij,15*w)
          )
-hlines!(ax_for,r_ij,Fswap_i, color = (cl_1,0.5), linestyle=:dash, linewidth=2.5)
-hlines!(ax_for,r_ik,Fswap_j, color = (cl_2,0.5), linestyle=:dash, linewidth=2.5)
-hlines!(ax_for,r_jk,Fswap_k, color = (cl_3,0.5), linestyle=:dash, linewidth=2.5)
+hlines!(ax_for,r_ij,Fswap_i, color = (cl_1,0.8), linestyle=:dot, linewidth=2.5)
+hlines!(ax_for,r_ik,Fswap_j, color = (cl_2,0.8), linestyle=:dot, linewidth=2.5)
+hlines!(ax_for,r_jk,Fswap_k, color = (cl_3,0.8), linestyle=:dot, linewidth=2.5)
 
-hlines!(ax_for,Ftotal_i, color = cl_1, linewidth=2.5)
-hlines!(ax_for,Ftotal_j, color = cl_2, linewidth=2.5)
-hlines!(ax_for,Ftotal_k, color = cl_3, linewidth=2.5)
+hlines!(ax_for,Ftotal_i, color = cl_1, linestyle=:dash, linewidth=2.5)
+hlines!(ax_for,Ftotal_j, color = cl_2, linestyle=:dash, linewidth=2.5)
+hlines!(ax_for,Ftotal_k, color = cl_3, linestyle=:dash, linewidth=2.5)
 
 lines!(ax_for,dom,Fpatch_all,color=:black)
 stem!(ax_for,r_ij,Fpatch_ij, color = cl_12,markersize=15)
@@ -244,31 +238,43 @@ Legend(FigLegend[1,1],
     nbanks=3
    )
 
-elem_1 = LineElement(color = cl_1, linestyle = :solid)
+elem_1 = LineElement(color = :black, linestyle = :solid)
 
-elem_2 = LineElement(color = cl_2, linestyle = :solid)
+elem_2 = LineElement(color = :black, linestyle = :dash)
 
-elem_3 = LineElement(color = cl_3, linestyle = :solid)
+elem_3 = MarkerElement(color = :black, marker = :circle)
 
-elem_4 = LineElement(color = cl_12, linestyle = :solid)
-
-elem_5 = LineElement(color = cl_13, linestyle = :solid)
-
-elem_6 = LineElement(color = cl_23, linestyle = :solid)
+elem_4 = LineElement(color = :black, linestyle = :dot)
 
 
 Legend(FigLegend[1,2],
-    [elem_1, elem_2, elem_3, elem_4, elem_5, elem_6],
-    [L"\mathrm{Patch}~i", L"\mathrm{Patch}~j", L"\mathrm{Patch}~k", L"\mathrm{Interaction}~i\leftrightarrow j", L"\mathrm{Interaction}~j\leftrightarrow k", L"\mathrm{Interaction}~j\leftrightarrow k"],
+    [elem_1, elem_2, elem_3, elem_4],
+    [L"\mathrm{Reference~function}", L"\mathrm{Total~at~Patch}", L"\mathrm{Evaluation~of~function}", L"\mathrm{Swap~at~patch}"],
     L"\mathrm{Line~code}",
     patchsize = (35, 35), rowgap = 10,
-    orientation=:horizontal,
+    orientation=:vertical,
     titlesize=28,
     labelsize=24,
-    nbanks=3
+    nbanks=1
+   )
+
+dummy = MarkerElement(color = :white, marker = :circle, markersize=0.01)
+
+
+Legend(FigLegend[1,3],
+    [dummy, dummy, dummy, dummy],
+    [latexstring("r_{ij}=",round(r_ij,digits=3)), latexstring("r_{ij}=",round(r_ik,digits=3)), latexstring("r_{ij}=",round(r_jk,digits=3)), latexstring("w =",w)],
+    L"\mathrm{Parameters}",
+    patchsize = (35, 35), rowgap = 10,
+    orientation=:vertical,
+    titlesize=28,
+    labelsize=24,
+    nbanks=1
    )
 
 
+
+display(fig_3body)
 
 #=
 
