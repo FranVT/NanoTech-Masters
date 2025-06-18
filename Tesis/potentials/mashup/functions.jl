@@ -87,7 +87,7 @@ end
 function forceSwap(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik)
 """
     Compute the force of the swap potential
-    d/dr[U(r_ij,r_ik)], U(r_ij,r_ik) = U(r_ij)U(r_ik)
+    d/dr[U(r_ij)U(r_ik)] = U(r_ik)d/dr[U(r_ij)] + U(r_ij)d/dr[U(r_ik)]
 """
     a=U3(eps_ik,eps_jk,sig_p,r_ik); 
     b=DiffU3(eps_ij,eps_jk,sig_p,r_ij);

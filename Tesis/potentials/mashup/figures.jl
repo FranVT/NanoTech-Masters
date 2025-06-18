@@ -20,7 +20,7 @@ eps_ij = 1;
 eps_ik = 1;
 eps_jk = 1;
 
-w = 2;
+w = 1;
 
 
 # Try to analyze the swap potential
@@ -51,9 +51,14 @@ Upatch_ik=Upatch(eps_ij,sig_pac,r_ik);
 Upatch_jk=Upatch(eps_jk,sig_pac,r_jk);
 
 # Swap potential
-Uswap_ij=SwapU(w,eps_ij,eps_ik,eps_jk,sig_pac,r_ik,r_jk,1.5*sig_pac);
-Uswap_ik=SwapU(w,eps_ij,eps_ik,eps_jk,sig_pac,r_jk,r_ij,1.5*sig_pac);
-Uswap_jk=SwapU(w,eps_ij,eps_ik,eps_jk,sig_pac,r_ij,r_ik,1.5*sig_pac);
+Uswap_i=SwapU(w,eps_ij,eps_ik,eps_jk,sig_pac,r_ik,r_jk,1.5*sig_pac);
+Uswap_j=SwapU(w,eps_ij,eps_ik,eps_jk,sig_pac,r_jk,r_ij,1.5*sig_pac);
+Uswap_k=SwapU(w,eps_ij,eps_ik,eps_jk,sig_pac,r_ik,r_jk,1.5*sig_pac);
+
+Utotal_i=Upatch_ij+Upatch_ik+Uswap_i;
+Utotal_j=Upatch_ij+Upatch_jk+Uswap_j;
+Utotal_k=Upatch_jk+Upatch_ik+Uswap_k;
+
 
 # All patch potential
 dom=sig_pac/2:sig_pac/100:2*sig_pac;
@@ -67,9 +72,9 @@ Fpatch_ij=-DiffUpatchEval(eps_ij,sig_pac,r_ij);
 Fpatch_ik=-DiffUpatchEval(eps_ij,sig_pac,r_ik);
 Fpatch_jk=-DiffUpatchEval(eps_jk,sig_pac,r_jk);
 
-Fswap_ij=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_pac,r_ik,r_jk);
-Fswap_ik=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_pac,r_jk,r_ij);
-Fswap_jk=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_pac,r_ij,r_ik);
+Fswap_i=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_pac,r_ij,r_ik);
+Fswap_i=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_pac,r_jk,r_ij);
+Fswap_j=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_pac,r_ij,r_ik);
 
 # Patch i
 F_ij=vectorForce(Fpatch_ij,patch_1,patch_2)
@@ -149,18 +154,16 @@ arrows!(ax_pos,[first(patch_3)],[last(patch_3)],[first(Ftotal_k)],[last(Ftotal_k
 
 
 
-
-
 # Distances and stuff
-bracket!(patch_1..., patch_2..., offset = 5, text = latexstring("r_{ij}=",r_ij), fontsize = 30 , style = :square)
-bracket!(patch_1..., patch_3..., offset = 5, text = latexstring("r_{ij}=",r_ik), fontsize = 30 , style = :square)
-bracket!(patch_2..., patch_3..., offset = 5, text = latexstring("r_{ij}=",r_jk), fontsize = 30 , style = :square)
+bracket!(patch_1..., patch_2..., offset = 5, text = latexstring("r_{ij}=",round(r_ij,digits=3)), fontsize = 30 , style = :square)
+bracket!(patch_1..., patch_3..., offset = 5, text = latexstring("r_{ij}=",round(r_ik,digits=3)), fontsize = 30 , style = :square)
+bracket!(patch_2..., patch_3..., offset = 5, text = latexstring("r_{ij}=",round(r_jk,digits=3)), fontsize = 30 , style = :square)
 
 
 # Plot the potential of the patches
 ax_pot = Axis(fig_3body[1,2],
             title = L"\mathrm{Potential}",
-            xlabel = L"\mathrm{Distance~between~patches}",
+#            xlabel = L"\mathrm{Distance~between~patches}",
             ylabel = L"U(r)",
             titlesize = 24.0f0,
             xticklabelsize = 18.0f0,
@@ -177,18 +180,18 @@ stem!(ax_pot,r_ij,Upatch_ij, color = cl_12,markersize=15)
 stem!(ax_pot,r_ik,Upatch_ik, color = cl_13,markersize=15)
 stem!(ax_pot,r_jk,Upatch_jk, color = cl_23,markersize=15)
 
-stem!(ax_pot,r_ij,Uswap_ij, color = cl_12, marker=:rect,markersize=15)
-stem!(ax_pot,r_ik,Uswap_ik, color = cl_13, marker=:rect,markersize=15)
-stem!(ax_pot,r_jk,Uswap_jk, color = cl_23, marker=:rect,markersize=15)
+stem!(ax_pot,r_ij,Uswap_i, color = cl_12, marker=:rect,markersize=15)
+stem!(ax_pot,r_ik,Uswap_j, color = cl_13, marker=:rect,markersize=15)
+stem!(ax_pot,r_jk,Uswap_k, color = cl_23, marker=:rect,markersize=15)
 
-hlines!(ax_pot,Upatch_ij+Uswap_ij, color = cl_1)
-hlines!(ax_pot,Upatch_ik+Uswap_ik, color = cl_2)
-hlines!(ax_pot,Upatch_jk+Uswap_jk, color = cl_3)
+hlines!(ax_pot,Utotal_i, color = cl_1)
+hlines!(ax_pot,Utotal_j, color = cl_2)
+hlines!(ax_pot,Utotal_k, color = cl_3)
 
-ax_pot = Axis(fig_3body[2,2],
+ax_for = Axis(fig_3body[2,2],
             title = L"\mathrm{Forces}",
             xlabel = L"\mathrm{Distance~between~patches}",
-            ylabel = L"U(r)",
+            ylabel = L"|\vec{F}(r)|",
             titlesize = 24.0f0,
             xticklabelsize = 18.0f0,
             yticklabelsize = 18.0f0,
@@ -199,19 +202,21 @@ ax_pot = Axis(fig_3body[2,2],
             xminorticks = IntervalsBetween(5),
             limits=(first(dom),last(dom),-15*eps_ij,15*w)
          )
-lines!(ax_pot,dom,Fpatch_all,color=:black)
-stem!(ax_pot,r_ij,Fpatch_ij, color = cl_12,markersize=15)
-stem!(ax_pot,r_ik,Fpatch_ik, color = cl_13,markersize=15)
-stem!(ax_pot,r_jk,Fpatch_jk, color = cl_23,markersize=15)
+lines!(ax_for,dom,Fpatch_all,color=:black)
+stem!(ax_for,r_ij,Fpatch_ij, color = cl_12,markersize=15)
+stem!(ax_for,r_ik,Fpatch_ik, color = cl_13,markersize=15)
+stem!(ax_for,r_jk,Fpatch_jk, color = cl_23,markersize=15)
 
-stem!(ax_pot,r_ij,norm(Fswap_i...), color = cl_1, marker=:rect,markersize=15)
-stem!(ax_pot,r_ik,norm(Fswap_j...), color = cl_2, marker=:rect,markersize=15)
-stem!(ax_pot,r_jk,norm(Fswap_k...), color = cl_3, marker=:rect,markersize=15)
+stem!(ax_for,r_ij,norm(Fswap_i...), color = cl_1, marker=:rect,markersize=15)
+stem!(ax_for,r_ik,norm(Fswap_j...), color = cl_2, marker=:rect,markersize=15)
+stem!(ax_for,r_jk,norm(Fswap_k...), color = cl_3, marker=:rect,markersize=15)
 
-hlines!(ax_pot,Fpatch_ij+norm(Fswap_i...), color = cl_1)
-hlines!(ax_pot,Fpatch_ik+norm(Fswap_j...), color = cl_2)
-hlines!(ax_pot,Fpatch_jk+norm(Fswap_k...), color = cl_3)
+hlines!(ax_for,norm(Ftotal_i...), color = cl_1)
+hlines!(ax_for,norm(Ftotal_j...), color = cl_2)
+hlines!(ax_for,norm(Ftotal_k...), color = cl_3)
 
+
+linkxaxes!(ax_pot, ax_for)
 
 
 #=
