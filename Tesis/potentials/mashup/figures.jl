@@ -76,31 +76,31 @@ Fswap_i=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_pac,r_jk,r_ij);
 Fswap_j=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_pac,r_ij,r_ik);
 
 # Patch i
-F_ij=vectorForce(Fpatch_ij,patch_1,patch_2)
-F_ik=vectorForce(Fpatch_ik,patch_1,patch_3)
-Fswap_i=forceSwapvector(w,eps_ij,eps_ik,eps_jk,sig_pac,patch_1,patch_2,patch_3)
+Fpatchvec_ij=vectorForce(Fpatch_ij,patch_1,patch_2)
+Fpatchvec_ik=vectorForce(Fpatch_ik,patch_1,patch_3)
+Fswapvec_i=forceSwapvector(w,eps_ij,eps_ik,eps_jk,sig_pac,patch_1,patch_2,patch_3)
 
 # Patch j
-F_ji=vectorForce(Fpatch_ij,patch_2,patch_1)
-F_jk=vectorForce(Fpatch_jk,patch_2,patch_3)
-Fswap_j=forceSwapvector(w,eps_ij,eps_ik,eps_jk,sig_pac,patch_2,patch_1,patch_3)
+Fpatchvec_ji=(-1).*Fpatchvec_ij;
+Fpatchvec_jk=vectorForce(Fpatch_jk,patch_2,patch_3)
+Fswapvec_j=forceSwapvector(w,eps_ij,eps_ik,eps_jk,sig_pac,patch_2,patch_1,patch_3)
 
 
 # Patch k
-F_ki=(-1).*F_ik;
-F_kj=(-1).*F_jk;
-Fswap_k=forceSwapvector(w,eps_ij,eps_ik,eps_jk,sig_pac,patch_3,patch_1,patch_2)
+Fpatchvec_ki=(-1).*F_ik;
+Fpatchvec_kj=(-1).*F_jk;
+Fswapvec_k=forceSwapvector(w,eps_ij,eps_ik,eps_jk,sig_pac,patch_3,patch_1,patch_2)
 
 # Patch force
-Fpatch_i=F_ij .+ F_ik;
-Fpatch_j=F_ji .+ F_jk;
-Fpatch_k=F_ki .+ F_kj;
-
+Fpatchvec_i=Fpatchvec_ij .+ Fpatchvec_ik .+ Fswapvec_i;
+Fpatchvec_j=Fpatchvec_ji .+ Fpatchvec_jk .+ Fswapvec_j;
+Fpatchvec_k=Fpatchvec_ki .+ Fpatchvec_kj .+ Fswapvec_k;
 
 # Total force
-Ftotal_i=F_ij .+ F_ik .+ Fswap_i;
-Ftotal_j=F_ji .+ F_jk .+ Fswap_j;
-Ftotal_k=F_ki .+ F_kj .+ Fswap_k;
+Ftotalvec_i=Fpatchvec_ij .+ Fpatchvec_ik .+ Fswapvec_i;
+Ftotalvec_j=Fpatchvec_ji .+ Fpatchvec_jk .+ Fswapvec_j;
+Ftotalvec_k=Fpatchvec_ki .+ Fpatchvec_kj .+ Fswapvec_k;
+
 
 # Plot the position of the patches
 ax_pos = Axis(fig_3body[1:2,1],
@@ -135,21 +135,21 @@ lines!(ax_pos,first.(jsjs).+first(patch_3),last.(jsjs).+last(patch_3), color = c
 # Force of patch i
 #arrows!(ax_pos,[first(patch_1)],[last(patch_1)],[first(F_ij)],[last(F_ij)], color = cl_1,linewidth=3,normalize=true,lengthscale=0.25)
 #arrows!(ax_pos,[first(patch_1)],[last(patch_1)],[first(F_ik)],[last(F_ik)], color = cl_1,linewidth=3,normalize=true,lengthscale=0.25)
-arrows!(ax_pos,[first(patch_1)],[last(patch_1)],[first(Fpatch_i)],[last(Fswap_i)], color = (cl_1,0.5),linewidth=3,normalize=true,lengthscale=0.25)
-arrows!(ax_pos,[first(patch_1)],[last(patch_1)],[first(Ftotal_i)],[last(Ftotal_i)], color = cl_1,linewidth=3,normalize=true,lengthscale=0.25)
+arrows!(ax_pos,[first(patch_1)],[last(patch_1)],[first(Fswapvec_i)],[last(Fswapvec_i)], color = (cl_1,0.5),linewidth=3,normalize=true,lengthscale=0.25)
+arrows!(ax_pos,[first(patch_1)],[last(patch_1)],[first(Ftotalvec_i)],[last(Ftotalvec_i)], color = cl_1,linewidth=3,normalize=true,lengthscale=0.25)
 
 
 # Force of patch j
 #arrows!(ax_pos,[first(patch_2)],[last(patch_2)],[first(F_ji)],[last(F_ji)], color = cl_2,linewidth=3,normalize=true,lengthscale=0.25)
 #arrows!(ax_pos,[first(patch_2)],[last(patch_2)],[first(F_jk)],[last(F_jk)], color = cl_2,linewidth=3,normalize=true,lengthscale=0.25)
-arrows!(ax_pos,[first(patch_2)],[last(patch_2)],[first(Fpatch_j)],[last(Fswap_j)], color = (cl_2,0.5),linewidth=3,normalize=true,lengthscale=0.25)
-arrows!(ax_pos,[first(patch_2)],[last(patch_2)],[first(Ftotal_j)],[last(Ftotal_j)], color = cl_2,linewidth=3,normalize=true,lengthscale=0.25)
+arrows!(ax_pos,[first(patch_2)],[last(patch_2)],[first(Fswapvec_j)],[last(Fswapvec_j)], color = (cl_2,0.5),linewidth=3,normalize=true,lengthscale=0.25)
+arrows!(ax_pos,[first(patch_2)],[last(patch_2)],[first(Ftotalvec_j)],[last(Ftotalvec_j)], color = cl_2,linewidth=3,normalize=true,lengthscale=0.25)
 
 # Force of patch k
 #arrows!(ax_pos,[first(patch_3)],[last(patch_3)],[first(F_ki)],[last(F_ki)], color = cl_3,linewidth=3,normalize=true,lengthscale=0.25)
 #arrows!(ax_pos,[first(patch_3)],[last(patch_3)],[first(F_kj)],[last(F_kj)], color = cl_3,linewidth=3,normalize=true,lengthscale=0.25)
-arrows!(ax_pos,[first(patch_3)],[last(patch_3)],[first(Fpatch_k)],[last(Fswap_k)], color = (cl_3,0.5),linewidth=3,normalize=true,lengthscale=0.25)
-arrows!(ax_pos,[first(patch_3)],[last(patch_3)],[first(Ftotal_k)],[last(Ftotal_k)], color = cl_3,linewidth=3,normalize=true,lengthscale=0.25)
+arrows!(ax_pos,[first(patch_3)],[last(patch_3)],[first(Fswapvec_k)],[last(Fswapvec_k)], color = (cl_3,0.5),linewidth=3,normalize=true,lengthscale=0.25)
+arrows!(ax_pos,[first(patch_3)],[last(patch_3)],[first(Ftotalvec_k)],[last(Ftotalvec_k)], color = cl_3,linewidth=3,normalize=true,lengthscale=0.25)
 
 
 
