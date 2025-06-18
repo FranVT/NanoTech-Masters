@@ -21,8 +21,17 @@ function createTable(N,rmin,rmax,info,filename)
     end
 end
 
+function Upatch(eps_pair,sig_p,r)
+"""
+    Auxiliary potential to create Swap Mechanism based in Patch-Patch interaction
+"""
+    if r < 1.5*sig_p 
+        return 2*eps_pair*( (1/2)*(sig_p/r)^4 - 1 )*exp( sig_p/(r-1.5*sig_p) + 2 )
+    else
+        return 0.0
+    end
+end
 
-# Create the functions
 function U3(eps_pair,eps_3,sig_p,r)
 """
     Auxiliary potential to create Swap Mechanism based in Patch-Patch interaction
@@ -32,10 +41,9 @@ function U3(eps_pair,eps_3,sig_p,r)
     elseif r >= 1.5*sig_p
         return 0.0 
     else 
-        return -( 2*eps_pair*( ((sig_p^4)./((2).*r.^4)) .-1).*exp.((sig_p)./(r.-(1.5*sig_p)).+2) )./eps_3
+        return -(1/eps_3)*Upatch(eps_pair,sig_p,r)
     end
 end
-
 
 function SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,r_c)
 """
@@ -54,32 +62,10 @@ function DiffU3(eps_pair,eps_3,sig_p,r)
      return (1/(2*dh))*( fo - ff );
 end
 
-
-function DiffEvalij(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,r_c)
+function forceSwap(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik)
 """
-    Get the central finite difference given the value of the position and the function.
-"""
-    dh=1e-3;
-    fo=SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij+dh,r_ik,r_c)
-    ff=SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij-dh,r_ik,r_c)
-    return (1/(2*dh))*( fo - ff );
-end
-
-function DiffEvalik(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,r_c)
-"""
-    Get the central finite difference given the value of the position and the function.
-"""
-    dh=1e-3;
-    fo=SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik+dh,r_c)
-    ff=SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik-dh,r_c)
-    return (1/(2*dh))*( fo - ff );
-end
-
-
-
-function force(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik)
-"""
-    Compute the force of: d/dr[U(r_ij,r_ik)], U(r_ij,r_ik) = U(r_ij)U(r_ik)
+    Compute the force of the swap potential
+    d/dr[U(r_ij)U(r_ik)] = U(r_ik)d/dr[U(r_ij)] + U(r_ij)d/dr[U(r_ik)]
 """
     a=U3(eps_ik,eps_jk,sig_p,r_ik); 
     b=DiffU3(eps_ij,eps_jk,sig_p,r_ij);
@@ -90,6 +76,32 @@ function force(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik)
 
 end
 
+function f1f2(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,th)
+"""
+    Function that computes the f_i1 and f_i2 for lammps force projection tot the plane formed by the vector distances r_ij, r_ik and r_jk
+"""
+    th = deg2rad(th);
+    u_1 = (1,0)./r_ij;
+    u_2 = (cos(th),sin(th))./r_ik;
+    r_jk = sqrt(r_ij^2+r_ik^2-2*r_ij*r_ik*cos(th));
+
+    a=U3(eps_ik,eps_jk,sig_p,r_ik); 
+    b=-DiffU3(eps_ij,eps_jk,sig_p,r_ij);
+    c=U3(eps_ij,eps_jk,sig_p,r_ij);
+    d=-DiffU3(eps_ik,eps_jk,sig_p,r_ik);
+
+    fi = w.*eps_jk.*(a.*b .+ c.*d);
+
+    a=U3(eps_ik,eps_jk,sig_p,r_jk); 
+    b=-DiffU3(eps_ij,eps_jk,sig_p,r_ij);
+    c=U3(eps_ij,eps_jk,sig_p,r_ij);
+    d=-DiffU3(eps_ik,eps_jk,sig_p,r_jk);
+
+    fj = w.*eps_jk.*(a.*b .+ c.*d);
+
+    return (fi,0,fj,0,0,0) 
+
+end
 
 ## Parameters for the file
 
@@ -104,7 +116,7 @@ rmin = sig/1000;
 rmax = 2*sig;
 thi = 180/(4*N)
 thf = 180 - thi;
-w=0.5;
+w=2;
 
 filename1 = string("swapMechTab1_w",w,".table");
 filename2 = string("swapMechTab2_w",w,".table");
@@ -124,12 +136,13 @@ docs1 =  map(eachindex(doms1)) do s
             (
                  s,
                  doms1[s]...,
-                 force(w,eps_ij,eps_ik,eps_jk,sig,doms1[s][1],doms1[s][2]), 
-                 force(w,eps_ij,eps_ik,eps_jk,sig,doms1[s][1],doms1[s][2]), 
-                 force(w,eps_ij,eps_ik,eps_jk,sig,doms1[s][1],doms1[s][2]), 
-                 0.0,
-                 force(w,eps_ij,eps_ik,eps_jk,sig,doms1[s][1],doms1[s][2]), 
-                 0.0,
+                 f1f2(w,eps_ij,eps_ik,eps_jk,sig,doms1[s]...)...,
+#                 force(w,eps_ij,eps_ik,eps_jk,sig,doms1[s][1],doms1[s][2]), 
+#                 force(w,eps_ij,eps_ik,eps_jk,sig,doms1[s][1],doms1[s][2]), 
+#                 force(w,eps_ij,eps_ik,eps_jk,sig,doms1[s][1],doms1[s][2]), 
+#                 0.0,
+#                 force(w,eps_ij,eps_ik,eps_jk,sig,doms1[s][1],doms1[s][2]), 
+#                 0.0,
                  SwapU(w,eps_ij,eps_ik,eps_jk,sig,doms1[s][1],doms1[s][2],rc)
             )
         end
@@ -149,7 +162,7 @@ docs2 =  map(eachindex(doms2)) do s
             )
         end
 
-createTable(N,rmin,rmax,docs1,filename1)
-createTable(N,rmin,rmax,docs2,filename2)
+#createTable(N,rmin,rmax,docs1,filename1)
+#createTable(N,rmin,rmax,docs2,filename2)
 
 

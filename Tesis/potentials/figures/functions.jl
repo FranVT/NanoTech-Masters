@@ -112,8 +112,6 @@ function forceSwapvector(w,eps_ij,eps_ik,eps_jk,sig_p,r_i,r_j,r_k)
 
 end
 
-
-
 function DiffUpatchEval(eps_pair,sig_p,r)
 """
     Get the central finite difference of the patch interaction potential given the value of the position.
@@ -133,5 +131,4 @@ function DiffWCAEval(eps_pair,sig_p,r)
     ff=WCA(eps_pair,sig_p,r-dh)
     return (1/(2*dh))*( fo - ff );
 end
-
 
