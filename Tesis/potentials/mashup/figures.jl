@@ -72,8 +72,8 @@ Fpatch_ik=-DiffUpatchEval(eps_ij,sig_pac,r_ik);
 Fpatch_jk=-DiffUpatchEval(eps_jk,sig_pac,r_jk);
 
 Fswap_i=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_pac,r_ij,r_ik);
-Fswap_i=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_pac,r_jk,r_ij);
-Fswap_j=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_pac,r_ij,r_ik);
+Fswap_j=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_pac,r_jk,r_ij);
+Fswap_k=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_pac,r_ij,r_ik);
 
 # Patch i
 Fpatchvec_ij=vectorForce(Fpatch_ij,patch_1,patch_2)
@@ -91,10 +91,10 @@ Fpatchvec_ki=(-1).*F_ik;
 Fpatchvec_kj=(-1).*F_jk;
 Fswapvec_k=forceSwapvector(w,eps_ij,eps_ik,eps_jk,sig_pac,patch_3,patch_1,patch_2)
 
-# Patch force
-Fpatchvec_i=Fpatchvec_ij .+ Fpatchvec_ik .+ Fswapvec_i;
-Fpatchvec_j=Fpatchvec_ji .+ Fpatchvec_jk .+ Fswapvec_j;
-Fpatchvec_k=Fpatchvec_ki .+ Fpatchvec_kj .+ Fswapvec_k;
+# Total magnitude force
+Ftotal_i=Fpatch_ij .+ Fpatch_ik .+ Fswap_i;
+Ftotal_j=Fpatch_ij .+ Fpatch_jk .+ Fswap_j;
+Ftotal_k=Fpatch_ik .+ Fpatch_jk .+ Fswap_k;
 
 # Total force
 Ftotalvec_i=Fpatchvec_ij .+ Fpatchvec_ik .+ Fswapvec_i;
@@ -212,13 +212,14 @@ stem!(ax_for,r_ij,Fpatch_ij, color = cl_12,markersize=15)
 stem!(ax_for,r_ik,Fpatch_ik, color = cl_13,markersize=15)
 stem!(ax_for,r_jk,Fpatch_jk, color = cl_23,markersize=15)
 
-stem!(ax_for,r_ij,norm(Fswap_i...), color = cl_1, marker=:rect,markersize=15)
-stem!(ax_for,r_ik,norm(Fswap_j...), color = cl_2, marker=:rect,markersize=15)
-stem!(ax_for,r_jk,norm(Fswap_k...), color = cl_3, marker=:rect,markersize=15)
+hlines!(ax_for,r_ij,Fswap_i, color = (cl_1,0.5), linestyle=:dash)
+hlines!(ax_for,r_ik,Fswap_j, color = (cl_2,0.5), linestyle=:dash)
+hlines!(ax_for,r_jk,Fswap_k, color = (cl_3,0.5), linestyle=:dash)
 
-hlines!(ax_for,norm(Ftotal_i...), color = cl_1)
-hlines!(ax_for,norm(Ftotal_j...), color = cl_2)
-hlines!(ax_for,norm(Ftotal_k...), color = cl_3)
+
+hlines!(ax_for,Ftotal_i, color = cl_1)
+hlines!(ax_for,Ftotal_j, color = cl_2)
+hlines!(ax_for,Ftotal_k, color = cl_3)
 
 
 linkxaxes!(ax_pot, ax_for)
