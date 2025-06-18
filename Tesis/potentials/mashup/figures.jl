@@ -23,7 +23,7 @@ eps_jk = 1;
 w = 1;
 
 # Try to analyze the swap potential
-fig_3body=Figure(size=(920,920));
+fig_3body=Figure(size=(1080,920));
 
 # Position of the patches and color code
 patch_1=(0,0);
@@ -153,7 +153,6 @@ bracket!(patch_2..., patch_3..., offset = 5, text = latexstring("r_{kj}"), fonts
 
 # Plot the potential of the patches
 ax_pot = Axis(fig_3body[1:2,3:4],
-            title = L"\mathrm{Potential}",
 #            xlabel = L"\mathrm{Distance~between~patches}",
             ylabel = L"U(r)",
             titlesize = 24.0f0,
@@ -181,8 +180,7 @@ stem!(ax_pot,r_ik,Upatch_ik, color = cl_13,markersize=15)
 stem!(ax_pot,r_jk,Upatch_jk, color = cl_23,markersize=15)
 
 ax_for = Axis(fig_3body[3:4,3:4],
-            title = L"\mathrm{Force}",
-            xlabel = L"\mathrm{Distance~between~patches}",
+              xlabel = L"|r_{1}-r_{2}|",
             ylabel = L"F(r)",
             titlesize = 24.0f0,
             xticklabelsize = 18.0f0,
