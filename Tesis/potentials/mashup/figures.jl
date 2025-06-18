@@ -27,8 +27,8 @@ fig_3body=Figure(size=(920,920));
 
 # Position of the patches and color code
 patch_1=(0,0);
-patch_2=(0.25,0.46);
-patch_3=(0.41,0);
+patch_2=(-0.3,0.35);
+patch_3=(0.3,0.35);
 
 cl_1=Makie.wong_colors()[1];
 cl_2=Makie.wong_colors()[2];
@@ -73,7 +73,7 @@ Fpatch_jk=-DiffUpatchEval(eps_jk,sig_pac,r_jk);
 
 Fswap_i=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_pac,r_ij,r_ik);
 Fswap_j=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_pac,r_jk,r_ij);
-Fswap_k=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_pac,r_ij,r_ik);
+Fswap_k=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_pac,r_jk,r_ik);
 
 # Patch i
 Fpatchvec_ij=vectorForce(Fpatch_ij,patch_1,patch_2)
@@ -103,7 +103,7 @@ Ftotalvec_k=Fpatchvec_ki .+ Fpatchvec_kj .+ Fswapvec_k;
 
 
 # Plot the position of the patches
-ax_pos = Axis(fig_3body[1:2,1],
+ax_pos = Axis(fig_3body[1:3,1:2],
             title = L"\mathrm{Position~of~the~patches}",
             xlabel = L"x",
             ylabel = L"y",
@@ -116,7 +116,7 @@ ax_pos = Axis(fig_3body[1:2,1],
             xminorgridvisible = true,
             xminorticks = IntervalsBetween(5),
             aspect = AxisAspect(4/4),
-            limits=(-1,1,-1,1)
+            limits=(-3/4,3/4,-3/4,3/4)
          )
 
 # Circle for the scatter
@@ -160,7 +160,7 @@ bracket!(patch_2..., patch_3..., offset = 5, text = latexstring("r_{ij}=",round(
 
 
 # Plot the potential of the patches
-ax_pot = Axis(fig_3body[1,2],
+ax_pot = Axis(fig_3body[1:2,3:4],
             title = L"\mathrm{Potential}",
 #            xlabel = L"\mathrm{Distance~between~patches}",
             ylabel = L"U(r)",
@@ -191,12 +191,10 @@ hlines!(ax_pot,Utotal_i, color = (cl_1,1), linestyle=:solid)
 hlines!(ax_pot,Utotal_j, color = (cl_2,1), linestyle=:solid)
 hlines!(ax_pot,Utotal_k, color = (cl_3,1), linestyle=:solid)
 
-
-
-ax_for = Axis(fig_3body[2,2],
-            title = L"\mathrm{Forces}",
+ax_for = Axis(fig_3body[3:4,3:4],
+            title = L"\mathrm{Force}",
             xlabel = L"\mathrm{Distance~between~patches}",
-            ylabel = L"|\vec{F}(r)|",
+            ylabel = L"F(r)",
             titlesize = 24.0f0,
             xticklabelsize = 18.0f0,
             yticklabelsize = 18.0f0,
@@ -223,6 +221,30 @@ hlines!(ax_for,Ftotal_k, color = cl_3)
 
 
 linkxaxes!(ax_pot, ax_for)
+
+elem_1 = [LineElement(color = :red, linestyle = nothing),
+          MarkerElement(color = :blue, marker = 'x', markersize = 15,
+          strokecolor = :black)]
+
+elem_2 = [PolyElement(color = :red, strokecolor = :blue, strokewidth = 1),
+          LineElement(color = :black, linestyle = :dash)]
+
+elem_3 = LineElement(color = :green, linestyle = nothing,
+        points = Point2f[(0, 0), (0, 1), (1, 0), (1, 1)])
+
+elem_4 = MarkerElement(color = :blue, marker = 'π', markersize = 15,
+        points = Point2f[(0.2, 0.2), (0.5, 0.8), (0.8, 0.2)])
+
+elem_5 = PolyElement(color = :green, strokecolor = :black, strokewidth = 2,
+        points = Point2f[(0, 0), (1, 0), (0, 1)])
+
+Legend(fig_3body[4,1:2],
+    [elem_1, elem_2, elem_3, elem_4, elem_5],
+    ["Line & Marker", "Poly & Line", "Line", "Marker", "Poly"],
+    patchsize = (35, 35), rowgap = 10,
+    nbanks=2
+   )
+
 
 
 #=
