@@ -20,15 +20,14 @@ eps_ij = 1;
 eps_ik = 1;
 eps_jk = 1;
 
-w = 1;
-
+w = 2;
 
 # Try to analyze the swap potential
 fig_3body=Figure(size=(920,920));
 
 # Position of the patches and color code
 patch_1=(0,0);
-patch_2=(0.25,0.45);
+patch_2=(0.25,0.46);
 patch_3=(0.41,0);
 
 cl_1=Makie.wong_colors()[1];
@@ -51,9 +50,9 @@ Upatch_ik=Upatch(eps_ij,sig_pac,r_ik);
 Upatch_jk=Upatch(eps_jk,sig_pac,r_jk);
 
 # Swap potential
-Uswap_i=SwapU(w,eps_ij,eps_ik,eps_jk,sig_pac,r_ik,r_jk,1.5*sig_pac);
+Uswap_i=SwapU(w,eps_ij,eps_ik,eps_jk,sig_pac,r_ij,r_ik,1.5*sig_pac);
 Uswap_j=SwapU(w,eps_ij,eps_ik,eps_jk,sig_pac,r_jk,r_ij,1.5*sig_pac);
-Uswap_k=SwapU(w,eps_ij,eps_ik,eps_jk,sig_pac,r_ik,r_jk,1.5*sig_pac);
+Uswap_k=SwapU(w,eps_ij,eps_ik,eps_jk,sig_pac,r_jk,r_ik,1.5*sig_pac);
 
 Utotal_i=Upatch_ij+Upatch_ik+Uswap_i;
 Utotal_j=Upatch_ij+Upatch_jk+Uswap_j;
@@ -180,13 +179,19 @@ stem!(ax_pot,r_ij,Upatch_ij, color = cl_12,markersize=15)
 stem!(ax_pot,r_ik,Upatch_ik, color = cl_13,markersize=15)
 stem!(ax_pot,r_jk,Upatch_jk, color = cl_23,markersize=15)
 
-stem!(ax_pot,r_ij,Uswap_i, color = cl_12, marker=:rect,markersize=15)
-stem!(ax_pot,r_ik,Uswap_j, color = cl_13, marker=:rect,markersize=15)
-stem!(ax_pot,r_jk,Uswap_k, color = cl_23, marker=:rect,markersize=15)
+#stem!(ax_pot,r_ij,Uswap_i, color = cl_1, marker=:rect,markersize=15)
+#stem!(ax_pot,r_ik,Uswap_j, color = cl_2, marker=:rect,markersize=15)
+#stem!(ax_pot,r_jk,Uswap_k, color = cl_3, marker=:rect,markersize=15)
 
-hlines!(ax_pot,Utotal_i, color = cl_1)
-hlines!(ax_pot,Utotal_j, color = cl_2)
-hlines!(ax_pot,Utotal_k, color = cl_3)
+hlines!(ax_pot,Uswap_i, color = (cl_1,0.5), linestyle=:dash)
+hlines!(ax_pot,Uswap_j, color = (cl_2,0.5), linestyle=:dash)
+hlines!(ax_pot,Uswap_k, color = (cl_3,0.5), linestyle=:dash)
+
+hlines!(ax_pot,Utotal_i, color = (cl_1,1), linestyle=:solid)
+hlines!(ax_pot,Utotal_j, color = (cl_2,1), linestyle=:solid)
+hlines!(ax_pot,Utotal_k, color = (cl_3,1), linestyle=:solid)
+
+
 
 ax_for = Axis(fig_3body[2,2],
             title = L"\mathrm{Forces}",
