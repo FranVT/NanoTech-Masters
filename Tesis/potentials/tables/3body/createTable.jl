@@ -45,7 +45,7 @@ function U3(eps_pair,eps_3,sig_p,r)
     end
 end
 
-function SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,r_c)
+function SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik)
 """
     Potential for the swap mechanism
 """
@@ -100,7 +100,9 @@ function force(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,th)
     f_k1=-f_i2;
     f_k2=-f_j2;
 
-    return (f_i1,f_i2.f_j1,f_j2,f_k1,f_k2) 
+    eng=SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik) + SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_jk) + SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ik,r_jk)
+
+    return (f_i1,f_i2,f_j1,f_j2,f_k1,f_k2,eng)
 end
 
 ## Parameters for the file
@@ -136,29 +138,13 @@ docs1 =  map(eachindex(doms1)) do s
             (
                  s,
                  doms1[s]...,
-                 f1f2(w,eps_ij,eps_ik,eps_jk,sig,doms1[s]...)...,
+                 force(w,eps_ij,eps_ik,eps_jk,sig,doms1[s]...)...
 #                 force(w,eps_ij,eps_ik,eps_jk,sig,doms1[s][1],doms1[s][2]), 
 #                 force(w,eps_ij,eps_ik,eps_jk,sig,doms1[s][1],doms1[s][2]), 
 #                 force(w,eps_ij,eps_ik,eps_jk,sig,doms1[s][1],doms1[s][2]), 
 #                 0.0,
 #                 force(w,eps_ij,eps_ik,eps_jk,sig,doms1[s][1],doms1[s][2]), 
 #                 0.0,
-                 SwapU(w,eps_ij,eps_ik,eps_jk,sig,doms1[s][1],doms1[s][2],rc)
-            )
-        end
-
-# For Patch_j != Patch_k
-docs2 =  map(eachindex(doms2)) do s
-            (
-                 s,
-                 doms2[s]...,
-                 force(w,eps_ij,eps_ik,eps_jk,sig,doms2[s][1],doms2[s][2]), 
-                 force(w,eps_ij,eps_ik,eps_jk,sig,doms2[s][1],doms2[s][2]), 
-                 force(w,eps_ij,eps_ik,eps_jk,sig,doms2[s][1],doms2[s][2]), 
-                 0.0,
-                 force(w,eps_ij,eps_ik,eps_jk,sig,doms2[s][1],doms2[s][2]), 
-                 0.0,
-                 SwapU(w,eps_ij,eps_ik,eps_jk,sig,doms2[s][1],doms2[s][2],rc)
             )
         end
 
