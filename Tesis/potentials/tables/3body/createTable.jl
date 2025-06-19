@@ -76,13 +76,11 @@ function forceSwap(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik)
 
 end
 
-function f1f2(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,th)
+function force(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,th)
 """
     Function that computes the f_i1 and f_i2 for lammps force projection tot the plane formed by the vector distances r_ij, r_ik and r_jk
 """
     th = deg2rad(th);
-    u_1 = (1,0)./r_ij;
-    u_2 = (cos(th),sin(th))./r_ik;
     r_jk = sqrt(r_ij^2+r_ik^2-2*r_ij*r_ik*cos(th));
 
     a=U3(eps_ik,eps_jk,sig_p,r_ik); 
@@ -90,17 +88,19 @@ function f1f2(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,th)
     c=U3(eps_ij,eps_jk,sig_p,r_ij);
     d=-DiffU3(eps_ik,eps_jk,sig_p,r_ik);
 
-    fi = w.*eps_jk.*(a.*b .+ c.*d);
+    f_i1=w*eps_jk*a*b;
+    f_i2=w*eps_jk*c*d;
+   
+    e=U3(eps_ij,eps_jk,sig_p,r_ij);
+    f=-DiffU3(eps_ik,eps_jk,sig_p,r_jk);
 
-    a=U3(eps_ik,eps_jk,sig_p,r_jk); 
-    b=-DiffU3(eps_ij,eps_jk,sig_p,r_ij);
-    c=U3(eps_ij,eps_jk,sig_p,r_ij);
-    d=-DiffU3(eps_ik,eps_jk,sig_p,r_jk);
+    f_j1=-f_i1;
+    f_j2=w*eps_jk*e*f;
 
-    fj = w.*eps_jk.*(a.*b .+ c.*d);
+    f_k1=-f_i2;
+    f_k2=-f_j2;
 
-    return (fi,0,fj,0,0,0) 
-
+    return (f_i1,f_i2.f_j1,f_j2,f_k1,f_k2) 
 end
 
 ## Parameters for the file
