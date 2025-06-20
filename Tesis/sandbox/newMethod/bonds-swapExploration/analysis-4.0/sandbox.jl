@@ -64,26 +64,26 @@ l_o=1;#div(assembly_dat."N_heat"...,assembly_dat."save-fix"...);
 
 domain=system_assembly."TimeStep"[l_o:end].*assembly_dat."time-step";
 range=system_assembly."c_t"[l_o:end];
-fig_temp_as=plotTimeAssSystem(domain,range,assembly_dat,shear_dat,"\\mathrm{Time~vs~Temperature}","\\mathrm{Assembly}","\\mathrm{Temp}")
+fig_temp_as=plotTimeAssSystem(domain,range,assembly_dat,"\\mathrm{Time~vs~Temperature}","\\mathrm{Assembly}","\\mathrm{Temp}")
 
 domain=system_assembly."TimeStep"[l_o:end].*assembly_dat."time-step";
 range=system_assembly."v_eT"[l_o:end];
-fig_eng_as=plotTimeAssSystem(domain,range,assembly_dat,shear_dat,"\\mathrm{Time~vs~Total~energy}","\\mathrm{Assembly}","\\mathrm{Energy}")
+fig_eng_as=plotTimeAssSystem(domain,range,assembly_dat,"\\mathrm{Time~vs~Total~energy}","\\mathrm{Assembly}","\\mathrm{Energy}")
 
 domain=system_assembly."TimeStep"[l_o:end].*assembly_dat."time-step";
 range=system_assembly."c_ep"[l_o:end];
-fig_engPot_as=plotTimeAssSystem(domain,range,assembly_dat,shear_dat,"\\mathrm{Time~vs~Potential~energy}","\\mathrm{Assembly}","\\mathrm{Energy}")
+fig_engPot_as=plotTimeAssSystem(domain,range,assembly_dat,"\\mathrm{Time~vs~Potential~energy}","\\mathrm{Assembly}","\\mathrm{Energy}")
 
 domain=system_assembly."TimeStep"[l_o:end].*assembly_dat."time-step";
 range=system_assembly."c_ek"[l_o:end];
-fig_engKin_as=plotTimeAssSystem(domain,range,assembly_dat,shear_dat,"\\mathrm{Time~vs~Kinetic~energy}","\\mathrm{Assembly}","\\mathrm{Energy}")
+fig_engKin_as=plotTimeAssSystem(domain,range,assembly_dat,"\\mathrm{Time~vs~Kinetic~energy}","\\mathrm{Assembly}","\\mathrm{Energy}")
 
 
 domain=system_assembly."TimeStep"[l_o:end].*assembly_dat."time-step";
 range1=system_assembly."c_wcaPair"[l_o:end];
 range2=system_assembly."c_patchPair"[l_o:end];
 range3=system_assembly."c_swapPair"[l_o:end];
-fig_engPots_as=plotTimeAssPotential(domain,range1,range2,range3,assembly_dat,shear_dat,"\\mathrm{Time~vs~Potential~energies}","\\mathrm{Assembly}","\\mathrm{Energy}")
+fig_engPots_as=plotTimeAssPotential(domain,range1,range2,range3,assembly_dat,"\\mathrm{Time~vs~Potential~energies}","\\mathrm{Assembly}","\\mathrm{Energy}")
 
 
 

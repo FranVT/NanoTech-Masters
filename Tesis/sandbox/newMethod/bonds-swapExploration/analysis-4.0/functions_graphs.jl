@@ -153,7 +153,7 @@ Legend(fig[2,1],
 
 end
 
-function plotTimeAssSystem(domain,range,assembly_dat,shear_dat,title,subtitle,ylbl)
+function plotTimeAssSystem(domain,range,assembly_dat,title,subtitle,ylbl)
 """
     Plot time vs something
 """
@@ -186,7 +186,7 @@ labels = [latexstring("\\mathrm{Number~of~particles}: ",assembly_dat."Npart"...)
           latexstring("\\mathrm{Cl~concentration}: ",assembly_dat."CL-Con"...), 
           latexstring("\\mathrm{Damp}: ",assembly_dat."damp"...), 
           latexstring("\\mathrm{Number~of~experiments}: ",first(shear_dat)."Nexp"...), 
-          latexstring("\\mathrm{Time~Avg}: ",first(shear_dat)."save-fix"./first(shear_dat)."N_def"...,"\\gamma")
+          latexstring("\\mathrm{Time~Avg}: ",assembly_dat."save-fix"."N_def"...,"\\gamma")
          ]
 
 #Legend(fig[1,2],ax,
