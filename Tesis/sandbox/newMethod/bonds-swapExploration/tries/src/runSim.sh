@@ -59,33 +59,6 @@ do
     # Run the assembly
     bash $dir_src/$filename $dir_sim $dir_src $dir_system $id $var_ccL
 
-    # Create the sge files to run the shear protocol
-    for var_shearRate in $(seq $dgamma_o $dgamma_d $dgamma_f);
-    do
-   
-        # Directory to store the data from the shear simulations
-        dir_shearexp="$dir_system/shear-$id-shearRate$var_shearRate"
-        mkdir $dir_shearexp; 
-       
-        # Create the config file for the shear simulations
-        bash $dir_src/docs/create-file_config-shear.sh $dir_src $id $var_shearRate
-
-        # Create the data file for the assembly simulation
-        bash  $dir_src/docs/create-file_dataShear.sh $dir_src $dir_shearexp $id $var_shearRate
-
-        for var_N in $(seq $Nexp)
-        do
-            fileshearname="shear-$id-shearRate-$var_shearRate-exp$var_N.sh"
-            # Create the directory to save the data
-            mkdir "$dir_shearexp/Exp$var_N"
-            mkdir "$dir_shearexp/Exp$var_N/traj"
-
-            # Create the sge files for the simulations
-            bash $dir_src/docs/create-file_shear-sge.sh $fileshearname
-            bash $dir_src/$fileshearname $dir_sim $dir_src $dir_system $dir_shearexp $id $var_shearRate $var_N
-        done
-    done
-
     sleep 2
 
 done

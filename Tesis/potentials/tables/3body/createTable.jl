@@ -62,15 +62,15 @@ function DiffU3(eps_pair,eps_3,sig_p,r)
      return (1/(2*dh))*( fo - ff );
 end
 
-function forceSwap(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik)
+function forceSwap(w,eps_ij,eps_ik,eps_jk,sig_p,r_1,r_2)
 """
     Compute the force of the swap potential
     d/dr[U(r_ij)U(r_ik)] = U(r_ik)d/dr[U(r_ij)] + U(r_ij)d/dr[U(r_ik)]
 """
-    a=U3(eps_ik,eps_jk,sig_p,r_ik); 
-    b=DiffU3(eps_ij,eps_jk,sig_p,r_ij);
-    c=U3(eps_ij,eps_jk,sig_p,r_ij);
-    d=DiffU3(eps_ik,eps_jk,sig_p,r_ik);
+    a=U3(eps_ik,eps_jk,sig_p,r_2); 
+    b=DiffU3(eps_ij,eps_jk,sig_p,r_1);
+    c=U3(eps_ij,eps_jk,sig_p,r_1);
+    d=DiffU3(eps_ik,eps_jk,sig_p,r_2);
 
     return -w*eps_jk*(a*b + c*d) 
 
@@ -83,19 +83,15 @@ function force(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,th)
     th = deg2rad(th);
     r_jk = sqrt(r_ij^2+r_ik^2-2*r_ij*r_ik*cos(th));
 
-    a=U3(eps_ik,eps_jk,sig_p,r_ik); 
-    b=-DiffU3(eps_ij,eps_jk,sig_p,r_ij);
-    c=U3(eps_ij,eps_jk,sig_p,r_ij);
-    d=-DiffU3(eps_ik,eps_jk,sig_p,r_ik);
+    f_i=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik);
+    f_j=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_jk);
+    f_k=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_p,r_ik,r_jk);
 
-    f_i1=w*eps_jk*a*b;
-    f_i2=w*eps_jk*c*d;
+    f_i1=f_i;
+    f_i2=f_i*cos(th);
    
-    e=U3(eps_ij,eps_jk,sig_p,r_ij);
-    f=-DiffU3(eps_ik,eps_jk,sig_p,r_jk);
-
     f_j1=-f_i1;
-    f_j2=w*eps_jk*e*f;
+    f_j2=f_j*(1-cos(th));
 
     f_k1=-f_i2;
     f_k2=-f_j2;
@@ -123,8 +119,6 @@ w=1;
 
 filename1 = string("swapMechTab1_w",w,".table");
 filename2 = string("swapMechTab2_w",w,".table");
-
-
 
 # Create the domains of evaluation according filename nessetities
 th_dom = range(thi,thf,2*N);
