@@ -33,16 +33,16 @@ else
 end
 
 # Select the siimulation scheme (Version and stuff)
-scheme_dir="bonds-3.0.2";
+scheme_dir="bonds-3.0.3.2";
 # Select the "system" by id
-id="2025-06-14-100018";
+id="2025-06-20-061235";
 # Select the system by "cross-linker" concentration
 cl_con=0.5;
 
 # Extract the info or go directly to the graphs
 doAssembly=1;
-doShear=1;
-
+doShear=0;
+do_save=0;
 # Path to the data directory of the simulation scheme
 path_data=joinpath(parent_dir,scheme_dir,"data");
 # Path to the data directory of the specific system
@@ -73,6 +73,8 @@ if doShear == 1
     println("Shear information loaded")
 end
 
+
+if doShear == 1
 
 #=
     S H E A R   S I M U L A T I O N
@@ -109,6 +111,8 @@ stress_trans=map(s->systemShear.sigVirXY[s][1:aux[s]],eachindex(shear_dat));
 strain_trans=map(s->systemShear.strain[s][1:aux[s]],eachindex(shear_dat));
 
 fig_sigXYtrans=plotStrainShear(strain_trans,stress_trans,assembly_dat,shear_dat,"\\mathrm{Strain~vs~Virial~Stress}","xy~\\mathrm{component}","\\langle\\sigma_{xy}\\rangle");
+end
+
 
 
 #plotTimeAssSystem(domain,range,assembly_dat,shear_dat,title,subtitle,ylbl)
@@ -139,7 +143,7 @@ range3=system_assembly."c_swapPair"[l_o:end];
 fig_engPots_as=plotTimeAssPotential(domain,range1,range2,range3,assembly_dat,shear_dat,"\\mathrm{Time~vs~Potential~energies}","\\mathrm{Assembly}","\\mathrm{Energy}")
 
 
-do_save=1;
+
 
 if do_save == 1
     save(joinpath(path_system,"Strain-vs-StressXY.png"),fig_sigXY)

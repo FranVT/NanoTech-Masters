@@ -101,7 +101,7 @@ function force(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,th)
     f_k2=-f_j2;
 
     eng=SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik) + SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_jk) + SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ik,r_jk)
-    eng=round(eng,digits=2^7)
+    eng=round(eng/3,digits=2^7)
 
     return (f_i1,f_i2,f_j1,f_j2,f_k1,f_k2,eng)
 end

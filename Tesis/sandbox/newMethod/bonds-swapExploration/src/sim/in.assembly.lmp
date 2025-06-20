@@ -1,0 +1,128 @@
+# Input Script of lammps for assembly simulation of polimeric network.
+# Main code is based on: https://github.com/PipeB62/Hydrogel-Simulation
+# Patchy particles are with bond style.
+
+# Felipe Benavides modified by Fco. Vazquez
+
+# Initialization
+units lj
+dimension 3
+boundary p p p
+
+# Styles of atoms and that stuff
+atom_style full 
+bond_style harmonic
+angle_style harmonic
+pair_style hybrid/overlay zero 0.0 lj/cut/omp 1.12 table/omp linear 5000000 threebody/table
+
+newton on
+
+# Create simulaiton box
+region simulation_box block -$L $L -$L $L -$L $L
+# N-atom-types region-ID keyword value Is necesesary the extra/special/per/atom (# of special neighbors per atom)
+create_box 4 simulation_box &
+    bond/types 1 &
+    angle/types 2 &
+    extra/bond/per/atom 10 &
+    extra/angle/per/atom 6 &
+    extra/special/per/atom 10
+
+# Atom types
+mass 1 1.0      # CL 
+mass 2 1.0      # MO
+mass 3 0.1      # PA
+mass 4 0.1      # PB
+
+# Coefficients
+include potential.in
+
+# Molecules
+include molecules.in
+
+# COMPUTES
+
+# Compute global kinetic and potential energy and temperature
+compute t all temp
+compute p all pressure t
+compute ep all pe
+compute ek all ke
+variable eT equal etotal
+variable eB equal ebond
+variable eA equal eangle
+variable H equal enthalpy
+variable eM equal emol
+variable ec equal ecouple
+variable eC equal econserve
+
+# Potencial energy per pair-wise interaction
+compute wcaPair all pair lj/cut/omp epair
+compute patchPair all pair table/omp epair
+compute swapPair all pair threebody/table epair
+
+# Compute the pressure
+compute press all pressure t ke virial
+compute pressVirial all pressure t virial
+compute pressVirialMod all pressure t pair bond angle
+
+# Computes for the stress
+compute cstress all stress/atom t ke pair bond angle
+compute cstressVirial all stress/atom t virial
+compute cstressVirialMod all stress/atom t pair bond angle
+compute stress all reduce sum c_cstress[*]
+compute stressVirial all reduce sum c_cstressVirial[*]
+compute stressVirialMod all reduce sum c_cstressVirialMod[*]
+
+# Displacement of the central particles
+compute disp CM displace/atom
+compute redDisp CM reduce ave c_disp[*] # All, because yes
+
+# Get the number of central particles per cluster
+compute clusters all aggregate/atom 0.6                             # Create the clusters
+compute Nclpart CM chunk/atom c_clusters compress yes discard yes   # Get the number of clusters
+compute clsize CM property/chunk Nclpart count                      # Counts the atoms in each chunk
+compute idcl CM property/chunk Nclpart id                           # Get the ids of the clusters
+
+# Discretize the height into small boxes
+compute spatialChunks CM chunk/atom bin/3d x lower 1 y lower 1 z center ${bin_y} nchunk every units reduced
+
+# DUMPS and FIXES
+
+thermo ${NsaveStress}
+
+# Save global energies and temperature
+fix Energy all ave/time 1 ${Nsave} ${Nsave} c_t c_wcaPair c_patchPair c_swapPair c_ep c_ek v_eT v_ec v_eC c_p v_eB v_eA v_eM v_H c_redDisp[*] file ${Dir}/${file1_name}
+
+# Save Pressure and Stress tensor
+fix fixStress5 all ave/time 1 ${NsaveStress} ${NsaveStress} c_p c_press[*] c_pressVirial[*] c_pressVirialMod[*] c_stress[*] c_stressVirial[*] c_stressVirialMod[*] file ${Dir}/${file2_name}
+
+# Save the global cluster information
+fix 1 CM ave/time 1 1 ${Ndump} c_idcl c_clsize file ${Dir}/${file3_name} mode vector
+
+# The ave/chunk creates a temporal average. The ave keyword creates a spatial average.
+fix fixChunks CM ave/chunk 1 ${Nsave} ${Nsave} spatialChunks vx vy vz c_disp[*] ave one file ${Dir}/${file4_name}
+
+# Save atom positions with cluster id
+dump dumpID all custom ${Ndump} ${Dir}/traj/${file5_name} id mol c_clusters type x y z vx vy vz
+dump_modify dumpID pbc yes # remap atoms via periodic boundary conditions
+
+# RUN SIMULATION
+
+# Brownian Dynamics using Langevin Thermostat
+
+timestep ${tstep}
+
+fix VelVerlet all nve # Use Velocity Verlet integrator
+
+# First elevate the temperature
+fix ThermoLng all langevin 0.0 ${temp} ${damp} ${seed3} # Brownian Dynamics: langevin + nve 
+run ${stepsheat}
+
+unfix ThermoLng
+
+# Now we let the system to create the polymeric network
+fix ThermoLng all langevin ${temp} ${temp} ${damp} ${seed3} # Brownian Dynamics: langevin + nve 
+run ${steps}
+
+# Write data for deformation
+
+write_restart ${Dir}/${file6_name}

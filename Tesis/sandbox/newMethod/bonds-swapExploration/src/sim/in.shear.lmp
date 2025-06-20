@@ -5,8 +5,8 @@
 # Read the data from the hydrogel assembly simulation
 read_restart ${dataDir}/data.hydrogel 
 
-newton on
 pair_style hybrid/overlay zero 0.0 lj/cut/omp 1.12 table/omp linear 5000000 threebody/table
+newton on
 
 change_box all triclinic
 
