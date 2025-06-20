@@ -185,8 +185,8 @@ labels = [latexstring("\\mathrm{Number~of~particles}: ",assembly_dat."Npart"...)
           latexstring("\\mathrm{Packing~fraction}: ",assembly_dat."phi"...), 
           latexstring("\\mathrm{Cl~concentration}: ",assembly_dat."CL-Con"...), 
           latexstring("\\mathrm{Damp}: ",assembly_dat."damp"...), 
-          latexstring("\\mathrm{Number~of~experiments}: ",first(shear_dat)."Nexp"...), 
-          latexstring("\\mathrm{Time~Avg}: ",assembly_dat."save-fix"."N_def"...,"\\gamma")
+          latexstring("\\mathrm{w~of~U}_{\\mathrm{swap}}: ",assembly_dat."w"...), 
+          latexstring("\\mathrm{Time~Avg}: ",assembly_dat."save-fix"...)
          ]
 
 #Legend(fig[1,2],ax,
@@ -213,7 +213,7 @@ Legend(fig[2,1],
 end
 
 
-function plotTimeAssPotential(domain,range1,range2,range3,assembly_dat,shear_dat,title,subtitle,ylbl)
+function plotTimeAssPotential(domain,range1,range2,range3,assembly_dat,title,subtitle,ylbl)
 """
     Plot time vs something
     Each potential is normalize with respect the sum of the absolut value of each potential at a given time
@@ -249,8 +249,8 @@ labels = [latexstring("\\mathrm{Number~of~particles}: ",assembly_dat."Npart"...)
           latexstring("\\mathrm{Packing~fraction}: ",assembly_dat."phi"...), 
           latexstring("\\mathrm{Cl~concentration}: ",assembly_dat."CL-Con"...), 
           latexstring("\\mathrm{Damp}: ",assembly_dat."damp"...), 
-          latexstring("\\mathrm{Number~of~experiments}: ",first(shear_dat)."Nexp"...), 
-          latexstring("\\mathrm{Time~Avg}: ",first(shear_dat)."save-fix"./first(shear_dat)."N_def"...,"\\gamma")
+          latexstring("\\mathrm{w~of~U}_{\\mathrm{swap}}: ",assembly_dat."w"...), 
+          latexstring("\\mathrm{Time~Avg}: ",assembly_dat."save-fix"...)
          ]
 
 Legend(fig[1,2],ax,

@@ -40,8 +40,8 @@ id="2025-06-20-165121";
 cl_con=0.5;
 
 # Extract the info or go directly to the graphs
-doAssembly=1;
-do_save=0;
+doAssembly=0;
+do_save=1;
 
 # Path to the data directory of the simulation scheme
 path_data=joinpath(parent_dir,scheme_dir,"data");
@@ -89,19 +89,6 @@ fig_engPots_as=plotTimeAssPotential(domain,range1,range2,range3,assembly_dat,"\\
 
 
 if do_save == 1
-    save(joinpath(path_system,"Strain-vs-StressXY.png"),fig_sigXY)
-    save(joinpath(path_system,"Strain-vs-StressNORM.png"),fig_sigNorm)
-    save(joinpath(path_system,"Strain-vs-StressVirialXY.png"),fig_sigVirXY)
-
-    save(joinpath(path_system,"Time-vs-Temp-shear.png"),fig_temp)
-    save(joinpath(path_system,"Time-vs-WCA-shear.png"),fig_wca)
-    save(joinpath(path_system,"Time-vs-Patch-shear.png"),fig_patch)
-    save(joinpath(path_system,"Time-vs-Swap-shear.png"),fig_swap)
-    save(joinpath(path_system,"Time-vs-Pot-shear.png"),fig_pot)
-
-    save(joinpath(path_system,"ShearRate-vs-Stress.png"),fig)
-    save(joinpath(path_system,"Strain-vs-Stress-Zoom.png"),fig_sigXYtrans)
-
      save(joinpath(path_system,"Time-vs-Temp-assembly.png"),fig_temp_as)
     save(joinpath(path_system,"Time-vs-Totalenergy-assembly.png"),fig_eng_as)
     save(joinpath(path_system,"Time-vs-Potential-assembly.png"),fig_engPots_as)

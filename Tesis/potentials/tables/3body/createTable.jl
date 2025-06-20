@@ -144,7 +144,7 @@ rmin = sig/1000;
 rmax = 2*sig;
 thi = 180/(4*N)
 thf = 180 - thi;
-w=1;
+w=1.5;
 
 filename1 = string("swapMechTab1_w",w,".table");
 filename2 = string("swapMechTab2_w",w,".table");
