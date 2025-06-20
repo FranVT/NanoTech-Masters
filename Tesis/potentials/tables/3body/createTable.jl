@@ -26,7 +26,7 @@ function Upatch(eps_pair,sig_p,r)
     Auxiliary potential to create Swap Mechanism based in Patch-Patch interaction
 """
     if r < 1.5*sig_p 
-        return 2*eps_pair*( (1/2)*(sig_p/r)^4 - 1 )*exp( sig_p/(r-1.5*sig_p) + 2 )
+        return round(2*eps_pair*( (1/2)*(sig_p/r)^4 - 1 )*exp( sig_p/(r-1.5*sig_p) + 2 ),digits=2^7)
     else
         return 0.0
     end
@@ -101,6 +101,7 @@ function force(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,th)
     f_k2=-f_j2;
 
     eng=SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik) + SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_jk) + SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ik,r_jk)
+    eng=round(eng,digits=2^7)
 
     return (f_i1,f_i2,f_j1,f_j2,f_k1,f_k2,eng)
 end
@@ -118,7 +119,7 @@ rmin = sig/1000;
 rmax = 2*sig;
 thi = 180/(4*N)
 thf = 180 - thi;
-w=2;
+w=1;
 
 filename1 = string("swapMechTab1_w",w,".table");
 filename2 = string("swapMechTab2_w",w,".table");
@@ -142,7 +143,7 @@ docs1 =  map(eachindex(doms1)) do s
             )
         end
 
-docs1 =  map(eachindex(doms2)) do s
+docs2 =  map(eachindex(doms2)) do s
             (
                  s,
                  doms2[s]...,
@@ -153,5 +154,4 @@ docs1 =  map(eachindex(doms2)) do s
 
 createTable(N,rmin,rmax,docs1,filename1)
 createTable(N,rmin,rmax,docs2,filename2)
-
 
