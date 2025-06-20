@@ -139,16 +139,19 @@ docs1 =  map(eachindex(doms1)) do s
                  s,
                  doms1[s]...,
                  force(w,eps_ij,eps_ik,eps_jk,sig,doms1[s]...)...
-#                 force(w,eps_ij,eps_ik,eps_jk,sig,doms1[s][1],doms1[s][2]), 
-#                 force(w,eps_ij,eps_ik,eps_jk,sig,doms1[s][1],doms1[s][2]), 
-#                 force(w,eps_ij,eps_ik,eps_jk,sig,doms1[s][1],doms1[s][2]), 
-#                 0.0,
-#                 force(w,eps_ij,eps_ik,eps_jk,sig,doms1[s][1],doms1[s][2]), 
-#                 0.0,
             )
         end
 
-#createTable(N,rmin,rmax,docs1,filename1)
-#createTable(N,rmin,rmax,docs2,filename2)
+docs1 =  map(eachindex(doms2)) do s
+            (
+                 s,
+                 doms2[s]...,
+                 force(w,eps_ij,eps_ik,eps_jk,sig,doms2[s]...)...
+            )
+        end
+
+
+createTable(N,rmin,rmax,docs1,filename1)
+createTable(N,rmin,rmax,docs2,filename2)
 
 
