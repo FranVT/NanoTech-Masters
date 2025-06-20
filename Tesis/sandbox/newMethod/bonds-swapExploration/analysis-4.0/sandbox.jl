@@ -35,12 +35,12 @@ end
 # Select the siimulation scheme (Version and stuff)
 scheme_dir="tries";
 # Select the "system" by id
-id="2025-06-20-165121";
+id="2025-06-20-171538";
 # Select the system by "cross-linker" concentration
 cl_con=0.5;
 
 # Extract the info or go directly to the graphs
-doAssembly=0;
+doAssembly=1;
 do_save=1;
 
 # Path to the data directory of the simulation scheme

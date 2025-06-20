@@ -8,4 +8,4 @@ seed3=35
 Nsave=50000
 NsaveStress=50000
 Ndump=100000
-w=2
+w=1.5
