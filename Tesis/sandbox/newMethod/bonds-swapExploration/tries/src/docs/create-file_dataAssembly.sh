@@ -46,6 +46,9 @@ values+=("${T}")
 headers+=("damp")
 values+=("${damp}")
 
+headers+=("w")
+values+=("${w}")
+
 headers+=("time-step")
 values+=("${dt}")
 

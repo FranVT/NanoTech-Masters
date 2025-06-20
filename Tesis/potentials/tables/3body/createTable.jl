@@ -19,6 +19,8 @@ function createTable(N,rmin,rmax,info,filename)
         write(f,string("N ",N," rmin ",rmin," rmax ",rmax,"\n\n"))
         map(t->write(f,rstrip(join(map(s->s*" ",string.(info[t]))))*"\n" ),eachindex(info))
     end
+
+    nothing
 end
 
 function Upatch(eps_pair,sig_p,r)
@@ -102,6 +104,33 @@ function force(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,th)
     return (f_i1,f_i2,f_j1,f_j2,f_k1,f_k2,eng)
 end
 
+function force2(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,th)
+"""
+    Function that computes the f_i1 and f_i2 for lammps force projection tot the plane formed by the vector distances r_ij, r_ik and r_jk
+"""
+    th = deg2rad(th);
+    r_jk = sqrt(r_ij^2+r_ik^2-2*r_ij*r_ik*cos(th));
+
+    f_i=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik);
+    f_j=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_jk);
+    f_k=forceSwap(w,eps_ij,eps_ik,eps_jk,sig_p,r_ik,r_jk);
+
+    f_i1=f_i;
+    f_i2=f_i*cos(th);
+   
+    f_j1=f_j;
+    f_j2=f_j*(1-cos(th));
+
+    f_k1=f_k*cos(th);
+    f_k2=f_k*(1-cos(th));
+
+    eng=SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik) + SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_jk) + SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ik,r_jk)
+    eng=round(eng/3,digits=2^7)
+
+    return (f_i1,f_i2,f_j1,f_j2,f_k1,f_k2,eng)
+end
+
+
 ## Parameters for the file
 
 N = 100;
@@ -133,19 +162,19 @@ docs1 =  map(eachindex(doms1)) do s
             (
                  s,
                  doms1[s]...,
-                 force(w,eps_ij,eps_ik,eps_jk,sig,doms1[s]...)...
+                 force2(w,eps_ij,eps_ik,eps_jk,sig,doms1[s]...)...
             )
-        end
+        end;
 
 docs2 =  map(eachindex(doms2)) do s
             (
                  s,
                  doms2[s]...,
-                 force(w,eps_ij,eps_ik,eps_jk,sig,doms2[s]...)...
+                 force2(w,eps_ij,eps_ik,eps_jk,sig,doms2[s]...)...
             )
-        end
-
+        end;
 
 createTable(N,rmin,rmax,docs1,filename1)
 createTable(N,rmin,rmax,docs2,filename2)
 
+nothing
