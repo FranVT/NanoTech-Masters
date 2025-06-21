@@ -35,7 +35,7 @@ end
 # Select the siimulation scheme (Version and stuff)
 scheme_dir="tries";
 # Select the "system" by id
-id="2025-06-20-175255";
+id="2025-06-20-182654";
 # Select the system by "cross-linker" concentration
 cl_con=0.5;
 
