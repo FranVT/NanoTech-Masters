@@ -5,7 +5,7 @@
 cs=6
 damp=0.5
 T=0.05
-N_particles=50
+N_particles=1500
 cl_con_o=0.5
 cl_con_f=0.5
 cl_con_d=0.5
@@ -17,4 +17,4 @@ steps_isot=8000000
 Vol_MO1=4.49789
 Vol_CL1=4.80538
 files_name=("system_assembly.fixf" "stress_assembly.fixf" "clust_assembly.fixf" "profiles_assembly.fixf" "traj_assembly.*.dumpf" "data.hydrogel")
-w=1.5
+w=3
