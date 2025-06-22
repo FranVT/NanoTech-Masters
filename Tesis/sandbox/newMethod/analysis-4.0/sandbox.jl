@@ -33,16 +33,16 @@ else
 end
 
 # Select the siimulation scheme (Version and stuff)
-scheme_dir="bonds-3.0.3.2";
+scheme_dir="bonds-3.0";
 # Select the "system" by id
-id="2025-06-20-061235";
+id="2025-06-21-170434";
 # Select the system by "cross-linker" concentration
 cl_con=0.5;
 
 # Extract the info or go directly to the graphs
 doAssembly=1;
-doShear=0;
-do_save=0;
+doShear=1;
+do_save=1;
 # Path to the data directory of the simulation scheme
 path_data=joinpath(parent_dir,scheme_dir,"data");
 # Path to the data directory of the specific system
