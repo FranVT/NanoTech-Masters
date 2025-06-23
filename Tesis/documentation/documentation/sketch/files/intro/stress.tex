@@ -1,0 +1,38 @@
+\documentclass[../../main-notes.tex]{subfiles}
+
+\begin{document}
+
+\subsection{Stress}
+
+Stress is an important concept in characterizong the states of condensed matter.
+A body is in a state of stress if it is acted upon by external dorcer or, more generally, if one part of the body exerts forces upon another part.
+If we consider a volume element within a stressed body, we can distinguish the effect of two types of forces: those acting directly in the interior of the elemnt and those exerted upon the surface of the element by the surrounding material.
+The latter forces (per unit area) are stress that are transmitted throught the interior of the volume.
+For condensed matter in which the stress is homogeneous in volumes of macroscopic dimensions, the equation of state in the relation between the stress and the internal variables, such as the density and temperature.\footnote{Cite Quantum-mechanical theory of stress and force}
+
+
+In order to describe general flow gradients, the velocity gradient tensor, the deformation tensor and the stress tensor are mathematical entities that help in doing so.
+The velocity gradient tensor describes the steepness of velocity variation as one moves from point to point in any direction in the flow at a given instant in time.
+The deformation gradient tensor describe the deformation history in a complex fluid.
+Lastly, the stress tensor represent the force per unit area that is exert on a surface.\footnote{Cite Larson Book Introduction to Complex Fluids}
+
+In general the stress tensor is modeled with two terms,
+\begin{equation}
+    \vb{T} = \vb{\sigma} - p\vb{\delta}\label{eqn:generalStressTensor}.
+\end{equation}
+where $\vb{\sigma}$ represent the stress tensor related to internal phenomena of the system and the second term consider external pressure to the system, more specifically, the atmospheric pressure.
+\dots since we are interested in the response of the material our analysis will be center in $\vb \sigma$
+\dots
+To do it so, we analyze the virial stress to find the macroscopic (contoniuum) stress, because we are going to use molecular dynamics computations\footnote{Cite Physical Interpretation of the virial stress}.
+The macroscopic stress tensor in a macroscopically small volume $\Omega$  is typically taken to be:
+\begin{equation}
+    \sigma_{\alpha\beta} = \frac{1}{\Omega}\sum_{i\in\Omega}\left(\frac{1}{2}\sum_{j}\qty(x_\alpha^{(j)}-x_\alpha^{(i)})f_{\beta}^{(ij)} -m^{(i)}\qty(u^{(i)}_\alpha - \bar{u}_\alpha)\qty(u^{(i)}_\beta - \bar{u}_\beta)\right)\label{eqn:macroStressTensor}
+\end{equation}
+where\dots $\alpha,\beta$ are $x,y,z$\dots.
+\dots to reduce random fluctuations (because we are using Brownian dynamics) we perfom a spatial and time average.
+The $1/\Omega$ factor is due to the spatial average, meanwhile the time average are the terms in equation~\eqref{eqn:macroStressTensor}.
+The first term emerges from the virial theorem of Clasius, and the second term is a correction ter that emerges from the ``cross-over'' phenomena, when analyzing at microscopic scale.\footnote{Explain more}
+
+
+
+\end{document}

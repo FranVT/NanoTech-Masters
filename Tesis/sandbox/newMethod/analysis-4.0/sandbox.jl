@@ -35,7 +35,7 @@ end
 # Select the siimulation scheme (Version and stuff)
 scheme_dir="bonds-3.0";
 # Select the "system" by id
-id="2025-06-21-170434";
+id="2025-06-22-090946";
 # Select the system by "cross-linker" concentration
 cl_con=0.5;
 
