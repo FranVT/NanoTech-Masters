@@ -1,0 +1,48 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\section{Processing the data}
+
+\begin{itemize}
+    \item Temperature
+    \item Energy
+    \item Pressure
+    \item Stress
+\end{itemize}
+
+\subsection{Pressure and Stress}
+
+Differences between the compute pressure and compute stress/atom.
+
+\subsubsection{Pressure}
+
+The \textbf{scalar} pressure is computed as follows,
+\begin{gather*}
+    P=\frac{Nk_{B}T}{V}+\frac{1}{Vd}\sum_{i=1}^N\vec{r}_i\cdot\vec{f}_i.
+\end{gather*}
+
+The pressure \textbf{tensor} is computed as follows
+\begin{gather*}
+    P_{e_i,e_j}=\frac{1}{V}\sum{i=1}^{N}m_{i}v_{i_{e_i}}v_{i_{e_j}}+\frac{1}{V}\sum_{i=1}^N'r_{e_{i}i}f_{i}.
+\end{gather*}
+
+
+
+\subsubsection{Atom stress}
+
+\subsubsection{Relation between pressure and stress}
+
+\begin{gather*}
+    p=-\frac{1}{dV}\sum_{i=1}^{N}\mathrm{Tr}\qty(\sigma_i)
+\end{gather*}
+where $d$ is the dimension of the simulation, $d=3$, $V$ is the volume of the simulation box.
+$\sigma_i$ is the stress per atom calculation.
+
+From the results we do not get the exact behaviour between the stress and pressure, but the difference is constant and small, indicating that are equivalent.
+
+
+
+
+
+\end{document}
