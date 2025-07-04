@@ -4,7 +4,7 @@
 
 \subsection{Stress}
 
-\paragraph{Introductory paragraph} To characterize the behaviour of materials, constitutive relations serve as an input to the continuum theory\dots
+\paragraph{Introductory paragraph} To characterize the behaviour of materials, constitutive relations serve as an input to the continuum theory\dots\footnote{Capaz e ir introduciendo ideas del Clausius\citep{clausiusXVIMechanicalTheorem1870}}
 
 This derivation can be found in the apendix of\citep{admalUnifiedInterpretationStress2010}\footnote{Describe more if what is done in this article}.
 Consider a system of $N$ interacting particles with each particle position given by
@@ -14,7 +14,7 @@ Consider a system of $N$ interacting particles with each particle position given
 where $\vec{r}$ is the position of the center of mass of the system and $\vec{s}_\alpha$ is the position of each point relative to the center of mass.
 Hence, we can express the momentum of each particle as
 \begin{equation}
-    \vec{p}_\alpha = m_\alpha\qty(\dot{\vec{r}}+\dot{\vec{s}}_\alpha) = m_\alpha\qty(\dot{\vec{r}}+\vec{v}_\alpha^{\mathrm{rel}}).\label{eqn:DerVirTen2}
+    \vec{p}_\alpha = m_\alpha\qty(\dot{\vec{r}}+\dot{\vec{s}}_\alpha) = m_\alpha\qty(\dot{\vec{r}}+\vec{\upsilon}_\alpha^{\mathrm{rel}}).\label{eqn:DerVirTen2}
 \end{equation}
 Before starting the procedure, lets take into account that the center of mass of the system is given by
 \begin{equation}
@@ -23,25 +23,25 @@ Before starting the procedure, lets take into account that the center of mass of
 and by replacing~\eqref{eqn:DerVirTen1} in~\eqref{eqn:DerVirTen2} we get the following relations, which will be used later,
 \begin{equation}
     \sum_\alpha m_\alpha\vec{r}_\alpha = \vec{0},\quad
-    \sum_\alpha m_\alpha\dot{\vec{r}}_\alpha = \vec{0}.\label{eqn:DerVirTen4}
+    \sum_\alpha m_\alpha\vec{\upsilon}_\alpha^{\mathrm{rel}} = \vec{0}.\label{eqn:DerVirTen4}
 \end{equation}
 
-We start by computing the time derivative of tensorial product $\vec{r}_\alpha\otimes\vec{p}_\alpha$\footnote{It is interesting to note that the tensorial product $\vec{r}_\alpha\otimes\vec{p}_\alpha$ has units of action and by tacking the time derivative we are dealing with terms that has units of energy.
+Now we can start by computing the time derivative of tensorial product $\vec{r}_\alpha\otimes\vec{p}_\alpha$\footnote{It is interesting to note that the tensorial product $\vec{r}_\alpha\otimes\vec{p}_\alpha$ has units of action and by tacking the time derivative we are dealing with terms that has units of energy.
 },
 \begin{equation}
     \dv{t}\qty(\vec{r}_\alpha\otimes\vec{p}_\alpha) = 
-    \underbrace{\vec{v}_\alpha^{\mathrm{rel}}\otimes\vec{p}_\alpha}_{\mathrm{Kinetic~term}} 
+    \underbrace{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{p}_\alpha}_{\mathrm{Kinetic~term}} 
         +
-        \underbrace{\vec{r}\otimes\vec{f}_\alpha}_{\mathrm{Virial~term}},\label{eqn:DerVirTen5}
+        \underbrace{\vec{r}_\alpha\otimes\vec{f}_\alpha}_{\mathrm{Virial~term}},\label{eqn:DerVirTen5}
 \end{equation}
-which is known as the \textit{dynamical tensor virial theorem} that is an alternative form for the balance of linear momentum.
+which is known as the \textit{dynamical tensor virial theorem} and it is simply an alternative form to express the balance of linear momentum.
 This theorem becomes useful after making the assumption that there existis a time scale $\tau$, which is short relative to macroscopic processes but long relative to the characteristic time of the particles in the system, over which the particles remain close to their original positions with bounded positions and velocities.
 Taking advantage of this property we can compute the time average of~\eqref{eqn:DerVirTen5},
 \begin{equation}
     \frac{1}{\tau}\left.\qty(\vec{r}_\alpha\otimes\vec{p}_\alpha)\right\bigg|_{0}^{\tau} = 
-    \overline{\vec{v}_\alpha^{\mathrm{rel}}\otimes\vec{p}_\alpha} 
+    \overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{p}_\alpha} 
         +
-    \overline{\vec{r}\otimes\vec{f}_\alpha}.\label{eqn:DerVirTen6}
+    \overline{\vec{r}_\alpha\otimes\vec{f}_\alpha}.\label{eqn:DerVirTen6}
 \end{equation}
 Assuming that $\vec{r}_\alpha\otimes\vec{p}_\alpha$ is bounded, and the time scales between microscopic and continuum processes are large enough, the term on the left-hand side can be as small as desired by tacking $\tau$ sufficiently large and by summing over all particles we achieve the \textit{tensor virial theorem}:
 \begin{equation}
@@ -49,11 +49,11 @@ Assuming that $\vec{r}_\alpha\otimes\vec{p}_\alpha$ is bounded, and the time sca
 \end{equation}
 where
 \begin{equation}
-    \overline{\bold{W}} = \sum_\alpha\overline{\vec{r}\otimes\vec{f}_\alpha}\label{eqn:DerVirTen8}
+    \overline{\bold{W}} = \sum_\alpha\overline{\vec{r}_\alpha\otimes\vec{f}_\alpha}\label{eqn:DerVirTen8}
 \end{equation}
 is the time-average virial tensor and
 \begin{equation}
-    \overline{\bold{T}}=\frac{1}{2}\sum_\alpha\overline{\vec{v}_\alpha^{\mathrm{rel}}\otimes\vec{p}_\alpha}\label{eqn:DerVirTen9}
+    \overline{\bold{T}}=\frac{1}{2}\sum_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{p}_\alpha}\label{eqn:DerVirTen9}
 \end{equation}
 is the time-average kinetic tensor.
 This expression for the tensor virial theorem applies equally to continuum systems that are not in macroscopic equilibrium as well as those that are at rest.
@@ -61,15 +61,51 @@ This expression for the tensor virial theorem applies equally to continuum syste
 The assumption of the difference between the time scales allow us to simplify the relation by replacing~\eqref{eqn:DerVirTen2} in~\eqref{eqn:DerVirTen9}, so that,
 \begin{equation}
     \overline{\bold{T}}=
-        \frac{1}{2}\sum_\alpha m_\alpha\overline{\vec{v}_\alpha^{\mathrm{rel}}\otimes\vec{v}_\alpha^{\mathrm{rel}}}
+        \frac{1}{2}\sum_\alpha m_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{v}_\alpha^{\mathrm{rel}}}
         +
-        \frac{1}{2} \left[\overline{\sum_\alpha m_\alpha\vec{v}_\alpha^{\mathrm{rel}}}\right]\otimes\dot{\vec{r}}\label{eqn:DerVirTen10},
+        \frac{1}{2} \left[\overline{\sum_\alpha m_\alpha\vec{\upsilon}_\alpha^{\mathrm{rel}}}\right]\otimes\dot{\vec{r}}\label{eqn:DerVirTen10},
 \end{equation}
-which is not the simplification we expected, however, by the relations from~\eqref{eqn:DerVirTen4}, equation~\eqref{eqn:DerVirTen10} simplifies to
+which is not the simplification we expected, however, by the relations from~\eqref{eqn:DerVirTen4}, equation~\eqref{eqn:DerVirTen10} simplifies to\footnote{No estoy muy seguro si incluir una discusión acerca del término cinético en la expresión del virial. Posiblemente un párrafo\dots posiblemente lo ponga en la interpretación del teorema.
+También, no se si ir metiendo interpretación durante la derivación o no, pero bueno.}
 \begin{equation}
     \overline{\bold{T}}=
-        \frac{1}{2}\sum_\alpha m_\alpha\overline{\vec{v}_\alpha^{\mathrm{rel}}\otimes\vec{v}_\alpha^{\mathrm{rel}}}\label{eqn:DerVirTen11},
+        \frac{1}{2}\sum_\alpha m_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{\upsilon}_\alpha^{\mathrm{rel}}}\label{eqn:DerVirTen11}.
 \end{equation}
+On the other hand, instead of reducing the expression, we start to create the conection with the Cauchy stress tensor by distributing~\eqref{eqn:DerVirTen8} into an internal and external contributions,
+\begin{equation}
+    \overline{\bold{W}} = 
+    \underbrace{\sum_\alpha\overline{\vec{r}_\alpha\otimes\vec{f}_\alpha^{\mathrm{int}}}}_{\overline{\bold{W}}_{\mathrm{int}}}
+        +
+        \underbrace{\sum_\alpha\overline{\vec{r}_\alpha\otimes\vec{f}_\alpha^{\mathrm{ext}}}}_{\overline{\bold{W}}_{\mathrm{ext}}}.\label{eqn:DerVirTen12}
+\end{equation}
+The time-average internal virial tensor takes into account the interaction between particle $\alpha$ with the other particles in the system, meanwhile, the time-average external virial tensor considers the interaction with atoms outside the system, via a traction vector $\vec{t}$ and external fields acting on the system represented by $\rho\vec{b}$, where $\rho$ is the mass density of it and $\vec{b}$ is the body force per unit mass applied by the external field.
+Therefore we can express the following,
+\begin{equation}
+    \sum_\alpha\overline{\vec{r}_\alpha\otimes\vec{f}_\alpha^{\mathrm{ext}}}
+    :=
+    \int_{\delta\Omega}\vec{\xi}\otimes\vec{t}dA 
+    +
+    \int_{\Omega}\vec{\xi}\otimes\rho\vec{b}dV. \label{eqn:DerVirTen13}
+\end{equation}
+Where $\vec{\xi}$ is a position vector within the domain $\Omega$ occupied by the system of particles with a continuous closed surface $\delta\Omega$.
+Assuming that $\Omega$ is large enough to express the external forces acting on it in the form of the continuum traction vector $\vec{t}$.
+
+With this we can substitute the traction vector with $\vec{t}=\bold{\sigma}\vec{n}$, where $\bold{\sigma}$ represent the Cauchy stress tensor and applying the divergence theorem in~\eqref{eqn:DerVirTen13}, we have 
+\begin{equation}
+    \overline{\bold{W}}_{\mathrm{ext}}
+     =\int_{\Omega}
+        \left[
+            \vec{\xi}\otimes\rho\vec{b}+\mathrm{div}_{\vec{\xi}}\qty(\vec{\xi}\otimes\bold{\sigma})
+        \right]dV
+        =
+    \int_{\Omega}
+        \left[
+            \bold{\sigma}^{\mathrm{T}}
+            +
+            \vec{\xi}\otimes\qty(\mathrm{div}_{\vec{\xi}}\bold{\sigma}+\rho\vec{b})
+        \right]dV
+\end{equation}
+
 
 \begin{comment}
 Stress is an important concept in characterizong the states of condensed matter.
