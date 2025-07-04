@@ -4,12 +4,79 @@
 
 \subsection{Stress}
 
+\paragraph{Introductory paragraph} To characterize the behaviour of materials, constitutive relations serve as an input to the continuum theory\dots
+
+This derivation can be found in the apendix of\citep{admalUnifiedInterpretationStress2010}\footnote{Describe more if what is done in this article}.
+Consider a system of $N$ interacting particles with each particle position given by
+\begin{equation}
+    \vec{r}_{\alpha} = \vec{r} + \vec{s}_{\alpha}\label{eqn:DerVirTen1},
+\end{equation}
+where $\vec{r}$ is the position of the center of mass of the system and $\vec{s}_\alpha$ is the position of each point relative to the center of mass.
+Hence, we can express the momentum of each particle as
+\begin{equation}
+    \vec{p}_\alpha = m_\alpha\qty(\dot{\vec{r}}+\dot{\vec{s}}_\alpha) = m_\alpha\qty(\dot{\vec{r}}+\vec{v}_\alpha^{\mathrm{rel}}).\label{eqn:DerVirTen2}
+\end{equation}
+Before starting the procedure, lets take into account that the center of mass of the system is given by
+\begin{equation}
+    \vec{r} = \frac{\sum_{\alpha}m_\alpha\vec{s}_\alpha}{\sum_{\alpha}m_\alpha}\label{eqn:DerVirTen3},
+\end{equation}
+and by replacing~\eqref{eqn:DerVirTen1} in~\eqref{eqn:DerVirTen2} we get the following relations, which will be used later,
+\begin{equation}
+    \sum_\alpha m_\alpha\vec{r}_\alpha = \vec{0},\quad
+    \sum_\alpha m_\alpha\dot{\vec{r}}_\alpha = \vec{0}.\label{eqn:DerVirTen4}
+\end{equation}
+
+We start by computing the time derivative of tensorial product $\vec{r}_\alpha\otimes\vec{p}_\alpha$\footnote{It is interesting to note that the tensorial product $\vec{r}_\alpha\otimes\vec{p}_\alpha$ has units of action and by tacking the time derivative we are dealing with terms that has units of energy.
+},
+\begin{equation}
+    \dv{t}\qty(\vec{r}_\alpha\otimes\vec{p}_\alpha) = 
+    \underbrace{\vec{v}_\alpha^{\mathrm{rel}}\otimes\vec{p}_\alpha}_{\mathrm{Kinetic~term}} 
+        +
+        \underbrace{\vec{r}\otimes\vec{f}_\alpha}_{\mathrm{Virial~term}},\label{eqn:DerVirTen5}
+\end{equation}
+which is known as the \textit{dynamical tensor virial theorem} that is an alternative form for the balance of linear momentum.
+This theorem becomes useful after making the assumption that there existis a time scale $\tau$, which is short relative to macroscopic processes but long relative to the characteristic time of the particles in the system, over which the particles remain close to their original positions with bounded positions and velocities.
+Taking advantage of this property we can compute the time average of~\eqref{eqn:DerVirTen5},
+\begin{equation}
+    \frac{1}{\tau}\left.\qty(\vec{r}_\alpha\otimes\vec{p}_\alpha)\right\bigg|_{0}^{\tau} = 
+    \overline{\vec{v}_\alpha^{\mathrm{rel}}\otimes\vec{p}_\alpha} 
+        +
+    \overline{\vec{r}\otimes\vec{f}_\alpha}.\label{eqn:DerVirTen6}
+\end{equation}
+Assuming that $\vec{r}_\alpha\otimes\vec{p}_\alpha$ is bounded, and the time scales between microscopic and continuum processes are large enough, the term on the left-hand side can be as small as desired by tacking $\tau$ sufficiently large and by summing over all particles we achieve the \textit{tensor virial theorem}:
+\begin{equation}
+    \overline{\bold{W}} = -2\overline{\bold{T}},\label{eqn:DerVirTen7}
+\end{equation}
+where
+\begin{equation}
+    \overline{\bold{W}} = \sum_\alpha\overline{\vec{r}\otimes\vec{f}_\alpha}\label{eqn:DerVirTen8}
+\end{equation}
+is the time-average virial tensor and
+\begin{equation}
+    \overline{\bold{T}}=\frac{1}{2}\sum_\alpha\overline{\vec{v}_\alpha^{\mathrm{rel}}\otimes\vec{p}_\alpha}\label{eqn:DerVirTen9}
+\end{equation}
+is the time-average kinetic tensor.
+This expression for the tensor virial theorem applies equally to continuum systems that are not in macroscopic equilibrium as well as those that are at rest.
+
+The assumption of the difference between the time scales allow us to simplify the relation by replacing~\eqref{eqn:DerVirTen2} in~\eqref{eqn:DerVirTen9}, so that,
+\begin{equation}
+    \overline{\bold{T}}=
+        \frac{1}{2}\sum_\alpha m_\alpha\overline{\vec{v}_\alpha^{\mathrm{rel}}\otimes\vec{v}_\alpha^{\mathrm{rel}}}
+        +
+        \frac{1}{2} \left[\overline{\sum_\alpha m_\alpha\vec{v}_\alpha^{\mathrm{rel}}}\right]\otimes\dot{\vec{r}}\label{eqn:DerVirTen10},
+\end{equation}
+which is not the simplification we expected, however, by the relations from~\eqref{eqn:DerVirTen4}, equation~\eqref{eqn:DerVirTen10} simplifies to
+\begin{equation}
+    \overline{\bold{T}}=
+        \frac{1}{2}\sum_\alpha m_\alpha\overline{\vec{v}_\alpha^{\mathrm{rel}}\otimes\vec{v}_\alpha^{\mathrm{rel}}}\label{eqn:DerVirTen11},
+\end{equation}
+
+\begin{comment}
 Stress is an important concept in characterizong the states of condensed matter.
-A body is in a state of stress if it is acted upon by external dorcer or, more generally, if one part of the body exerts forces upon another part.
-If we consider a volume element within a stressed body, we can distinguish the effect of two types of forces: those acting directly in the interior of the elemnt and those exerted upon the surface of the element by the surrounding material.
+A body is in a state of stress if it is acted upon by external force or, more generally, if one part of the body exerts forces upon another part.
+If we consider a volume element within a stressed body, we can distinguish the effect of two types of forces: those acting directly in the interior of the element and those exerted upon the surface of the element by the surrounding material.
 The latter forces (per unit area) are stress that are transmitted throught the interior of the volume.
 For condensed matter in which the stress is homogeneous in volumes of macroscopic dimensions, the equation of state in the relation between the stress and the internal variables, such as the density and temperature.\footnote{Cite Quantum-mechanical theory of stress and force}
-
 
 In order to describe general flow gradients, the velocity gradient tensor, the deformation tensor and the stress tensor are mathematical entities that help in doing so.
 The velocity gradient tensor describes the steepness of velocity variation as one moves from point to point in any direction in the flow at a given instant in time.
@@ -32,7 +99,7 @@ where\dots $\alpha,\beta$ are $x,y,z$\dots.
 \dots to reduce random fluctuations (because we are using Brownian dynamics) we perfom a spatial and time average.
 The $1/\Omega$ factor is due to the spatial average, meanwhile the time average are the terms in equation~\eqref{eqn:macroStressTensor}.
 The first term emerges from the virial theorem of Clasius, and the second term is a correction ter that emerges from the ``cross-over'' phenomena, when analyzing at microscopic scale.\footnote{Explain more}
-
+\end{comment}
 
 
 \end{document}

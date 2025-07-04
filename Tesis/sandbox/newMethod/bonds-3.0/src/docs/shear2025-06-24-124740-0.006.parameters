@@ -1,0 +1,5 @@
+Nstep_per_strain=166666
+shear_it=2499990
+Nsave=100000
+NsaveStress=16666
+Ndump=16666

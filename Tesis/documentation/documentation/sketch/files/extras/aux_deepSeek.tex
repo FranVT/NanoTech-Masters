@@ -1,0 +1,133 @@
+\documentclass[../../main-notes.tex]{subfiles}
+
+\begin{document}
+
+\section{Introduction}
+
+
+Partimos del teorema del virial en forma tensorial para un sistema de $N$ partículas
+\begin{gather*}
+    \frac{1}{2}\frac{d^2}{dt^2}\left(\sum_{i=1}^N m_i \mathbf{r}_i \otimes \mathbf{r}_i\right) = \sum_{i=1}^N m_i \mathbf{v}_i \otimes \mathbf{v}_i + \frac{1}{2}\sum_{i=1}^N \sum_{j\neq i} (\mathbf{r}_i - \mathbf{r}_j) \otimes \mathbf{F}_{ij}
+\end{gather*}
+
+Momento de inercia tensorial
+\begin{gather*}
+\mathbf{I} = \sum_{i=1}^N m_i \mathbf{r}_i \otimes \mathbf{r}_i
+\end{gather*}
+
+Primera derivada temporal
+\begin{gather*}
+\frac{d\mathbf{I}}{dt} = \sum_{i=1}^N m_i \left( \mathbf{v}_i \otimes \mathbf{r}_i + \mathbf{r}_i \otimes \mathbf{v}_i \right)
+\end{gather*}
+
+
+Seguinda derivada temporal
+\begin{gather*}
+\frac{d^2\mathbf{I}}{dt^2} = 2\sum_{i=1}^N m_i (\mathbf{v}_i \otimes \mathbf{v}_i) + \sum_{i=1}^N (\mathbf{F}_i \otimes \mathbf{r}_i + \mathbf{r}_i \otimes \mathbf{F}_i)
+\end{gather*}
+
+Descomposición de fuerzas
+\begin{gather*}
+\mathbf{F}_i = \mathbf{F}_i^{\text{ext}} + \sum_{j\neq i} \mathbf{F}_{ij}
+\end{gather*}
+
+
+Solución para sistemas en equilibrio: $\langle d^2\mathbf{I}/dt^2\rangle=0$
+\begin{gather*}
+\left\langle \sum_{i=1}^N m_i (\mathbf{v}_i \otimes \mathbf{v}_i) \right\rangle + \frac{1}{2}\left\langle \sum_{i=1}^N \sum_{j\neq i} \mathbf{r}_{ij} \otimes \mathbf{F}_{ij} \right\rangle = -\frac{1}{2}\left\langle \sum_{i=1}^N (\mathbf{F}_i^{\text{ext}} \otimes \mathbf{r}_i + \mathbf{r}_i \otimes \mathbf{F}_i^{\text{ext}}) \right\rangle
+\end{gather*}
+
+
+Tensor de esfuerzos virial
+\begin{gather*}
+\boxed{\sigma_{\text{virial}} = -\frac{1}{V} \left[ \underbrace{\sum_{i=1}^N m_i (\mathbf{v}_i \otimes \mathbf{v}_i)}_{\sigma_{\text{kin}}} + \underbrace{\frac{1}{2}\sum_{i=1}^N \sum_{j\neq i} \mathbf{r}_{ij} \otimes \mathbf{F}_{ij}}_{\sigma_{\text{conf}}}\right]} 
+\end{gather*}
+
+\section{Another prompt}
+
+Partimos del teorema del virial generalizado para un sistema de N partículas sujetas a dinámica de Langevin. Consideramos la ecuación de movimiento en el régimen inercial:
+\begin{gather*}
+m_i \frac{d^2\mathbf{r}_i}{dt^2} = -\nabla_i U(\{\mathbf{r}_j\}) - \gamma_i m_i \mathbf{v}_i + \sqrt{2\gamma_i m_i k_B T} \boldsymbol{\xi}_i(t)
+\end{gather*}
+
+donde $\boldsymbol{\xi}i(t)$ es un proceso estocástico gaussiano con $\langle \xi_i^\alpha(t) \xi_j^\beta(t') \rangle = \delta{ij}\delta_{\alpha\beta}\delta(t-t')$.
+
+Definimos el tensor de momento de inercia del sistema:
+\begin{gather*}
+\mathbf{I} = \sum_{i=1}^N m_i \mathbf{r}_i \otimes \mathbf{r}_i
+\end{gather*}
+
+Primera derivada temporal
+\begin{gather*}
+\frac{d\mathbf{I}}{dt} = \sum_{i=1}^N m_i \left( \mathbf{v}_i \otimes \mathbf{r}_i + \mathbf{r}_i \otimes \mathbf{v}_i \right)
+\end{gather*}
+
+Segunda derivada temporal
+\begin{gather*}
+\frac{d^2\mathbf{I}}{dt^2} = 2\sum_{i=1}^N m_i (\mathbf{v}_i \otimes \mathbf{v}_i) + \sum_{i=1}^N \left( \mathbf{F}_i \otimes \mathbf{r}_i + \mathbf{r}_i \otimes \mathbf{F}_i \right)
+\end{gather*}
+
+Descomposición de fuerzas:
+Para fuerzas de Langevin:
+\begin{gather*}
+\mathbf{F}_i = -\nabla_i U - \gamma_i m_i \mathbf{v}_i + \sqrt{2\gamma_i m_i k_B T} \boldsymbol{\xi}_i(t)
+\end{gather*}
+
+Promedio en equilibrio
+Aplicando $\langle d^2\mathbf{I}/dt^2 \rangle = 0$ y considerando que los términos estocásticos promedian a cero:
+\begin{gather*}
+\left\langle \sum_{i=1}^N m_i (\mathbf{v}_i \otimes \mathbf{v}_i) \right\rangle + \frac{1}{2}\left\langle \sum_{i=1}^N \mathbf{r}_i \otimes \mathbf{F}_i^{\text{cons}} \right\rangle = \frac{1}{2}\left\langle \sum_{i=1}^N \gamma_i m_i (\mathbf{v}_i \otimes \mathbf{r}_i + \mathbf{r}_i \otimes \mathbf{v}_i) \right\rangle
+\end{gather*}
+
+Tensor de esfuerzos virial:
+Definimos el tensor de esfuerzos virial como el promedio volumétrico:
+\begin{gather*}
+\boxed{\sigma_{\text{virial}} = -\frac{1}{V} \left[ \underbrace{\sum_{i=1}^N m_i \langle \mathbf{v}_i \otimes \mathbf{v}_i \rangle}_{\sigma_{\text{kin}}} + \underbrace{\frac{1}{2}\sum_{i=1}^N \sum_{j\neq i} \langle \mathbf{r}_{ij} \otimes \mathbf{F}_{ij} \rangle}_{\sigma_{\text{conf}}} \right]}
+\end{gather*}
+
+Término disipativo (Langevin)
+En régimen inercial, la contribución disipativa se expresa como:
+\begin{gather*}
+\sigma_{\text{diss}} = \frac{1}{V} \sum_{i=1}^N \gamma_i m_i \langle \mathbf{v}_i \otimes \mathbf{r}_i \rangle
+\end{gather*}
+
+
+\subsection{Another prompt}
+
+Fundamento físico-matemático:
+La derivación del tensor de esfuerzos virial inicia con la conservación del momento lineal porque este principio encapsula la conexión entre las leyes de Newton a escala atómica y la respuesta mecánica colectiva de los materiales. Al considerar un sistema de partículas, la segunda ley de Newton para la partícula $i$ es:
+\begin{gather*}
+m_i \frac{d\mathbf{v}_i}{dt} = \mathbf{F}_i^{\text{ext}} + \sum_{j \neq i} \mathbf{F}_{ij}
+\end{gather*}
+
+Proceso de derivación:
+
+Momento de inercia tensorial: Se define $\mathbf{I} = \sum_i m_i \mathbf{r}_i \otimes \mathbf{r}_i$ como análogo rotacional del momento lineal.
+
+Relación con momento: La segunda derivada temporal $\frac{d^2\mathbf{I}}{dt^2}$ vincula aceleraciones con fuerzas:
+\begin{gather*}
+\frac{1}{2}\frac{d^2\mathbf{I}}{dt^2} = \sum_i m_i (\mathbf{v}_i \otimes \mathbf{v}_i) + \frac{1}{2}\sum_i (\mathbf{F}_i \otimes \mathbf{r}_i + \mathbf{r}_i \otimes \mathbf{F}_i)
+\end{gather*}
+
+Transición a medio continuo: Al promediar en volumen y tiempo, se obtiene el tensor virial como densidad de flujo de momento:
+\begin{gather*}
+\sigma_{\text{virial}} = -\frac{1}{V} \left\langle \frac{1}{2}\frac{d^2\mathbf{I}}{dt^2} \right\rangle
+\end{gather*}
+
+¿Qué se busca representar?
+El tensor virial cuantifica cómo se transfiere momento a través de un volumen microscópico:
+
+Movimiento térmico ($\sigma_{\text{kin}}$) → Transporte convectivo
+
+Fuerzas intermoleculares ($\sigma_{\text{conf}}$) → Transferencia por contacto
+
+Disipación ($\sigma_{\text{diss}}$) → Pérdidas irreversibles
+
+Esta descripción unifica la mecánica de partículas con la hidrodinámica continua, siendo el puente entre la escala atómica y macroscópica.
+
+Transición conceptual: La elección del momento como punto de partida no es arbitraria. Refleja la visión de Boltzmann y Gibbs de que las propiedades termodinámicas emergen del transporte de cantidades conservadas (momento, energía, masa).
+
+
+
+
+\end{document}
