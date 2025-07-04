@@ -15,7 +15,7 @@
 
 Differences between the compute pressure and compute stress/atom.
 
-\subsubsection{Pressure}
+\subsection{Pressure}
 
 The \textbf{scalar} pressure is computed as follows,
 \begin{gather*}
@@ -23,15 +23,12 @@ The \textbf{scalar} pressure is computed as follows,
 \end{gather*}
 
 The pressure \textbf{tensor} is computed as follows
-\begin{gather*}
-    P_{e_i,e_j}=\frac{1}{V}\sum{i=1}^{N}m_{i}v_{i_{e_i}}v_{i_{e_j}}+\frac{1}{V}\sum_{i=1}^N'r_{e_{i}i}f_{i}.
-\end{gather*}
 
 
 
-\subsubsection{Atom stress}
+\subsection{Atom stress}
 
-\subsubsection{Relation between pressure and stress}
+\subsection{Relation between pressure and stress}
 
 \begin{gather*}
     p=-\frac{1}{dV}\sum_{i=1}^{N}\mathrm{Tr}\qty(\sigma_i)

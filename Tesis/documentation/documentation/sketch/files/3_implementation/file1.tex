@@ -2,54 +2,55 @@
 
 \begin{document}
 
+
+\subsection{Rules of interaction}
+
+The simulation methodology is based on the work presented in\citep{gnanSilicoSynthesisMicrogel2017} and\citep{sorichettiStructureElasticityModel2023}, with the objective of create a representative polymer structure of a hydro-gel and characterize the mechanical response under shear deformation.
+This methodology creates the structure by using a mixture of two types of patchy particles.
+One type represent a \textit{Crosslinker} and is define with 1 central particle and 4 patches placed at the vertices of a circumscribed tetrahedron. %in the center particle.
+The other one represent a \textit{Monomer} define by 1 central particle and 2 patches placed at the poles.
+Prior to describe the methodology, it is important to mention that to from now on I will refer to the center particle of the Crosslinker patchy particle as ``CL'' and the patches as ``PA'', naturally, the center particle of the Monomer patchy particle as ``MO'' and the patches as ``PB''.
+
+The interaction between the particles are quite simple, the CL$\longleftrightarrow$MO interaction is repulsive modeled by 
+\begin{gather}
+    U_{WCA}(r) = 4\epsilon\left[\qty(\frac{\sigma}{r})^{12}-\qty(\frac{\sigma}{r})^6\right]+\epsilon,\quad r\in[0,2^{1/6}\sigma],\label{eqn:CL-MO_interaction}
+\end{gather}
+and the PA$\longleftrightarrow$PB, PB$\longleftrightarrow$PB interactions are attractive modeled by
+\begin{gather}
+    U_{\mathrm{patchy}}\qty(r_{\mu\upsilon}) = 2\epsilon_{\mu\upsilon}\left(\frac{\sigma_p^4}{2 r_{\mu\upsilon}^4}-1\right)\exp\left[\frac{\sigma_p}{\qty(r_{\mu\upsilon}-r_{c})}+2\right],\quad r_{\mu\upsilon}\in\qty[0,r_c]. \label{eqn:patch-patch_interaction}
+\end{gather}
+Interactions between particles not metioned before are nonexistent.
+Finally, there is an extra 3-particle interaction that aid to assembly the patchy particle structure according to~\citep{sciortinoThreebodyPotentialSimulating2017} and~\citep{sorichettiStructureElasticityModel2023} defined in terms of~\eqref{eqn:patch-patch_interaction},
+\begin{gather}
+	U_{\mathrm{swap}}(r) = w\sum_{\lambda,\mu,\upsilon}\epsilon_{\mu\upsilon}U_3\qty(r_{\lambda,\mu})U_3\qty(r_{\lambda,\upsilon}),\quad r_{\mu\upsilon}\in\qty[0,r_c],\label{eqn:swap_interaction}
+\end{gather}
+where
+\begin{gather}
+    U_{3} = -U_{\mathrm{patchy}}\qty(r)/\epsilon_{\mu\upsilon},\quad r_{\mu\upsilon}\in\qty[0,r_c].\label{eqn:swapmod_interaction}
+\end{gather}
+
+Once we defined the interactions between the particles in the system, we define a simulation protocol divided in the following processes, assembly and shear.
+Which are going to be described in the following sections.
+After the assembly process, the structure is analyse to see if the structure percolate or not and verify if there are only binary patch-interactions, otherwise we checked the implementation of the potentials or the parameters.
+Once the hydro-gel structure meet the requirements we start with the shear process and monitored the temperature and energy to see if the simulaiton was converging.
+Once those tests done, the mechanical response was analyze thru the components of the stress tensor and structure characterization.
+
+In the following sections the 
+
 \subsection{Assembly of the network}\label{sec:descriptionSimulation}
 
-The simulation methodology is based on \cite{gnanSilicoSynthesisMicrogel2017} and \cite{sorichettiStructureElasticityModel2023}, with the objective of create a representative polymer structure of a hydro-gel and characterize its rheological properties.
-This methodology creates the desire structure by creating an interaction between two types of patchy particles.
-One type of patchy particle represent a Crosslinker and is define with 5 particles, one at the center and the rest are placed in the vertices of a tetrahedron that circumscribes the center particle.
-The other type of patchy particle represent a Monomer and is define with 3 particles, one at the center and the rest are placed at the poles of the center particle with an 180 degrees between them.
-Prior to describe with detail the methodology, it is important mention that to from now on I will refer to the center particle of the Crosslinker patchy particle as ``CL'' and the particles around CL as ``PA''.
-Naturally, the center particle of the Monomer patchy particle as ``MO'' and the particles around MO as ``PB''.
+It it importante to said that the main difference between the articles cited and the implementation are the absence of FENE bonds and the swelling potential.
 
-The proposed methodology to create hydro-gels considers that the geometry of the position of the PA and PB are the same in all the patchy particles and does not change during the simulation.
-Also, takes into account the following interactions: CL$\longleftrightarrow$MO, PA$\longleftrightarrow$PB, PB$\longleftrightarrow$PB.
-The CL$\longleftrightarrow$MO interaction is repulsive, and the PA$\longleftrightarrow$PB, PB$\longleftrightarrow$PB interactions are attractive.
-
-There are 3 principal models.
-
-%However, the main difference between the articles cited and the simulations implemented is the absence of FENE bonds and Swelling potential.
-
-% because part of the exploration is to analyze what happen in the deformation if the interactions between crosslinker and monomer can swap.
-
-\subsection{Potentials}\label{subsec:Potentials}
-
-The potentials that describes the interactions mentioned above are a WCA and a threebodody potential.
-The threbody helps to swap interaction between patchy particles and the WCA to add repulsive behaviour of CL and MO.
-
-\begin{gather}
-    U_{WCA}(r) = 4\epsilon\left[\qty(\frac{\sigma}{r})^{12}-\qty(\frac{\sigma}{r})^6\right]+\epsilon,\quad r\in[0,2^{1/6}\sigma]\label{eqn:CL-MO_interaction}
-\end{gather}
-
-\begin{gather}
-    U_{\mathrm{patchy}}\qty(r_{\mu\upsilon}) = 2\epsilon_{\mu\upsilon}\left(\frac{\sigma_p^4}{2 r_{\mu\upsilon}^4}-1\right)\exp\left[\frac{\sigma_p}{\qty(r_{\mu\upsilon}-r_{c})}+2\right],\quad r_{\mu\upsilon}\in\qty[0,r_c] \label{eqn:patch-patch_interaction}
-\end{gather}
-
-\begin{gather}
-	U_{\mathrm{swap}}(r) = w\sum_{\lambda,\mu,\upsilon}\epsilon_{\mu\upsilon}U_3\qty(r_{\lambda,\mu})U_3\qty(r_{\lambda,\upsilon}),\quad r_{\mu\upsilon}\in\qty[0,r_c]\label{eqn:swap_interaction}
-\end{gather}
-
-\begin{gather}
-	U_{3} = -U_{\mathrm{patchy}}\qty(r)/\epsilon_{\mu\upsilon}\label{eqn:swapmod_interaction},\quad r_{\mu\upsilon}\in\qty[0,r_c]
-\end{gather}
+because part of the exploration is to analyze what happen in the deformation if the interactions between crosslinker and monomer can swap.
 
 \subsection{Tables}
 
-To use those potentials in LAMMPS we need to declare the force at a given distance.
-Hence, the gradient in polar coordinates is computed, $\nabla = \partial_{r}\hat{r} + 1/r\partial_\theta$, $\vec{F}=-\nabla U$.
+%To use those potentials in LAMMPS we need to declare the force at a given distance.
+%Hence, the gradient in polar coordinates is computed, $\nabla = \partial_{r}\hat{r} + 1/r\partial_\theta$, $\vec{F}=-\nabla U$.
+
 
 \begin{gather}
-    \vec{F}_{\mathrm{WCA}}(r) = -\frac{\epsilon}{r}\left[24\qty(\frac{\sigma}{r})^6-48\qty(\frac{\sigma}{r})^{12}\right],\quad r\in\qty[0,2^{1/6}\sigma] %+ \frac{\epsilon}{\sigma}
-%    4\epsilon\left[\qty(\frac{\sigma}{r})^{12}-\qty(\frac{\sigma}{r})^6\right]+\epsilon,\quad r\in[0,2^{1/6}\sigma]\label{eqn:CL-MO_interaction}
+\vec{F}_{\mathrm{WCA}}(r) = -\frac{\epsilon}{r}\left[24\qty(\frac{\sigma}{r})^6-48\qty(\frac{\sigma}{r})^{12}\right],\quad r\in\qty[0,2^{1/6}\sigma] 
 \end{gather}
 
 %The second term is added, due to the diplacemnt in the WCA potential.
