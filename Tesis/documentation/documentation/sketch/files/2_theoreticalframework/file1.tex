@@ -2,8 +2,55 @@
 
 \begin{document}
 
+Most realistic physical systems are tractable only in a model, in which the interesting features of the system are highlighted and in which the less relevant parts are either eliminated or treated in an approximate way. 
+
+In this spirit we have for example eliminated molecular degrees of freedom by considering (parts of) molecules to be rigid. 
+Another example of this approach is the Langevin dynamics technique. 
+
+Consider a solution containing polymers or ions which are much heavier than the solvent molecules. 
+As the kinetic energy is on average divided equally over the degrees of freedom, the ions or polymers will move much more slowly than the solvent molecules.
+Moreover, because of their large mass, they will change their momenta only after many collisions with the solvent molecules and the picture which emerges is that of the heavy particles forming a system with a much longer time scale than the solvent molecules.
+This difference in time scale can be employed to eliminate the details of the degrees of freedom of the solvent particles and represent their effect by forces that can be treated in a simple way.
+This process can be carried out analytically through a projection procedure (see chapter 9 of Ref. [11] and references therein) but here we shall sketch the method in a heuristic way.
+
+How can we model the effect of the solvent particles without taking into account their degrees of freedom explicitly? 
+When a heavy particle is moving through the solvent, it will encounter more solvent particles at the front than at the back. 
+Therefore, the collisions with the solvent particles will on average have the effect of a friction force proportional and opposite to the velocity of the heavy particle. 
+This suggests the following equation of motion for the heavy particle:
+
+[11] J. P. Hansen and I. R. McDonald, Theory of Simple Liquids 2nd edn. New York, Academic Press, 1986.
+
+To make the model more realistic we must include the rapid variations in the force due to the frequent collisions with solvent particles on top of the coarse-grained friction force. 
+We then arrive at the following equation:
+
+where R(t) is a ‘random force’.
+Again, the time correlations present in the fluid should show up in this force, but they are neglected once more and the force is subject to the following conditions 
+
+Its basis is the stochastic theory used by Langevin to describe the brownian motion of a large and massive particle in a bath of particles that are much smaller and lighter than itself. 
+The problem is characterised by two very different timescales, one associated with the slow relaxation of the initial velocity of the brownian particle and another linked to the frequent collisions that the brownian particle suffers with particles of the bath. 
+Langevin assumed that the force acting on the brownian particle consists of two parts: a systematic, frictional force proportional to the velocity u(t), but acting in the opposite sense, and a randomly fluctuating force, R(t), which arises from collisions with surrounding particles.
+
+
 \subsection{Brownian dynamics}
 
-Here explain the Langevin equation.
+Brief explanation of what is Brwonian motion, what is trying to represent/model, how this can modeld the microgel.
+
+Even though there are different mathematical representations that describes the brownian motion, we use the langevin equation\footnote{No se que más decir a parte de ``porque está implementado en lammps'', jsjs} described with increments of Wiener process,
+\begin{gather}
+    \left\{
+        \begin{array}{l}
+            \mathrm{d}r = v~\mathrm{d}t \\
+            \mathrm{d}v = -\frac{\gamma}{m}v~\mathrm{d}t - \frac{1}{m}\nabla U(r)~\mathrm{d}t + \sqrt{\frac{2\gamma k_B T}{m}}\mathrm{d}W_t
+        \end{array}
+    \right..\label{eqn:BrownianDyn1}
+\end{gather}
+The Wiener process has the correlation property of $\expval{\mathrm{d}W_{i}\mathrm{d}W_{j}}=\delta_{ij}\mathrm{d}t$.
+$\gamma$ represent the viscosity of the implicity medium, $k_B$ is the Boltzmann constant and $T$ the tempereture of the system.\footnote{En lammps está cómo\[F_c-\frac{m}{\mathrm{damp}}v+\propto\sqrt{\frac{k_B Tm}{dt\mathrm{damp}}}\]}
+
+formullations of the Langeving equation\footnote{No estoy muy seguro si decir el resto de formalismos}, we choose to described the brownian motion using 
+
+Here explain the Langevin equation. 
+
+
 
 \end{document}

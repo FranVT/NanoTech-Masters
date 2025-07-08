@@ -74,23 +74,22 @@ Finally, the energy of interaction between crosslinker patches ($\epsilon_{\mu^i
 
 
 
-Once we defined the interactions between the particles in the system, we define a simulation protocol divided in the following processes, assembly and shear.
-Which are going to be described in detail in the following sections.
+%Once we defined the interactions between the particles in the system, we define a simulation protocol divided in the following processes, assembly and shear.
+%Which are going to be described in detail in the following sections.
 
 
-After the assembly process, the structure is analyse to see if the structure percolate or not and verify if there are only binary patch-interactions, otherwise we checked the implementation of the potentials or the parameters.
-Once the hydro-gel structure meet the requirements we start with the shear process and monitored the temperature and energy to see if the simulaiton was converging.
-Once those tests done, the mechanical response was analyze thru the components of the stress tensor and structure characterization.
+%After the assembly process, the structure is analyse to see if the structure percolate or not and verify if there are only binary patch-interactions, otherwise we checked the implementation of the potentials or the parameters.
+%Once the hydro-gel structure meet the requirements we start with the shear process and monitored the temperature and energy to see if the simulaiton was converging.
+%Once those tests done, the mechanical response was analyze thru the components of the stress tensor and structure characterization.
 
 \subsection{Assembly of the network}
 
 We perform molecular dynamics (MD) simulations at fixed temperature $T = kBT/\epsilon = 0.05$, where kB is the Boltzmann constant. 
 Thanks to such a low temperature, the system tends to maximize the number of bonds. 
 In addition, owing to the bondswapping mechanism, the system is able to continuously restructure itself, until the large majority of possible bonds are formed.
+It is important to said that the main difference between the articles cited and the implementation in this htesis are the absence of FENE bonds and the swelling potential.
 
-It it importante to said that the main difference between the articles cited and the implementation are the absence of FENE bonds and the swelling potential.
-
-because part of the exploration is to analyze what happen in the deformation if the interactions between crosslinker and monomer can swap.
+%because part of the exploration is to analyze what happen in the deformation if the interactions between crosslinker and monomer can swap.
 
 
 \begin{comment}
