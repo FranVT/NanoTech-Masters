@@ -2,6 +2,8 @@
 
 \begin{document}
 
+
+\begin{comment}
 Theory of simple liquids 
 Computational Physics\citep{Thijssen2007}
 
@@ -15,55 +17,38 @@ This new force prevents the particles from remaining at the minimumposition (xim
 
 In the simplest case, each collision gives a contribution to theforce, and contributions coming from different collisions are uncorre-lated: the forces acting on the same particle at different times (or ondifferent particles at the same time) are practically uncorrelated. We canthuswrite
 
-where the bar denotes the average over many repeated experiments: i.e.,we have M identical copies of the same system (or a single system onwhich M measurements are taken at widely separated time intervals) andwe average the B'{t) over these M replicas. The bar denotes theaverage when M goes to infinity. If the number of collisions in a time e isquite large, the $B'(t)$ will be Gaussian-distributed variables with avariance\footnote{Explanaition of why gaussian in page 25}
+Where the bar denotes the average over many repeated experiments: i.e.,we have M identical copies of the same system (or a single system onwhich M measurements are taken at widely separated time intervals) andwe average the $B'(t)$ over these M replicas. The bar denotes theaverage when M goes to infinity. If the number of collisions in a time e isquite large, the $B'(t)$ will be Gaussian-distributed variables with avariance\footnote{Explanaition of why gaussian in page 25}
 ~\citep{Parisi1988}
 
-
------------------------------------------------------------------------
+\end{comment}
 
 
 \subsection{Description of the microgel}
 Description of the microgel as a colloid to introduce the langevin methodology.
 
-“The dynamics of a macromolecular system is entirely determined by the potential U(rN) associated with the process. For computational and practical reasons, this potential is virtually always an approximation of the real physical potential\footnote{Those potentials are explained in the following section?\\ Would be better to describe the parameters in the implementation and the model here?}.”\citep{paquetMolecularDynamicsMonte2015}
+“The dynamics of a macromolecular system is entirely determined by the potential $U(rN)$ associated with the process. For computational and practical reasons, this potential is virtually always an approximation of the real physical potential\footnote{Those potentials are explained in the following section?\\ Would be better to describe the parameters in the implementation and the model here?}.”\citep{paquetMolecularDynamicsMonte2015}
 
 
-
-
-\subsection{Brownian dynamics}\footnote{Its basis is the stochastic theory used by Langevin to describe the brownian motion of a large and massive particle in a bath of particles that are much smaller and lighter than itself. 
-The problem is characterised by two very different timescales, one associated with the slow relaxation of the initial velocity of the brownian particle and another linked to the frequent collisions that the brownian particle suffers with particles of the bath. 
+\subsection{Brownian dynamics}\footnote{ 
+The problem is characterised by two very different timescales, one associated with the slow relaxation of the initial velocity of the brownian particle and another linked to the frequent collisions that the brownian particle suffers with particles of the bath. (Problema de implementación o representación matemática, eso del tiempo de relajación por condiciones iniciales es por que matemáticamente se reuieren condiciones iniciales para resolver el sistema ecuaciones diferenciales.) 
 Langevin assumed that the force acting on the brownian particle consists of two parts: a systematic, frictional force proportional to the velocity $u(t)$, but acting in the opposite sense, and a randomly fluctuating force, $R(t)$, which arises from collisions with surrounding particles\citep{tsl2006}.
 }
 
-Brief explanation of what is Brwonian motion, what is trying to represent/model, how this can modeld the microgel.
-
-Even though there are different mathematical representations that describes the brownian motion, we use the langevin equation\footnote{No se que más decir a parte de ``porque está implementado en lammps'', jsjs} described with increments of Wiener process,
-
-
-In the processes of polymerization and depolymerization, polymers exhibit Brownian nonGaussian kinetic characteristics [9]\citep{wangMultiscaleModelingSimulation2025}.
-
-
-To elucidate the essence of these natural phenomena and uncover the underlying physical mechanisms, scientists employ statistical and mathematical tools to quantify the dynamical behaviors.
-Methods for quantitative modeling across multiple scales are primarily categorized into two types: one focused on simulating dynamics at the microscale, and the other dedicated to deriving or establishing evolutionary equations at the macroscale.
-There are two commonly used modeling frameworks, the continuous time random walk (CTRW) model and the Langevin equation\footnote{Reference [34] presents the Langevin equation for polymers engaged in polymerization/depolymerization reactions, by establishing a random diffusion coefficient that correlates with particle size. Reference [35] presents the Langevin equations for continuous time Lévy walks. X. D. Wang et al. present the Langevin description of the Lévy walk [36]. Y. Chen et al. then provide the Langevin description of the Lévy walk with memory [37] and examine the impact of an external force [38,39]\citep{wangMultiscaleModelingSimulation2025}.
-
-}\citep{wangMultiscaleModelingSimulation2025}.
-
-It differs from molecular dynamics simulations (based on Newton's equation) in that the solvent is modelled by stochastic and dissipative forces. 
-This approximation allows substantially longer simulations than would be possible if the solvent were explicitly included, and Langevin dynamics is an excellent alternative to molecular dynamics for certain systems\citep{pastorTechniquesApplicationsLangevin1994}.
-
-
-
-The interesting features of the system are highlighted and the less relevant are treated in an approximate way.
+Since we are analyzing a microgel it is necessary to use a mathematical tool that models solid particles disperse in a liquid\footnote{Idea para la intro: Methods for quantitative modeling across multiple scales are primarily categorized into two types: one focused on simulating dynamics at the microscale, and the other dedicated to deriving or establishing evolutionary equations at the macroscale.
+There are two commonly used modeling frameworks, the continuous time random walk (CTRW) model and the Langevin equation\citep{wangMultiscaleModelingSimulation2025}\\ The interesting features of the system are highlighted and the less relevant are treated in an approximate way.
 Examples: Eliminate the molecular degreees of freedom by considering as rigid bodies.
 Also the Langevin dynamics technique.
+}.
+In order to do it so, we use the langevin dynamics framework.\footnote{Quiero justificar porque usar langevin y no otro método.}
+Langevin theory\footnote{Reference [34] presents the Langevin equation for polymers engaged in polymerization/depolymerization reactions, by establishing a random diffusion coefficient that correlates with particle size. Reference [35] presents the Langevin equations for continuous time Lévy walks. X. D. Wang et al. present the Langevin description of the Lévy walk [36]. Y. Chen et al. then provide the Langevin description of the Lévy walk with memory [37] and examine the impact of an external force [38,39]\citep{wangMultiscaleModelingSimulation2025}.
+} describe the brownian motion of a large and massive particle (``solid'') in a bath of particles that are much smalle and lightr than itself (``liquid'')\citep{tsl2006}.
+However, it differs from molecular dynamics simulations (based on Newton's equation) in that the solvent is modelled by stochastic and dissipative forces allowing longer simulations that would be impossible if the solvent were explicitly included\citep{pastorTechniquesApplicationsLangevin1994}. 
+But, the representation of the solvent\footnote{Langevin assumed that the force acting on the brownian particle consists of two parts: a systematic, frictional force proportional to the velocity $u(t)$, but acting in the opposite sense, and a randomly fluctuating force, $R(t)$, which arises from collisions with surrounding particles\citep{tsl2006}.
 
-the stochastic theory used by Langevin to describe the brownian motion of a large and massive particle in a bath of particles that are much smaller and lighter than itself.\citep{tsl2006}
-Consider a solution containing polymers or ions which are much heavier than the solvent molecules\citep{Thijssen2007}. 
-The problem is characterised by two very different timescales, one associated with the slow relaxation of the initial velocity of the brownian particle and another linked to the frequent collisions that the brownian particle suffers with particles of the bath\citep{tsl2006}. 
-As the kinetic energy is on average divided equally over the degrees of freedom, the ions or polymers will move much more slowly than the solvent molecules\citep{Thijssen2007}.
+} by a stochastic and dissipative force, introduce the problem of characterize two very different timescales, one associated with the slow relaxation of the initial velocity of the brownian particle and another linked to the frequent collisions that the brownian particle suffers with particles of the bath\citep{tsl2006}. 
+This can be be intuitivley think as the kinetic energy is on average divided equally over the degrees of freedom, the ions or polymers will move much more slowly than the solvent molecules\citep{Thijssen2007}.
 Moreover, because of their large mass, they will change their momenta only after many collisions with the solvent molecules and the picture which emerges is that of the heavy particles forming a system with a much longer time scale than the solvent molecules\citep{Thijssen2007}.
-Langevin assumed that the force acting on the brownian particle consists of two parts: a systematic, frictional force proportional to the velocity $u(t)$, but acting in the opposite sense, and a randomly fluctuating force, $R(t)$, which arises from collisions with surrounding particles\citep{tsl2006}.
+
 
 One should notice that the frictional term depends on the previous history of the trajectory (Markovian process). 
 The friction term is important in obtaining realistic simulations, as it takes into account the viscosity of the solvent (a feature, which is absent from both MD and MC). 
