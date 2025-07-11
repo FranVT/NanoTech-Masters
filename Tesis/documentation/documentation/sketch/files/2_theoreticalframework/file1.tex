@@ -20,6 +20,9 @@ In the simplest case, each collision gives a contribution to theforce, and contr
 Where the bar denotes the average over many repeated experiments: i.e.,we have M identical copies of the same system (or a single system onwhich M measurements are taken at widely separated time intervals) andwe average the $B'(t)$ over these M replicas. The bar denotes theaverage when M goes to infinity. If the number of collisions in a time e isquite large, the $B'(t)$ will be Gaussian-distributed variables with avariance\footnote{Explanaition of why gaussian in page 25}
 ~\citep{Parisi1988}
 
+The problem is characterised by two very different timescales, one associated with the slow relaxation of the initial velocity of the brownian particle and another linked to the frequent collisions that the brownian particle suffers with particles of the bath. (Problema de implementación o representación matemática, eso del tiempo de relajación por condiciones iniciales es por que matemáticamente se reuieren condiciones iniciales para resolver el sistema ecuaciones diferenciales.) 
+Langevin assumed that the force acting on the brownian particle consists of two parts: a systematic, frictional force proportional to the velocity $u(t)$, but acting in the opposite sense, and a randomly fluctuating force, $R(t)$, which arises from collisions with surrounding particles\citep{tsl2006}.
+
 \end{comment}
 
 
@@ -29,11 +32,7 @@ Description of the microgel as a colloid to introduce the langevin methodology.
 “The dynamics of a macromolecular system is entirely determined by the potential $U(rN)$ associated with the process. For computational and practical reasons, this potential is virtually always an approximation of the real physical potential\footnote{Those potentials are explained in the following section?\\ Would be better to describe the parameters in the implementation and the model here?}.”\citep{paquetMolecularDynamicsMonte2015}
 
 
-\subsection{Brownian dynamics}\footnote{ 
-The problem is characterised by two very different timescales, one associated with the slow relaxation of the initial velocity of the brownian particle and another linked to the frequent collisions that the brownian particle suffers with particles of the bath. (Problema de implementación o representación matemática, eso del tiempo de relajación por condiciones iniciales es por que matemáticamente se reuieren condiciones iniciales para resolver el sistema ecuaciones diferenciales.) 
-Langevin assumed that the force acting on the brownian particle consists of two parts: a systematic, frictional force proportional to the velocity $u(t)$, but acting in the opposite sense, and a randomly fluctuating force, $R(t)$, which arises from collisions with surrounding particles\citep{tsl2006}.
-}
-
+\subsection{Brownian dynamics}
 
 From a general point of view there are two types of methods to make a quatitative description of systems: one focused on simulating dynamics at the microscale, and the other dedicated to deriving or establishing evolutionary equations at the macroscale\citep{wangMultiscaleModelingSimulation2025}.
 Since we assume that the a microgel's mechanical response derives from its internal structure\footnote{Poner citas que desmuestrén que no es hipótesis, si no que se sabe} we choose to simulate the dynamics at the microscale.
