@@ -25,16 +25,26 @@
 \usepackage{graphicx} % ..to include encapsulated postscript figures
 %\usepackage{graphics}
 \usepackage{makeidx}         % ..if you want an index
-\usepackage{amsmath}         % ..if you need lots of math symbols
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd,latexsym}         % ..if you need lots of math symbols
 \usepackage[bookmarks=true]{hyperref}
                              % ... only needed for PDF generation
 \usepackage[english]{babel}  % borre [spanish]
 \usepackage{ifthen}          % for caption fix.
-\usepackage{amsfonts}        % Instruction : \mathbb
-\usepackage{amssymb}         % Instruction : \triangleq
 \usepackage{times}           % font style
 \usepackage{fullpage}        % page size
 \usepackage{named}           % bibliograhic style
+\usepackage{physics}
+\usepackage{bm}
+\usepackage{siunitx} 		% Permite utilizar el sistema internacional de unidades
+\usepackage{mathptmx}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage{centernot} 		% Notacion matematica
+\usepackage{empheq}			% Recuadros para ecuaciones
+\usepackage[most]{tcolorbox}
+
+\usepackage{cleveref}
+\usepackage{natbib}
 
 
 %----------------------------------------------------------------------
@@ -113,11 +123,10 @@
 
 % Chapters
 
-\include{chs/ch1}      % Chapter 1 Name
-\include{chs/ch2}      % Chapter 2 Name
-\include{chs/ch3}      % Chapter 3 Name
-%\include{chs/ch4}      % Chapter 4 Name
-\include{chs/ch5}      % Chapter 5 Name
+\include{chs/ch1}      % Chapter 1 Intro
+\include{chs/ch2}      % Chapter 2 Theoretical framework
+\include{chs/ch3}      % Chapter 3 Numerical Experiments
+\include{chs/ch4}      % Chapter 4 Conclusion
 
 %----------------------------------------------------------------------
 % END MATERIAL
@@ -127,22 +136,24 @@
 % Bibliography --------------------------------------------------------
 % If done using the BibTeX program, use
 
-\markright{Bibliography} % right header
+%\markright{Bibliography} % right header
 %\bibliographystyle{plain}  % sorted alphabetically, labeled with numbers
-\bibliographystyle{named}
-\bibliography{MyBiblio}     % names file phdrefs.bib as my bibliography file
+
+\nocite{*}
+\bibliography{MyBiblio.bib}     % names file phdrefs.bib as my bibliography file
+\bibliographystyle{plainnat}
 
 
 
 % Appendices-----------------------------------------------------------
 
-\appendix
+%\appendix
 
 % Designate with \appendix declaration which just changes numbering style
 % from here on
 
-\include{apps/app1}     % There is not Appendix 1
-\include{apps/app2}     % There is not Appendix 2
+%\include{apps/app1}     % There is not Appendix 1
+%\include{apps/app2}     % There is not Appendix 2
 
 
 % Index ---------------------------------------------------------------
