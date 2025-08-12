@@ -30,7 +30,6 @@ Therefore, extensive effort had been devoted to enhance the mechanical behavior 
 
 These hybrid hydrogels have exhibited excellent mechanical properties and good self-recovery. 
 For example, Suo et al. [19] synthesized a hybrid hydrogel with ionically and covalently crosslinked networks, which can  be stretched beyond 20 times their initial length, and exhibit remarkable fracture energies of ∼9000 J/m2. 
-Moreover, since the hydrogel has covalent crosslinking, it can return to its original state after unloading.
 
 Wang et al. [20] prepared a chemical crosslinking polyacrylamide (PAM)/carbon Nano-dot (C-dot) hydrogel by introducing C-dot as physical crosslinker into weakly chemical crosslinking PAM network. 
 The hybrid crosslinking structure would endow hydrogels with extraordinary stretch ability. 
@@ -96,8 +95,6 @@ In Fig. 5a, C-Gel had insignificant hysteresis loop and the fourth cycle curve w
 However, for P-Gel, all loading-unloading cycle curves are conducted completely due to the reversible of physical crosslinking in Fig. 5b. 
 Moreover, H-Gel was ruptured in the fifth loading-unloading cycle in Fig. 5c and exhibited longer strain than C-Gel, shorter strain than P-Gel, intensely proving that the molecular chains of H-Gel were disrupted during the large deformation and dissipated a large number of energy via cooperating with reversibly physical crosslinking. 
 
-As a result, we can conclude that at initial deformation state the physical crosslinking would play the major role of energy dissipation, whereas the chemical and physical crosslinking would work synergistically in large deformation dissipated more energy to enhance mechanical strength of HGel. The mechanical property of H-Gel was also affected by the ratio of MBA, AAm, HMA and core-shell LPs. 
-
 Fig. 6a and b shows the influence of the MBA concentration on the mechanical property of H-Gel. 
 The tensile strength, fracture strain, elastic modulus and toughness of H-Gel firstly increased to the maximum value and then decreased with increasing the MBA concentration. 
 At low concentration of MBA, the introduction of MBA increased the network density and enhanced the mechanical property of H-Gel.
@@ -111,7 +108,8 @@ Subsequently, the effect of the HMA molar ratio and the core-shell LPs weight ra
 
 The fracture stress, fracture strain, elastic modulus and toughness of H-Gel would constantly increase and then decrease with the increase of the HMA and core-shell LPs concentrations. 
 These results indicated that hydrophobic chains could interact with core-shell LPs as physical crosslinking centers and significantly enhance mechanical property of hydrogels by dissipating more energy through physical crosslinking centers. 
-However, the hydrophobic association effect might weaken mechanical properties of H-Gel if the excessive crosslinking existed inhomogeneously in the hydrogels. According to the above analysis, a mechanism was put forward and illustrated in Fig. 8. 
+However, the hydrophobic association effect might weaken mechanical properties of H-Gel if the excessive crosslinking existed inhomogeneously in the hydrogels. 
+According to the above analysis, a mechanism was put forward and illustrated in Fig. 8. 
 For an original state of hydrogel, molecular chains kept a curled structure. 
 When the sample was initially loaded with a uniaxial tension, molecular chains extended from the curled state and the hydrophobic chains from core-shell LPs would support the stress via physical crosslinking. 
 For large deformation, physical crosslinking was destroyed and simultaneously the stretched molecular chains via chemical crosslinking were also damaged. 
@@ -138,8 +136,11 @@ These results indicated that the hybrid hydrogel would have excellent recovery p
 Dynamic Covalent Hydrogels: Strong yet Dynamic
 
 
+
 --------------------------------------------------------------------------------------------
 Covalent design of ionogels: bridging with hydrogels and covalent adaptable networks
+
+
 
 --------------------------------------------------------------------------------------------
 Hydrogels Based on Dynamic Covalent and Non Covalent Bonds: A Chemistry Perspective
