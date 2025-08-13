@@ -18,117 +18,10 @@ The role of chemical and physical crosslinking in different deformation stages o
   file = {/home/frenour/Zotero/storage/NF4VPYFE/Xu et al. - 2018 - The role of chemical and physical crosslinking in different deformation stages of hybrid hydrogels.pdf;/home/frenour/Zotero/storage/EI974ZH3/S0014305717320724.html}
 }
 
+Hybrid crosslinking hydrogels consist of covalent and noncovalent crosslinking.
+The dynamic physical crosslinking could effectively dissipate energy via destruction and reorganization, and the chemical crosslinking could sustain skeleton construction.
 
-Hydrogels are soft and wet materials with a large amount of water in their three-dimensional polymeric networks crosslinked by covalent and/or physical bonds. 
-
-The unique soft-wet property endows hydrogels with possible biomedical applications of tissue engineering scaffolds [1,2], delivery vehicles [3,4] and biosensors [5]. 
-
-However, the application scope is significantly limited by poor mechanical behavior. 
-For example,  
-Therefore, extensive effort had been devoted to enhance the mechanical behavior of hydrogels by designing distinctive structure and/or introducing effective energy dissipation mechanism, such as double network hydrogels [6,7], nanocomposite hydrogels [2,8] slide-ring hydrogels [9], hydrophobic association hydrogels [10,11], ionically crosslinked hydrogels [12–15], hydrogen bonding hydrogels [16,17], macromolecular microsphere composite hydrogels [18] and hybrid crosslinking hydrogels [19–23]. 
-
-
-These hybrid hydrogels have exhibited excellent mechanical properties and good self-recovery. 
-For example, Suo et al. [19] synthesized a hybrid hydrogel with ionically and covalently crosslinked networks, which can  be stretched beyond 20 times their initial length, and exhibit remarkable fracture energies of ∼9000 J/m2. 
-
-Wang et al. [20] prepared a chemical crosslinking polyacrylamide (PAM)/carbon Nano-dot (C-dot) hydrogel by introducing C-dot as physical crosslinker into weakly chemical crosslinking PAM network. 
-The hybrid crosslinking structure would endow hydrogels with extraordinary stretch ability. 
-
-Okay et al. developed a hybrid network combined hydrophobic network formed by hydrophobic monomer and covalent network [21]. 
-
-Zhou et al. engineered a novel dual-crosslinked hydrogel through introducing acrylic components into the covalent network to form a homogeneous macromolecular structure, and the ionic coordination severs as the reversible bonds to dissipate energy and enhance the mechanical strength of poly (acrylamide-co-acrylic acid) hydrogels [22]. 
-
-However, it still unclear for the relationship between chemical and physical crosslinking at various deformation stages of hydrogels. 
-Therefore, it is meaningful to recognize and understand synergistic toughening mechanism for hybrid hydrogels with dual crosslinking network.
-
-
-
-Here, a hybrid hydrogel was designed and prepared by introducing low density of chemical crosslinking into latex particle hydrogels (LPGel). 
-The latex particle consist of poly (methyl methacrylate) (PMMA) as a hard core and poly (butyl acrylate) (PBA) as a soft shell, which act as physical crosslinker for inducing efficient aggregation of hydrophobic chainsx [24–26]. 
-Subsequently, hybrid hydrogels were mechanically enhanced through the synergistic effect of chemical and physical crosslinking. 
-Moreover, rheological and tensile tests were integrated to establish the relationship between the mechanical behavior and deformation mechanism. 
-And the interaction between chemical and physical crosslinking in hydrogels was clearly understood during the various deformation stages.
-
-Results
-
-In order to reveal the effect of chemical and physical crosslinking on macroscopic mechanical property, the shear rheology and tensile loading-unloading process were measured at various deformation stages of hydrogels. 
-
-Fig. 4a shows tensile loading-unloading cycles of CGel, P-Gel and H-Gel at the initial deformation stage with 500% strain. 
-H-Gel exhibited an identical curve with P-Gel, much higher than C-Gel. 
-The dissipated and total energy of H-Gel (0.020 and 0.182 MJ/m3) was basically the same as that of P-Gel (0.020 and 0.181 MJ/m3), but the dissipated energy of C-Gel was only 0.008 MJ/m3 without any effective energy dissipation. 
-It was also found that the energy dissipation of HGel with a low chemical crosslinking density was dependent on the hydrophobic interaction at the initial deformation stage. 
-Molecular chains between two chemical crosslinking points were crimped and curled, and therefore the physical crosslinking would play a major role for energy dissipation. 
-The hydrogels were also measured under the large deformation to ensure the integrity of splines during loadingunloading cycles. 
-
-Fig. 4b shows tensile loading-unloading curves of CGel, P-Gel and H-Gel at the strain of 1500%, lower than the fracture stain. 
-H-Gel could dissipate energy effectively based on the area of hysteresis, much higher than that of C-Gel and P-Gel. 
-It was interesting that the dissipated energy of H-Gel (0.87 MJ/m3) was higher than the sum energy of C-Gel (0.56 MJ/m3) and P-Gel (0.07 MJ/m3) under the same condition, but the total energy of H-Gel (2.60 MJ/m3) at the strain of 1500% was approximately equal to the sum energy of C-Gel (0.73 MJ/m3) and P-Gel (2.00 MJ/m3). 
-
-The results indicated that the synergistic effect of chemical and physical crosslinking could effectively dissipate energy during the loading-unloading process. 
-The hybrid crosslinking structure would work synergistically in large deformation and obviously enhance mechanical strength of H-Gel. 
-
-Fig. 4c exhibited storage modulus (G′) and loss modulus (G′′) as a function of shear strain (γ). 
-It was found that a significant strain-dependent viscoelastic response could be observed for C-Gel, P-Gel and HGel. 
-In the linear viscoelastic region from γ = 0.1% to γ = 10%, the trend of G′ higher than G′′ confirmed a solid-like state for hydrogels [27,28]. 
-However, at large shear strain from 10% to 800%, hydrogels exhibited nonlinear viscoelastic behavior. 
-G′ significantly decreased to about 2 orders of magnitude and G′′ exhibited a maximum value. 
-For CGel, G′ was always higher than G′′, indicating stable structure based on permanent covalent crosslinking. 
-Moreover, the trend of G′′ higher than G′ indicated a solid to liquid transition for P-Gel and H-Gel [29,30].
-
-Dynamic storage modulus (G′) and loss modulus (G′′) of C-Gel, P-Gel and H-Gel were measured at different frequencies in Fig. 4d. 
-Under low shear deformation of 0.5%, G′ and G′′ values of H-Gel were exactly the same as those of P-Gel in the entire frequency range. 
-G′ values of C-Gel was lower than P-Gel and H-Gel indicated that chemical crosslinking contributed lesser. 
-G′′ of C-Gel gradually increased in the given frequency, indicating that C-Gel probably had imperfective molecular structure or network, such as dangling chains, un-crosslinked chains and/or stress-free loops [28,31–33].
-
-For the value of G′, H-Gel was slightly higher than P-Gel, which was possibly due to the effect of the increase in crosslinking density and decreases in equilibrium swelling of hydrogels. 
-Therefore, the effective crosslinking density (ve) was calculated from the value of the elastic shear modulus and swelling rate using Eq. (1) [34,35].
-′≈ =⎛  ⎝− ⎞  G G 1 2⎠ vv  Φ RT e 2  2 3  (1) 
-where v2 is the volume fraction of crosslinked polymer in the hydrogel. R is the gas constant. T is the absolute temperature and Φ is the crosslinking functionality that is assumed here to be 4. 
-
-The volume fraction polymer, v2, was calculated from Eq. (2) [27,34,35].  =⎡  ⎣⎢ + − ⎤  ⎦⎥  −  v qρ  d  1 ( 1)  F  2  1  (2)  
-where qF is the mass of swollen hydrogel divided by mass of the dry hydrogel, ρ is the polymer density (C-Gel: 1.189 g/mL; P-Gel: 1.230 g/ mL and H-Gel: 1.229 g/mL) and d is the density of water (1.00 g/mL). 
-
-The crosslinking densities of three hydrogels were calculated from Eqs. (1) and (2) using the value of G′ (ω = 100 rad/s; T = 298 K) and the results were listed in Table 2. 
-Moreover, to further investigate the relationship between chemical and physical crosslinking at various deformation stages, successive tensile loading-unloading cycles were measured for three kinds of hydrogels with waiting time of 5 min for each cycle. 
-
-In Fig. 5a, C-Gel had insignificant hysteresis loop and the fourth cycle curve was interrupted, demonstrating easy destruction of chemical crosslinking. 
-However, for P-Gel, all loading-unloading cycle curves are conducted completely due to the reversible of physical crosslinking in Fig. 5b. 
-Moreover, H-Gel was ruptured in the fifth loading-unloading cycle in Fig. 5c and exhibited longer strain than C-Gel, shorter strain than P-Gel, intensely proving that the molecular chains of H-Gel were disrupted during the large deformation and dissipated a large number of energy via cooperating with reversibly physical crosslinking. 
-
-Fig. 6a and b shows the influence of the MBA concentration on the mechanical property of H-Gel. 
-The tensile strength, fracture strain, elastic modulus and toughness of H-Gel firstly increased to the maximum value and then decreased with increasing the MBA concentration. 
-At low concentration of MBA, the introduction of MBA increased the network density and enhanced the mechanical property of H-Gel.
-However, excessive MBA endowed H-Gel with high crosslinking density. 
-As a result, H-Gel became brittle and fractured easily at a relatively low strain, exerting adverse effects on the strength and toughness of H-Gel. 
-H-Gel with a 0.5 wt% ratio of MBA to AAm exhibited fracture strain of 2023%, fracture stress of 1340 kPa, elastic modulus of 0.36 kPa and toughness of 7.8 MJ/m3. 
-
-Then, Fig. 6c and d shows the continuous increase of tensile strength, elastic modulus  and toughness of H-Gel with increasing the concentration of AAm. 
-The maximum tensile strength achieved 2.5 MPa, indicating that the increase of crosslinked PAM chains would significantly enhance elastic modulus and toughness of hydrogels. 
-Subsequently, the effect of the HMA molar ratio and the core-shell LPs weight ratio to AAm on the mechanical property of H-Gel was illustrated in Fig. 7. 
-
-The fracture stress, fracture strain, elastic modulus and toughness of H-Gel would constantly increase and then decrease with the increase of the HMA and core-shell LPs concentrations. 
-These results indicated that hydrophobic chains could interact with core-shell LPs as physical crosslinking centers and significantly enhance mechanical property of hydrogels by dissipating more energy through physical crosslinking centers. 
-However, the hydrophobic association effect might weaken mechanical properties of H-Gel if the excessive crosslinking existed inhomogeneously in the hydrogels. 
-According to the above analysis, a mechanism was put forward and illustrated in Fig. 8. 
-For an original state of hydrogel, molecular chains kept a curled structure. 
-When the sample was initially loaded with a uniaxial tension, molecular chains extended from the curled state and the hydrophobic chains from core-shell LPs would support the stress via physical crosslinking. 
-For large deformation, physical crosslinking was destroyed and simultaneously the stretched molecular chains via chemical crosslinking were also damaged. 
-The synergistic effects of chemical and physical crosslinking allow hydrogels to dissipate a large number of energy, significantly enhancing the mechanical strength of hydrogels.
-
-
-The hybrid crosslinking structure endows hydrogels with an extraordinary mechanical behavior. 
-Fig. 9a and Video 1 show puncture resistant properties of hybrid hydrogels and there was no obvious damage after stabbing the sample. 
-Moreover, Fig. 9b and c and Video 2 exhibit that a hydrogel membrane can be inflated into a big balloon and the membrane can quickly restore to its original state within 3 min. 
-These exhibitions would prove the excellent ductility and rapid recovery of hybrid hydrogels.
-
-
-Moreover, the hybrid hydrogels exhibited rapid recovery behavior as a potential anti-fatigue material under certain deformation. 
-Fig. 10 exhibited successive loading-unloading cycles for H-Gel and the corresponding elastic modulus and dissipated energy under the strain of 200%. 
-The elastic modulus of each cycle basically kept consistent due to chemical crosslinking stabilizing network of hydrogels. 
-Moreover, from partial magnification curves, an evident gap between the first and second cycle could be observed, due to the elimination of defect structure after the first loading cycle [36]. 
-Subsequently, the dissipated energy from the loading-unloading hysteresis decreased suddenly with increasing the cycle number for hydrogels without any spare time. 
-For hydrogels after recovery time of 2 min, however, the dissipated energy for each cycle was close to that of the first cycle. 
-These results indicated that the hybrid hydrogel would have excellent recovery property which can broaden the use of biomedical applications of load materials, such as hydrogel cartilage, tendons, artificial muscle and tissue engineering.
+H-Gel exhibited an identical curve with P-Gel, much higher than C-Gel.
 
 
 --------------------------------------------------------------------------------------------
@@ -165,97 +58,23 @@ Hydrogels Based on Dynamic Covalent and Non Covalent Bonds: A Chemistry Perspect
   file = {/home/frenour/Zotero/storage/24C9F8HI/Picchioni and Muljana - 2018 - Hydrogels Based on Dynamic Covalent and Non Covalent Bonds A Chemistry Perspective.pdf}
 }
 
-In the last few years, a renewed interest in hydrogels has arisen due to an extended range of applications [1]. 
-This stems from the characteristics of these materials such as biocompatibility and responsiveness to a variety of external stimuli [2]. 
-While “classical” applications such as their use as an adsorbent in waste water treatment [3,4] are still heavily investigated, other areas are gaining significant attention at the moment. 
+The molecular reversibility can be actually achieved in two different ways: either by making use of equilibrium reactions (e.g., the Diels-Alder one) or through dynamic exchange reactions (e.g., reaction of an excess amino groups with epoxide ones). Both approaches have been widely used for tuning the adhesion of different substrates on different polymeric networks and for the network formations (and disruption) itself.
 
-For example, the catechol chemistry (Figure 1) can actually be employed to ensure adhesion of the polymeric chains to several different moieties while crosslinking the network in an irreversible way [15].
-Particularly important is the adhesion at the interface between the polymeric chains and several different substrates to be then released (where and when needed) upon action of an external stimulus. 
-On a molecular level, this translates in the presence of reversible bonds between the polymeric network and such “loading.”
+The molecular reversibility can be achieved in two different ways: either by utilizing equilibrium reactions (e.g., the Diels-Alder reaction) or through dynamic exchange reactions (e.g., the reaction of an excess amino group with an epoxide group).
 
+The same concept of covalent reversible bonds can be used for the hydrogel formation and disruption. Examples of interactions used in this case are (Figure 2) electrostatic ones [19,20], cycloadditions [8,21], redox reactions [22–24], and other ones such as imine [25–28] and enamine formation [29], acylhydrazone [30–33], and borax acid reaction with hydroxyls [13,34–36].
 
+The general concept behind the use of reversible covalent interactions for the hydrogel polymeric chains is a the reversible network disruption with immediate release of any loading.
 
-Such wide variety of biomedical applications stems from the peculiar characteristic of hydrogels, namely the fact that they can retain a large amount of water in their structure [1]. 
-This makes it, in turn, also possible to incorporate water-soluble moieties in the final product such as proteins and DNA [5], but also dispersible (nano)particles [12,13] and (nano)emulsions [14]. 
+The general idea is that the use of dynamic covalent conds allows the polymeric network to adjust itself as a result of an external sitimulus.
 
+This can be achieve in principle through other weaker ainteractions, e.g., hydrogen bonding.
+In particullar, a clear trend is detected in the last year, according to which self-assembly driven processes [10,37] can be conveniently used for hydrogel preparation. 
+However, the use of covalent bonds displays two distinct and clear advantages [25]. 
+In first instance, the network is still covalently linked, which renders it quite robust against small random fluctuations in environmental conditions such as temperature. 
+Furthermore, exchange reactions such as the one of an amine with an imine are often kinetically controlled by the use of catalysts. 
+In turn, this allows the possibility to freeze the network conformation (by slowing the kinetics) when desired. 
 
-In this particular case, the crosslinking via metal free click chemistry is practically quantitative and does not result in the formation of any by-product, and this rendering it ideal for biomedical applications [16–18]. 
-The catechol chemistry is not the only example of a reversible yet covalent bond that can be formed and broken on command upon an external stimulus. 
-Indeed, along the same strategy, the imine formation chemistry can be used to tune the adhesion [18]. 
-The molecular reversibility can be actually achieved in two different ways: either by making use of equilibrium reactions (e.g., the Diels-Alder one) or through dynamic exchange reactions (e.g., reaction of an excess amino groups with epoxide ones). 
-Both approaches have been widely used for tuning the adhesion of different substrates on different polymeric networks and for the network formations (and disruption) itself. 
-These are discussed in the following paragraph.
-
-
-2. Dynamic Hydrogels Based on Reversible (Covalent) Interactions 
-
-The same concept of covalent reversible bonds can be used for the hydrogel formation and disruption. 
-Examples of interactions used in this case are (Figure 2) electrostatic ones [19,20], cycloadditions [8,21], redox reactions [22–24], and other ones such as imine [25–28] and enamine formation [29], acylhydrazone [30–33], and borax acid reaction with hydroxyls [13,34–36].
-
-However, FIGURE 3
-
-In the specific case of drug delivery, this mechanism entails a controlled release rate depending on the kinetics of the network disruption, which in turn can be linked, at the molecular level, to the kinetics of the reversible bonds. 
-An interesting example is based, once more, on the catechol chemistry [38] for which a hydrogel containing di-methylacrylamide units (DMA) can be reversibly crosslinked by reversible complexation with Fe3+ ions
-
-In this particular case, the reversibility is cleverly achieved by switching between a tri- and a mono-chelate complex based on the pH of the solution. 
-The corresponding final product displays a shape memory effect triggered by the pH value. 
-
-In order to achieve a sol-gel transition and, possibly, self-healing properties in response to multiple stimuli, different functional groups might be embedded along the backbone, e.g., di-sulfide and acylhydrazone ones, as shown in Figure 5 [39].
-
-The advantage of such approach is that differenct functional groups are factually responsible for the response under different enviromental conditions.
-Similar to this, hydrogels have been prepared for which both Diels-Alder and acylhydrazone groups are present along the back bone.
-
-In this case, it has been proposed that the Diels-Alder adducts preserve the gel integrity and endow it with good mechanical properties while the acylhydrazone reversible chemistry is conveniently employed to fine-tune the crosslinking density. 
-The latter is in turn responsible for the self-healing behavior. 
-The same hydrazone reversible chemistry can be conveniently combined with self-assembly of block copolymers to yield (see Figure 7) hydrogels with improved mechanical properties [33].
-
-
-The resulting hydrogels still display self-healing properties and elongations up to 10.000%, the latter being a function of the pH. 
-This stems from the dependency of the crosslinking density (acylhydrazone bonds) on the pH values. 
-Such outstanding mechanical behavior (i.e., strain values) can also be attributed to the presence of the micelles, which actually act as physical crosslinking points for the all system. 
-This approach, i.e., the use of two different reversible covalent bonding, represents a very popular choice in the last five years [40,41]. 
-This stems from the fact that, besides the synergy in terms of reversible behavior as result of external stimuli and of combination of different properties, an additional one can be pursued in terms of the synthetic approach.
-A paradigmatic example is represented by the synthesis of hydrogels based on poly(ethylene-glycol) (PEG) with the use of thiol-ene addition as well as borax-diol chemistry (Figure 8) [35].
-
-
-Borax acts in this case as catalyst for the thiol-ene reaction, thus factually helping in building the polymeric backbone, but also as crosslinking agent via the reversible borax-diol chemistry. 
-The reversibility of the crosslinking was demonstrated by self-healing experiments and confirmed by rheology measurements. 
-As typical for these systems, i.e., covalently and reversibly crosslinked gels, a cross over point between the elastic (G′) and loss (G”) modulus is observed for relatively moderate frequency values (1 < ω < 100 rad/s). 
-This is in fact a very general characterization technique and observation [35] that can be used to characterize the response of the hydrogel to shear force. 
-Very recently host-guest chemistry (molecular recognition) has been also reported for the synthesis of hydrogels [42,43]. 
-
-In one example the proposed approach is rather versatile as it relies on fixed molecular recognition interaction even if in different matrixes prepared by in situ polymerization, as illustrated in Figure 9 [43].  
-
-The versatility of this method and its compatibility with several different monomeric precursors and polymeric end-products render it particularly attractive. 
-An interesting consequence of the dynamic character of these bonds is the fact that this significantly favors the adhesion between hydrogels and organo-gels (when in contact with each other), provided that such reaction can take place at the interface between these two gels [44].
-
-A shown above, the choice of covalent reversible bonds for the network formation endows the final product with a multifaceted portfolio of properties (i.e., multiple responses to multiple stimuli). 
-This can be achieved on the basis of several different substrates. 
-Indeed, synthetic polymers are still widely used for the preparation of hydrogels, with polyacrylamide representing the most popular choice [45]. 
-On the other hand, hydrogels based on natural products (e.g., chitosan [4,17], proteins [11,31,36], modified alginate [46], peptides [28,47]) represent a very convenient choice in view of clear advantages related to biological applications, but also to general sustainability principles. 
-Indeed, attention is being paid also to novel synthetic pathways in agreement with green chemistry principles [48]. 
-
-The choice of PEG as the main constituent of the polymeric backbone is an obvious one [49,50] when making allowances for the commercial availability of many (functionally modified) PEG varieties as well as their well-known thickening effect even in the presence of salts. 
-On the other hand, polysaccharides also represent a popular choice mainly in view of the easiness of the modification and their availability in nature. 
-An elegant example is the combination of modified cellulose with chitosan (Figure 10) [29].  
-
-The presence of an amino group along the chitosan chain is exploited here in oreder to achieve high reactivity (even at room temperature) with modified cellulose through enamine fomration, in this case or via imine formation in other reported examples.
-a combination of a natural polysaccharide with PEG combines the best of both worlds and has been recently reported.
-
-
-3. Conclusions and Future Perspectives 
-
-As clearly seen form the example discussed above, the use of reversible covalent bonds in hydrogels endows the final product with very peculiar chemical structures, which in turns translate into a kaleidoscopic ensemble of possibilities in terms final properties. 
-As also observed in other chemistry-related research fields, the study of synergistic phenomena seems to represent a very popular trend. 
-In the specific case of hydrogels, this translates into the combination of multiple reversible interactions (and more specifically, reversible covalent bonds) in the same final product. 
-This allows control of the network structure in processes such as self-healing in response to several different external stimuli. 
-This is particularly attractive for biomedical applications where physiological parameters (e.g., pH, temperature, shear stress, etc.) might change in a simultaneous manner. 
-
-On a molecular level, this generates the need for synthetic strategies allowing the incorporation of such reversible covalent bonds on the polymeric network.
-The above review of the most recent trends clearly show on one side the high sophistication level of the synthetic strategies employed and the multifaceted properties toolbox achievable in this way. 
-It must be stressed here that such research trends will probably continue in the coming years as the number of possibilities in terms of chemical bonds is certainly not yet exhausted. 
-On the other hand, it is also conceivable that, as the topic will reach more scientific maturity, more attention will be paid to industrially feasible preparation routes. 
-In this context, the choice of suitable substrates (i.e., polymeric materials) as well as synthetic strategies will probably constitute a focal point of future research projects.
 
 
 
@@ -284,6 +103,80 @@ Cross-linking in Hydrogels - A Review
   file = {/home/frenour/Zotero/storage/VHSW6CZJ/Maitra and Shukla - 2014 - Cross-linking in Hydrogels - A Review.pdf}
 }
 
+Crosslinked material after absorbing lot of solvent is called a gel.
+
+Hydrogels are crosslinked hydrophilic polymer structures
+
+Their hydrophilic, soft and rubbery nature ensures minimal tissue irritation and a low tendency of cells and proteins to adhere to the hydrogel surface.
+
+Adding cross-links between polymer chains affect the physical properties of the polymer depending upon the degree of cross linking and presence and absence of crystallinity. 
+
+Cross linking results in:
+i) elasticity Elastomers are elastic polymers created by limited cross-linking. As the number of cross-links increases, however, the polymer becomes more rigid and cannot stretch as much; the polymer will become less viscous and less elastic and might even become brittle.
+ii) Decrease in the viscosity. In order to polymers to flow, the chains must move past each other and cross-linking prevent this.
+iii) Insolubility of the polymer. Cross linking results in insolubility as the chains are tied together by strong covalent bonds.
+Crosslinked materials cant't dissolve in solvents, but can absorb solvents.
+
+# Method of Crosslinking
+
+Cross-linking may occur through polymerization of monomers having functionalities more than two (by condensation) or by covalent bonding between polymeric chain through irradiation, sulphur vulcanization or chemical reactions by adding different chemicals in conjunction with heating and, sometimes, pressure.
+
+
+# Hydrogels and Crosslinking
+
+The term “hydrogel” represent water insoluble polymeric network that has capacity to absorb large amount of water [11-15]. 
+A hydrogel is a macromolecular polymer gel constructed of a network of crosslinked polymer chains.
+They are synthesized from hydrophlic monomers by either chain or step growth, along with a functional crosslinker to promote network formation. 
+Synthetic or natural polymers, homopolymer or copolymer, are used to make three dimensional networks by molecular entanglements or by chemical crosslinking [16].
+
+Cross linking either physically or chemically gives hydrogel a 3D network structure, making it insoluble. 
+This insoluble cross-linked structure allows effective immobilization and release of active agents and biomolecules. 
+Hydrogels appear similar to natural soft tissues because of their high water content.
+
+
+Physical crosslinks include entangled chains, hydrogen bonding, hydrophobic interaction and crystallite formation. 
+These physical crosslinks may not be permanent in nature, but they are sufficient to make hydrogels insoluble in an aqueous media. 
+Physical crosslinking gives reversible hydrogels. 
+Physical hydrogels can absorb the water but inhomogeneities or network defects may occur due to free chain ends or chain loops
+
+
+Chemical or permanent hydrogel are formed by covalent crosslinking of polymers.
+
+The type and degree of crosslinking influences many of the network properties, like swelling properties, elastic modulus and transport of molecules
+
+
+# Synthesis of Hydrogels
+
+Hydrogels are synthesized by different polymerization methods using both chemical and physical crosslinking routes.
+
+## Chemical crosslinked
+
+hydrogels are synthesized by chain growth polymerization, addition and condensation polymerization and gamma and electron beam polymerization.
+
+Chain-growth polymerization includes free radical polymerization, controlled free radical polymerization, anionic and cationic polymerization.
+
+Controlled living radical polymerizations offer the benefits of longer growing chain life compared to free radical polymerizations for macromolecular engineering
+
+Anionic and Cationic polymerization methods suffer from extreme sensitivity toward aqueous environments and therefore, are not used in the synthesis of polymeric hydrogels.
+
+Addition and condensation polymerization involves stepwise addition of Polyfunctional crosslinking agents with monomer functional groups.
+
+Polymer chains may be crosslinked in the presence of water to form a hydrogel. 
+Water occupies voids in the network, giving the hydrogel its characteristic surface properties.
+
+Gamma and electron beam polymerization involves high energy electromagnetic irradiation as crosslinker. 
+These high energy radiations can crosslink water-soluble monomer or polymer chain ends without the addition of a crosslinker.
+
+## Physically crosslinked
+
+hydrogels are synthesized by ionic interaction, crystallization, stereocomplex formation, hydrophobized polysaccharides, protein interaction and hydrogen bond.
+
+In ionic interactions, hydrogels can be crosslinked under mild conditions, at room temperature and physiological pH.
+
+Hydrophobic interactions results in the polymer to swell and uptake water that forms the hydrogel.
+
+Protein interaction involves block copolymers that contains repetition of silk-like and elastine-like blocks called ProLastins
+
 
 --------------------------------------------------------------------------------------------
 Hydrogels Classification According to the Physical or Chemical Interactions and as Stimuli-Sensitive Materials
@@ -305,279 +198,6 @@ Hydrogels Classification According to the Physical or Chemical Interactions and 
   pmid = {34842654},
   file = {/home/frenour/Zotero/storage/MVLPDYJS/Bustamante-Torres et al. - 2021 - Hydrogels Classification According to the Physical or Chemical Interactions and as Stimuli-Sensitive.pdf}
 }
-
-1. Introduction  
-
-The first hydrogel described arose in 1960, where the cross-linking network was based on polyhydroxyethylmethacrylate (pHEMA) [2–4]. 
-
-A hydrogel is a tridimensional polymeric structure with swelling and collapse properties, flexibility, biodegradability, biocompatibility, and softness [5]. 
-The ability of hydrogels to absorb water arises from hydrophilic functional groups attached to the polymeric backbone, while their resistance to dissolution arises from crosslinks between network chains [6]. 
-Variations in concentrations, structure, functionality of the monomer, and the cross-linker used in such gels can modify the structure [4]. 
-Besides, these biocompatible materials have been widely used in the biomedical field due to their high ability to absorb drugs [7] and nanoparticles [8].
-
-In hydrogel synthesis, monomers or polymers and an initiator are usually necessary. 
-The latter will be responsible for the formation of monomeric free radicals that give rise to the growth of macromolecular chains. 
-Monomers have unique properties that can form a macromolecular known as a polymer. 
-In addition, a cross-linking agent is relevant because a characteristic of any hydrogel is its cross-linked structure, which is achieved through that agent [9,10]. 
-
-In recent years, many efforts have been made on research approaches based on the synthesis of new hydrogels with better mechanical properties, which is one of these systems’ weak points, and provides them with a certain degree of “intelligence”. 
-
- 
-They have different properties that make them potentially useful in a wide variety of applications, such as in biomedical applications, self-assembly, or catalysis [15]. 
-Hydrophilic polymers might be considered as those polymers that contain polar functional groups such as hydroxyl (-OH), carboxyl (-COOH), and amino (-NH2) groups that make them soluble or swelled by water. 
-
-A hydrophilic polymer that has received much attention is poly(vinyl alcohol) (PVA) because it has a great promise as a biological drug-delivery matrix [16] and is nontoxic. 
-
- 
-Hydrogels are attractive materials owing to their excellent features and properties. 
-
-2. Cross-Linking Strategies to Obtain Physical Hydrogels  
-
-Some of the gist hydrogels made up by the physicochemical are explained below. 
- 
-2.1. Crystallization  
-
-Physical cross-linking of a polymer to form a hydrogel can also be achieved by crystallization through freeze–thaw cycles in homopolymeric systems or by forming stereocomplexes. 
-The crystallization and degree of crystallinity determine the final properties of the resulting polymers. 
-Polymeric crystallization can occur from dilute solutions or the molten state [22]. 
-
-In the first case, crystallization occurs by evaporating the solvent, resulting in the appearance of single crystals based on a chain-folded model, which presents aligned chains [23]. 
-This crystallization process includes crystal nucleation and crystal growth: Crystal nucleation: The initial stage consists of the formation of tiny crystals or nuclei. 
-It requires a certain degree of supersaturation, which increases the driving force for splitting the solution into a low and a high entropy region [24]. 
-
-Several factors affect the crystal nucleation, such as temperature, volume, ionic strength, ionic species ratio, flow rate, and foreign particles [25]. 
-Growth: It is characterized by the growth of the nuclei due to the alignment of molecular chain segments while part of the initial volume disappears. 
-Polymers crystallize with chain-folded layers known as lamellae, which can be grouped forming spherical structures called spherulites. 
-Polymers present crystalline phases when the lamellar chains are arranged in regular patterns and the amorphous phase when the lamellae are arranged irregularly. 
-Generally, the polymers will crystallize from the melt in spherulitic structures [26]. 
-The diameter of the spherulites is dependent on the nucleation sites, the molecular structure of the polymer, and the rate of cooling [27]. 
-The crystallinity degree (%) measures the order in the molecular arrangement of polymers. 
-It is calculated according to the following formula: where, ρc is the density of the completely crystalline polymer, ρa represents the density of the completely amorphous polymer, and ρs is the density of the sample. 
-The degree of crystallinity is dependent on the cooling rate and structure of the polymer [27]. 
-It can range from a completely amorphous polymer (close to 0%) to a semicrystalline polymer (approximately 95%). 
-Freeze–thaw crystallization involves the formation of microcrystals in the structure. 
-Examples of this type of cross-linking are xanthan [10,28] or PVA hydrogels [29,30]. 
-The formation of resilient and resilient PVA gels is attributed to the formation of PVA crystallites that act as physical cross-linking sites in the network. 
-
-The hydrogel properties depend on the concentration and molecular weight of the PVA, temperature, freezing time, and some freeze–thaw cycles [29]. 
-It has been studied that by adding alginate to the PVA solution before subjecting it to the freeze–thaw process, the properties of the system can be modified (by increasing the concentration of alginate, the mechanical resistance increases, which causes a decrease in the drug release) [30]. 
-
-Another form of crystallization is the formation of stereocomplexes [31]. 
-
-Stereocomplexes are formed by stereoselective interactions between polymers with complementary stereoregular structures (the functional group is located only on one side of the monomer) that interact to form a system of properties different from those of the original constituents. 
-It has been suggested that the forces involved in the formation of the complex are Van der Waals forces [32]. 
-The formation and composition of the complexes between sterically complementary polymers are conditioned by medium composition or temperature [33]. 
-For example, Ikada et al. [34] first described the ability of polylactic acid (PLA) to form stereocomplexes. 
-Slager et al. [35,36] obtained microparticles by mixing D-PLA and L-PLA with leuprolide and observed that its release depends on the method of complex formation, on the molecular weight of PLA, on the leuprodyla: polymer and D-PLA ratios: L-PLA and other additives. 
-Another system was created by Bos et al. [37,38], which was linked to the dextran with oligomers of D-lactic acid and L-lactic acid, separately. 
-The formation of this hydrogel occurs at room temperature, physiological pH, and in an aqueous environment; the formation is not instantaneous, which allows its injection and gelation in situ. 
-The system was shown to be biocompatible, biodegradable, and a releasing system for recombinant human interleukin-2.
-
-
-2.2. Amphiphilic Copolymers  
-
-Amphiphilic hydrogels containing both hydrophilic and hydrophobic units represent one of the major polymeric biomaterials [39], as Figure 1 shows. 
-In other words, amphiphilic copolymers can aggregate in water to form micelles and hydrogels in which the hydrophobic segments of the polymer self-assembly [40]. 
-
-Copolymers typically form hydrogels with fragments of different nature or modified copolymers. 
-The latter can be formed by a water-soluble polymer to which hydrophobic fragments have been attached or hydrophobic chains modified by water-soluble fragments [31].
-
-By the PEG biocompatibility and PLA biodegradability (or its copolymer with glycolic acid (PLGA)), the hydrogels formed by these copolymer blocks have been extensively investigated. 
-Drug release can occur by passive diffusion and by degradation of the system. 
-Multiple triblock polymer systems with hydrophobic segments in between have been proposed, for example, PEG-PLGA-PEG at low concentrations in water form micelles and high concentrations form thermoreversible hydrogels. 
-The critical gelation concentration and the sol-gel transition temperature are highly dependent on the blocks’ molecular weights and composition. 
-PEG-PLGA-PEG copolymers gel when there is a change from room temperature to 37 ◦C if the concentration is high enough. 
-
-Cross-linking is thought to occur by hydrophobic interactions [41]. 
-Another example is the copolymers of PLA and polyoxyethylene (PEO), PLA-PEOPLA, formed by polymerization of L-lactide with PEG. 
-It has been suggested that these hydrogels can retain hydrophilic drugs in the PEG phase and hydrophobic drugs in the PLA domains. 
-Likewise, they can be applied by injection to administer specific proteins [42–44]. 
-Copolymers containing fragments of different nature, such as composed of PEG and polybutylene terephthalate (a hydrophobic polyester) have also been investigated. 
-
-Feijen et al. [45–49] studied that films or microspheres can be formed, and they tested the release of various proteins (lysozyme, bovine serum albumin). 
-They also studied the hydrolytic degradation of polymers, concluding that as the percentage of polybutylene terephthalate increases, the degradation will be lower. 
-Furthermore, modifying the water/polymer ratio during emulsification could control the release of proteins. 
-Polymers with hydrophobic domains can also crosslink in aqueous environments through reverse thermal gelling (sol-gel transition). 
-Polymers or oligomers with this ability are known as gelling agents and are moderately hydrophobic [50–52]. 
-
-Gelation occurs when a hydrophobic segment attaches to a hydrophilic polymer forming an amphiphilic polymer. 
-Amphiphilic polymers are generally soluble in water at low temperatures; as the temperature increases, the hydrophobic domains add to minimize the hydrophobic surface area, reducing the amount of structured water around them [53]. 
-Gelation temperature depends on the concentration of the polymer, the length of the hydrophobic block, and the chemical structure of the polymer. 
-Some hydrophobic segments that can undergo reverse thermal gelation at temperatures close to physiological ones are PLGA, polypropylene oxide, poly(N-isopropyl acrylamide) (PNIPAAm), polypropylene fumarate, polycaprolactone, polyurethane, polyorganophosphazene [51].
-
-
-Different polysaccharides (such as chitosan, dextran, pullulan, carboxymethyl curdlan) can also be modified by adding hydrophobic segments that self-assemble to form nanohydrogels. 
-Sunamoto et al. [54–56] obtained cholesterol-modified pullulan nanoparticles. 
-These 20–30 nm nanoparticles (nanohydrogels) can be loaded with different proteins such as α-chymotrypsin, bovine serum albumin, insulin [55]; or drugs such as adriamycin [57]. 
-By covalently binding galactoside lactoside to pullulan, nanoparticles are obtained whose cellular target is RCA lectin (specific receptor for β-D-galactose). 
-Another example is chitosan glycol-modified with palmitoyl chains that assemble into unilamellar polymer vesicles in the presence of cholesterol [58]. 
-These vesicles are biocompatible and hemocompatible and can encapsulate water-soluble drugs [59]. 
-Chitosan has also been modified with various hydrophobic fragments to form pH or temperaturesensitive hydrogels; for example, D-L-lactic acid [60] and/or glycolic acid [61], polyacrylic acid (PAAc) [62], and PNIPAAm [63]. 
-
-Other polymers such as carboxymethyl dextran have also been modified with poly(N-isopropyl acrylamide)-co-N,N-dimethyl acrylamide to form thermo-sensitive hydrogels [64]. 
-Finally, another example along similar lines is the modification of carboxymethyl curdlan (polysaccharide with antitumor activity) with a sulfonylurea to form nanohydrogels by self-assembly [65].  
-
-2.3. Hydrogel Cross-Linking by Charge Interactions  
-
- 
-Charge interactions can occur between a polymer and a small molecule or between two oppositely charged polymers to form a hydrogel. 
-
-When a polyelectrolyte combines with a multivalent ion of opposite charge, a physical gel known as an ionotropic hydrogel is produced [51]. 
-If two polyelectrolytes of opposite charges are mixed, they can gel or precipitate depending on their concentration, ionic strength, and pH of the solution; the product is called complex or polyionic. 
-
-In pioneering work in the area, calcium alginate capsules were stabilized, coating them with an alginate-poly(L-lysine) coacervate complex [5]. 
-Starch graft copolymers with neutralized acid monomers generate anionic starches that can gel through charge interactions. 
-Prado et al. [66] reported the formation of a novel interpolyelectrolyte complex (IPEC) between cation-ized corn starch by introducing the 2-hydroxy-3 (N,N,N-trimethylammonium) propyl group and κ-type carrageenan as counterpolyanion. 
-
-It should be noted that carrageenan is made up of galactose and/or anhydrogalactose units, sulfated or not, linked by alternating bonds. 
-The κ-type consists of alternating galactose units with a sulfate group at carbon four and unsulfated anhydrogalactose units. Gao et al. developed a simple, nontoxic, water-based strategy to fabricate magnetic nanoparticles/hydrogels nanocomposites in which highly crystalline Fe3O4 nanoctahedra can be fabricated in situ within a negatively charged hydrogel matrix [67]. 
-
-Besides, Katayama investigated electrostatic interactions in polyampholyte gels, which contain anions and cations in their skeleton [68]. 
-They observed that they deflated at neutral pH (pH = 7), while at various pH values, both higher and lower, they swelled. 
-The reason is that, at neutral pH, charges attract each other in such a way as to result in a deflation of the gel. 
-Conversely, if one of the charges is neutralized and the other ionized, the gel swells. 
-
-It is important to note that both van der Waals forces and hydrogen bonds cause collapse at low temperatures, while hydrophobic interactions cause the opposite effect. 
-
-Electrostatic interactions can be attractive and repulsive, depending on the nature of the gel.  
-
-2.4. Interactions by Hydrogen Bonds  
-
-
-An example is a project developed by You et al. in which they report a hydrogel with a hydrogen-bonding system consisting of weak hydrogen bonds between N,N-dimethylacrylamide (DMAA), and acrylic acid (AAc) and strong hydrogen bonds between 2-ureido-4 [H]-pyrimidinone units. 
-The hydrogels have unique properties through optimization between the radii of the monomers and a balance of the interactions [69]. 
-Yoshimura et al. prepared biodegradable hydrogels by a simple procedure: esterifying starch with succinic anhydride, using 4-dimethylaminopyridine as catalyst and dimethylsulfoxide or water as a solvent, followed by neutralization with NaOH, dialysis, and precipitation with methanol. 
-
-These hydrogels were obtained in the absence of a cross-linker. 
-The authors hypothesize that gelation occurred due to aggregation of polymer chains by regeneration of hydrogen bonds during dialysis [70].  
-
-2.5. Stereo-Complexing  
-
-Natural polymers can be cross-linked by stereo-complexing grafting. 
-
-The grafting of L-lactide and D-lactide oligomers to dextran induces spontaneous gelation in water [51]. 
-Dextran is a polysaccharide similar to amylopectin, consisting of highly branched glucose chains, whose predominant bond is α (1→6) with α (1→3) and α (1→4) branches. 
-
-These hydrogels show excellent biocompatibility and biodegradability. 
-They do not require organic solvents, chemical crosslinkers, or the formation of hydrophobic domains. 
-However, the main drawback of stereo- complexation is the restricted polymer composition range that can be used; small changes in stoichiometry can weaken or eliminate the stereochemical interaction [51]. 
-
-Some physical hydrogels have found interesting applications. 
-For example, Mehyar et al. investigated two physical hydrogels (one based on hydrogen-bonded starch and the other based on calcium alginate, with ionic interactions) as possible substrates for antimicrobial agents. 
-In these systems, diffusivity depended on the hydrogel-agent pair, being the highest with the following combinations: trisodium phosphate, starch hydrogel, and sodium acid chlorite-alginate hydrogel [71].  
-
-2.6. Protein Interactions  
-
-By employing genetic engineering, a genetic code can be designed that originates peptide sequences with specific physicochemical properties, and even synthetic amino acids can be obtained [72]. 
-Tirrell [73] and Cappello [74] were pioneers in this field. 
-Cappello et al. [75] created a high molecular weight protein-polymer based on a sequence of silk-like amino acids and elastin, in which the insoluble silk-like segments associate in sheets or strands linked by hydrogen bonds. 
-
-A particular subset of these silk-elastin-type protein compositions, called ProLastins, gelled in physiological solution. 
-The sol-gel transition can be controlled by modifying the temperature, the conditions of the solution, and the additives, which can prevent or promote the crystallization of the chain through hydrogen bonds. 
-
-Tirrell et al. [76] used recombinant DNA methods to create artificial proteins that undergo reversible gelation in response to changes in pH or temperature. 
-
-Proteins are composed of terminal leucine zipper domains flanking a flexible central segment formed by a water-soluble polyelectrolyte. 
-The formation of coiled aggregates of the terminal domains in near-neutral aqueous solutions and at room temperature triggers the formation of a three-dimensional polymeric network, in which the polyelectrolyte retains the solvent and prevents chain precipitation. 
-
-Increasing the pH or temperature dissociates the terminal aggregates, causing the dissolution of the hydrogel. 
-The mild pH and temperature conditions in which the hydrogel is formed suggest that these hydrogels could be applied in encapsulation or controlled drug and cell release. 
-Another cross-linking by protein interactions is that formed by antigen-antibody interactions. 
-For example, Miyata et al. [77] proposed modifying a PAAm hydrogel to give it the ability to reversibly swell in a buffer solution in response to a specific antigen. 
-The system was prepared by binding an antigen and the corresponding antibody to the polymer network; thus, antigen–antibody binding increases the cross-links of the PAAm hydrogel. 
-The competitive binding of free antigen in the medium causes a change in the hydrogel volume due to the breaking of these non-covalent cross-links. 
-Furthermore, it was shown that the hydrogel behaves with shape memory and that gradual changes in antigen concentration can induce pulsatile permeation through the lattice.
-
-
-
-3. Cross-Linking Strategies to Obtain Chemical Hydrogels  
-
-
-Similar to physical hydrogels, chemical hydrogels are not homogeneous. 
-
-In some cases, depending on the composition, solvent, temperature, and solids’ concentration during gelation, phase separation can occur with the formation of macropores [51].  
-
-3.1. Graft Copolymerization and Irradiation Crosslinking  
-
-Among the various techniques for grafting polymers, gamma radiation has been successfully developed to graft polymers onto polymeric materials [78]. 
-This technique does not require initiators or additives that may be harmful and difficult to remove [79]. 
-Figure 2 illustrates this technique, requiring no initiator or cross-linking agent, and can be used with virtually any vinyl monomer. 
-Both the polymerization reaction and the cross-linking can be started at room temperature. 
-This radiation acts as an initiator of the copolymerization process between the polymer matrix (the material) and the molecule to be grafted (monomer). 
-
-Ali and AlArifi synthesized a series of starch/methacrylic acid (MAAc) copolymers of different compositions [81]. 
-Both copolymerization and cross-linking were induced using γ-rays. 
-They investigated the effect of the preparation conditions on the gelation process and found that increasing the total concentration of the reaction mixture and/or the irradiation dose improves both the conversion and the degree of gelation. 
-They obtained superabsorbent materials with a maximum swelling of 1200% at 2 h and were sensitive to changes in pH. 
-
-Some synthesized hydrogels by irradiation have been tested in the controlled release of drugs. 
-Eid reported the production of starch/MAAc copolymeric hydrogels with N-Vinyl Pyrrolidone (NVP) by irradiation. 
-The hydrogels were loaded with vitamin B12, and their release rate was pH-dependent [82]. 
-Bustamante-Torres et al. succeeded in synthesizing hydrogels based on agar and AAc through a graft copolymerization using gamma radiation. 
-Using ciprofloxacin and silver nanoparticles, they used a Cobalt 60 source to cross-link these monomers and obtain pH-sensitive hydrogels with applications in charge and controlled drug release. 
-The hydrogels were loaded with antimicrobial compounds and then were evaluated against methicillin-resistant Staphylococcus aureus and Escherichia coli, showing outstanding results [83]. 
-
-A well-studied hydrogel is PHEMA which is obtained by polymerizing 2-hydroxyethyl methacrylate with a suitable cross-linking agent, for example, ethylene glycol dimethacrylate [84]. 
-Water-soluble polymers have also been derivatized with methacrylic groups by the method proposed by Edman et al. [85], examples of which are dextran [85], hydroxyethyl starch [86–88], poly-aspartamide [89–91], and PVA [92]. UV radiation-induced polymerization is also frequently used to prepare hydrogels [92–95]. 
-With this type of polymerization, they can be formed in situ [96], molded structures and even photoreversible systems can be prepared that photodegrade on exposure to UV light such that the release of drugs is controlled [97]. 
-
-The limitation of UV light polymerization is that the radicals formed can cause damage to the structure of drugs [98] and proteins [31]. 
-Cells exposed to high-intensity UV radiation for a long time can have their metabolic activity affected [99]. 
-In addition, caution should be exercised with both the type of photoinitiator and the dissolved solvent, as these can be released from the hydrogel.  
-
-3.2. Reactive Functional Groups  
-
-Covalent bonds between polymer chains are established by the reaction of functional groups that have complementary reactivity; typical reactions are the formation of Schiff bases [101], Michael-type additions [102], peptide bonds [103], and click-type reactions [104]. 
-Figure 3 illustrates an example of these reactions in order to form a cross-linked hydrogel structure.
-
-Polymers containing hydroxyl groups and amino groups can be cross-linked by molecules that contain aldehyde functional groups in their structure. 
-From these methods, the formation of a Schiff’s base between an aldehyde and an amino group is the most widely used technique. 
-
-One of the most studied aldehyde cross-linking molecules in this field is glutaraldehyde, which reacts with amino groups under mild conditions. 
-Examples of this reaction for the formation of hydrogels are the cross-linking of proteins (albumin [105], collagen [106], and gelatin [107], among others) and the cross-linking of polysaccharides (chitosan [108,109], guar gum [110], sodium alginate [111], and carrageenan). 
-However, the disadvantage of glutaraldehyde is its toxicity, even at low concentrations, causing possible leaching in the body during matrix degradation that would inhibit cell growth [112]. 
-Due to the toxicity of this compound, other bifunctional small molecules have been proposed for use as cross-linking agents. 
-
-Similarly, the cross-linking process can also be carried out using addition reactions when units of a cross-linking agent are added without loss of atoms; that is, the chemical composition of the resulting chains is equal to the sum of the chemical compositions of the polymer and the organic cross-linking molecule. 
-Widely developed examples for this type of hydrogel are polysaccharides cross-linked with 1,6-hexamethylene diisocyanate [113], divinylsulfone [114], or 1,6-hexane dibromide [115], among others. 
-Typically, these addition reactions are carried out in organic solvents to prevent water from reacting with the crosslinking agent. 
-These agents are often toxic; thus, the hydrogel must be treated to remove unreacted cross-linking molecules. 
-For this reason, the drugs or proteins to be encapsulated must be loaded later [114]. 
-It implies that it is necessary to use matrices with a pore size greater than said proteins to load proteins such that the subsequent release is generally of order one and with a limited duration [31]. 
-
-Another cross-linking between reactive groups is caused by condensation reactions between hydroxyl or amino groups with carboxyl groups (or derivatives), which are frequently used to synthesize polymers to obtain polyesters or polyamides, respectively. 
-One of the most used reagents to cross-link water-soluble polymers through amide links is N-(3-dimethylaminopropyl) -N’-ethylcarbodiimide, adding N-hydroxysuccinimide to reduce possible side reactions and have better control over the cross-linking density that occurs in the hydrogel. 
-By using such compounds, biocompatible polymers such as gelatin have been cross-linked [116]. 
-
-Other of the most commonly used condensation reactions in the field of covalent hydrogel synthesis are the Passerini and Ugi reactions. 
-In the Passerini reaction, an isocyanide, an aldehyde (or ketone), and a carboxylic acid form an α-acyloxyamide. 
-This multicomponent reaction makes it possible to obtain polymeric cross-links employing ester-type bonds functionalized in position α degradable at different ranges of temperature and pH depending on the nature of the substituents. 
-Degradation time varies from 1 to 8 days. 
-Similarly, the Ugi reaction allows the formation of an α-(acylamine) amide linkages, adding a primary amine to the Passerini reaction. 
-In this case, the cross-linking obtained is of the amide-type, giving the hydrogel more excellent stability and consistency [31]. 
-Crescezi et al. described the synthesis of hydrogels based on polysaccharides by using this condensation reaction [117,118].  
-
-3.3. Enzymatic Method  
-
-The main advantage of the enzymatic method is that the 
-This advantage makes it possible to control and predict the cross-linking kinetics and control the overall cross-linking rate. 
-For this reason, this method is suitable for in situ gelation systems [119,120]. 
-Figure 4 illustrates this method by unionizing the enzyme and the available substrate, forming a covalent bond within the cross-linking structure.
-
-An example of this technique is that proposed by Chen et al. [119], who studied the cross-linking of gelatin and chitosan in the presence of transglutaminase and tyrosinase. 
-They demonstrated that transglutaminase catalyzes the formation of resistant and permanent gelatin hydrogels (thermally irreversible) without requiring chitosan, although its presence makes the reaction faster and the hydrogels stronger. 
-Tyrosinase was also studied to catalyze the chitosan–gelatin reaction. 
-Although in this case, the presence of chitosan is necessary for the formation of the hydrogel. 
-
-These hydrogels can change consistency with temperature, such that they become stronger when cooled and weaken when heated above the melting temperature of gelatin. 
-
-The resistance of hydrogels catalyzed by both enzymes can be modulated by modifying the composition of gelatin and chitosan. 
-Another example of this technique is that proposed by Sperinde et al. [121], in which transglutaminase was used in a solution of PEG (tetrahydroxyl PEG functionalized with glutamimyl groups) and polylysine-phenylalanine. 
-This enzyme catalyzes the reaction between the γ-carboxyamide group of PEG and the epsilon-amine group of lysine to obtain an amide bond between the polymers. 
-The properties of the system can be modulated by changing the proportions of PEG and lysine. 
-For comparative purposes, Table 1 shows the different benefits and disadvantages of the synthesis of hydrogels by physical and chemical methods.
-
-
 
 
 
