@@ -60,8 +60,7 @@ Hydrogels Based on Dynamic Covalent and Non Covalent Bonds: A Chemistry Perspect
 
 The molecular reversibility can be actually achieved in two different ways: either by making use of equilibrium reactions (e.g., the Diels-Alder one) or through dynamic exchange reactions (e.g., reaction of an excess amino groups with epoxide ones). Both approaches have been widely used for tuning the adhesion of different substrates on different polymeric networks and for the network formations (and disruption) itself.
 
-The molecular reversibility can be achieved in two different ways: either by utilizing equilibrium reactions (e.g., the Diels-Alder reaction) or through dynamic exchange reactions (e.g., the reaction of an excess amino group with an epoxide group).
-
+# Dynamic Hydrogels Based on Reversible (Covalent) Interactions 
 The same concept of covalent reversible bonds can be used for the hydrogel formation and disruption. 
 Examples of interactions used in this case are (Figure 2) electrostatic ones [19,20], cycloadditions [8,21], redox reactions [22–24], and other ones such as imine [25–28] and enamine formation [29], acylhydrazone [30–33], and borax acid reaction with hydroxyls [13,34–36].
 
@@ -327,6 +326,27 @@ Enzymes often exhibit a high degree of substrate specificity, potentially avoidi
 
 --------------------------------------------------------------------------------------------
 Tough double network hydrogels with rapid self-reinforcement and low hysteresis based on highly entangled networks
+
+@article{zhuToughDoubleNetwork2024a,
+  title = {Tough Double Network Hydrogels with Rapid Self-Reinforcement and Low Hysteresis Based on Highly Entangled Networks},
+  author = {Zhu, Ruixin and Zhu, Dandan and Zheng, Zhen and Wang, Xinling},
+  year = {2024},
+  month = feb,
+  journal = {Nature Communications},
+  volume = {15},
+  number = {1},
+  pages = {1344},
+  publisher = {Nature Publishing Group},
+  issn = {2041-1723},
+  doi = {10.1038/s41467-024-45485-8},
+  urldate = {2025-08-12},
+  abstract = {Most tough hydrogels are reinforced by introducing energy dissipation mechanisms, but simultaneously realizing a high toughness and low hysteresis is challenging because the energy dissipation structure cannot recover rapidly. In this work, high mechanical performance highly entangled double network hydrogels without energy dissipation structure are fabricated, in which physical entanglements act as the primary effective crosslinking in the first network. This sliding entanglement structure allows the hydrogel network to form a highly uniform oriented structure during stretching, resulting in a high tensile strength of {\textasciitilde}3\,MPa, a fracture energy of 8340\,J\,m-2 and a strain-stiffening capability of 47.5 in 90\% water content. Moreover, almost 100\% reversibility is obtained in this hydrogel via energy storage based on entropy loss. The highly entangled double network structure not only overcomes the typical trade-off between the high toughness and low hysteresis of hydrogels, but more importantly, it provides an insight into the application of entanglement structures in high-performance hydrogels.},
+  copyright = {2024 The Author(s)},
+  langid = {english},
+  keywords = {Gels and hydrogels,Mechanical properties,Polymers},
+  file = {/home/frenour/Zotero/storage/BDXIAQQI/Zhu et al. - 2024 - Tough double network hydrogels with rapid self-reinforcement and low hysteresis based on highly enta.pdf}
+}
+
 
 PAMPS/PAAm-based double network hydrogels fracture energy can reach 100-1000Jm^-2 under a 90% water content, and its compression strength up to 40MPa
 
