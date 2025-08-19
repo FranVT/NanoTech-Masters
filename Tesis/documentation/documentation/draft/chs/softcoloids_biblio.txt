@@ -27,4 +27,182 @@ Typically, soft particles have an internal polymeric architecture, which allows 
 
 Since the single-particle elasticity alters the properties of the resulting macroscopic material, establishing the crucial link between microscopic properties and macroscopic response requires the knowledge of the effective interactions among particles.
 
+-----------------------------------------------------------------------------
+
+@article{pawdeApplicationsSoftMatter2025,
+  title = {Applications of Soft Matter Physics in Food Science: From Molecular Interactions to Macro-Scale Food Structures},
+  shorttitle = {Applications of Soft Matter Physics in Food Science},
+  author = {Pawde, Subhash and Dave, Jaydeep},
+  year = {2025},
+  month = jul,
+  journal = {Sustainable Food Technology},
+  volume = {3},
+  number = {4},
+  pages = {979--1004},
+  publisher = {RSC},
+  issn = {2753-8095},
+  doi = {10.1039/D5FB00172B},
+  urldate = {2025-08-18},
+  abstract = {Soft matter physics, encompassing materials such as polymers, colloids, emulsions, gels, and foams, provides a powerful framework for understanding the structural and functional complexity of food systems. This review explores the application of soft matter principles in food science, from molecular interactions to macroscopic structuring. The behavior of food materials under various stresses and environmental conditions is governed by key physical principles including thermodynamics, phase transitions, and molecular dynamics. These principles elucidate how protein-polysaccharide networks, colloidal assemblies, and emulsified systems determine food texture, stability, and sensory properties. Rheology, a central tool of soft matter science, enables quantitative analysis of viscoelastic properties, guiding product design, formulation, and processing optimization. Processing techniques such as extrusion, high-pressure processing, and 3D printing are examined through the lens of soft matter behavior, offering precise control over microstructure and texture. Furthermore, the review highlights the emerging integration of artificial intelligence (AI) in modeling and predicting the physicochemical properties of complex food matrices, accelerating innovation and quality control. By bridging molecular--scale interactions with macro-scale material behavior, soft matter physics enables the rational design of functional, sustainable, and consumer-appealing food products. This interdisciplinary perspective not only advances fundamental scientific understanding but also provides practical insights for improving food quality, safety, and personalization. Overall, the review underscores the transformative potential of soft matter physics in shaping the future of food science and engineering.},
+  langid = {english},
+  file = {/home/frenour/Zotero/storage/S8VL35LJ/Pawde and Dave - 2025 - Applications of soft matter physics in food science from molecular interactions to macro-scale food.pdf}
+}
+
+
+# fundamental principles of soft matter physics in food science
+
+Soft matter constitutes a distinct class of condensed matter characterized by: (1) structural organization at intermediate length scales (nanometers to micrometers) between atomic and macroscopic dimensions; (2) high susceptibility to deformation by thermal uctuations or weak external forces (stresses on the order of 106 to 103 Pa); (3) non-equilibrium behaviors including metastability, path-dependence, and structural relaxation phenomena; and (4) emergent physical properties that arise from collective interactions rather than individual molecular attributes.3
+These materials including polymers, colloids, foams, emulsions, gels, and liquid crystals exhibit dual solidlike and liquid-like properties depending on observation timescales and applied stresses, a phenomenon quantied through viscoelastic parameters.
+
+
+## Key principle: Thermodynamics, phase transistions, and molecular dynamics
+
+Soft matter physics is governed by several key principles, including thermodynamics, phase transitions, and molecular dynamics, which collectively determine the behavior and properties of soft materials.
+
+Molecular dynamics, which involves the simulation of particle motion at the atomic or molecular scale, provides insights into the kinetic behaviors and structural evolution of soft matter systems. 
+These simulations have been instrumental in modeling the self-assembly of proteins, polysaccharides, and lipid molecules in food systems, helping researchers predict the formation of various structures and textures in foods.14
+
+
+### Colloidal systems in foods. 
+
+Colloidal systems represent a fundamental category of so matter characterized by dispersions where one phase is distributed within another at length scales typically ranging from nanometers to micrometers.
+
+
+-----------------------------------------------------------------------------
+
+@article{gnanMicroscopicRoleDeformation2019,
+  title = {The Microscopic Role of Deformation in the Dynamics of Soft Colloids},
+  author = {Gnan, Nicoletta and Zaccarelli, Emanuela},
+  year = {2019},
+  month = jul,
+  journal = {Nature Physics},
+  volume = {15},
+  number = {7},
+  pages = {683--688},
+  publisher = {Nature Publishing Group},
+  issn = {1745-2481},
+  doi = {10.1038/s41567-019-0480-1},
+  urldate = {2025-08-18},
+  abstract = {Soft colloids enable the exploration of states with densities exceedingthat of random close packing, but it remains unclear whether softness controls thedynamics under these dense conditions. Experimental studies have reportedconflicting results, and numerical studies have so far focused primarily on simplemodels that allow particles to overlap, but neglect particle deformations. Thismakes the concept of softness in simulations and experiments difficult to compare.Here, we propose a model system consisting of polymer rings with internalelasticity. At high packing fractions, the system displays compressed exponentialdecay of the intermediate scattering functions and super-diffusive behaviour of themean-squared displacements. These features are explained in terms of the complexinterplay between particle deformations and dynamic heterogeneities, which givesrise to persistent motion of ballistic particles. We also observe a strikingvariation of the relaxation times with increasing particle softness, clearlydemonstrating the crucial role of deformation in the dynamics of realistic softcolloids.},
+  copyright = {2019 The Author(s), under exclusive licence to Springer Nature Limited},
+  langid = {english},
+  keywords = {Coarse-grained models,Colloids,Condensed-matter physics,Polymers},
+  file = {/home/frenour/Zotero/storage/5QA9HEV8/Gnan and Zaccarelli - 2019 - The microscopic role of deformation in the dynamics of soft colloids.pdf}
+}
+
+In recent years, colloidal particles have emerged as useful models that give access to phases and states with no counterpart in atomic and molecular systems [1–3].
+
+A crucial parameter controlling colloidal behaviour is particle softness, which can be quantified by the ratio between elastic and thermal energy [10].
+
+Several experimental works [9, 11–13] reported that softness controls the dependence of the structural relaxation time τα on temperature T or on packing fraction ζ – the so called fragility[14].
+
+Landau, L. D. & Lifshitz, E. Theory of elasticity, vol. 7. Course of Theoretical Physics 3, 109 (1986).
+
+To gain microscopic knowledge on this matter (a frigile system), we usually resort on simulations of simple repulsive models, as for example systems interacting with the Hertzian potential [18], which is found to describe microgel particles behavior at moderate packing fractions [19, 20], but is expected to fail in denser conditions where soft colloids tend to shrink, deform or even interpenetrate [21].
+
+
+Early works have indicated that, for such simple pair potentials, the change of dynamic properties with softness, such as the change of fragility, is modest [22] or absent [23]. 
+In these approaches, softness is tuned by modifying a given parameter, e.g. the strength of the repulsion, allowing particles to overlap to a certain extent, but without taking into account their deformability as well as other important aspects in realistic soft particles, namely deswelling [24–27], interpenetration [21] and faceting [28]. 
+Thus, there is a strong need to go one step forward in the modeling of soft colloids to tackle this problem and to provide a microscopic picture of these systems at high densities.
+
+
+
+
+-----------------------------------------------------------------------------
+
+@article{boonSwellingMicrohydrogelsCrosslinker2017,
+  title = {Swelling of Micro-Hydrogels with a Crosslinker Gradient},
+  author = {Boon, Niels and Schurtenberger, Peter},
+  year = {2017},
+  month = sep,
+  journal = {Physical Chemistry Chemical Physics},
+  volume = {19},
+  number = {35},
+  pages = {23740--23746},
+  publisher = {The Royal Society of Chemistry},
+  issn = {1463-9084},
+  doi = {10.1039/C7CP02434G},
+  urldate = {2025-08-19},
+  abstract = {A heterogeneous distribution of crosslinker in micro-hydrogels (microgels) results in a non-uniform polymer density inside the particles. Identifying the morphology of the hydrogel backbone enables a bottom-up approach towards the structural and rheological properties of microgel systems. On a local level we use a Flory--Rehner inspired model that focuses on highly swollen networks, characterized by a Poisson's ratio of 1/4. Our ab initio calculations take account for the nonuniform distribution of crosslinker species during the synthesis of poly(N-isopropylacylamide) (PNIPAM) microgels, yet the method is also applicable to other microgel architectures. We recover a single-particle density profile that is in close agreement with SAXS data. Comparison with experimental data confirms that the surface of the cross-linked particle is decorated with dangling polymers ends of considerable size.},
+  langid = {english},
+  file = {/home/frenour/Zotero/storage/LG5ATCUG/Boon and Schurtenberger - 2017 - Swelling of micro-hydrogels with a crosslinker gradient.pdf}
+}
+
+Microgels are sub-micron sized particles with a backbone of crosslinked polymer.
+They offer high control (in situ) over shape, size, charge,1,2 and soft interactions3,4 by stimuli such as temperature, pH,5,6 or salt concentration.7
+
+Poly(Nisopropylacylamide) (PNIPAM) polymers exhibit a temperature induced volume phase transition from coil9 to globule around 33 degrees Celsius10 and can be shaped into microgels via precipitation polymerization.11 
+This yields particles that reversibly change from a nearly-incompressible sphere to a swollen network upon varying the temperature, which can be used to explore novel routes towards complex structure formation, opens new possibilities for drug delivery12–14 and cell cultivation,15 or can be used to design fluids with adjustable rheological properties.16,17 
+The addition of crosslinkers during synthesis is essential for creating stable hydrogel cores and increasing the amount of crosslinkers results in more rigid particles. 
+Crosslinkers get predominantly incorporated early during the particle synthesis process due to a different reactivity of the crosslinker species and the NIPAM monomers. 
+The resulting particle has, therefore, a relatively dense core and a much softer surface region.18–24 
+Dispersing the crosslinker more homogeneously throughout the particle can be promoted by a controlled feed of crosslinker into the reaction mixture.21,25
+
+[So a hydrogel is a type of microgel]
+
+The precise internal structure of the particles and how this quantitatively affects the properties of the suspension is, however, still unclear.
+
+
+[The importance of crosslinker in the mechanical response]
+The celebrated model for describing the swelling of hydrogels is the Flory–Rehner theory,28–30 which has originally been derived to analyze the elastic properties of rubber-like materials.
+This model can be used to capture the volume phase transition that is observed for PNIPAM microgels, yet it has been unsuccessful in predicting the elastic moduli and soft interactions between the particles.24
+Deviations from bulk-gel behavior due to the crosslinker density gradient may be attributed to this.
+
+It has been suggested by Fernandes et al. that a spatially varying crosslinker distribution can be considered by means of a ‘matryoshka’ approach, i.e. by considering the gel particle as a collection of shells with different gel parameters.31
+
+
+# Theory and model 
+
+## Homogeneous hydrogels
+
+Swelling of charge-neutral hydrogels is induced by excludedvolume interactions between the segments that constitute the polymer network.
+
+-----------------------------------------------------------------------------
+
+@article{bergmanNewLookEffective2018,
+  title = {A New Look at Effective Interactions between Microgel Particles},
+  author = {Bergman, Maxime J. and Gnan, Nicoletta and {Obiols-Rabasa}, Marc and Meijer, Janne-Mieke and Rovigatti, Lorenzo and Zaccarelli, Emanuela and Schurtenberger, Peter},
+  year = {2018},
+  month = nov,
+  journal = {Nature Communications},
+  volume = {9},
+  number = {1},
+  pages = {5039},
+  issn = {2041-1723},
+  doi = {10.1038/s41467-018-07332-5},
+  abstract = {Thermoresponsive microgels find widespread use as colloidal model systems, because their temperature-dependent size allows facile tuning of their volume fraction in situ. However, an interaction potential unifying their behavior across the entire phase diagram is sorely lacking. Here we investigate microgel suspensions in the fluid regime at different volume fractions and temperatures, and in the presence of another population of small microgels, combining confocal microscopy experiments and numerical simulations. We find that effective interactions between microgels are clearly temperature dependent. In addition, microgel mixtures possess an enhanced stability compared to hard colloid mixtures - a property not predicted by a simple Hertzian model. Based on numerical calculations we propose a multi-Hertzian model, which reproduces the experimental behavior for all studied conditions. Our findings highlight that effective interactions between microgels are much more complex than usually assumed, displaying a crucial dependence on temperature and on~the internal core-corona architecture of the particles.},
+  langid = {english},
+  pmcid = {PMC6262015},
+  pmid = {30487527},
+  file = {/home/frenour/Zotero/storage/CLJ4GABN/Bergman et al. - 2018 - A new look at effective interactions between microgel particles.pdf}
+}
+
+Microgels are hybrid particles with dual colloid-polymer nature, belonging to the class of so-called soft  colloids
+A microgel consists of a mesoscopic crosslinked polymer network, which can deform, shrink or interpenetrate with another microgel3,4.
+Often, as a result of the synthesis conditions, a particle possesses a denser core and a  more loosely crosslinked corona5,6, which also includes so-called  dangling ends7,8.
+
+
+Vlassopoulos, D. & Cloitre, M. Tunable rheology of dense soft deformable colloids. Curr. Opin. Colloid In. 19, 561–574 (2014).
+
+van der Scheer, P., van de Laar, T., van der Gucht, J., Vlassopoulos, D. & Sprakel, J. Fragility and strength in nanoparticle glasses. ACS Nano 11, 6755–6763 (2017).
+
+Conley, G. M., Aebischer, P., Nöjd, S., Schurtenberger, P. & Scheffold, F. Jamming and overpacking fuzzy microgels: deformation, interpenetration, and compression. Sci. Adv. 3, e1700969 (2017).
+
+Mohanty, P. S. et al. Interpenetration of polymeric microgels at ultrahigh densities. Sci. Rep. 7, 1487 (2017).
+
+Stieger, M., Pedersen, J. S., Lindner, P. & Richtering, W. Are thermoresponsive microgels model systems for concentrated colloidal suspensions? a rheology and small-angle neutron scattering study. Langmuir 20, 7283–7292 (2004)
+
+
+
+
+
+Microgels are considered smart colloidal materials: in response to external parameters such as temperature, pH, ionic strength, light, or electric field (depending on the nature of the polymers) a particle is able to change its size as well as  other connected properties such as the polarizability9 or elasticity  of the particle10,11.
+
+[Pero a que rangos dimensionales? Cuál es el rango de tamaño del que se refiere?]
+Recent research shows that the interactions between swollen microgels can be more accurately reproduced by a soft Hertzian repulsion in  the fluid region of the phase diagram33, while brush-like models  can be used for highly packed samples34,35.
+
+
+
+
+
 
