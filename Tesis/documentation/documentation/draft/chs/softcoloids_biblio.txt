@@ -193,9 +193,6 @@ Mohanty, P. S. et al. Interpenetration of polymeric microgels at ultrahigh densi
 Stieger, M., Pedersen, J. S., Lindner, P. & Richtering, W. Are thermoresponsive microgels model systems for concentrated colloidal suspensions? a rheology and small-angle neutron scattering study. Langmuir 20, 7283–7292 (2004)
 
 
-
-
-
 Microgels are considered smart colloidal materials: in response to external parameters such as temperature, pH, ionic strength, light, or electric field (depending on the nature of the polymers) a particle is able to change its size as well as  other connected properties such as the polarizability9 or elasticity  of the particle10,11.
 
 [Pero a que rangos dimensionales? Cuál es el rango de tamaño del que se refiere?]
@@ -203,6 +200,94 @@ Recent research shows that the interactions between swollen microgels can be mor
 
 
 
+Evidently, it is imperative to consider the variation of the interparticle potential upon changing temperature and, crucially, the internal structure of the microgels to correctly describe their behavior, particularly for conditions where microgels are forced together—for example, in electric field applications or in the dense glassy regime, which is most widely studied in the microgel literature. 
+Furthermore, our results raise fundamental questions on the widespread practice to tune the volume fraction via a temperature change without accounting for the different nature of the system.
+
+-----------------------------------------------------------------------------
+
+@article{conleyJammingOverpackingFuzzy2017,
+  title = {Jamming and Overpacking Fuzzy Microgels: Deformation, Interpenetration, and Compression},
+  shorttitle = {Jamming and Overpacking Fuzzy Microgels},
+  author = {Conley, Gaurasundar M. and Aebischer, Philippe and N{\"o}jd, Sofi and Schurtenberger, Peter and Scheffold, Frank},
+  year = {2017},
+  month = oct,
+  journal = {Science Advances},
+  volume = {3},
+  number = {10},
+  pages = {e1700969},
+  publisher = {American Association for the Advancement of Science},
+  doi = {10.1126/sciadv.1700969},
+  urldate = {2025-08-19},
+  abstract = {Tuning the solubility of fuzzy polymer microgels by external triggers, such as temperature or pH, provides a unique mechanism for controlling the porosity and size of colloidal particles on the nanoscale. As a consequence, these smart microgel particles are being considered for applications ranging from viscosity modifiers and sensing to drug delivery and as models for the glass and the jamming transition. Despite their widespread use, little is known about how these soft particles adapt their shape and size under strong mechanical compression. We use a combination of precise labeling protocols and two-color superresolution microscopy to unravel the behavior of tracer microgels inside densely packed soft solids. We find that interpenetration and shape deformation are dominant until, in the highly overpacked state, this mechanism saturates and the only remaining way to further densify the system is by isotropic compression.},
+  file = {/home/frenour/Zotero/storage/4X6N6VQC/Conley et al. - 2017 - Jamming and overpacking fuzzy microgels Deformation, interpenetration, and compression.pdf}
+}
+
+Microgels are among the most studied colloidal and polymeric systems of the past two decades (1–4). 
+
+In particular, microgels made from thermosensitive poly(N-isopropylacrylamide) and its derivatives are of interest (5).
+By decorating and functionalizing microgels with nanoparticles, one can add additional optical, chemical, or magnetic sensitivity (6–9).
+
+Swelling the microgel by lowering the temperature can drive a colloidal suspension from the liquid to the solid state, conveniently crossing the glass and the jamming transition without the need to prepare samples of varying composition (10–13).
+
+microgels can be highly overpacked, meaning that the effective volume fraction zeff can be much larger than one (10, 17, 18)
+
+
+To understand the microstructural changes at high packing densities, it is important to be aware of the complex architecture of individual colloidal microgel particles. 
+In microgels, the internal cross-link density is not homogeneous, and moreover, microgels have a fuzzy corona with dangling polymer chains (23). 
+
+The brush-like interactions mediated by these dangling ends can have a profound influence on the onset of repulsive interactions when the microgels swell into contact (11). 
+The low-density polymer corona may also allow for deformation and even some mutual interpenetration between adjacent microgels (24). 
+Thus, the architecture of swollen microgels permits different competing packing mechanisms such as shape deformation, interpenetration, and compression. 
+
+The main goal of our work is to quantify their relative contribution by nanoscale imaging microgels based on dSTORM (direct stochastic optical reconstruction microscopy) superresolution microscopy (19, 25, 26). 
+To this end, we fluorescently label a small subset of microgels and record ultrahigh-resolution two-dimensional (2D) optical image sections. 
+The combination of precise labeling protocols and superresolution techniques allows us to map out the different contributions from the marginally jammed state to the deeply overpacked regime. 
+
+
+# Results
+
+## Microgel properties 
+
+Although the microgels investigated in this study are about 1 mm in diameter, the structural transformations we aim to characterize, as a function of packing density, occur on a significantly smaller length scale.
+
+
+# Discussion
+
+Fig. 5
+
+
+-----------------------------------------------------------------------------
+
+@article{mohantyInterpenetrationPolymericMicrogels2017a,
+  title = {Interpenetration of Polymeric Microgels at Ultrahigh Densities},
+  author = {Mohanty, Priti S. and N{\"o}jd, Sofi and {van Gruijthuijsen}, Kitty and Crassous, J{\'e}r{\^o}me J. and {Obiols-Rabasa}, Marc and Schweins, Ralf and Stradner, Anna and Schurtenberger, Peter},
+  year = {2017},
+  month = may,
+  journal = {Scientific Reports},
+  volume = {7},
+  number = {1},
+  pages = {1487},
+  publisher = {Nature Publishing Group},
+  issn = {2045-2322},
+  doi = {10.1038/s41598-017-01471-3},
+  urldate = {2025-08-19},
+  abstract = {Soft particles such as polymeric microgels can form ultra-dense phases, where the average center-to-center distance as can be smaller than the initial unperturbed particle diameter {$\sigma$}0, due to their ability to interpenetrate and compress. However, despite of the effort devoted to microgels at ultrahigh densities, we know surprisingly little about their response to their environment at effective volume fractions {$\phi$}effabove close packing ({$\phi$}cp), and the existing information is often contradictory. Here we report direct measurements of the size and shape of poly(N-isopropylacrylamide) microgels at concentrations below and above {$\phi$}cpusing the zero average contrast method in small-angle neutron scattering. We complement these experiments with measurements of the average interparticle distances using small-angle x-ray scattering, and a determination of the glass transition using dynamic light scattering. This allows us to unambiguously decouple interaction effects from density-dependent variations of the particle size and shape at all values of {$\phi$}eff. We demonstrate that the microgels used in this study significantly interpenetrate and thus change their size and shape only marginally even for {$\phi$}eff\,{$\gg$}\,{$\phi$}cp, a finding that may require changes in the interpretation of a number of previously published studies on the structural and dynamic properties of dense soft particle systems.},
+  copyright = {2017 The Author(s)},
+  langid = {english},
+  keywords = {Colloids,Polymer characterization},
+  file = {/home/frenour/Zotero/storage/XLVUJC44/Mohanty et al. - 2017 - Interpenetration of polymeric microgels at ultrahigh densities.pdf}
+}
+
+
+Microgel particles are intriguing soft and responsive colloids formed by a cross-linked polymeric structure that can undergo reversible continuous or discontinuous volume transitions upon variations of external stimuli such  as temperature, pH or ionic strength1–3.
+
+In particular thermoresponsive particles such as poly(N-isopropylacrylamide) (PNIPAm)-based microgels have been used recently as seemingly ideal model systems to investigate various  “hot” topics in the physics of crystallisation and melting, dynamical arrest, glass transition and jamming4–8.
+
+These microgel-based investigations have often relied on the ability of the particles to vary their size as a function of temperature, and used temperature as a convenient way to tune the particle size and thus the volume fraction.
+
+Given the fact that microgels can in principle adapt both their size as well as their shape in response to the environment, any attempt to understand the structural and dynamic properties of dense microgel dispersions thus requires quantitative information about the behaviour of the individual particle as a function of temperature and density.
+
+Despite the large number of publications dealing with dense soft particle suspensions, glasses and gels, there is indeed a surprising lack of information about the evolution of the size and shape of soft microgels with increasing concentration at and above close packing.
 
 
 
