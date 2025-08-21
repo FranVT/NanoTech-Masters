@@ -66,42 +66,120 @@ Since the physically cross-linked collagen hydrogels are usually mechanically we
 - Gelatin: Gelatins are naturally derived polymers obtained through breaking the triple-helix structures of collagens into single-strand molecules. 
 There are two types of gelatins, type A and type B, which are obtained with acid and  alkaline treatments of collagens, respectively.185 Gelatins can be physically cross-linked by simply reducing the temperature of  aqueous solutions of gelatins below a certain temperature.186,187
 
-- Fibrin
+- Fibrin: Fibrin is a naturally derived polymer obtained  from thrombin-treated fibrinogen.205 
+Fibrin is involved in the natural wound healing process by forming extensive fibrous networks. 
+Fibrin can form clots or hydrogels when mixing  fibrinogen and thrombin solutions at the room temperature.206
+The resultant fibrin hydrogels usually have weak mechanical properties due to the nature of physical cross-links.
 
-- Agarose
+- Agarose: Agarose is a neutral polysaccharide composed of β-D-galactopyranosyl and 3,6-anhydro-α-L-galactopyranosyl, mainly extracted from red algae (Rhodophyceae).221 
+As a thermoresponsive polymer, agarose can be heated to dissolve in water and then cooled down to form a hydrogel. 
+During this gelation process, the agarose structure changes from a random-coil configuration to bundles of associated double helices with multiple-chain aggregation in the junction  zone.222,223 
+The gelling temperature and mechanical properties of agarose hydrogels can be tuned by changing the concentration, molecular weight, and structure of the agarose  in the hydrogels.224,225 
 
-- Chitosan 
+- Chitosan: Chitosan is a linear polysaccharide composed of β-(1 → 4)-linked D-glucosamine and N-acetyl-Dglucosamine. 
+Chitosan is mainly prepared by partial deacetylation of chitin (obtained from crab and shrimp shells) to less than  40% of N-acetyl-D-glucosamine residues.231,232 
+The physical, chemical, and biological properties of chitosan materials are highly related to the molecular weight and the degree of  deacetylation of chitosan.233,234 
+Chitosan can form physically cross-linked hydrogels by hydrophobic interaction, hydrogen  bonding,235,236 metal coordination and electrostatic interaction.
+These physically cross-linked chitosan hydrogels usually have weak mechanical properties and short lifetime, which are also  highly influenced by pH, temperature, and ionic strength.232,246 
+To enhance the mechanical properties and stability of chitosan hydrogels, covalent cross-linkers have been introduced into the hydrogels.
 
-- Cellulose 
+- Cellulose: Cellulose consists of β-(1 → 4)-linked D-glucose units, which result in cellulose’s high crystallinity (over 40%) and difficulty in  dissolving in water and other common solvents.269
+Cellulose and its derivatives can be chemically cross-linked to form stable three-dimensional networks. Bifunctional and multifunctional molecules ... can form covalent ester or ether bonds between cellulose chains. 
+Cellulose chains can also be covalently crosslinked by the irradiation of electron beams and γ rays,287,288 which avoids the usage of toxic cross-linkers and allows the simultaneous sterilization of the resultant hydrogels.
 
 
 ## Synthetic Polymers for Hydrogels
 
-- Poly(acrylic acid)
+The synthetic polymer networks of hydrogels are commonly formed by copolymerization of monomers for the polymer backbones and cross-linkers, or by reactions of synthetic polymers, macromers, and/or cross-linkers.
 
-- Poly(2-hydroxyethyl methacrylate)
+- Poly(acrylic acid): Poly(acrylic acid) (PAA) is a linear polymer prepared by radical polymerization of acrylic acid monomers. The backbone of PAA contains a large number of carboxyl groups. 
+                      PAA can form hydrogels through covalent and physical cross-linking. 
+                      Covalently cross-linked PAA hydrogels are usually formed by copolymerization of di/multivinyl crosslinkers together with acrylic acid monomers.303 
+                      In addition, the carboxyl groups of PAA can form physical interactions with  various doping agents... which can act as physical cross-links for PAA hydrogels; the carboxyl groups can also form hydrogen bonds between PAA chains and introduce self-healing or self-adhesive  properties to PAA hydrogels.307 
 
-- Poly(vinyl alcohol)
+- Poly(2-hydroxyethyl methacrylate): Poly(2-hydroxyethyl methacrylate) (PHEMA) hydrogels can be prepared by free-radical polymerization of 2-hydroxyethyl methacrylate (HEMA) monomers with covalent cross-linkers such as trimethylene glycol dimethacrylate (TEGDMA), initiators such as sodium pyrosulfite (SMBS), and ammonium persulfate (APS). 
+                                     The HEMA monomers can also be copolymerized with acrylic or acrylamide monomers to control the swelling and  mechanical properties of the resultant hydrogels.311
 
-- Poly(ethylene glycol) or Poly(ethylene oxide)
+- Poly(vinyl alcohol): Poly(vinyl alcohol) (PVA) is mainly obtained from the partial hydrolysis of poly(vinyl  acetate).316
+                       PVA can form stable and elastic hydrogels through  either physical or covalent cross-linking.317,318 
+                       The physically cross-linked PVA hydrogels are commonly obtained by repeated  freezing and thawing of PVA solutions,319 which give elastic,  tough, strong, and fatigue-resistant PVA hydrogels.76,78,320 
+                       PVA can also be covalently cross-linked through the use of difunctional cross-linkers such as glutaraldehyde, epichlorohydrin, boric acid, and dialdehyde.321,322 
+                       Electron-beam and gamma irradiation can also cross-link PVA to avoid residual  covalent cross-linkers in the hydrogels.323 
 
-- Poly(N-isopropylacrylamide)
+- Poly(ethylene glycol) or Poly(ethylene oxide): Poly(ethylene glycol)(PEG) is usually obtained from the anionic or cationic polymerization of ethylene oxide.
+                                                 There are various methods to cross-link PEG polymers into hydrogels. 
+                                                 The ends of PEG chains can be modified with unsaturated groups, such as acrylate or methacrylate ends, and then be used as macro-cross-linkers to form hydrogels with other unsaturated monomers by the  photo-/UV-induced radical polymerization.330,331 
+                                                 PEG can also form hydrogels by electron beam irradiation via radiationinduced free radical processes.332
 
-- Silicone
+[This is the polymer of the simulations]
+- Poly(N-isopropylacrylamide): Acrylamide and its derivatives have been widely used to prepare hydrogels by radical copolymerization with cross-linkers.
+                               One interesting hydrogel based on acrylamide and its derivatives is the poly(Nisopropylacrylamide) (PNIPAm) hydrogel. 
+                               Un-cross-linked linear PNIPAm exhibits a coil-to-globule phase transition in aqueous solutions when the temperature is raised above a critical  temperature.359,360 
+                               The PNIPAm can be covalently cross-linked by cross-linkers such as bis-acrylamide derivatives through the radical polymerization process. 
+                               The cross-linked PNIPAm hydrogels also possess reversible thermoresponsive behavior  with a critical temperature of around 34 °C,361 above which the  hydrogel structure will collapse and exude water.362,363 
+                               While the thermoresponsive behavior of PNIPAm hydrogels is usually slow, many studies have improved the phase-transition speed of PNIPAm hydrogels by incorporating porous structures during  the hydrogel formation.364,365 
+                               The thermoresponsive PNIPAm  hydrogels can be used as actuators for soft robotics,366 injectable  scaffolds for tissue engineering,367 and thermoresponsive  substrates for on-demand detachment of cell sheets.368,369
+
+- Silicone: Silicone hydrogels are hydrogels that contain  silicone polymers as one of its polymer components.370
+        Silicone  polymers are commonly hydrophobic.371 
+        In order to form silicone hydrogels, hydrophilic monomers and/or polymers have been introduced into the silicone matrix by blending or copolymerization to improve the hydrophilicity of silicone  hydrogels.14,372,373 
+
+
 
 ## Permanent Covalent Cross-links for Hydrogels
 
 In this subsection, we will discuss permanent covalent crosslinks that are commonly used in hydrogels (Figure 5c). 
-We will discuss other types of cross-links in section 4. 
+We will discuss other types of cross-links in section 4 [Unconventional Polymer networks]. 
 The energy of  permanent covalent cross-links ranges from 220 kJ mol−1 to 570  kJ mol−1 (Figure 6).385−387
 
-- Carbon-Carbon Bonds
+4318
 
-- Carbon-Nitrogen Bonds
+- Carbon-Carbon Bonds: The energy of the carbon−carbon bond is around 300 kJ mol−1 to 450 kJ mol−1.385−387 
+                        Hydrogels covalently cross-linked by carbon−carbon bonds are usually formed by radical copolymerization of monomers and di-/multivinyl cross-linkers.
+                        These cross-linkers are compatible with various  initiation and polymerization systems.4,254,398
+                        The cross-linkers can be small molecules with two double bonds such as N,N′-methylenebis(acrylamide) (MBA) or macromolecules with several acrylate  groups.6,397 
+                        These cross-linkers are compatible with various  initiation and polymerization systems.4,254,398 
+                        For example, photoradical initiators can be added into the prepolymerization solution together with monomers and di-/multivinyl crosslinkers.318,399,400 
+                        Once the initiator is irradiated by UV light, radicals will be generated to initiate the polymerization of the  double bonds on monomers as well as cross-linkers.401,402 
+                        As a result, hydrogels can be formed in situ and with patterned  structures or biological functions.399,403 
+                        The polymerization of vinyl monomers and cross-linkers can also be carried out with a system composed of peroxydisulfate and N,N,N′N′-tetramethylene-diamine (TEMED), where TEMED can accelerate the decomposition of peroxydisulfate to generate a large number  of radicals.404 
+                        This initiation and polymerization system can effectively and rapidly form various hydrogels under room temperature.
+                        The carbon−carbon cross-links of hydrogels can also be formed by high-energy irradiation (e.g., gamma and electron beams). 
+                        Similar to UV light, high-energy radiation can be used to polymerize unsaturated compounds such as monomers and  cross-linkers with vinyl groups or acrylate groups.405,406 
+                        Highenergy radiation can also cross-link polymers without  unsaturated bonds,407 because radicals can be generated from the homolytic scission of the polymer chains under high-energy radiation. 
+                        The radiolysis of water molecules in the solvent can also generate hydroxyl radicals that attack polymer chains to  form macroradicals.408 
+                        These radicals can then undergo recombination and termination to form covalent polymer networks cross-linked by carbon−carbon bonds.
 
-- Carbon-Oxygen Bonds
+- Carbon-Nitrogen Bonds: The energy of the  carbon−nitrogen bond is around 300 kJ mol−1 to 430 kJ  mol−1.385−387 
+                        Hydrogels covalently cross-linked by carbon− nitrogen bonds are usually formed by highly effective chemical reactions of complementary groups. 
+                        For example, the amide bonds have been widely used as the covalent cross-links for hydrogels by the condensation reactions between amines with  carboxylic acids and derivatives.409 
+                        N-Hydroxysuccinimide (NHS) and N,N-(3-(dimethylamino)propyl)-N-ethyl carbodiimide (EDC) are widely used to facilitate the condensation  reaction of amines with carboxylic acids.74 
+                        The addition of NHS and EDC will also suppress possible side reactions and give  better control of the cross-link density in the hydrogels.410 
+                        The carbon−nitrogen bonds can also be formed through the addition reactions of amines with electrophiles such as adipic acid  dihydrazide and diisocyanate cross-linkers.6,120,411 
+                        These difunctional cross-linkers have been widely used to cross-link natural macromolecules due to the high reaction efficiency. 
+                        The mechanical properties of the resultant hydrogels can be controlled by tuning the concentration and ratio of the polymers and the cross-linking agents. 
+                        Another category of reactions that can form carbon−nitrogen cross-links for hydrogels is the azide−alkyne cycloaddition reaction, which is one typical click reaction to connect alkyne and azide into triazole. 
+                        The click  reaction has a high efficiency without side reactions.412 
+                        Furthermore, the azide−alkyne cycloaddition can be conducted  in the absence of metal catalysis,413 expanding the applicability of the azide−alkyne cycloaddition for preparing biocompatible hydrogels.
 
-- Carbon-Sulfide Bonds
+- Carbon-Oxygen Bonds: The energy of the carbon−  oxygen bond is around 280 kJ mol−1 to 370 kJ mol−1.385−387 
+                       The most common carbon−oxygen bond is the ester bond formed by the reactions between hydroxyl groups and carboxylic acids or  derivatives.414 
+                       Such ester cross-links can be hydrolyzed easily and make the hydrogels degradable under ambient temperature and physiological conditions. 
+                       Besides the ester cross-links, the carbon−oxygen bonds are also present in ether groups and urethane groups, which can become cross-links due to the reaction between side groups on polymers (such as hydroxyl groups on polysaccharides and PVA) and reactive cross-linkers  (such as glutaraldehyde,415,416 divinyl sulfone,417 dibromide,418  and diisocyanate419). 
+
+- Carbon-Sulfide Bonds: The energy of the carbon−  sulfide bond is around 220 kJ mol−1 to 310 kJ mol−1.387 
+                        The covalent cross-linking of hydrogels through carbon−sulfide  bonds is mainly formed by the thiol-click reactions.420,421 
+                        The inherent electron density of the sulfide atom makes thiols prone to react with many functional groups through a radical or  catalyzed process.422,423 
+                        Thiol groups can be easily converted into nucleophilic thiolates or electrophilic thiyl radicals, which then proceed with nucleophilic reactions or radical chain  processes to achieve the thiol-click reactions.424 
+                        Specifically, for the radical thiol-click reactions, the thiol group can be activated by heat and/or UV light to generate radicals that initiate the  radical-mediated thiol−ene or thiol−yne reactions.425 
+                        For the nucleophilic thiol-click reactions initiated by strong bases, the thiol groups can readily react with electron-poor ene-functional compounds through the Michael addition, with isocyanates derivatives through carbonyl addition, with halide through SN2 nucleophilic substitution, and with epoxy motifs through SN2  ring-opening reactions.426−429 
+                        The thiol-click reactions commonly have a high efficiency and high conversion rate without any side products, even in the presence of water, ions, and oxygen. 
+                        The thiol-click reactions have been extensively used to  prepare hydrogels for various biomedical applications.430,431
+
+
+' Silicon-Oxygen Bonds: The energy of the silicon−  oxygen bond is around 420 kJ mol−1 to 570 kJ mol−1.385−387 
+                        The silicon−oxygen bonds are mainly used in the formation of  silicone-based hydrogels376,432,433 and can usually enhance the  mechanical properties of the silicone-based hydrogels.434 
+                        In addition, silicon−oxygen bonds have been widely used to form strong bonding between hydrogels and diverse engineering  materials with modified surfaces such as salinized surfaces.49 
 
 # Conventional Polymer Networks
 
