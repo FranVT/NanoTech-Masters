@@ -1,0 +1,618 @@
+Papers and stuff
+
+
+The role of chemical and physical crosslinking in different deformation stages of hybrid hydrogels
+@article{xuRoleChemicalPhysical2018,
+  title = {The Role of Chemical and Physical Crosslinking in Different Deformation Stages of Hybrid Hydrogels},
+  author = {Xu, Jianyu and Liu, Xin and Ren, Xiuyan and Gao, Guanghui},
+  year = {2018},
+  month = mar,
+  journal = {European Polymer Journal},
+  volume = {100},
+  pages = {86--95},
+  issn = {0014-3057},
+  doi = {10.1016/j.eurpolymj.2018.01.020},
+  urldate = {2025-08-11},
+  abstract = {Hybrid crosslinking hydrogels have exhibited excellent mechanical properties, however, the relationship between chemical and physical crosslinking in the various deformation stages is still indistinct. Here, a hybrid hydrogel was explored by inducing low density of chemical crosslinking into latex particle hydrogels (LP-Gel), in which latex particles act as physical crosslinking centers for inducing efficient aggregation of hydrophobic chains. The resulting hybrid hydrogel exhibited extraordinary mechanical performance. It is found that the role of chemical and physical crosslinking was different during different deformation levels. The synergistic effects of chemical and physical crosslinking allow hydrogels to dissipate a large number of energy, significantly enhancing the mechanical strength of hydrogels. Moreover, the hybrid hydrogel exhibited puncture resistant, excellent ductility and rapid recovery.},
+  keywords = {Chemical crosslinking,Deformation stages,Hybrid hydrogels,Mechanism,Physical crosslinking},
+  file = {/home/frenour/Zotero/storage/NF4VPYFE/Xu et al. - 2018 - The role of chemical and physical crosslinking in different deformation stages of hybrid hydrogels.pdf;/home/frenour/Zotero/storage/EI974ZH3/S0014305717320724.html}
+}
+
+Hybrid crosslinking hydrogels consist of covalent and noncovalent crosslinking.
+The dynamic physical crosslinking could effectively dissipate energy via destruction and reorganization, and the chemical crosslinking could sustain skeleton construction.
+
+H-Gel exhibited an identical curve with P-Gel, much higher than C-Gel.
+
+
+--------------------------------------------------------------------------------------------
+
+Dynamic Covalent Hydrogels: Strong yet Dynamic
+
+
+
+--------------------------------------------------------------------------------------------
+Covalent design of ionogels: bridging with hydrogels and covalent adaptable networks
+
+
+
+--------------------------------------------------------------------------------------------
+Hydrogels Based on Dynamic Covalent and Non Covalent Bonds: A Chemistry Perspective
+@article{picchioniHydrogelsBasedDynamic2018,
+  title = {Hydrogels Based on Dynamic Covalent and Non Covalent Bonds: A Chemistry Perspective},
+  shorttitle = {Hydrogels {{Based}} on {{Dynamic Covalent}} and {{Non Covalent Bonds}}},
+  author = {Picchioni, Francesco and Muljana, Henky},
+  year = {2018},
+  month = mar,
+  journal = {Gels},
+  volume = {4},
+  number = {1},
+  pages = {21},
+  publisher = {Multidisciplinary Digital Publishing Institute},
+  issn = {2310-2861},
+  doi = {10.3390/gels4010021},
+  urldate = {2025-08-11},
+  abstract = {Hydrogels based on reversible covalent bonds represent an attractive topic for research at both academic and industrial level. While the concept of reversible covalent bonds dates back a few decades, novel developments continue to appear in the general research area of gels and especially hydrogels. The reversible character of the bonds, when translated at the general level of the polymeric network, allows reversible interaction with substrates as well as responsiveness to variety of external stimuli (e.g., self-healing). These represent crucial characteristics in applications such as drug delivery and, more generally, in the biomedical world. Furthermore, the several possible choices that can be made in terms of reversible interactions generate an almost endless number of possibilities in terms of final product structure and properties. In the present work, we aim at reviewing the latest developments in this field (i.e., the last five years) by focusing on the chemistry of the systems at hand. As such, this should allow molecular designers to develop a toolbox for the synthesis of new systems with tailored properties for a given application.},
+  copyright = {http://creativecommons.org/licenses/by/3.0/},
+  langid = {english},
+  keywords = {dynamic covalent bonds,hydrogels,reversible polymeric network},
+  file = {/home/frenour/Zotero/storage/24C9F8HI/Picchioni and Muljana - 2018 - Hydrogels Based on Dynamic Covalent and Non Covalent Bonds A Chemistry Perspective.pdf}
+}
+
+The molecular reversibility can be actually achieved in two different ways: either by making use of equilibrium reactions (e.g., the Diels-Alder one) or through dynamic exchange reactions (e.g., reaction of an excess amino groups with epoxide ones). Both approaches have been widely used for tuning the adhesion of different substrates on different polymeric networks and for the network formations (and disruption) itself.
+
+# Dynamic Hydrogels Based on Reversible (Covalent) Interactions 
+The same concept of covalent reversible bonds can be used for the hydrogel formation and disruption. 
+Examples of interactions used in this case are (Figure 2) electrostatic ones [19,20], cycloadditions [8,21], redox reactions [22–24], and other ones such as imine [25–28] and enamine formation [29], acylhydrazone [30–33], and borax acid reaction with hydroxyls [13,34–36].
+
+The general concept behind the use of reversible covalent interactions for the hydrogel polymeric chains is a the reversible network disruption with immediate release of any loading.
+
+The general idea is that the use of dynamic covalent conds allows the polymeric network to adjust itself as a result of an external sitimulus.
+
+This can be achieve in principle through other weaker ainteractions, e.g., hydrogen bonding.
+In particullar, a clear trend is detected in the last year, according to which self-assembly driven processes [10,37] can be conveniently used for hydrogel preparation. 
+However, the use of covalent bonds displays two distinct and clear advantages [25]. 
+In first instance, the network is still covalently linked, which renders it quite robust against small random fluctuations in environmental conditions such as temperature. 
+Furthermore, exchange reactions such as the one of an amine with an imine are often kinetically controlled by the use of catalysts. 
+In turn, this allows the possibility to freeze the network conformation (by slowing the kinetics) when desired. 
+
+
+
+
+--------------------------------------------------------------------------------------------
+Comparison of covalently and physically cross-linked collagen hydrogels on mediating vascular network formation for engineering adipose tissue
+
+
+
+
+
+--------------------------------------------------------------------------------------------
+Cross-linking in Hydrogels - A Review
+
+@article{maitraCrosslinkingHydrogelsReview2014,
+  title = {Cross-Linking in Hydrogels - A Review},
+  author = {Maitra, Jaya and Shukla, Vivek Kumar},
+  year = {/26/2014},
+  journal = {American Journal of Polymer Science},
+  volume = {4},
+  number = {2},
+  pages = {25--31},
+  publisher = {Scientific \& Academic Publishing},
+  issn = {2163-1352},
+  urldate = {2025-08-11},
+  abstract = {Hydrogels represent a class of high water content polymers with physical or chemical crosslinks. Their physical properties are similar to soft tissues. Cross linking is a stabilization process in polymer chemistry which leads to multidimensional extension of polymeric chain resulting in network structure. Cross-link is a bond which links one polymer chain to other. It can be ionic or covalent. Cross linking changes a liquid polymer into `solid' or `gel' by restricting the ability of movement. When polymer chains are linked together by cross-links, they lose some of their ability to move as individual polymer chains. A liquid polymer (where the chains are freely flowing) can be turned into a `solid' or `gel' by cross-linking the chains together. Cross linking increases the molecular mass of a polymer. Cross-linked polymers are important because they are mechanically strong and resistant to heat, wear and attack by solvents. However, the drawback associated with cross-linked polymers is that they are relatively inflexible when it comes to their processing properties because they are insoluble and infusible.},
+  copyright = {http://creativecommons.org/licenses/by/2.0/},
+  langid = {english},
+  file = {/home/frenour/Zotero/storage/VHSW6CZJ/Maitra and Shukla - 2014 - Cross-linking in Hydrogels - A Review.pdf}
+}
+
+Crosslinked material after absorbing lot of solvent is called a gel.
+
+Hydrogels are crosslinked hydrophilic polymer structures
+
+Their hydrophilic, soft and rubbery nature ensures minimal tissue irritation and a low tendency of cells and proteins to adhere to the hydrogel surface.
+
+Adding cross-links between polymer chains affect the physical properties of the polymer depending upon the degree of cross linking and presence and absence of crystallinity. 
+
+Cross linking results in:
+i) elasticity Elastomers are elastic polymers created by limited cross-linking. As the number of cross-links increases, however, the polymer becomes more rigid and cannot stretch as much; the polymer will become less viscous and less elastic and might even become brittle.
+ii) Decrease in the viscosity. In order to polymers to flow, the chains must move past each other and cross-linking prevent this.
+iii) Insolubility of the polymer. Cross linking results in insolubility as the chains are tied together by strong covalent bonds.
+Crosslinked materials cant't dissolve in solvents, but can absorb solvents.
+
+# Method of Crosslinking
+
+Cross-linking may occur through polymerization of monomers having functionalities more than two (by condensation) or by covalent bonding between polymeric chain through irradiation, sulphur vulcanization or chemical reactions by adding different chemicals in conjunction with heating and, sometimes, pressure.
+
+
+# Hydrogels and Crosslinking
+
+The term “hydrogel” represent water insoluble polymeric network that has capacity to absorb large amount of water [11-15]. 
+A hydrogel is a macromolecular polymer gel constructed of a network of crosslinked polymer chains.
+They are synthesized from hydrophlic monomers by either chain or step growth, along with a functional crosslinker to promote network formation. 
+Synthetic or natural polymers, homopolymer or copolymer, are used to make three dimensional networks by molecular entanglements or by chemical crosslinking [16].
+
+Cross linking either physically or chemically gives hydrogel a 3D network structure, making it insoluble. 
+This insoluble cross-linked structure allows effective immobilization and release of active agents and biomolecules. 
+Hydrogels appear similar to natural soft tissues because of their high water content.
+
+
+Physical crosslinks include entangled chains, hydrogen bonding, hydrophobic interaction and crystallite formation. 
+These physical crosslinks may not be permanent in nature, but they are sufficient to make hydrogels insoluble in an aqueous media. 
+Physical crosslinking gives reversible hydrogels. 
+Physical hydrogels can absorb the water but inhomogeneities or network defects may occur due to free chain ends or chain loops
+
+
+Chemical or permanent hydrogel are formed by covalent crosslinking of polymers.
+
+The type and degree of crosslinking influences many of the network properties, like swelling properties, elastic modulus and transport of molecules
+
+
+# Synthesis of Hydrogels
+
+Hydrogels are synthesized by different polymerization methods using both chemical and physical crosslinking routes.
+
+## Chemical crosslinked
+
+hydrogels are synthesized by chain growth polymerization, addition and condensation polymerization and gamma and electron beam polymerization.
+
+Chain-growth polymerization includes free radical polymerization, controlled free radical polymerization, anionic and cationic polymerization.
+
+Controlled living radical polymerizations offer the benefits of longer growing chain life compared to free radical polymerizations for macromolecular engineering
+
+Anionic and Cationic polymerization methods suffer from extreme sensitivity toward aqueous environments and therefore, are not used in the synthesis of polymeric hydrogels.
+
+Addition and condensation polymerization involves stepwise addition of Polyfunctional crosslinking agents with monomer functional groups.
+
+Polymer chains may be crosslinked in the presence of water to form a hydrogel. 
+Water occupies voids in the network, giving the hydrogel its characteristic surface properties.
+
+Gamma and electron beam polymerization involves high energy electromagnetic irradiation as crosslinker. 
+These high energy radiations can crosslink water-soluble monomer or polymer chain ends without the addition of a crosslinker.
+
+## Physically crosslinked
+
+hydrogels are synthesized by ionic interaction, crystallization, stereocomplex formation, hydrophobized polysaccharides, protein interaction and hydrogen bond.
+
+In ionic interactions, hydrogels can be crosslinked under mild conditions, at room temperature and physiological pH.
+
+Hydrophobic interactions results in the polymer to swell and uptake water that forms the hydrogel.
+
+Protein interaction involves block copolymers that contains repetition of silk-like and elastine-like blocks called ProLastins
+
+
+--------------------------------------------------------------------------------------------
+Hydrogels Classification According to the Physical or Chemical Interactions and as Stimuli-Sensitive Materials
+
+@article{bustamante-torresHydrogelsClassificationAccording2021,
+  title = {Hydrogels Classification According to the Physical or Chemical Interactions and as Stimuli-Sensitive Materials},
+  author = {{Bustamante-Torres}, Moises and {Romero-Fierro}, David and {Arcentales-Vera}, Bel{\'e}n and Palomino, Kenia and Maga{\~n}a, H{\'e}ctor and Bucio, Emilio},
+  year = {2021},
+  month = oct,
+  journal = {Gels},
+  volume = {7},
+  number = {4},
+  pages = {182},
+  issn = {2310-2861},
+  doi = {10.3390/gels7040182},
+  urldate = {2025-08-11},
+  abstract = {Hydrogels are attractive biomaterials with favorable characteristics due to their water uptake capacity. However, hydrogel properties are determined by the cross-linking degree and nature, the tacticity, and the crystallinity of the polymer. These biomaterials can be sorted out according to the internal structure and by their response to external factors. In this case, the internal interaction can be reversible when the internal chains are led by physicochemical interactions. These physical hydrogels can be synthesized through several techniques such as crystallization, amphiphilic copolymers, charge interactions, hydrogen bonds, stereo-complexing, and protein interactions. In contrast, the internal interaction can be irreversible through covalent cross-linking. Synthesized hydrogels by chemical interactions present a high cross-linking density and are employed using graft copolymerization, reactive functional groups, and enzymatic methods. Moreover, specific smart hydrogels have also been denoted by their external response, pH, temperature, electric, light, and enzyme. This review deeply details the type of hydrogel, either the internal structure or the external response. Furthermore, we detail some of the main applications of these hydrogels in the biomedicine field, such as drug delivery systems, scaffolds for tissue engineering, actuators, biosensors, and many other applications.},
+  pmcid = {PMC8628675},
+  pmid = {34842654},
+  file = {/home/frenour/Zotero/storage/MVLPDYJS/Bustamante-Torres et al. - 2021 - Hydrogels Classification According to the Physical or Chemical Interactions and as Stimuli-Sensitive.pdf}
+}
+
+A hydrogel is a tridimensional polymeric structure with swelling and collapse properties, flexibility, biodegradability, biocompatibility, and softness.
+
+The ability of hydrogels to absorb water arises from hydrophilic functional groups attached to the polymeric backbone, while their resistance to dissolution arises from crosslinks between network chains
+
+Variations in concentrations, structure, functionality of the monomer, and the cross-linker used in such gels can modify the structure [4]
+
+Monomers have unique properties that can form a macromolecular known as a polymer. 
+In addition, a cross-linking agent is relevant because a characteristic of any hydrogel is its cross-linked structure, which is achieved through that agent [9,10]. 
+
+The cohesion forces that allow the cross-linking of the polymer have a covalent character, and other forces such as electrostatic, hydrophobic, dipole–dipole interactions, or hydrogen bonds intervene [11–13]. 
+Typically, hydrogels are classified into two categories: physically cross-linked hydrogels and chemically cross-linked hydrogels [14], which obtain different properties based on each synthesis.
+
+Hydrophilic polymers might be considered as those polymers that contain polar functional groups such as hydroxyl (-OH), carboxyl (-COOH), and amino (-NH2) groups that make them soluble or swelled by water.
+
+A hydrophilic polymer that has received much attention is poly(vinyl alcohol) (PVA) because it has a great promise as a biological drug-delivery matrix [16] and is nontoxic.
+
+hydrophilic polymers can be cross-linked through chemical bonds, leading to the formation of hydrogels
+
+The research of hydrophilic polymers has been complex because the physical properties of solubility or swellability depend on different factors, such as the type of polymer, molecular weight, the ratio of polar groups, and degree of cross-linking.
+
+# Crosslinking Strategies to Obtain Physical Hydrogels
+
+Hydrogels can be cross-linked through physical or reversible networks, which hold them together by molecular entanglements or physicochemical interactions such as hydrogen bonds, hydrophobic interactions, charge condensation, or supramolecular chemistry. 
+The interactions that occur in this type of hydrogels are weak. 
+However, they are numerous and contribute to the presence of complex behaviors. 
+Since the interactions depend significantly on external stimuli (pH, ionic strength, the composition of the solvent, or the temperature), they allow hydrogels to be highly versatile concerning the environment, unlike covalently bonded materials. 
+
+
+## Crystalization
+
+Physical cross-linking of a polymer to form a hydrogel can also be achieved by crystallization through freeze–thaw cycles in homopolymeric systems or by forming stereocomplexes.
+
+Polymeric crystallization can occur from dilute solutions or the molten state
+
+In the first case, crystallization occurs by evaporating the solvent, resulting in the appearance of single crystals based on a chain-folded model, which presents aligned chains
+
+Freeze–thaw crystallization involves the formation of microcrystals in the structure.
+
+Stereocomplexes are formed by stereoselective interactions between polymers with complementary stereoregular structures (the functional group is located only on one side of the monomer) that interact to form a system of properties different from those of the original constituents.
+
+## Amphilic Copolymers
+
+Amphiphilic hydrogels containing both hydrophilic and hydrophobic units
+
+amphiphilic copolymers can aggregate in water to form micelles and hydrogels in which the hydrophobic segments of the polymer self-assembly [40].
+
+Copolymers typically form hydrogels with fragments of different nature or modified copolymers. 
+The latter can be formed by a water-soluble polymer to which hydrophobic fragments have been attached or hydrophobic chains modified by water-soluble fragments [31].
+
+Polymers with hydrophobic domains can also crosslink in aqueous environments through reverse thermal gelling (sol-gel transition).
+
+Polymers or oligomers with this ability are known as gelling agents and are moderately hydrophobic [50–52]. 
+
+Gelation occurs when a hydrophobic segment attaches to a hydrophilic polymer forming an amphiphilic polymer. 
+Amphiphilic polymers are generally soluble in water at low temperatures; as the temperature increases, the hydrophobic domains add to minimize the hydrophobic surface area, reducing the amount of structured water around them [53]. 
+
+Gelation temperature depends on the concentration of the polymer, the length of the hydrophobic block, and the chemical structure of the polymer.
+
+## Hydrogel Cross-linking by Charge Interactions
+
+Cross-linking (or de-crosslinking) can be achieved in situ by pH changes that cause ionization or protonation of ionic functional groups and cause gelation.
+
+When a polyelectrolyte combines with a multivalent ion of opposite charge, a physical gel known as an ionotropic hydrogel is produced
+
+If two polyelectrolytes of opposite charges are mixed, they can gel or precipitate depending on their concentration, ionic strength, and pH of the solution; the product is called complex or polyionic.
+
+
+## Interaction by Hydrogen Bonds 
+
+Hydrogen bonding interactions can be used to produce hydrogels in vitro by freezethaw cycles.
+
+The hydrogels have unique properties through optimization between the radii of the monomers and a balance of the interactions [69].
+
+These hydrogels were obtained in the absence of a cross-linker. 
+The authors hypothesize that gelation occurred due to aggregation of polymer chains by regeneration of hydrogen bonds during dialysis [70].
+
+
+## Stereo Complexing
+
+Stereo-complexing refers to the interactions between polymeric chains, or small molecules, of the same chemical composition but different stereochemistry.
+
+the main drawback of stereo- complexation is the restricted polymer composition range that can be used; small changes in stoichiometry can weaken or eliminate the stereochemical interaction
+
+## Protein Interactions
+
+Cross-linking by protein interactions can be accomplished through the use of genetically engineered proteins or antigen–antibody interactions.
+
+The sol-gel transition can be controlled by modifying the temperature, the conditions of the solution, and the additives, which can prevent or promote the crystallization of the chain through hydrogen bonds
+
+
+# Cross-Linking Strategies to Obtain Chemical Hydrogels
+
+Hydrogels are called chemical or permanent when they consist of covalently crosslinked networks.
+
+Similar to physical hydrogels, chemical hydrogels are not homogeneous. 
+It generally contains regions of the high cross-linking density and low degree of swelling (clusters), dispersed in the regions of the low cross-linking density and high swelling index. 
+The presence of these clusters is due to the hydrophobic aggregation of the cross-linking agent. 
+In some cases, depending on the composition, solvent, temperature, and solids’ concentration during gelation, phase separation can occur with the formation of macropores [51].
+
+## Graft Copolymerization and Irradiation Crosslinking
+
+Among the various techniques for grafting polymers, gamma radiation has been successfully developed to graft polymers onto polymeric materials
+This technique does not require initiators or additives that may be harmful and difficult to remove
+
+Both the polymerization reaction and the cross-linking can be started at room temperature. 
+This radiation acts as an initiator of the copolymerization process between the polymer matrix (the material) and the molecule to be grafted (monomer). 
+This method allows radiation to act on the polymer matrix, inducing the formation of reactive sites that may interact with a molecule to be grafted, initiating a free radical polymerization process
+
+## Reactive Functional Groups
+
+These are covalent reactions between the functional groups of the polymers (mainly -OH, -COOH, -NH2) that provide solubility to water-soluble polymers
+
+Covalent bonds between polymer chains are established by the reaction of functional groups that have complementary reactivity; typical reactions are the formation of Schiff bases [101], Michael-type additions [102], peptide bonds [103], and click-type reactions [104].
+
+## Enzymatic Method
+
+The main advantage of the enzymatic method is that the cross-linking of the hydrogel occurs under mild conditions without the need for the use of low molecular weight compounds (monomers, initiators, cross-linking agents), irradiation, or prior polymer functionalization to favor its cross-linking [31,119].
+
+Enzymes often exhibit a high degree of substrate specificity, potentially avoiding side reactions during cross-linking. This advantage makes it possible to control and predict the cross-linking kinetics and control the overall cross-linking rate. For this reason, this method is suitable for in situ gelation systems [119,120].
+
+# Smart Hydrogels
+
+
+--------------------------------------------------------------------------------------------
+Tough double network hydrogels with rapid self-reinforcement and low hysteresis based on highly entangled networks
+
+@article{zhuToughDoubleNetwork2024a,
+  title = {Tough Double Network Hydrogels with Rapid Self-Reinforcement and Low Hysteresis Based on Highly Entangled Networks},
+  author = {Zhu, Ruixin and Zhu, Dandan and Zheng, Zhen and Wang, Xinling},
+  year = {2024},
+  month = feb,
+  journal = {Nature Communications},
+  volume = {15},
+  number = {1},
+  pages = {1344},
+  publisher = {Nature Publishing Group},
+  issn = {2041-1723},
+  doi = {10.1038/s41467-024-45485-8},
+  urldate = {2025-08-12},
+  abstract = {Most tough hydrogels are reinforced by introducing energy dissipation mechanisms, but simultaneously realizing a high toughness and low hysteresis is challenging because the energy dissipation structure cannot recover rapidly. In this work, high mechanical performance highly entangled double network hydrogels without energy dissipation structure are fabricated, in which physical entanglements act as the primary effective crosslinking in the first network. This sliding entanglement structure allows the hydrogel network to form a highly uniform oriented structure during stretching, resulting in a high tensile strength of {\textasciitilde}3\,MPa, a fracture energy of 8340\,J\,m-2 and a strain-stiffening capability of 47.5 in 90\% water content. Moreover, almost 100\% reversibility is obtained in this hydrogel via energy storage based on entropy loss. The highly entangled double network structure not only overcomes the typical trade-off between the high toughness and low hysteresis of hydrogels, but more importantly, it provides an insight into the application of entanglement structures in high-performance hydrogels.},
+  copyright = {2024 The Author(s)},
+  langid = {english},
+  keywords = {Gels and hydrogels,Mechanical properties,Polymers},
+  file = {/home/frenour/Zotero/storage/BDXIAQQI/Zhu et al. - 2024 - Tough double network hydrogels with rapid self-reinforcement and low hysteresis based on highly enta.pdf}
+}
+
+
+PAMPS/PAAm-based double network hydrogels fracture energy can reach 100-1000Jm^-2 under a 90% water content, and its compression strength up to 40MPa
+
+More significantly, the energy dissipation mechanism of traditional double-network (TDN) hydrogels has inspired the development and application of many high-strength hydrogels.
+
+For example, the DN hydrogel with an alginate-Ca2+ network as the energy dissipation structure achieved a fracture energy of 9000 J m−2 5,, but its toughness declined dramatically after the first stretching cycle and showed high hysteresis. 
+Moreover, this low reversibility is not a exclusive shortcoming of DN hydrogels, but rather an inevitable problem for most hydrogels with energy dissipation mechanisms5–9. 
+Instantaneous recovery cannot be achieved even if non-covalent bonds10–15, nanoparticles16,17 and crystal structures18,19 with recoverable energy dissipation mechanisms are used. 
+Reconstruction of damaged structures usually takes minutes or hours which is much longer than the energy dissipated time, and results in hard instantaneous mechanical property recovery at the experimental observation scale. 
+
+Although some elastic gels that do not use energy dissipation mechanisms exhibit high recovery, their show low tensile strength and toughness20–23. 
+For example, the polyacrylamide hydrogel using hyperbranched silica nanoparticles (HBSPs) as the main junction point showed only 1.3% hysteresis, but its tensile strength was only 150 kPa23. 
+Polymerizable rotaxane hydrogels (PR-Gel) had a reversibility of 97.5%, but their tensile strength was only 80 kPa21. 
+This is consistent with the fact that elastic gels are known to be brittle and notch-sensitive24,25. 
+In other words, the stretchability and strength decrease significantly when a sample contains nicks or other features that produce uneven deformation5. 
+
+Polyrotaxane PEG hydrogels with strain-induced crystallization prepared by Koichi Mayumi and Kohzo Ito et al. achieved a combination of high toughness and low hysteresis to a certain extent. 
+With a water content of 70%, their tensile strength, fracture energy and reversibility were 3 MPa, 2200 J m−2 and almost 100% respectively. 
+Nevertheless, the synthesis of the polyrotaxane is complicated26. 
+
+Therefore, how to prepare hydrogels with high toughness and low hysteresis simply and efficiently is still an urgent problem.
+
+
+Elastic networks without energy dissipation structures can improve the reversibility of hydrogels, and their weak mechanical properties may be improved by adjusting the network structure.
+
+Many studies have shown that the network structure significantly affects the hysteresis27, elasticity28, and fracture behavior29,30 of hydrogels.
+
+hydrogel networks are spatially inhomogeneous, especially those obtained by radical polymerization34,35.
+
+Spatial inhomogeneity refers to inhomogeneous crosslinking, usually resulting in a mixture of densely and loosely crosslinked domains in the network with distances on the order of 10–100 nm36.
+
+Many literatures have demonstrated that a non-uniform microstructure of hydrogels will markedly affects their macroscopic properties, but methods to avoid or reduce this network structure inhomogeneity and thus improve the fracture behavior and hysteresis of the material have not been studied.
+
+In this work, we prepare highly entangled double network (HEDN) hydrogels, in which many physical entanglements act as effective crosslinks for the first network.
+
+The prepared hydrogels show high tensile strength, high toughness and strain-stiffening characteristics. Moreover, the external energy applied to the hydrogels is not dissipated, but rather stored in highly oriented molecular chains as an entropy loss, which endows the hydrogels with low hysteresis.
+
+In traditional double-network (TDN) hydrogels, the first network is usually a brittle polyelectrolyte with dense chemical crosslinks prepared in a dilute monomer solution.
+In contrast, the first network of HEDN hydrogels is a tough polymer with dense physical entanglement points obtained in a high-concentration monomer solution.
+
+Minimal chemical crosslinker MBAA (0.001 mol%) is used in HEDN1st network to prevent the disentanglement of physical entanglement points.
+
+Highly entangled hydrogels mean that there is more entanglement per unit volume under the same solid content.
+
+Entanglements will significantly affect the equilibrium water content of hydrogels.
+
+Many entanglements effectively inhibit the swelling of networks.
+
+The entanglements also increase the stiffness of hydrogels9,20
+
+the stiffness of the gel is determined by the degree of entanglement in this work
+
+The tensile strength also increases with the increase of entanglement, but the elongation at break is opposite
+
+...
+
+The fundamental reason is that sliding entanglement causes the polymer network to form a highly uniform orientation structure under tensile strain.
+
+# Self-reinforcement, high reversibility mechanism of highly entangled double network structures
+
+the pores of the freeze-dried TDN hydrogel are unevenly distributed.
+This uneven pore distribution is not a random distribution of individual pores but rather large and small pores aggregate in different regions or microdomains.
+
+These pores were produced by defects (or large voids) in the first network during free-radical polymerization, and the high-density chemical crosslinking ensures the stability of these defects.
+Thus, the second network formed in the defects can swell more freely.
+
+In contrast, HEDN hydrogels show relatively weak shoulder peak, indicating that the uniformity of the network has been improved to some extent.
+
+The high roughness of the gel is attributed to the different swelling degrees of different microdomains. 
+A more uniform network can effectively avoid the stress concentration within the hydrogels29.
+
+
+The brittle first network of the TDN hydrogel begins to break when stretched, and the polymer chains (those chains with small hidden lengths) in the second network are selectively elongated orientation
+The first network is eventually broken completely at high strain, and the remaining strain is mainly provided by the flexible second network.
+the TDN hydrogel has a higher initial modulus, but the modulus decreases upon increasing the strain.
+
+Whereas for the HEDN hydrogels, the entanglement points in the first network begin to slide under stress and orient the polymer chains along the direction of the applied force, while also incorporating the entangled second network into it.
+The sliding on the entanglement points homogenizes the polymer chains with different hidden lengths, i.e., all polymer chains are equally stretched.
+The HEDN hydrogels show almost no polymer chains breakage during the initial stretching, and only polymer chain orientation occurs. 
+In this process, energy is stored as an entropy loss. When the external force is removed, this energy will be released in the form of an entropy increase. 
+When the HEDN hydrogels are stretched to a certain extent, the polymer chains are highly oriented, and the material becomes very rigid in the direction of the applied force, thus exhibiting typical strainstiffening behavior.
+
+the interference color changes abruptly, which is generated by the high-level orientation of polymer chains caused by high-density chain entanglements.
+
+Strain-stiffening behavior is caused by the higher orientation of polymer chains under large strains
+
+Because the hydrogel network has inhomogeneous cross-linked microdomains, the deformation of these microdomains is different when stretched, so the orientation of the network is not completely uniform.
+If when the network is stretched and the microdomains disappear, the resulting oriented structure is regarded as highly uniformly oriented.
+
+This indicates that although there is a certain non-uniform entanglement network in the undeformed HEDN hydrogels, the sliding entanglements make the stretched polymer network achieve uniform orientation.
+
+The SAXS profiles before and after stretching show almost exactly overlapping curves, indicating that the HEDN hydrogels evolved from a non-uniform initial state to a uniform network structure after stretching, and then returned to a non-uniform structure after unloading. 
+This recovery from a highly ordered stretch structure to a disordered entanglement structure is driven by entropy. 
+Moreover, there is almost no energy dissipation structure in the network. Thus, HEDN hydrogels have high recoverability.
+
+The stretched HEDN-0.8 hydrogel network is highly uniform oriented due to the sliding of entanglement points during stretching.
+This highly uniform orientation structure endows high water content hydrogels with high strength and high strain-stiffening capability. 
+This entropic elastic nature without energy dissipation also gives these hydrogels high reversibility and fatigue resistance.
+
+# Stress dispersion mechanism at the nptch of HEDN hydrogels
+
+The theory of fracture mechanics states that due to the singularity in stress and strain, the deformation field near the crack tip is usually much greater than that in the bulk53–55.
+
+
+Due to the anchoring of polymer chains by the high-density chemical crosslinking sites in the first network of the TDN hydrogel, only the first elongated polymer chain bears the force of stretching, while other polymer chains remain in their original state.
+When the first polymer chain breaks, stress is transferred to other chains, and this breakage causes a chain reaction in the hydrogel network that cause the crack to rapidly expand
+is mainly concentrated near the notch, which indicates that only the polymer chains around the notch are stretched, while other polymer chains remain unstressed or un-oriented. 
+These are a typical stress concentration phenomenon.
+
+
+the HEDN hydrogels not only appears interference color around the notch and bright interference color at other positions, which indicates the stress is distributed to the bulk.
+that notched HEDN hydrogels can recruit more polymer chains to withstand greater external forces.
+
+the densely entangled points begin to slip and distribute the force to other chains, which avoids stress concentration and recruiting more chains bear external force.
+
+the effective stress dispersion induced by entanglement around the notch gives HEDN hydrogels ultrahigh fracture energy.
+
+--------------------------------------------------------------------------------------------
+Strong and tough fibrous hydrogels reinforced by multiscale hierarchical structures with multimechanisms
+
+
+--------------------------------------------------------------------------------------------
+Is there any fundamental difference between ionic, covalent, and other types of bond? a cononical perspective on the question
+
+@article{waltonThereAnyFundamental2017,
+  title = {Is There Any Fundamental Difference between Ionic, Covalent, and Others Types of Bond? A Canonical Perspective on the Question},
+  shorttitle = {Is There Any Fundamental Difference between Ionic, Covalent, and Others Types of Bond?},
+  author = {Walton, Jay R. and {Rivera-Rivera}, Luis A. and Lucchese, Robert R. and Bevan, John W.},
+  year = {2017},
+  month = jun,
+  journal = {Physical Chemistry Chemical Physics},
+  volume = {19},
+  number = {24},
+  pages = {15864--15869},
+  publisher = {The Royal Society of Chemistry},
+  issn = {1463-9084},
+  doi = {10.1039/C7CP02407J},
+  urldate = {2025-08-13},
+  abstract = {The concept of chemical bonding is normally presented and simplified through two models: the covalent bond and the ionic bond. Expansion of the ideal covalent and ionic models leads chemists to the concepts of electronegativity and polarizability, and thus to the classification of polar and non-polar bonds. In addition, the intermolecular interactions are normally viewed as physical phenomena without direct correlation to the chemical bond in any simplistic model. Contrary to these traditional concepts of chemical bonding, recently developed canonical approaches demonstrate a unified perspective on the nature of binding in pairwise interatomic interactions. This new canonical model, which is a force-based approach with a basis in fundamental molecular quantum mechanics, confirms much earlier assertions that in fact there are no fundamental distinctions among covalent bonds, ionic bonds, and intermolecular interactions including the hydrogen bond, the halogen bond, and van der Waals interactions.},
+  langid = {english},
+  file = {/home/frenour/Zotero/storage/ASD593JD/Walton et al. - 2017 - Is there any fundamental difference between ionic, covalent, and others types of bond A canonical p.pdf}
+}
+
+It is common to first teach students  that the chemical bond consists of two extreme models: the covalent bond model and the ionic  bond model. 
+The covalent bond is described as a sharing of electrons; the ionic bond is described  as a consequence of Coulombic attractions between opposite charges on the interacting atoms.
+These simplistic models are further refined by introducing the concepts of electronegativity and  polarizability effects which lead to the classification of polar and non-polar bonds.
+
+The concept  of intermolecular interaction, such as the hydrogen bond and van der Waals interactions, are  normally viewed as physical phenomena with no direct correlation to the chemical bond.
+
+Intermolecular interactions are described as electrostatic, dispersion, and polarization effects  between pair of atoms or molecules.
+
+--------------------------------------------------------------------------------------------
+Non-Covalent Interactions in Polymers
+
+@article{novikovNonCovalentInteractionsPolymers2023,
+  title = {Non-Covalent Interactions in Polymers},
+  author = {Novikov, Alexander S.},
+  year = {2023},
+  month = jan,
+  journal = {Polymers},
+  volume = {15},
+  number = {5},
+  pages = {1139},
+  publisher = {Multidisciplinary Digital Publishing Institute},
+  issn = {2073-4360},
+  doi = {10.3390/polym15051139},
+  urldate = {2025-08-14},
+  abstract = {Non-covalent interactions are one of the key topics in modern chemical science. These inter- and intramolecular weak interactions (e.g., hydrogen, halogen, and chalcogen bonds, stacking interactions and metallophilic contacts) have a significant effect on the properties of polymers. In this Special Issue, ``Non-covalent interactions in polymers'', we tried to collect fundamental and applied research manuscripts (original research articles and comprehensive review papers) focused on non-covalent interactions in polymer chemistry and related fields. The scope of the Special Issue is very broad: we welcome all the contributions that deal with the synthesis, structure, functionality and properties of polymer systems involving non-covalent interactions.},
+  copyright = {http://creativecommons.org/licenses/by/3.0/},
+  langid = {english},
+  keywords = {n/a},
+  file = {/home/frenour/Zotero/storage/4Q7QFS4T/Novikov - 2023 - Non-Covalent Interactions in Polymers.pdf}
+}
+
+Non-covalent interactions are inter- and intramolecular weak interactions.
+
+In [8,9], the influence of non-covalent interaction on the self-healing of mechanical properties in supramolecular polymers was discussed.
+
+
+--------------------------------------------------------------------------------------------
+Towards developing a criterion to characterize non-covalent bonds: a quantum mechanical study
+
+@article{kumarDevelopingCriterionCharacterize2021,
+  title = {Towards Developing a Criterion to Characterize Non-Covalent Bonds: A Quantum Mechanical Study},
+  shorttitle = {Towards Developing a Criterion to Characterize Non-Covalent Bonds},
+  author = {Kumar, Nandan and Saha, Soumen and Sastry, G. Narahari},
+  year = {2021},
+  month = apr,
+  journal = {Physical Chemistry Chemical Physics},
+  volume = {23},
+  number = {14},
+  pages = {8478--8488},
+  publisher = {The Royal Society of Chemistry},
+  issn = {1463-9084},
+  doi = {10.1039/D0CP05689H},
+  urldate = {2025-08-14},
+  abstract = {Chemical bonds are central to chemistry, biology, and allied fields, but still, the criterion to characterize an interaction as a non-covalent bond has not been studied rigorously. Therefore, in this study, we have attempted to characterize the non-covalent bonds by considering a total of 85 model systems depicting different chemical bonds comprising 43 non-covalent and 42 other bonds such as covalent, ionic, and coordinate bonds. The characterization has been done based on interaction energy, energy decomposition analysis (EDA), the NCI plot, and the analysis of topological properties of electron density. The interaction energy values, energy decomposition analysis, and NCI plot give insights into the full understanding of bond strength and its nature, but they fail to distinctively characterize the interaction as a non-covalent bond. Herein, a special criterion has been developed based on the topological parameters to characterize an interaction as a non-covalent bond. Topological parameters illustrate that the values of both ∇2{$\rho$} and H(r) are positive with a value of {$\rho$} {$<$} 0.03 a.u. and [-G(r)/V(r)] {$\geq$} 1.00 for the non-covalent bonds. The value of {$\rho$} increases up to 0.06 a.u. with a positive value of ∇2{$\rho$} and a negative value of H(r) if the non-covalent bond is partially covalent in nature. The analysis of G(r) suggests that it dominates the H(r) of non-covalent bonds with greater than 50\% contribution, whereas the contribution of G(r) varies between 35 and 50\% in the case of bonds which are partially covalent in nature. The criterion based on topological parameters is likely to be very helpful to comprehend and ascertain the non-covalent bonds in the chemical as well as complex biological systems.},
+  langid = {english},
+  file = {/home/frenour/Zotero/storage/6GX8TMRX/Kumar et al. - 2021 - Towards developing a criterion to characterize non-covalent bonds a quantum mechanical study.pdf;/home/frenour/Zotero/storage/UNJU583P/Towards developing a criterion to characterize non-covalent bonds a quantum mechanical study.pdf}
+}
+
+
+
+In comparison to the covalent bonds, non-covalent bonds are generally found to be weaker22–28 but sometimes the strength of non-covalent bonds is comparable to the strength of covalent bonds.7,29.
+
+Several criteria have been proposed for some of the non-covalent bonds based on topological parameters, molecular electrostatic potentials, and interaction energies.
+
+According to Bader, covalent (or shared) interactions should have a high electron density (r) and negative value of Laplacian of electron density (r2r), whereas, a low value of r and a positive value of r2r indicate the closed-shell type of bonding.
+
+it is often desirable to obtain the physical origin of the bond based on the interaction energy components, such as chemical bonds that are either driven by electrostatic or polarization or dispersion energy, depending on the type, size, charge, and substitution of the interacting entities.
+
+Interaction energies are not suited sometimes as bond strength descriptors because they are biased with geometry relaxation of the fragments as well as the reorganization of their electron densities.
+
+# Results and discussion 
+
+The considered non-covalent model systems covering 20 different types of noncovalent bonds, namely hydrogen bond (HB), charged assisted hydrogen bond (CHB), metal ion-lone pair (ML), XH–p (XHP), lone pair–p (LP), anion–p (AP), cation–p (CP), p–p (PP), cationalkane (CA), halogen bond (XB), hydride–XB (HXB), carbon bond (CB), pnicogen bond (PB), chalcogen bond (CGB), tetral bond (TB), lithium bond (LB), van der Waals (VDW), hydrogenHB (HHB), dihydrogen bond (DHB) and beryllium bond (BB).
+
+## Interaction energies
+
+Among the differences between the covalent and noncovalent bonds, the Eint and equilibrium bond distance (r in Å) are believed to be one of the criteria to distinguish the covalent and non-covalent bonds.
+
+the Eint of typical covalent bonds is greater than that of non-covalent bonds, whereas the bond distance is less for covalent bonds than non-covalent bonds.
+
+Fig. 1 The variation of interaction energy (Eint in kcal mol 1) with respect to the equilibrium bond distance (r in Å) for the considered covalent and non-covalent bonds.
+
+The plot of Eint vs. bond distance, shown in Fig. 1 illustrates that some of the covalent and non-covalent bonds share a common Eint and bond distance, i.e. around 1.7 Å to 2.1 Å and 50 kcal mol 1 bond distance and Eint respectively, suggesting that covalent and noncovalent bonds cannot always be distinguished exclusively based on the Eint and bond distance. 
+Moreover, we have not observed a good correlation between Eint and bond distance for the whole set of covalent and non-covalent bonds, shown in Fig. 1, but it might show a good correlation if we separate the whole set of covalent and non-covalent bonds based on the nature and type of the interacting moieties.
+
+
+## Energy decomposition analysis
+
+This suggests that covalent bonds are driven either by DEpol or DEex followed by DEelc and to a lesser extent by the DEdisp component. 
+However, both DEpol and DEex components seem to be highly competitive with each other. 
+From Fig. 2(a) and Table S8(b) in the ESI,† it can be noticed that the chloride type of covalent systems (i.e., 14–19), as well as C2H6 and CH3SH (i.e., 22 and 24, respectively), are driven by the DEex component whereas other typical covalent bonds are DEpol driven.
+
+In the case of coordinate bonds too (i.e., 34–42), the DEex component was found to be dominating with around or more than 40% contribution (Table S10, ESI†) followed by the DEpol or DEelc component.
+
+The nature of non-covalent bonds significantly varies as per the nature and type of interacting moieties.
+
+we could not generalize the nature of non-covalent bonds, as some of the non-covalent bonds are either driven by the DEelc or DEpol component while the remaining are driven by DEex or DEdisp components.
+
+we have further analyzed the contribution of energy components with respect to the strength of non-covalent bonds, as shown in Fig. 3. 
+This suggests that the weak non-covalent bonds are dominated by the DEex component. 
+However, the contribution of DEex component decreases significantly, and the contribution of either DEelc or DEpol or both increases with an increase in the strength of the non-covalent bonds.
+
+the preceding discussion suggests that covalent and coordinate bonds are either DEpol or DEex driven, while the DEelc component dominates the ionic bond. 
+Weak non-covalent bonds are dominated by the DEex component, whereas moderate and strong non-covalent bonds (see Table S6, ESI,† and Fig. 3) are driven either by the DEelc or DEpol component.
+
+
+Overall, Energy Decomposition Analysis (EDA) could not generalize the nature of non-covalent bonds and has also not been able to characterize non-covalent bonds based on the contribution of the energy components.
+
+
+## Non-covalent index plot analysis
+
+
+## AIM analysis
+
+The properties and chemically significant information of the chemical bonds have been studied effectively using Bader’s AIM theory.
+
+According to Bader’s theory, when Laplacian of electron density (r2r) is negative, i.e. r2r o 0 and electron density (r) is large, i.e. r 4 0.20 a.u., corresponds to shared covalent) interaction;
+whereas for closed-shell systems (as found in ionic bonds, in hydrogen bonds, etc.), r is relatively low and r2r is positive, i.e. r2r 4 0.
+
+
+
+
+# Conclusion
+
+
+

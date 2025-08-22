@@ -3,7 +3,7 @@
 % Updated: October 27 , 2002
 % --------------------------------------------------------------------
 
-\documentclass[10pt,twoside]{report}
+\documentclass{book}
 
 %----------------------------------------------------------------------
 % Reprocess only those files which have changed recently:
@@ -41,7 +41,6 @@
 \usepackage{cleveref}
 \usepackage{natbib}
 \usepackage{comment}
-
 \setcounter{secnumdepth}{2}
 
 %----------------------------------------------------------------------
@@ -97,11 +96,13 @@
 
 \headsep = 25 pt   % Avoid the top margin problem
 
+\title{This is the title of the Thesis}
+
 \begin{document}
 %----------------------------------------------------------------------
 % FRONT MATERIAL
 %----------------------------------------------------------------------
-\include{frontpage}
+%\include{frontpage}
 % \include{scheduleRMM}
 % Title page, declaration, borrowers' page, abstract, acknowlegements,
 % dedication, table of contents, list of tables, list of figures
@@ -111,19 +112,21 @@
 %----------------------------------------------------------------------
 % Put the document title and page numbers in the header
 
-\pagestyle{myheadings}
+%\pagestyle{myheadings}
 
 % Put title on left & chapter heading goes on right by default
 % \markboth{Reporte Tecnico}
 %  Go to normal sized type
 \normalsize
+\maketitle
+\tableofcontents
 
 % Chapters
 
 \include{chs/ch1}      % Chapter 1 Intro
-%include{chs/ch2}      % Chapter 2 Theoretical framework
-%\include{chs/ch3}      % Chapter 3 Numerical Experiments
-%\include{chs/ch4}      % Chapter 4 Conclusion
+\include{chs/ch2}      % Chapter 2 Theoretical framework
+\include{chs/ch3}      % Chapter 3 Numerical Experiments
+\include{chs/ch4}      % Chapter 4 Conclusion
 
 %----------------------------------------------------------------------
 % END MATERIAL
@@ -134,11 +137,11 @@
 % If done using the BibTeX program, use
 
 %\markright{Bibliography} % right header
-%\bibliographystyle{plain}  % sorted alphabetically, labeled with numbers
+%VimtexCompileSS\bibliographystyle{plain}  % sorted alphabetically, labeled with numbers
 
 %\nocite{*}
 \bibliographystyle{plainnat}
-\bibliography{MyBiblio.bib}     % names file phdrefs.bib as my bibliography file
+\bibliography{biblio.bib}     % names file phdrefs.bib as my bibliography file
 
 
 % Appendices-----------------------------------------------------------
@@ -158,7 +161,6 @@
 \printindex % here
 % OR, do it "by hand" inside \begin{theindex} ... \end{theindex}
 
-\include{RMMCV}     % No CV for the time being
 
 %----------------------------------------------------------------------
 \end{document}

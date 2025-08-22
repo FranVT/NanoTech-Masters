@@ -1,0 +1,881 @@
+# Papers and stuff 
+
+-----------------------------------------------------------------------------
+
+@article{zhaoSoftMaterialsDesign2021,
+  title = {Soft {{Materials}} by {{Design}}: {{Unconventional Polymer Networks Give Extreme Properties}}},
+  shorttitle = {Soft {{Materials}} by {{Design}}},
+  author = {Zhao, Xuanhe and Chen, Xiaoyu and Yuk, Hyunwoo and Lin, Shaoting and Liu, Xinyue and Parada, German},
+  year = {2021},
+  month = apr,
+  journal = {Chemical Reviews},
+  volume = {121},
+  number = {8},
+  pages = {4309--4372},
+  publisher = {American Chemical Society},
+  issn = {0009-2665},
+  doi = {10.1021/acs.chemrev.0c01088},
+  urldate = {2025-08-19},
+  abstract = {Hydrogels are polymer networks infiltrated with water. Many biological hydrogels in animal bodies such as muscles, heart valves, cartilages, and tendons possess extreme mechanical properties including being extremely tough, strong, resilient, adhesive, and fatigue-resistant. These mechanical properties are also critical for hydrogels' diverse applications ranging from drug delivery, tissue engineering, medical implants, wound dressings, and contact lenses to sensors, actuators, electronic devices, optical devices, batteries, water harvesters, and soft robots. Whereas numerous hydrogels have been developed over the last few decades, a set of general principles that can rationally guide the design of hydrogels using different materials and fabrication methods for various applications remain a central need in the field of soft materials. This review is aimed at synergistically reporting: (i) general design principles for hydrogels to achieve extreme mechanical and physical properties, (ii) implementation strategies for the design principles using unconventional polymer networks, and (iii) future directions for the orthogonal design of hydrogels to achieve multiple combined mechanical, physical, chemical, and biological properties. Because these design principles and implementation strategies are based on generic polymer networks, they are also applicable to other soft materials including elastomers and organogels. Overall, the review will not only provide comprehensive and systematic guidelines on the rational design of soft materials, but also provoke interdisciplinary discussions on a fundamental question: why does nature select soft materials with unconventional polymer networks to constitute the major parts of animal bodies?},
+  file = {/home/frenour/Zotero/storage/3H6T5LPV/Zhao et al. - 2021 - Soft Materials by Design Unconventional Polymer Networks Give Extreme Properties.pdf}
+}
+
+As hydrophilic polymer networks infiltrated with water,1 hydrogels
+
+The pioneering works in the field of polymers and soft materials have laid the foundation for understanding the elasticity, swelling, poroelasticity, viscoelasticity, fracture, and fatigue of hydrogels (e.g., refs 53−66 and the references therein).
+
+how to design hydrogels that possess certain mechanical properties or certain properties in generalstill poses a grand challenge in the  field of polymers and soft materials.
+
+For example, cartilage is a tough connective tissue that covers the surfaces of joints to  provide reduced friction.79 
+The human knee joint cartilage (i.e., articular cartilage) typically needs to sustain compressive stresses of 4−9 MPa for 1 million cycles per year, while  maintaining high fracture toughness around 1000 J m−2 (Figure  2a).80 
+The high fracture toughness of articular cartilage is mainly attributed to its abundant strong collagen fibers interpenetrated with proteoglycan macromolecules. 
+This structure of articular cartilage provides both viscoelasticity and poroelasticity for  mechanical dissipation.81,82 
+The viscoelasticity of articular cartilage is mainly associated with local rearrangement of aggrecan, adhesive interactions of aggrecan, and reconfiguration  of collagen;82 the poroelasticity of articular cartilage is governed by the interstitial fluid movement through the porous  extracellular matrix.81
+
+The fatigue-resistant adhesion of soft tissues (e.g., tendons, ligaments, and cartilages) to rigid bones is commonly achieved through nanostructured interfaces composed of aligned collagen nanofibrils and ordered  hydroxyapatite nanocrystals.
+
+What are nature’s design principles for various biological hydrogels besides the abovementioned ones (Figure 2) to achieve extreme mechanical properties?
+
+
+many extreme mechanical and physical properties were first achieved in other soft materials than hydrogels. For example, high values of fracture toughness, tensile strength, resilience, and interfacial toughness were realized in elastomers long before in hydrogels; ferromagnetic domains in soft materials were first programmed and 3D printed with  elastomeric inks as well.38,39
+
+
+# Common Polymers and Crosslinks for Hydrogels
+
+A rich library of polymers and cross-links have been used for the design and fabrication of various hydrogels.
+These polymers can be broadly categorized into natural polymers and synthetic polymers. 
+In this section, we will briefly discuss the commonly used natural polymers, synthetic polymers, and permanent covalent cross-links for hydrogels. 
+We will discuss other types of cross-links for hydrogels in section 4.
+
+
+## Natural Polymers for Hydrogels
+
+- Alginate: Alginate is a polysaccharide usually obtained from brown-algae cell walls and two kinds of bacteria,  Azotobacter and Pseudomonas.
+Alginate hydrogels can be formed with various covalent and physical cross-links.
+
+- Hyaluronic acid: Hyaluronic acid (also known as hyaluronan or hyaluronate) is a linear polymer of disaccharides, which is composed of D-glucuronic acid and N-acetyl-Dglucosamine, linked together via alternating β-(1 → 4)-linked  and β-(1 → 3)-linked glycosidic bonds.
+Hyaluronic acid can be covalently cross-linked into  hydrogels by various hydrazide derivatives.136,137
+
+- Collagen: Collagen is one of the major proteins in animal bodies. 
+There are approximately 29 types of collagens  discovered so far.161 
+The structures of collagens can be defined at different levels, including primary structure (amino acid triplet), secondary structure (α-helix), tertiary structure (triple  helix), and quaternary structure (fibril).162,163
+Three left-handed α-helix polypeptide chains then form a tertiary structure via the aldol condensation cross-linking, aldehyde amine condensation cross-linking, and aldol histidine cross-linking.165
+Acid-solubilized collagens can self-assemble to form physically cross-linked hydrogels when the collagen solutions are neutralized and heated.
+Since the physically cross-linked collagen hydrogels are usually mechanically weak and thermally unstable,167,168
+
+- Gelatin: Gelatins are naturally derived polymers obtained through breaking the triple-helix structures of collagens into single-strand molecules. 
+There are two types of gelatins, type A and type B, which are obtained with acid and  alkaline treatments of collagens, respectively.185 Gelatins can be physically cross-linked by simply reducing the temperature of  aqueous solutions of gelatins below a certain temperature.186,187
+
+- Fibrin: Fibrin is a naturally derived polymer obtained  from thrombin-treated fibrinogen.205 
+Fibrin is involved in the natural wound healing process by forming extensive fibrous networks. 
+Fibrin can form clots or hydrogels when mixing  fibrinogen and thrombin solutions at the room temperature.206
+The resultant fibrin hydrogels usually have weak mechanical properties due to the nature of physical cross-links.
+
+- Agarose: Agarose is a neutral polysaccharide composed of β-D-galactopyranosyl and 3,6-anhydro-α-L-galactopyranosyl, mainly extracted from red algae (Rhodophyceae).221 
+As a thermoresponsive polymer, agarose can be heated to dissolve in water and then cooled down to form a hydrogel. 
+During this gelation process, the agarose structure changes from a random-coil configuration to bundles of associated double helices with multiple-chain aggregation in the junction  zone.222,223 
+The gelling temperature and mechanical properties of agarose hydrogels can be tuned by changing the concentration, molecular weight, and structure of the agarose  in the hydrogels.224,225 
+
+- Chitosan: Chitosan is a linear polysaccharide composed of β-(1 → 4)-linked D-glucosamine and N-acetyl-Dglucosamine. 
+Chitosan is mainly prepared by partial deacetylation of chitin (obtained from crab and shrimp shells) to less than  40% of N-acetyl-D-glucosamine residues.231,232 
+The physical, chemical, and biological properties of chitosan materials are highly related to the molecular weight and the degree of  deacetylation of chitosan.233,234 
+Chitosan can form physically cross-linked hydrogels by hydrophobic interaction, hydrogen  bonding,235,236 metal coordination and electrostatic interaction.
+These physically cross-linked chitosan hydrogels usually have weak mechanical properties and short lifetime, which are also  highly influenced by pH, temperature, and ionic strength.232,246 
+To enhance the mechanical properties and stability of chitosan hydrogels, covalent cross-linkers have been introduced into the hydrogels.
+
+- Cellulose: Cellulose consists of β-(1 → 4)-linked D-glucose units, which result in cellulose’s high crystallinity (over 40%) and difficulty in  dissolving in water and other common solvents.269
+Cellulose and its derivatives can be chemically cross-linked to form stable three-dimensional networks. Bifunctional and multifunctional molecules ... can form covalent ester or ether bonds between cellulose chains. 
+Cellulose chains can also be covalently crosslinked by the irradiation of electron beams and γ rays,287,288 which avoids the usage of toxic cross-linkers and allows the simultaneous sterilization of the resultant hydrogels.
+
+
+## Synthetic Polymers for Hydrogels
+
+The synthetic polymer networks of hydrogels are commonly formed by copolymerization of monomers for the polymer backbones and cross-linkers, or by reactions of synthetic polymers, macromers, and/or cross-linkers.
+
+- Poly(acrylic acid): Poly(acrylic acid) (PAA) is a linear polymer prepared by radical polymerization of acrylic acid monomers. The backbone of PAA contains a large number of carboxyl groups. 
+                      PAA can form hydrogels through covalent and physical cross-linking. 
+                      Covalently cross-linked PAA hydrogels are usually formed by copolymerization of di/multivinyl crosslinkers together with acrylic acid monomers.303 
+                      In addition, the carboxyl groups of PAA can form physical interactions with  various doping agents... which can act as physical cross-links for PAA hydrogels; the carboxyl groups can also form hydrogen bonds between PAA chains and introduce self-healing or self-adhesive  properties to PAA hydrogels.307 
+
+- Poly(2-hydroxyethyl methacrylate): Poly(2-hydroxyethyl methacrylate) (PHEMA) hydrogels can be prepared by free-radical polymerization of 2-hydroxyethyl methacrylate (HEMA) monomers with covalent cross-linkers such as trimethylene glycol dimethacrylate (TEGDMA), initiators such as sodium pyrosulfite (SMBS), and ammonium persulfate (APS). 
+                                     The HEMA monomers can also be copolymerized with acrylic or acrylamide monomers to control the swelling and  mechanical properties of the resultant hydrogels.311
+
+- Poly(vinyl alcohol): Poly(vinyl alcohol) (PVA) is mainly obtained from the partial hydrolysis of poly(vinyl  acetate).316
+                       PVA can form stable and elastic hydrogels through  either physical or covalent cross-linking.317,318 
+                       The physically cross-linked PVA hydrogels are commonly obtained by repeated  freezing and thawing of PVA solutions,319 which give elastic,  tough, strong, and fatigue-resistant PVA hydrogels.76,78,320 
+                       PVA can also be covalently cross-linked through the use of difunctional cross-linkers such as glutaraldehyde, epichlorohydrin, boric acid, and dialdehyde.321,322 
+                       Electron-beam and gamma irradiation can also cross-link PVA to avoid residual  covalent cross-linkers in the hydrogels.323 
+
+- Poly(ethylene glycol) or Poly(ethylene oxide): Poly(ethylene glycol)(PEG) is usually obtained from the anionic or cationic polymerization of ethylene oxide.
+                                                 There are various methods to cross-link PEG polymers into hydrogels. 
+                                                 The ends of PEG chains can be modified with unsaturated groups, such as acrylate or methacrylate ends, and then be used as macro-cross-linkers to form hydrogels with other unsaturated monomers by the  photo-/UV-induced radical polymerization.330,331 
+                                                 PEG can also form hydrogels by electron beam irradiation via radiationinduced free radical processes.332
+
+[This is the polymer of the simulations]
+- Poly(N-isopropylacrylamide): Acrylamide and its derivatives have been widely used to prepare hydrogels by radical copolymerization with cross-linkers.
+                               One interesting hydrogel based on acrylamide and its derivatives is the poly(Nisopropylacrylamide) (PNIPAm) hydrogel. 
+                               Un-cross-linked linear PNIPAm exhibits a coil-to-globule phase transition in aqueous solutions when the temperature is raised above a critical  temperature.359,360 
+                               The PNIPAm can be covalently cross-linked by cross-linkers such as bis-acrylamide derivatives through the radical polymerization process. 
+                               The cross-linked PNIPAm hydrogels also possess reversible thermoresponsive behavior  with a critical temperature of around 34 °C,361 above which the  hydrogel structure will collapse and exude water.362,363 
+                               While the thermoresponsive behavior of PNIPAm hydrogels is usually slow, many studies have improved the phase-transition speed of PNIPAm hydrogels by incorporating porous structures during  the hydrogel formation.364,365 
+                               The thermoresponsive PNIPAm  hydrogels can be used as actuators for soft robotics,366 injectable  scaffolds for tissue engineering,367 and thermoresponsive  substrates for on-demand detachment of cell sheets.368,369
+
+- Silicone: Silicone hydrogels are hydrogels that contain  silicone polymers as one of its polymer components.370
+        Silicone  polymers are commonly hydrophobic.371 
+        In order to form silicone hydrogels, hydrophilic monomers and/or polymers have been introduced into the silicone matrix by blending or copolymerization to improve the hydrophilicity of silicone  hydrogels.14,372,373 
+
+
+
+## Permanent Covalent Cross-links for Hydrogels
+
+In this subsection, we will discuss permanent covalent crosslinks that are commonly used in hydrogels (Figure 5c). 
+We will discuss other types of cross-links in section 4 [Unconventional Polymer networks]. 
+The energy of  permanent covalent cross-links ranges from 220 kJ mol−1 to 570  kJ mol−1 (Figure 6).385−387
+
+4318
+
+- Carbon-Carbon Bonds: The energy of the carbon−carbon bond is around 300 kJ mol−1 to 450 kJ mol−1.385−387 
+                        Hydrogels covalently cross-linked by carbon−carbon bonds are usually formed by radical copolymerization of monomers and di-/multivinyl cross-linkers.
+                        These cross-linkers are compatible with various  initiation and polymerization systems.4,254,398
+                        The cross-linkers can be small molecules with two double bonds such as N,N′-methylenebis(acrylamide) (MBA) or macromolecules with several acrylate  groups.6,397 
+                        These cross-linkers are compatible with various  initiation and polymerization systems.4,254,398 
+                        For example, photoradical initiators can be added into the prepolymerization solution together with monomers and di-/multivinyl crosslinkers.318,399,400 
+                        Once the initiator is irradiated by UV light, radicals will be generated to initiate the polymerization of the  double bonds on monomers as well as cross-linkers.401,402 
+                        As a result, hydrogels can be formed in situ and with patterned  structures or biological functions.399,403 
+                        The polymerization of vinyl monomers and cross-linkers can also be carried out with a system composed of peroxydisulfate and N,N,N′N′-tetramethylene-diamine (TEMED), where TEMED can accelerate the decomposition of peroxydisulfate to generate a large number  of radicals.404 
+                        This initiation and polymerization system can effectively and rapidly form various hydrogels under room temperature.
+                        The carbon−carbon cross-links of hydrogels can also be formed by high-energy irradiation (e.g., gamma and electron beams). 
+                        Similar to UV light, high-energy radiation can be used to polymerize unsaturated compounds such as monomers and  cross-linkers with vinyl groups or acrylate groups.405,406 
+                        Highenergy radiation can also cross-link polymers without  unsaturated bonds,407 because radicals can be generated from the homolytic scission of the polymer chains under high-energy radiation. 
+                        The radiolysis of water molecules in the solvent can also generate hydroxyl radicals that attack polymer chains to  form macroradicals.408 
+                        These radicals can then undergo recombination and termination to form covalent polymer networks cross-linked by carbon−carbon bonds.
+
+- Carbon-Nitrogen Bonds: The energy of the  carbon−nitrogen bond is around 300 kJ mol−1 to 430 kJ  mol−1.385−387 
+                        Hydrogels covalently cross-linked by carbon− nitrogen bonds are usually formed by highly effective chemical reactions of complementary groups. 
+                        For example, the amide bonds have been widely used as the covalent cross-links for hydrogels by the condensation reactions between amines with  carboxylic acids and derivatives.409 
+                        N-Hydroxysuccinimide (NHS) and N,N-(3-(dimethylamino)propyl)-N-ethyl carbodiimide (EDC) are widely used to facilitate the condensation  reaction of amines with carboxylic acids.74 
+                        The addition of NHS and EDC will also suppress possible side reactions and give  better control of the cross-link density in the hydrogels.410 
+                        The carbon−nitrogen bonds can also be formed through the addition reactions of amines with electrophiles such as adipic acid  dihydrazide and diisocyanate cross-linkers.6,120,411 
+                        These difunctional cross-linkers have been widely used to cross-link natural macromolecules due to the high reaction efficiency. 
+                        The mechanical properties of the resultant hydrogels can be controlled by tuning the concentration and ratio of the polymers and the cross-linking agents. 
+                        Another category of reactions that can form carbon−nitrogen cross-links for hydrogels is the azide−alkyne cycloaddition reaction, which is one typical click reaction to connect alkyne and azide into triazole. 
+                        The click  reaction has a high efficiency without side reactions.412 
+                        Furthermore, the azide−alkyne cycloaddition can be conducted  in the absence of metal catalysis,413 expanding the applicability of the azide−alkyne cycloaddition for preparing biocompatible hydrogels.
+
+- Carbon-Oxygen Bonds: The energy of the carbon−  oxygen bond is around 280 kJ mol−1 to 370 kJ mol−1.385−387 
+                       The most common carbon−oxygen bond is the ester bond formed by the reactions between hydroxyl groups and carboxylic acids or  derivatives.414 
+                       Such ester cross-links can be hydrolyzed easily and make the hydrogels degradable under ambient temperature and physiological conditions. 
+                       Besides the ester cross-links, the carbon−oxygen bonds are also present in ether groups and urethane groups, which can become cross-links due to the reaction between side groups on polymers (such as hydroxyl groups on polysaccharides and PVA) and reactive cross-linkers  (such as glutaraldehyde,415,416 divinyl sulfone,417 dibromide,418  and diisocyanate419). 
+
+- Carbon-Sulfide Bonds: The energy of the carbon−  sulfide bond is around 220 kJ mol−1 to 310 kJ mol−1.387 
+                        The covalent cross-linking of hydrogels through carbon−sulfide  bonds is mainly formed by the thiol-click reactions.420,421 
+                        The inherent electron density of the sulfide atom makes thiols prone to react with many functional groups through a radical or  catalyzed process.422,423 
+                        Thiol groups can be easily converted into nucleophilic thiolates or electrophilic thiyl radicals, which then proceed with nucleophilic reactions or radical chain  processes to achieve the thiol-click reactions.424 
+                        Specifically, for the radical thiol-click reactions, the thiol group can be activated by heat and/or UV light to generate radicals that initiate the  radical-mediated thiol−ene or thiol−yne reactions.425 
+                        For the nucleophilic thiol-click reactions initiated by strong bases, the thiol groups can readily react with electron-poor ene-functional compounds through the Michael addition, with isocyanates derivatives through carbonyl addition, with halide through SN2 nucleophilic substitution, and with epoxy motifs through SN2  ring-opening reactions.426−429 
+                        The thiol-click reactions commonly have a high efficiency and high conversion rate without any side products, even in the presence of water, ions, and oxygen. 
+                        The thiol-click reactions have been extensively used to  prepare hydrogels for various biomedical applications.430,431
+
+
+' Silicon-Oxygen Bonds: The energy of the silicon−  oxygen bond is around 420 kJ mol−1 to 570 kJ mol−1.385−387 
+                        The silicon−oxygen bonds are mainly used in the formation of  silicone-based hydrogels376,432,433 and can usually enhance the  mechanical properties of the silicone-based hydrogels.434 
+                        In addition, silicon−oxygen bonds have been widely used to form strong bonding between hydrogels and diverse engineering  materials with modified surfaces such as salinized surfaces.49 
+
+# Conventional Polymer Networks
+
+a conventional polymer network is defined as polymer chains cross-linked via permanent covalent bonds into a network, in which entanglements, physical crosslinks, and reversible cross-links of the polymer chains are  negligible.54,57,62
+
+Conventional polymer networks have provided the basic models for the development of unentangled rubber elasticity, including the affine network model and the  phantom network model.54,57,62 
+Conventional polymer networks have also been widely adopted in synthetic hydrogels, although biological hydrogels (Figures 1 and 2) generally rely on unconventional polymer networks which will be discussed in section 4.
+
+
+# Unconventional polymer networks
+
+Section 3 has established that elastomers and hydrogels with conventional polymer networks have intrinsically coupled mechanical properties, including shear modulus, stretch limit, fracture toughness, fatigue threshold, interfacial toughness of adhesion, and interfacial fatigue threshold of adhesion (eqs 6 and 11). 
+
+This section will discuss unconventional polymer networks (UPNs), which constitute most biological hydrogels (Figures 1 and 2) and have been widely used in synthetic hydrogels to achieve extreme mechanical properties.
+The UPNs are defined as polymer networks that are different from the conventional polymer networks in terms of the architectures of the networks and/or the interactions among  polymer chains in the networks.70,438−446 
+Therefore, the UPNs can be broadly classified into two categories: the UPN architectures and the UPN interactions.
+
+## Unconventional Polymer Network Architectures
+
+### Polymer Networks with Slidable Cross-links
+
+### Interpenetrating and Semi-interprenetrating polymer networks
+
+### Polymer Networks with High-functionality cross-links
+
+
+
+## Unconventional Polymer Network Interactions
+
+As illustrated in Figure 10, the UPN interactions are defined as interpolymer and intrapolymer interactions that are different from those in the conventional polymer networks (i.e., permanent covalent cross-links, excluded volumes, and osmotic interactions) (Figure 10). 
+The UPN interactions are vastly  abundant in biological organisms,541 and the UPN interactions have been intensively studied for the design of soft materials such as elastomers, hydrogels and organogels to achieve extreme  mechanical properties among many other purposes.254 
+On the basis of the nature of the UPN interactions, they can be broadly  classified into three categories:62 strong physical cross-links, weak physical cross-links, and dynamic covalent cross-links (Figure 10 and Table 2).
+
+### Strong Physical Cross-Links
+
+### Weak Physical Cross-Links
+
+### dynamic Covalent Cross-Links
+
+### Decoupled Mechanical Properties Due to Unconventional Polymer Network Interactions
+
+
+
+# Design of Hydrogels with extreme mechanical properties
+
+In this section, we will summarize a set of general design principles for hydrogels to achieve the corresponding extreme mechanical properties, including extremely high fracture toughness, tensile strength, resilience, interfacial toughness, fatigue threshold, interfacial toughness, and interfacial fatigue threshold (Table 3 and Table 4).
+
+## Though: Build Dissipation into Stretchy Polymer Networks
+
+### Fracture Toughness
+Fracture toughness has been widely used to characterize a material’s capability to resist fracture under mechanical loads.
+One common definition for the fracture toughness of a material is the energy required to propagate a crack in the material over a unit area measured in the undeformed state
+
+The fracture toughness of soft materials such as elastomers and hydrogels has been measured with many experimental methods such as the pure-shear test and the single-notch test, which have been summarized in a few recent review  papers.67,727,728
+
+the fracture toughness of a conventional polymer network is its intrinsic fracture energy Γ0, which is the energy required to fracture a layer of polymer chains over a unit area (Figure 12b).
+
+### Design Principle for Tough Hydrogels
+The design principle tough hydrogels is ... to integrate both ductility and mechanical dissipation in the same material, so that a process zone with substantial mechanical dissipation develops around the crack tip prior to crack propagation (Figure 12c−e)
+
+The mechanical dissipation of a material manifests as the hysteresis loop on its stress−stretch curve under a loading−unloading cycle (Figure 12c−e).
+
+The ductility of hydrogels generally relies on the high stretchability (or the high stretch limit) of their polymer networks (Figure 12c−e).
+
+the design principle for tough hydrogels is to build dissipation into stretchy polymer  networks.67,733
+
+### Implementation Strategies for tough Hydrogels 
+
+The design principle for tough hydrogels requires the following: 
+    (i) at least one polymer network in the hydrogel maintains a high stretch limit, and therefore the polymer chains in that polymer network need to have a high N value according to eq 7; and 
+    (ii) at least one component in the hydrogel dissipates substantial mechanical energy under the deformation typically experienced in the process zone.
+
+The interpenetrating polymer networks and semi-interpenetrating polymer networks have been widely used for the design of tough hydrogels since the pioneer work of double network (with high N) and a short-chain network (with low  N).70
+
+As the double-network hydrogel deforms, the short-chain network fractures and dissipates substantial mechanical energy, while the long-chain network maintains the integrity of the hydrogel even under high stretches, implementing the design  principle for tough hydrogels (Figure 12c).70,733,735
+
+
+The polymer networks with high-functionality cross-links have given tough hydrogels based on various types of polymers and high-functionality cross-links.
+
+There are multiple polymer chains (e.g., over 10) bridging between two adjacent highfunctionality cross-links, and the lengths of these polymer chains are usually nonuniform (Figure 13b). 
+As the hydrogel deforms, the relatively short polymer chains fracture or detach from the high-functionality cross-links, while the relatively long polymer chains maintain the integrity and high stretchability of the hydrogel, implementing the design principle for tough hydrogels. 
+
+The bonds between the polymer chains and the highfunctionality cross-links can be permanent covalent crosslinks,738 strong physical cross-links,739,740 weak physical crosslinks,741,742 and dynamic covalent cross-links,743,744 or a  combination of them.501 
+Depending on the number and lengths of polymer chains between adjacent cross-links and the types of bonds between polymer chains and cross-links, the corresponding hydrogel can have different capabilities of mechanical dissipation and stretchability and therefore different fracture toughness.
+
+The weak physical cross-links566,584,623,750−757 and dynamic  covalent cross-links743 have been added into polymer networks with long polymer chains (i.e., sparsely cross-linked polymer networks via permanent covalent bonds) to design tough hydrogels.
+The weak physical cross-links and dynamic covalent cross-links act as reversible cross-links in these hydrogels (Figure 13d).
+As the hydrogel deforms, many of these reversible crosslinks dissociate or de-cross-link to dissipate substantial mechanical energy, and the sparsely cross-linked long-chain polymer network still sustains the high stretchability of the polymer network (Figure 13d). 
+A synergy of the mechanical dissipation and the high stretchability enabled by the hybrid reversible and covalent cross-links implements the design principle for tough hydrogels.
+
+The weak physical cross-links and dynamic covalent crosslinks have also been added into UPN architectures such as the  interpenetrating polymer networks (Figure 13a),490,563,758−765 polymer networks with high-functionality cross-links (Figure  13b),739,741,742,766−769 and nano-/microfibrous polymer networks (Figure 13c)745,746,767,770 to further toughen the resultant hydrogels, leveraging these reversible bonds’ capability of dissipating additional mechanical energy.
+
+Furthermore, unlike irreversibly fractured polymer chains, the dissociated weak physical cross-links and dynamic covalent cross-links may reassociate due to their reversible nature, potentially endowing the tough hydrogels with recoverable dissipation over cyclic  loads.490
+
+
+## Strong: Synchronize Stiffening and Fracture of Multiple Polymer Chains
+
+### Tensile Strength
+We will focus on tensile strengths of hydrogels in this paper due to two reasons: 
+    (1) The tensile, compressive, and shear deformations of a sample are related to one another. For example, the uniaxial compression of a sample is equivalent to the biaxial tension of the sample; the pure shear of a sample is equivalent to the sample being elongated in one direction and shortened perpendicularly. 
+    (2) The tensile strength is easier to measure than the shear strength, and the tensile strength is less affected by boundary conditions in the measurement (such as friction) than the compressive strength.
+
+Since soft materials such as elastomers and hydrogels usually do not yield plastically, their tensile strengths are commonly defined as the stresses at which the ultimate tensile failure occurs in the uniaxial tensile test.
+
+
+### Design Principle for Strong Hydrogels
+A generic principle for the design of strong hydrogels is to make a substantial number of polymer chains in the polymer network to stiffen and then fracture simultaneously (Figure 14b).
+
+In realistic situations, almost all materials contain defects in the forms such as notches, microcracks, cavities, impurities, and missing polymer chains or cross-links.
+The presence of defects usually significantly reduces the tensile strengths of the  materials.772−774
+
+
+### Implementation Strategies for Strong Hydrogels
+
+The UPNs with high-functionality cross-links such as nanocrystalline domains have been widely used for the design of strong hydrogels.75 
+As the hydrogels undergo large deformation, relatively short polymer chains are gradually pulled out of the nanocrystalline domains, so that the polymer chains bridging adjacent nanocrystalline domains tend to have similar lengths and therefore stiffen and then fracture simultaneously implementing the design principle for strong hydrogels.
+
+
+The nano-/microfibrous polymer networks are another type of UPN architecture that implements the design principle for strong hydrogels (Figure 15b).
+The strong physical cross-links such as crystalline domains allow the pull-out of polymer chains from them to achieve simultaneous stiffening and then fracture of multiple polymer chains (Figure 15a).75
+The weak physical cross-links such as the hydrogen bonds can facilitate the alignment and self-assembly of polymer chains into bundles (Figure 15b), which tend to stiffen and then fracture simultaneously to give high tensile strengths of the hydrogels.
+
+
+## Resilient: Delay Dissipation 
+
+### resilience
+Resilience of soft materials such as elastomers and hydrogels is commonly defined as the ratio of the energy released in deformation recovery to the energy required to induce the deformation of the materials.782
+The resilience of soft materials has been measured with many experimental methods such as the cyclic tensile test and the dropping-ball test.73,782
+
+
+### Design Principle for Resilient and Tough Hydrogels
+Once a material is deformed to fracture, the elastic  energy stored in the material is mostly dissipated,73,74,783 giving low energy recovery and thus low resilience of the fractured material. 
+Therefore, the high resilience of hydrogels can only be designed up to the fracture of the hydrogels.
+
+A generic principle for the design of resilient hydrogels is to minimize the mechanical dissipation of the hydrogels within certain range of deformation that is commonly experienced by the hydrogels, or  in short, to delay dissipation.73
+
+The design principle for resilient hydrogels also reconciles a pair of seemly contradictory properties, fracture toughness and resilience, in the following manner. 
+The hydrogel is highly resilient under moderate deformation with λ ≤ λR (Figure 16b); however, when a crack attempts to propagate in the hydrogel, the chain stretch in the process zone around the crack tip can be much higher than λR, inducing substantial mechanical dissipation to toughen the hydrogel (Figure 16c).
+
+
+### Implementation Strategiesfor Resilient and Tough Hydrogels
+
+Because the polymer chains in the ideal polymer networks have relatively uniform lengths and no entanglement, the hydrogels with the ideal polymer networks usually can be deformed without significant mechanical dissipation up to stretch limits, giving high resilience (Figure  17a).74,783
+It is also expected that the polymer networks with slidable cross-links may be able to implement the design principle for resilient hydrogels because the energy dissipated for sliding the cross-links during their reconfiguration may be negligibly low.
+
+The multimodal polymer networks including the interpenetrating polymer networks, semi-interpenetrating polymer networks, and polymer networks with high-functionality crosslinks usually begin to dissipate mechanical energy at very small deformation because of the fracture and/or de-cross-link of very short polymer chains in the polymer networks.
+
+
+## Tough Adhesion: Integrate Tough Dssipative Hydrogels and strong Interfacial Linkages
+
+### Interfacial Toughness
+Interfacial toughness, or socalled practical work of adhesion, has been commonly used to characterize the capability of the interface of two adhered materials to resist fracture under mechanical loads.
+One common definition for the interfacial toughness between two adhered materials is the energy required to propagate a crack along the interface or in either material over a unit area measured  in the undeformed state of the materials (Figure 18a).787
+
+If a hydrogel with a conventional polymer network is strongly bonded on a substrate (e.g., via covalent bonds), the interfacial toughness is on the level of the hydrogel’s fracture toughness or intrinsic fracture energy Γ0. 
+This is because the fracture toughness of the hydrogel poses an upper limit for the interfacial toughness, since the cohesive failure mode may occur (Figure  18c).49
+
+### Design Principle for tough Adhesion of hydrogels
+if a hydrogel adheres to a substrate via a low density of weak physical cross-links, a crack can easily propagate along the hydrogel−substrate interface, resulting in low interfacial toughness (Figure 18b). Therefore, the design of tough adhesion of hydrogels first requires strong interfacial linkages between the hydrogels and the adhered  substrates, such as covalent bonds,49,788,789 strong physical  cross-links,48,78,790 connector polymers,26,50,791,792 and mechanical interlocks.793,794
+
+Overall, the design principle for tough adhesion of hydrogels is to integrate tough dissipative hydrogel matrices and strong  interfacial linkages.49 
+When attempting to detach the tough hydrogel from the substrate, the strong interfacial linkages will hold the interfacial crack tip, allowing the bulk hydrogel to develop a process zone with substantial mechanical dissipation (Figure 18d).
+
+Tough adhesion of biological hydrogels in animal bodies such as cartilages, tendons, and ligaments on bones generally relies on the integration of tough hydrogels and strong interfacial linkages.
+
+However, only recently has this design principle been  proposed49 and implemented26,47,49,50,788,791,792,795 for tough adhesion of synthetic hydrogels on diverse substrate materials, including metals, ceramics, glass, silicone, elastomers, hydrogels, and biological tissues. 
+This is because the role of tough dissipative hydrogel matrices has been underexplored or  underestimated in adhesion of hydrogels.49,796,797
+
+
+### Implementation strategies for tough Adhesion of Hydrogels
+In order to achieve tough adhesion, the intrinsic interfacial toughness Γi0nter of the interfacial linkages should at least reach the level of the intrinsic fracture energy Γ0 of tough hydrogels,  i.e., over a few tens of joules per meter squared.49 
+Given this requirement on the intrinsic interfacial toughness, the strong interfacial linkages have been commonly implemented with covalent bonds, strong physical cross-links, connector polymers, and mechanical interlocks (Figure 19).
+
+
+Covalent bonds have been widely adopted to strongly anchor polymer chains in tough hydrogels’ UPNs (as discussed in section 5.1) on various substrates.
+The commonly used covalent bonds for tough adhesion of hydrogels include carbon−carbon, carbon−nitrogen, carbon-sulfide, carbon−oxygen, and silicon−  oxygen bonds (Figure 5c).801
+In order to form these covalent bonds, the hydrogels and substrates are usually designed to possess functional groups such as the cross-linkable unsaturated  bond (to form carbon−carbon bond),802 amine group (to form  carbon−nitrogen bond),49 thiol group (to form carbon-sulfide  bond),803 hydroxyl and carboxyl group (to form carbon−oxygen  bond), and silanol group (to form silicon−oxygen bond)804 (Figure 19a).
+
+
+Strong physical cross-links including crystalline domains, glassy nodules, and high-density physical bonds such as hydrogen bonds can also strongly adhere tough hydrogels on  substrates (Figure 19b).78,757,803−811 
+Since the crystalline domains and glassy nodules usually act as high-functionality cross-links, each of them may anchor multiple polymer chains on the substrate, further enhancing the intrinsic interfacial toughness Γi0nter.
+
+Connector polymers799,812 have been employed to strongly bond elastomers and hydrogels on substrates (Figure 19c). 
+In this case, the substrates usually take the form of polymer networks (i.e., elastomers and hydrogels) as well. 
+To provide strong interfacial linkages, the connector polymers can form  covalent cross-links,26,50 interlocked loops,791,792,803,807,813 and/  or strong physical cross-links792 with the polymer networks of both the hydrogels and the substrates. 
+Specifically, the strong physical cross-links can be crystalline domains, glassy nodules,  and/or high-density weak physical cross-links.792 The connector polymers can be polymerized from monomers in the two  polymer networks26,791,804 or can be directly added on the  interface of the two polymer networks.792
+
+
+Mechanical interlocks between tough hydrogels and substrates usually occur at length scales from micrometers to millimeters (Figure 19d).
+One commonly used method is to impinge precursor solutions of tough hydrogels into porous substrates and then form tough hydrogels that are mechanically  interlocked with the substrates.793 
+Similarly, the surfaces of the substrates can be roughened or patterned to enhance the strength of mechanical interlocks with tough hydrogels.794,814,815 
+As a special yet interesting case, hydrogels have been fabricated into dried microneedles, which can pierce into a soft substrate such as biological tissues and then swell to form  mechanical interlocks.816
+
+## Fatigue-Resistant: Pin Fatigue Cracks with Intrinsically High-energy Phases
+
+### Fatigue Threshold
+
+we will focus on the fatigue fracture of hydrogels with precut cracks under cyclic loads (Figure 20a) because this is one of the most common failure modes of hydrogels in mechanically  dynamic environments such as artificial cartilages823 and soft  robots.26
+
+
+### Design Principle for Fatique-Resistent Hydrogels
+
+The mechanical dissipation in the process zone around the crack tip can dramatically enhance the fracture toughness of the hydrogel. 
+However, the mechanisms for irreversible dissipation such as fracturing polymer chains in the process zone are usually depleted under cyclic loads. 
+The mechanisms for reversible dissipation such as reversible crosslinks, once depleted, usually cannot recover in time to resist fatigue crack propagation in future cycles of loads (Figure  20b).55,56,824
+Consequently, the fatigue threshold of hydrogels  and elastomers is their intrinsic fracture energy,55,56,824
+
+The design principle for fatigue-resistant hydrogels is to make the fatigue crack encounter and fracture objects with energies per unit area much higher than that for fracturing a single layer of polymer chains, or in short, to pin fatigue crack by intrinsically  high-energy phases (Figure 20c).75 
+
+The intrinsically high-energy phases that have been exploited for the design of fatigueresistant hydrogels include nanocrystalline domains (Figure  21a),75 nano-/microfibers (Figure 21b),76 microphase separations (Figure 21c),822,825 and macroscale composites (Figure  21d).77 
+In addition, because the design of fatigue-resistant hydrogels does not rely on mechanical dissipation in the bulk hydrogels, fatigue-resistant hydrogels usually demonstrate low  hysteresis ratio H and high resilience R (eq 23).75,76,826
+
+
+### Implementation Strategies for Fatigue-Resistant Hydrogels
+
+In order to effectively pin fatigue cracks, the density of the intrinsically high-energy phases in the UPNs should be sufficiently high.75
+
+High-functionality cross-links such as nanocrystalline domains can effectively play the role of intrinsically high-energy phases in the UPNs (Figure 21a). 
+The energy required to pull out a polymer chain from a nanocrystalline domain can be multiple times higher than that to fracture the same polymer chain, and the energy required to mechanically damage the nanocrystalline domain can be multiple times higher than that to fracture the corresponding amorphous polymer chains (Figure  21e).78
+
+It is expected other UPNs with sufficiently high densities of highfunctionality cross-links such as crystalline domains and glassy nodules can also implement the design principle for fatigue resistant hydrogels.
+
+.
+.
+.
+
+
+# Design of Hydrogels with Extreme Physical Properties [4345]
+In addition to the extreme mechanical properties discussed in section 5
+
+Examples of hydrogels’ extreme physical properties under development and exploration include 
+    high electrical conductivity,642 
+    patterned magnetization,843 
+    high refractive index and transparency,844,845 
+    tunable acoustic impedance,44 and 
+    selfhealing.846 
+
+Unlike the extreme mechanical properties discussed in section 5, many of the extreme physical properties do not have embodiments in biological hydrogels. 
+Nevertheless, these extreme physical properties can be of similar importance as the extreme mechanical properties to hydrogels’ various applications, especially to the nascent applications of hydrogel machines.20
+
+## electrically Conductive: Percolate Electrically Conductive Phases 
+The design principle for electrically conductive hydrogels is to embed electrically conductive phases such as liquid metals, metallic nanowires, carbon nanotube, graphene, and conducting polymers in hydrogel matrices and make the conductive phases form percolated networks, or in short, to percolate electrically  conductive phases (Figure 24a).642,848,849
+
+
+## Magnetized: Embed Magnetic Particles and Pattern Ferromagnetic Domains
+The design principle for hydrogels to possess patterned magnetization is to embed magnetic components such as hardmagnetic, soft-magnetic, or super-paramagnetic particles in the hydrogels matrices where ferromagnetic domains may be further patterned, or in short, to embed magnetic particles and pattern  ferromagnetic domains (Figure 25).38,843,854−857
+
+## High Reflective Index and Transparency: Uniformly Embed High-Refractive -Index Nonscattering Nanophases
+The refractive indices of common hydrogels are around 1.333, similar to that of water. 
+One general strategy to enhance the refractive indices of hydrogels is to uniformly embed nanophases  such as nanoparticles844,845 and nanocrystalline domains with high refractive indices in the hydrogel matrices. 
+However, the refractive-index mismatch between the nanophases and hydrogel matrices may lead to substantial undesirable light scattering, reducing the transparency of the hydrogels (Figure 26b). 
+It has been found that decreasing the size of the nanophases below one-tenth of the light wavelength (e.g., zinc sulfide nanoparticles with 3 nm diameter) can effectively diminish light scattering to achieve hydrogels with a high refractive index (i.e., 1.49) and  high transparency (Figures 26b−d).844
+
+## Tunable Acoustic Impedance: Tune Densities and Bulk Moduli of Effectively Homogeneous Hydrogels 
+
+## Self-Healing: form New Cross-Links and/or Polymers at Damaged Regions
+
+
+-----------------------------------------------------------------------------
+
+
+@article{gnanSilicoSynthesisMicrogel2017,
+  title = {\emph{In }\emph{Silico} Synthesis of Microgel Particles},
+  author = {Gnan, Nicoletta and Rovigatti, Lorenzo and Bergman, Maxime and Zaccarelli, Emanuela},
+  year = {2017},
+  month = nov,
+  journal = {Macromolecules},
+  volume = {50},
+  number = {21},
+  pages = {8777--8786},
+  issn = {0024-9297, 1520-5835},
+  doi = {10.1021/acs.macromol.7b01600},
+  urldate = {2024-05-16},
+  abstract = {Microgels are colloidal-scale particles individually made of cross-linked polymer networks that can swell and deswell in response to external stimuli, such as changes to temperature or pH. Despite a large amount of experimental activities on microgels, a proper theoretical description based on individual particle properties is still missing due to the complexity of the particles. To go one step further, here we propose a novel methodology to assemble realistic microgel particles in silico. We exploit the self-assembly of a binary mixture composed of tetravalent (cross-linkers) and bivalent (monomer beads) patchy particles under spherical confinement in order to produce fully bonded networks. The resulting structure is then used to generate the initial microgel configuration, which is subsequently simulated with a bead-spring model complemented by a temperature-induced hydrophobic attraction. To validate our assembly protocol, we focus on a small microgel test case and show that we can reproduce the experimental swelling curve by appropriately tuning the confining sphere radius, something that would not be possible with less sophisticated assembly methodologies, e.g., in the case of networks generated from an underlying crystal structure. We further investigate the structure (in reciprocal and real space) and the swelling curves of microgels as a function of temperature, finding that our results are well described by the widely used fuzzy sphere model. This is a first step toward a realistic modeling of microgel particles, which will pave the way for a careful assessment of their elastic properties and effective interactions.},
+  copyright = {http://pubs.acs.org/page/policy/authorchoice\_termsofuse.html},
+  langid = {english},
+  file = {/home/frenour/Zotero/storage/7NUM5Z4Y/Gnan et al. - 2017 - In Silico Synthesis of Microgel Particles.pdf}
+}
+
+
+Soft colloids, combining properties of hard-sphere colloids and polymers, offer the interesting possibility to tailor their  macroscopic behavior and flow at the molecular level.
+
+Hard sphere colloids have served for decades as a reference model to shed light on many physics problems, such as the structure of  atomic liquids,2 crystal nucleation,3 and the glass transition.4−6 Recently, however, soft colloids have become even more  popular in the scientific community.7 
+Typically, soft particles have an internal polymeric architecture, which allows them to  reach the paste regime,8 where particles are in very dense, squeezed (or jammed) states.
+
+
+Since the single-particle elasticity alters the properties of the resulting macroscopic material, establishing the crucial link between microscopic properties and macroscopic response requires the knowledge of the effective interactions among particles.
+
+-----------------------------------------------------------------------------
+
+@article{pawdeApplicationsSoftMatter2025,
+  title = {Applications of Soft Matter Physics in Food Science: From Molecular Interactions to Macro-Scale Food Structures},
+  shorttitle = {Applications of Soft Matter Physics in Food Science},
+  author = {Pawde, Subhash and Dave, Jaydeep},
+  year = {2025},
+  month = jul,
+  journal = {Sustainable Food Technology},
+  volume = {3},
+  number = {4},
+  pages = {979--1004},
+  publisher = {RSC},
+  issn = {2753-8095},
+  doi = {10.1039/D5FB00172B},
+  urldate = {2025-08-18},
+  abstract = {Soft matter physics, encompassing materials such as polymers, colloids, emulsions, gels, and foams, provides a powerful framework for understanding the structural and functional complexity of food systems. This review explores the application of soft matter principles in food science, from molecular interactions to macroscopic structuring. The behavior of food materials under various stresses and environmental conditions is governed by key physical principles including thermodynamics, phase transitions, and molecular dynamics. These principles elucidate how protein-polysaccharide networks, colloidal assemblies, and emulsified systems determine food texture, stability, and sensory properties. Rheology, a central tool of soft matter science, enables quantitative analysis of viscoelastic properties, guiding product design, formulation, and processing optimization. Processing techniques such as extrusion, high-pressure processing, and 3D printing are examined through the lens of soft matter behavior, offering precise control over microstructure and texture. Furthermore, the review highlights the emerging integration of artificial intelligence (AI) in modeling and predicting the physicochemical properties of complex food matrices, accelerating innovation and quality control. By bridging molecular--scale interactions with macro-scale material behavior, soft matter physics enables the rational design of functional, sustainable, and consumer-appealing food products. This interdisciplinary perspective not only advances fundamental scientific understanding but also provides practical insights for improving food quality, safety, and personalization. Overall, the review underscores the transformative potential of soft matter physics in shaping the future of food science and engineering.},
+  langid = {english},
+  file = {/home/frenour/Zotero/storage/S8VL35LJ/Pawde and Dave - 2025 - Applications of soft matter physics in food science from molecular interactions to macro-scale food.pdf}
+}
+
+
+# fundamental principles of soft matter physics in food science
+
+Soft matter constitutes a distinct class of condensed matter characterized by: (1) structural organization at intermediate length scales (nanometers to micrometers) between atomic and macroscopic dimensions; (2) high susceptibility to deformation by thermal uctuations or weak external forces (stresses on the order of 106 to 103 Pa); (3) non-equilibrium behaviors including metastability, path-dependence, and structural relaxation phenomena; and (4) emergent physical properties that arise from collective interactions rather than individual molecular attributes.3
+These materials including polymers, colloids, foams, emulsions, gels, and liquid crystals exhibit dual solidlike and liquid-like properties depending on observation timescales and applied stresses, a phenomenon quantied through viscoelastic parameters.
+
+
+## Key principle: Thermodynamics, phase transistions, and molecular dynamics
+
+Soft matter physics is governed by several key principles, including thermodynamics, phase transitions, and molecular dynamics, which collectively determine the behavior and properties of soft materials.
+
+Molecular dynamics, which involves the simulation of particle motion at the atomic or molecular scale, provides insights into the kinetic behaviors and structural evolution of soft matter systems. 
+These simulations have been instrumental in modeling the self-assembly of proteins, polysaccharides, and lipid molecules in food systems, helping researchers predict the formation of various structures and textures in foods.14
+
+
+### Colloidal systems in foods. 
+
+Colloidal systems represent a fundamental category of so matter characterized by dispersions where one phase is distributed within another at length scales typically ranging from nanometers to micrometers.
+
+
+-----------------------------------------------------------------------------
+
+@article{gnanMicroscopicRoleDeformation2019,
+  title = {The Microscopic Role of Deformation in the Dynamics of Soft Colloids},
+  author = {Gnan, Nicoletta and Zaccarelli, Emanuela},
+  year = {2019},
+  month = jul,
+  journal = {Nature Physics},
+  volume = {15},
+  number = {7},
+  pages = {683--688},
+  publisher = {Nature Publishing Group},
+  issn = {1745-2481},
+  doi = {10.1038/s41567-019-0480-1},
+  urldate = {2025-08-18},
+  abstract = {Soft colloids enable the exploration of states with densities exceedingthat of random close packing, but it remains unclear whether softness controls thedynamics under these dense conditions. Experimental studies have reportedconflicting results, and numerical studies have so far focused primarily on simplemodels that allow particles to overlap, but neglect particle deformations. Thismakes the concept of softness in simulations and experiments difficult to compare.Here, we propose a model system consisting of polymer rings with internalelasticity. At high packing fractions, the system displays compressed exponentialdecay of the intermediate scattering functions and super-diffusive behaviour of themean-squared displacements. These features are explained in terms of the complexinterplay between particle deformations and dynamic heterogeneities, which givesrise to persistent motion of ballistic particles. We also observe a strikingvariation of the relaxation times with increasing particle softness, clearlydemonstrating the crucial role of deformation in the dynamics of realistic softcolloids.},
+  copyright = {2019 The Author(s), under exclusive licence to Springer Nature Limited},
+  langid = {english},
+  keywords = {Coarse-grained models,Colloids,Condensed-matter physics,Polymers},
+  file = {/home/frenour/Zotero/storage/5QA9HEV8/Gnan and Zaccarelli - 2019 - The microscopic role of deformation in the dynamics of soft colloids.pdf}
+}
+
+In recent years, colloidal particles have emerged as useful models that give access to phases and states with no counterpart in atomic and molecular systems [1–3].
+
+A crucial parameter controlling colloidal behaviour is particle softness, which can be quantified by the ratio between elastic and thermal energy [10].
+
+Several experimental works [9, 11–13] reported that softness controls the dependence of the structural relaxation time τα on temperature T or on packing fraction ζ – the so called fragility[14].
+
+Landau, L. D. & Lifshitz, E. Theory of elasticity, vol. 7. Course of Theoretical Physics 3, 109 (1986).
+
+To gain microscopic knowledge on this matter (a frigile system), we usually resort on simulations of simple repulsive models, as for example systems interacting with the Hertzian potential [18], which is found to describe microgel particles behavior at moderate packing fractions [19, 20], but is expected to fail in denser conditions where soft colloids tend to shrink, deform or even interpenetrate [21].
+
+
+Early works have indicated that, for such simple pair potentials, the change of dynamic properties with softness, such as the change of fragility, is modest [22] or absent [23]. 
+In these approaches, softness is tuned by modifying a given parameter, e.g. the strength of the repulsion, allowing particles to overlap to a certain extent, but without taking into account their deformability as well as other important aspects in realistic soft particles, namely deswelling [24–27], interpenetration [21] and faceting [28]. 
+Thus, there is a strong need to go one step forward in the modeling of soft colloids to tackle this problem and to provide a microscopic picture of these systems at high densities.
+
+
+
+
+-----------------------------------------------------------------------------
+
+@article{boonSwellingMicrohydrogelsCrosslinker2017,
+  title = {Swelling of Micro-Hydrogels with a Crosslinker Gradient},
+  author = {Boon, Niels and Schurtenberger, Peter},
+  year = {2017},
+  month = sep,
+  journal = {Physical Chemistry Chemical Physics},
+  volume = {19},
+  number = {35},
+  pages = {23740--23746},
+  publisher = {The Royal Society of Chemistry},
+  issn = {1463-9084},
+  doi = {10.1039/C7CP02434G},
+  urldate = {2025-08-19},
+  abstract = {A heterogeneous distribution of crosslinker in micro-hydrogels (microgels) results in a non-uniform polymer density inside the particles. Identifying the morphology of the hydrogel backbone enables a bottom-up approach towards the structural and rheological properties of microgel systems. On a local level we use a Flory--Rehner inspired model that focuses on highly swollen networks, characterized by a Poisson's ratio of 1/4. Our ab initio calculations take account for the nonuniform distribution of crosslinker species during the synthesis of poly(N-isopropylacylamide) (PNIPAM) microgels, yet the method is also applicable to other microgel architectures. We recover a single-particle density profile that is in close agreement with SAXS data. Comparison with experimental data confirms that the surface of the cross-linked particle is decorated with dangling polymers ends of considerable size.},
+  langid = {english},
+  file = {/home/frenour/Zotero/storage/LG5ATCUG/Boon and Schurtenberger - 2017 - Swelling of micro-hydrogels with a crosslinker gradient.pdf}
+}
+
+Microgels are sub-micron sized particles with a backbone of crosslinked polymer.
+They offer high control (in situ) over shape, size, charge,1,2 and soft interactions3,4 by stimuli such as temperature, pH,5,6 or salt concentration.7
+
+Poly(Nisopropylacylamide) (PNIPAM) polymers exhibit a temperature induced volume phase transition from coil9 to globule around 33 degrees Celsius10 and can be shaped into microgels via precipitation polymerization.11 
+This yields particles that reversibly change from a nearly-incompressible sphere to a swollen network upon varying the temperature, which can be used to explore novel routes towards complex structure formation, opens new possibilities for drug delivery12–14 and cell cultivation,15 or can be used to design fluids with adjustable rheological properties.16,17 
+The addition of crosslinkers during synthesis is essential for creating stable hydrogel cores and increasing the amount of crosslinkers results in more rigid particles. 
+Crosslinkers get predominantly incorporated early during the particle synthesis process due to a different reactivity of the crosslinker species and the NIPAM monomers. 
+The resulting particle has, therefore, a relatively dense core and a much softer surface region.18–24 
+Dispersing the crosslinker more homogeneously throughout the particle can be promoted by a controlled feed of crosslinker into the reaction mixture.21,25
+
+[So a hydrogel is a type of microgel]
+
+The precise internal structure of the particles and how this quantitatively affects the properties of the suspension is, however, still unclear.
+
+
+[The importance of crosslinker in the mechanical response]
+The celebrated model for describing the swelling of hydrogels is the Flory–Rehner theory,28–30 which has originally been derived to analyze the elastic properties of rubber-like materials.
+This model can be used to capture the volume phase transition that is observed for PNIPAM microgels, yet it has been unsuccessful in predicting the elastic moduli and soft interactions between the particles.24
+Deviations from bulk-gel behavior due to the crosslinker density gradient may be attributed to this.
+
+It has been suggested by Fernandes et al. that a spatially varying crosslinker distribution can be considered by means of a ‘matryoshka’ approach, i.e. by considering the gel particle as a collection of shells with different gel parameters.31
+
+
+# Theory and model 
+
+## Homogeneous hydrogels
+
+Swelling of charge-neutral hydrogels is induced by excludedvolume interactions between the segments that constitute the polymer network.
+
+-----------------------------------------------------------------------------
+
+@article{bergmanNewLookEffective2018,
+  title = {A New Look at Effective Interactions between Microgel Particles},
+  author = {Bergman, Maxime J. and Gnan, Nicoletta and {Obiols-Rabasa}, Marc and Meijer, Janne-Mieke and Rovigatti, Lorenzo and Zaccarelli, Emanuela and Schurtenberger, Peter},
+  year = {2018},
+  month = nov,
+  journal = {Nature Communications},
+  volume = {9},
+  number = {1},
+  pages = {5039},
+  issn = {2041-1723},
+  doi = {10.1038/s41467-018-07332-5},
+  abstract = {Thermoresponsive microgels find widespread use as colloidal model systems, because their temperature-dependent size allows facile tuning of their volume fraction in situ. However, an interaction potential unifying their behavior across the entire phase diagram is sorely lacking. Here we investigate microgel suspensions in the fluid regime at different volume fractions and temperatures, and in the presence of another population of small microgels, combining confocal microscopy experiments and numerical simulations. We find that effective interactions between microgels are clearly temperature dependent. In addition, microgel mixtures possess an enhanced stability compared to hard colloid mixtures - a property not predicted by a simple Hertzian model. Based on numerical calculations we propose a multi-Hertzian model, which reproduces the experimental behavior for all studied conditions. Our findings highlight that effective interactions between microgels are much more complex than usually assumed, displaying a crucial dependence on temperature and on~the internal core-corona architecture of the particles.},
+  langid = {english},
+  pmcid = {PMC6262015},
+  pmid = {30487527},
+  file = {/home/frenour/Zotero/storage/CLJ4GABN/Bergman et al. - 2018 - A new look at effective interactions between microgel particles.pdf}
+}
+
+Microgels are hybrid particles with dual colloid-polymer nature, belonging to the class of so-called soft  colloids
+A microgel consists of a mesoscopic crosslinked polymer network, which can deform, shrink or interpenetrate with another microgel3,4.
+Often, as a result of the synthesis conditions, a particle possesses a denser core and a  more loosely crosslinked corona5,6, which also includes so-called  dangling ends7,8.
+
+
+Vlassopoulos, D. & Cloitre, M. Tunable rheology of dense soft deformable colloids. Curr. Opin. Colloid In. 19, 561–574 (2014).
+
+van der Scheer, P., van de Laar, T., van der Gucht, J., Vlassopoulos, D. & Sprakel, J. Fragility and strength in nanoparticle glasses. ACS Nano 11, 6755–6763 (2017).
+
+Conley, G. M., Aebischer, P., Nöjd, S., Schurtenberger, P. & Scheffold, F. Jamming and overpacking fuzzy microgels: deformation, interpenetration, and compression. Sci. Adv. 3, e1700969 (2017).
+
+Mohanty, P. S. et al. Interpenetration of polymeric microgels at ultrahigh densities. Sci. Rep. 7, 1487 (2017).
+
+Stieger, M., Pedersen, J. S., Lindner, P. & Richtering, W. Are thermoresponsive microgels model systems for concentrated colloidal suspensions? a rheology and small-angle neutron scattering study. Langmuir 20, 7283–7292 (2004)
+
+
+Microgels are considered smart colloidal materials: in response to external parameters such as temperature, pH, ionic strength, light, or electric field (depending on the nature of the polymers) a particle is able to change its size as well as  other connected properties such as the polarizability9 or elasticity  of the particle10,11.
+
+[Pero a que rangos dimensionales? Cuál es el rango de tamaño del que se refiere?]
+Recent research shows that the interactions between swollen microgels can be more accurately reproduced by a soft Hertzian repulsion in  the fluid region of the phase diagram33, while brush-like models  can be used for highly packed samples34,35.
+
+
+
+Evidently, it is imperative to consider the variation of the interparticle potential upon changing temperature and, crucially, the internal structure of the microgels to correctly describe their behavior, particularly for conditions where microgels are forced together—for example, in electric field applications or in the dense glassy regime, which is most widely studied in the microgel literature. 
+Furthermore, our results raise fundamental questions on the widespread practice to tune the volume fraction via a temperature change without accounting for the different nature of the system.
+
+-----------------------------------------------------------------------------
+
+@article{conleyJammingOverpackingFuzzy2017,
+  title = {Jamming and Overpacking Fuzzy Microgels: Deformation, Interpenetration, and Compression},
+  shorttitle = {Jamming and Overpacking Fuzzy Microgels},
+  author = {Conley, Gaurasundar M. and Aebischer, Philippe and N{\"o}jd, Sofi and Schurtenberger, Peter and Scheffold, Frank},
+  year = {2017},
+  month = oct,
+  journal = {Science Advances},
+  volume = {3},
+  number = {10},
+  pages = {e1700969},
+  publisher = {American Association for the Advancement of Science},
+  doi = {10.1126/sciadv.1700969},
+  urldate = {2025-08-19},
+  abstract = {Tuning the solubility of fuzzy polymer microgels by external triggers, such as temperature or pH, provides a unique mechanism for controlling the porosity and size of colloidal particles on the nanoscale. As a consequence, these smart microgel particles are being considered for applications ranging from viscosity modifiers and sensing to drug delivery and as models for the glass and the jamming transition. Despite their widespread use, little is known about how these soft particles adapt their shape and size under strong mechanical compression. We use a combination of precise labeling protocols and two-color superresolution microscopy to unravel the behavior of tracer microgels inside densely packed soft solids. We find that interpenetration and shape deformation are dominant until, in the highly overpacked state, this mechanism saturates and the only remaining way to further densify the system is by isotropic compression.},
+  file = {/home/frenour/Zotero/storage/4X6N6VQC/Conley et al. - 2017 - Jamming and overpacking fuzzy microgels Deformation, interpenetration, and compression.pdf}
+}
+
+Microgels are among the most studied colloidal and polymeric systems of the past two decades (1–4). 
+
+In particular, microgels made from thermosensitive poly(N-isopropylacrylamide) and its derivatives are of interest (5).
+By decorating and functionalizing microgels with nanoparticles, one can add additional optical, chemical, or magnetic sensitivity (6–9).
+
+Swelling the microgel by lowering the temperature can drive a colloidal suspension from the liquid to the solid state, conveniently crossing the glass and the jamming transition without the need to prepare samples of varying composition (10–13).
+
+microgels can be highly overpacked, meaning that the effective volume fraction zeff can be much larger than one (10, 17, 18)
+
+
+To understand the microstructural changes at high packing densities, it is important to be aware of the complex architecture of individual colloidal microgel particles. 
+In microgels, the internal cross-link density is not homogeneous, and moreover, microgels have a fuzzy corona with dangling polymer chains (23). 
+
+The brush-like interactions mediated by these dangling ends can have a profound influence on the onset of repulsive interactions when the microgels swell into contact (11). 
+The low-density polymer corona may also allow for deformation and even some mutual interpenetration between adjacent microgels (24). 
+Thus, the architecture of swollen microgels permits different competing packing mechanisms such as shape deformation, interpenetration, and compression. 
+
+The main goal of our work is to quantify their relative contribution by nanoscale imaging microgels based on dSTORM (direct stochastic optical reconstruction microscopy) superresolution microscopy (19, 25, 26). 
+To this end, we fluorescently label a small subset of microgels and record ultrahigh-resolution two-dimensional (2D) optical image sections. 
+The combination of precise labeling protocols and superresolution techniques allows us to map out the different contributions from the marginally jammed state to the deeply overpacked regime. 
+
+
+# Results
+
+## Microgel properties 
+
+Although the microgels investigated in this study are about 1 mm in diameter, the structural transformations we aim to characterize, as a function of packing density, occur on a significantly smaller length scale.
+
+
+# Discussion
+
+Fig. 5
+
+
+-----------------------------------------------------------------------------
+
+@article{mohantyInterpenetrationPolymericMicrogels2017a,
+  title = {Interpenetration of Polymeric Microgels at Ultrahigh Densities},
+  author = {Mohanty, Priti S. and N{\"o}jd, Sofi and {van Gruijthuijsen}, Kitty and Crassous, J{\'e}r{\^o}me J. and {Obiols-Rabasa}, Marc and Schweins, Ralf and Stradner, Anna and Schurtenberger, Peter},
+  year = {2017},
+  month = may,
+  journal = {Scientific Reports},
+  volume = {7},
+  number = {1},
+  pages = {1487},
+  publisher = {Nature Publishing Group},
+  issn = {2045-2322},
+  doi = {10.1038/s41598-017-01471-3},
+  urldate = {2025-08-19},
+  abstract = {Soft particles such as polymeric microgels can form ultra-dense phases, where the average center-to-center distance as can be smaller than the initial unperturbed particle diameter {$\sigma$}0, due to their ability to interpenetrate and compress. However, despite of the effort devoted to microgels at ultrahigh densities, we know surprisingly little about their response to their environment at effective volume fractions {$\phi$}effabove close packing ({$\phi$}cp), and the existing information is often contradictory. Here we report direct measurements of the size and shape of poly(N-isopropylacrylamide) microgels at concentrations below and above {$\phi$}cpusing the zero average contrast method in small-angle neutron scattering. We complement these experiments with measurements of the average interparticle distances using small-angle x-ray scattering, and a determination of the glass transition using dynamic light scattering. This allows us to unambiguously decouple interaction effects from density-dependent variations of the particle size and shape at all values of {$\phi$}eff. We demonstrate that the microgels used in this study significantly interpenetrate and thus change their size and shape only marginally even for {$\phi$}eff\,{$\gg$}\,{$\phi$}cp, a finding that may require changes in the interpretation of a number of previously published studies on the structural and dynamic properties of dense soft particle systems.},
+  copyright = {2017 The Author(s)},
+  langid = {english},
+  keywords = {Colloids,Polymer characterization},
+  file = {/home/frenour/Zotero/storage/XLVUJC44/Mohanty et al. - 2017 - Interpenetration of polymeric microgels at ultrahigh densities.pdf}
+}
+
+
+Microgel particles are intriguing soft and responsive colloids formed by a cross-linked polymeric structure that can undergo reversible continuous or discontinuous volume transitions upon variations of external stimuli such  as temperature, pH or ionic strength1–3.
+
+In particular thermoresponsive particles such as poly(N-isopropylacrylamide) (PNIPAm)-based microgels have been used recently as seemingly ideal model systems to investigate various  “hot” topics in the physics of crystallisation and melting, dynamical arrest, glass transition and jamming4–8.
+
+These microgel-based investigations have often relied on the ability of the particles to vary their size as a function of temperature, and used temperature as a convenient way to tune the particle size and thus the volume fraction.
+
+Given the fact that microgels can in principle adapt both their size as well as their shape in response to the environment, any attempt to understand the structural and dynamic properties of dense microgel dispersions thus requires quantitative information about the behaviour of the individual particle as a function of temperature and density.
+
+Despite the large number of publications dealing with dense soft particle suspensions, glasses and gels, there is indeed a surprising lack of information about the evolution of the size and shape of soft microgels with increasing concentration at and above close packing.
+
+
+-----------------------------------------------------------------------------
+
+
+@article{suzukiRaspberryShapedCompositeMicrogel2014,
+  title = {Raspberry-Shaped Composite Microgel Synthesis by Seeded Emulsion Polymerization with Hydrogel Particles},
+  author = {Suzuki, Daisuke and Kobayashi, Chiaki},
+  year = {2014},
+  month = jun,
+  journal = {Langmuir},
+  volume = {30},
+  number = {24},
+  pages = {7085--7092},
+  publisher = {American Chemical Society},
+  issn = {0743-7463},
+  doi = {10.1021/la5017752},
+  urldate = {2025-08-19},
+  abstract = {A series of raspberry-shaped composite microgels were synthesized by the seeded emulsion polymerization of styrene with hydrogel particles. Thermoresponsive microgels of poly(N-isopropylacrylamide) cross-linked with N,N{$\prime$}-methylenebis(acrylamide) acted as cores for the polymerization. During the surfactant-free polymerization, the core microgels shrank at 70 {$^\circ$}C to provide thermoresponsive composite microgels, and the polystyrene particles attached to core microgels became bigger with increasing styrene concentration. Conversely, composite microgels synthesized with sodium dodecyl sulfate (SDS) ([SDS] {$>$} 6.5 mM) did not exhibit thermoresponsive deswelling behavior because polystyrene particles covered the core microgels. In particular, polystyrene particles formed composites on the microgel surface as well as inside the microgels when the SDS concentration exceeded a critical value for core microgel swelling at 70 {$^\circ$}C. A mechanism is proposed based on these results for the seeded emulsion polymerization of water-immiscible monomers with microgels.},
+  file = {/home/frenour/Zotero/storage/4BSK644C/Suzuki and Kobayashi - 2014 - Raspberry-Shaped Composite Microgel Synthesis by Seeded Emulsion Polymerization with Hydrogel Partic.pdf}
+}
+
+
+
+Hydrogel particles, or microgels, are cross-linked waterswellable polymeric particles that exhibit interesting stimuliresponsive physical/chemical properties.
+
+These properties change in response to external stimuli, such as temperature, pH, ionic strength, light, presence of biomolecules, and  chemical reaction,1−9 making microgels suitable for various applications.
+
+
+The design and control of chemical composition and microgel morphology play an important role for realizing specific applications.
+
+
+
+-----------------------------------------------------------------------------
+
+@article{liaoFractalStructuresHydrogels2012,
+  title = {Fractal Structures of the Hydrogels Formed in Situ from Poly(N-isopropylacrylamide) Microgel Dispersions},
+  author = {Liao, Wang and Zhang, Yongjun and Guan, Ying and Zhu, X. X.},
+  year = {2012},
+  month = jul,
+  journal = {Langmuir},
+  volume = {28},
+  number = {29},
+  pages = {10873--10880},
+  publisher = {American Chemical Society},
+  issn = {0743-7463},
+  doi = {10.1021/la3016386},
+  urldate = {2025-08-19},
+  abstract = {Dispersions of poly(N-isopropylacrylamide) (PNIPAM) microgel thermally gel in the presence of inorganic salts. The in situ-formed hydrogels, with a network of soft particles, represent a new type of colloidal gels. Here, their fractal structures were determined by rheological measurements, using the models of both Shih et al. and Wu and Morbidelli. According to the definition of Shih et al., the colloidal PNIPAM gels fall into the strong-link regime. Yet the calculated fractal dimension of the floc backbone, x, yielded unrealistic negative values, suggesting this model is inapplicable for the present system. The Wu--Morbidelli model gives physically sounder results. According to this model, the strengths of the inter- and intrafloc links are comparable, and the in situ-formed gels are in the transition regime. The fractal dimension, df, of the hydrogel decreases from {$\sim$}2.5 to {$\sim$}1.8 when the heating temperature increases from 34 to 40 {$^\circ$}C. The df values suggest different aggregation mechanisms at different temperatures, that is, a reaction-limited one accompanied by rearrangement at low temperature, a typical reaction-limited one at the intermediate temperature, and a diffusion-limited one at high temperature. With increasing salt concentration, the df of the hydrogel decreases from {$\sim$}2.1 to {$\sim$}1.7, suggesting the aggregation mechanism changes from reaction-limited to diffusion-limited. The effects of both temperature and salt concentration can be explained by the changes in the interactions among the microgel particles. The thermogellable PNIPAM microgel dispersions may serve as a model system for the study of heat-induced gelation of globular proteins.},
+  file = {/home/frenour/Zotero/storage/HY9DRRIW/Liao et al. - 2012 - Fractal Structures of the Hydrogels Formed in Situ from Poly(N-isopropylacrylamide) Microgel Dispers.pdf}
+}
+
+Microgels are small hydrogel particles with a size ranging from  tens of nanometers to several micrometers.1,2
+
+The network structure of the new hydrogel is reminiscent of that of colloidal gels.10 It is well-known that a lot of colloidal dispersions lose their colloidal stability and flocculate when the interactions among the colloidal particles become attractive.
+
+
+-----------------------------------------------------------------------------
+
+@article{peltonTemperaturesensitiveAqueousMicrogels2000,
+  title = {Temperature-Sensitive Aqueous Microgels},
+  author = {Pelton, Robert},
+  year = {2000},
+  month = feb,
+  journal = {Advances in Colloid and Interface Science},
+  volume = {85},
+  number = {1},
+  pages = {1--33},
+  issn = {0001-8686},
+  doi = {10.1016/S0001-8686(99)00023-8},
+  urldate = {2025-08-19},
+  abstract = {An account of the preparation and characterization of temperature-sensitive aqueous microgels based on poly(N-isopropylacrylamide) was first published in 1986. Since then there has been a steady increase in the number of publications describing preparation, characterization and applications of temperature-sensitive microgels. This paper reviews the important developments in the area of temperature-sensitive aqueous microgels over the last decade. Although most of the work involves gels based on poly(N-isopropylacrylamide), other polymers are also considered. Core--shell latex particles exhibiting temperature-sensitive properties are also described.},
+  keywords = {Colloids,Latexes,Polymer-surfactant interactions,Swelling,Temperature-sensitive microgels,Thermal sensitive microgels},
+  file = {/home/frenour/Zotero/storage/VC6F5LFK/Pelton - 2000 - Temperature-sensitive aqueous microgels.pdf;/home/frenour/Zotero/storage/C5UNCUCL/S0001868699000238.html}
+}
+
+The core dominates light scattering turbidity behavior whereas the colloid stability is determined by the hydrogel shell.
+
+
+Most of the work discussed in this review involves microgels based on N-isopropylacrylamide. However, related monomers also yield polymers which have a lower critical solution temperature in water and a few of these monomers have been used wx  to make temperature-sensitive hydrogels.
+
+
+-----------------------------------------------------------------------------
+
+@article{huHighFractureEfficiency2012,
+  title = {High Fracture Efficiency and Stress Concentration Phenomenon for Microgel-Reinforced Hydrogels Based on Double-Network Principle},
+  author = {Hu, Jian and Kurokawa, Takayuki and Nakajima, Tasuku and Sun, Tao Lin and Suekama, Tiffany and Wu, Zi Liang and Liang, Song Miao and Gong, Jian Ping},
+  year = {2012},
+  month = dec,
+  journal = {Macromolecules},
+  volume = {45},
+  number = {23},
+  pages = {9445--9451},
+  publisher = {American Chemical Society},
+  issn = {0024-9297},
+  doi = {10.1021/ma301933x},
+  urldate = {2025-08-19},
+  abstract = {Double-network hydrogels (DN gels) have aroused considerable interest because of their excellent mechanical strength and toughness, low sliding friction, good biocompatibility, as well as wide tunability in components. By revisiting DN gels, we provide an ingenious way to fabricate a kind of strong and tough microgel-reinforced hydrogels (MR gels), that densely cross-linked polyelectrolyte microgels of poly(2-acrylamido-2-methylpropanesulfonic sodium) (PNaAMPS) (replacing the densely cross-linked PNaAMPS macro-network for conventional DN gels) are incorporated into sparsely cross-linked neutral polyacrylamide (PAAm) matrix. The structure of MR gels can be considered as a two-phase composite, where the disperse phase is the rigid DN microgels, and the continuous phase is the soft PAAm matrix. Similar to DN gels, MR gels show the irreversible energy dissipation in the hysteresis measurement, demonstrating the permanent fracture of the brittle PNaAMPS phase. Thus, the discontinuous brittle phase also serves as sacrificial bonds. Through quantitative comparison of the hysteresis curves with DN gels and monitoring the morphology change of the embedded microgels in MR gels during the real-time stretching process, we conclude that the DN microgels in MR gels show four times higher in fracture efficiency of the sacrificial bonds than bulk DN gels at the same strain, as a result of the stress concentration around the microgels.},
+  file = {/home/frenour/Zotero/storage/TRJETZ3C/Hu et al. - 2012 - High Fracture Efficiency and Stress Concentration Phenomenon for Microgel-Reinforced Hydrogels Based.pdf}
+}
+
+
+Hydrogel science and engineering is a field of important research today where the quest for the Holey Grail is clearly to reinforce the mechanical strength and toughness of these soft materials.
+
+Various solutions have been proposed to solve the paradox of tough hydrogels since 2001, like double-network hydrogels (DN),1 slide-ring hydrogels (SR),2 nanocomposite hydrogels (NC),3 etc.
+
+
+Our previous studies have shown that the strength and toughness of sparsely cross-linked neutral polyacrylamide (PAAm) hydrogels containing densely cross-linked polyelectrolyte microgels of poly(2-acrylamido-2-methylpropanesulfonic sodium) (PNaAMPS) is comparable to the conventional bulk DN gels at their optimal formulation, where the volume fraction of PNaAMPS microgels and the molar ratio of the PAAm to the PNaAMPS in the microgel phase are two critical parameters.27 
+These hydrogels, named as microgel-reinforced hydrogels (MR gels), can be regarded as a two-phase composite, where the disperse phase is the rigid double-network (DN) microgels, and the continuous phase is the sof t PAAm matrix.
+
+In this work, we make a comparison in hysteresis behavior between DN gels and MR gels, in terms of modulus and dissipated energy. 
+Through monitoring the morphology change of the embedded microgels in MR gels during the real-time stretching process, we compare the fracture efficiency of covalent carbon−carbon (C−C) bonds in polyelectrolyte phase between bulk DN gels and DN microgels in MR gels. 
+Finally, we explore the origin of the difference in their fracture efficiency from the point of view of the stress concentration around the microgels in the two-phase composite MR  hydrogels.
+
+
+
+-----------------------------------------------------------------------------
+
+@article{liToughHybridMicrogelreinforced2021,
+  title = {Tough Hybrid Microgel-Reinforced Hydrogels Dependent on the Size and Modulus of the Microgels},
+  author = {Li, Chun and Zhou, Xiaohu and Zhu, Lifei and Xu, Ziyao and Tan, Peng and Wang, Haifei and Chen, Guokang and Zhou, Xuechang},
+  year = {2021},
+  month = feb,
+  journal = {Soft Matter},
+  volume = {17},
+  number = {6},
+  pages = {1566--1573},
+  publisher = {The Royal Society of Chemistry},
+  issn = {1744-6848},
+  doi = {10.1039/D0SM01703E},
+  urldate = {2025-08-19},
+  abstract = {Microgel-reinforced (MR) hydrogels are tough hydrogels with dispersed rigid microgels embedded in a continuous soft matrix. MR gels have the great potential to provide not only mechanical toughness but also the desired functional matrix by incorporation of various functional microgels. Understanding the toughening mechanism of the MR hydrogels is critical for the rational design of the desired functionally tough MR gels. However, our current knowledge of the toughening mechanism of MR gels mainly comes from the MR hydrogels with both chemically crosslinked dispersed microgels and a continuous matrix. Little is known about the hybrid MR gels with physically crosslinked microgels embedded in a chemically crosslinked matrix. Herein, we synthesize such hybrid MR hydrogels with the ionic crosslinked calcium alginate microgels incorporated into the chemically crosslinked polyacrylamide (PAAm) matrix. The alginate microgels show strong size and modulus effects on the toughening enhancement: the larger microgels could toughen the MR gels more than the small ones, and the microgels with medium modulus could maximize the toughness of the MR gels. By comparison of the mechanical performances of the MR and the corresponding double network (DN) hydrogels, we have proposed that the hybrid MR gels may have the same toughening mechanism as the bulk DN gel. This work tries to better understand the structure--property relationships of both MR and DN gels and help in the design of more functionally tough MR gels with the desired properties.},
+  langid = {english},
+  file = {/home/frenour/Zotero/storage/7NG8HHW5/Li et al. - 2021 - Tough hybrid microgel-reinforced hydrogels dependent on the size and modulus of the microgels.pdf}
+}
+
+In the past decades, to address the mechanical limitation of the conventional synthetic hydrogels, scientists have developed a variety of synthetic strategies to fabricate hydrogels with improved mechanical strength and toughness,1, 2 such as double network (DN) hydrogels,3-5 topological or sliding-ring hydrogels,6, 7 nanocomposite hydrogels,8-11 macromolecular microsphere composite hydrogels,12, 13 and supramolecular hydrogels.14-16
+
+One of the key elements to construct the tough hydrogels is to introduce the effective sacrificial bonds which could rupture to effectively dissipate energy upon deformation.2, 4, 5
+
+For example, DN hydrogels comprise two separately crosslinked polymer networks. 
+The first network of the DN hydrogel is often rigid and brittle, which is normally served as the “sacrificial network” to dissipate energy and increase resistance against crack propagation upon loading. 
+Meanwhile, the second network is soft and ductile, which maintains the high stretchability and integrity after the fracture of the first network.4, 5
+
+
+Inspired by the DN hydrogel, microgel-reinforced (MR) hydrogels use the dispersed densely crosslinked microgels as the sacrificial bonds to toughen the matrix.21, 25-27
+
+
+
+
