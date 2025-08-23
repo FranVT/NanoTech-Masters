@@ -35,10 +35,6 @@ Hydrophilic gels that are usually referred to as hydrogels are networks of polym
     \item Periodic Boundary Conditions
 \end{itemize}
 
-\subsection{Lennard-Jones Units}
-
-\paragraph{About} dimensionless units.
-
 \subsection{Langevin dynamics}
 
 From a general point of view there are two types of methods to make a quatitative description of systems: one focused on simulating dynamics at the microscale, and the other dedicated to deriving or establishing evolutionary equations at the macroscale\citep{wangMultiscaleModelingSimulation2025}.
@@ -134,22 +130,22 @@ Taking advantage of this property we can compute the time average of~\eqref{eqn:
 \end{equation}
 Assuming that $\vec{r}_\alpha\otimes\vec{p}_\alpha$ is bounded, and the time scales between microscopic and continuum processes are large enough, the term on the left-hand side can be as small as desired by tacking $\tau$ sufficiently large and by summing over all particles we achieve the \textit{tensor virial theorem}:
 \begin{equation}
-    \overline{\bold{W}} = -2\overline{\bold{T}},\label{eqn:DerVirTen7}
+    \overline{\mathbf{W}} = -2\overline{\mathbf{T}},\label{eqn:DerVirTen7}
 \end{equation}
 where
 \begin{equation}
-    \overline{\bold{W}} = \sum_\alpha\overline{\vec{r}_\alpha\otimes\vec{f}_\alpha}\label{eqn:DerVirTen8}
+    \overline{\mathbf{W}} = \sum_\alpha\overline{\vec{r}_\alpha\otimes\vec{f}_\alpha}\label{eqn:DerVirTen8}
 \end{equation}
 is the time-average virial tensor and
 \begin{equation}
-    \overline{\bold{T}}=\frac{1}{2}\sum_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{p}_\alpha}\label{eqn:DerVirTen9}
+    \overline{\mathbf{T}}=\frac{1}{2}\sum_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{p}_\alpha}\label{eqn:DerVirTen9}
 \end{equation}
 is the time-average kinetic tensor.
 This expression for the tensor virial theorem applies equally to continuum systems that are not in macroscopic equilibrium as well as those that are at rest.
 
 The assumption of the difference between the time scales allow us to simplify the relation by replacing~\eqref{eqn:DerVirTen2} in~\eqref{eqn:DerVirTen9}, so that,
 \begin{equation}
-    \overline{\bold{T}}=
+    \overline{\mathbf{T}}=
         \frac{1}{2}\sum_\alpha m_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{v}_\alpha^{\mathrm{rel}}}
         +
         \frac{1}{2} \left[\overline{\sum_\alpha m_\alpha\vec{\upsilon}_\alpha^{\mathrm{rel}}}\right]\otimes\dot{\vec{r}}\label{eqn:DerVirTen10},
@@ -157,15 +153,15 @@ The assumption of the difference between the time scales allow us to simplify th
 which is not the simplification we expected, however, by the relations from~\eqref{eqn:DerVirTen4}, equation~\eqref{eqn:DerVirTen10} simplifies to\footnote{No estoy muy seguro si incluir una discusión acerca del término cinético en la expresión del virial. Posiblemente un párrafo\dots posiblemente lo ponga en la interpretación del teorema.
 También, no se si ir metiendo interpretación durante la derivación o no, pero bueno.}
 \begin{equation}
-    \overline{\bold{T}}=
+    \overline{\mathbf{T}}=
         \frac{1}{2}\sum_\alpha m_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{\upsilon}_\alpha^{\mathrm{rel}}}\label{eqn:DerVirTen11}.
 \end{equation}
 On the other hand, instead of reducing the expression, we start to create the conection with the Cauchy stress tensor by distributing~\eqref{eqn:DerVirTen8} into an internal and external contributions,
 \begin{equation}
-    \overline{\bold{W}} = 
-    \underbrace{\sum_\alpha\overline{\vec{r}_\alpha\otimes\vec{f}_\alpha^{\mathrm{int}}}}_{\overline{\bold{W}}_{\mathrm{int}}}
+    \overline{\mathbf{W}} = 
+    \underbrace{\sum_\alpha\overline{\vec{r}_\alpha\otimes\vec{f}_\alpha^{\mathrm{int}}}}_{\overline{\mathbf{W}}_{\mathrm{int}}}
         +
-        \underbrace{\sum_\alpha\overline{\vec{r}_\alpha\otimes\vec{f}_\alpha^{\mathrm{ext}}}}_{\overline{\bold{W}}_{\mathrm{ext}}}.\label{eqn:DerVirTen12}
+        \underbrace{\sum_\alpha\overline{\vec{r}_\alpha\otimes\vec{f}_\alpha^{\mathrm{ext}}}}_{\overline{\mathbf{W}}_{\mathrm{ext}}}.\label{eqn:DerVirTen12}
 \end{equation}
 The time-average internal virial tensor takes into account the interaction between particle $\alpha$ with the other particles in the system, meanwhile, the time-average external virial tensor considers the interaction with atoms outside the system, via a traction vector $\vec{t}$ and external fields acting on the system represented by $\rho\vec{b}$, where $\rho$ is the mass density of it and $\vec{b}$ is the body force per unit mass applied by the external field.
 Therefore we can express the following,
@@ -181,7 +177,7 @@ Assuming that $\Omega$ is large enough to express the external forces acting on 
 
 With this we can substitute the traction vector with $\vec{t}=\bm{\sigma}\vec{n}$, where $\bm{\sigma}$ represent the Cauchy stress tensor and applying the divergence theorem in~\eqref{eqn:DerVirTen13}, we have 
 \begin{equation}
-    \overline{\bold{W}}_{\mathrm{ext}}
+    \overline{\mathbf{W}}_{\mathrm{ext}}
      =\int_{\Omega}
         \left[
             \vec{\xi}\otimes\rho\vec{b}+\mathrm{div}_{\vec{\xi}}\qty(\vec{\xi}\otimes\bm{\sigma})
@@ -196,7 +192,7 @@ With this we can substitute the traction vector with $\vec{t}=\bm{\sigma}\vec{n}
 \end{equation}
 Since we assume that we are under equilibrium conditions, the term $\mathrm{div}_{\vec{\xi}}\bm{\sigma}+\rho\vec{b}$ is zero~\eqref{eqn:DerVirTen14} it simplifies to
 \begin{equation}
-    \overline{\bold{W}}_{\mathrm{ext}}
+    \overline{\mathbf{W}}_{\mathrm{ext}}
     =V\bm{\sigma}^{\mathrm{T}}\label{eqn:DerVirTen15}.
 \end{equation}
 By tacking into account that we integrate over the domain $\Omega$ we can say that we compute the spatial average of the Cauchy stress tensor,

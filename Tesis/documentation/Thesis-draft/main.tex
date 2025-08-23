@@ -3,7 +3,7 @@
 % Updated: October 27 , 2002
 % --------------------------------------------------------------------
 
-\documentclass{book}
+\documentclass[12pt]{book}
 
 %----------------------------------------------------------------------
 % Reprocess only those files which have changed recently:
@@ -26,8 +26,6 @@
                              % ... only needed for PDF generation
 \usepackage[english]{babel}  % borre [spanish]
 \usepackage{ifthen}          % for caption fix.
-\usepackage{times}           % font style
-\usepackage{fullpage}        % page size
 \usepackage{physics}
 \usepackage{bm}
 \usepackage{siunitx} 		% Permite utilizar el sistema internacional de unidades
@@ -97,6 +95,7 @@
 \headsep = 25 pt   % Avoid the top margin problem
 
 \title{This is the title of the Thesis}
+\author{Fco. Vazquez}
 
 \begin{document}
 %----------------------------------------------------------------------
@@ -140,7 +139,7 @@
 %VimtexCompileSS\bibliographystyle{plain}  % sorted alphabetically, labeled with numbers
 
 %\nocite{*}
-\bibliographystyle{plainnat}
+\bibliographystyle{ksfh_nat}
 \bibliography{biblio.bib}     % names file phdrefs.bib as my bibliography file
 
 
