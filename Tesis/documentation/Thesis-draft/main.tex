@@ -3,7 +3,7 @@
 % Updated: October 27 , 2002
 % --------------------------------------------------------------------
 
-\documentclass[12pt]{book}
+\documentclass[12pt,letterpaper]{book}
 
 %----------------------------------------------------------------------
 % Reprocess only those files which have changed recently:
@@ -37,7 +37,8 @@
 \usepackage[most]{tcolorbox}
 
 \usepackage{cleveref}
-\usepackage{natbib}
+\usepackage[square,numbers]{natbib}
+\bibliographystyle{abbrvnat}
 \usepackage{comment}
 \setcounter{secnumdepth}{2}
 
@@ -139,8 +140,8 @@
 %VimtexCompileSS\bibliographystyle{plain}  % sorted alphabetically, labeled with numbers
 
 %\nocite{*}
-\bibliographystyle{ksfh_nat}
-\bibliography{biblio.bib}     % names file phdrefs.bib as my bibliography file
+
+\bibliography{biblio}     % names file phdrefs.bib as my bibliography file
 
 
 % Appendices-----------------------------------------------------------

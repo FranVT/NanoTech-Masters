@@ -1,0 +1,108 @@
+
+@article{guPolymerNetworksPlastics2020,
+  title = {Polymer Networks: From Plastics and Gels to Porous Frameworks},
+  shorttitle = {Polymer Networks},
+  author = {Gu, Yuwei and Zhao, Julia and Johnson, Jeremiah A.},
+  year = {2020},
+  journal = {Angewandte Chemie International Edition},
+  volume = {59},
+  number = {13},
+  pages = {5022--5049},
+  issn = {1521-3773},
+  doi = {10.1002/anie.201902900},
+  urldate = {2025-06-24},
+  abstract = {Polymer networks, which are materials composed of many smaller components---referred to as ``junctions'' and ``strands''---connected together via covalent or non-covalent/supramolecular interactions, are arguably the most versatile, widely studied, broadly used, and important materials known. From the first commercial polymers through the plastics revolution of the 20th century to today, there are almost no aspects of modern life that are not impacted by polymer networks. Nevertheless, there are still many challenges that must be addressed to enable a complete understanding of these materials and facilitate their development for emerging applications ranging from sustainability and energy harvesting/storage to tissue engineering and additive manufacturing. Here, we provide a unifying overview of the fundamentals of polymer network synthesis, structure, and properties, tying together recent trends in the field that are not always associated with classical polymer networks, such as the advent of crystalline ``framework'' materials. We also highlight recent advances in using molecular design and control of topology to showcase how a deep understanding of structure--property relationships can lead to advanced networks with exceptional properties.},
+  copyright = {{\copyright} 2019 Wiley-VCH Verlag GmbH \& Co. KGaA, Weinheim},
+  langid = {english},
+  keywords = {gels,microporous polymers,polymer networks,polymers},
+  file = {/home/fran/Zotero/storage/SLBZN483/Gu et al. - 2020 - Polymer Networks From Plastics and Gels to Porous Frameworks.pdf;/home/fran/Zotero/storage/IK4K8YB4/anie.html}
+}
+
+[This goes into the gels subsection]
+
+From a structural perspective, polymer networks are composed of network “junctions” (in some cases, these can also be referred to as “crosslinks”, defined as a bond that links one strand to another), which have three or more groups (the exact “branch functionality” we refer to as f) emanating from a core, connected together by f “strands.” 
+
+Strands can be linear polymer chains, flexible short molecules, rigid struts/ linkers, etc.
+
+junctions and strands in polymer networks can be linked together via physical interactions (e.g., van der Waals interactions, hydrophobic interactions, Coulombic interactions, metalligand coordination) or covalent bonds. 
+Hence, polymer networks are conventionally classified as “physical” (supramolecular) or “chemical” (covalent) networks. 
+It should be noted that this classification does not always accurately reflect material properties; bond strengths and exchange rates are much more informative. 
+For example, given sufficiently strong and static physical interactions, physical networks can behave identically to chemical networks; alternatively, the incorporation of mechanisms for covalent bond exchange can result in chemical networks that exhibit adaptable mechanical properties regulated by external stimuli. 
+Thus, the properties of polymer networks can vary widely depending on the composition of the junctions and strands as well as the formation and use conditions. 
+With this broad view in mind, nearly all polymer networks, regardless of their colloquial name, structure, properties, etc. can generally be divided into one of four major classes: thermosets, thermoplastics, elastomers, and gels.
+
+
+### Thermosets
+are polymer networks where the junctions and strands are typically connected via covalent bonds and where the material is used at a temperature well below the glass transition temperature.
+They are rigid materials (Young s moduli of 109 Pa) that are normally insoluble in all solvents and not processable once formed (unless a mechanism for junction/strand exchange is available, such as in covalent adaptable networks/vitrimers).
+Classical thermosets typically degrade rather than become fluid upon heating.
+Some examples of commercially important thermosets include formaldehyde resins, polyurethanes, and epoxy resins.
+
+
+### Thermoplastics
+are networks of macromolecules connected together via non-covalent (supramolecular) interactions, where the material is used well below its glass transition temperature. 
+Above a certain temperature, thermoplastics can transition from rigid solids to processable viscoelastic fluids that can, at least in principle, be remolded, healed, and recycled. 
+We note that thermoplastics are conventionally considered as “non-crosslinked” due to the lack of covalent bonding between macromolecular chains; at their operating temperatures, however, the strength of the intermolecular non-covalent interactions within many thermoplastics is very high, resulting in mechanical properties similar to their thermosetting counterparts and justifying their classification as “polymer networks.” 
+Examples of thermoplastics are polyethylene and polypropylene plastics, poly(methyl methacrylate) acrylics, polycarbonates, and polyamides (e.g., Nylon).
+
+### Elastomers
+are polymer networks that are used at temperatures above their glass transition temperature. 
+They are typically composed of covalently bonded macromolecules, though they can also be constructed from non-covalent interactions (the latter are referred to as “thermoplastic elastomers”). 
+As a result, they are soft but non-fluid materials (Young s moduli of 106 Pa or lower) that can be reversibly stretched to high extensions without breaking. 
+Examples of elastomers include vulcanized natural rubber, silicone rubbers, and EPDM (ethylene propylene diene monomer) rubber.
+
+### Gels
+are polymer networks constructed from either covalent or supramolecular bonds that are swollen in liquid media such as water or organic solvents. 
+The network structure ensures that the liquid is held within the material. 
+Gels are usually very soft (Young s moduli of 103–104 Pa) but are often capable of undergoing relatively large deformation.
+Examples of gels include gelatin, fibrin, and polyacrylamide hydrogel.
+
+
+# Mechanisms for polymer network formation
+
+There are three major mechanisms used for polymer network synthesis: 
+    addition/chain-growth polymerization, 
+    step-growth polymerization, and 
+    vulcanization.
+
+### Addition/chain-growth polymerization 
+occurs by a chain reaction wherein one monomer (typically an unsaturated compound, e.g., an olefin) at a time adds onto the end of growing polymer strands. 
+In the presence of multifunctional monomers (“crosslinkers,” e.g., divinylbenzene in the case of radical polymerization) that serve as junctions, two or more propagating polymer chains can be linked together (“crosslinked”), inducing the formation of a polymer network.
+
+
+### Step-growth polymerization
+starts from multifunctional monomers that are capable of reacting with each other to form dimers, then oligomers, and eventually polymers. 
+If one or more of the monomers have a functionality (f) greater than two, branched polymers are formed; further reactions between these branched polymers can lead to polymer network formation. 
+One common strategy for forming polymer networks through a step-growth process is referred to as “end-linking,” where the chain ends of bifunctional molecules (referred to as “A2”) are linked by multi-functional monomers (referred to as “Bf”) in a reaction between functional groups A and B.
+
+
+### Vulcanization
+is a special case wherein preformed polymers are crosslinked by forming bonds between functional groups present on the polymer backbone or sidechains. 
+A well-known example is sulfur vulcanization of natural rubber, where the alkene groups of polyisoprene strands are crosslinked by reaction with sulfur. 
+Notably, vulcanization can also be viewed as a step-growth polymerization wherein the preformed polymer (e.g., polyisoprene) serves as a multifunctional (e.g., Bf) component.[10]
+
+
+----------
+
+## Gel point
+
+For any polymer network forming process, there is a critical point known as the “gel point,” where the reaction phase transitions from liquid to solid. 
+Since many properties of polymer networks change abruptly at the gel point and are only useful beyond the gel point, several theoretical models have been developed to predict the gel point for various network formation processes, such as mean-field theory,[11,12] critical percolation theory,[12,13] and the kinetic gelation model.[14] 
+Here, we introduce two classical approaches—the Carothers model[15] and the Flory–Stockmayer model[11,16]to predicting the relationship between gelation and the extent of reaction in step-growth polymerization.
+
+### Carothers model
+that gelation occurs when the number-average molar mass of the macromolecules in a network forming process approaches infinity. 
+In a step-growth polymerization containing equivalent numbers of A and B groups, Carothers derived that the critical extent of reaction pc at the gel point is given by [Eq. (1)]:
+
+### Flory-Stockmayer
+derived an expression for predicting pc (critical extente of reaction) by calculating the point at which the weight average molar mass approaches infinity, or Mw ! 1. 
+The Flory–Stockmayer model is a mean-field approach, where network formation is modeled as percolation on a Bethe lattice. 
+For a step-growth polymerization involving A and B groups, they postulated that [Eq. (2)]:
+
+
+----------
+
+[This goes into the introduction Chapter]
+
+# Polymer Network Structure
+
