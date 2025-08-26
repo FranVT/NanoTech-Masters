@@ -141,5 +141,212 @@ Recently, methods that bias polymerization kinetics, such as semibatch monomer a
 
 ### Controlling Branch Funcitonality of Polymer Networks
 
+Branch functionality (f) is a theoretical value that describes the number of elastically effective strands connected to a network junction; it is equal to the monomer functionality when there are no unreacted functionalities or loops. 
+In practice, the number of elastically effective strands connected to a junction (effective branch functionality, feff) could be greatly reduced by the presence of topological defects.
+
+
+In end-linked networks, the branch functionality can be controlled by changing the functionality of the network precursors
+
+Self-assembly is often used for the construction of high f polymer networks.
+
+
+
+### Controlling Polymer-Networks Strand Topology
+
+Many topologically intriguing macromolecular architectures have been realized through the development of advanced synthetic strategies and methods.[68,69] 
+Leveraging these techniques, polymer networks with topologically unique motifs, such as 
+    cyclic polymers,[70] 
+    polyrotaxanes,[71] and 
+    polycatenanes,[72] have been reported.
+
+
+### Controlling Loops of Various Orders in Polymers Networks
+Most polymer networks are rich in elastically defective topological structures such as unreacted functionalities and loops of various orders. 
+Unreacted functionalities can be controlled by altering the reaction stoichiometry or through the deliberate doping of monofunctional network precursors.[89]
+In contrast, controlling loops in amorphous polymer networks is much more challenging.
+
+
+
+### Controlled Radical Polymerization in Polymer Network
+
+Radical polymerization involves four elementary processes: 
+    initiation, 
+    propagation, 
+    chain transfer, and 
+    termination.
+Conventional free radical polymerization suffers from a slow rate of initiation relative to propagation as well as unavoidable termination, together leading to limited control over chain length/topology. 
+In contrast, the concepts of reversible termination and degenerative chain transfer[95,96] enabled the development of modern reversible deactivation radical polymerization (RDRP) techniques that provide convenient access to polymers with predetermined molecular weights and well-defined microstructures.[97]
+
+Three major RDRP techniques are most commonly used for polymer network synthesis: 
+    nitroxide mediated polymerization (NMP),[98–100] 
+    atom transfer radical polymerization (ATRP),[53,101–103] and 
+    reversible addition-fragmentation chain transfer (RAFT) polymerization.[104–106]
+
+
+
+### Topology-Switchable Networks
+
+The critical role that topology plays in dictating the properties of materials has inspired a class of polymer networks that can interconvert between two different stable topological states.
+
+In this system, the network junctions switch from Pd3L6 (f = 6) to Pd24L48 (f = 48) upon irradiation with ultraviolet light and back with green light (Figure 6 A).[51]
+
+Large changes in the storage modulus are possible upon topology switching; 
+    perhaps more interestingly, the different ligand exchange dynamics of the two MOCs are reflected in an order of magnitude difference in the characteristic stress-relaxation times of their corresponding networks, enabling the material to be switched repeatedly between a soft and self-healing state and a stiff, dimensionallystable state. 
+For further discussion on the ramifications of network structure/topology on mechanical behaviors, see Section 4 below.
+
+[Reversible crosslinking methods]
+
+
+# Basics Properties of Polymer Networks
+
+## Elasticity
+
+
+The physical origin of rubber elasticity comes from the loss in conformational entropy that occurs as a strand in a network is stretched; this process is commonly depicted as the unwinding of flexible, random coils. 
+Once the external stretching force is removed, an elastic entropic force restores the strands to their unstretched and higher entropy state. 
+As a result, network strands can be considered as entropic molecular springs. 
+
+In this section, we introduce the two simplest theories that capture the entropic origin of rubber elasticity for nonentangled polymer networks at the molecular-level: the affine and phantom network models.
+
+### Affine network model
+
+assumes that the relative deformation experienced by each network strand is the same as the macroscopic deformation applied to the entire network. 
+When network strands are treated as Gaussian chains and the polymer network is assumed to be incompressible (i.e., Poisson s ratio is 0.5), the stress-deformation behavior of an affine network in response to a uniaxial force is expressed as [Eq. (8)]:
+
+\sigma = \upsilon_{\mathrm{eff}}RT(\lambda-\frac{1}{\lambda^2})
+
+- \sigma is the engineering stress, defined as the applied force divided by the initial cross-sectional area of the material; 
+- l is the ratio of the final length to the initial length of the material along the direction of the applied force (Note: when describing material deformation in a tensile test, engineering strain e is sometimes used in place of l. e is defined as the ratio of the total deformation to the initial length of the material along the direction of the applied force. Hence, e 1⁄4 l @ 1); 
+- neff is the density of elastically effective strands;
+- R is the gas constant; and 
+- T is the temperature. 
+
+The shear modulus G, correlates with the Young's modulus E, can be calculate from Eqn 9, where (\upsilon is Poisson's ratio)
+
+G = E/(2(1+\upsilon)) = \upsilon_{eff}RT
+
+### Phantom network
+
+assumes that network junctions can fluctuate around their average positions. 
+These fluctuations reduce the conformational restrictions experienced by strands, which, in turn, lowers the net free energy of the system relative to the affine network. 
+
+In the phantom model, the shortest-path tree of network strands connecting each junction to the network surface is simplified as an effective chain that captures the cumulative behavior of the network. 
+This simplification, which takes into consideration the network branch functionality f, leads to an expression for the phantom network modulus [Eq. (10)]:[12]
+
+G = \upsilon_{eff}RT(1-2/f)
+
+As a result, the predicted shear modulus in the phantom network model is lower than that of the affine network model.
+The engineering stress for the uniaxial deformation of a phantom network remains the same [Eq. (11)].
+
+## Swelling of Polymer Networks
+\sigma = G(\lambda-1/\lambda^2)
+
+- E is often determined from the initial slope of the stressstrain curve under tensile force (Figure 7 A), which is measured using a tensile testing instrument (e.g., Instron).
+- On the other hand, G is typically determined from oscillatory shear rheology (Section 4.3). 
+    These methods provide seemingly simple opportunities to experimentally evaluate the affine and phantom models.
+
+This approach is complicated, however, by the presence of elastically defective structures in real polymer networks, which preclude an accurate determination of neff.
+
+|-
+Johnson, Olsen, and co-workers developed real elastic network theory (RENT), a modified phantom network model that incorporates the effect of loops of various orders to predict network elasticity.[123,124] Using accurately determined neff based on primary loop characterization data obtained through NDS and simulations, RENT precisely predicted the shear elastic moduli G of gels with f = 3 or 4 (Figure 7 B). It should be noted that in the original RENT, the predicted impact of larger loops (i.e., loops of order three or above) on network elasticity was approximated. Recently, Lang proposed an equivalent resistance method to exactly solve for the impact of finite loops on elasticity.[125] Inspired by this approach, Olsen and co-workers modified RENT and found that under classical assumptions of phantom network theory, loops with order thre
+-|
+
+----
+
+As noted above, the affine and phantom network models assume no strand entanglements. 
+
+In polymer networks made of long linear polymers, entanglements effectively serve as additional supramolecular crosslinks to increase the network modulus and toughness. 
+Stress-deformation behaviors of entangled elastomers can be phenomenologically fitted using the Mooney-Rivlin model to empirically obtain the contribution of entanglements towards elasticity.[12,29] 
+Recently, Matyjaszewski, Sheiko, and co-workers demonstrated the severe reduction of trapped entanglements in elastomers made of densely grafted bottlebrush polymers.[120,129,130] 
+In these solvent-free polymer networks, the network strands (bottlebrush backbones) are effectively swollen by the low Tg bottlebrush sidechains, leading to low moduli comparable to conventional solvent-containing gels.
+These materials demonstrate stress-strain behaviors resembling a variety of biological tissues[131] and hold great promise for biomaterial applications.[132]
+
+
+## Swelling of Polymers Networks
+
+Polymer networks constructed from strong (e.g., covalent) bonds typically do not dissolve in solvents. 
+Instead, such networks absorb solvent up to an equilibrium concentration and undergo a concomitant increase in volume. 
+
+The equilibrium degree of swelling is dictated by a balance between the free energy of polymer-solvent mixing and the free energy cost of expanding the network, which is expressed by the Flory–Rehner equation[11,133] for isotropic swelling of an affine polymer network [Eq. (12)]:
+
+\ln(1-\phi_{eq}) + \phi_eq + \xi\phi^2_{eq} = \eta_{eff}V_1(\phi_eq/2-\phi^{1/3}_{eq})
+
+where 
+- feq is the volume fraction of the polymer network in the equilibrium swollen state, 
+- c is the Flory–Huggins polymer-solvent interaction parameter, 
+- neff is the density of elastically effective strands in the unswollen network, and 
+- V1 is the molar volume of the solvent.
+
+The simple ability to control the swelling of polymer networks has recently enabled exciting new applications of these materials. 
+For example, fixing/crosslinking biological tissues onto hydrogels has been exploited to obtain highresolution optical microscopy images in a technique referred to as CLARITY.[139]
+
+## Viscoelasticity of Polymer Networks
+
+Polymeric materials exhibit both viscous and elastic characteristics upon deformation, meaning that their properties may vary with the time scale or frequency at which measurements are performed. 
+To characterize this viscoelasticity with respect to tensile, compressive, or shear deformation, several types of experimental measurements are commonly applied, such as stress relaxation, creep, and oscillatory shear tests. 
+In this section, we will focus on oscillatory shear rheology of polymer networks. 
+We refer the reader to additional literature for a comprehensive understanding of polymer viscoelasticity.[12,147,148]
+
+
+
+Oscillatory shear measurements are often performed on dynamic mechanical analyzers or rheometers, where a sample is subjected to a sinusoidal shear strain g(t) with small amplitude g0 and angular frequency w [Eq. (13)]:
+\gamma(t) = \gamma_o\sin(\omega t)
+
+The linear response of a viscoelastic material in terms of stress s(t) is sinusoidal with the same frequency w, but leads the strain by a phase angle d [Eq. (14)]:  
+\sigma(t)=\sigma_o\sin(\omega t+\delta)
+
+The stress can be separated into two components that oscillate with the same frequency w, one in phase with the strain and the other out of phase with the strain by p/2 [Eq. (15)]:  
+\sigma(t) = \gamma_o[G'(\omega)\sin(\omega t) + G''(\omega)\cos(\omega t)]
+
+Equation (15) defines the storage modulus G’(w) and the loss modulus G’’(w), the former of which describes the elastic response of the material while the latter describes the viscous response. 
+At a given frequency w, if G’(w) > G’’(w), the material response is considered to be solid-like; if G’(w) < G’’(w), the material is considered to exhibit fluid-like behavior.
+
+Oscillatory shear rheology can be applied to monitor network formation. 
+Figure 8 C shows the evolution of storage moduli and loss moduli at three frequencies during the chemical crosslinking of polybutadiene.[152] 
+As the crosslinking proceeds, the sample transitions from a viscous solution to an elastic solid, resulting in a change in viscoelasticity from G’(w) < G’’(w) to G’(w) > G’’(w). 
+The crossover point at which G’(w) = G’’(w) is commonly used to define the gel point.[153]
+
+Oscillatory shear measurements can also be performed at variable temperatures to study the temperature dependence of material properties. 
+This technique is especially useful for polymer networks containing dynamic bonds that are sensitive to temperature. 
+Figure 8 D shows the storage and loss moduli (measured at 1 rad s@1) as a function of temperature for an aqueous solution of a triblock copolymer ABA, where the terminal A blocks are thermoresponsive PNIPAm and the middle block B is hydrophilic poly(N,N-dimethylacrylamide) (PDMA).[154] 
+Above the LCST of PNIPAm, the terminal A blocks transition from hydrophilic to hydrophobic, inducing the formation of multicompartment hydrogels. 
+Gelation was evidenced by a change of material properties from G’(w) < G’’(w) to G’(w) > G’’(w) around 45 8C.
+
+Entanglements in linear polymers, which can be viewed as dynamic mechanically interlocked bonds, can be experimentally observed through analysis of the modulus as a function of either temperature or time (Figure 8 E). 
+In the classical case of amorphous, entangled polymers that lack covalent crosslinks, at temperatures below Tg a high Young s modulus is observed. 
+At intermediate temperatures above Tg, the modulus decreases, but does not drop to near zero, which occurs for non-entangled polymers. 
+This regime is referred to as the “rubbery plateau”; it represents a temperature or time regime wherein strand entanglements provide transient network junctions (mechanical crosslinks) that are elastically effective. 
+At even higher temperatures or longer times, the modulus drops precipitously, and the material behaves as a liquid.
+
+# Additional Example of Polymer Networks with Unique chemistry/Structure-Driven Properties
+
+
+## Covalent Adaptable Polymer Networks
+
+
+## Microporus Polymer Networks
+
+
+### Amorphous Microporous Polymer Networks
+
+
+### Covalently Crosslinked Microporous Polymer Networks
+
+
+### Microporous Polymer Networks Without Covalent Crosslinking
+
+
+### Crystalline Microporous Polymer Networks
+
+
+### MOFs
+
+
+## Interpenetrating
+
+
+# Summary and Outlook
+
+
 
 

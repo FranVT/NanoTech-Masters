@@ -1,0 +1,44 @@
+\documentclass{tufte-book}
+\PassOptionsToPackage{numbers}{natbib}
+
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd,latexsym}         % ..if you need lots of math symbols
+\usepackage{bm}
+\usepackage{physics}
+\usepackage{mathptmx}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage{centernot} 		% Notacion matematica
+\usepackage{empheq}			% Recuadros para ecuaciones
+\usepackage[most]{tcolorbox}
+\usepackage{comment}
+\usepackage{ragged2e}
+
+
+\bibliographystyle{plainnat}
+
+\title{This is the title of the Thesis}
+\author{Fco. Vazquez}
+
+\begin{document}
+\justifying   
+
+
+
+\normalsize
+\maketitle
+\tableofcontents
+\setcounter{secnumdepth}{2}
+
+
+% Chapters
+
+\include{chs/ch1}      % Chapter 1 Intro
+\include{chs/ch2}      % Chapter 2 Theoretical framework
+\include{chs/ch3}      % Chapter 3 Numerical Experiments
+\include{chs/ch4}      % Chapter 4 Conclusion
+
+\bibliography{biblio}     % names file phdrefs.bib as my bibliography file
+
+
+
+\end{document}
