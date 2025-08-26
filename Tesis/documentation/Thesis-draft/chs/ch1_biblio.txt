@@ -318,31 +318,179 @@ At intermediate temperatures above Tg, the modulus decreases, but does not drop 
 This regime is referred to as the “rubbery plateau”; it represents a temperature or time regime wherein strand entanglements provide transient network junctions (mechanical crosslinks) that are elastically effective. 
 At even higher temperatures or longer times, the modulus drops precipitously, and the material behaves as a liquid.
 
+
 # Additional Example of Polymer Networks with Unique chemistry/Structure-Driven Properties
 
-
+[Structure/mechanical response]
 ## Covalent Adaptable Polymer Networks
+
+Due to their strong bonds, covalent polymer networks possess high mechanical strength across a wide range of conditions. 
+While such mechanical stability enables their use in daily life, many emerging applications and environmental sustainability concerns demand unconventional properties of polymer networks, such as reprocessability, repairability upon damage, and adaptability to different environments.
+
+
+Several strategies have been developed to address these needs. 
+For example, polymer networks with rapid stress relaxation that can heal when damaged (“self-healing”) are often constructed from non-covalent network bonds (e.g., metal–ligand coordination, host–guest interactions, hydrogen bonding, and hydrophobic interactions) that facilitate energy dissipation and structural reorganization. 
+
+The introduction of stimuli-responsive bonds (e.g., light-cleavable o-nitrobenzyl esters, light-isomerizable azobenzenes, mechanoresponsive spiropyrans) provides an approach to imparting environmental-responsiveness to polymer networks, such as lightregulated reversible sol–gel switching,[155] controlled release of functional molecules,[156] and shear-strengthening properties.[38] 
+
+Recent reviews discuss these classes of materials in great detail.[157–160] 
+
+In this section, we focus on covalent adaptable networks (CANs), a recently popularized class of reconfigurable and responsive network systems. 
+Within the past several decades, the development of dynamic covalent chemistry has exploited various types of covalent bonds that can equilibrate under certain reaction conditions.[161] 
+CANs are produced from incorporating these bonds into covalent polymer networks, which allows for stimulus-induced reconfiguration of networks to reduce stresses or heal damage. 
+As a result, CANs not only exhibit the robust mechanical properties typical of thermosets but they can also possess the processability and relaxation behavior of thermoplastics.
+
+Depending on the exchange mechanism, CANs may be further classified into two groups: dissociative CANs and associative CANs.
+
+### Dissociative CANS 
+obtain their dynamic properties from dissociative bond exchange, where bonds are first broken and then reformed in the network (Figure 9 A, top). 
+A representative reaction used in dissociative CANs is the retro-Diels–Alder (DA) cycloaddition between furan and maleimide. 
+While the formation of DA adducts is favored at room temperature, the reaction becomes reversible at elevated temperatures.
+
+Polymer networks synthesized using furan-maleimide cycloaddition exhibit excellent mechanical properties at room temperature that slowly decay upon heating.[162] 
+At 92 8C (Tgel), the equilibrium conversion of the forward DA reaction drops to 71 %, which meets the critical gel point predicted by Flory–Stockmayer theory.[163] 
+Consequently, the material exhibits liquid-like properties at temperatures higher than Tgel, as evidenced by an abrupt decrease in modulus and viscosity (Figure 9 B). 
+The reversible nature of this process renders the material thermally remoldable. 
+In addition to this example, dissociative CANs based off a wide range of functional groups including disulfides[110] and isocyanates[164] have been extensively studied.[159,165]
+
+### Associative CANs
+operate analogously to SN2 or RAFT reactions where the main bond breaking and bond forming events occur simultaneously (Figure 9 A, bottom). 
+For associative bond exchange, which is often an energetically degenerate process (analogous to chain transfer in RAFT) in CANs, changes in temperature or other corresponding stimuli affect the exchange reaction  kinetics rather than the chemical equilibrium.
+
+----
+
+As a result, a distinguishing characteristic between dissociative and associative CANs is that associative CANs display a constant crosslinking density with respect to temperature.
+Since the rate of stress relaxation of these networks depends on the rate of bond rearrangement, the associative bond exchange mechanism is reflected in a viscosity with Arrhenius-like temperature dependence (Figure 9 C). 
+This behavior, typically observed in vitreous silica, led Leibler and co-workers to coin the name “vitrimers” as they studied one of the first purposefully designed associative CANs formed from epoxy/ acid polyester-based networks with zinc acetate as a transesterification catalyst.[166] 
+In contrast, the viscosity-temperature behavior of dissociative CANs or thermoplastic polymers often follows the Williams–Landel–Ferry (WLF) model (Figure 9 C), which best describes the temperature dependence of material properties that undergo an abrupt transition at a critical temperature (e.g., changes in viscosity near Tg).
+
 
 
 ## Microporus Polymer Networks
 
+Microporous materials are defined as materials containing interconnected pores of less than 2 nm in diameter on average.[169a] 
+Due to their large surface area, many conventional microporous materials (e.g., zeolites, activated carbons) are widely used as catalysts, sorbents, and separation membranes. 
+
+The central design principle for introducing permanent microporosity into polymer networks involves the use of rigid building blocks. 
+Such rigidity precludes the network strands from behaving effectively as entropic molecular springs and prevents the collapse of microporous structures upon solvent removal; consequently, these materials are typically stiff yet brittle.[169b] 
+The rigidity of monomers further prevents small loop formation and, in some cases, allows for establishing long-range order in the presence of self-error-correcting mechanisms (e.g., reversible bond formation). 
+Hence, microporous polymer networks can be either amorphous or crystalline. 
+Aside from the general use of very rigid components, the basic concepts of microporous polymer network synthesis are similar to those discussed above for either covalent or physical polymer networks.
+
 
 ### Amorphous Microporous Polymer Networks
 
+Amorphous microporous polymer networks of different types have been denoted by various names, such as polymers of intrinsic microporosity (PIMs),[6] porous organic polymers (POPs),[170] conjugated microporous polymers (CMPs),[171] and hypercrosslinked polymers (HCPs).[172] 
+Here, we divide these materials into two categories based on whether or not polymer strands are covalently crosslinked.
 
 ### Covalently Crosslinked Microporous Polymer Networks
+
+One straightforward strategy for the synthesis of microporous end-linked polymer networks involves step-growth polymerization of rigid monomers where at least one of the monomers has a functionality greater than two. 
+
+When the polymerization reaction is irreversible, the resulting networks are often amorphous due to accumulated structural defects. 
+ 
+The obtained networks exhibited high BrunauerEmmett–Teller (BET) surface areas in the range of 9001000 m2 g@1. 
+Similar approaches were used to synthesize conjugated polymer networks with microporosity. 
+ 
+This approach enabled the synthesis of a microporous ladder polymer network with a BET surface area of 813 m2 g@1 from 1,2,4,5benzenetetrathiol and octafluoronaphthalene. 
+ the resulting amorphous microporous polymer network featured a remarkable BET surface area of 5600 m2 g@1.[176] 
+
+Covalently crosslinked microporous polymer networks can also be synthesized via vulcanization. 
+ 
+The obtained materials had BET surface areas up to 1466 m2 g@1. 
+
+In terms of applications, covalent microporous polymer networks can outperform conventional porous materials in gas storage, heterogeneous catalysis, and water purification. 
+In addition, they hold great promise in various emerging applications such as light harvesting, selective molecular capture, and organic semiconductors. The details of these applications have been extensively reviewed.[180,181]
 
 
 ### Microporous Polymer Networks Without Covalent Crosslinking
 
+While polymer strands can bend and twist to pack space efficiently, thermoplastics typically possess void space (i.e., free volume) as a consequence of non-covalent intermolecular interactions and restricted chain motion below the glass transition temperature. 
+Through appropriate molecular design, polymers with enormous free volume can be synthesized where the voids become interconnected, leading to microporous materials without covalent crosslinking. 
+
+Similar to ordinary thermoplastics, this class of microporous polymer networks is rigid yet soluble in appropriate solvents, allowing for solution-based processing. 
+Here again, the key strategy to introduce porosity (free volume) into polymers involves incorporating rigid and/or bulky structural motifs. 
+
+The microporosity of these polymers was evidenced by BET surface areas of up to 720 m2 g@1.
 
 ### Crystalline Microporous Polymer Networks
 
+Crystalline microporous polymer networks typically possess higher surface areas than their amorphous counterparts. 
+More importantly, their crystallinity leads to a uniform distribution of pore sizes, which facilitates many applications. 
+
+The key to the formation of crystalline networks is the use of reversible reaction conditions (conceptually analogous to physical/supramolecular networks described above) and highly rigid monomers, which allows for error corrections during network formation and produces thermodynamically stable networks with long-range order. 
+
+In this section, we briefly discuss two major types of crystalline microporous polymer networks: MOFs and COFs.
 
 ### MOFs
+MOFs, sometimes referred to as porous coordination polymers (PCPs),[188] are porous polymer networks consisting of metal ions or clusters as junctions coordinated to rigid organic ligands as strands (Figure 11). 
+These materials can have two-dimensional grid structures that stack on each other through physical (e.g., van der Waals or pstacking) interactions, or they can be three-dimensional networks. 
+
+When discussing MOFs, most researchers are referring to crystalline materials; the reversible nature of metal–ligand coordination enables establishment of longrange order in these materials. 
+Nevertheless, metal–ligand coordination does not always produce crystalline materials even when rigid building blocks are applied. 
+
+In any case, MOFs, whether they are crystalline or not, are coordination polymer networks. 
+Thus, the terms “crystalline PCP” or “amorphous PCP” are also applicable. 
+
+The development of MOFs has popularized the concept that crystalline networks with given structures can be assembled from well-defined monomers of simple geometrical shapes (i.e., secondary building units (SBUs)) that are organic or metal-containing. 
+This process, referred to as “reticular synthesis” by Yaghi and O Keeffe, has facilitated the rational design of many novel MOFs and related networks.[192–196] 
+Similar concepts have been used in the design of classical polymer networks to control topological features such as f (see Section 3.3). 
+
+Here, we introduce four representative MOF structures to showcase how the achieved topology is precisely dictated by the SBUs
+
+
+### COFs 
+
+Connecting rigid organic building blocks through dynamic covalent chemistry has enabled the development of another class of crystalline polymer networks, COFs. 
+To our knowledge, the first example of COF synthesis using this approach was reported by Yaghi and co-workers in 2005.[231] 
+
+This material exhibited high thermal stability, permanent porosity, and a high BET surface area of 1590 m2 g@1. 
+
+The development of COFs has greatly enriched reticular chemistry, providing opportunities to access sophisticated polymer network topologies that are otherwise difficult to achieve.[236] 
+
+
+While dynamic covalent bonds facilitate the crystallinity of COFs, the same mechanism results in their low chemical/ hydrolytic stability and severely limits their potential applications. 
+Three strategies have been applied to increase COF stability: 
+    1) Using more stable dynamic covalent bonds. 
+        For example, hydrazone- or azine-linked COFs were shown to have a higher hydrolytic stability than imine-linked COFs;[239,240] 
+    2) Strengthening the interlayer stacking in twodimensional COFs.[241,242] 
+        For example, Jiang and co-workers developed a stable imine-linked COF by incorporating methoxy groups into the pore walls,[243] which softened interlayer charge repulsion and reinforced interlayer hydrogen bonding;[244] and 
+    3) Post-synthetic modification that converts reversible bonds to irreversible bonds while maintaining crystallinity. 
+        For example, in 2012, Banerjee and coworkers synthesized an enol-imine COF intermediate through reversible Schiff base condensation between 1,3,5triformylphloroglucinol and aromaticdiamines.[245] 
+        
+Subsequently, an irreversible tautomerization produced a b-ketoenamine linked COF that exhibited extraordinary chemical stability. 
+Recently, Yaghi and co-workers improved the stability of an imine-linked COF by converting the imines to amides via direct oxidation with retention of crystallinity and permanent porosity.[246]
+
+
 
 
 ## Interpenetrating
+
+Interpenetrating polymer networks (IPNs) are typically defined as two (or more) polymer networks that are partially interlaced on a molecular scale but are not covalently bonded.[264] 
+
+Using any of the above-mentioned network forming compositions/topologies, IPNs can be synthesized in principle using either simultaneous or sequential procedures. 
+
+While discussions of IPNs are typically focused on either amorphous or crystalline networks depending on the community (polymer chemists or inorganic chemists, respectively), it should be recognized that IPNs can consist of either or both types of networks. 
+Remarkably, MOF IPNs[265] with up to 54-fold interpenetration[266] have been prepared and characterized. 
+
+IPNs provide a convenient approach to combining the desired properties of two polymer networks. 
+In addition, when appropriately designed, some IPNs exhibit entirely new properties that are not observed in the component networks alone. 
+
+“Double network” (DN) gels are an example; this special class of IPNs shows superior mechanical properties to either of their component networks.[267] 
+DN gels possess an IPN structure that combines a brittle first network with a ductile second network. 
+These materials are often synthesized via a two-step sequential free-radical polymerization process. 
+To our knowledge, the first reported DN gel consisted of densely crosslinked poly(2-acrylamido-2methylpropanesulfonic acid) (PAMPS) as the first network and sparsely crosslinked polyacrylamide (PAAm) as the second network.[268] 
+This DN gel displayed a 1000-fold increase in toughness (area under the stress-strain curve) compared to PAAm or PAMPS single network gels, which was attributed to internal fracture of the brittle first network under deformation that allowed for efficient energy dissipation.
+
+In these early examples of DN gels, damage accumulated in the brittle first network was not repairable, severely decreasing the mechanical properties after a single exposure to large stresses. 
+To address this deficiency, Suo and coworkers developed analogous gels wherein the brittle first network was a physical network made from alginate crosslinked by ionic interactions with Ca2+.[269] 
+In this case, the reversible physical interactions within the first network enabled recoverable energy dissipation following deformation. 
+Consequently, the material shows high stiffness, high toughness, and recovery of both properties upon cycling. 
+We note that some extent of covalent crosslinking was proposed to occur between the two network components;[269] hence, while the “IPN” definition may or may not fully apply to this material, the concept of embedding a supramolecular network within a covalent network paved the way for the use of reversible interactions as energy dissipation mechanisms to enhance the toughness of polymer networks, removing the necessity of a secondary interpenetrating network.[270–272] 
+For example, Gong and co-workers developed a physical hydrogel composed of polyampholytes bearing randomly dispersed cationic and anionic repeat groups.[270] 
+The randomness within this material generated ionic bonds with a wide distribution of strengths; the strong bonds served as more-permanent crosslinks to impart elasticity whereas the weak bonds reversibly exchanged to dissipate energy, resulting in high toughness and high fatigue resistance. 
+
+In the future, the merger of distinct polymer network types and formation mechanisms into IPNs of increasing compositional and topological complexity is expected to provide additional synergistic improvements in the functionality and utility of these exciting materials.
 
 
 # Summary and Outlook
