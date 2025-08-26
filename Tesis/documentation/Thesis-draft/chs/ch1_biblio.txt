@@ -106,3 +106,40 @@ For a step-growth polymerization involving A and B groups, they postulated that 
 
 # Polymer Network Structure
 
+Chemical and topological structure together dictate the properties of polymer networks. 
+The chemical structure is described by the chemical composition of network components; as we will discuss later in the review, tuning chemical composition is an effective approach to imparting functions to polymer networks.
+Polymer network topology delineates how the junctions and strands of a polymer network are connected.
+Given that many properties (e.g., elasticity, porosity, and swellability) of polymer networks have topological origins, there is growing interest in understanding and controlling polymer network topology from a molecular perspective.
+The vast majority of polymer networks are amorphous or semicrystalline (i.e., featuring amorphous and crystalline domains) and, thus, are rich in topological features that span across several length scales, ranging from the molecular ( angstrom) to submicron scale.
+
+### 10-100 nm
+From 10–100 nm, polymer network topology is characterized by inhomogeneity in junction/strand density (Figure 1), which results from concentration fluctuations during network formation.[20]
+Small-angle scattering techniques provide semi-quantitative information at this length scale (see below).[21,22]
+
+### 1-10 nm
+Dangling/unreacted strands and/or junctions, entanglements, and loops of various orders comprise the macromolecular features that dominate network structure on the length scale ranging from 1–10 nm (Figure 1). 
+
+Dangling functionalities, often referred to as “dangling chains,” occur when a reactive group from the network precursors remains unreacted after network formation. 
+
+Loops are cyclic structures defined by the number of strands and junctions that comprise the cycle. 
+Primary loops, the simplest cyclic topologies, form when both ends of one strand are attached to the same junction. 
+A secondary loop is formed from two strands connected to the same two junctions. 
+Although they contain rich topological information, conventional scattering and spectroscopic methods fail to characterize these macromolecular features.[23]
+
+### <1 nm 
+At the molecular level, network features are primarily dictated by chemistry rather than topology; branch functionality, however, is a critical molecular-scale feature that dictates network topology (Figure 1). 
+While branch functionality is difficult to characterize experimentally, it can typically be predicted based on the functionality of network precursors.
+
+To characterize the often chemically indistinguishable (macro)molecular-level topological features in amorphous regions of polymer networks (e.g., unreacted functionalities, loops of various orders), theory/ simulation, swelling experiments, and mechanical tests are often used.
+
+## Structual Control of Polymer Networks
+As discussed above, polymer networks can be crystalline, amorphous, or both (semicrystalline). 
+Many thermoplastics (e.g., Nylon, Kevlar, linear polyethylene, syndiotactic polystyrene) are semicrystalline or crystalline when processed using slow quenching or uniaxial stretching—conditions that maximize the reversibility of intermolecular interactions (e.g., van der Waals or hydrogen bonding interactions) and facilitate packing of polymer strands.[52] 
+As described in Section 5.2.2, the use of reversible bond formation between conformationally rigid monomers has recently enabled the synthesis of crystalline polymer networks, where the spatial distribution of junctions exhibits long-range order. 
+A common strategy to control the structure of all types of polymer networks incorporates network precursors with preexisting topological features such as a defined branch functionality and/or a unique molecular architecture. 
+Recently, methods that bias polymerization kinetics, such as semibatch monomer addition[32] and templated synthesis,[49] have also been used to manipulate polymer network topology.
+
+### Controlling Branch Funcitonality of Polymer Networks
+
+
+
