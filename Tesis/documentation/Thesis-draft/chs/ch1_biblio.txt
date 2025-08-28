@@ -132,6 +132,7 @@ While branch functionality is difficult to characterize experimentally, it can t
 
 To characterize the often chemically indistinguishable (macro)molecular-level topological features in amorphous regions of polymer networks (e.g., unreacted functionalities, loops of various orders), theory/ simulation, swelling experiments, and mechanical tests are often used.
 
+
 ## Structual Control of Polymer Networks
 As discussed above, polymer networks can be crystalline, amorphous, or both (semicrystalline). 
 Many thermoplastics (e.g., Nylon, Kevlar, linear polyethylene, syndiotactic polystyrene) are semicrystalline or crystalline when processed using slow quenching or uniaxial stretching—conditions that maximize the reversibility of intermolecular interactions (e.g., van der Waals or hydrogen bonding interactions) and facilitate packing of polymer strands.[52] 
@@ -238,7 +239,6 @@ G = \upsilon_{eff}RT(1-2/f)
 As a result, the predicted shear modulus in the phantom network model is lower than that of the affine network model.
 The engineering stress for the uniaxial deformation of a phantom network remains the same [Eq. (11)].
 
-## Swelling of Polymer Networks
 \sigma = G(\lambda-1/\lambda^2)
 
 - E is often determined from the initial slope of the stressstrain curve under tensile force (Figure 7 A), which is measured using a tensile testing instrument (e.g., Instron).
@@ -360,6 +360,7 @@ For associative bond exchange, which is often an energetically degenerate proces
 ----
 
 As a result, a distinguishing characteristic between dissociative and associative CANs is that associative CANs display a constant crosslinking density with respect to temperature.
+
 Since the rate of stress relaxation of these networks depends on the rate of bond rearrangement, the associative bond exchange mechanism is reflected in a viscosity with Arrhenius-like temperature dependence (Figure 9 C). 
 This behavior, typically observed in vitreous silica, led Leibler and co-workers to coin the name “vitrimers” as they studied one of the first purposefully designed associative CANs formed from epoxy/ acid polyester-based networks with zinc acetate as a transesterification catalyst.[166] 
 In contrast, the viscosity-temperature behavior of dissociative CANs or thermoplastic polymers often follows the Williams–Landel–Ferry (WLF) model (Figure 9 C), which best describes the temperature dependence of material properties that undergo an abrupt transition at a critical temperature (e.g., changes in viscosity near Tg).
