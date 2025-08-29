@@ -1,0 +1,109 @@
+@article{richbourgSwollenPolymerNetwork2020,
+  title = {The Swollen Polymer Network Hypothesis: {{Quantitative}} Models of Hydrogel Swelling, Stiffness, and Solute Transport},
+  shorttitle = {The Swollen Polymer Network Hypothesis},
+  author = {Richbourg, Nathan R. and Peppas, Nicholas A.},
+  year = {2020},
+  month = jun,
+  journal = {Progress in Polymer Science},
+  volume = {105},
+  pages = {101243},
+  issn = {0079-6700},
+  doi = {10.1016/j.progpolymsci.2020.101243},
+  urldate = {2025-08-29},
+  abstract = {The introduction of the work Makromolek{\"u}le by Herman Staudinger in 1919 brings back an understanding of the very early days of polymer science when characterizing the molecular structure of exact networks was a main goal of research. Here, we present updates to a swollen polymer network hypothesis with a focus on hydrogel physical properties. We discuss the connections between hydrogel structure, swelling behavior, mechanical properties, and transport properties, including the most substantial developments since the original Flory-Rehner model (1944) of swollen polymer networks. In addition to analyzing well-established and recent contributions to the swollen polymer network hypothesis, we introduce novel amendments that combine the insights of existing models. We suggest that coordinating rubberlike elasticity theory, equilibrium swelling theory, and mesh size theory will help to develop a universal predictive model for swelling, stiffness, and solute diffusivities in a diverse array of hydrogel formulations.},
+  keywords = {Diffusion model,Equilibrium swelling,Hydrogel,Mesh size,Rubberlike elasticity,Swollen polymer network},
+  file = {/home/fran/Zotero/storage/GEGCWHVX/Richbourg and Peppas - 2020 - The swollen polymer network hypothesis Quantitative models of hydrogel swelling, stiffness, and sol.pdf;/home/fran/Zotero/storage/DVUIT2QS/S0079670020300368.html}
+}
+
+
+## Modeling hydrogels as swollen polymer networks
+
+[Introduction]
+Hydrogels are polymer networks that swell and maintain their structure in the presence of water [1]. 
+
+[Application sections]
+Their applications include biosensing [2,3], controlled drug release [4,5], and regenerative medicine [6,7]. 
+
+[Why structure is relevant]
+To improve hydrogel physical and chemical properties for each of these applications, ongoing synthetic work has expanded the choices of polymer and crosslinking agent used in hydrogels as well as the mechanisms for forming a network [8]. 
+These advances motivate improvements to fundamental models of the relationship between polymer network structure and function. 
+
+Quantitative models that relate function to structure efficiently represent trends in experimental observations and provide generalized explanations for interactions that are too complex to analyze in a single experiment. 
+However, the established quantitative models that relate hydrogel structure to physical properties include inappropriate assumptions for many current hydrogel formulations. 
+For example, the Flory-Rehner equation assumes that all network junctions are tetrafunctional [9], but junction functionalities range from a minimum of three up to tens or hundreds of polymer chains converging to one point [8].
+
+Despite their limiting assumptions, fundamental structureproperty models such as the Flory-Rehner equation facilitate iterative development. 
+By testing the assumptions and developing case-specific amendments to the models, researchers have adapted the fundamental models to their various needs and applications. 
+
+Unfortunately, the proliferation of case-specific equations has limited universal coordination between models and comparison between different hydrogel systems. 
+In this work, we propose a comprehensive set of coordinated amendments to the models relating hydrogel structure to swelling, stiffness, and solute diffusivity. 
+We call this set of amendments the swollen polymer network hypothesis to acknowledge its current lack of validation, but we anticipate that the hypothesis will clarify which modeling assumptions need further investigation and ultimately contribute toward increased precision and efficiency in designing biomedically relevant hydrogel systems.
+
+
+## Three fundamental theories of swollen polymers networks
+
+The swollen polymer network hypothesis coordinates three fundamental theories relating swollen polymer network structure to physical properties. 
+    - Rubberlike elasticity theory relates structure to stiffness, 
+    - equilibrium swelling theory relates structure to swelling in solvent, and 
+    - mesh size theory relates structure to solute diffusivity within the swollen network. 
+
+### Rubber elasticity
+Rubberlike elasticity theory suggests that a stiffness of a polymer network derives from the entropy lost as coiled polymer chains in the network extend and reduce their number of available conformations [10]. 
+    Treloar’s estimation of shear modulus from the number of chains in a polymer network (Eq. (1)) [11] makes rubberlike elasticity theory testable on any polymer network under any form of applied deformation, but practical application to hydrogels requires corrections for swollen polymer networks, non-tetrafunctional networks, and network imperfections. 
+    These corrections are addressed in section 2.
+
+In Eq. (1), G is the polymer network’s shear modulus, v is the number of chains in the polymer network, R is the ideal gas constant, and T is the absolute temperature of the system. 
+
+### Equilibrium swelling theory
+Equilibrium swelling theory estimates the amount of solvent contained in a swollen polymer network at equilibrium based on independent free energy contributions [7]. 
+The first quantitative model of equilibrium swelling theory, the Flory-Rehner equation (Eq. (2)), compares entropic contribution of mixing polymer and solvent with the elastic energy created as the polymer network swells to incorporate solvent [12,13]. 
+Section 3 updates the FloryRehner model of equilibrium swelling to apply to a broader set of hydrogel systems, including hydrogels with ionic side-chains, hydrogels crosslinked in the present of solvent, and hydrogels where the polymer-solvent interaction parameter varies with polymer volume fraction.
+
+In Eq. (2), Mc is the average molecular weight between crosslinks, Mn is the average molecular weight of the polymer chains prior to crosslinking, φs is the polymer volume fraction at swelling equilibrium, is the polymer-solvent interaction parameter, V1 is the molar volume of the solvent, and d is the dry density of the polymer network. 
+
+### Mesh size theory
+Mesh size theory uses swollen polymer network structure properties to estimate how much solute diffusivity coefficients are reduced within a hydrogel [14]. 
+Swollen polymer networks reduce solute diffusivity based on the polymer volume fraction, which indicates the likelihood of a solute colliding with a polymer chain, and the distance between two connected junctions (the hydrogel’s mesh size), which influences whether a network loop is large enough for the solute to pass through it [15]. 
+
+Competing models of mesh size theory emphasize different aspects of the interactions between solute, solvent, and polymer network, leading to conflicting estimations of solute diffusivity [16]. 
+These theoretical differences have been magnified by differences in the experimental techniques used to measure solute diffusivity in hydrogels [17–19]. 
+Further development toward a universal model of mesh size theory will require simultaneous theoretical and experimental progress. 
+Section 4 on mesh size theory includes updates on how to estimate mesh size from other structural parameters, commentary on the development of mesh size models and the associated experimental techniques, and arguments for additional structural considerations to be included in future models of mesh size theory.
+
+## About the paper proposal: Swollen polymer network
+The swollen polymer network hypothesis suggests that rubberlike elasticity theory, equilibrium swelling theory, and mesh size theory are fundamentally linked in swollen polymer networks. 
+
+Indeed, all three have been used to estimate the average molecular weight between crosslinks of a swollen polymer network [20,21].
+Therefore, one should be able to use data from swelling, stiffness, or solute diffusivity in a hydrogel to predict the other two properties for that hydrogel. 
+However, before this ideal predictive tool for hydrogel physical properties can be fully realized, each theory must be coordinated using consistent parameters and thoroughly cross validated. 
+The swollen polymer network hypothesis takes the first step toward developing a robust universal model for hydrogel design by providing a united framework for three fundamental theories of structure-property relationships in hydrogel systems.
+
+
+# Rubberlike elasticity theory
+
+# Equilibrium swelling theory
+
+# Mesh size theory
+
+# Conclusions
+Here we present updates to three fundamental theories relating structure and function in hydrogels through the uniting perspective of the swollen polymer network hypothesis. 
+While the equations described in this review include extensive assumptions and unrealistic generalizations about swollen polymer networks, they also formalize a deep body of accumulated theoretical and experimental knowledge on polymer network properties. 
+
+Unlike simulated and machine learning approaches, the formal modeling approach provides clear and specific opportunities for improvement and a logical, fundamental basis for each component. 
+
+In reviewing the current state of the polymer network hypothesis, we record a benchmark in the ongoing process and anticipate further refinement in both accuracy and breadth of application. 
+Eqs. (14), (28), (31), and (34) reveal the extensive parallelism between swelling, mechanical, and diffusive properties in hydrogels. 
+Taken together, these equations indicate that a hydrogel’s swelling data could be used to predict the hydrogel’s stiffness and the diffusivity of solutes within the hydrogel. 
+
+In hydrogel quantitative modeling, issues of size and scale have made considerable progress. 
+Hydrogel stiffness scales with the number of chains as originally suggested by rubberlike elasticity theory, but with additional considerations of the phantom-like network model, chain-end defects, and the effects of solvent dilution during synthesis. 
+Equilibrium swelling, when modeled as the result of additive chemical potential terms, interprets the influences of polymer and solvent mixing, chain elasticity, and ionic charges from fundamental thermodynamic relationships. 
+The multiscale diffusivity model predicts solute transport in hydrogels based on the relative sizes of the solutes, free volume voids, and the hydrogel’s mesh. Looking forward, the greatest questions remain in shape and higher-order interactions. 
+
+How do bulky and complex polymer repeating units affect swollen polymer networks? 
+What can be learned about swollen polymer network behavior by isolating the effects of junction functionality? 
+To what extent does the swollen polymer network hypothesis apply to natural biopolymer systems such as gelatin or alginate hydrogels? 
+The answers to these questions will be critical in developing fundamental models for the physical properties of the next generation of precision hydrogel biomaterials.
+
+
+

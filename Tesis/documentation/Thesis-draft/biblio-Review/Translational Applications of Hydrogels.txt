@@ -1,0 +1,77 @@
+@article{correaTranslationalApplicationsHydrogels2021,
+  title = {Translational Applications of Hydrogels},
+  author = {Correa, Santiago and Grosskopf, Abigail K. and Lopez Hernandez, Hector and Chan, Doreen and Yu, Anthony C. and Stapleton, Lyndsay M. and Appel, Eric A.},
+  year = {2021},
+  month = sep,
+  journal = {Chemical Reviews},
+  volume = {121},
+  number = {18},
+  pages = {11385--11457},
+  publisher = {American Chemical Society},
+  issn = {0009-2665},
+  doi = {10.1021/acs.chemrev.0c01177},
+  urldate = {2025-08-04},
+  abstract = {Advances in hydrogel technology have unlocked unique and valuable capabilities that are being applied to a diverse set of translational applications. Hydrogels perform functions relevant to a range of biomedical purposes---they can deliver drugs or cells, regenerate hard and soft tissues, adhere to wet tissues, prevent bleeding, provide contrast during imaging, protect tissues or organs during radiotherapy, and improve the biocompatibility of medical implants. These capabilities make hydrogels useful for many distinct and pressing diseases and medical conditions and even for less conventional areas such as environmental engineering. In this review, we cover the major capabilities of hydrogels, with a focus on the novel benefits of injectable hydrogels, and how they relate to translational applications in medicine and the environment. We pay close attention to how the development of contemporary hydrogels requires extensive interdisciplinary collaboration to accomplish highly specific and complex biological tasks that range from cancer immunotherapy to tissue engineering to vaccination. We complement our discussion of preclinical and clinical development of hydrogels with mechanical design considerations needed for scaling injectable hydrogel technologies for clinical application. We anticipate that readers will gain a more complete picture of the expansive possibilities for hydrogels to make practical and impactful differences across numerous fields and biomedical applications.},
+  file = {/home/frenour/Zotero/storage/BAWB2BRF/Correa et al. - 2021 - Translational Applications of Hydrogels.pdf}
+}
+
+# Introduction
+Since their discovery in the 1960s,1 synthetic hydrogels have become increasingly useful for engineering biological systems.
+
+The past three years alone have seen >10,000 publications per year, and with only a few months into 2021 there were already more than 600 new articles indexed in the Web of Science by the time of this publication. 
+Here, we seek to provide a resource for researchers both new and familiar with this technology, delving into many of the fundamentals and open questions of the field and shining a spotlight on both developed and developing applications for these exciting materials. 
+
+The explosion of hydrogel technologies has made significant contributions in biomedical applications that impact the dayto-day lives of millions of people. 
+
+[Examples for the intro]
+For example, hydrogels made one of the most visible (or perhaps we should say invisible?) contributions to modern life in the form of soft contact lenses, creating a new class of optically tunable soft materials and  establishing what is today a multibillion dollar industry.2 
+Early studies also revealed the usefulness of engineered hydrogels for  delivering diverse drugs,3−5 establishing a field for local controlled release of bioactive compounds.6−10 
+
+In the 1970s, surgeons recognized the utility of hydrogels for reconstructive  surgeries,11,12 and by the 1990s, hydrogels were becoming a  foundational technology for tissue regeneration.13−16 
+The  history of hydrogel materials is well reviewed,17−19 and the consistent theme has been that hydrogels continue to find new and exciting applications as the underlying technology improves (Figure 2). 
+
+Emerging applications for hydrogels  today include device coatings,20 environmental engineering,21  soft robotics,22 and adoptive cell therapy.23
+
+[General description of hydrogels]
+Hydrogels come in many flavors, with diverse capabilities and limitations, but in general these systems can all be described as cross-linked macromolecular networks that retain a significant amount of water. 
+As much as 99% of the weight of a hydrogel can be water, which makes these materials quite friendly to water-enriched biological environments such as the human body. 
+
+[Relevance of crosslinks in applications]
+In earlier technologies, harsh mechanisms for macromolecular cross-linking (e.g., toxic agents, radiation,  etc.)24−28 meant that gelation needed to occur prior to introducing gels to biological systems. 
+Unsurprisingly, this limited the bioengineering applications of hydrogels to superficial environments such as the surface of the eye, an open wound, or an exposed surgical bed. 
+Subsequent work developed safer cross-linking mechanisms, which began a trend toward triggering gelation in situ after injection, providing a minimally invasive way of administering  hydrogels to practically any organ or tissue.29,30 
+The most biocompatible iterations of these injectable in situ gelling platforms use specific cues from the body to trigger gelation:  physiological temperature,31 pH,32 or ionic strength.33 
+Unlike earlier hydrogels that relied on covalent cross-links, some of these hydrogels have self-healing properties and possess mechanical properties akin to native tissue, capable of countering natural forces and stresses of a body in motion.
+
+[Covalent and non covalent cross linking]
+More recently, shear-thinning hydrogels were developed that  are formed through dynamic and reversible cross-linking.34 
+For example, physical hydrogels use noncovalent interactions (e.g., supramolecular chemistries) between soluble building blocks in order to self-assemble into a dynamic, reversibly cross-linked  network.35,36 
+Likewise, reversible covalent cross-linking strategies can yield dynamic networks with similar properties.37,38 These “dynamic hydrogels” assembled through reversible cross-links afford the unique property of being injectable even after having formed a gel, due to their shear-thinning and selfhealing behaviors. 
+Current research on dynamic hydrogels has revealed novel and useful capabilities that have opened new frontiers for this technology. 
+For example, they can stabilize delicate protein and cellular cargoes to combat pharmaceutical  cold-chain limitations,39 they can adhere strongly to tissues to  form protective barriers and bandages,40 and they can be delivered through spray applications to coat complex biological  geometries.41
+
+[Like a transition but I don't know]
+While dynamic hydrogels are opening up new translational possibilities, significant progress is also being made to introduce unprecedented levels of functionality into biomaterials. 
+This includes features such as nanoscale patterning of  bioactive molecules,42,43 programmable drug release,44,45 and  stimuli-responsive behaviors.46,47 As a consequence, much of the research in this space is trending toward increasingly interdisciplinary projects that recruit the expertise of nanotechnologists, chemists, protein engineers, and synthetic biologists to develop sophisticated multifunctional hydrogels. 
+These novel systems include the rise of programmable behavior in hydrogels reminiscent to the behaviors we now  associate with digital technology.48 For example, significant advancements have been made to transform simple PEG-based  hydrogels into responsive systems based on Boolean-logic gating decisions (e.g., YES, AND, OR operations) by incorporating functional peptides and proteins into the  hydrogel network.45,49,50 Programmable biotechnologies are already leading to smart injectable materials with the potential to degrade or release drugs based on either endogenous or  exogenous triggers.51,52 
+As these capabilities continue to mature, multifunctional and programmable hydrogels may provide the technological foundation for platforms that can engage more effectively with the complex, multistage biological events that govern processes such as tissue regeneration and immunity.
+
+
+[Description of the content of the article]
+As the capabilities of hydrogels have dramatically increased over time, they have unsurprisingly become useful tools for a wide range of fields and disciplines. 
+Here, we primarily focus on the contributions of injectable hydrogel systems to a range of biomedical applications, with an emphasis on dynamic hydrogels. 
+We begin with a discussion of mechanical considerations for injectable hydrogels and specifically how rheological characterization of these systems is critical for developing technologies with translational potential. 
+From there, we provide a general discussion on strategies for delivering diverse therapeutic cargo, such as small molecule drugs, nucleic acids, and proteins. 
+We focus subsequent discussion of drug delivery toward an emerging area of intense researchthat of cancer immunotherapywhich presents highly complex and novel challenges for controlled multidrug delivery and engagement of immune cells. 
+In the following section, we summarize key considerations for designing hydrogels meant to engage with and manipulate cells. We then review the extensive work on hydrogels for cellular therapies, spanning their use as both tissue scaffolds and cellular carriers for applications ranging from tissue regeneration to adoptive cell therapy. 
+We then turn our attention toward emergent and promising biomedical frontiers outside of drug delivery and cellular therapies. We review how the capabilities of dynamic, shear-thinning hydrogels are now giving rise to a class of tools that prevent or mitigate complications that can arise from surgery. 
+We also discuss new developments for hydrogels as coatings for implantable devices to improve biocompatibility and introduce novel functionalities. 
+We round out our discussion of biomedical applications with a review of the current clinical landscape for injectable hydrogels, with a particular focus on hydrogels in active clinical trials and current limitations relating to manufacturing and scalability. 
+We also highlight how the lessons learned from biomedical hydrogels are informing advances in new application areas in agriculture, water preservation, and cosmetics. Overall, we anticipate that readers will gain a greater perspective on the range of possibilities available for hydrogel technologies to make substantive contributions to society, as well as the need for vibrant interdisciplinary collaboration to fully translate this potential into real world change.
+
+
+# Mechanical considerations for designing injectable hydrogels
+
+
+
+
