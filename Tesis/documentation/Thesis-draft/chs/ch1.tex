@@ -5,17 +5,31 @@
 %======================================================================
 
 
+
+
+\section{State of art: Hydrogels}
+
+\subsection{Polymeric Structures}
+
+\subsection{Basic Mechanical Properties}
+
+\subsection{What is a hydrogel?}
+
+\section{About computer simulations}
+
+
+
+
+
+
+\begin{comment}
+
 \paragraph{My interest in studying materials} How we can model a material? 
 
 \paragraph{From materials to hydrogels} Matrials -> soft matter -> Polymeric Networks -> Gels -> Hydrogels.
 
 \paragraph{Curiosity/phenomenology} Paragraph that will tell the reader that hydrogels are cool.
 
-\paragraph{Applications/Market size of the applications sectors} An overview of applications. If the previous paragraph does not convince the reader, well my last hope is that money does.
-
-Besides, because of such a wide variety of response triggers, hydrogels can serve as sensors or actuators or can be utilized in controlled drug delivery systems, biosensors, tissue engineering scaffolds, and others [20], because of their biomimetic properties and multi functionalities [21]\citep{bustamantetorresHydrogelsClassificationAccording2021}.
-
-In particular, biomedical applications are very popular and include cell culture [5], wound dressing and healing [2,6], drug delivery [2,7,8], tissue engineering scaffolds [9], bone repair [10], and cartilage regeneration [11]\citep{picchioniHydrogelsBasedDynamic2018}. 
 
 \paragraph{Why computers and not rheometers?} Explain how in silico experiments can help to understand the relation between the network and the mechanical response.
 
@@ -76,6 +90,11 @@ A hydrogel is commonly describe as a material composed by a network of polymers 
 The water absorption capacity, network stability of hydrogels, and the conformation of the network with polymer chains are attributable to crosslinking mechanisms\citep{priyaComprehensiveReviewHydrogel2024,ahmedHydrogelPreparationCharacterization2015a}.
 Meanwhile, the polymer chains are predominantly composed with hydrophilic functional groups and can be modified to suit a variety of applications\citep{ahmedHydrogelPreparationCharacterization2015a,priyaComprehensiveReviewHydrogel2024,bustamantetorresHydrogelsClassificationAccording2021}.
 
+Hydrogels come in many flavors, with diverse capabilities and limitations, but in general these systems can all be described as cross-linked macromolecular networks that retain a significant amount of water. 
+As much as 99\% of the weight of a hydrogel can be water, which makes these materials quite friendly to water-enriched biological environments such as the human body\citep{correaTranslationalApplicationsHydrogels2021}. 
+
+
+
 % Hydrophilic polymers might be considered as those polymers that contain polar functional groups such as hydroxyl (-OH), carboxyl (-COOH), and amino (-NH2) groups that make them soluble or swelled by water.
 
 While the analysis of the impact of functional groups is important, the present project prioritizes the examination of mechanisms that are more pertinent to the mechanical response. 
@@ -83,6 +102,14 @@ The crosslinking mechanisms\footnote{The hydrogels are prepared using different 
 This suggests that crosslinking mechanisms enable the network to undergo modification by external stimuli.
 
 The subsequent sections will present the essential information to facilitate a comprehensive understanding of the crosslinking mechanisms, their relationship to the mechanical response, the reported mechanical response of hydrogels, and the correlation between rheology experiments and stress curves.
+
+
+Here, we define dynamic hydrogels as any hydrated polymer network cross linked via reversible chemistries, which can include both covalent and noncovalent chemistries. 
+Early reports of the unique rheology of dynamic networks emerged in the late 1980s with polysaccharide based networks covalently cross linked through boric esters, which  identified intriguing self healing capabilities.71 73 
+However, it was only in the early 2000s that noncovalent chemistries began to be leveraged to make shear thinning supramolecular  hydrogels based on cyclodextrins,74 engineered peptides,75 and the physical interactions resulting from biopolymer  blends.76 
+Although they can be prepared through diverse chemistries, dynamic hydrogels share unique rheological properties that are directly related to their translational potential as injectable systems\citep{correaTranslationalApplicationsHydrogels2021}. 
+
+
 
 \paragraph{Examples of Hydrogels.} Give general examples of hydrogels.
 
@@ -92,7 +119,47 @@ The subsequent sections will present the essential information to facilitate a c
 
 Main review:\citep{guPolymerNetworksPlastics2020,sheikoArchitecturalCodeRubber2019}.
 
+
+\subsection{Overview of mechanical properties}
+
+The viscosity of a hydrogel is related to its injectability, elucidating the constraints that injectability places on the  viscosity of injectable biomaterials. 
+
+For clinical applications, injectable hydrogels must be delivered through a needle or catheter to the site of injection. 
+
+The injectability of a fluid depends on how much pressure is required to drive this process of injection over relevant time frames. 
+This pressure is a function of the fluid viscosity, injection geometry, and desired flow rate. 
+
+To elucidate these constraints on rheological properties, it is important to understand the physical process of injection. 
+
+Injection, in its simplest form, is the flow of a fluid through a circular tube of constant diameter and length. 
+Often, there is a maximum pressure that can be applied and a minimum flow rate that is desired. 
+Intuitively, there is a limit to the viscosity (i.e., resistance to flow) of the materials which can be injected under a prescribed set of injection conditions and geometries. 
+Therefore, it is critical to understand how viscosityand its dependence on shear rateaffects injectability, enabling researchers to use simple rheological measurements to design their materials for injectability\citep{correaTranslationalApplicationsHydrogels2021}. 
+
+Dynamic hydrogels demonstrate rheological behavior that may comprise a combination of yielding, shear-thinning, thixotropic,  viscoelastic, and extensible behaviors.130−135 
+Consequently, their characterization is nontrivial and requires a combination of rheological tests to characterize comprehensively. 
+Here, we present the state-of-the-art rheological methods for measuring the viscoelastic and flow behaviors of injectable hydrogels\citep{correaTranslationalApplicationsHydrogels2021}.
+
+
+\paragraph{viscoelasticity}
+The viscoelasticity of a hydrogel is most often measured using dynamic mechanical analysis to measure the bulk elastic and viscous responses of a hydrogel to  an imposed oscillatory shear strain or stress.116 
+
+
 \subsection{Applications}
+
+\paragraph{Overview and general problems}
+In earlier technologies, harsh mechanisms for macromolecular cross-linking (e.g., toxic agents, radiation, etc.)24 28 meant that gelation needed to occur prior to introducing gels to biological systems. 
+Unsurprisingly, this limited the bioengineering applications of hydrogels to superficial environments such as the surface of the eye, an open wound, or an exposed surgical bed. 
+Subsequent work developed safer cross-linking mechanisms, which began a trend toward triggering gelation in situ after injection, providing a minimally invasive way of administering  hydrogels to practically any organ or tissue.29,30 
+The most biocompatible iterations of these injectable in situ gelling platforms use specific cues from the body to trigger gelation:  physiological temperature,31 pH,32 or ionic strength.33 
+Unlike earlier hydrogels that relied on covalent cross-links, some of these hydrogels have self-healing properties and possess mechanical properties akin to native tissue, capable of countering natural forces and stresses of a body in motion\citep{correaTranslationalApplicationsHydrogels2021}.
+
+For example, significant advancements have been made to transform simple PEG-based  hydrogels into responsive systems based on Boolean-logic gating decisions (e.g., YES, AND, OR operations) by incorporating functional peptides and proteins into the  hydrogel network.45,49,50\citep{correaTranslationalApplicationsHydrogels2021}
+Programmable biotechnologies are already leading to smart injectable materials with the potential to degrade or release drugs based on either endogenous or  exogenous triggers.51,52\citep{correaTranslationalApplicationsHydrogels2021}
+As these capabilities continue to mature, multifunctional and programmable hydrogels may provide the technological foundation for platforms that can engage more effectively with the complex, multistage biological events that govern processes such as tissue regeneration and immunity.
+
+
+
 
 \paragraph{Enviromental applications} 3-5 examples.
 
@@ -102,6 +169,21 @@ Main review:\citep{guPolymerNetworksPlastics2020,sheikoArchitecturalCodeRubber20
 
 \paragraph{Smart materials} 3-5 examples.
 
+\paragraph{Applications/Market size of the applications sectors} An overview of applications. If the previous paragraph does not convince the reader, well my last hope is that money does.
 
+Besides, because of such a wide variety of response triggers, hydrogels can serve as sensors or actuators or can be utilized in controlled drug delivery systems, biosensors, tissue engineering scaffolds, and others [20], because of their biomimetic properties and multi functionalities [21]\citep{bustamantetorresHydrogelsClassificationAccording2021}.
+
+In particular, biomedical applications are very popular and include cell culture [5], wound dressing and healing [2,6], drug delivery [2,7,8], tissue engineering scaffolds [9], bone repair [10], and cartilage regeneration [11]\citep{picchioniHydrogelsBasedDynamic2018}. 
+
+
+The explosion of hydrogel technologies has made significant contributions in biomedical applications that impact the dayto-day lives of millions of people. 
+For example, hydrogels contributions to modern life in the form of soft contact lenses, creating a new class of optically tunable soft materials and  establishing what is today a multibillion dollar industry.2 
+Early studies also revealed the usefulness of engineered hydrogels for  delivering diverse drugs,3−5 establishing a field for local controlled release of bioactive compounds.6−10 
+In the 1970s, surgeons recognized the utility of hydrogels for reconstructive  surgeries,11,12 and by the 1990s, hydrogels were becoming a  foundational technology for tissue regeneration.13−16 
+The  history of hydrogel materials is well reviewed,17−19\footnote{Checar estas referencias} and the consistent theme has been that hydrogels continue to find new and exciting applications as the underlying technology improves.
+Emerging applications for hydrogels  today include device coatings,20 environmental engineering,21  soft robotics,22 and adoptive cell therapy.23
+\citep{correaTranslationalApplicationsHydrogels2021}
+
+\end{comment}
 
 \newpage
