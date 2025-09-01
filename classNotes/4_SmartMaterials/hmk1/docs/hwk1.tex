@@ -1,0 +1,64 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\section{Problem 1}
+
+A square disc with sides \SI{7}{\milli\meter} is made out of a piezoelectric material having a strain coefficient of \SI{550d-12}{\meter\per\volt} and a mechanical compliance of \SI{20d-12}{\meter\squared\per\newton}. 
+Compute (a) the strain produced by a force of \SI{50}{\newton} applied to the face of the material when the applied electric field is zero, and (b) the electric field required to produce an equivalent amount of strain when the applied stress is equal to zero.
+
+
+\paragraph{a)} To compute the strain produce by a given force we can use the mechanical compliance and the following relation,
+\begin{gather*}
+    S = \frac{1}{\xi}T,
+\end{gather*}
+where $S$ is the elongation, $T$ the applied force and $1/\xi$ is the mechanical compliance.
+Hence, replacing with numeric values,
+\begin{align*}
+    S &= \SI[per-mode=fraction]{20d-12}{\meter\squared\per\newton}\SI{50}{\newton} \\
+      &= \SI{1d-9}{\meter\squared}.
+\end{align*}
+
+Since the strain is a dimensionless quantity, we need to take the ratio between the deform area and the origina area,
+\begin{align*}
+    S &= \frac{\SI{1d-9}{\meter\squared}}{\SI{49d-6}{\meter\squared}} \\
+      &= \frac{1}{49}\times\num{d-3}. 
+\end{align*}
+
+\paragraph{b)} Finally, in order to compute the reuired electric field to produce a previous strain when the applied stress is zero, we can use the following coupling relation,
+\begin{align*}
+    S = \frac{1}{\xi}T + g E,
+\end{align*}
+where $S$ is the strain, $1/\xi$ is the mechanical compliance, $T$ is the stress, $g$ is de piezoelectric constant and $E$ the electric field.
+Since the applied stress is zero, the relation simplifies to,
+\begin{align*}
+    S = g E.
+\end{align*}
+Solving for the electric field and replacing by the numeric values we get,
+\begin{align*}
+    E &= \frac{S}{g} \\
+      &= \frac{\SI{550d12}{\volt\per\meter}}{\num{49d3}} \\
+      &= \frac{550}{49}\times\SI[per-mode=fraction]{d9}{\volt\per\meter} \\
+      &\approx \SI[per-mode=fraction]{11.224d9}{\volt\per\meter} 
+\end{align*}
+
+\section{Problem 2}
+
+Find out the dielectric permittivity of the above-mentioned sample if the piezoelectric coupling coefficient of the material is k = \num{0.7}.
+
+\section{Problem 3}
+
+Compute the stress required to produce 100 microstrain in APC 856 when the applied electric field is held constant at zero. 
+Assume that the material APC 856 has a compliance at constant electric field $s^E=\SI{15.3d-12}{\meter\squared\per\newton}$
+
+\section{Problem 4}
+
+(a) What do you understand by centrosymmetric crystal? 
+(b) Explain with suitable diagram/s why piezoelectricity is not observed in all types of crystals while electrostriction is observed in all crystals.
+
+\section{Problem 5}
+
+Do a survey and find out 5 companies that sell piezoelectric ceramics and piezoelectric polymers. List the specifications including the piezoelectric constants and unit price of these materials. You will need these materials for your final project so also find out which company will deliver the products here and what is the lead time.
+
+
+\end{document}
