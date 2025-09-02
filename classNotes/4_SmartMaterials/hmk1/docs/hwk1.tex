@@ -25,11 +25,11 @@ Since the strain is a dimensionless quantity, we need to take the ratio between 
       &= \frac{1}{49}\times\num{d-3}. 
 \end{align*}
 
-\paragraph{b)} Finally, in order to compute the reuired electric field to produce a previous strain when the applied stress is zero, we can use the following coupling relation,
+\paragraph{b)}\label{par:1.b} Finally, in order to compute the required electric field to produce a previous strain when the applied stress is zero, we can use the following coupling relation,
 \begin{align*}
     S = \frac{1}{\xi}T + g E,
 \end{align*}
-where $S$ is the strain, $1/\xi$ is the mechanical compliance, $T$ is the stress, $g$ is de piezoelectric constant and $E$ the electric field.
+where $S$ is the strain, $1/\xi$ is the mechanical compliance, $T$ is the stress, $g$ is the strain coefficient and $E$ the electric field.
 Since the applied stress is zero, the relation simplifies to,
 \begin{align*}
     S = g E.
@@ -39,17 +39,43 @@ Solving for the electric field and replacing by the numeric values we get,
     E &= \frac{S}{g} \\
       &= \frac{\SI{550d12}{\volt\per\meter}}{\num{49d3}} \\
       &= \frac{550}{49}\times\SI[per-mode=fraction]{d9}{\volt\per\meter} \\
-      &\approx \SI[per-mode=fraction]{11.224d9}{\volt\per\meter} 
+      &\approx \SI[per-mode=fraction]{11.224d9}{\volt\per\meter}, 
 \end{align*}
+
 
 \section{Problem 2}
 
 Find out the dielectric permittivity of the above-mentioned sample if the piezoelectric coupling coefficient of the material is k = \num{0.7}.
 
+\paragraph{Finding $\epsilon$} In order to compute the dielectric permittivity we use the following relation between the piezoelectric coupling coefficient ($k$), piezoelectric constant ($d$) and mechanical compliance ($1/\xi$),
+\begin{align*}
+    k^2 &= \frac{d^2}{1/\xi\epsilon} \\
+\epsilon &= \frac{d^2}{1/\xi k^2}
+\end{align*}
+replacing the numeric values,
+\begin{align*}
+    \epsilon &= \frac{\left(\SI{550d-12}{\meter\per\volt}\right)^2}{\SI{20d-12}{\meter\squared\per\newton} (0.7)^2} \\
+             &\approx \SI{3.086d-8}{\newton\per\volt\squared},
+\end{align*}
+Recalling that \SI{}{\volt} $=$ \SI{}{\newton\meter\per\coulomb}, we get,
+\begin{gather*}
+    \epsilon\approx \SI[per-mode=fraction]{3.086d-8}{\coulomb\squared\per\newton\per\meter\squared}
+\end{gather*}
+
 \section{Problem 3}
 
 Compute the stress required to produce 100 microstrain in APC 856 when the applied electric field is held constant at zero. 
 Assume that the material APC 856 has a compliance at constant electric field $s^E=\SI{15.3d-12}{\meter\squared\per\newton}$
+
+\paragraph{Finding strain} This case is similar to problem\ref{par:1.b}.
+Hence, we can applied the same constitutive equation for small deformations and compute the stress,
+\begin{align*}
+    S &= \frac{1}{\xi}T + \cancelto{0}{g E} \\
+    T &= \xi S \\
+      &= \frac{1}{\SI{15.3d-12}{\meter\squared\per\newton}}\num{100d-6} \\
+      &= \SI[per-mode=fraction]{6.535d6}{\newton\per\meter\squared}
+\end{align*}
+
 
 \section{Problem 4}
 
