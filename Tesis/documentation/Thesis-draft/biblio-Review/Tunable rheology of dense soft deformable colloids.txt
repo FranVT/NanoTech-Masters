@@ -1,0 +1,104 @@
+Tunable rheology of dense soft deformable colloids
+
+@article{vlassopoulosTunableRheologyDense2014,
+  title = {Tunable Rheology of Dense Soft Deformable Colloids},
+  author = {Vlassopoulos, Dimitris and Cloitre, Michel},
+  year = {2014},
+  month = dec,
+  journal = {Current Opinion in Colloid \& Interface Science},
+  volume = {19},
+  number = {6},
+  pages = {561--574},
+  issn = {1359-0294},
+  doi = {10.1016/j.cocis.2014.09.007},
+  urldate = {2025-08-19},
+  abstract = {In the last two decades, advances in synthetic, experimental and modeling/simulation methodologies have considerably enhanced our understanding of colloidal suspension rheology and put the field at the forefront of soft matter research. Recent accomplishments include the ability to tailor the flow of colloidal materials via controlled changes of particle microstructure and interactions. Whereas hard sphere suspensions have been the most widely studied colloidal system, there is no richer type of particles than soft colloids in this respect. Yet, despite the remarkable progress in the field, many outstanding challenges remain in our quest to link particle microstructure to macroscopic properties and eventually design appropriate soft composites. Addressing them will provide the route towards novel responsive systems with hierarchical structures and multiple functionalities. Here we discuss the key structural and rheological parameters which determine the tunable rheology of dense soft deformable colloids. We restrict our discussion to non-crystallizing suspensions of spherical particles without electrostatic or enthalpic interactions.},
+  keywords = {Depletion,Flow curves,Glass/Jamming,Microgels,Particle elasticity,Soft colloids,Star polymers,Viscoelasticity,Viscosity,Yield stress/strain},
+  file = {/home/fran/Zotero/storage/BLECLIFY/Vlassopoulos and Cloitre - 2014 - Tunable rheology of dense soft deformable colloids.pdf;/home/fran/Zotero/storage/6K3989HN/S1359029414000946.html}
+}
+
+
+# Introduction  
+
+## Classification of soft colloids  
+
+A reasonably comprehensive, albeit nonexhaustive list of soft colloids includes emulsions and nanoemulsions, surfactant onions and liposomes, microgels, grafted core–shell particles, block copolymer micelles, dendrimers, and star polymers [1–8]. 
+
+Softness can be appreciated from different perspectives: particle elasticity, diversity of soft interactions, and particle volume fraction.
+
+
+## Particle elasticity  
+
+The importance of the elasticity of Brownian object can be quantified by the non-dimensional parameter ε = ΔF/kT which represents the ratio of the elastic free energy, ΔF, to the thermal energy kT [9–11]. 
+Polymer coils have a free energy of entropic origin with ΔF ≅ kT indicating that ε ≅ 1; they are the most deformable objects available. 
+On the  other hand, spherical elastic particles with modulus E and radius R are characterized by ΔF = ER3 and ε = ER3/kT. 
+Thus, infinitely rigid hard spheres correspond to the limit ε → ∞. 
+
+Besides hard spheres, colloidal star polymers and microgels are archetypical representatives of two important classes of soft particles. 
+
+Star polymers are made of a large number of arms, f, each with the degree of polymerization Na, which are attached to a central core. 
+Following the Daoud–Cotton model [12], each arm can be viewed as a succession of blobs whose volume V(r) ≅ r3f−3/2 increases with distance r from the core. 
+Due to the topological stretching of the arms, the elastic modulus at distance r scales as: E ≅ kT/V(r). 
+At the periphery of the star, we have E≅kTR-3f 3/2 so that ε ≅ f 3/2. 
+For stars with a few hundreds of arms, ε is of the order of a few thousands. 
+
+Microgel particles are crosslinked polymeric networks swollen by solvent [4,13,14]. 
+Their modulus depends on many parameters such as the crosslink density, the solvent quality, the presence of ions, and the network architecture. 
+For neutral microgels, a reasonable estimate is E ≅ kT/V, where V ≅ NxV0 (Nx: number of statistical units between crosslinks; V0: volume of a statistical unit). 
+For submicron microgels (typically, R = 100 nm; V0 = 1 nm3; Nx = 100), we estimate ε = 104. 
+
+Nanoemulsion and emulsion droplets are soft colloidal objects used in many applications. 
+Here the elastic energy is associated with the surface energy of the interface (typically oil/water) which resists deformation [15]: ΔF = αR2 (with α the interfacial tension). 
+For R = 100 nm and α = 10−3 N/m, we estimate ε ≅ 106. 
+
+For completeness, let us briefly mention multilamellar vesicles which exhibit strong analogies with emulsion droplets, the effective surface elasticity resulting from a combination of the bending and compressive elasticity of the smectic layers constituting the particles [4,16]. 
+
+In the context of this discussion, recent efforts to characterize the elasticity of individual particles using various techniques like micropipette aspiration, AFM, and microfluidic flow appear very promising [17–23]. Fig. 1 summarizes the classification of soft colloids based on the above approach. 
+Clearly, colloidal particles span the softness parameter space from ultrasoft polymer coils and star polymers to quasi-hard spheres, indicating that softness can be tuned at will during synthesis or preparation to meet the requirements of various applications. 
+Naturally, our classification is somewhat simplified and does not account for the variations in parameters like star functionality, crosslink density, and interfacial tension (always in the absence of charges or enthalpic effects). 
+For example, star polymers are the simplest representatives of a wider class of particles with heterogeneous internal microstructure. 
+It includes dendrimers [8,24,25], block copolymer micelles resulting from the dissolution of diblock or multiblock copolymers in a selective solvent [26–33], and polymer-grafted (or polymer-adsorbed) particles [11,34–36].
+The latter find many applications as they provide an exquisite way to stabilize colloidal particles and tailor their rheology. 
+
+Further complications to our classification arise from more complex structures, such as for example core–shell microgels consisting of a solid core covered with a network-like shell [37–40] and block copolymer micelles with a multi-compartmented core–shell microstructure [29,32]. 
+Despite these issues, the classification of Fig. 1 offers a comprehensive description of the important features governing the behavior of soft colloids. 
+A useful, albeit rough parameter for core–shell particle's softness is the fraction of the shell layer [34]: s = L/(L + rc), where L is its thickness and rc is the core radius; for hard spheres, stars (for f = 100 arms and Na = 100 statistical units per arm) and polymers, s is about 0, 0.95 and 1, respectively. 
+In all these systems it is possible to de-swell the outer soft layer by adjusting the physicochemical conditions (pH, temperature, solvent quality, addition of small non-adsorbing polymers) so that the system switches from soft-like to hard-like behavior.
+
+## Particle interactions
+
+The softness of particles is linked to the softness of interactions which can be characterized by the form of the repulsive pair potential between two particles. 
+For instance, star polymers or, equivalently, particles covered with long end-grafted polymer chains (such as block copolymer micelles) are characterized by coarse-grained ultrasoft potentials which exhibit long-ranged Yukawa-like repulsion at large  center-to-center distances and logarithmic repulsion at short distances (Fig. 1) [41]. 
+The amplitude of the potential and its range of repulsion depend on the number of arms. 
+The logarithmic repulsion accounts for the microscopic interactions which develop when the arms come into contact, interpenetrate, and deform at short distances. 
+The number of arms, f, is the unique control parameter for tuning the star–star interaction from hard-sphere-like to polymer-like (Fig. 1), the potential scaling with f 3/2 as the normalized elastic free energy [41]. 
+This potential has been very successful in describing the structure of stars and starlike micelles, including the crystallization and glass transition, as confirmed experimentally [5,27,30,41–44]. 
+
+On the other hand, particles without dangling chains like microgels or emulsion droplets can be thought of as effective hard spheres up to the point of contact, and as elastically deformable spheres at shorter distances. 
+When the particles come into contact they develop facets through which they exert normal repulsive forces which are well modeled using Hertz theory [45–47]. 
+The resulting potential is accurate up to particle deformation of about 15% but extensions have been proposed to account for the large particle overlaps that take place under flow [48]. 
+These potentials successfully apply to dense microgel suspensions or concentrated emulsions [45–50]. 
+Hence, the key features of soft interactions that distinguish them from their hard-sphere counterparts are their wide-ranging and the less-steep potential at contact and beyond, which explain the tunability of soft interactions.
+
+
+## Particle volume fraction
+
+In relation to particle elasticity, a consequence of softness is the ability of the particles to deform/compress in contrast to hard spheres. 
+
+Emulsion droplets adapt their shape to steric constraints by forming facets at contact at constant volume. 
+Hairy particles (like star polymers, block copolymer micelles or grafted particles) and microgels can adjust both their shape and volume in response to external stimuli like pressure, flow, pH, and temperature, which makes their properties tunable [4]. 
+Moreover, the hairy structure of star-like particles allows for interdigitation in addition to deformability.
+
+The above features profoundly affect the definition of the volume fraction of soft particles and their behavior at high concentrations. 
+The volume fraction of a hard sphere colloidal suspension is usually determined in reference to the onset of crystallization at φc = 0.494 or the maximum packing fraction at φHCP = 0.74. 
+
+Hard particles subjected to a centrifugal force field will eventually reach the latter limit so that desired volume fractions can be subsequently prepared by dilution [10,51,52]. 
+This procedure does not apply to soft deformable particles which de-swell osmotically at large volume fraction [53–56]. 
+The volume fraction of concentrated soft particle suspensions thus remains an ambiguous quantity [52]. 
+Generally, the effective volume fraction based on the single particle hydrodynamic size is agreed upon as a universal parameter, albeit different from the actual volume fraction [51, 52,57,58]. 
+The determination of the latter is extremely challenging and, apart from a few studies for microgels and star polymers, few results are available [53,56,59]. 
+The effective volume fraction has been shown to work well in terms of scaling the properties (such as zeroshear viscosity or self-diffusion) for different soft particles over a range of sizes and concentrations [57,58,60,61]. 
+Hereafter we shall call it “volume fraction” unless otherwise specified.
+
+
+
