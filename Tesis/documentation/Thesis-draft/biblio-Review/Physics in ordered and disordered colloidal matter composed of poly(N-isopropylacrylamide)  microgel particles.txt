@@ -25,5 +25,16 @@ Colloids composed of micrometer-sized particles, for example, have taught us a g
 In addition, model colloid phenomenology offers a starting point for understanding the physics of a great many soft materials including dispersions, emulsions, pastes, paints, polymers, gels, and liquid crystals, and model colloids provide a bridge to non-equilibrium materials such as granular media and living cells and tissues. 
 Importantly, the colloidal systems permit experimental access to both microscopic and macroscopic information, thus enabling microscopic and macroscopic properties to be directly linked.
 
+[Hydrogels section]
+In light of these complexities, it can be argued that the recent development of temperature-tunable colloidal microgel particles has been a boon for the field. In particular, poly(N isopropylacrylamide) (PNIPAM) hydrogel particles [24–27], and those based on other alkyl substituted polyacrylamides [25, 28–38], are now used as substitutes for traditional suspension constituents.
+
+
+
+# Properties of PNIPAM Particles
+
+[Hydrogels section]
+PNIPAM hydrogel particles consist of crosslinked PNIPAM polymer chains and water (figure 1). The water has been suggested to be largely immobilized within the particle [24–27] due to strong hydrogen bonds between water and the amide groups of PNIPAM. The interaction between water and PNIPAM is a highly temperature-sensitive balance of hydrophilic and hydrophobic interactions, especially near the lower critical solution temperature (LCST) of approximately 32 ◦C.
+
+
 
 
