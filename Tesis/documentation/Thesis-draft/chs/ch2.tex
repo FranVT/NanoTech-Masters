@@ -16,7 +16,7 @@ The interaction between the particles are of the order of the thermal energy.
 They can be studied on a single-particle level by means of different complementary techniques\citep{castanedapriegoColloidalSoftMatter2021,yunkerPhysicsOrderedDisordered2014}. 
 This features allow to use mathematical tool such as brownian motion or molecular dynamics to analyze the systems with computer simulations and mathematical analysis, also to be easily observed and tracked via optical microscopy.
 
-\paragraph{what is soft colloid} Now that we have a general understanding of the concept of colloids, we will explore the concept of soft colloids.
+\paragraph{What is soft colloid} Now that we have a general understanding of the concept of colloids, we will explore the concept of soft colloids.
 There are a variety of explanations to softenss: particle elasticity, diversity of particle interactions, and particle volume fraction.
 The particle elasticity represents the ratio of the elastic free energy $\Delta F$ with the thermal energy $kT$\footnote{
 \begin{gather}
@@ -29,8 +29,31 @@ Finally, the particle volume fraction contributes to the ability of the particle
 
 \section{Mechanical response}
 
+\paragraph{Hooks Law} For many isotropic solid materials, the mechanical behavior is traditionally characterized by a constitutive stress-strain relation.
+Initially, the relation is linear until a limit is reached, at which point the material either fractures or begins to plastically deform.
+In cases where deformation and strains are small, the response can be estimated using a three-dimensional tensor. 
+This tensor is commonly referred to as Hooke's law\footnote{\[\sigma_{ij}=2GE_{ij}+\lambda\delta_{ij}E_{kk}\]}.
+This establishes a connection between the stress tensor ($\sigma$), the shear modulus ($G$) of the material, the applied strain ($E$), and the Lame first parameter ($\lambda$) of the material\citep{bonyadiReviewFrictionLubrication2020}.
+
 
 Rheological properties of concentrated dispersions strongly depend on the microstructure, which not only depends on the interaction potential but also on the size distribution of the particles\citep{senffTemperatureSensitiveMicrogel1999}.
+
+\paragraph{Hydrogels response} Hydrogels generally exhibit high and non-linear strains prior to failure.\footnote{a characteristic that is also typical of hyper-elastic elastomers}.
+In their fully swollen and hydrated state, hydrogels are capable of withstanding significant compressive and tensile strains without incurring plastic deformation. 
+Two distinctive properties of hydrogels appear to govern their response to strain: 
+    The water content influence the elastic response in the linear-elastic regime, typically for strains less than 40\%. 
+    Meanwhile, the crosslink density and network characteristics of a material determine its fracture toughness.%\footnote{Nakayama, A., Kakugo, A., Gong, J.P., Osada, Y., Takai, M., Erata, T., Kawano, S.: High mechanical strength double-network hydrogel with bacterial cellulose. Adv. Funct. Mater. 14, 11241128 (2004). https://doi.org/10.1002/adfm.200305197} 
+Several models have been utilized in an effort to recapitulate the complex responses observed in these materials\footnote{These include the Mooney-Rivlin model, the Neo-Hookean model, and the Ogden model.%\footnote{Mihai, L.A., Goriely, A.: How to characterize a nonlinear elastic material? A review on nonlinear constitutive parameters in isotropic finite elasticity. In: Proceedings of the Royal Society A: Mathematical, Physical and Engineering Sciences. Royal Society Publishing (2017) \\ Kim, B., Lee, S.B., Lee, J., Cho, S., Park, H., Yeom, S., Park, S.H.: A comparison among Neo-Hookean model, Mooney-Rivlin model, and Ogden model for Chloroprene rubber. Int. J. Precis. Eng. Manuf. 13, 759–764 (2012). https://doi.org/10.1007/s1254 1-012-0099-y \\ Rivlin, R.S.: Large elastic deformations of isotropic materials VI. Further developments of the general theory. Philos. Trans. R. Soc. Lond. Ser. A 241, 379–397 (1948). https://doi.org/10.1098/ rsta.1948.0024 \\ Ogden, R.W.: Large deformation isotropic elasticity—on the correlation of theory and experiment for incompressible rubberlike solids. Proc. R. Soc. Lond. A. Math. Phys. Sci. 326, 565–584 (1972). https://doi.org/10.1098/rspa.1972.0026}
+}. 
+Each model has its limitations, as most were not developed to handle a hydration-dependent, multi-network material. 
+However, experimental and computational validation has identified specific solutions and applicable strain ranges for hydrogels\citep{bonyadiReviewFrictionLubrication2020}.%\footnote{Faghihi, S., Karimi, A., Jamadi, M., Imani, R., Salarian, R.: Graphene oxide/poly(acrylic acid)/gelatin nanocomposite hydrogel: experimental and numerical validation of hyperelastic model. Mater. Sci. Eng. C 38, 299–305 (2014). https://doi.org/10.1016/j. msec.2014.02.015 \\ Sasson, A., Patchornik, S., Eliasy, R., Robinson, D., Haj-Ali, R.: Hyperelastic mechanical behavior of chitosan hydrogels for nucleus pulposus replacement-experimental testing and constitutive modeling. J. Mech. Behav. Biomed. Mater. 8, 143–153 (2012). https://doi.org/10.1016/j.jmbbm.2011.12.008 \\ Van Der Sman, R.G.M.: Hyperelastic models for hydration of cellular tissue. Soft Matter 11, 7579–7591 (2015). https://doi. org/10.1039/c5sm01032b}
+
+
+\paragraph{Hydrogels response Experiments} Contact mechanics measurements\footnote{critical to evaluating the tribological performance of a hydrogel} performed in the linear-elastic range suggest that bulk hydrogel response to compressive loads is dependent upon the osmotic pressure of the hydrogel and is consistent with Hertzian predictions over several timescales [18, 19]. 
+Additional measurements showed that this was geometry dependent, suitable for solid (or thick) samples that lack sharp edges [20, 21]. 
+For example, by changing a solid hydrogel indenting probe to a thin-walled design the mechanical response (contact area to force) became nearly linear, and by indenting a hydrogel with a conic punch locally exceeded the osmotic pressure of the gel allowing fluid flow. 
+While strains are traditionally high at failure for hydrogels [6, 7, 22–24] stresses are typically very low (on the order of kilopascals)\footnote{this remains one of the major hurdles in more robust applications of hydrogels in medicine [1]}\citep{bonyadiReviewFrictionLubrication2020}.
+
 
 
 \section{Hydrogels}
