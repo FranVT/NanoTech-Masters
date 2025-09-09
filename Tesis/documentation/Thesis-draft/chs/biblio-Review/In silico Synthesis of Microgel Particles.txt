@@ -1,0 +1,14 @@
+# In Silico Synthesis of Microgel Particles
+
+Soft colloids, combining properties of hard-sphere colloids and polymers, offer the interesting possibility to tailor their macroscopic behavior and flow at the molecular level.1
+
+
+Since the single-particle elasticity alters the properties of the resulting macroscopic material, establishing the crucial link between microscopic properties and macroscopic response requires the knowledge of the effective interactions among particles.
+
+The repulsion modeled with a Weeks-Chandler-Andersen potential
+
+Patch-patch interaction
+
+Three body interaction
+
+
