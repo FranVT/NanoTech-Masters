@@ -29,6 +29,29 @@ Finally, the particle volume fraction contributes to the ability of the particle
 
 \section{Mechanical response}
 
+
+\paragraph{Regimes} The deformation of an object can be represented using a strain tensor and strain rate.
+Additionally, the strain tensor and strain rate can be associated with the stress tensor\footnote{By this point strain and stress tensor should be explained}. 
+The relationship between these quantities can be classified as either the infinitesimal regime or the finite regime.
+For relations that fall into the infinitesimal regime, most mathematical models can predict experimental results.
+For finite relations, significant deviations from theoretical models are observed.
+
+\paragraph{Infinitesimal regime} By centering our focus on relations that fall into the infinitesimal regime, there are two main deviations from theoretical frameworks that are manageable.
+One of these is related to a ``solid-like'' response.
+This is defined as a process in which the relation maintains a non-constant deformation under constant stress, but instead undergoes gradual changes over time.
+Additionally, in situations involving constant deformation, the stress required to maintain that deformation gradually decreases or relaxes.
+The second deviation is related to a ``liquid-like'' response.
+In this case, a system while flowing under constant stress store some of the energy input instead of dissipating it all as heat.
+Or when the stress is removed, part of the deformation is undo, also known as elastic recoil.
+
+\paragraph{Liquid-like response} Focusing on the ``liquid-like'' response, when an object is exposed to a sinusoidally oscillating stress, the strain is neither exactly in phase with the stress nor out of phase, but rather, it is located somewhere between the two.
+Additionally, it is generally understood that a portion of the energy input is stored and recovered during each cycle, while another portion is dissipated as heat.
+Materials that demonstrate such behavior are classified as viscoelastic.
+The reason is that, for a perfectly elastic solid, the relationship between stress and strain is precisely in phase.
+For a perfectly viscous liquid, the stress-strain relation is precisely out of phase.
+
+
+
 \paragraph{Hooks Law} For many isotropic solid materials, the mechanical behavior is traditionally characterized by a constitutive stress-strain relation.
 Initially, the relation is linear until a limit is reached, at which point the material either fractures or begins to plastically deform.
 In cases where deformation and strains are small, the response can be estimated using a three-dimensional tensor. 
@@ -53,6 +76,15 @@ However, experimental and computational validation has identified specific solut
 Additional measurements showed that this was geometry dependent, suitable for solid (or thick) samples that lack sharp edges [20, 21]. 
 For example, by changing a solid hydrogel indenting probe to a thin-walled design the mechanical response (contact area to force) became nearly linear, and by indenting a hydrogel with a conic punch locally exceeded the osmotic pressure of the gel allowing fluid flow. 
 While strains are traditionally high at failure for hydrogels [6, 7, 22–24] stresses are typically very low (on the order of kilopascals)\footnote{this remains one of the major hurdles in more robust applications of hydrogels in medicine [1]}\citep{bonyadiReviewFrictionLubrication2020}.
+
+
+\subsection{Constitutive relations}
+
+\paragraph{Relation} The mathematical representation of the relation of the stress-strain relation and their time dependences are known as constitutive relations.
+If strains and/or rates of strain are finite, the constitutive equation may be quite complicated.
+If there are infinitesimal corresponding to linear viscoelastic behaviour, the equation is relatively simple
+
+
 
 
 
