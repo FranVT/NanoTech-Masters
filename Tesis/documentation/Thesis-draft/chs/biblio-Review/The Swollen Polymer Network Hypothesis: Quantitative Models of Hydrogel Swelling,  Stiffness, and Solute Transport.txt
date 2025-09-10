@@ -40,6 +40,14 @@ In this work, we propose a comprehensive set of coordinated amendments to the mo
 We call this set of amendments the swollen polymer network hypothesis to acknowledge its current lack of validation, but we anticipate that the hypothesis will clarify which modeling assumptions need further investigation and ultimately contribute toward increased precision and efficiency in designing biomedically relevant hydrogel systems.
 
 
+"""
+
+Hydrogels are polymer networks that swell and matain their structure in the presence of water.
+
+"""
+
+
+
 ## Three fundamental theories of swollen polymers networks
 
 The swollen polymer network hypothesis coordinates three fundamental theories relating swollen polymer network structure to physical properties. 

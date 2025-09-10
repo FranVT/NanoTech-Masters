@@ -1,0 +1,25 @@
+Soft Materials by Design: Unconventional Polymer Networks Give Extreme Properties
+
+The pioneering works in the field of polymers and soft materials have laid the foundation for understanding the elasticity, swelling, poroelasticity, viscoelasticity, fracture, and fatigue of hydrogels (e.g., refs 53−66 and the references therein).
+
+(53) Biot, M. A. General theory of three-dimensional consolidation. J. Appl. Phys. 1941, 12, 155−164.  
+(54) Flory, P. J. Principles of Polymer Chemistry; Cornell University Press: Ithaca, 1953. 
+(55) Lake, G.; Lindley, P. The mechanical fatigue limit for rubber. J. Appl. Polym. Sci. 1965, 9, 1233−1251.  
+(56) Lake, G.; Thomas, A. The strength of highly elastic materials. Proc. R. Soc. London A 1967, 300, 108−119. 
+(57) Treloar, L. R. G. The Physics of Rubber Elasticity; Oxford University Press: New York, 1975.  
+(58) De Gennes, P.-G. Scaling Concepts in Polymer Physics; Cornell University Press: Ithaca, 1979. 
+(59) Gent, A. A new constitutive relation for rubber. Rubber Chem. Technol. 1996, 69, 59−61. 
+(60) Erman, B.; Mark, J. E. Structures and Properties of Rubberlike Networks; Oxford University Press: New York, 1997. 
+(61) Boyce, M. C.; Arruda, E. M. Constitutive models of rubber elasticity: a review. Rubber Chem. Technol. 2000, 73, 504−523. 
+(62) Rubinstein, M.; Colby, R. H. Polymer Physics; Oxford University Press: New York, 2003.  
+(63) Mark, J. E.; Erman, B. Rubberlike Elasticity: A Molecular Primer; Cambridge University Press: Cambridge, 2007.  
+(64) Argon, A. S. The Physics of Deformation and Fracture of Polymers; Cambridge University Press: Cambridge, 2013.  
+(65) Peppas, N. A. Hydrogels in Medicine and Pharmacy: Fundamentals; CRC Press: Boca Raton, 2019. 
+(66) Richbourg, N. R.; Peppas, N. A. The swollen polymer network hypothesis: Quantitative models of hydrogel swelling, stiffness, and solute transport. Prog. Polym. Sci. 2020, 105, 101243.
+
+(64) Argon, A. S. The Physics of Deformation and Fracture of Polymers; Cambridge University Press: Cambridge, 2013.
+(66) Richbourg, N. R.; Peppas, N. A. The swollen polymer network hypothesis: Quantitative models of hydrogel swelling, stiffness, and solute transport. Prog. Polym. Sci. 2020, 105, 101243.
+
+
+
+
