@@ -1,0 +1,26 @@
+Temperature-Sensitive Aqueous Microgels
+
+
+@article{peltonTemperaturesensitiveAqueousMicrogels2000,
+  title = {Temperature-Sensitive Aqueous Microgels},
+  author = {Pelton, Robert},
+  year = {2000},
+  month = feb,
+  journal = {Advances in Colloid and Interface Science},
+  volume = {85},
+  number = {1},
+  pages = {1--33},
+  issn = {0001-8686},
+  doi = {10.1016/S0001-8686(99)00023-8},
+  urldate = {2025-08-19},
+  abstract = {An account of the preparation and characterization of temperature-sensitive aqueous microgels based on poly(N-isopropylacrylamide) was first published in 1986. Since then there has been a steady increase in the number of publications describing preparation, characterization and applications of temperature-sensitive microgels. This paper reviews the important developments in the area of temperature-sensitive aqueous microgels over the last decade. Although most of the work involves gels based on poly(N-isopropylacrylamide), other polymers are also considered. Core--shell latex particles exhibiting temperature-sensitive properties are also described.},
+  keywords = {Colloids,Latexes,Polymer-surfactant interactions,Swelling,Temperature-sensitive microgels,Thermal sensitive microgels},
+  file = {/home/frenour/Zotero/storage/VC6F5LFK/Pelton - 2000 - Temperature-sensitive aqueous microgels.pdf;/home/frenour/Zotero/storage/C5UNCUCL/S0001868699000238.html}
+}
+
+The core dominates light scattering turbidity behavior whereas the colloid stability is determined by the hydrogel shell.
+
+
+Most of the work discussed in this review involves microgels based on N-isopropylacrylamide. However, related monomers also yield polymers which have a lower critical solution temperature in water and a few of these monomers have been used wx  to make temperature-sensitive hydrogels.
+
+

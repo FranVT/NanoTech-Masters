@@ -1,0 +1,95 @@
+Cross-linking in Hydrogels - A Review
+
+@article{maitraCrosslinkingHydrogelsReview2014,
+  title = {Cross-Linking in Hydrogels - A Review},
+  author = {Maitra, Jaya and Shukla, Vivek Kumar},
+  year = {/26/2014},
+  journal = {American Journal of Polymer Science},
+  volume = {4},
+  number = {2},
+  pages = {25--31},
+  publisher = {Scientific \& Academic Publishing},
+  issn = {2163-1352},
+  urldate = {2025-08-11},
+  abstract = {Hydrogels represent a class of high water content polymers with physical or chemical crosslinks. Their physical properties are similar to soft tissues. Cross linking is a stabilization process in polymer chemistry which leads to multidimensional extension of polymeric chain resulting in network structure. Cross-link is a bond which links one polymer chain to other. It can be ionic or covalent. Cross linking changes a liquid polymer into `solid' or `gel' by restricting the ability of movement. When polymer chains are linked together by cross-links, they lose some of their ability to move as individual polymer chains. A liquid polymer (where the chains are freely flowing) can be turned into a `solid' or `gel' by cross-linking the chains together. Cross linking increases the molecular mass of a polymer. Cross-linked polymers are important because they are mechanically strong and resistant to heat, wear and attack by solvents. However, the drawback associated with cross-linked polymers is that they are relatively inflexible when it comes to their processing properties because they are insoluble and infusible.},
+  copyright = {http://creativecommons.org/licenses/by/2.0/},
+  langid = {english},
+  file = {/home/frenour/Zotero/storage/VHSW6CZJ/Maitra and Shukla - 2014 - Cross-linking in Hydrogels - A Review.pdf}
+}
+
+Crosslinked material after absorbing lot of solvent is called a gel.
+
+Hydrogels are crosslinked hydrophilic polymer structures
+
+Their hydrophilic, soft and rubbery nature ensures minimal tissue irritation and a low tendency of cells and proteins to adhere to the hydrogel surface.
+
+Adding cross-links between polymer chains affect the physical properties of the polymer depending upon the degree of cross linking and presence and absence of crystallinity. 
+
+Cross linking results in:
+i) elasticity Elastomers are elastic polymers created by limited cross-linking. As the number of cross-links increases, however, the polymer becomes more rigid and cannot stretch as much; the polymer will become less viscous and less elastic and might even become brittle.
+ii) Decrease in the viscosity. In order to polymers to flow, the chains must move past each other and cross-linking prevent this.
+iii) Insolubility of the polymer. Cross linking results in insolubility as the chains are tied together by strong covalent bonds.
+Crosslinked materials cant't dissolve in solvents, but can absorb solvents.
+
+# Method of Crosslinking
+
+Cross-linking may occur through polymerization of monomers having functionalities more than two (by condensation) or by covalent bonding between polymeric chain through irradiation, sulphur vulcanization or chemical reactions by adding different chemicals in conjunction with heating and, sometimes, pressure.
+
+
+# Hydrogels and Crosslinking
+
+The term “hydrogel” represent water insoluble polymeric network that has capacity to absorb large amount of water [11-15]. 
+A hydrogel is a macromolecular polymer gel constructed of a network of crosslinked polymer chains.
+They are synthesized from hydrophlic monomers by either chain or step growth, along with a functional crosslinker to promote network formation. 
+Synthetic or natural polymers, homopolymer or copolymer, are used to make three dimensional networks by molecular entanglements or by chemical crosslinking [16].
+
+Cross linking either physically or chemically gives hydrogel a 3D network structure, making it insoluble. 
+This insoluble cross-linked structure allows effective immobilization and release of active agents and biomolecules. 
+Hydrogels appear similar to natural soft tissues because of their high water content.
+
+
+Physical crosslinks include entangled chains, hydrogen bonding, hydrophobic interaction and crystallite formation. 
+These physical crosslinks may not be permanent in nature, but they are sufficient to make hydrogels insoluble in an aqueous media. 
+Physical crosslinking gives reversible hydrogels. 
+Physical hydrogels can absorb the water but inhomogeneities or network defects may occur due to free chain ends or chain loops
+
+
+Chemical or permanent hydrogel are formed by covalent crosslinking of polymers.
+
+The type and degree of crosslinking influences many of the network properties, like swelling properties, elastic modulus and transport of molecules
+
+
+# Synthesis of Hydrogels
+
+Hydrogels are synthesized by different polymerization methods using both chemical and physical crosslinking routes.
+
+## Chemical crosslinked
+
+hydrogels are synthesized by chain growth polymerization, addition and condensation polymerization and gamma and electron beam polymerization.
+
+Chain-growth polymerization includes free radical polymerization, controlled free radical polymerization, anionic and cationic polymerization.
+
+Controlled living radical polymerizations offer the benefits of longer growing chain life compared to free radical polymerizations for macromolecular engineering
+
+Anionic and Cationic polymerization methods suffer from extreme sensitivity toward aqueous environments and therefore, are not used in the synthesis of polymeric hydrogels.
+
+Addition and condensation polymerization involves stepwise addition of Polyfunctional crosslinking agents with monomer functional groups.
+
+Polymer chains may be crosslinked in the presence of water to form a hydrogel. 
+Water occupies voids in the network, giving the hydrogel its characteristic surface properties.
+
+Gamma and electron beam polymerization involves high energy electromagnetic irradiation as crosslinker. 
+These high energy radiations can crosslink water-soluble monomer or polymer chain ends without the addition of a crosslinker.
+
+## Physically crosslinked
+
+hydrogels are synthesized by ionic interaction, crystallization, stereocomplex formation, hydrophobized polysaccharides, protein interaction and hydrogen bond.
+
+In ionic interactions, hydrogels can be crosslinked under mild conditions, at room temperature and physiological pH.
+
+Hydrophobic interactions results in the polymer to swell and uptake water that forms the hydrogel.
+
+Protein interaction involves block copolymers that contains repetition of silk-like and elastine-like blocks called ProLastins
+
+
+

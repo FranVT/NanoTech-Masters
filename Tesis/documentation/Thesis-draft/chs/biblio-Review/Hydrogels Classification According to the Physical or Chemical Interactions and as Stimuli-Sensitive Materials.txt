@@ -1,0 +1,143 @@
+Hydrogels Classification According to the Physical or Chemical Interactions and as Stimuli-Sensitive Materials
+
+
+@article{bustamante-torresHydrogelsClassificationAccording2021,
+  title = {Hydrogels Classification According to the Physical or Chemical Interactions and as Stimuli-Sensitive Materials},
+  author = {{Bustamante-Torres}, Moises and {Romero-Fierro}, David and {Arcentales-Vera}, Bel{\'e}n and Palomino, Kenia and Maga{\~n}a, H{\'e}ctor and Bucio, Emilio},
+  year = {2021},
+  month = oct,
+  journal = {Gels},
+  volume = {7},
+  number = {4},
+  pages = {182},
+  issn = {2310-2861},
+  doi = {10.3390/gels7040182},
+  urldate = {2025-08-11},
+  abstract = {Hydrogels are attractive biomaterials with favorable characteristics due to their water uptake capacity. However, hydrogel properties are determined by the cross-linking degree and nature, the tacticity, and the crystallinity of the polymer. These biomaterials can be sorted out according to the internal structure and by their response to external factors. In this case, the internal interaction can be reversible when the internal chains are led by physicochemical interactions. These physical hydrogels can be synthesized through several techniques such as crystallization, amphiphilic copolymers, charge interactions, hydrogen bonds, stereo-complexing, and protein interactions. In contrast, the internal interaction can be irreversible through covalent cross-linking. Synthesized hydrogels by chemical interactions present a high cross-linking density and are employed using graft copolymerization, reactive functional groups, and enzymatic methods. Moreover, specific smart hydrogels have also been denoted by their external response, pH, temperature, electric, light, and enzyme. This review deeply details the type of hydrogel, either the internal structure or the external response. Furthermore, we detail some of the main applications of these hydrogels in the biomedicine field, such as drug delivery systems, scaffolds for tissue engineering, actuators, biosensors, and many other applications.},
+  pmcid = {PMC8628675},
+  pmid = {34842654},
+  file = {/home/frenour/Zotero/storage/MVLPDYJS/Bustamante-Torres et al. - 2021 - Hydrogels Classification According to the Physical or Chemical Interactions and as Stimuli-Sensitive.pdf}
+}
+
+A hydrogel is a tridimensional polymeric structure with swelling and collapse properties, flexibility, biodegradability, biocompatibility, and softness.
+
+The ability of hydrogels to absorb water arises from hydrophilic functional groups attached to the polymeric backbone, while their resistance to dissolution arises from crosslinks between network chains
+
+Variations in concentrations, structure, functionality of the monomer, and the cross-linker used in such gels can modify the structure [4]
+
+Monomers have unique properties that can form a macromolecular known as a polymer. 
+In addition, a cross-linking agent is relevant because a characteristic of any hydrogel is its cross-linked structure, which is achieved through that agent [9,10]. 
+
+The cohesion forces that allow the cross-linking of the polymer have a covalent character, and other forces such as electrostatic, hydrophobic, dipole–dipole interactions, or hydrogen bonds intervene [11–13]. 
+Typically, hydrogels are classified into two categories: physically cross-linked hydrogels and chemically cross-linked hydrogels [14], which obtain different properties based on each synthesis.
+
+Hydrophilic polymers might be considered as those polymers that contain polar functional groups such as hydroxyl (-OH), carboxyl (-COOH), and amino (-NH2) groups that make them soluble or swelled by water.
+
+A hydrophilic polymer that has received much attention is poly(vinyl alcohol) (PVA) because it has a great promise as a biological drug-delivery matrix [16] and is nontoxic.
+
+hydrophilic polymers can be cross-linked through chemical bonds, leading to the formation of hydrogels
+
+The research of hydrophilic polymers has been complex because the physical properties of solubility or swellability depend on different factors, such as the type of polymer, molecular weight, the ratio of polar groups, and degree of cross-linking.
+
+# Crosslinking Strategies to Obtain Physical Hydrogels
+
+Hydrogels can be cross-linked through physical or reversible networks, which hold them together by molecular entanglements or physicochemical interactions such as hydrogen bonds, hydrophobic interactions, charge condensation, or supramolecular chemistry. 
+The interactions that occur in this type of hydrogels are weak. 
+However, they are numerous and contribute to the presence of complex behaviors. 
+Since the interactions depend significantly on external stimuli (pH, ionic strength, the composition of the solvent, or the temperature), they allow hydrogels to be highly versatile concerning the environment, unlike covalently bonded materials. 
+
+
+## Crystalization
+
+Physical cross-linking of a polymer to form a hydrogel can also be achieved by crystallization through freeze–thaw cycles in homopolymeric systems or by forming stereocomplexes.
+
+Polymeric crystallization can occur from dilute solutions or the molten state
+
+In the first case, crystallization occurs by evaporating the solvent, resulting in the appearance of single crystals based on a chain-folded model, which presents aligned chains
+
+Freeze–thaw crystallization involves the formation of microcrystals in the structure.
+
+Stereocomplexes are formed by stereoselective interactions between polymers with complementary stereoregular structures (the functional group is located only on one side of the monomer) that interact to form a system of properties different from those of the original constituents.
+
+## Amphilic Copolymers
+
+Amphiphilic hydrogels containing both hydrophilic and hydrophobic units
+
+amphiphilic copolymers can aggregate in water to form micelles and hydrogels in which the hydrophobic segments of the polymer self-assembly [40].
+
+Copolymers typically form hydrogels with fragments of different nature or modified copolymers. 
+The latter can be formed by a water-soluble polymer to which hydrophobic fragments have been attached or hydrophobic chains modified by water-soluble fragments [31].
+
+Polymers with hydrophobic domains can also crosslink in aqueous environments through reverse thermal gelling (sol-gel transition).
+
+Polymers or oligomers with this ability are known as gelling agents and are moderately hydrophobic [50–52]. 
+
+Gelation occurs when a hydrophobic segment attaches to a hydrophilic polymer forming an amphiphilic polymer. 
+Amphiphilic polymers are generally soluble in water at low temperatures; as the temperature increases, the hydrophobic domains add to minimize the hydrophobic surface area, reducing the amount of structured water around them [53]. 
+
+Gelation temperature depends on the concentration of the polymer, the length of the hydrophobic block, and the chemical structure of the polymer.
+
+## Hydrogel Cross-linking by Charge Interactions
+
+Cross-linking (or de-crosslinking) can be achieved in situ by pH changes that cause ionization or protonation of ionic functional groups and cause gelation.
+
+When a polyelectrolyte combines with a multivalent ion of opposite charge, a physical gel known as an ionotropic hydrogel is produced
+
+If two polyelectrolytes of opposite charges are mixed, they can gel or precipitate depending on their concentration, ionic strength, and pH of the solution; the product is called complex or polyionic.
+
+
+## Interaction by Hydrogen Bonds 
+
+Hydrogen bonding interactions can be used to produce hydrogels in vitro by freezethaw cycles.
+
+The hydrogels have unique properties through optimization between the radii of the monomers and a balance of the interactions [69].
+
+These hydrogels were obtained in the absence of a cross-linker. 
+The authors hypothesize that gelation occurred due to aggregation of polymer chains by regeneration of hydrogen bonds during dialysis [70].
+
+
+## Stereo Complexing
+
+Stereo-complexing refers to the interactions between polymeric chains, or small molecules, of the same chemical composition but different stereochemistry.
+
+the main drawback of stereo- complexation is the restricted polymer composition range that can be used; small changes in stoichiometry can weaken or eliminate the stereochemical interaction
+
+## Protein Interactions
+
+Cross-linking by protein interactions can be accomplished through the use of genetically engineered proteins or antigen–antibody interactions.
+
+The sol-gel transition can be controlled by modifying the temperature, the conditions of the solution, and the additives, which can prevent or promote the crystallization of the chain through hydrogen bonds
+
+
+# Cross-Linking Strategies to Obtain Chemical Hydrogels
+
+Hydrogels are called chemical or permanent when they consist of covalently crosslinked networks.
+
+Similar to physical hydrogels, chemical hydrogels are not homogeneous. 
+It generally contains regions of the high cross-linking density and low degree of swelling (clusters), dispersed in the regions of the low cross-linking density and high swelling index. 
+The presence of these clusters is due to the hydrophobic aggregation of the cross-linking agent. 
+In some cases, depending on the composition, solvent, temperature, and solids’ concentration during gelation, phase separation can occur with the formation of macropores [51].
+
+## Graft Copolymerization and Irradiation Crosslinking
+
+Among the various techniques for grafting polymers, gamma radiation has been successfully developed to graft polymers onto polymeric materials
+This technique does not require initiators or additives that may be harmful and difficult to remove
+
+Both the polymerization reaction and the cross-linking can be started at room temperature. 
+This radiation acts as an initiator of the copolymerization process between the polymer matrix (the material) and the molecule to be grafted (monomer). 
+This method allows radiation to act on the polymer matrix, inducing the formation of reactive sites that may interact with a molecule to be grafted, initiating a free radical polymerization process
+
+## Reactive Functional Groups
+
+These are covalent reactions between the functional groups of the polymers (mainly -OH, -COOH, -NH2) that provide solubility to water-soluble polymers
+
+Covalent bonds between polymer chains are established by the reaction of functional groups that have complementary reactivity; typical reactions are the formation of Schiff bases [101], Michael-type additions [102], peptide bonds [103], and click-type reactions [104].
+
+## Enzymatic Method
+
+The main advantage of the enzymatic method is that the cross-linking of the hydrogel occurs under mild conditions without the need for the use of low molecular weight compounds (monomers, initiators, cross-linking agents), irradiation, or prior polymer functionalization to favor its cross-linking [31,119].
+
+Enzymes often exhibit a high degree of substrate specificity, potentially avoiding side reactions during cross-linking. This advantage makes it possible to control and predict the cross-linking kinetics and control the overall cross-linking rate. For this reason, this method is suitable for in situ gelation systems [119,120].
+
+# Smart Hydrogels
+

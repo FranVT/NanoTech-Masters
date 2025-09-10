@@ -12,4 +12,6 @@ Hydrophilic Gels for Biological Use: https://doi.org/10.1038/185117a0
 
 A Novel Hydrogel with High Mechanical Strength: A Macromolecular Microsphere Composite Hydrogel*
 
+The role of chemical and physical crosslinking in different deformation stages of hybrid hydrogels
+
 

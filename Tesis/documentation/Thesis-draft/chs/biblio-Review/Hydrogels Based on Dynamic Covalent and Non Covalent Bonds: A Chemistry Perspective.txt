@@ -1,0 +1,48 @@
+Hydrogels Based on Dynamic Covalent and Non Covalent Bonds: A Chemistry Perspective
+
+@article{picchioniHydrogelsBasedDynamic2018,
+  title = {Hydrogels Based on Dynamic Covalent and Non Covalent Bonds: A Chemistry Perspective},
+  shorttitle = {Hydrogels {{Based}} on {{Dynamic Covalent}} and {{Non Covalent Bonds}}},
+  author = {Picchioni, Francesco and Muljana, Henky},
+  year = {2018},
+  month = mar,
+  journal = {Gels},
+  volume = {4},
+  number = {1},
+  pages = {21},
+  publisher = {Multidisciplinary Digital Publishing Institute},
+  issn = {2310-2861},
+  doi = {10.3390/gels4010021},
+  urldate = {2025-08-11},
+  abstract = {Hydrogels based on reversible covalent bonds represent an attractive topic for research at both academic and industrial level. While the concept of reversible covalent bonds dates back a few decades, novel developments continue to appear in the general research area of gels and especially hydrogels. The reversible character of the bonds, when translated at the general level of the polymeric network, allows reversible interaction with substrates as well as responsiveness to variety of external stimuli (e.g., self-healing). These represent crucial characteristics in applications such as drug delivery and, more generally, in the biomedical world. Furthermore, the several possible choices that can be made in terms of reversible interactions generate an almost endless number of possibilities in terms of final product structure and properties. In the present work, we aim at reviewing the latest developments in this field (i.e., the last five years) by focusing on the chemistry of the systems at hand. As such, this should allow molecular designers to develop a toolbox for the synthesis of new systems with tailored properties for a given application.},
+  copyright = {http://creativecommons.org/licenses/by/3.0/},
+  langid = {english},
+  keywords = {dynamic covalent bonds,hydrogels,reversible polymeric network},
+  file = {/home/frenour/Zotero/storage/24C9F8HI/Picchioni and Muljana - 2018 - Hydrogels Based on Dynamic Covalent and Non Covalent Bonds A Chemistry Perspective.pdf}
+}
+
+The molecular reversibility can be actually achieved in two different ways: either by making use of equilibrium reactions (e.g., the Diels-Alder one) or through dynamic exchange reactions (e.g., reaction of an excess amino groups with epoxide ones). Both approaches have been widely used for tuning the adhesion of different substrates on different polymeric networks and for the network formations (and disruption) itself.
+
+# Dynamic Hydrogels Based on Reversible (Covalent) Interactions 
+The same concept of covalent reversible bonds can be used for the hydrogel formation and disruption. 
+Examples of interactions used in this case are (Figure 2) electrostatic ones [19,20], cycloadditions [8,21], redox reactions [22–24], and other ones such as imine [25–28] and enamine formation [29], acylhydrazone [30–33], and borax acid reaction with hydroxyls [13,34–36].
+
+The general concept behind the use of reversible covalent interactions for the hydrogel polymeric chains is a the reversible network disruption with immediate release of any loading.
+
+The general idea is that the use of dynamic covalent conds allows the polymeric network to adjust itself as a result of an external sitimulus.
+
+This can be achieve in principle through other weaker ainteractions, e.g., hydrogen bonding.
+In particullar, a clear trend is detected in the last year, according to which self-assembly driven processes [10,37] can be conveniently used for hydrogel preparation. 
+However, the use of covalent bonds displays two distinct and clear advantages [25]. 
+In first instance, the network is still covalently linked, which renders it quite robust against small random fluctuations in environmental conditions such as temperature. 
+Furthermore, exchange reactions such as the one of an amine with an imine are often kinetically controlled by the use of catalysts. 
+In turn, this allows the possibility to freeze the network conformation (by slowing the kinetics) when desired. 
+
+
+
+
+--------------------------------------------------------------------------------------------
+Comparison of covalently and physically cross-linked collagen hydrogels on mediating vascular network formation for engineering adipose tissue
+
+
+

@@ -1,0 +1,30 @@
+Raspberry-Shaped Composite Microgel Synthesis by Seeded Emulsion Polymerization with Hydrogel Particles
+
+
+@article{suzukiRaspberryShapedCompositeMicrogel2014,
+  title = {Raspberry-Shaped Composite Microgel Synthesis by Seeded Emulsion Polymerization with Hydrogel Particles},
+  author = {Suzuki, Daisuke and Kobayashi, Chiaki},
+  year = {2014},
+  month = jun,
+  journal = {Langmuir},
+  volume = {30},
+  number = {24},
+  pages = {7085--7092},
+  publisher = {American Chemical Society},
+  issn = {0743-7463},
+  doi = {10.1021/la5017752},
+  urldate = {2025-08-19},
+  abstract = {A series of raspberry-shaped composite microgels were synthesized by the seeded emulsion polymerization of styrene with hydrogel particles. Thermoresponsive microgels of poly(N-isopropylacrylamide) cross-linked with N,N{$\prime$}-methylenebis(acrylamide) acted as cores for the polymerization. During the surfactant-free polymerization, the core microgels shrank at 70 {$^\circ$}C to provide thermoresponsive composite microgels, and the polystyrene particles attached to core microgels became bigger with increasing styrene concentration. Conversely, composite microgels synthesized with sodium dodecyl sulfate (SDS) ([SDS] {$>$} 6.5 mM) did not exhibit thermoresponsive deswelling behavior because polystyrene particles covered the core microgels. In particular, polystyrene particles formed composites on the microgel surface as well as inside the microgels when the SDS concentration exceeded a critical value for core microgel swelling at 70 {$^\circ$}C. A mechanism is proposed based on these results for the seeded emulsion polymerization of water-immiscible monomers with microgels.},
+  file = {/home/frenour/Zotero/storage/4BSK644C/Suzuki and Kobayashi - 2014 - Raspberry-Shaped Composite Microgel Synthesis by Seeded Emulsion Polymerization with Hydrogel Partic.pdf}
+}
+
+
+
+Hydrogel particles, or microgels, are cross-linked waterswellable polymeric particles that exhibit interesting stimuliresponsive physical/chemical properties.
+
+These properties change in response to external stimuli, such as temperature, pH, ionic strength, light, presence of biomolecules, and  chemical reaction,1−9 making microgels suitable for various applications.
+
+
+The design and control of chemical composition and microgel morphology play an important role for realizing specific applications.
+
+

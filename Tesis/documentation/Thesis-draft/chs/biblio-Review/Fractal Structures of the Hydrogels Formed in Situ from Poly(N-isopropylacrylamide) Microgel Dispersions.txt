@@ -1,0 +1,24 @@
+Fractal Structures of the Hydrogels Formed in Situ from Poly(N-isopropylacrylamide) Microgel Dispersions
+
+
+@article{liaoFractalStructuresHydrogels2012,
+  title = {Fractal Structures of the Hydrogels Formed in Situ from Poly(N-isopropylacrylamide) Microgel Dispersions},
+  author = {Liao, Wang and Zhang, Yongjun and Guan, Ying and Zhu, X. X.},
+  year = {2012},
+  month = jul,
+  journal = {Langmuir},
+  volume = {28},
+  number = {29},
+  pages = {10873--10880},
+  publisher = {American Chemical Society},
+  issn = {0743-7463},
+  doi = {10.1021/la3016386},
+  urldate = {2025-08-19},
+  abstract = {Dispersions of poly(N-isopropylacrylamide) (PNIPAM) microgel thermally gel in the presence of inorganic salts. The in situ-formed hydrogels, with a network of soft particles, represent a new type of colloidal gels. Here, their fractal structures were determined by rheological measurements, using the models of both Shih et al. and Wu and Morbidelli. According to the definition of Shih et al., the colloidal PNIPAM gels fall into the strong-link regime. Yet the calculated fractal dimension of the floc backbone, x, yielded unrealistic negative values, suggesting this model is inapplicable for the present system. The Wu--Morbidelli model gives physically sounder results. According to this model, the strengths of the inter- and intrafloc links are comparable, and the in situ-formed gels are in the transition regime. The fractal dimension, df, of the hydrogel decreases from {$\sim$}2.5 to {$\sim$}1.8 when the heating temperature increases from 34 to 40 {$^\circ$}C. The df values suggest different aggregation mechanisms at different temperatures, that is, a reaction-limited one accompanied by rearrangement at low temperature, a typical reaction-limited one at the intermediate temperature, and a diffusion-limited one at high temperature. With increasing salt concentration, the df of the hydrogel decreases from {$\sim$}2.1 to {$\sim$}1.7, suggesting the aggregation mechanism changes from reaction-limited to diffusion-limited. The effects of both temperature and salt concentration can be explained by the changes in the interactions among the microgel particles. The thermogellable PNIPAM microgel dispersions may serve as a model system for the study of heat-induced gelation of globular proteins.},
+  file = {/home/frenour/Zotero/storage/HY9DRRIW/Liao et al. - 2012 - Fractal Structures of the Hydrogels Formed in Situ from Poly(N-isopropylacrylamide) Microgel Dispers.pdf}
+}
+
+Microgels are small hydrogel particles with a size ranging from  tens of nanometers to several micrometers.1,2
+
+The network structure of the new hydrogel is reminiscent of that of colloidal gels.10 It is well-known that a lot of colloidal dispersions lose their colloidal stability and flocculate when the interactions among the colloidal particles become attractive.
+

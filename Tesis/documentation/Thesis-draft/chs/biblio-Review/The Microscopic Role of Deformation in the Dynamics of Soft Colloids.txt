@@ -1,0 +1,38 @@
+The Microscopic Role of Deformation in the Dynamics of Soft Colloids
+
+
+@article{gnanMicroscopicRoleDeformation2019,
+  title = {The Microscopic Role of Deformation in the Dynamics of Soft Colloids},
+  author = {Gnan, Nicoletta and Zaccarelli, Emanuela},
+  year = {2019},
+  month = jul,
+  journal = {Nature Physics},
+  volume = {15},
+  number = {7},
+  pages = {683--688},
+  publisher = {Nature Publishing Group},
+  issn = {1745-2481},
+  doi = {10.1038/s41567-019-0480-1},
+  urldate = {2025-08-18},
+  abstract = {Soft colloids enable the exploration of states with densities exceedingthat of random close packing, but it remains unclear whether softness controls thedynamics under these dense conditions. Experimental studies have reportedconflicting results, and numerical studies have so far focused primarily on simplemodels that allow particles to overlap, but neglect particle deformations. Thismakes the concept of softness in simulations and experiments difficult to compare.Here, we propose a model system consisting of polymer rings with internalelasticity. At high packing fractions, the system displays compressed exponentialdecay of the intermediate scattering functions and super-diffusive behaviour of themean-squared displacements. These features are explained in terms of the complexinterplay between particle deformations and dynamic heterogeneities, which givesrise to persistent motion of ballistic particles. We also observe a strikingvariation of the relaxation times with increasing particle softness, clearlydemonstrating the crucial role of deformation in the dynamics of realistic softcolloids.},
+  copyright = {2019 The Author(s), under exclusive licence to Springer Nature Limited},
+  langid = {english},
+  keywords = {Coarse-grained models,Colloids,Condensed-matter physics,Polymers},
+  file = {/home/frenour/Zotero/storage/5QA9HEV8/Gnan and Zaccarelli - 2019 - The microscopic role of deformation in the dynamics of soft colloids.pdf}
+}
+
+In recent years, colloidal particles have emerged as useful models that give access to phases and states with no counterpart in atomic and molecular systems [1–3].
+
+A crucial parameter controlling colloidal behaviour is particle softness, which can be quantified by the ratio between elastic and thermal energy [10].
+
+Several experimental works [9, 11–13] reported that softness controls the dependence of the structural relaxation time τα on temperature T or on packing fraction ζ – the so called fragility[14].
+
+Landau, L. D. & Lifshitz, E. Theory of elasticity, vol. 7. Course of Theoretical Physics 3, 109 (1986).
+
+To gain microscopic knowledge on this matter (a frigile system), we usually resort on simulations of simple repulsive models, as for example systems interacting with the Hertzian potential [18], which is found to describe microgel particles behavior at moderate packing fractions [19, 20], but is expected to fail in denser conditions where soft colloids tend to shrink, deform or even interpenetrate [21].
+
+
+Early works have indicated that, for such simple pair potentials, the change of dynamic properties with softness, such as the change of fragility, is modest [22] or absent [23]. 
+In these approaches, softness is tuned by modifying a given parameter, e.g. the strength of the repulsion, allowing particles to overlap to a certain extent, but without taking into account their deformability as well as other important aspects in realistic soft particles, namely deswelling [24–27], interpenetration [21] and faceting [28]. 
+Thus, there is a strong need to go one step forward in the modeling of soft colloids to tackle this problem and to provide a microscopic picture of these systems at high densities.
+

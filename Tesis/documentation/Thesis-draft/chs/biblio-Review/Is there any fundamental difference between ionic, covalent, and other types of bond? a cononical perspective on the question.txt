@@ -1,0 +1,30 @@
+Is there any fundamental difference between ionic, covalent, and other types of bond? a cononical perspective on the question
+
+
+@article{waltonThereAnyFundamental2017,
+  title = {Is There Any Fundamental Difference between Ionic, Covalent, and Others Types of Bond? A Canonical Perspective on the Question},
+  shorttitle = {Is There Any Fundamental Difference between Ionic, Covalent, and Others Types of Bond?},
+  author = {Walton, Jay R. and {Rivera-Rivera}, Luis A. and Lucchese, Robert R. and Bevan, John W.},
+  year = {2017},
+  month = jun,
+  journal = {Physical Chemistry Chemical Physics},
+  volume = {19},
+  number = {24},
+  pages = {15864--15869},
+  publisher = {The Royal Society of Chemistry},
+  issn = {1463-9084},
+  doi = {10.1039/C7CP02407J},
+  urldate = {2025-08-13},
+  abstract = {The concept of chemical bonding is normally presented and simplified through two models: the covalent bond and the ionic bond. Expansion of the ideal covalent and ionic models leads chemists to the concepts of electronegativity and polarizability, and thus to the classification of polar and non-polar bonds. In addition, the intermolecular interactions are normally viewed as physical phenomena without direct correlation to the chemical bond in any simplistic model. Contrary to these traditional concepts of chemical bonding, recently developed canonical approaches demonstrate a unified perspective on the nature of binding in pairwise interatomic interactions. This new canonical model, which is a force-based approach with a basis in fundamental molecular quantum mechanics, confirms much earlier assertions that in fact there are no fundamental distinctions among covalent bonds, ionic bonds, and intermolecular interactions including the hydrogen bond, the halogen bond, and van der Waals interactions.},
+  langid = {english},
+  file = {/home/frenour/Zotero/storage/ASD593JD/Walton et al. - 2017 - Is there any fundamental difference between ionic, covalent, and others types of bond A canonical p.pdf}
+}
+
+It is common to first teach students  that the chemical bond consists of two extreme models: the covalent bond model and the ionic  bond model. 
+The covalent bond is described as a sharing of electrons; the ionic bond is described  as a consequence of Coulombic attractions between opposite charges on the interacting atoms.
+These simplistic models are further refined by introducing the concepts of electronegativity and  polarizability effects which lead to the classification of polar and non-polar bonds.
+
+The concept  of intermolecular interaction, such as the hydrogen bond and van der Waals interactions, are  normally viewed as physical phenomena with no direct correlation to the chemical bond.
+
+Intermolecular interactions are described as electrostatic, dispersion, and polarization effects  between pair of atoms or molecules.
+
