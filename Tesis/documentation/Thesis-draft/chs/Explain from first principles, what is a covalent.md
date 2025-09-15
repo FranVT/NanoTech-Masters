@@ -50,3 +50,50 @@ A covalent bond is a type of chemical bond formed when two atoms share one or mo
 
 [^1_20]: http://journal2.um.ac.id/index.php/j-pek/article/download/16785/6921
 
+
+---
+
+# Explain from first principles, what is a physical interaction
+
+- Be concise
+- Be scientific accurate
+
+A physical interaction is a fundamental process through which particles or bodies exert forces on each other, resulting in changes in their motion or state without altering their intrinsic nature or chemical identity. These interactions arise from the fundamental forces of nature—gravitational, electromagnetic, strong nuclear, and weak nuclear—mediated by the exchange of force-carrying particles at the quantum level. Through these forces, energy and momentum are transferred between objects, governing phenomena like attraction, repulsion, collision, and binding without involving chemical transformations.[^2_1][^2_2]
+
+<div style="text-align: center">⁂</div>
+
+[^2_1]: http://arxiv.org/pdf/2205.01078.pdf
+
+[^2_2]: https://www.mdpi.com/1420-3049/25/11/2667/pdf
+
+
+---
+
+# Explain from first principles, what are functional groups
+
+- Be concise
+- Be scientific accurate
+
+Functional groups are specific groups of atoms within molecules that have characteristic structures and chemical behaviors. They determine the physical properties, chemical reactivity, and interactions of the parent molecule. Essentially, functional groups act as the reactive centers in organic molecules, defining how a molecule participates in chemical reactions while the rest of the molecule provides a structural framework.[^3_1][^3_6]
+<span style="display:none">[^3_2][^3_3][^3_4][^3_5][^3_7][^3_8][^3_9]</span>
+
+<div style="text-align: center">⁂</div>
+
+[^3_1]: https://pmc.ncbi.nlm.nih.gov/articles/PMC5462667/
+
+[^3_2]: https://www.mdpi.com/1420-3049/21/1/1/pdf
+
+[^3_3]: https://pmc.ncbi.nlm.nih.gov/articles/PMC6273096/
+
+[^3_4]: https://acp.copernicus.org/articles/10/7041/2010/acp-10-7041-2010.pdf
+
+[^3_5]: https://royalsocietypublishing.org/doi/pdf/10.1098/rsos.231935
+
+[^3_6]: http://www.biotech-asia.org/vol15no3/frequency-and-importance-of-six-functional-groups-that-play-a-role-in-drug-discovery/
+
+[^3_7]: https://pubs.rsc.org/en/content/articlepdf/2017/cc/c7cc01755c
+
+[^3_8]: https://journals.sagepub.com/doi/pdf/10.1177/01445987231218291
+
+[^3_9]: https://www.mdpi.com/1420-3049/30/7/1431
+
