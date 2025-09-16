@@ -130,16 +130,258 @@ At the macroscopic level, captures the effective mechanical response as a contin
 At the microscopic level, it provides insights into the origin of the mechanical response and how structural features at small scales control the macroscopic response.
 In this section, we will delve into the various descriptions and explore the quantification of this relationship.
 
+\marginpar{\begin{gather}
+    \epsilon_{ij} = \frac{1}{2}\left( \pdv{u_i}{x_j}+\pdv{u_j}{x_i} \right)\label{eqn:strainTensor}
+\end{gather}
+This mathematical representation is only valid for infinitesimal small deformations.
+Where $u_i$ are the component of the displacement vector field and $x_j$ are the spatial coordinates.
+
+\begin{gather}
+    \vec{T} = \bm{\sigma}\cdot\vec{n}\label{eqn:stressTensor}
+\end{gather}
+where the operation of the dot product between the normal vector with a tensor is 
+\begin{gather*}
+    \begin{bmatrix}
+        \sigma_{11} & \sigma_{21} & \sigma_{31} \\
+        \sigma_{12} & \sigma_{22} & \sigma_{32} \\
+        \sigma_{13} & \sigma_{23} & \sigma_{33} \\
+    \end{bmatrix}
+    \cdot
+    \begin{bmatrix} n_1 & n_2 & n_3 \end{bmatrix}.
+\end{gather*}
+The component $\sigma_{ij}$ represents the force in the $i$-th direction acting on a surface perpendicular to the $j$-th coordinate axis.
+Also, the tenso is symmetric under the usual ssumption of no body torques and balance of angular momentum.
+}
+\paragraph{Strain} In physics, the deformation of a material relative to its original shape under applied forces is quantify by the relative displacement between points in the material.
+This measure is represented by the dimensionless strain tensor eqn~\eqref{eqn:strainTensor}.
+This quantification tool enables the description of normal strain, such as elongation or compression, through the use of diagonal terms, and shear strain via off-diagonal terms.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/2D_geometric_strain.png}
+    %\caption{Wikipedia}
+\end{figure}
+
+\paragraph{Stress} In continuum mechanics and physics, the measure of internal forces distributed within a material that arise in response to external loads is refered as stress.
+As before, this measure is represented by a second-order tensor with units of \SI{}{\kilo\gram\per\meter\per\second\squared}.
+The mathematical representation of the stress tensor is given by the Cauchy stress tensor, which relates a traction vector $\vec{T}$ acting on a surface $\vec{n}$ with the stress tensor $\bm{\sigma}$, equation~\eqref{eqn:stressTensor}.
+
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/Components_stress_tensor_cartesian.pdf}
+    %\caption{Wikipedia}
+\end{figure}
+
+
+
 \subsection{Macroscopic description}
 
-\paragraph{Elastic relation}
+This description uses constitutive realtions to quantify the relation between stress, strain and if necesarty strain or shear rate.
 
-\paragraph{Plastic relation}
 
-\paragraph{Viscoelastic relation}
+\paragraph{Elastic relation} The material returns to its original shape after load removal.
+\begin{gather}
+    \sigma_{ij} = C_{ijkl}\epsilon_{kl}
+\end{gather}
 
-\paragraph{Viscoplastic relation}
+\paragraph{Plastic relation} Deformation is permanent once stress exceeds a yield threshold.
+\begin{gather}
+    \sigma = \sigma_y \wedge \epsilon = \epsilon^e+\epsilon^p
+\end{gather}
+
+\paragraph{Viscoelastic relation} Time-dependent response combining elastic and viscous behaviour.
+\begin{gather}
+    \sigma + \lambda\dv{\sigma}{t} = E\epsilon+\eta\dv{\epsilon}{t}.
+\end{gather}
+
+\paragraph{Viscoplastic relation} Combines irreversible plastic strain with rate-dependent visvous effects
+\begin{gather}
+    \sigma = \sigma_y + \eta\dot{\epsilon}\mathrm{~for~}\sigma>\sigma_y
+\end{gather}
 
 \subsection{Microscopic description}
 
+
+\paragraph{Motivation: Molecular stress is equivalent to continuum stress} \dots This derivation can be found in the apendix of\citep{admalUnifiedInterpretationStress2010}\footnote{Describe more if what is done in this article}.\footnote{(Eventualmente pondré esto en párrafo) Notation:
+    $\bm{\sigma}$ Tensor, $\vec{\sigma}$ vector, $\sigma_{i,j}$ tensor, $\overline{\sigma}$ time average, 
+}
+Consider a system of $N$ interacting particles with each particle position given by
+\begin{equation}
+    \vec{r}_{\alpha} = \vec{r} + \vec{s}_{\alpha}\label{eqn:DerVirTen1},
+\end{equation}
+where $\vec{r}$ is the position of the center of mass of the system and $\vec{s}_\alpha$ is the position of each point relative to the center of mass.
+Hence, we can express the momentum of each particle as
+\begin{equation}
+    \vec{p}_\alpha = m_\alpha\qty(\dot{\vec{r}}+\dot{\vec{s}}_\alpha) = m_\alpha\qty(\dot{\vec{r}}+\vec{\upsilon}_\alpha^{\mathrm{rel}}).\label{eqn:DerVirTen2}
+\end{equation}
+Before starting the procedure, lets take into account that the center of mass of the system is given by
+\begin{equation}
+    \vec{r} = \frac{\sum_{\alpha}m_\alpha\vec{s}_\alpha}{\sum_{\alpha}m_\alpha}\label{eqn:DerVirTen3},
+\end{equation}
+and by replacing~\eqref{eqn:DerVirTen1} in~\eqref{eqn:DerVirTen2} we get the following relations, which will be used later,
+\begin{equation}
+    \sum_\alpha m_\alpha\vec{r}_\alpha = \vec{0},\quad
+    \sum_\alpha m_\alpha\vec{\upsilon}_\alpha^{\mathrm{rel}} = \vec{0}.\label{eqn:DerVirTen4}
+\end{equation}
+
+Now we can start by computing the time derivative of tensorial product $\vec{r}_\alpha\otimes\vec{p}_\alpha$\footnote{It is interesting to note that the tensorial product $\vec{r}_\alpha\otimes\vec{p}_\alpha$ has units of action and by tacking the time derivative we are dealing with terms that has units of energy.
+},
+\begin{equation}
+    \dv{t}\qty(\vec{r}_\alpha\otimes\vec{p}_\alpha) = 
+    \underbrace{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{p}_\alpha}_{\mathrm{Kinetic~term}} 
+        +
+        \underbrace{\vec{r}_\alpha\otimes\vec{f}_\alpha}_{\mathrm{Virial~term}},\label{eqn:DerVirTen5}
+\end{equation}
+which is known as the \textit{dynamical tensor virial theorem} and it is simply an alternative form to express the balance of linear momentum.
+This theorem becomes useful after making the assumption that there existis a time scale $\tau$, which is short relative to macroscopic processes but long relative to the characteristic time of the particles in the system, over which the particles remain close to their original positions with bounded positions and velocities.
+Taking advantage of this property we can compute the time average of~\eqref{eqn:DerVirTen5},
+\begin{equation}
+    \frac{1}{\tau}\qty(\vec{r}_\alpha\otimes\vec{p}_\alpha)\bigg|_{0}^{\tau} = 
+    \overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{p}_\alpha} 
+        +
+    \overline{\vec{r}_\alpha\otimes\vec{f}_\alpha}.\label{eqn:DerVirTen6}
+\end{equation}
+Assuming that $\vec{r}_\alpha\otimes\vec{p}_\alpha$ is bounded, and the time scales between microscopic and continuum processes are large enough, the term on the left-hand side can be as small as desired by tacking $\tau$ sufficiently large and by summing over all particles we achieve the \textit{tensor virial theorem}:
+\begin{equation}
+    \overline{\mathbf{W}} = -2\overline{\mathbf{T}},\label{eqn:DerVirTen7}
+\end{equation}
+where
+\begin{equation}
+    \overline{\mathbf{W}} = \sum_\alpha\overline{\vec{r}_\alpha\otimes\vec{f}_\alpha}\label{eqn:DerVirTen8}
+\end{equation}
+is the time-average virial tensor and
+\begin{equation}
+    \overline{\mathbf{T}}=\frac{1}{2}\sum_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{p}_\alpha}\label{eqn:DerVirTen9}
+\end{equation}
+is the time-average kinetic tensor.
+This expression for the tensor virial theorem applies equally to continuum systems that are not in macroscopic equilibrium as well as those that are at rest.
+
+The assumption of the difference between the time scales allow us to simplify the relation by replacing~\eqref{eqn:DerVirTen2} in~\eqref{eqn:DerVirTen9}, so that,
+\begin{equation}
+    \overline{\mathbf{T}}=
+        \frac{1}{2}\sum_\alpha m_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{v}_\alpha^{\mathrm{rel}}}
+        +
+        \frac{1}{2} \left[\overline{\sum_\alpha m_\alpha\vec{\upsilon}_\alpha^{\mathrm{rel}}}\right]\otimes\dot{\vec{r}}\label{eqn:DerVirTen10},
+\end{equation}
+which is not the simplification we expected, however, by the relations from~\eqref{eqn:DerVirTen4}, equation~\eqref{eqn:DerVirTen10} simplifies to\footnote{No estoy muy seguro si incluir una discusión acerca del término cinético en la expresión del virial. Posiblemente un párrafo\dots posiblemente lo ponga en la interpretación del teorema.
+También, no se si ir metiendo interpretación durante la derivación o no, pero bueno.}
+\begin{equation}
+    \overline{\mathbf{T}}=
+        \frac{1}{2}\sum_\alpha m_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{\upsilon}_\alpha^{\mathrm{rel}}}\label{eqn:DerVirTen11}.
+\end{equation}
+On the other hand, instead of reducing the expression, we start to create the conection with the Cauchy stress tensor by distributing~\eqref{eqn:DerVirTen8} into an internal and external contributions,
+\begin{equation}
+    \overline{\mathbf{W}} = 
+    \underbrace{\sum_\alpha\overline{\vec{r}_\alpha\otimes\vec{f}_\alpha^{\mathrm{int}}}}_{\overline{\mathbf{W}}_{\mathrm{int}}}
+        +
+        \underbrace{\sum_\alpha\overline{\vec{r}_\alpha\otimes\vec{f}_\alpha^{\mathrm{ext}}}}_{\overline{\mathbf{W}}_{\mathrm{ext}}}.\label{eqn:DerVirTen12}
+\end{equation}
+The time-average internal virial tensor takes into account the interaction between particle $\alpha$ with the other particles in the system, meanwhile, the time-average external virial tensor considers the interaction with atoms outside the system, via a traction vector $\vec{t}$ and external fields acting on the system represented by $\rho\vec{b}$, where $\rho$ is the mass density of it and $\vec{b}$ is the body force per unit mass applied by the external field.
+Therefore we can express the following,
+\begin{equation}
+    \sum_\alpha\overline{\vec{r}_\alpha\otimes\vec{f}_\alpha^{\mathrm{ext}}}
+    :=
+    \int_{\delta\Omega}\vec{\xi}\otimes\vec{t}dA 
+    +
+    \int_{\Omega}\vec{\xi}\otimes\rho\vec{b}dV.\label{eqn:DerVirTen13}
+\end{equation}
+Where $\vec{\xi}$ is a position vector within the domain $\Omega$ occupied by the system of particles with a continuous closed surface $\delta\Omega$.
+Assuming that $\Omega$ is large enough to express the external forces acting on it in the form of the continuum traction vector $\vec{t}$.
+
+With this we can substitute the traction vector with $\vec{t}=\bm{\sigma}\vec{n}$, where $\bm{\sigma}$ represent the Cauchy stress tensor and applying the divergence theorem in~\eqref{eqn:DerVirTen13}, we have 
+\begin{equation}
+    \overline{\mathbf{W}}_{\mathrm{ext}}
+     =\int_{\Omega}
+        \left[
+            \vec{\xi}\otimes\rho\vec{b}+\mathrm{div}_{\vec{\xi}}\qty(\vec{\xi}\otimes\bm{\sigma})
+        \right]dV
+        =
+    \int_{\Omega}
+        \left[
+            \bm{\sigma}^{\mathrm{T}}
+            +
+            \vec{\xi}\otimes\qty(\mathrm{div}_{\vec{\xi}}\bm{\sigma}+\rho\vec{b})
+        \right]dV\label{eqn:DerVirTen14}
+\end{equation}
+Since we assume that we are under equilibrium conditions, the term $\mathrm{div}_{\vec{\xi}}\bm{\sigma}+\rho\vec{b}$ is zero~\eqref{eqn:DerVirTen14} it simplifies to
+\begin{equation}
+    \overline{\mathbf{W}}_{\mathrm{ext}}
+    =V\bm{\sigma}^{\mathrm{T}}\label{eqn:DerVirTen15}.
+\end{equation}
+By tacking into account that we integrate over the domain $\Omega$ we can say that we compute the spatial average of the Cauchy stress tensor,
+\begin{equation}
+    \bm{\sigma}_{\mathrm{av}} =\frac{1}{V}\int_\Omega\bm{\sigma}dV\label{eqn:DerVirTen16},
+\end{equation}
+in which $V$ is the volume of the domain $\Omega$.
+Replacing~\eqref{eqn:DerVirTen15} into~\eqref{eqn:DerVirTen12}, the tensor virial theorem~\eqref{eqn:DerVirTen7} can be expressed as,
+\begin{equation}
+    \sum_\alpha\overline{\vec{r}_\alpha\otimes\vec{f}_\alpha^{\mathrm{int}}}
+    +
+    V\bm{\sigma}_{\mathrm{av}}^{\mathrm{T}}
+    =
+    -\sum_\alpha m_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{\upsilon}_\alpha^{\mathrm{rel}}}.\label{eqn:DerVirTen17}
+\end{equation}
+Finally, solving for the Cauchy Stress tensor we get,
+\begin{equation}
+    \bm{\sigma}_{\mathrm{av}}
+    =
+    -\frac{1}{V}
+    \left[
+        \sum_\alpha\overline{\vec{f}_\alpha^{\mathrm{int}}\otimes\vec{r}_\alpha}
+        +
+        \sum_\alpha m_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{\upsilon}_\alpha^{\mathrm{rel}}}
+    \right],\label{eqn:DerVirTen18}
+\end{equation}
+an expression that describe the macroscopic stress tensor in terms of microscopic variables\footnote{It is important to acknowledge that several mathematical subtleties were not taken into consideration, however all the mathematical formality is adressed by Nikhil Chandra Admal and E. B. Tadmor in~\citep{admalUnifiedInterpretationStress2010}}.
+
+To end the section it is important to show that~\eqref{eqn:DerVirTen18} is symmetric.
+Therefore, we rewrite the internal force as the sum of forces between the particles,
+\begin{equation}
+    \vec{f}^{\mathrm{int}}_\alpha = \sum_{{\beta}_{\beta\neq\alpha}}\vec{f}_{\alpha\beta}\label{eqn:DerVirTen19},
+\end{equation}
+and substituting~\eqref{eqn:DerVirTen19} into~\eqref{eqn:DerVirTen18}, we have
+\begin{equation}
+    \bm{\sigma}_{\mathrm{av}}
+    =
+    -\frac{1}{V}
+    \left[
+        \sum_{{\alpha,\beta}_{\beta\neq\alpha}}\overline{\vec{f}_{\alpha\beta}\otimes\vec{r}_\alpha}
+        +
+        \sum_\alpha m_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{\upsilon}_\alpha^{\mathrm{rel}}}
+    \right].\label{eqn:DerVirTen20}
+\end{equation}
+Due to the property $\vec{f}_{\alpha\beta}=-\vec{f}_{\beta\alpha}$ we obtain the following identity
+\begin{equation}
+    \sum_{{\alpha,\beta}_{\beta\neq\alpha}}\vec{f}_{\alpha\beta}\otimes\vec{r}_\alpha 
+    =
+    \frac{1}{2}\sum_{{\alpha,\beta}_{\beta\neq\alpha}}\left(\vec{f}_{\alpha\beta}\otimes\vec{r}_\alpha+\vec{f}_{\beta\alpha}\otimes\vec{r}_\beta\right)
+    =
+    \frac{1}{2}\sum_{{\alpha,\beta}_{\beta\neq\alpha}}\vec{f}_{\alpha\beta}\otimes\left(\vec{r}_\alpha-\vec{r}_\beta\right).\label{eqn:DerVirTen21}
+\end{equation}
+Therefore, by replacing the identity of~\eqref{eqn:DerVirTen21} into~\eqref{eqn:DerVirTen20}, we have
+\begin{equation}
+    \bm{\sigma}_{\mathrm{av}}
+    =
+    -\frac{1}{V}
+    \left[
+        \frac{1}{2}
+        \sum_{{\alpha,\beta}_{\beta\neq\alpha}}\overline{\vec{f}_{\alpha\beta}\otimes\left(\vec{r}_\alpha-\vec{r}_\beta\right)}
+        +
+        \sum_\alpha m_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{\upsilon}_\alpha^{\mathrm{rel}}}
+    \right],\label{eqn:DerVirTen22}
+\end{equation}
+expressed with indexical notation and using the eistein summation convention,
+\begin{equation}
+    \sigma^{\mathrm{av}}_{ij}
+    =
+    -\frac{1}{V}
+    \left[
+        \frac{1}{2}
+        \sum_{{\alpha,\beta}_{\beta\neq\alpha}}\overline{f^{\alpha\beta}_{i}r^\alpha_{j} + f^{\beta\alpha}_{i}r^\beta_{j}}
+        +
+        \sum_\alpha m_\alpha\overline{\upsilon^{\alpha~\mathrm{rel}}_{i}\upsilon^{\alpha{\mathrm{rel}}}_j}
+    \right],\label{eqn:DerVirTen23}
+\end{equation}
+which is the same expression implemented in~LAMMPS\citep{LAMMPS}.\footnote{No se si poner la referencia a la pagina de documentacion\href{https://docs.lammps.org/compute_stress_atom.html}{https://docs.lammps.org/compute\_stress\_atom.html}}
 
