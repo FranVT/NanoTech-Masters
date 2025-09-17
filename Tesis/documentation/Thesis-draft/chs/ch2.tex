@@ -189,6 +189,44 @@ This quantification tool enables the description of normal strain, such as elong
 
 \subsection{Macroscopic description}
 
+\marginpar{
+Elastic deformation equations
+\begin{gather}
+    \bm{\sigma} = E\bm{\epsilon}\label{eqn:elasticEQN} \\
+    \sigma_{ij} = C_{ijkl}\epsilon_{kl}
+\end{gather}
+
+Plastic Deformation equations
+\begin{gather}
+    \dot{\bm{\epsilon}_{p}} = f\left(\bm{\sigma},\mathrm{Internal~varaibles}\right),\quad\bm{\sigma}>\bm{\sigma}_{y}\label{eqn:plasticEQN}.
+\end{gather}
+
+Von Mises Criterion
+\begin{gather}
+    \sigma_y = \sqrt{\frac{3}{2}\bm{s}:\bm{s}}\label{eqn:vonMisesCriterion}
+\end{gather}
+where $\bm{s}$ is the deviatoric stress tensor.
+
+Tresca criterion
+\begin{gather}
+   \sigma_y = \max\left(\abs{\sigma_1-\sigma_2},\abs{\sigma_2-\sigma_3},\abs{\sigma_3-\sigma_1}\right)\label{eqn:trescaCriterion}
+\end{gather}
+where $\sigma_1$, $\sigma_2$, $\sigma_3$ are the principal stresses.
+
+Viscoelastic deformation
+
+The following equation is the generelized expression of the Maxwell or Kelvin-Voigt model:
+\begin{gather}
+    \sigma(t) = \int_0^t G(t-\tau)\dv{\tau}\epsilon(\tau)d\tau\label{eqn:viscoelastiEQN}.
+\end{gather}
+Where $\tau$ is a dummy variable and $G(t)$ is the time-dependent relaxation modulus.
+
+Viscoplastic deformation
+\begin{gather}
+    \dot{\bm{\epsilon}}_{p} = f\left(\sigma,\sigma_y,\dot{\epsilon},\mathrm{Internal variables}\right)\label{eqn:viscoplastiEQN}
+\end{gather}
+}
+
 Now that we know how the quantify strain, we can quantify the four main mechanical responses,
     elastic,
     plastic,
@@ -199,36 +237,53 @@ In contrast, the plastic deformation is a permanent deformation once stress exce
 Furthermore, the viscoelastic response is time-dependent combining the elastic and viscous behaviour.
 Finally, the viscoplastic, combines the irriversible plastic strain with a rate-dependent viscous effects.
 
-\paragraph{Elastic relation} An elastic deformation is when the meterial returns to its original configuration once the stress is removed.
-The quantification of this response is given by a linear equation\footnote{\begin{gather}
-    \bm{\sigma} = E\bm{\epsilon}\label{eqn:elasticEQN}
-\end{gather}
-},
+\paragraph{Elastic relation} An elastic deformation is when the material returns to its original configuration once the stress is removed.
+The quantification of this response is given by a linear equation (equation~\eqref{eqn:elasticEQN}),
 with a proportionality constant known as elastic modulus or Young's modulus.
-The equation~\eqref{eqn:elasticEQN} is interpreted as \textit{how the material resists deformation}.
-Some examples of this type of deformation are the streching of a metal spring within its elastic limit, the compression of a rubber ball or the bending of a steel beam under moderate load.
+The equation~\eqref{eqn:elasticEQN} is interpreted as the stiffness, that is how the material resists deformation.
+Some examples of this type of deformation are the streching of a metal spring within its elastic limit or the compression of a rubber ball.
 
+\paragraph{Plastic relation} In contrast, a plastic deformation is when the material has an irreversible change in the shape or size.
+It is generally accepted that a material first enters an elastic regime and then reaches a yield point. 
+After this point, the deformation is irreversible.
+The quantification of the plastic relation (eqn~\eqref{eqn:plasticEQN}) typically links stress and plastic strain as a function of the current stress and internal variables.
+This is valid when the deformation goes beyond the yield stress and the specific algebraic expression is dictated by the material's properties.
 
+It is important to acknowledge that the definition of yield stress is also dependent on the material and the loading conditions.
+For this reason, there are many yield criteria developed for different materials and conditions, such as Drucker-Prager, Mohr-Coulomb, Von Mises or Tresca criterion.
+The two most common yield criteria are the Von Mises and Tresca criterion.
+The von Mises yield criterion it is commonly used for ductile materials.
+It is base on the energy associated with shape change. 
+This is defined by a critical value (as shown in the equation~\eqref{eqn:vonMisesCriterion}) in terms of the distortional energy or equivalent shear stress and independent of hydrostatic pressure. 
+On the other hand, the Tresca yield criterion is a max-shear based criterion.
+It is based on the yield strength in simple tension (see equation~\eqref{eqn:trescaCriterion}).
 
-The material returns to its original shape after load removal.
-\begin{gather}
-    \sigma_{ij} = C_{ijkl}\epsilon_{kl}
-\end{gather}
+\paragraph{Viscoelastic relation} A viscoelastic deformation is defined as the process by which a material partially ``stores'' elastic energy and partially dissipates energy.
+The quantification of the relation is by relating the instantaneos stress, strain and a time-dependent relaxation modulus (equation~\eqref{eqn:viscoelastiEQN}).
+This relationship also enables the description and modeling of memory effects and rate dependence, which are commonly observed in polymers, biological tissues, and certain soft solids.
 
-\paragraph{Plastic relation} Deformation is permanent once stress exceeds a yield threshold.
-\begin{gather}
-    \sigma = \sigma_y \wedge \epsilon = \epsilon^e+\epsilon^p
-\end{gather}
+\textbf{Not sure if I want to explain more the relaxation modulus.}
 
-\paragraph{Viscoelastic relation} Time-dependent response combining elastic and viscous behaviour.
+\begin{comment}
+Time-dependent response combining elastic and viscous behaviour.
 \begin{gather}
     \sigma + \lambda\dv{\sigma}{t} = E\epsilon+\eta\dv{\epsilon}{t}.
 \end{gather}
+\end{comment}
 
-\paragraph{Viscoplastic relation} Combines irreversible plastic strain with rate-dependent visvous effects
+\paragraph{Viscoplastic relation} Finally, a viscoplastic is to describe when a material flows plastically like a viscous fluid under stress beyond the yield stress.
+The quantification is determined by a function of strain rate, stress, yield stress, and internal variables (see equation~\eqref{eqn:viscoplastiEQN}).
+As with the plastic relation, the specific algebraic expression is dictated by the material's properties.
+However, this relationship is used to describe materials that initially respond as solids below the yield stress but flow like viscous fluids once yielding occurs.
+
+\textbf{Add examples of specific constitutive equations}
+
+\begin{comment}
+Combines irreversible plastic strain with rate-dependent visvous effects
 \begin{gather}
     \sigma = \sigma_y + \eta\dot{\epsilon}\mathrm{~for~}\sigma>\sigma_y
 \end{gather}
+\end{comment}
 
 \subsection{Microscopic description}
 
