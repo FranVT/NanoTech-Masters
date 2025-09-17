@@ -189,16 +189,28 @@ This quantification tool enables the description of normal strain, such as elong
 
 \subsection{Macroscopic description}
 
-Now that we know how the quantify strain, we can quantify the four main mechanical response,
+Now that we know how the quantify strain, we can quantify the four main mechanical responses,
     elastic,
     plastic,
     viscoelastic,
     and viscoplastic.
 In a broad sense, the elastic relation is when the material returns to its original shape after load removal.
-The plastic deformation is a permanent deformation once stress 
+In contrast, the plastic deformation is a permanent deformation once stress exceeds a yield threshold $\sigma_y$.
+Furthermore, the viscoelastic response is time-dependent combining the elastic and viscous behaviour.
+Finally, the viscoplastic, combines the irriversible plastic strain with a rate-dependent viscous effects.
+
+\paragraph{Elastic relation} An elastic deformation is when the meterial returns to its original configuration once the stress is removed.
+The quantification of this response is given by a linear equation\footnote{\begin{gather}
+    \bm{\sigma} = E\bm{\epsilon}\label{eqn:elasticEQN}
+\end{gather}
+},
+with a proportionality constant known as elastic modulus or Young's modulus.
+The equation~\eqref{eqn:elasticEQN} is interpreted as \textit{how the material resists deformation}.
+Some examples of this type of deformation are the streching of a metal spring within its elastic limit, the compression of a rubber ball or the bending of a steel beam under moderate load.
 
 
-\paragraph{Elastic relation} The material returns to its original shape after load removal.
+
+The material returns to its original shape after load removal.
 \begin{gather}
     \sigma_{ij} = C_{ijkl}\epsilon_{kl}
 \end{gather}
