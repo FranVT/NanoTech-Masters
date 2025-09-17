@@ -124,18 +124,18 @@ Finally, it is important to note that the energy barrier for exchange, bond stab
 
 \section{Mechanical response}
 
-The concept of a material's mechanical response describes the relationship between the deformation of a material and the applied stress and/or shear rate.
-Nevertheless, this relationship can be described from a macroscopic scale and also from a microscopic scale.
-At the macroscopic level, captures the effective mechanical response as a continuum property. 
-At the microscopic level, it provides insights into the origin of the mechanical response and how structural features at small scales control the macroscopic response.
-In this section, we will delve into the various descriptions and explore the quantification of this relationship.
 
-\marginpar{\begin{gather}
+\marginpar{In the following methodology, we will couple the macroscopic and microscopic scale:
+    We employ the macroscopic constitutive relations; however, the stress tensor is defined from the microscopic scale.
+
+\begin{gather}
     \epsilon_{ij} = \frac{1}{2}\left( \pdv{u_i}{x_j}+\pdv{u_j}{x_i} \right)\label{eqn:strainTensor}
 \end{gather}
 This mathematical representation is only valid for infinitesimal small deformations.
 Where $u_i$ are the component of the displacement vector field and $x_j$ are the spatial coordinates.
+}
 
+\begin{comment}
 \begin{gather}
     \vec{T} = \bm{\sigma}\cdot\vec{n}\label{eqn:stressTensor}
 \end{gather}
@@ -151,9 +151,32 @@ where the operation of the dot product between the normal vector with a tensor i
 \end{gather*}
 The component $\sigma_{ij}$ represents the force in the $i$-th direction acting on a surface perpendicular to the $j$-th coordinate axis.
 Also, the tenso is symmetric under the usual ssumption of no body torques and balance of angular momentum.
-}
+\end{comment}
+
+The concept of a material's mechanical response describes the relationship between the deformation of a material and the applied stress and/or shear rate.
+Nevertheless, this relationship can be described from a macroscopic scale and also from a microscopic scale.
+At the macroscopic level, the description captures the effective mechanical response as a continuum property. 
+At the microscopic level, it provides insights into the origin of the mechanical response and how structural features at small scales control the macroscopic response.
+In this section, we will delve into the various descriptions and explore the quantification of this relationship.
+
+\paragraph{Constitutive relations} The relationship between deformation and stress is expressed through a constitutive equation.
+This equation is a mathematical tool that quantifies the relationship. 
+It is used to predict or model material behavior, as reflected by empirical observations.
+Additionally, these equations can be defined from both the microscopic and microscopic scale.
+These two scales are linked through the implementation of averaging or homogenization procedures.
+However, there is a difference in interpretation and application.
+Thse issues will be addressed in the following sections.
+
+\paragraph{Tensors} Before proceeding, it is necessary to know the quantitative representation of stress and strain.
+Both quantities are mathematically represented as second-rank tensors, which can be algebraically expressed as a $n\times n$ matrix.
+Furthermore, it is important to interpret tensors as a generalization of scalars, vectors, and matrices to describe physical quantities which depend on direction and coordinate system, yet follow specific transformation rules under changes of coordinates.
+Allowing to quantify not just the magnitud but also aorientation and how the physical quantity acts along different directions in space.
+In summary, the tensor enables the capture of multidirectional physical properties that remain constant under coordinate changes\footnote{Quiero poner una imagen de como se ve el tensor y asi con proyecciones en el plano cartesiano}.
+Keeping this in mind, we can proceed with a description of the strain tensor. The stress tensor will be defined until the microscopic section, together with the relation to the microscopic-macroscopic relation.
+This is due to the scope of the thesis.
+
 \paragraph{Strain} In physics, the deformation of a material relative to its original shape under applied forces is quantify by the relative displacement between points in the material.
-This measure is represented by the dimensionless strain tensor eqn~\eqref{eqn:strainTensor}.
+This measure is represented by the dimensionless strain tensor (eqn~\eqref{eqn:strainTensor}).
 This quantification tool enables the description of normal strain, such as elongation or compression, through the use of diagonal terms, and shear strain via off-diagonal terms.
 
 \begin{figure}[ht!]
@@ -162,22 +185,17 @@ This quantification tool enables the description of normal strain, such as elong
     %\caption{Wikipedia}
 \end{figure}
 
-\paragraph{Stress} In continuum mechanics and physics, the measure of internal forces distributed within a material that arise in response to external loads is refered as stress.
-As before, this measure is represented by a second-order tensor with units of \SI{}{\kilo\gram\per\meter\per\second\squared}.
-The mathematical representation of the stress tensor is given by the Cauchy stress tensor, which relates a traction vector $\vec{T}$ acting on a surface $\vec{n}$ with the stress tensor $\bm{\sigma}$, equation~\eqref{eqn:stressTensor}.
-
-
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=0.8\textwidth]{figs/Components_stress_tensor_cartesian.pdf}
-    %\caption{Wikipedia}
-\end{figure}
-
-
+(Add the derivation of the book?)
 
 \subsection{Macroscopic description}
 
-This description uses constitutive realtions to quantify the relation between stress, strain and if necesarty strain or shear rate.
+Now that we know how the quantify strain, we can quantify the four main mechanical response,
+    elastic,
+    plastic,
+    viscoelastic,
+    and viscoplastic.
+In a broad sense, the elastic relation is when the material returns to its original shape after load removal.
+The plastic deformation is a permanent deformation once stress 
 
 
 \paragraph{Elastic relation} The material returns to its original shape after load removal.
@@ -201,6 +219,17 @@ This description uses constitutive realtions to quantify the relation between st
 \end{gather}
 
 \subsection{Microscopic description}
+
+
+\paragraph{Stress} In continuum mechanics and physics, the measure of internal forces distributed within a material that arise in response to external loads is refered as stress.
+As before, this measure is represented by a second-order tensor with units of \SI{}{\kilo\gram\per\meter\per\second\squared}.
+The mathematical representation of the stress tensor is given by the Cauchy stress tensor, which relates a traction vector $\vec{T}$ acting on a surface $\vec{n}$ with the stress tensor $\bm{\sigma}$, equation~\eqref{eqn:stressTensor}.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/Components_stress_tensor_cartesian.pdf}
+    %\caption{Wikipedia}
+\end{figure}
 
 
 \paragraph{Motivation: Molecular stress is equivalent to continuum stress} \dots This derivation can be found in the apendix of\citep{admalUnifiedInterpretationStress2010}\footnote{Describe more if what is done in this article}.\footnote{(Eventualmente pondré esto en párrafo) Notation:
