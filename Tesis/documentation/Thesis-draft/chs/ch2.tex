@@ -298,11 +298,16 @@ The mathematical representation of the stress tensor is given by the Cauchy stre
     %\caption{Wikipedia}
 \end{figure}
 
+\paragraph{Macro-Micro realtion} From a microscopic scale, the stress tensor describes the instantaneous local force from atomic interactions and momentum flux.
+As a consequence of the scale, the tensor fluctuates strongly due to thermal motion, position and local arrangement of atoms.
+The bridge between the microscopic description and the macroscopic scale is a spactial and statistical averaging of the microscopic stress over a region much larger than atomic dimensions\footnote{\[\sigma_{ij}^{\mathrm{macro}}=\lim_{V\to\infty}\expval{\sigma_{ij}^{\mathrm{micro}}}\]}.
 
-\paragraph{Motivation: Molecular stress is equivalent to continuum stress} \dots This derivation can be found in the apendix of\citep{admalUnifiedInterpretationStress2010}\footnote{Describe more if what is done in this article}.\footnote{(Eventualmente pondré esto en párrafo) Notation:
+\paragraph{Molecular stress is equivalent to continuum stress} Since this is a crucial joint that validate the use of molecular dynamics to analyze the mehcanical response via numerical solutions, the mathematical proof of how the macro-stress tensor is equivalent to the numerical micro-stress tensor is given.
+It is important to say that the following derivation can be found in the apendix of\citep{admalUnifiedInterpretationStress2010}\footnote{Describe more if what is done in this article}.\footnote{(Eventualmente pondré esto en párrafo) Notation:
     $\bm{\sigma}$ Tensor, $\vec{\sigma}$ vector, $\sigma_{i,j}$ tensor, $\overline{\sigma}$ time average, 
 }
-Consider a system of $N$ interacting particles with each particle position given by
+
+\paragraph{Derivation} Consider a system of $N$ interacting particles with each particle position given by
 \begin{equation}
     \vec{r}_{\alpha} = \vec{r} + \vec{s}_{\alpha}\label{eqn:DerVirTen1},
 \end{equation}
@@ -480,6 +485,16 @@ expressed with indexical notation and using the eistein summation convention,
     \right],\label{eqn:DerVirTen23}
 \end{equation}
 which is the same expression implemented in~LAMMPS\citep{LAMMPS}.\footnote{No se si poner la referencia a la pagina de documentacion\href{https://docs.lammps.org/compute_stress_atom.html}{https://docs.lammps.org/compute\_stress\_atom.html}}
+
+This help us to quantify the relation between the network properties with the macroscopic cauchy stress tensor, and therefore start exploring hypothesis of what type of molecular process dominates in each deformation regime.
+
+\paragraph{Elastic regime} Is it explain thru bond stretching
+
+\paragraph{Plastic regime} Commonly explain as molecular dislocation of the lattice. Not sure in other materials
+
+\paragraph{Viscoelastic regime} Bond stretching and rearrangements of grains and stuff.
+
+\paragraph{Viscoelastic regime} Because yes
 
 \section{Molecular dynamics}
 
