@@ -1,4 +1,4 @@
-\chapter{Theoretical Framework}\label{ch1:Intro}
+\chapter{Theoretical Framework}\label{ch2:TheoFrame}
 
 \section{Hydrogels}
 
@@ -123,7 +123,6 @@ Finally, it is important to note that the energy barrier for exchange, bond stab
 
 
 \section{Mechanical response}
-
 
 \marginpar{In the following methodology, we will couple the macroscopic and microscopic scale:
     We employ the macroscopic constitutive relations; however, the stress tensor is defined from the microscopic scale.
@@ -287,7 +286,6 @@ Combines irreversible plastic strain with rate-dependent visvous effects
 
 \subsection{Microscopic description}
 
-
 \paragraph{Stress} In continuum mechanics and physics, the measure of internal forces distributed within a material that arise in response to external loads is refered as stress.
 As before, this measure is represented by a second-order tensor with units of \SI{}{\kilo\gram\per\meter\per\second\squared}.
 The mathematical representation of the stress tensor is given by the Cauchy stress tensor, which relates a traction vector $\vec{T}$ acting on a surface $\vec{n}$ with the stress tensor $\bm{\sigma}$, equation~\eqref{eqn:stressTensor}.
@@ -302,8 +300,39 @@ The mathematical representation of the stress tensor is given by the Cauchy stre
 As a consequence of the scale, the tensor fluctuates strongly due to thermal motion, position and local arrangement of atoms.
 The bridge between the microscopic description and the macroscopic scale is a spactial and statistical averaging of the microscopic stress over a region much larger than atomic dimensions\footnote{\[\sigma_{ij}^{\mathrm{macro}}=\lim_{V\to\infty}\expval{\sigma_{ij}^{\mathrm{micro}}}\]}.
 
-\paragraph{Molecular stress is equivalent to continuum stress} Since this is a crucial joint that validate the use of molecular dynamics to analyze the mehcanical response via numerical solutions, the mathematical proof of how the macro-stress tensor is equivalent to the numerical micro-stress tensor is given.
-It is important to say that the following derivation can be found in the apendix of\citep{admalUnifiedInterpretationStress2010}\footnote{Describe more if what is done in this article}.\footnote{(Eventualmente pondré esto en párrafo) Notation:
+
+\paragraph{Elastic regime} In the case of an elastic deformation, the force applied to the material is largely retained.
+This is due to the stretching of the distance between the particles.
+The particles' displacement is minimal, with no effect on bond integrity.
+This is generally understood to mean that the material stores potential energy that is released during unloading.
+
+\paragraph{Plastic regime}\footnote{Here it is important the idea of reversibility and stuf about self healing} In the context of plastic deformation, the phenomenon is often described as dislocation and crystal defects in crystalline materials.
+However, given that the material under consideration is a polymeric network, plastic deformation is more likely to involve the rupture of crosslinks between chains and the sliding or stretching of individual chains beyond their reversible limit.
+In the scenario of networks with physical entanglements, chains have the potential to slip past another, thereby overcoming energy barriers and irreversibly reorganizing the networks' topology.
+In the cases of bond rupture, the crosslink density can be reduced or the polymeric chain can be broken.
+
+\paragraph{Viscoelastic regime} For this type of mechanical response, the network undergoes an elastic deformation.
+However, during the elastic deformation process, the network may undergo changes in configuration due to polymer sliding or crosslinking reconfiguration.
+During these changes, the interaction between polymer chains causes an energy dissipation process, resulting in a viscous response and a time dependency.
+This time dependency is commonly known as \textit{stress relaxation}, which refers to the time-dependent decrease in stress under a constant, maintained strain.
+
+\paragraph{Viscoplastic regime} The viscoplastic response is comparable to the viscoelastic response because it integrates plastic deformation with an energy dissipation process.
+The most significant distinction is that, in contrast to the elastic process of network sliding or crosslink reconfiguration, the polymeric network undergoes bond breakage.
+Additionally, the disentanglement of chains is a significant phenomenon that plays a crucial role in energy dissipation.
+Furthermore, the response is contingent on the time scale. 
+The reconfiguration of the network is determined by the relaxation time following bond breakage and crosslinking reconfiguration.
+Finally, similar to the plastic deformation, the viscoplastic deformation occurs after a yielding point, in which the deformation of the network structure is permanent.
+
+
+\subsection{Literature review: Hydrogel's Mechanical response}
+
+Well, I guess that I need to read papers and stuff.
+
+\subsection{Bridge of macro to micro stress tensor}
+
+\paragraph{Molecular stress is equivalent to continuum stress} After exploring the constitutive equations and the main mechanisms related to the main mechanical responses observed in hydrogels, we will demonstrate the validity of the methodology of molecular dynamics to analyze the mechanical response via numerical solutions. 
+This will be achieved by showing the equivalence between the macro-stress tensor and the micros-stress tensor.
+This mathematical derivation that links the macro-stress tensor with the micros-stress tensor is adressed in the appendix of~\citep{admalUnifiedInterpretationStress2010}.\footnote{(Eventualmente pondré esto en párrafo) Notation:
     $\bm{\sigma}$ Tensor, $\vec{\sigma}$ vector, $\sigma_{i,j}$ tensor, $\overline{\sigma}$ time average, 
 }
 
@@ -486,19 +515,14 @@ expressed with indexical notation and using the eistein summation convention,
 \end{equation}
 which is the same expression implemented in~LAMMPS\citep{LAMMPS}.\footnote{No se si poner la referencia a la pagina de documentacion\href{https://docs.lammps.org/compute_stress_atom.html}{https://docs.lammps.org/compute\_stress\_atom.html}}
 
-This help us to quantify the relation between the network properties with the macroscopic cauchy stress tensor, and therefore start exploring hypothesis of what type of molecular process dominates in each deformation regime.
-
-\paragraph{Elastic regime} Is it explain thru bond stretching
-
-\paragraph{Plastic regime} Commonly explain as molecular dislocation of the lattice. Not sure in other materials
-
-\paragraph{Viscoelastic regime} Bond stretching and rearrangements of grains and stuff.
-
-\paragraph{Viscoelastic regime} Because yes
+This allows us to quantify the relationship between network properties and the macroscopic Cauchy stress tensor. 
+As a result, we can begin to explore which molecular process dominates each deformation regime.
 
 \section{Molecular dynamics}
 
-\paragraph{Intro} Here is the intro
+In this section, we present the mathematical tools employed to simulate the polymeric network, also known as molecular dynamics (MD).
+One of the primary reasons why molecular dynamics is employed so widely in the analysis of the mechanical responses of polymeric networks is that it provides detailed insight into the structure-property relationships.
+This is due to the fact that it represents atomic-level interactions via Newtonian mechanics, enabling the modeling of different crosslinking mechanisms, polymer chain configurations, time-dependent deformations, and others.
 
 \subsection{Langevin dynamics}
 
