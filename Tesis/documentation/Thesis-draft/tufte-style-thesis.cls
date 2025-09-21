@@ -18,7 +18,8 @@
 	\setlength{\parskip}{\baselineskip}
 }
 \DeclareOption{casual}{		% removes header numbering --still puts them in toc
-	\AtBeginDocument{\setcounter{secnumdepth}{0}}
+    \AtBeginDocument{\setcounter{tocdepth}{3}}
+    \AtBeginDocument{\setcounter{secnumdepth}{3}}
 }
 \newif\if@sans\@sansfalse
 \DeclareOption{sans}{
@@ -222,9 +223,6 @@
 %
 
 %	default numbering depth
-\AtBeginDocument{\setcounter{tocdepth}{3}}
-\AtBeginDocument{\setcounter{secnumdepth}{3}}
-
 
 %	header formatting
 \titlespacing*{\part}{.2\linewidth}{.3\textheight}{0pt}
@@ -299,7 +297,7 @@
 
 % 	Doctoral thesis (subsubtitle)
 \newcommand\type[1]{\renewcommand\@type{#1}}
-\newcommand\@type{Doctoral thesis}
+\newcommand\@type{Masters thesis}
 
 % 	shoutouts
 \newcommand\shoutouts[1]{\renewcommand\@shoutouts{#1}}
@@ -313,7 +311,7 @@
 		% \setcounter{page}{1}
 		\hfill
 		\begin{minipage}{.8\linewidth}
-		\raggedleft
+		\raggedright
 
 		{\large\scshape
 				\MakeLowercase{\@university}%
@@ -549,17 +547,17 @@
 	{\small}
 	{~~\textcolor{niceBlue}{\contentspage}}
 	[\\]
-% \titlecontents{subsection}[0em]
-% 	{\vspace{4pt}}
-% 	{\normalfont\thecontentslabel\enspace\itshape}
-% 	{\itshape}
-% 	{\qquad\contentspage}[\vskip 0pt]
+\titlecontents{subsection}[0em]
+ 	{\footnotesize\vspace{4pt}}
+ 	{\thecontentslabel\enspace\itshape}
+ 	{\itshape}
+ 	{\qquad\contentspage}[\vskip 0pt]
 % \titlecontents*{subsection}[0em]
-% 	{\vskip 0pt\small}
-% 	{{\thecontentslabel}~~\itshape}
-% 	{\itshape}
-% 	{~~{\contentspage}}
-% 	[\qquad]
+%	{\vskip 0pt\small}
+%	{{\thecontentslabel}~~\itshape}
+%	{\itshape}
+%	{~~{\contentspage}}
+%	[\qquad]
 % \titlecontents{subsubsection}[1em]
 % 	{\vspace{0pt}}
 % 	{\normalfont\thecontentslabel\enspace\itshape}
@@ -616,7 +614,7 @@
 	\end{quote}
 }
 %	toc depth
-\AtBeginDocument{\setcounter{tocdepth}{1}}
+%\AtBeginDocument{\setcounter{tocdepth}{1}}
 
 %	B I B L I O G R A P H I C
 %	      R E F E R E N C E S  %this is black magic to me but it seems 2b working
@@ -767,8 +765,6 @@
 %and the \fi at the end to disable (or delete)
 
 % i find it more pleasing
-\renewcommand{\phi}{\varphi}
-\renewcommand{\epsilon}{\varepsilon}
 \newcommand{\N}{\mathbb{N}}     % shortcuts for usual number sets
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\Q}{\mathbb{Q}}

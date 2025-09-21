@@ -1,4 +1,8 @@
-\documentclass{tufte-style-thesis}
+\documentclass[
+    12pt,
+	colorful,
+	boxey,
+]{tufte-style-thesis}
 \PassOptionsToPackage{numbers}{natbib}
 
 \usepackage{amsmath,amsthm,amsfonts,amssymb,amscd,latexsym}         % ..if you need lots of math symbols
@@ -20,18 +24,44 @@
 \bibliographystyle{plainnat}
 
 % Insight of mechanical response of hydrogels via patchy particle methodology
+% INFO : used in the titlepage, copyright and stuff.
+\author{Francisco Javier Vazquez Tavares}
 \title{Exploration of mechanical responses of Hydrogels via numerical simualtion.}
-\author{Fco. Vazquez}
+\subtitle{This is the subtitle}
+\university{Inatituto Teconologico de Estudios Superiores de Monterrey}
+\person{Supervisor}{their name}{their job}
+\person{Cosupervisor}{also their name}{also their job}
+\person{Jury members}{jury 1}{jobs}
+\person{}{jury 2}{\dots}
+%\logo{example-image-a}
+%\logo{example-image-b}
+%\logo{example-image-c}
+\shoutouts{For my homies}
+
 
 \begin{document}
+
+\maketitle
+
 \justifying   
 
+\chapter{Abstract}
+Basically a thesis (book?) class for Tufte lovers like myself. 
+I am aware that \texttt{tufte-latex} already exists but I just wanted to create my own thing.
+(I copy this from the tamplate exmaple)
 
+\chapter{Acknowledgements}
+Gabriel the king. 
+All the \href{https://tex.stackexchange.com/}{\TeX.SE} team for answering my stupid questions.
+No idea how is Gabriel.
 
-\normalsize
-\maketitle
 \tableofcontents
+\listoffigures
+\listoftables
+\listoflistings
 
+
+\mainmatter
 
 % Chapters
 
@@ -40,8 +70,8 @@
 \include{chs/ch3}      % Chapter 3 Numerical Experiments
 \include{chs/ch4}      % Chapter 4 Conclusion
 
-\citep{*}
-\bibliography{biblio}     % names file phdrefs.bib as my bibliography file
+%\citep{*}
+%\bibliography{biblio}     % names file phdrefs.bib as my bibliography file
 
 
 
