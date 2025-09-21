@@ -528,12 +528,18 @@ We start by describing the Langevin equations of motion for a NVT enssemble and 
 \subsection{Langevin dynamics}
 
 From a general point of view there are two types of methods to make a quatitative description of systems: one focused on simulating dynamics at the microscale, and the other dedicated to deriving or establishing evolutionary equations at the macroscale\citep{wangMultiscaleModelingSimulation2025}.
-Since the assumption is made that the mechanical response of a hydrogel is predominantly derived from its internal structure\footnote{Poner citas que desmuestrén que no es hipótesis, si no que se sabe} we choose to simulate the dynamics at the microscale.
-Additionally, by treating the hyrogel as a colloid, permits applying molecular dynamics to model its response under shear deformation. 
-Finally, there are two commonly used mathematical frameworks to model the molecular dynamics, the continuous time random walk (CTRW) model and the Langevin equation\citep{wangMultiscaleModelingSimulation2025}, in this work we decided\footnote{Supongo que eventualmente justificaré la desición.} to use the langevin dynamics mathematical framework.
+Since we want to explore the relation between the network structure with the mechanical response, we delve into the microscale matehod.
+At this scale there are two commonly used mathematical frameworks to model the molecular dynamics, the continuous time random walk (CTRW) model and the Langevin equation\citep{wangMultiscaleModelingSimulation2025}.
+In this work we decided to use the langevin dynamics mathematical framework in order to define pairwise interactions, dissipation of energy due to thermal noise and access to detail interaction.
 
-This is because, the solid phase of the colloid has a large mass and will change their momenta after many collisions with the solvent molecules and the picture which emerges is that of the heavy particles forming a system with a much longer time scale than the solvent molecules\citep{Thijssen2007} and Langevin theory takes advantage of this difference in time scale to eliminate the details of the degrees of freedom of the solvent particles and represent their effect by stochastic and dissipative forces allowing longer simulations that would be impossible if the solvent were explicitly included\citep{pastorTechniquesApplicationsLangevin1994}.
-However, the representation of the solvent by a stochastic and dissipative force, introduce the problem of characterize two very different timescales, one associated with the slow relaxation of the initial velocity of the brownian particle and another linked to the frequent collisions that the brownian particle suffers with particles of the bath\citep{tsl2006}\footnote{Para traer a colación la sensibilidad de la respuesta mecánica al parámetro de damp.}. 
+%Since the assumption is made that the mechanical response of a hydrogel is predominantly derived from its internal structure\footnote{Poner citas que desmuestrén que no es hipótesis, si no que se sabe} we choose to simulate the dynamics at the microscale.
+%Additionally, by treating the hyrogel as a colloid, permits applying molecular dynamics to model its response under shear deformation. 
+
+Langevin theory takes advantage of a difference in time scale to eliminate the details of the degrees of freedom of the solvent particles and represent their effect by stochastic and dissipative forces allowing longer simulations that would be impossible if the solvent were explicitly included\citep{pastorTechniquesApplicationsLangevin1994}.
+The difference in time scale emerges because the solid phase of the colloid has a large mass and will change their momenta after many collisions with the solvent molecules and the picture which emerges is that of the heavy particles forming a system with a much longer time scale than the solvent molecules\citep{Thijssen2007}.
+
+However, the representation of the solvent by a stochastic and dissipative force, introduce the problem of characterize two very different timescales.
+One associated with the slow relaxation of the initial velocity of the brownian particle and another linked to the frequent collisions that the brownian particle suffers with particles of the bath\citep{tsl2006}\footnote{Para traer a colación la sensibilidad de la respuesta mecánica al parámetro de damp.}. 
 Therefore, two terms are used to create a mathematical representation of the solvent: a frictional force proportional to the velocity of the particle and a fluctuating force. 
 Hence,
 \begin{gather}
@@ -545,7 +551,7 @@ On the other hand, $\vec{R}(t)$\footnote{No me acuerdo en donde está que se pue
 \begin{align*}
     \expval{\vec{R}(t)} &= 0 \\
     \expval{\vec{R}(t)\vec{R}(t')} &= 2k_{B}T\gamma\delta\qty(t-t') 
-\end{align*}
+\end{align*}=
 The no time correlation is equivalent to assuming that the viscoelastic relaxation of the solvent is very rapid with respect to solute motions\footnote{Grote land Hynes [26] have investigated this assumption for motions involving barrier crossing and have found that while it is seriously in error for passage over sharp barriers (such as 12 recombination); it is quite adequate for conformational transitions such as might be found in polymer motions.\citep{pastorTechniquesApplicationsLangevin1994}}.
 
 In comparing the results of Langevin dynamics with those of other stochastic methods [28-31], the relevant variable is the velocity relaxation time, $\tau_{v}$ which equals $\gamma^{-1}$\citep{pastorTechniquesApplicationsLangevin1994}
@@ -567,4 +573,8 @@ Furthermore, from a computational perspective, Velocity Verlet is an explicit al
 It requires only the positions, velocities, and accelerations from the previous timestep.
 Which allows efficient parallelization and eliminates the need for additional memory allocations per step.
 
+\begin{align}
+    r(t+\Delta t) &= r(t)+v(t)\Delta t + \frac{1}{2}a(t)\Delta t^2 \\
+    v(t+\Delta t) &= v(t)+\frac{1}{2}\left[a(t)+a(t+\Delta t)\right]\Delta t
+\end{align}
 

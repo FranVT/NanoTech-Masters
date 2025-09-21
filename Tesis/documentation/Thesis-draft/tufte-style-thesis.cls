@@ -547,17 +547,17 @@
 	{\small}
 	{~~\textcolor{niceBlue}{\contentspage}}
 	[\\]
-\titlecontents{subsection}[0em]
- 	{\footnotesize\vspace{4pt}}
- 	{\thecontentslabel\enspace\itshape}
- 	{\itshape}
- 	{\qquad\contentspage}[\vskip 0pt]
+% \titlecontents{subsection}[0em]
+% 	{\vspace{4pt}}
+% 	{\normalfont\thecontentslabel\enspace\itshape}
+% 	{\itshape}
+% 	{\qquad\contentspage}[\vskip 0pt]
 % \titlecontents*{subsection}[0em]
-%	{\vskip 0pt\small}
-%	{{\thecontentslabel}~~\itshape}
-%	{\itshape}
-%	{~~{\contentspage}}
-%	[\qquad]
+% 	{\vskip 0pt\small}
+% 	{{\thecontentslabel}~~\itshape}
+% 	{\itshape}
+% 	{~~{\contentspage}}
+% 	[\qquad]
 % \titlecontents{subsubsection}[1em]
 % 	{\vspace{0pt}}
 % 	{\normalfont\thecontentslabel\enspace\itshape}
