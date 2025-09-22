@@ -109,7 +109,7 @@
 \RequirePackage{placeins}		% for floatbarrier
 \RequirePackage{xparse}
 \RequirePackage{xpatch}
-\RequirePackage{natbib}
+\RequirePackage[numbers]{natbib}
 %\RequirePackage[
 	% doi=false,
 	% isbn=false,
@@ -531,38 +531,38 @@
 %	T O C  C U S T O M I Z A T I O N
 %
 \contentsmargin[1cm]{0cm}
-\titlecontents*{part}[0em]
-	{\large\scshape}
-	{\scshape\thecontentslabel}
-	{\vskip 4pt\large\scshape\lowercase}
-	{}[\vskip 0pt]
+
+% Part - more robust formatting
+\titlecontents{part}[0em]
+    {\addvspace{12pt}\large\scshape}
+    {\thecontentslabel\enspace}
+    {}
+    {\hfill\textcolor{niceBlue}{\contentspage}}
+    [\addvspace{6pt}]
+
+% Chapter - better spacing control
 \titlecontents{chapter}[0em]
-	{\large\vspace{12pt}}
-	{\makebox[-1em][r]{\thecontentslabel}\large\hspace{1em}}
-	{\large}
-	{~~~~\textcolor{niceBlue}{\contentspage}}[\vskip 2pt]
-\titlecontents*{section}[0em]
-	{\small}
-	{\thecontentslabel~~}
-	{\small}
-	{~~\textcolor{niceBlue}{\contentspage}}
-	[\\]
-% \titlecontents{subsection}[0em]
-% 	{\vspace{4pt}}
-% 	{\normalfont\thecontentslabel\enspace\itshape}
-% 	{\itshape}
-% 	{\qquad\contentspage}[\vskip 0pt]
-% \titlecontents*{subsection}[0em]
-% 	{\vskip 0pt\small}
-% 	{{\thecontentslabel}~~\itshape}
-% 	{\itshape}
-% 	{~~{\contentspage}}
-% 	[\qquad]
-% \titlecontents{subsubsection}[1em]
-% 	{\vspace{0pt}}
-% 	{\normalfont\thecontentslabel\enspace\itshape}
-% 	{\itshape}
-% 	{\quad\quad\contentspage}[\vskip 0pt]
+    {\addvspace{12pt}\large\bfseries}
+    {\makebox[2.5em][r]{\thecontentslabel}\hspace{1em}}
+    {}
+    {\hfill\textcolor{niceBlue}{\contentspage}}
+    [\addvspace{4pt}]
+
+% Section - consistent with chapter style
+\titlecontents{section}[1.5em]  % Indent sections
+    {\small}
+    {\thecontentslabel\enspace}
+    {}
+    {\hfill\textcolor{niceBlue}{\contentspage}}
+    [\addvspace{2pt}]
+
+% Subsection - uncommented and improved
+\titlecontents{subsection}[3.5em]  % Further indent
+    {\small\itshape}
+    {\thecontentslabel\enspace}
+    {}
+    {\hfill\textcolor{niceBlue}{\contentspage}}
+    [\vspace{1pt}]
 
 % TOCLOFT (stolen from classicthesis)
 \renewcommand{\cftfigpresnum}{\scshape\MakeTextLowercase}%

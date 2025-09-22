@@ -520,38 +520,90 @@ As a result, we can begin to explore which molecular process dominates each defo
 
 \section{Molecular dynamics}
 
-In this section, we present the mathematical tools employed to simulate the polymeric network, also known as molecular dynamics (MD).
-One of the primary reasons why molecular dynamics is employed so widely in the analysis of the mechanical responses of polymeric networks is that it provides detailed insight into the structure-property relationships.
-This is due to the fact that it represents atomic-level interactions via Newtonian mechanics, enabling the modeling of different crosslinking mechanisms, polymer chain configurations, time-dependent deformations, and others.
-We start by describing the Langevin equations of motion for a NVT enssemble and then we describe the Velocity Verlet algorithm to solve the equations of motion.
+In this section, we present the mathematical tools, also known as molecular dynamics (MD), employed to simulate the polymeric network.
+Molecular dynamics is a widely used method for analyzing the mechanical responses of polymeric networks because it provides detailed insight into structure-property relationships.
+This is due to its ability to represent atomic-level interactions via Newtonian mechanics, enabling the modeling of different crosslinking mechanisms, polymer chain configurations, time-dependent deformations, and others.
+First, we will introduce the concept of colloids. 
+Then, we will describe Langevin dynamics and explain how to solve them using the Velocity Verlet algorithm.
+
+\subsection{Colloids}
+
+We have explored the concepts of how a hydrogel can be understood as a polymeric network and how that helps to gain insight into the mechanical response and the different mechanical responses.
+Now it is essential to introduce the concepto of colloid to integrate the mathematical tools with the hydrogel representation as a polymeric network.
+
+\paragraph{Colloids} A colloid is a heterogeneous mixture of two substances in different matter states and in different ratio.
+It is commonly describe that one of the substance is dispersed into the other substance.
+The disparsed substance it is commonly denoted as disparsed phase, while the other substance is denoted as the continuous phase.
+The average size of the scattered phase's spots ranges from 1 nanometer to 1 micrometer.
+
+This definition enables the classification of the material into the following eight categories:
+foam, solid foam,
+aerosol, emulsion, gel,
+aerosol (solid), sol and solid sol.
+As outlined in the table~\ref{tab:colloids}.
+Naturally, our primary objective is to represent the hydrogel as a gel.
+
+\begin{table}[ht!]
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Name of Colloid} & \textbf{Disparsed Phase} & \textbf{Continuous Phase} & \textbf{Examples}      \\ \hline
+\textbf{Foam}            & Gas                      & Liquid                    & Whipped cream, froth   \\ \hline
+\textbf{Solid Foam}      & Gas                      & Solid                     & Pumice, styrofoam      \\ \hline
+\textbf{Aerosol}         & Liquid                   & Gas                       & Fog, mist              \\ \hline
+\textbf{Emulsion}        & Liquid                   & Liquid                    & Milk, mayonnaise       \\ \hline
+\textbf{Gel}             & Liquid                   & Solid                     & Jelly, cheese          \\ \hline
+\textbf{Aerosol (solid)} & Solid                    & Gas                       & Smoke, airborne dust   \\ \hline
+\textbf{Sol}             & Solid                    & Liquid                    & Paint, ink             \\ \hline
+\textbf{Solid sol}       & Solid                    & Solid                     & Coloured glass, alloys \\ \hline
+\end{tabular}
+\caption{This is a table}\label{tab:colloids}
+\end{table}
+
+The hydrogel can be understood as a mixture of water in the liquid state and a polymer network in the solid state.
+Furthermore, the polymeric network typically exhibits a porosity ranging from 5 to 20 nanometers, however they can be tunned to reach the micron-scale size.
+This porosity enables the representation of the water as the dispersed phase, while the polymeric network is represented as the continuous phase.
+Therefore, the hydrogel can be modelled as a colloid.
 
 \subsection{Langevin dynamics}
 
-From a general point of view there are two types of methods to make a quatitative description of systems: one focused on simulating dynamics at the microscale, and the other dedicated to deriving or establishing evolutionary equations at the macroscale\citep{wangMultiscaleModelingSimulation2025}.
-Since we want to explore the relation between the network structure with the mechanical response, we delve into the microscale matehod.
-At this scale there are two commonly used mathematical frameworks to model the molecular dynamics, the continuous time random walk (CTRW) model and the Langevin equation\citep{wangMultiscaleModelingSimulation2025}.
-In this work we decided to use the langevin dynamics mathematical framework in order to define pairwise interactions, dissipation of energy due to thermal noise and access to detail interaction.
+Now that we know that we can model a hydrogel as a colloid, we can start applying mathematical tools to create a quantitative description of the material.
+Langevin dynamics is an excellent framework for representing this system, as it couples 
+    the pairwise interactions of the polymers 
+    with an efficient representation of the interaction of the water with the polymer, 
+    and the dissipation of energy due that results from the water-polymer interaction.
+It is important to note that this mathematical representation models an infinitesimal particle.
+Therefore, a methodology is required that couples the infinitesimal particle with a polymer network.
+The following methodology will be outlined following a description of the Langevin equation and the Velocity Verlet algorithm, in order to facilitate the process of storytelling.
 
-%Since the assumption is made that the mechanical response of a hydrogel is predominantly derived from its internal structure\footnote{Poner citas que desmuestrén que no es hipótesis, si no que se sabe} we choose to simulate the dynamics at the microscale.
-%Additionally, by treating the hyrogel as a colloid, permits applying molecular dynamics to model its response under shear deformation. 
+%From a general point of view there are two types of methods to make a quatitative description of systems: one focused on simulating dynamics at the microscale, and the other dedicated to deriving or establishing evolutionary equations at the macroscale\citep{wangMultiscaleModelingSimulation2025}.
+%At this scale there are two commonly used mathematical frameworks to model the molecular dynamics, the continuous time random walk (CTRW) model and the Langevin equation\citep{wangMultiscaleModelingSimulation2025}.
 
-Langevin theory takes advantage of a difference in time scale to eliminate the details of the degrees of freedom of the solvent particles and represent their effect by stochastic and dissipative forces allowing longer simulations that would be impossible if the solvent were explicitly included\citep{pastorTechniquesApplicationsLangevin1994}.
-The difference in time scale emerges because the solid phase of the colloid has a large mass and will change their momenta after many collisions with the solvent molecules and the picture which emerges is that of the heavy particles forming a system with a much longer time scale than the solvent molecules\citep{Thijssen2007}.
+Taking into account the colloidal representation of the hydrogel, the Langevin theory takes advantage of the densities of the solid and liquid phases.
+Since the solid phase of the colloid has a large mass, it will change their momenta after many collisions with the water molecules and the picture which emerges is that of the heavy particles forming a system with a much longer time scale than the solvent molecules\citep{Thijssen2007}.
+This time scale difference can be used to our favour in the sense that we can eliminate the details of the degrees of freedom of the solvent particles and represent their effect by stochastic and dissipative forces allowing longer simulations that would be impossible if the solvent were explicitly included\citep{pastorTechniquesApplicationsLangevin1994}.
 
 However, the representation of the solvent by a stochastic and dissipative force, introduce the problem of characterize two very different timescales.
-One associated with the slow relaxation of the initial velocity of the brownian particle and another linked to the frequent collisions that the brownian particle suffers with particles of the bath\citep{tsl2006}\footnote{Para traer a colación la sensibilidad de la respuesta mecánica al parámetro de damp.}. 
+One associated with the slow relaxation of the initial velocity of the particle and another linked to the frequent collisions that the particle suffers with particles of the bath\citep{tsl2006}\footnote{Para traer a colación la sensibilidad de la respuesta mecánica al parámetro de damp.}. 
 Therefore, two terms are used to create a mathematical representation of the solvent: a frictional force proportional to the velocity of the particle and a fluctuating force. 
-Hence,
+
+By considering newtonian mechanics and the previous discussion, the Langevin dynamics are mathematically represented by the following differential equation,
 \begin{gather}
     m\dv{\vec{v}(t)}{t}=\vec{F}(t)-m\gamma\vec{v}(t)+\vec{R}(t).\label{eqn:BrownianDyn1}
 \end{gather}
-The friction constant $\gamma$\footnote{Cuidado con las unidades. Hacer análisis dimensional, porque por la condición de correlación en $R$, $\gamma$ ocupa tener unidades de masa entre tiempo, pero en la ecuación, solo ocupa unidades de $1/s$.} parametrises the effect of solvent damping and activation and is commonly referred to as the collision frequency in the simulation literature, even though formally a Langevin description implies that the solute suffers an infinite number of collisions with infinitesimally small momentum transfer.
-Also, the fact that the second term is not a function of the position of any of the particles involves the neglect of hydrodynamic interaction or spatial correlation in the friction kernel spatial correlation in the friction kernel\citep{pastorTechniquesApplicationsLangevin1994}.
-On the other hand, $\vec{R}(t)$\footnote{No me acuerdo en donde está que se puede asumir que tiene distribución gaussiana.} is a ``random force'' subject to the following conditions
-\begin{align*}
-    \expval{\vec{R}(t)} &= 0 \\
-    \expval{\vec{R}(t)\vec{R}(t')} &= 2k_{B}T\gamma\delta\qty(t-t') 
-\end{align*}=
+The term in the left-hand size of the equation denotes the change of momentum of the particle.
+The first term on the right-hand side of the equation represents the force due to the interaction of the particle with other particles.
+The second term couples the dissipation of energy of the particle due to its interaction with the solvent.
+Finally, the third term takes into account the exchange of momenta with the solvent.
+
+The friction constant $\gamma$\footnote{Cuidado con las unidades. Hacer análisis dimensional, porque por la condición de correlación en $R$, $\gamma$ ocupa tener unidades de masa entre tiempo, pero en la ecuación, solo ocupa unidades de $1/s$.} parametrises the effect of solvent damping and activation.
+It is commonly referred as the collision frequency in the simulation literature, even though formally a Langevin description implies that the solute suffers an infinite number of collisions with infinitesimally small momentum transfer.
+Furthermore, the fact that the second term is not a function of the position of any of the particles involves the neglect of hydrodynamic interaction or spatial correlation in the friction kernel\citep{pastorTechniquesApplicationsLangevin1994}.
+
+On the other hand, the term $\vec{R}(t)$\footnote{No me acuerdo en donde está que se puede asumir que tiene distribución gaussiana.} is a ``random force'' subject to the following conditions
+\begin{gather}
+    \expval{\vec{R}(t)} = 0 \\
+    \expval{\vec{R}(t)\vec{R}(t')} = 2k_{B}T\gamma\delta\qty(t-t') 
+\end{gather}
 The no time correlation is equivalent to assuming that the viscoelastic relaxation of the solvent is very rapid with respect to solute motions\footnote{Grote land Hynes [26] have investigated this assumption for motions involving barrier crossing and have found that while it is seriously in error for passage over sharp barriers (such as 12 recombination); it is quite adequate for conformational transitions such as might be found in polymer motions.\citep{pastorTechniquesApplicationsLangevin1994}}.
 
 In comparing the results of Langevin dynamics with those of other stochastic methods [28-31], the relevant variable is the velocity relaxation time, $\tau_{v}$ which equals $\gamma^{-1}$\citep{pastorTechniquesApplicationsLangevin1994}
@@ -575,7 +627,7 @@ Which allows efficient parallelization and eliminates the need for additional me
 
 \begin{algorithm}
 \caption{Velocity Verlet algorithm}\label{alg:two}
-$Nt \gets \mathrm{Simulation steps}$\;
+$Nt \gets \mathrm{Simulation~steps}$\;
 $r \gets \mathrm{Initial~potitions}$\;
 $v \gets \mathrm{Initial~velocities}$\;
 \While{$N \leq Nt$}{
@@ -586,4 +638,16 @@ $v \gets \mathrm{Initial~velocities}$\;
 }
 \end{algorithm}
 
+
+\subsection{Patchy particles representation}
+
+Now, in the Lagevin dynamics we quantify the dyncamics of a particle, however, we have being saying that a hydrogel is a polymeric network that can be modeld as a colloid.
+Hence we need another tool that helps to represent the particle dynamics from the LAngiven equations with the actual material.
+This is done with a patchy particle.
+This allows to consider the functionality of the monomers while allowing to make a simulaiton of the material.
+Neverthelss this is kind of a spheric cow, because the monomers are represented by spheres and bla bla bla.
+
+A particle with volume, the lennard jones/wca potential.
+Nuclation: Patches.
+Crosslinkers: 4 patches
 
