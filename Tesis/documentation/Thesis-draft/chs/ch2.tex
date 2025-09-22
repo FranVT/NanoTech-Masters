@@ -573,8 +573,17 @@ Furthermore, from a computational perspective, Velocity Verlet is an explicit al
 It requires only the positions, velocities, and accelerations from the previous timestep.
 Which allows efficient parallelization and eliminates the need for additional memory allocations per step.
 
-\begin{align}
-    r(t+\Delta t) &= r(t)+v(t)\Delta t + \frac{1}{2}a(t)\Delta t^2 \\
-    v(t+\Delta t) &= v(t)+\frac{1}{2}\left[a(t)+a(t+\Delta t)\right]\Delta t
-\end{align}
+\begin{algorithm}
+\caption{Velocity Verlet algorithm}\label{alg:two}
+$Nt \gets \mathrm{Simulation steps}$\;
+$r \gets \mathrm{Initial~potitions}$\;
+$v \gets \mathrm{Initial~velocities}$\;
+\While{$N \leq Nt$}{
+    $v(t+\frac{1}{2}\Delta t) \gets v(t)+\frac{1}{2}a(t)\Delta t$\;
+    $r(t+\Delta t) \gets r(t) + v(t+\frac{1}{2}\Delta t)\Delta t$\;
+    $a(t+\Delta t) \gets -\nabla U(r(t+\Delta t))$\;
+    $v(t+\Delta t) \gets v(t+\frac{1}{2})+\frac{1}{2}a(t+\Delta t)\Delta t$\;
+}
+\end{algorithm}
+
 
