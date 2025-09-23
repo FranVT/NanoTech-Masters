@@ -126,12 +126,6 @@ Finally, it is important to note that the energy barrier for exchange, bond stab
 
 \marginpar{In the following methodology, we will couple the macroscopic and microscopic scale:
     We employ the macroscopic constitutive relations; however, the stress tensor is defined from the microscopic scale.
-
-\begin{gather}
-    \epsilon_{ij} = \frac{1}{2}\left( \pdv{u_i}{x_j}+\pdv{u_j}{x_i} \right)\label{eqn:strainTensor}
-\end{gather}
-This mathematical representation is only valid for infinitesimal small deformations.
-Where $u_i$ are the component of the displacement vector field and $x_j$ are the spatial coordinates.
 }
 
 \begin{comment}
@@ -149,7 +143,7 @@ where the operation of the dot product between the normal vector with a tensor i
     \begin{bmatrix} n_1 & n_2 & n_3 \end{bmatrix}.
 \end{gather*}
 The component $\sigma_{ij}$ represents the force in the $i$-th direction acting on a surface perpendicular to the $j$-th coordinate axis.
-Also, the tenso is symmetric under the usual ssumption of no body torques and balance of angular momentum.
+Also, the tensor is symmetric under the usual ssumption of no body torques and balance of angular momentum.
 \end{comment}
 
 The concept of a material's mechanical response describes the relationship between the deformation of a material and the applied stress and/or shear rate.
@@ -178,53 +172,21 @@ This is due to the scope of the thesis.
 This measure is represented by the dimensionless strain tensor (eqn~\eqref{eqn:strainTensor}).
 This quantification tool enables the description of normal strain, such as elongation or compression, through the use of diagonal terms, and shear strain via off-diagonal terms.
 
+\begin{gather}
+    \epsilon_{ij} = \frac{1}{2}\left( \pdv{u_i}{x_j}+\pdv{u_j}{x_i} \right)\label{eqn:strainTensor}
+\end{gather}
+This mathematical representation is only valid for infinitesimal small deformations.
+Where $u_i$ are the component of the displacement vector field and $x_j$ are the spatial coordinates.
+
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=0.8\textwidth]{figs/2D_geometric_strain.png}
-    %\caption{Wikipedia}
+    \caption{Strain representation Wikipedia}
 \end{figure}
 
 (Add the derivation of the book?)
 
 \subsection{Macroscopic description}
-
-\marginpar{
-Elastic deformation equations
-\begin{gather}
-    \bm{\sigma} = E\bm{\epsilon}\label{eqn:elasticEQN} \\
-    \sigma_{ij} = C_{ijkl}\epsilon_{kl}
-\end{gather}
-
-Plastic Deformation equations
-\begin{gather}
-    \dot{\bm{\epsilon}_{p}} = f\left(\bm{\sigma},\mathrm{Internal~varaibles}\right),\quad\bm{\sigma}>\bm{\sigma}_{y}\label{eqn:plasticEQN}.
-\end{gather}
-
-Von Mises Criterion
-\begin{gather}
-    \sigma_y = \sqrt{\frac{3}{2}\bm{s}:\bm{s}}\label{eqn:vonMisesCriterion}
-\end{gather}
-where $\bm{s}$ is the deviatoric stress tensor.
-
-Tresca criterion
-\begin{gather}
-   \sigma_y = \max\left(\abs{\sigma_1-\sigma_2},\abs{\sigma_2-\sigma_3},\abs{\sigma_3-\sigma_1}\right)\label{eqn:trescaCriterion}
-\end{gather}
-where $\sigma_1$, $\sigma_2$, $\sigma_3$ are the principal stresses.
-
-Viscoelastic deformation
-
-The following equation is the generelized expression of the Maxwell or Kelvin-Voigt model:
-\begin{gather}
-    \sigma(t) = \int_0^t G(t-\tau)\dv{\tau}\epsilon(\tau)d\tau\label{eqn:viscoelastiEQN}.
-\end{gather}
-Where $\tau$ is a dummy variable and $G(t)$ is the time-dependent relaxation modulus.
-
-Viscoplastic deformation
-\begin{gather}
-    \dot{\bm{\epsilon}}_{p} = f\left(\sigma,\sigma_y,\dot{\epsilon},\mathrm{Internal variables}\right)\label{eqn:viscoplastiEQN}
-\end{gather}
-}
 
 Now that we know how the quantify strain, we can quantify the four main mechanical responses,
     elastic,
@@ -242,11 +204,20 @@ with a proportionality constant known as elastic modulus or Young's modulus.
 The equation~\eqref{eqn:elasticEQN} is interpreted as the stiffness, that is how the material resists deformation.
 Some examples of this type of deformation are the streching of a metal spring within its elastic limit or the compression of a rubber ball.
 
+\begin{gather}
+    \bm{\sigma} = E\bm{\epsilon}\label{eqn:elasticEQN} \\
+    \sigma_{ij} = C_{ijkl}\epsilon_{kl}
+\end{gather}
+
 \paragraph{Plastic relation} In contrast, a plastic deformation is when the material has an irreversible change in the shape or size.
 It is generally accepted that a material first enters an elastic regime and then reaches a yield point. 
 After this point, the deformation is irreversible.
 The quantification of the plastic relation (eqn~\eqref{eqn:plasticEQN}) typically links stress and plastic strain as a function of the current stress and internal variables.
 This is valid when the deformation goes beyond the yield stress and the specific algebraic expression is dictated by the material's properties.
+
+\begin{gather}
+    \dot{\bm{\epsilon}_{p}} = f\left(\bm{\sigma},\mathrm{Internal~varaibles}\right),\quad\bm{\sigma}>\bm{\sigma}_{y}\label{eqn:plasticEQN}.
+\end{gather}
 
 It is important to acknowledge that the definition of yield stress is also dependent on the material and the loading conditions.
 For this reason, there are many yield criteria developed for different materials and conditions, such as Drucker-Prager, Mohr-Coulomb, Von Mises or Tresca criterion.
@@ -257,11 +228,29 @@ This is defined by a critical value (as shown in the equation~\eqref{eqn:vonMise
 On the other hand, the Tresca yield criterion is a max-shear based criterion.
 It is based on the yield strength in simple tension (see equation~\eqref{eqn:trescaCriterion}).
 
+Von Mises Criterion
+\begin{gather}
+    \sigma_y = \sqrt{\frac{3}{2}\bm{s}:\bm{s}}\label{eqn:vonMisesCriterion}
+\end{gather}
+where $\bm{s}$ is the deviatoric stress tensor.
+
+Tresca criterion
+\begin{gather}
+   \sigma_y = \max\left(\abs{\sigma_1-\sigma_2},\abs{\sigma_2-\sigma_3},\abs{\sigma_3-\sigma_1}\right)\label{eqn:trescaCriterion}
+\end{gather}
+where $\sigma_1$, $\sigma_2$, $\sigma_3$ are the principal stresses.
+
 \paragraph{Viscoelastic relation} A viscoelastic deformation is defined as the process by which a material partially ``stores'' elastic energy and partially dissipates energy.
 The quantification of the relation is by relating the instantaneos stress, strain and a time-dependent relaxation modulus (equation~\eqref{eqn:viscoelastiEQN}).
 This relationship also enables the description and modeling of memory effects and rate dependence, which are commonly observed in polymers, biological tissues, and certain soft solids.
 
 \textbf{Not sure if I want to explain more the relaxation modulus.}
+
+The following equation is the generelized expression of the Maxwell or Kelvin-Voigt model:
+\begin{gather}
+    \sigma(t) = \int_0^t G(t-\tau)\dv{\tau}\epsilon(\tau)d\tau\label{eqn:viscoelastiEQN}.
+\end{gather}
+Where $\tau$ is a dummy variable and $G(t)$ is the time-dependent relaxation modulus.
 
 \begin{comment}
 Time-dependent response combining elastic and viscous behaviour.
@@ -276,6 +265,11 @@ As with the plastic relation, the specific algebraic expression is dictated by t
 However, this relationship is used to describe materials that initially respond as solids below the yield stress but flow like viscous fluids once yielding occurs.
 
 \textbf{Add examples of specific constitutive equations}
+
+\begin{gather}
+    \dot{\bm{\epsilon}}_{p} = f\left(\sigma,\sigma_y,\dot{\epsilon},\mathrm{Internal variables}\right)\label{eqn:viscoplastiEQN}
+\end{gather}
+
 
 \begin{comment}
 Combines irreversible plastic strain with rate-dependent visvous effects
@@ -293,7 +287,7 @@ The mathematical representation of the stress tensor is given by the Cauchy stre
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=0.8\textwidth]{figs/Components_stress_tensor_cartesian.pdf}
-    %\caption{Wikipedia}
+    \caption{Stress tensor wikipedia}
 \end{figure}
 
 \paragraph{Macro-Micro realtion} From a microscopic scale, the stress tensor describes the instantaneous local force from atomic interactions and momentum flux.
@@ -513,7 +507,7 @@ expressed with indexical notation and using the eistein summation convention,
         \sum_\alpha m_\alpha\overline{\upsilon^{\alpha~\mathrm{rel}}_{i}\upsilon^{\alpha{\mathrm{rel}}}_j}
     \right],\label{eqn:DerVirTen23}
 \end{equation}
-which is the same expression implemented in~LAMMPS\citep{LAMMPS}.\footnote{No se si poner la referencia a la pagina de documentacion\href{https://docs.lammps.org/compute_stress_atom.html}{https://docs.lammps.org/compute\_stress\_atom.html}}
+which is the same expression implemented in~LAMMPS\citep{LAMMPS}.\footnote{No se si poner la referencia a la pagina de documentacion}%\href{https://docs.lammps.org/compute_stress_atom.html}{https://docs.lammps.org/compute\_stress\_atom.html}}
 
 This allows us to quantify the relationship between network properties and the macroscopic Cauchy stress tensor. 
 As a result, we can begin to explore which molecular process dominates each deformation regime.
@@ -639,15 +633,4 @@ $v \gets \mathrm{Initial~velocities}$\;
 \end{algorithm}
 
 
-\subsection{Patchy particles representation}
-
-Now, in the Lagevin dynamics we quantify the dyncamics of a particle, however, we have being saying that a hydrogel is a polymeric network that can be modeld as a colloid.
-Hence we need another tool that helps to represent the particle dynamics from the LAngiven equations with the actual material.
-This is done with a patchy particle.
-This allows to consider the functionality of the monomers while allowing to make a simulaiton of the material.
-Neverthelss this is kind of a spheric cow, because the monomers are represented by spheres and bla bla bla.
-
-A particle with volume, the lennard jones/wca potential.
-Nuclation: Patches.
-Crosslinkers: 4 patches
 
