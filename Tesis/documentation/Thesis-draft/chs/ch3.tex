@@ -89,24 +89,30 @@ Go beyond the elastic limit to see what's up.
 \section{LAMMPS}
 
 LAMMPS (Large-scale Atomic/Molecular Massively Parallel Simulator) is a highly flexible, open-source molecular dynamics software solution used for simulating atomic, molecular, and mesoscale systems. 
+And is widely recognized for its extensibility, complete documentation, and active support in scientific communities focused on materials modeling and molecular simulation.
 It is designed to efficiently model materials science, chemistry, and physics problems by enabling large-scale simulations on parallel computing architectures.
+Furthermore, its parallelized structure allows efficient computation of large or complex systems, and supports integration with other computational tools and machine learning methods.
 
-LAMMPS is a comprehensive software solution that facilitates the simulation of a wide range of systems, encompassing solids, liquids, polymers, biomolecules, and nanoparticles. 
-It incorporates a variety of force fields and interaction models, enabling precise and detailed simulations. 
-Its parallelized structure allows efficient computation of large or complex systems, and it supports integration with other computational tools and machine learning methods. 
-LAMMPS is widely recognized for its extensibility, robust documentation, and active support in scientific communities focused on materials modeling and molecular simulation.
-
-A LAMMPS input script is defined as a series of lines, with each line beginning with a command name and followed by one or more arguments separated by whitespace.
+To define a simulation with this software we need to create an input script.
+This input script is defined as a series of lines, with each line beginning with a command name and followed by one or more arguments separated by whitespace.
 The program incorporates programming commands that define variables, perform conditional tests, execute loops, or invoke shell commands to launch an external program.
 The input script is parsed and executed one line at a time. 
 This feature allows a single script to run a simulation in stages, alter one or more parameters between stages, or run a series of independent simulations where the entire system is reinitialized multiple times.
 
-
-
 \paragraph{Implementation} About tables and the general script.
 
 
+\begin{itemize}
+    \item \verb|table| command
+    \item \verb|langevin| command
+    \item \verb|threebody| command
+    \item \verb|boundary| command
+\end{itemize}
+
+Not sure if I need to describe almost line by line the scripts.
+
 \section{Results}
+
 
 So.. The results and stuff
 
