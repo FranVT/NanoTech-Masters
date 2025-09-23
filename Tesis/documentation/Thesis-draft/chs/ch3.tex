@@ -1,27 +1,42 @@
 \chapter{Patchy particle scheme for hydrophilic polymeric networks}
 
+Now that we have covered the theoretical framework, we can delve into the numerical tools that will help us find relations between the polymeric network and the mechanical response.
+First, we will describe the patchy particle scheme for simulating PNIPAM cross-linked networks.
+Then, we will describe the numerical simulation protocol.
+Next, we will introduce the LAMMPS package and explain how it can be used to simulate these systems.
+Finally, we will present and analyze the simulation results.
+
 \section{Simulation protocol}
 
-Description of the system
+One of the microgels that has been the focus of significant research is the type that is based on PNIPAM cross-linked networks.
+In the article \textit{In silico Synthesis of Microgel Particles}, the authors present a flexible numerical protocol capable of designing individual microgel particles based on PNIPAM corr-linked networks. 
+This protocol can generate particles with properties comparable to the experimental ones.
+In this project, we employ a similar protocol to explore its versatility and identify a numerical tool that can facilitate connections between network configuration and mechanical response.
 
+Our primary focus is on creating networks without spherical confinement and without mimicking the swelling behavior of PINIPAM microgels with temperature.
+Therefore, the central strategy involves the implementation of a binary mixture of patchy particles to generate a disroded polymeric network structure, followed by the application of shear deformation.
+The primary benefit of this protocol is that previous numerical efforts in microgel modeling have predominantly concentrated on unrealistic networks consisting of chains of equivalent length, frequently establishing cross-linked connections on crystalline lattice regions or where closed polymer networks are assembled by directly integrating randomly dispersed cross-linkers with polymer chains.
 
 \subsection{Patchy particles representation}
 
-Now, in the Lagevin dynamics we quantify the dyncamics of a particle, however, we have being saying that a hydrogel is a polymeric network that can be modeld as a colloid.
-Hence we need another tool that helps to represent the particle dynamics from the LAngiven equations with the actual material.
-This is done with a patchy particle.
-This allows to consider the functionality of the monomers while allowing to make a simulaiton of the material.
-Neverthelss this is kind of a spheric cow, because the monomers are represented by spheres and bla bla bla.
+A patchy particle can be defined as a sphere with radius $r$ containing $n$ spheres of radius $l<r$ on its surface.
+The smaller spheres are typically referred to as ``patches'' and the number of patches is often refer to as ``functionality''.
+The center of the patches can be placed on the surface of the central particle. 
+However, it can also be modified to be at a point inside the enclosed volume of the main particle.
 
-A particle with volume, the lennard jones/wca potential.
-Nuclation: Patches.
-Crosslinkers: 4 patches
+The implementation of patchy particles as monomers and crosslinkers is a highly effective strategy.
+This is due to the fact that it facilitates the integration of the infinitesimal representation by the Langevin dynamics with a particle that possesses volume and functionality.
+The functionality representation is important because it allows for the representation of the monomer and cross-linker molecules that can form a polymeric network.
+However, it is important to recognize that the geometry of the monomers and functional groups is assume to be spherical.
+
+Finally, to define the volume of the particle, a repulsive pairwise interaction is defined between the central particles.
+Meanwhile, to the formation of a polymeric network is facilitated by an attractive pairwise interaction defined between patches.
+Because this model is designed to simulate the final network, not the synthesis process, the pairswise interaction between central particles and patches is not defined.
 
 \subsection{Description of the system}
 
-\paragraph{Physical Parameters} Particle size, box length, packing fraction, temperature.
-
-\paragraph{Interaction potentials} The interaction between the central particles is modeled with a Weeks-Chandler-Andersen repulsive potential,
+\paragraph{Interaction potentials} We start by describing the interaction potentials between patchy particles.
+The interaction between the central particles is modeled with a Weeks-Chandler-Andersen repulsive potential,
 \begin{gather}
     U_{WCA}(r_{i,j}) =\left\{ 
         \begin{array}{ll}
@@ -32,7 +47,7 @@ Crosslinkers: 4 patches
     ,\label{eqn:CL-MO_interaction}
 \end{gather}
 where $r_{i,j}$ is the distance between the center of the central particles, $\sigma$ is the diameter of the particles and $\epsilon_{i,j}$ is the energy of the interacton.
-The patch-patch interaction is modeled with an attractive potential,
+On the other hand, the patch-patch interaction is modeled with an attractive potential,
 \begin{gather}
     U_{\mathrm{patchy}}\qty(r_{\mu\upsilon}) = \left\{
         \begin{array}{ll}
@@ -42,7 +57,10 @@ The patch-patch interaction is modeled with an attractive potential,
             \right.\label{eqn:patch-patch_interaction}
 \end{gather}
 where $r_{\mu\upsilon}$ is the distance between two patches, $\sigma_p$ is the diameter of the patches, $r_c$ is the cut distance of interaction set to $1.5\sigma_p$ and $\epsilon_{\mu,\upsilon}$ is the interaction energy between the patches.
-Moreover, the interaction between patches is complemented by a three-body repulsive potential, defined in terms of~\eqref{eqn:patch-patch_interaction}, that provides an efficient bond-swapping mechanism making possible to easily equilibrate the system at extremely low temperatures, while at the same time, reataining the single-bond-per-patch condition\citep{sciortinoThreebodyPotentialSimulating2017},
+This potential can be interpreted as a reversible interaction.
+
+It is important to say that if we let the polymeric network form with only those potentials, the patches are going to form cluster of more then 2 patches, which is not desirble since this will mean that every single monomer can be a crossliker\footnote{Mejorar este enunciado/idea}.
+Hence, the interaction between patches is complemented by a three-body repulsive potential, defined in terms of~\eqref{eqn:patch-patch_interaction}, that provides an efficient bond-swapping mechanism making possible to easily equilibrate the system at extremely low temperatures, while at the same time, reataining the single-bond-per-patch condition\citep{sciortinoThreebodyPotentialSimulating2017},
 \begin{gather}
     U_{\mathrm{swap}}(r_{l,m},r_{l,n}) = w\sum_{l,m,n}\epsilon_{m,n}U_3\qty(r_{l,m})U_3\qty(r_{l,n}),\quad r_{l,n}\in\qty[0,r_c],\label{eqn:swap_interaction}
 \end{gather}
@@ -61,11 +79,27 @@ The parameter $\epsilon_{m,n}$ is the energy of repulsion and $w$ is used to tun
 The cut off distance $r_c$ is the same as in the potential of interaction between patches, meanwhile the minimum distance $r_{\min}$ is the distance at the minimum of~\eqref{eqn:patch-patch_interaction}, \textit{i.e.} $\epsilon_{m,n}\equiv\abs{U_{\mathrm{patchy}}(r_{\min})}$.
 Finally, the energy of interaction between crosslinker patches ($\epsilon_{\mu^i,\mu^i}$) are set to $0$ to allow only crosslinker-monomer and monomer-monomer bonding (figure~\ref{fig:intento2}).
 
-\subsection{LAMMPS}
 
-A LAMMPS input script (text file) is simply a series of lines each beginning with a command name followed by one or more whitespace separated arguments. 
-Programming like commands are included which define variables, perform conditional tests, execute loops, or invoke shell commands, to launch a program external to LAMMPS.
-The input script is parsed and executed one line at a time which means a single script can be used to run a simulation in stages, altering one or more parameters between the stages, or to run a series of independent simulations where the entire system is reinitialized multiple times.
+\paragraph{Physical Parameters} Particle size, box length, packing fraction, temperature.
+
+\paragraph{Deformation protocol} Constant shear rate, vary shear rate between simulations.
+First goes the assembly protocol then the shear deformation.
+Go beyond the elastic limit to see what's up.
+
+\section{LAMMPS}
+
+LAMMPS (Large-scale Atomic/Molecular Massively Parallel Simulator) is a highly flexible, open-source molecular dynamics software solution used for simulating atomic, molecular, and mesoscale systems. 
+It is designed to efficiently model materials science, chemistry, and physics problems by enabling large-scale simulations on parallel computing architectures.
+
+LAMMPS is a comprehensive software solution that facilitates the simulation of a wide range of systems, encompassing solids, liquids, polymers, biomolecules, and nanoparticles. 
+It incorporates a variety of force fields and interaction models, enabling precise and detailed simulations. 
+Its parallelized structure allows efficient computation of large or complex systems, and it supports integration with other computational tools and machine learning methods. 
+LAMMPS is widely recognized for its extensibility, robust documentation, and active support in scientific communities focused on materials modeling and molecular simulation.
+
+A LAMMPS input script is defined as a series of lines, with each line beginning with a command name and followed by one or more arguments separated by whitespace.
+The program incorporates programming commands that define variables, perform conditional tests, execute loops, or invoke shell commands to launch an external program.
+The input script is parsed and executed one line at a time. 
+This feature allows a single script to run a simulation in stages, alter one or more parameters between stages, or run a series of independent simulations where the entire system is reinitialized multiple times.
 
 
 
