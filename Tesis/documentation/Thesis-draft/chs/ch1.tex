@@ -1,28 +1,58 @@
 \chapter{Introduction}\label{ch1:Intro}
 
+%Try to describe the mechanical response of materials from first principles is an intelectual exercise that I found to be interesting enough to dedicate 2 years of my time and maybe more.
+
+% About this thesis
+
+I found it quite intriguing to explore how materials react mechanically from first principles, and I devoted two years to this research, with the possibility of extending it further.
+Despite the financial constraints and significant computational resources required to solve quantum mechanical systems, we have implemented a feasible computational methodology to investigate the correlation between molecular geometrical structure and mechanical response.
+In addition, the computational methodology is based on a numeric protocol that replicates the polymeric network of PNIPAM microgels, which are a size-tunable hydrogel.
+After a brief literature review has revealed the extensive range of applications for hydrogels in various fields.
+And a thorough review of the existing literature has revealed a lack of consensus on the precise ``origin'' of the mechanical response exhibited by hydrogels.
+
+In this regard, the key objective of the thesis is to explore a computational methodology for identifying parameters that represent the main properties of the polymeric network. 
+These parameters can then be coupled into constitutive relations to predict the mechanical response of a simplified polymeric network.
+To that end, we have established the following specific objectives:
+\begin{itemize}
+    \item Replicate the numeric protocol.
+    \item Adapt the protocol to create a more general network.
+    \item Apply shear deformation to the network.
+    \item Characterize the network before and after shear.
+    \item Analyze the parameters of the network under different shear conditions and different network parameters.
+\end{itemize}
+We expect that the parameter analysis will assist us in selecting a parameter or a combination of parameters to couple them into a constitutive equation.
+It is important to clarify that the definition of the constitutive equation or the mathematical procedure/proposal are not within the scope of this thesis. 
+The objective is to identify a relation between network characteristics and mechanical response.
+
+In the following section, we will explore the applications of hydrogels identified during the literature review. 
+We will also introduce the main characteristics of the mechanical response in general terms.
+The subsequent theoretical framework chapter begins by explaining how to quantify the properties of the material and how to apply numerical simulations to analyze the system.
+Finally, we closed with the analysis of the numerical solutions chapter and the conclusion of this work.
+
 \section{Why Hydrogels?}
 
-General/intuitive thig about a gel.
+While the numerical protocol was initially developed for a specific polymeric network, we modified it to represent a more simplified case that resembles a broader group of polymeric networks.
+These polymeric networks are collectively referred to as hydrogels.
+Hydrogels are composed primarily of hydrophilic monomers, which are biocompatible, making them suitable for medical applications.
+In general terms, hydrogels exhibit visco-elastic and visco-plastic mechanical responses.
+The material's viscoelasticity response makes it suitable for use in shock absorption, vibration damping, and biological tissue mimicry.
+Meanwhile, the viscoplasticity response makes the material suitable for energy dissipation.
 
 \subsection{Applications}
 
-Lots of those and explain the impact an yes.
-Smart materials maybe.
+\paragraph{Medical applications} Drug delivery, emergency therapy, corneal tissue, bone tissue, tissue healing.
+
+\paragraph{Environmental applications} Remediation to sensing in wastewater, hevy metal removal, slective recovery, nutrient retention.
+
+\paragraph{Smart materials} promisng sensors and actuators with graphene, photoresponsive hydrogels, stimuli-responsive injectable hydrogels, future flexible smart devices, future regenerative medicine, human-machine integration.
 
 \subsection{Mechanical response}
 
-You know nothing John snow.
+The origin of the mechanical properties of hydrogels from first principles remains incompletely understood due to the complex multi-scale nature of these materials.
+One of the main reasons is that hydrogels consist of heterogeneous, often disordered polymer networks swollen with water, where molecular interactions (covalent bonds, physical crosslinks, entanglements, and solvent–polymer interactions) collectively determine macroscopic elasticity and viscoelasticity. 
+Accurately bridging atomic-scale forces and chemical bond dynamics to bulk mechanical behavior involves coupling nonlinear polymer physics, solvent effects, and dynamic crosslink kinetics. 
+This presents a significant challenge to current theoretical and computational models. 
+Furthermore, spatial heterogeneity, network defects, and time-dependent rearrangements complicate deriving constitutive relations purely from fundamental physics, necessitating multiscale approaches and approximations.
 
-\section{About this Thesis}
-
-How the thesis is organize.
-
-\subsection{Motivation}
-
-Because yes, why not.
-
-\subsection{Objectives}
-
-Do things.
 
 
