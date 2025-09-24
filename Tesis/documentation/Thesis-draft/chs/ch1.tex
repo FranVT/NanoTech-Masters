@@ -11,7 +11,7 @@ After a brief literature review has revealed the extensive range of applications
 And a thorough review of the existing literature has revealed a lack of consensus on the precise ``origin'' of the mechanical response exhibited by hydrogels.
 
 In this regard, the key objective of the thesis is to explore a computational methodology for identifying parameters that represent the main properties of the polymeric network. 
-These parameters can then be coupled into constitutive relations to predict the mechanical response of a simplified polymeric network.
+These parameters can then be coupled into a constitutive relations to predict the mechanical response of a simplified polymeric network.
 To that end, we have established the following specific objectives:
 \begin{itemize}
     \item Replicate the numeric protocol.
@@ -22,14 +22,14 @@ To that end, we have established the following specific objectives:
 \end{itemize}
 We expect that the parameter analysis will assist us in selecting a parameter or a combination of parameters to couple them into a constitutive equation.
 It is important to clarify that the definition of the constitutive equation or the mathematical procedure/proposal are not within the scope of this thesis. 
-The objective is to identify a relation between network characteristics and mechanical response.
+The objective is to identify a relation between network characteristics and mechanical response of the network.
 
 In the following section, we will explore the applications of hydrogels identified during the literature review. 
 We will also introduce the main characteristics of the mechanical response in general terms.
 The subsequent theoretical framework chapter begins by explaining how to quantify the properties of the material and how to apply numerical simulations to analyze the system.
 Finally, we closed with the analysis of the numerical solutions chapter and the conclusion of this work.
 
-\section{Why Hydrogels?}
+\section{About Hydrogels}
 
 While the numerical protocol was initially developed for a specific polymeric network, we modified it to represent a more simplified case that resembles a broader group of polymeric networks.
 These polymeric networks are collectively referred to as hydrogels.
@@ -37,14 +37,35 @@ Hydrogels are composed primarily of hydrophilic monomers, which are biocompatibl
 In general terms, hydrogels exhibit visco-elastic and visco-plastic mechanical responses.
 The material's viscoelasticity response makes it suitable for use in shock absorption, vibration damping, and biological tissue mimicry.
 Meanwhile, the viscoplasticity response makes the material suitable for energy dissipation.
+First, we will explore various applications of this material.
+Then, we will provide a brief introduction to viscoelasticity and viscoplasticity responses.
 
 \subsection{Applications}
 
-\paragraph{Medical applications} Drug delivery, emergency therapy, corneal tissue, bone tissue, tissue healing.
+The selection of applications is guided by several key factors. 
+First, considering the imminent threat that climate change poses to the global environment, investigating environmentally relevant applications is a priority.
+Second, to align with the institution's strategic research interests in biomedical applications, we have included examples from this sector.
+Finally, I was very interested in seeing applications of smart materials in this sector, based on my academic experience.
+Without further ado, here are some potential applications of this material.
 
-\paragraph{Environmental applications} Remediation to sensing in wastewater, hevy metal removal, slective recovery, nutrient retention.
+\paragraph{Environmental applications} By modulating the chemical structure, hydrogels can effectively remove a wide range of toxic compounds, such as heavy metals, organic pollutants, pathogens, or nutrients, or environmental parameters.
+In the article\citep{cinfrigniniGoldRushDesigning2024} explores an easy-to-make poly(acrylamide-co-acrylic acid) hydrogels as adsorbents for gold recovery from industrial wastewater containing other precious metals.
+In this review\citep{randoFunctionalBioBasedPolymeric2024} investigates the emerging topic of stimuli-responsive smart hydrogels, underscoring their potential in both sorption and detection of water pollutants.
+On this other review\citep{darbanHydrogelBasedAdsorbentMaterial2022a} explains the synthesis and adsorption mechanicsms in detail with the understanding of the regeneration, recovery, and reuse of hydrogel-based adsorbent materials.
+Finally in the article\citep{songSynthesisHydrogelsTheir2022} different synthetic strategies, crosslinking methods and their corresponding limitations and outstanding contributions of applications in the fields of removing environmental pollutants are reviewed to further provide a prospective view of their applications in water resources sustainability.
 
-\paragraph{Smart materials} promisng sensors and actuators with graphene, photoresponsive hydrogels, stimuli-responsive injectable hydrogels, future flexible smart devices, future regenerative medicine, human-machine integration.
+
+\paragraph{Medical applications} Hydrogels, have garnered significant attention as versatile materials in biomedical applications due to their high water content, biocompatibility, and tunable properties. 
+They mimic natural tissue environments, enhancing cell viability and function.
+In the article\citep{wuAdvancementsHydrogelsCorneal2024} they discuss the fundamentals of hydrogels, emphasizing their relevance to corneal tissue engineering, and explore various types of hydrogels, including stimuli-responsive variants.
+In the article\citep{kaurHydrogelsPotentialBiomaterial2024} highlight some of the recent interesting applications of bioactive hydrogels in the field of antibacterial wound healing, oral delivery of drugs, cancer immunotherapy, tissue regeneration, and similar potential biomedical aspects.
+In the article\citep{thummaIntroductionClassificationApplications2025} presents a thorough investigation of the synthesis and medicinal uses of different naturally occurring and synthetic hydrogels, for cancer therapy, mainly via 3D modeling and printing.
+
+\paragraph{Smart materials} Stimuli responsive hydrogels are emerging as smart materials due to their tunable chemical and physical properties in response to various stimuli like pH, temperature, chemicals, pressure, electrical or light. 
+In this review article \citep{bishnoiCellulosebasedSmartMaterials2024}, we have discussed the role and overview of cellulose‐based hydrogels in elements of energy storage systems.
+In the article \citep{zhaoIntelligentHydrogelActuators2021} near infrared laser driven intelligent hydrogel actuator systems with a high response rate were prepared via three-dimensional printing and hydrothermal synthesis.
+In this review article\citep{shomePhotoresponsiveSmartHydrogels2024}, basic mechanisms responsible for photo-responsiveness in hydrogels along with their potential applications are discussed.
+In this review\citep{duttaSmartMaterialsFlexible2024}, they discuss the state-of-the-art applications of hydrogels in flexible electronics, such as energy storage, touch panels, memristor devices, and sensors like temperature, gas, humidity, chemical, strain, and textile sensors, and the latest synthesis methods of hydrogels.
 
 \subsection{Mechanical response}
 
