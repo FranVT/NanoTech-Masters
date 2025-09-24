@@ -1,5 +1,4 @@
 
-
 Design principles for strong and tough hydrogels: https://doi.org/10.1038/s41578-024-00672-3
 Porous Hydrogels: Present Challenges and Future Opportunities: https://pubs.acs.org/doi/10.1021/acs.langmuir.2c02253
 Sorbents for Atmospheric Water Harvesting: From Design Principles to Applications:  https://doi.org/10.1002/anie.202211267

@@ -19,7 +19,7 @@ The primary benefit of this protocol is that previous numerical efforts in micro
 
 \subsection{Patchy particles representation}
 
-A patchy particle can be defined as a sphere with radius $r$ containing $n$ spheres of radius $l<r$ on its surface.
+A patchy particle\citep{bianchiPhaseDiagramPatchy2006,bianchiTheoreticalNumericalStudy2008} can be defined as a sphere with radius $r$ containing $n$ spheres of radius $l<r$ on its surface.
 The smaller spheres are typically referred to as ``patches'' and the number of patches is often refer to as ``functionality''.
 The center of the patches can be placed on the surface of the central particle. 
 However, it can also be modified to be at a point inside the enclosed volume of the main particle.
@@ -32,6 +32,9 @@ However, it is important to recognize that the geometry of the monomers and func
 Finally, to define the volume of the particle, a repulsive pairwise interaction is defined between the central particles.
 Meanwhile, to the formation of a polymeric network is facilitated by an attractive pairwise interaction defined between patches.
 Because this model is designed to simulate the final network, not the synthesis process, the pairswise interaction between central particles and patches is not defined.
+
+In contrast, the softness explain by particle interactions is characterized by the form of the repulsive pair potential between two particles.
+Finally, the particle volume fraction contributes to the ability of the particles to deform or compress, in contrast to hard spheres\footnote{The patchy particles are hard spheres, but the hydrogel network is a soft ``particle''}\citep{vlassopoulosTunableRheologyDense2014}.
 
 \subsection{Description of the system}
 

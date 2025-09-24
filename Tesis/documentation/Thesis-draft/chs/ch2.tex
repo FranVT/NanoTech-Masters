@@ -21,7 +21,7 @@ In order to try to understand (some of) the properties of the hydrogels, we are 
 
 In general terms, a polymeric network is a three dimensional structure formed by long polymer chains that are interconnected.
 Meanwhile, the swellability is defined as the capacity to absorb significant amounts of a solvent without dissolving, resulting in an increase volume.
-Since the swellability is a ``capacity'' of the network, we are going to start by exploring what is a polymeric structure.
+Since the swellability is a ``capacity'' of the network, we are going to start by exploring what is a polymeric structure\citep{bustamante-torresHydrogelsClassificationAccording2021}.
 
 \subsection{Polymeric networks}
 
@@ -39,12 +39,12 @@ Some of the key hydrophilic groups are,
     carboxylate anion,
     ether group.
 The hydrophilic phenomenon, from a chemical perspective, occurs when molecules possess polar or charged functional groups that spontaneously form hydrogen bonds or electrostatic interactions with water, enabling water to diffuse over the surface.
-Nevertheless, the network's integrity remains intact due to the crosslink mechanism.
+Nevertheless, the network's integrity remains intact due to the crosslink mechanism\citep{lelePredictionsBoundWater1997}.
 
 \paragraph{Crosslink} The underlying principles of crosslink mechanism are the physical interactions and covalent bonds.
 However it is important to acknolwdge that, for example, given sufficiently strong and static physical interactions, physical networks can behave identically to covalent bonded networks; 
 alternatively, the incorporation of mechanisms for covalent bond exchange can result in chemical networks that exhibit adaptable mechanical properties regulated by external stimuli [cite]. 
-Consequently, an emphasis on bond strengths and exchange rates provides more informative insights for accurately inferring the properties of hydrogels.
+Consequently, an emphasis on bond strengths and exchange rates provides more informative insights for accurately inferring the properties of hydrogels\citep{priyaComprehensiveReviewHydrogel2024}.
 
 With this understanding, a covalent bond is defined as a specific type of chemical bond that occurs when two atoms share one or more pairs of electrons. 
 On the other hand, a physical interaction is defined as a non-covalent force that describes how atoms, ions, or molecules attract or repel each other without forming new chemical entities. 
@@ -75,7 +75,7 @@ The hydrogel, however, is a specific type of gel in which the solvent is water a
 
 \paragraph{Gel point} The classification of a polymer network as a gel is characterized by the formation of a continuous, system-spanning (infinite) network through the process of polymerization or crosslinking mechanisms.
 This phenomenon is indicative of the percolation\footnote{In physics, percolation describes the emergence of large-scale connectivity in disordered systems. On the other hand, mathematically, is the study of cluster formation in a random graph or lattice when sites or bonds are occupied with a given probability.} of the polymeric network.
-And it is known as the gel point.
+And it is known as the gel point\citep{guPolymerNetworksPlastics2020}.
 At this point, the polymer chains become sufficiently interconnected through crosslinks to create a macroscopic network that spans the entire volume, causing the material to gain elasticity and lose fluidity, transitionning\footnote{This transition is a percolation threshold where the molecular weight and network correlation length diverge.} it from a viscous liquid (sol) to a solid-like gel.
 
 Finally, it must be mentioned that not all polymer networks can achieve a gel point.
@@ -87,7 +87,7 @@ For instance, linear, unbranched, or insufficiently crosslinked polymers remain 
 \paragraph{Intro} According to the literature, the most common classification is typically as physical or covalent hydrogels.
 In regards to the main crosslink mechanism present in the polymeric network.
 However, it is important to note that, although the crosslink mechanism plays a significant role in network integrity, it is not the sole mechanism that can adequately describe the mechanical response in terms of network structure.
-In this regard, three primary crosslink mechanisms can be identified: covalent, physical interactions, and mechanical\footnote{No estoy seguro si hablar de técincas de sintetización o si explicar mejor los mecanismos de bond exchange en redes covalentes y en redes físicas.}.
+In this regard, three primary crosslink mechanisms can be identified: covalent, physical interactions, and mechanical\footnote{No estoy seguro si hablar de técincas de sintetización o si explicar mejor los mecanismos de bond exchange en redes covalentes y en redes físicas.}\citep{bustamantetorresHydrogelsClassificationAccording2021}.
 
 \paragraph{Covalent Crosslinking} Polymer chains are linked by covalent bonds, which are typically formed through free-radical polymerization, click chemistry, or UV-induced reactions.
 This results in a static, stable, and robust network with high mechanical strength and low reversibility.
@@ -101,6 +101,12 @@ Finally, these networks are reversible, enabling self-healing, shape-memory, and
 \paragraph{Mechanical Crosslinking} Finally, these types of crosslinked networks are held together by physical entanglements or interpenetrating polymer chains.
 Examples include double-network hydrogels, slide-ring gels, and highly entangled architectures.
 This provides toughness and elasticity properties by dissipating energy through chain movement and entanglement.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/crosslinker_mechanisms.png}
+    \caption{Image with the three different crosslinker mechanisms}
+\end{figure}
 
 \subsection{Reverible networks}
 
@@ -209,6 +215,8 @@ Some examples of this type of deformation are the streching of a metal spring wi
     \sigma_{ij} = C_{ijkl}\epsilon_{kl}
 \end{gather}
 
+This establishes a connection between the stress tensor ($\sigma$), the shear modulus ($G$) of the material, the applied strain ($E$), and the Lame first parameter ($\lambda$) of the material\citep{bonyadiReviewFrictionLubrication2020}.
+
 \paragraph{Plastic relation} In contrast, a plastic deformation is when the material has an irreversible change in the shape or size.
 It is generally accepted that a material first enters an elastic regime and then reaches a yield point. 
 After this point, the deformation is irreversible.
@@ -219,7 +227,7 @@ This is valid when the deformation goes beyond the yield stress and the specific
     \dot{\bm{\epsilon}_{p}} = f\left(\bm{\sigma},\mathrm{Internal~varaibles}\right),\quad\bm{\sigma}>\bm{\sigma}_{y}\label{eqn:plasticEQN}.
 \end{gather}
 
-It is important to acknowledge that the definition of yield stress is also dependent on the material and the loading conditions.
+It is important to acknowledge that the definition of yield stress\citep{bonnYieldStressMaterials2017} is also dependent on the material and the loading conditions.
 For this reason, there are many yield criteria developed for different materials and conditions, such as Drucker-Prager, Mohr-Coulomb, Von Mises or Tresca criterion.
 The two most common yield criteria are the Von Mises and Tresca criterion.
 The von Mises yield criterion it is commonly used for ductile materials.
@@ -320,7 +328,7 @@ Finally, similar to the plastic deformation, the viscoplastic deformation occurs
 
 \subsection{Literature review: Hydrogel's Mechanical response}
 
-Well, I guess that I need to read papers and stuff.
+Well, I guess that I need to read papers and stuff\citep{bouzidElasticallyDrivenIntermittent2017}.
 
 \subsection{Bridge of macro to micro stress tensor}
 
@@ -525,7 +533,7 @@ Then, we will describe Langevin dynamics and explain how to solve them using the
 We have explored the concepts of how a hydrogel can be understood as a polymeric network and how that helps to gain insight into the mechanical response and the different mechanical responses.
 Now it is essential to introduce the concepto of colloid to integrate the mathematical tools with the hydrogel representation as a polymeric network.
 
-\paragraph{Colloids} A colloid is a heterogeneous mixture of two substances in different matter states and in different ratio.
+\paragraph{Colloids} A colloid is a heterogeneous mixture of two substances in different matter states and in different ratio\citep{castaneda-priegoColloidalSoftMatter2021}.
 It is commonly describe that one of the substance is dispersed into the other substance.
 The disparsed substance it is commonly denoted as disparsed phase, while the other substance is denoted as the continuous phase.
 The average size of the scattered phase's spots ranges from 1 nanometer to 1 micrometer.
@@ -557,6 +565,7 @@ The hydrogel can be understood as a mixture of water in the liquid state and a p
 Furthermore, the polymeric network typically exhibits a porosity ranging from 5 to 20 nanometers, however they can be tunned to reach the micron-scale size.
 This porosity enables the representation of the water as the dispersed phase, while the polymeric network is represented as the continuous phase.
 Therefore, the hydrogel can be modelled as a colloid.
+
 
 \subsection{Langevin dynamics}
 
