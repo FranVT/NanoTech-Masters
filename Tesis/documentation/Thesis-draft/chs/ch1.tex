@@ -4,9 +4,10 @@
 
 % About this thesis
 
-I found it quite intriguing to explore how materials react mechanically from first principles, and I devoted two years to this research, with the possibility of extending it further.
+I found it quite intriguing to explore how to describe material's mechanical reactions from first principles, and I devoted two years to this research, with the possibility of extending it further.
 Despite the financial constraints and significant computational resources required to solve quantum mechanical systems, we have implemented a feasible computational methodology to investigate the correlation between molecular geometrical structure and mechanical response.
 In addition, the computational methodology is based on a numeric protocol that replicates the polymeric network of PNIPAM microgels, which are a size-tunable hydrogel.
+
 After a brief literature review has revealed the extensive range of applications for hydrogels in various fields.
 And a thorough review of the existing literature has revealed a lack of consensus on the precise ``origin'' of the mechanical response exhibited by hydrogels.
 
@@ -33,7 +34,7 @@ Finally, we closed with the analysis of the numerical solutions chapter and the 
 
 While the numerical protocol was initially developed for a specific polymeric network, we modified it to represent a more simplified case that resembles a broader group of polymeric networks.
 These polymeric networks are collectively referred to as hydrogels.
-Hydrogels are composed primarily of hydrophilic monomers, which are biocompatible, making them suitable for medical applications.
+Hydrogels\citep{choiSynthesisHydrogelBasedMicrogels2025} are composed primarily of hydrophilic monomers, which are biocompatible, making them suitable for medical applications.
 In general terms, hydrogels exhibit visco-elastic and visco-plastic mechanical responses.
 The material's viscoelasticity response makes it suitable for use in shock absorption, vibration damping, and biological tissue mimicry.
 Meanwhile, the viscoplasticity response makes the material suitable for energy dissipation.
@@ -46,21 +47,25 @@ The selection of applications is guided by several key factors.
 First, considering the imminent threat that climate change poses to the global environment, investigating environmentally relevant applications is a priority.
 Second, to align with the institution's strategic research interests in biomedical applications, we have included examples from this sector.
 Finally, I was very interested in seeing applications of smart materials in this sector, based on my academic experience.
+Figure~\ref{fig:applications} provides graphical representations of the applications of the hydrogels discussed in this review article \citep{petelinsekToughHydrogelsLoadBearing2024}.
 Without further ado, here are some potential applications of this material.
 
-\paragraph{Environmental applications} By modulating the chemical structure, hydrogels can effectively remove a wide range of toxic compounds, such as heavy metals, organic pollutants, pathogens, or nutrients, or environmental parameters.
+%\paragraph{Environmental applications} 
+By modulating the chemical structure, hydrogels can effectively remove a wide range of toxic compounds, such as heavy metals, organic pollutants, pathogens, or nutrients, or environmental parameters.
 In the article\citep{cinfrigniniGoldRushDesigning2024} explores an easy-to-make poly(acrylamide-co-acrylic acid) hydrogels as adsorbents for gold recovery from industrial wastewater containing other precious metals.
 In this review\citep{randoFunctionalBioBasedPolymeric2024} investigates the emerging topic of stimuli-responsive smart hydrogels, underscoring their potential in both sorption and detection of water pollutants.
 On this other review\citep{darbanHydrogelBasedAdsorbentMaterial2022a} explains the synthesis and adsorption mechanicsms in detail with the understanding of the regeneration, recovery, and reuse of hydrogel-based adsorbent materials.
 Finally in the article\citep{songSynthesisHydrogelsTheir2022} different synthetic strategies, crosslinking methods and their corresponding limitations and outstanding contributions of applications in the fields of removing environmental pollutants are reviewed to further provide a prospective view of their applications in water resources sustainability.
 
-\paragraph{Medical applications} Hydrogels, have garnered significant attention as versatile materials in biomedical applications due to their high water content, biocompatibility, and tunable properties. 
+%\paragraph{Medical applications} 
+Hydrogels, have garnered significant attention as versatile materials in biomedical applications due to their high water content, biocompatibility, and tunable properties. 
 They mimic natural tissue environments, enhancing cell viability and function.
 In the article\citep{wuAdvancementsHydrogelsCorneal2024} they discuss the fundamentals of hydrogels, emphasizing their relevance to corneal tissue engineering, and explore various types of hydrogels, including stimuli-responsive variants.
 In the article\citep{kaurHydrogelsPotentialBiomaterial2024} highlight some of the recent interesting applications of bioactive hydrogels in the field of antibacterial wound healing, oral delivery of drugs, cancer immunotherapy, tissue regeneration, and similar potential biomedical aspects.
 In the article\citep{thummaIntroductionClassificationApplications2025} presents a thorough investigation of the synthesis and medicinal uses of different naturally occurring and synthetic hydrogels, for cancer therapy, mainly via 3D modeling and printing.
 
-\paragraph{Smart materials} Stimuli responsive hydrogels are emerging as smart materials due to their tunable chemical and physical properties in response to various stimuli like pH, temperature, chemicals, pressure, electrical or light. 
+%\paragraph{Smart materials} 
+Stimuli responsive hydrogels are emerging as smart materials due to their tunable chemical and physical properties in response to various stimuli like pH, temperature, chemicals, pressure, electrical or light. 
 In this review article \citep{bishnoiCellulosebasedSmartMaterials2024}, we have discussed the role and overview of cellulose‐based hydrogels in elements of energy storage systems.
 In the article \citep{zhaoIntelligentHydrogelActuators2021} near infrared laser driven intelligent hydrogel actuator systems with a high response rate were prepared via three-dimensional printing and hydrothermal synthesis.
 In this review article\citep{shomePhotoresponsiveSmartHydrogels2024}, basic mechanisms responsible for photo-responsiveness in hydrogels along with their potential applications are discussed.
@@ -69,7 +74,7 @@ In this review\citep{duttaSmartMaterialsFlexible2024}, they discuss the state-of
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=\textwidth]{figs/applications.png}
-    \caption{Chosen examples of tough hydrogels applied in the areas of a) tissue engineering, b) soft electronics, c) shape memory materials, d) 3D printing, e) biomedical devices, and f) adhesives. Notably, the majority of the highlighted examples ultimately serve biomedical applications\citep{petelinsekToughHydrogelsLoadBearing2024}.}
+    \caption{Chosen examples of tough hydrogels applied in the areas of a) tissue engineering, b) soft electronics, c) shape memory materials, d) 3D printing, e) biomedical devices, and f) adhesives. Notably, the majority of the highlighted examples ultimately serve biomedical applications\citep{petelinsekToughHydrogelsLoadBearing2024}.}\label{fig:applications}
 \end{figure}
 
 
@@ -80,6 +85,103 @@ One of the main reasons is that hydrogels consist of heterogeneous, often disord
 Accurately bridging atomic-scale forces and chemical bond dynamics to bulk mechanical behavior involves coupling nonlinear polymer physics, solvent effects, and dynamic crosslink kinetics. 
 This presents a significant challenge to current theoretical and computational models. 
 Furthermore, spatial heterogeneity, network defects, and time-dependent rearrangements complicate deriving constitutive relations purely from fundamental physics, necessitating multiscale approaches and approximations.
+
+In addition, the objective of deriving a constitutive equation requires the coupling of a macroscopic description with microscopic phenomena.
+In this regard, it is assumed in this work that by applying the macroscopic constitutive relations and then performing a time/space average of the microscopic stress and strain tensors can be achieved.
+
+\begin{figure}[ht!]
+    \centering
+    \centering
+    \includegraphics[width=\textwidth]{figs/mechResponse/0.png}
+    \caption{Explicar a detalle\citep{courbotRoleExtracellularMatrix2025}}\label{fig:mechresponse0}
+\end{figure}
+
+Description of figure\ref{fig:mechresponse0} 
+a Under a constant force, purely elastic materials deform instantly and maintain that deformation until the load is removed, at which point they immediately return to their original shape. Different from elastic materials, purely viscous materials undergo continuous deformation. Viscoelastic materials display an initial immediate response to force (elastic component) followed by an increase in the deformation over time (viscous component). Stress and strain colours are red and blue, respectively. b Under a constant force (black arrows), the deformation of a purely elastic matrix is time-independent: the matrix immediately deforms and returns to its initial shape when the force is applied and removed, respectively (top). Contrary to elastic matrices, viscoelastic matrices response changes with time: under a constant load, the deformation increases over time and they do not immediately return to their original shape once the load is removed (middle). Purely viscous matrices will continuously deform due to the force, and retain their deformed shape after the force is removed (bottom). c Creep test showing the deformation of a viscoelastic material in response to a constant force. The more  viscoelastic the material is, the more it deforms over time under the load. d A stress relaxation test shows the evolution of the stress in the material in response to constant deformation. Purely elastic materials experience constant stress. In a deformed viscoelastic material, the stress decreases over time. The stress relaxation half-time (t1/2) is defined as the time needed for the stress to reach half its initial value. The more viscoelastic material is, the faster the stress decreases and, therefore, the lower t1/2 is. e Decreasing the molecular weight of the ECM components decreases the network connectivity and, therefore, increases ECM viscoelasticity, as it favours energy dissipation and fibre movements. f Purely elastic materials are typically crosslinked by covalent bonds (left), while viscoelastic materials usually contain weaker crosslinks such as ionic bonds (right) or physical entanglements that favour stress relaxation. g In viscoplastic materials, permanent deformations remain after the load is removed due to the breaking of bonds and the formation of new bonds. h During a creep test, viscoplastic materials do not return to their original shape and retain permanent deformations\citep{courbotRoleExtracellularMatrix2025}.
+
+\paragraph{Start of literature review o haydrgel's mechanical response} Well, I guess that I need to read papers and stuff%\citep{bouzidElasticallyDrivenIntermittent2017}.
+
+It is important to mention that not all of the results 
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figs/mechResponse/mech_response1.png}
+    \caption{Tensile experiments. Strain-stress curve  of a novel bone-inspired fatigue-resistant hydrogel with excellent mechanical and piezoresistive properties from\citep{lyuBoneinspiredGNECHAPAAm2023}}
+\end{figure}
+
+\begin{comment}
+\begin{figure}[ht!]
+    \centering
+    \begin{minifigure}[c]{with=0.5textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/mechResponse/2a.png}\caption{a}
+    \end{minifigure}
+    \begin{minifigure}[c]{with=0.5textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/mechResponse/2b.png}\caption{b}
+    \end{minifigure}
+
+    \begin{minifigure}[c]{with=0.5textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figs/mechResponse/2c.png}\caption{c}
+    \end{minifigure}
+    \caption{Tensile experiments\ref{romischkeSwellingMechanicalCharacterization2022}}
+\end{figure}
+\end{comment}
+
+\begin{minipage}[c]{\textwidth}
+\centering
+\begin{minipage}[c]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{figs/mechResponse/2c.png}
+
+    MASO3 (2 mol/L) with BAP (2 mol\%) as a crosslinker
+\end{minipage}
+\begin{minipage}[c]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{figs/mechResponse/2c.png}
+
+     monomer AAMPSO3 (2 mol/L) with BAP (2 mol\%) as a crosslinker ($\epsilon$ = 8\%; n = 3)
+\end{minipage}
+
+\begin{minipage}[c]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{figs/mechResponse/2c.png}
+
+    ChondroFiller liquid
+\end{minipage}
+
+Tensile experiments\ref{romischkeSwellingMechanicalCharacterization2022}
+
+\end{minipage}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figs/mechResponse/3.jpeg}
+    \caption{Tensile tests from\citep{leiStretchableHydrogelsLow2020a}}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figs/mechResponse/4.png}
+    \caption{Tensile tests from\citep{chenMultilayeredCementhydrogelComposite2023}}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figs/mechResponse/5.png}
+    \caption{Tensile tests from\citep{petelinsekToughHydrogelsLoadBearing2024}. Uniaxial tensile test experiment of a plastically deforming material (red) and an elastic hydrogel (black).}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figs/mechResponse/6.png}
+    \caption{Tensile tests from\citep{kimFractureToughnessBlocking2022}}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.7\textwidth]{figs/mechResponse/7.png}
+    \caption{Compresive tests from\citep{wangRapidUniaxialActuation2018}}
+\end{figure}
+
 
 
 
