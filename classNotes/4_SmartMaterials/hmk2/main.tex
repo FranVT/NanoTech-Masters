@@ -27,15 +27,19 @@
 \setkeys{Gin}{width=\linewidth, totalheight=\textheight, keepaspectratio} % Default images settings
 
 \usepackage{amsmath, amsfonts, amssymb, amsthm} % For math equations, theorems, symbols, etc
-\usepackage{units} % Non-stacked fractions and better unit spacing
+%\usepackage{units} % Non-stacked fractions and better unit spacing
 \usepackage{physics}
 \usepackage{cancel}
+\usepackage{siunitx}
 
 \usepackage{booktabs} % Required for better horizontal rules in tables
 
 % For newtcbtheorem
 \usepackage[most]{tcolorbox}
 \usepackage{cleveref}
+\usepackage{fancybox}		% Recuadros emph eqn
+
+\usepackage{empheq}			% Recuadros para ecuaciones
 
 \setlength{\marginparwidth}{0mm}
 \setlength{\parskip}{1em}
@@ -75,6 +79,8 @@
     after skip = 3ex
 }{def}
 
+\bibliographystyle{apalike}
+\nobibliography{}
 
 %----------------------------------------------------------------------------------------
 
@@ -92,11 +98,33 @@ Assuming that the stress required to initiate martensitic transformation in a Ni
 It is given that Nitinol undergoes martensitic transformation at a stress of 300 MPa at 30°C.
 \end{prob}
 
+The rate of masrtensitic transformation in a Nitinol wire is given $C_{M}=\SI[quotient-mode=fraction,parse-numbers=false]{1/5}{\degreeCelsius\per\mega\pascal}$.
+Since it is a linear relation, we can use the given data that martensitic transformation at stress of \SI{300}{\mega\pascal} at \SI{30}{\degreeCelsius} to compute the initial temperature at with martensite start forming at stress equal $0$ as follows,
+\begin{align*}
+    M_{s}^T &= M_s + \frac{T}{C_M} \\
+    M_s &= M_{s}^T - \frac{T}{C_M} \\
+    M_s &= \SI{300}{\mega\pascal} - \frac{\SI{30}{\degreeCelsius}}{\SI[quotient-mode=fraction,parse-numbers=false,per-mode=fraction]{1/5}{\degreeCelsius\per\mega\pascal}} \\
+        &= \SI{300}{\mega\pascal} - \SI{150}{\mega\pascal} \\
+        &= \SI{150}{\mega\pascal}.
+\end{align*}
+Now, we can apply the same equation to compute the required stress to start initiate martensitic transformation at \SI{50}{\degreeCelsius}.
+\begin{align*}
+    M_{s}^T &= M_s + \frac{T}{C_M} \\
+            &=\SI{150}{\mega\pascal} + \frac{\SI{50}{\degreeCelsius}}{\SI[quotient-mode=fraction,parse-numbers=false,per-mode=fraction]{1/5}{\degreeCelsius\per\mega\pascal}} \\
+            &=\SI{400}{\mega\pascal}.
+\end{align*}
+
+\begin{empheq}[box=\shadowbox]{equation*}
+    M_{s}^T = \SI{400}{\mega\pascal}
+\end{empheq}
+
 \begin{prob}{~}{label2}
 A SMA wire shows a stress plateau during martensitic transformation from 350 MPa to 400 MPa. 
 The strain increases from 0.02 to 0.05 during this plateau. 
 Calculate the approximate work done per unit volume during the martensitic transformation.
 \end{prob}
+
+
 
 \begin{prob}{~}{label3}
 A Nitinol wire has a stress-induced martensitic transformation starting at 200 MPa at 30 °C and ending at 500 MPa. 
