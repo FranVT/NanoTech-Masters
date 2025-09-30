@@ -102,9 +102,6 @@ The program incorporates programming commands that define variables, perform con
 The input script is parsed and executed one line at a time. 
 This feature allows a single script to run a simulation in stages, alter one or more parameters between stages, or run a series of independent simulations where the entire system is reinitialized multiple times.
 
-\paragraph{Implementation} About tables and the general script.
-
-
 \begin{itemize}
     \item \verb|table| command
     \item \verb|langevin| command
@@ -112,21 +109,25 @@ This feature allows a single script to run a simulation in stages, alter one or 
     \item \verb|boundary| command
 \end{itemize}
 
-Not sure if I need to describe almost line by line the scripts.
-
-
 \subsection{Three-body potential}
 
-How was defined the table potential into lammps, the projections and that stuff.
+An importante technica issue to address is the tabulation of the threebody potential to introduce the swap potential into LAMMPS.
+This is because the forces on all three particles $I$, $J$, and $K$ of a triplet of this type of three-body interaction potential lie within the plane defined by the three inter-particle distance vectors $\vec{r}_{IJ}$, $\vec{r}_{IK}$ and $\vec{r}_{JK}$.
+This property is used to project the forces onto the inter-particle distance vectors.
+Hence, we need to create a table taking that into consideration, for that we \textbf{\ldots}
 
 \section{Results}
-
-
-So.. The results and stuff
 
 \subsection{Mechanical response}
 
 Strain stress graph
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/strain-vs-stressxy.png}
+    \caption{results from computational results test}
+\end{figure}
+
 
 \subsection{Network analysis}
 
