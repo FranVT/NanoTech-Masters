@@ -184,7 +184,12 @@ Therefore, to start stress-induced martensitic transformation at \SI{80}{\degree
     T(\SI{80}{\degreeCelsius})= \SI{700}{\mega\pascal}
 \end{empheq}
 
-Now, with this information and assuming the linear relation, we can compute the finish stress-induced martensitic transformation at \SI{80}{\degreeCelsius} as follows:
+\begin{marginfigure} 
+    \includegraphics{imgs/problem3.jpg}
+    \caption{Linear relations between the initial and final temperature-stress of martensitic transformations}\label{fig:prob3}
+\end{marginfigure}
+
+Now, with this information and assuming the linear relation (figure~\ref{fig:prob3}), we can compute the finish stress-induced martensitic transformation at \SI{80}{\degreeCelsius} as follows:
 \begin{align*}
     T(\theta_2) - T(\theta_1) &= C_{M}(\theta_2 - \theta_1).
 \end{align*}
@@ -204,27 +209,144 @@ Therefore, to finish the stress-induced martensitic transformation at \SI{80}{\d
 \end{empheq}
 
 
-\begin{marginfigure} 
-    \includegraphics{imgs/problem3.jpg}
-    \caption{Linear relations between the initial and final temperature-stress of martensitic transformations}
-\end{marginfigure}
-
 \begin{prob}{~}{label4}
-The martensite start and finish temperatures (Ms and Mf), the austenite start and finish temperatures (As and Af) and the slopes of the variation of Ms and Mf with stress (T) i.e., CM and the slope of variation of As and Af with T, i.e., CA, of a shape memory material are as follows: Ms = 25 ◦C, Mf = 5 ◦C, As = 29 ◦C, Af = 51 ◦C, CA = 4.5 MPa/◦C, CM = 11.3 MPa/◦C. 
+The martensite start and finish temperatures (Ms and Mf), the austenite start and finish temperatures (As and Af) and the slopes of the variation of Ms and Mf with stress (T) i.e., CM and the slope of variation of As and Af with T, i.e., CA, of a shape memory material are as follows: 
+    Ms = 25 ◦C, 
+    Mf = 5 ◦C, 
+    As = 29 ◦C, 
+    Af = 51 ◦C, 
+    CA = 4.5 MPa/◦C, 
+    CM = 11.3 MPa/◦C. 
 The elastic modulus of the material is 15 GPa and it has a recovery strain of 8\%. 
+
 For this material compute the following: 
 \begin{itemize}
     \item Calculate the martensitic fraction when the material is cooled to 20 °C from 25 °C in a zero-stress state.
     \item If the temperature is maintained at 25 °C, determine the martensitic fraction when a tensile stress of 100 MPa is applied to the wire.
     \item The wire is heated above Af = 51 ◦C, and then cooled under zero stress to 30 °C. Subsequently, it is subjected to loading to activate the shape memory effect, leading to complete phase transformation, starting from point a to point e (as illustrated in the Figure below).
+{\centering
+\includegraphics[width=0.9\textwidth]{imgs/SMAcurve.jpg}
+}
 \end{itemize}
 Calculate the stress and strain values at points a, b, c, and d on the stress–strain diagram.
 \end{prob}
 
-\begin{figure}[ht!]
-    \includegraphics[width=0.9\textwidth]{imgs/SMAcurve.jpg}
-    \caption{Strain-Stress curve}\label{fig:hmk2}
-\end{figure}
+\paragraph{Compute Martensitic fraction at zero stress}~\\
+First we recall that $M_f$ and $M_s$ are the temperatures of start and finish of martensitic transfromation with $T=0$.
+With this in mind, we infer that we are going from an Austenitic phase to Martensitic phase, hence we can compute the value using the following equation,
+\begin{gather}
+    \xi_{A\to M} = \frac{1}{2}\left\{\cos\left[\frac{\pi}{M_s-M_f}\qty(\theta-M_f) - \frac{\pi}{C_M(M_s-M_f)}T \right]+1\right\}\label{eqn:martFraction},
+\end{gather}
+replacing the numeric values,
+\begin{align*}
+    \xi_{A\to M}\qty(\SI{20}{\degreeCelsius}) &= \frac{1}{2}\left\{\cos\left[\frac{\pi}{\SI{25}{\degreeCelsius}-\SI{5}{\degreeCelsius}}\qty(\SI{20}{\degreeCelsius}-\SI{5}{\degreeCelsius}) - \cancelto{0}{\frac{\pi}{C_M(M_f-M_s)}T} \right]+1\right\} \\ 
+                 &= \frac{1}{2}\left\{\cos\left[\frac{\SI{15}{\degreeCelsius}}{\SI{20}{\degreeCelsius}}\pi\right]+1\right\} \\
+                 &= \frac{1}{2}\left\{\frac{2-\sqrt{2}}{2}\right\} \\
+                 &\approx 0.1464.
+\end{align*}
+
+The martensitic fraction increases to 0.1464.
+\begin{empheq}[box=\shadowbox]{equation*}
+    \xi_{A\to M}\qty(\SI{20}{\degreeCelsius}) = \frac{2-\sqrt{2}}{4}\approx0.1464
+\end{empheq}
+
+\paragraph{Martensitic fraction at constant temperature}~\\
+Using the same equation~\eqref{eqn:martFraction}, with values of $T=\SI{25}{\degreeCelsius}$ and $T=\SI{100}{\mega\pascal}$ we get the following value,
+\begin{align*}
+    \xi_{A\to M} &= \frac{1}{2}\left\{\cos\left[\pi\cancelto{1}{\frac{\SI{25}{\degreeCelsius}-\SI{5}{\degreeCelsius}}{\SI{25}{\degreeCelsius}-\SI{5}{\degreeCelsius}}} - \pi\frac{\SI{100}{\mega\pascal}}{\SI{11.3}{\mega\pascal\per\degreeCelsius}(\SI{25}{\degreeCelsius}-\SI{5}{\degreeCelsius})} \right]+1\right\} \\
+                 &= \frac{1}{2}\left\{\cos\left[\pi - \pi\frac{50}{113} \right]+1\right\} \\
+                 &\approx \frac{1}{2}\left\{0.82027\right\} \\
+                 &\approx 0.41013
+\end{align*}
+
+The martensitic fraction increases to 0.41013.
+\begin{empheq}[box=\shadowbox]{equation*}
+    \xi_{A\to M}\approx0.41013
+\end{empheq}
+
+\paragraph{Stress and strain values}~\\
+Since the wire is heated above Austenitic final temperature, the alloy is at $\xi=0$.
+Then, it is colled to \SI{30}{\degreeCelsius} with $T=0$.
+Recalling that the martensitic start temperature is $M_s=\SI{25}{\degreeCelsius}$, we known that no martensite has formed, hence $\xi=0$.
+
+Now, in order to compute the stress and strain in each point we are going to apply the constitutive equation of one dimension for shape memory alloys,
+\begin{gather}
+    T - T^o = Y(S-S^o)-YS_L(\xi-\xi^o)\label{eqn:constEqn}.
+\end{gather}
+
+\paragraph{a)} Applying the values of the martensitic values ($\xi=\xi^o=0$) and that this was perform under zero stress $T^o=S^o=0$, get that,
+\begin{gather*}
+    T = YS
+\end{gather*}
+and we known that at point $a$ $T=0$, then $S=0$.
+\begin{empheq}[box=\shadowbox]{equation*}
+    T^a=0,\quad S^a=0.    
+\end{empheq}
+
+\paragraph{b)} The strain-stress relation to point b) can still be computed by,
+\begin{gather*}
+    T = YS,
+\end{gather*}
+because no martensitic transformation has started.
+However, we known that at b), we reach the critical stress at which the martensitic transformation starts.
+The value of the stress at that point can be computed with the following linear relation, 
+\begin{gather*}
+    T^b = C_M\qty(\theta_o - M_s),
+\end{gather*}
+where $\theta_o = \SI{30}{\degreeCelsius}$, hence
+\begin{align*}
+    T^b &= \SI{11.3}{\mega\pascal\per\degreeCelsius}\qty(\SI{30}{\degreeCelsius} - \SI{25}{\degreeCelsius}) \\
+        &= \SI{11.3}{\mega\pascal\per\degreeCelsius}\SI{5}{\degreeCelsius} \\
+        &= \SI{56.5}{\mega\pascal}.
+\end{align*}
+Now that we known the stress we can compute the strain,
+\begin{align*}
+    T^b &= YS^b \\
+    S^b &= \frac{T^b}{Y} \\
+        &= \frac{\SI{56.5}{\mega\pascal}}{\SI{15}{\giga\pascal}} \\
+        &= \SI{3.76d-3}{}.
+\end{align*}
+
+\begin{empheq}[box=\shadowbox]{equation*}
+    T^b=\SI{56.5}{\mega\pascal},\quad S^b=\SI{3.76d-3}{}.    
+\end{empheq}
+
+\paragraph{c)} Now, from b) to c) we fullfill the martensitic transformation $\xi^c=1$ and $\xi^b=0$.
+Also, from the figure we known that we reach the maximum strain $S_L$ which is the recovery strain 8\%.
+With this value the constitutive equation\eqref{eqn:constEqn} for this process is,
+\begin{align*}
+    T^c - T^b &= Y(S^c-S^b)-YS_L(\xi^c-\xi^b) \\
+    T^c - T^b &= Y(S^c-S^b)-YS_L(1-0) \\
+    T^c - T^b &= Y(S^c-S^b)-YS_L.
+\end{align*}
+And since $T^b = YS^b$, the relation simplifies to,
+\begin{align*}
+    T^c - T^b &= Y(S^c-S^b)-YS_L \\
+          T^c &= YS^c-YS_L.
+\end{align*}
+Finally, we recall the linear relation $T = C_m\qty(\theta_o-M_f)$ and recalling that this and isothermal process, then $\theta_o=\SI{30}{\degreeCelsius}$, we can compute the stress at c) as follows,
+\begin{align*}
+    T^c &= \SI{11.3}{\mega\pascal\per\degreeCelsius}\qty(\SI{30}{\degreeCelsius}-\SI{5}{\degreeCelsius}) \\
+        &= \SI{282.5}{\mega\pascal}.
+\end{align*}
+Naturally, for the strain it follows,
+\begin{align*}
+    T^c &= YS^c-YS_L \\
+    S^c &= \frac{T^c}{Y}+S_L \\
+        &= \frac{\SI{282.5}{\mega\pascal}}{\SI{15}{\giga\pascal}} + 0.08 \\
+        &= 0.09883
+\end{align*}
+
+\begin{empheq}[box=\shadowbox]{equation*}
+    T^c=\SI{282.5}{\mega\pascal},\quad S^c=\SI{0.09883}{}.    
+\end{empheq}
+
+\paragraph{d} Finally, the unloading process $c\to d$ we know by looking the figure that $T=0$ and $S=0.08$.
+
+\begin{empheq}[box=\shadowbox]{equation*}
+    T^d=\SI{0}{\mega\pascal},\quad S^d=\SI{0.08}{}.    
+\end{empheq}
+
 
 
 \end{document}
