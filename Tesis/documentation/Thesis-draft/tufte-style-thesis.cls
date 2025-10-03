@@ -366,7 +366,7 @@
 
 	\if@colorful
 		\hypersetup{
-			colorlinks = true,
+		%	colorlinks = true,
 			linkcolor = niceBlue,
 			anchorcolor = niceBlue,
 			citecolor = .,
