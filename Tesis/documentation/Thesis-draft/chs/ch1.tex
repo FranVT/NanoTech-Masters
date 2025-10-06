@@ -4,14 +4,13 @@
 
 % About this thesis
 
-I found it quite intriguing to explore how to describe material's mechanical reactions from first principles, and I devoted two years to this research, with the possibility of extending it further.
+I found it very interesting to explore how to describe material's mechanical response from first principles, and I devoted two years to this research, with the possibility of extending it further.
 Despite the financial constraints and significant computational resources required to solve quantum mechanical systems, we have implemented a feasible computational methodology to investigate the correlation between molecular geometrical structure and mechanical response.
 In addition, the computational methodology is based on a numeric protocol that replicates the polymeric network of PNIPAM microgels, which are a size-tunable hydrogel.
 
-After a brief literature review has revealed the extensive range of applications for hydrogels in various fields.
+From a brief literature review has revealed the extensive range of applications for hydrogels in various fields.
 And a thorough review of the existing literature has revealed a lack of consensus on the precise ``origin'' of the mechanical response exhibited by hydrogels.
-
-In this regard, the key objective of the thesis is to explore a computational methodology for identifying parameters that represent the main properties of the polymeric network. 
+In this regard, the key objective of the thesis is to explore a computational methodology for identifying parameters that can represent the main properties of the polymeric network. 
 These parameters can then be coupled into a constitutive relations to predict the mechanical response of a simplified polymeric network.
 To that end, we have established the following specific objectives:
 \begin{itemize}
@@ -19,9 +18,9 @@ To that end, we have established the following specific objectives:
     \item Adapt the protocol to create a more general network.
     \item Apply shear deformation to the network.
     \item Characterize the network before and after shear.
-    \item Analyze the parameters of the network under different shear conditions and different network parameters.
+    \item Analyze the strain-stress curves of the material under different shear conditions and different network parameters.
 \end{itemize}
-We expect that the parameter analysis will assist us in selecting a parameter or a combination of parameters to couple them into a constitutive equation.
+We expect that the analysis will assist us in selecting a parameter or a combination of parameters to couple them into a constitutive equation.
 It is important to clarify that the definition of the constitutive equation or the mathematical procedure/proposal are not within the scope of this thesis. 
 The objective is to identify a relation between network characteristics and mechanical response of the network.
 
@@ -80,37 +79,34 @@ In this review\citep{duttaSmartMaterialsFlexible2024}, they discuss the state-of
 
 \subsection{Mechanical response}
 
+The origin of the mechanical properties of hydrogels from first principles remains incompletely understood due to the complex multi-scale nature of these materials\citep{senffTemperatureSensitiveMicrogel1999}.
+Hydrogels consist of heterogeneous, often disordered polymer networks swollen with water, where molecular interactions (covalent bonds, physical crosslinks, entanglements, and solvent–polymer interactions) collectively determine macroscopic elasticity and viscoelasticity. 
+Accurately bridging atomic-scale forces and chemical bond dynamics to bulk mechanical behavior involves coupling nonlinear polymer physics, solvent effects, and dynamic crosslink kinetics. 
+Which presents a significant challenge to current theoretical and computational models. 
+
 Viscoelastic materials exhibit a mechanical response that lies between elastic and plastic deformation.
-Hydrogels, which are viscoelastic materials, initially respond elastically to a force and then undergo continuous viscous deformation.
+Hydrogels, initially respond elastically to a force and then undergo continuous viscous deformation.
 This continuous viscous deformation is known as ``creep''.
 Furthermore, when subjected to a constant strain, viscoelastic materials experience ``stress relaxation'', whereby stress decreases over time after the yield point.
 
-We will now delve deeper into the molecular mechanisms that influence the viscous response in hydrogels.
-As viscosity is directly related to energy dissipation, any molecular event that results in energy loss will contribute to viscoelasticity.
+When a hydrogel is deformed, the bonds, intermolecular distances, molecular conformation and chain orientation are modified accordingly.
+Furthermore, any molecular event resulting in energy dissipation contributes to viscoelasticity, given the direct correlation between viscosity and energy dissipation.
 One such factor is the polymer molecular weight, which affects the movement of entangled polymers.
 Another factor that promotes molecular mobility is the interconnectivity and cohesion of the network.
-These processes enable matrix flow under an applied force, thereby facilitating viscoelasticity.
+These processes enable network flow under an applied force, thereby facilitating viscoelasticity.
 
 Another molecular mechanism that contributes to viscoelasticity is the strength of the crosslinking mechanisms in the network.
 In the case of weak crosslink mechanisms, stress relaxation is observed; however, in strongly crosslinked hydrogels, this process is prevented. 
-This is due to the fact that weak bonds permit the release of energy and the separation of elements under force, thereby facilitating matrix relaxation or creep.
+This is due to the fact that weak bonds permit the release of energy and the separation of elements under force, thereby facilitating network relaxation or creep.
 Furthermore, weak bonds are capable of responding to force by dissociating and rebinding, which can result in plastic or permanent deformations.
-On the other hand, strong crosslink mechanisms prevent the network from flowing and dissipating energy, thereby promoting the material's predominantly elastic behaviour.
+This is in contrast to strong crosslink mechanisms, which prevent the network from flowing and dissipating energy, thereby promoting the material's predominantly elastic properties.
+It is widely accepted that permanent cross-links are responsible for the elastic properties of the material, while dynamic cross-links regulate energy dissipation.
 
 Finally, the water content has a significant impact on the viscoelasticity of the hydrogels.
-Applying pressure to the hydrogels causes water to flow in or out of the network, resulting in a time-dependent response due to changes in volume.
-This process is known as poroelasticity. It describes the behaviour of materials with fluid-filled pores when they are under mechanical stress.
-It is important to note that these changes result in viscous dissipation, which in turn impacts the viscoelastic properties.
+Applying pressure to the hydrogels causes water to flow in or out of the network, resulting in a time-dependent response due to changes in volume. This leads to strand extension and therefore firmness enhancement.
+This phenomenon is known as poroelasticity. 
+It is important to note that these changes result in viscous dissipation, which in turn impacts the viscoelastic properties\citep{sheikoArchitecturalCodeRubber2019,courbotRoleExtracellularMatrix2025}.
 
-
-The origin of the mechanical properties of hydrogels from first principles remains incompletely understood due to the complex multi-scale nature of these materials\citep{senffTemperatureSensitiveMicrogel1999}.
-One of the main reasons is that hydrogels consist of heterogeneous, often disordered polymer networks swollen with water, where molecular interactions (covalent bonds, physical crosslinks, entanglements, and solvent–polymer interactions) collectively determine macroscopic elasticity and viscoelasticity. 
-Accurately bridging atomic-scale forces and chemical bond dynamics to bulk mechanical behavior involves coupling nonlinear polymer physics, solvent effects, and dynamic crosslink kinetics. 
-This presents a significant challenge to current theoretical and computational models. 
-Furthermore, spatial heterogeneity, network defects, and time-dependent rearrangements complicate deriving constitutive relations purely from fundamental physics, necessitating multiscale approaches and approximations.
-
-In addition, the objective of deriving a constitutive equation requires the coupling of a macroscopic description with microscopic phenomena.
-In this regard, it is assumed in this work that by applying the macroscopic constitutive relations and then performing a time/space average of the microscopic stress and strain tensors can be achieved.
 
 \begin{figure}[ht!]
     \centering
@@ -121,99 +117,6 @@ In this regard, it is assumed in this work that by applying the macroscopic cons
 
 Description of figure\ref{fig:mechresponse0} 
 a Under a constant force, purely elastic materials deform instantly and maintain that deformation until the load is removed, at which point they immediately return to their original shape. Different from elastic materials, purely viscous materials undergo continuous deformation. Viscoelastic materials display an initial immediate response to force (elastic component) followed by an increase in the deformation over time (viscous component). Stress and strain colours are red and blue, respectively. b Under a constant force (black arrows), the deformation of a purely elastic matrix is time-independent: the matrix immediately deforms and returns to its initial shape when the force is applied and removed, respectively (top). Contrary to elastic matrices, viscoelastic matrices response changes with time: under a constant load, the deformation increases over time and they do not immediately return to their original shape once the load is removed (middle). Purely viscous matrices will continuously deform due to the force, and retain their deformed shape after the force is removed (bottom). c Creep test showing the deformation of a viscoelastic material in response to a constant force. The more  viscoelastic the material is, the more it deforms over time under the load. d A stress relaxation test shows the evolution of the stress in the material in response to constant deformation. Purely elastic materials experience constant stress. In a deformed viscoelastic material, the stress decreases over time. The stress relaxation half-time (t1/2) is defined as the time needed for the stress to reach half its initial value. The more viscoelastic material is, the faster the stress decreases and, therefore, the lower t1/2 is. e Decreasing the molecular weight of the ECM components decreases the network connectivity and, therefore, increases ECM viscoelasticity, as it favours energy dissipation and fibre movements. f Purely elastic materials are typically crosslinked by covalent bonds (left), while viscoelastic materials usually contain weaker crosslinks such as ionic bonds (right) or physical entanglements that favour stress relaxation. g In viscoplastic materials, permanent deformations remain after the load is removed due to the breaking of bonds and the formation of new bonds. h During a creep test, viscoplastic materials do not return to their original shape and retain permanent deformations\citep{courbotRoleExtracellularMatrix2025}.
-
-\paragraph{Start of literature review o haydrgel's mechanical response} Well, I guess that I need to read papers and stuff%\citep{bouzidElasticallyDrivenIntermittent2017}.
-
-
-
-
-It is important to mention that not all of the results 
-
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figs/mechResponse/mech_response1.png}
-    \caption{Tensile experiments. Strain-stress curve  of a novel bone-inspired fatigue-resistant hydrogel with excellent mechanical and piezoresistive properties from\citep{lyuBoneinspiredGNECHAPAAm2023}}
-\end{figure}
-
-\begin{comment}
-\begin{figure}[ht!]
-    \centering
-    \begin{minifigure}[c]{with=0.5textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figs/mechResponse/2a.png}\caption{a}
-    \end{minifigure}
-    \begin{minifigure}[c]{with=0.5textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figs/mechResponse/2b.png}\caption{b}
-    \end{minifigure}
-
-    \begin{minifigure}[c]{with=0.5textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{figs/mechResponse/2c.png}\caption{c}
-    \end{minifigure}
-    \caption{Tensile experiments\ref{romischkeSwellingMechanicalCharacterization2022}}
-\end{figure}
-\end{comment}
-
-\begin{minipage}[c]{\textwidth}
-\centering
-\begin{minipage}[c]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{figs/mechResponse/2c.png}
-
-    MASO3 (2 mol/L) with BAP (2 mol\%) as a crosslinker
-\end{minipage}
-\begin{minipage}[c]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{figs/mechResponse/2c.png}
-
-     monomer AAMPSO3 (2 mol/L) with BAP (2 mol\%) as a crosslinker ($\epsilon$ = 8\%; n = 3)
-\end{minipage}
-
-\begin{minipage}[c]{0.45\textwidth}
-    \includegraphics[width=\textwidth]{figs/mechResponse/2c.png}
-
-    ChondroFiller liquid
-\end{minipage}
-
-Tensile experiments\ref{romischkeSwellingMechanicalCharacterization2022}
-
-\end{minipage}
-
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figs/mechResponse/3.jpeg}
-    \caption{Tensile tests from\citep{leiStretchableHydrogelsLow2020a}}
-\end{figure}
-
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figs/mechResponse/4.png}
-    \caption{Tensile tests from\citep{chenMultilayeredCementhydrogelComposite2023}}
-\end{figure}
-
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figs/mechResponse/5.png}
-    \caption{Tensile tests from\citep{petelinsekToughHydrogelsLoadBearing2024}. Uniaxial tensile test experiment of a plastically deforming material (red) and an elastic hydrogel (black).}
-\end{figure}
-
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figs/mechResponse/6.png}
-    \caption{Tensile tests from\citep{kimFractureToughnessBlocking2022}}
-\end{figure}
-
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figs/mechResponse/7.png}
-    \caption{Compresive tests from\citep{wangRapidUniaxialActuation2018}}
-\end{figure}
-
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=0.7\textwidth]{figs/mechResponse/8.png}
-    \caption{compresive tests from\citep{xuestrongtoughrapidrecovery2023}}
-\end{figure}
-
 
 
 
