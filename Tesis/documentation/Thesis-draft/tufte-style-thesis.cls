@@ -110,18 +110,6 @@
 \RequirePackage{xparse}
 \RequirePackage{xpatch}
 \RequirePackage[numbers]{natbib}
-%\RequirePackage[
-	% doi=false,
-	% isbn=false,
-	% url=false,
-%	autocite 	= superscript,
-%	backend 	= biber,
-%	citestyle 	= numeric-comp,
-%	style 		= nature,
-	% citecolor   = niceBlue,
-%	sorting		= none,
-%	bibencoding = utf8,
-%]{biblatex}
 \RequirePackage{csquotes}
 %%% TEST footmisc
 \RequirePackage[
@@ -613,19 +601,6 @@
 	\oldtoc
 	\end{quote}
 }
-%	toc depth
-%\AtBeginDocument{\setcounter{tocdepth}{1}}
-
-%	B I B L I O G R A P H I C
-%	      R E F E R E N C E S  %this is black magic to me but it seems 2b working
-\makeatletter
-\newcommand\sidecite[2][]{\autocite{#2}\sidetext{\ifthenelse{\equal{#1}{}}{}{\vskip #1}%
-\@for\cle:={#2}\do{\makebox[0pt][r]{\autocite{\cle}}\fullcite{\cle}.\\\vskip 4pt}%
-}}
-\newcommand\sidetextcite[2][]{\sidetext{\ifthenelse{\equal{#1}{}}{}{\vskip #1}%
-\@for\cle:={#2}\do{\makebox[0pt][r]{\autocite{\cle}}\fullcite{\cle}.\\\vskip 4pt}%
-}}
-\makeatother
 
 
 %	flush T I G H T  L I S T S
