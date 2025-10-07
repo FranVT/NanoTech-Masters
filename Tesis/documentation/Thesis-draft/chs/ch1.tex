@@ -107,16 +107,47 @@ Applying pressure to the hydrogels causes water to flow in or out of the network
 This phenomenon is known as poroelasticity. 
 It is important to note that these changes result in viscous dissipation, which in turn impacts the viscoelastic properties\citep{sheikoArchitecturalCodeRubber2019,courbotRoleExtracellularMatrix2025}.
 
+The previous characteristics are qunatify by the strain-stress relation.
+On figure~\ref{fig:mechresponse0-a} it is a graphical resume of the strain-stress relation for an elastics, plastic and viscoelastic material.
+When a constant force (stress) is applied in an elastic material, the material deform instantly and mantain that deformation until the loas is remove, at wich point they return to their original shape (panel a.1).
+However, when this constant force it is applied in a viscous material, the deformation is no longer instant, instead, it undergo continuous deformation and when the applied force is remove, the material stays in the deformed shape (panel a.2).
+Therefore, a viscoelastic material, it display an initial immediate response to the force, followed by an increase in the defomation over time, then, when the force it is remove, the material recovers its original shape (panel a.3).
 
 \begin{figure}[ht!]
     \centering
     \centering
-    \includegraphics[width=\textwidth]{figs/mechResponse/0.png}
-    \caption{Explicar a detalle\citep{courbotRoleExtracellularMatrix2025}}\label{fig:mechresponse0}
+    \includegraphics[width=\textwidth]{figs/mechResponse/0-a.png}
+    \caption{Deformation at constant stress in an elastic (left), viscous (middle) and viscoelastic materials (right). Figure retrieve from\citep{courbotRoleExtracellularMatrix2025}}\label{fig:mechresponse0-a}
 \end{figure}
 
-Description of figure\ref{fig:mechresponse0} 
-a Under a constant force, purely elastic materials deform instantly and maintain that deformation until the load is removed, at which point they immediately return to their original shape. Different from elastic materials, purely viscous materials undergo continuous deformation. Viscoelastic materials display an initial immediate response to force (elastic component) followed by an increase in the deformation over time (viscous component). Stress and strain colours are red and blue, respectively. b Under a constant force (black arrows), the deformation of a purely elastic matrix is time-independent: the matrix immediately deforms and returns to its initial shape when the force is applied and removed, respectively (top). Contrary to elastic matrices, viscoelastic matrices response changes with time: under a constant load, the deformation increases over time and they do not immediately return to their original shape once the load is removed (middle). Purely viscous matrices will continuously deform due to the force, and retain their deformed shape after the force is removed (bottom). c Creep test showing the deformation of a viscoelastic material in response to a constant force. The more  viscoelastic the material is, the more it deforms over time under the load. d A stress relaxation test shows the evolution of the stress in the material in response to constant deformation. Purely elastic materials experience constant stress. In a deformed viscoelastic material, the stress decreases over time. The stress relaxation half-time (t1/2) is defined as the time needed for the stress to reach half its initial value. The more viscoelastic material is, the faster the stress decreases and, therefore, the lower t1/2 is. e Decreasing the molecular weight of the ECM components decreases the network connectivity and, therefore, increases ECM viscoelasticity, as it favours energy dissipation and fibre movements. f Purely elastic materials are typically crosslinked by covalent bonds (left), while viscoelastic materials usually contain weaker crosslinks such as ionic bonds (right) or physical entanglements that favour stress relaxation. g In viscoplastic materials, permanent deformations remain after the load is removed due to the breaking of bonds and the formation of new bonds. h During a creep test, viscoplastic materials do not return to their original shape and retain permanent deformations\citep{courbotRoleExtracellularMatrix2025}.
+Delveving into more specific viscoelastic properties, in figure~\ref{fig:mechresponse0-b} are shown the creep and stress relaxation strain-stress relation for viscoelastic materials.
+When the viscoelastic material is under a constant force, the material starts to elastically deform.
+The more viscoelasitc the material is, the more it deform over time under the load.
+Once the force it is removed, the deformation starts to undo.
+On the other hand, when a constant deformation it is applied to a viscoelastic material, the stress increases like an elastic material, however, the stress starts to reduce over the applied deformation.
+The more viscoelastic material is, the faster the stress decreases. 
+Once the deformation it is remove, the stress goes to zero.
 
+\begin{figure}[ht!]
+    \centering
+    \centering
+    \includegraphics[width=\textwidth]{figs/mechResponse/0-b.png}
+    \caption{Deformation at constant stress in a viscoelastic material.
+        Creep response at the left and the stress relaxation behaviour at the right.
+        Figure retrieve from\citep{courbotRoleExtracellularMatrix2025}}\label{fig:mechresponse0-b}
+\end{figure}
 
+Finally, it is important to notice that when the deformation goes beyond the plastic limit, the material has a plastic deformation.
+In figure~\ref{fig:mechresponse0-c} it is shown the creep response of the viescoelastic material under constant force, and when the stress is remove, a deformation remains.
+
+\begin{figure}[ht!]
+    \centering
+    \centering
+    \includegraphics[width=0.5\textwidth]{figs/mechResponse/0-c.png}
+    \caption{Creep response of viscoelastic materials. 
+        Figure retrieve from\citep{courbotRoleExtracellularMatrix2025}}\label{fig:mechresponse0-c}
+\end{figure}
+
+In the next chapter we are going to delve into the mathematical tools that allow us to quantify this relations.
+Also we are going to explain how this relations can be simulated via molecular dynamics and the connection between the numerical simulations and the experimental results.
 
