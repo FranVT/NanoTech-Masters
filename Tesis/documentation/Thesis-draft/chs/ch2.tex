@@ -354,7 +354,8 @@ Finally, similar to the plastic deformation, the viscoplastic deformation occurs
 
 \paragraph{Start of literature review o haydrgel's mechanical response} Well, I guess that I need to read papers and stuff%\citep{bouzidElasticallyDrivenIntermittent2017}.
 
-\paragraph{About stress relaxation in dual networks}
+
+\paragraph{Stress relaxation of a dual network}
 The stress relaxation can be explain by the dynamics of association and dissasociation of chains\citep{naritaViscoelasticPropertiesPolyvinyl2013}.
 In figure~\ref{fig:hydroMechResponse1} it is a comparison of a network with physical crosslinking mechanisms (left column) and a network with physical and chemical crosslink mechanisms (right row).
 Taking a lot of attation into the physical elastically active and the physical elastically inactive positions, we can see the main difference is the functionality of the crosslinking.
@@ -362,7 +363,7 @@ The elastically active have a functionality greater than 2, meanwhile, the elast
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.75\textwidth]{figs/explainMechResponse/dualNetwork1.png}
+    \includegraphics[width=0.7\textwidth]{figs/explainMechResponse/dualNetwork1.png}
     \caption{Stress relaxation mechanism for dual cross-linking mechanisms network\citep{naritaViscoelasticPropertiesPolyvinyl2013}.}\label{fig:hydroMechResponse1}
 \end{figure}
 
@@ -371,7 +372,69 @@ This distance it is represented in the figure~\ref{fig:hydroMechResponse1} with 
 And when the physical cross-linkers concentration is increase, two effects takes place.
 One, the elastically active physical cross-link increases, decresing the time of association.
 Second, increase the elastically inactive cross-links, which increases the time of association.
-In this hydrogel the ``competition'' of this two effects results in the increase in the time of association, which induces an incomplete relaxation or the chain reassociates before complre stress relaxation.
+In this hydrogel the ''competition'' of this two effects results in the increase in the time of association, which induces an incomplete relaxation or the chain reassociates before complre stress relaxation.
+
+\paragraph{Strain stifeening in dual networks}
+In this other article\citep{kongEffectCrossLinkHomogeneity2024}, they prepare randomly cross-linked networks of poly(n-butyl acrylate) via thermally initiated free-radical polymerization and regularly cross-linked networks via thiol-bromine coupling of tetrafunctional poly(n-butyl acrylate) star polymers. 
+Then they swell both types of networks in a mixture of monomer and cross-linker, which is polymerized to form double networks.
+In order to explore the effect of cross-link homogeneity in the strain stiffening behavior of regular and random networks.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figs/explainMechResponse/RAN-REG-networks.jpeg}
+    \caption{Hydrogel's network configuration.
+        Single network corresponds to 1a and 1b. 
+        Double network corresponds to 2a and 2b.\citep{kongEffectCrossLinkHomogeneity2024}.}\label{fig:RANnetworks}
+\end{figure}
+
+In general terms, randomly cross-linked networks contain a polydisperse distribution of strand lengths with a high fraction of short strands and thus should strain harden at relatively low extensions. 
+Meanwhile, regular networks, contain a much narrower distribution of predominantly higher molecular weight strands and should exhibit significantly delayed strain stiffening relative to comparable random networks.
+
+First, in figure~\ref{fig:RANnetworks} are shown the strain-stress response of a single random hydrogel network with different crosslink concentration.
+In the mechanical response, we can identify three distinct regimes: a linear elastic regime at low strain, a plateau at intermediate strain, and then a sharp increase in force at high strain, as the samples undergo strain stiffening.
+It is important to notice that the strain at break increases when the crosslink concentration increases.
+Also, the intermediate regime increases significantly with the concentration.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figs/explainMechResponse/singleRANtensile.jpeg}
+    \caption{Tensile response of random crosslink spatial distribution\citep{kongEffectCrossLinkHomogeneity2024}.}\label{fig:RANnetworks}
+\end{figure}
+
+Then, in figure~\ref{fig:RANnetworks} it is shown the mechanical response of a single regular hydrogel network with different crosslink concentration.
+As before, when the crosslinker concentration increases the strain at breake increases.
+On the other hand, in this type of hydrogel the plateau regime is lacking.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figs/explainMechResponse/singleREGtensile.jpeg}
+    \caption{Tensile response of regular crosslink spatial distribution\citep{kongEffectCrossLinkHomogeneity2024}.}\label{fig:RANnetworks}
+\end{figure}
+
+It is intereseting to notice that with a random network type the strain at break is higher than the strain at break of the regular network.
+Furthermore, by looking at the same crosslinker concentration ($\mathrm{RAN}_{20}$ and $\mathrm{REG}_{20}$ )in both types of networks, the elastic response is more dominant in the regular network, meanwhile, the strain-stiffeing behaviour is more notisible in the random network. 
+
+Once they characterize the single networks, they analyze the mechanical response onder tensile deformation of double network hydrogels.
+In figure~\ref{fig:RANnetworks} we can see that the strain at break for the regular networks increases, while the strain at break of random network decreses. 
+Also, in both types of networks we can see with more clarity the plastic, plateau and stiffeing regime.
+Furthermore, the stiffening is enhance.
+However, the plateau regime in the random networks shortens and the stiffening it is enhanced.
+In contrast, in the regular network the plateau regime appears.
+Finally, all of this is resume in the figure~\ref{fig:REGRANDNcomparison}. 
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figs/explainMechResponse/REGRANDN.jpeg}
+    \caption{Tensile response of regular crosslink spatial distribution\citep{kongEffectCrossLinkHomogeneity2024}.}\label{fig:RANnetworks}
+\end{figure}
+
+
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figs/explainMechResponse/comparissonREGRANDN.jpeg}
+    \caption{Tensile response of random crosslink spatial distribution\citep{kongEffectCrossLinkHomogeneity2024}.}\label{fig:REGRANDNcomparison}
+\end{figure}
 
 
 \paragraph{About shear thinning}
@@ -390,38 +453,10 @@ This behaviour can be explained by the disintanglement and alignment of alginate
     \caption{Shear-thinning\citep{varela-feijooMultiscaleInvestigationViscoelastic2023}.}\label{fig:hydroMechResponse2}
 \end{figure}
 
-\paragraph{Crosslinking homoginity in the network}
-In the article\citep{kongEffectCrossLinkHomogeneity2024}, a comparisson of a regular distributed crosslinking network is compared with a randomly distributed crosslinking network under tensile deformation to analyse the strain stiffening behaviour.
-Briefly, the randomly cross-linked networks were synthesized by free-radical polymerization of n-butyl acrylate and hexanediol diacrylate. 
-Meanwhile, regularly cross-linked networks were synthesized by cross-linking tetrafunctional poly(n-butyl acrylate) star polymers.
-
-On figure\ref{fig:REGRANDNcomparison} is a comparisson between 4 type of networks.
-Regular distributed crosslinkg network,
-a randomly distributed crossling network,
-regular distributed crosslinkg double network,
-and a randomly distributed crossling double network.
-
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=0.75\textwidth]{figs/explainMechResponse/comparissonREGRANDN.jpeg}
-    \caption{Tensile response of random crosslink spatial distribution\citep{kongEffectCrossLinkHomogeneity2024}.}\label{fig:REGRANDNcomparison}
-\end{figure}
 
 
 
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=0.75\textwidth]{figs/explainMechResponse/singleRANtensile.jpeg}
-    \caption{Tensile response of random crosslink spatial distribution\citep{kongEffectCrossLinkHomogeneity2024}.}
-\end{figure}
 
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=0.75\textwidth]{figs/explainMechResponse/singleREGtensile.jpeg}
-    \caption{Tensile response of regular crosslink spatial distribution\citep{kongEffectCrossLinkHomogeneity2024}.}
-\end{figure}
-
-It is important to mention that not all of the results 
 
 \begin{figure}[ht!]
     \centering
