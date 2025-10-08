@@ -1,0 +1,43 @@
+
+# Introduction
+
+... and mechanical response of hydrogels.
+
+Although there is a lot of investigation about the applications of hydrogels in different areas, there still a lack of understanding about the relation between the molecular phenomena and the mechanical response of hydrogels.
+In this regard ... explore a computational methodology that assist us into the identification of structural characteristics that are relevant into the mechanical response of hydrogels.
+With the intention of finding a mathematical way to couple those paratemeters into constitutive equations.
+
+viscoplasticity reponse makes the material suitable for energy dissipation (Change this)
+
+## Applications
+
+Modify the writting.
+
+## Mechanical response
+
+First paragraph: make a shift in the sentences.
+
+
+# Theoretical Frame work
+
+In this chapter we are going to develop the framework about Hydrogels, the quantification mathematical tools for the mechanical response, a brief literature review of the hydrogel's mechanical response in terms of molecular phenomena and how we can simulate this material via molecular dynamics.
+
+## Hydrogels
+
+From biblipgraphic review, we can define a hydrogel as a ...
+
+
+Me falta habalr de reversible networks
+Profundiar en crosslink mechanisms
+
+Mejorar la descripción de las ecuaciones constitutivas
+
+Desarrollar mejor el velocity verlet con los artículos que te pasaron
+
+Lammps hablar del potencial de 3 cuerpos.
+Hablar de las implementaciones del termostato.
+Hablar de la implementación de la deformación.
+
+
+
+

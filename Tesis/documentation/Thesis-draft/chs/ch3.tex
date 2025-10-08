@@ -82,12 +82,34 @@ The parameter $\epsilon_{m,n}$ is the energy of repulsion and $w$ is used to tun
 The cut off distance $r_c$ is the same as in the potential of interaction between patches, meanwhile the minimum distance $r_{\min}$ is the distance at the minimum of~\eqref{eqn:patch-patch_interaction}, \textit{i.e.} $\epsilon_{m,n}\equiv\abs{U_{\mathrm{patchy}}(r_{\min})}$.
 Finally, the energy of interaction between crosslinker patches ($\epsilon_{\mu^i,\mu^i}$) are set to $0$ to allow only crosslinker-monomer and monomer-monomer bonding (figure~\ref{fig:intento2}).
 
+\paragraph{Polymeric network parameters}
+Now that the interaction between pathcy particles have been described, we can describe the control parameters for the simulations.
+We set a constant number of patchy particles $N_p$, a packing fraction $\phi$ and a cross-link concentration $c$. 
+From this parameters we compute the volume of the box and the number of patchy particles of functionality 2 and the patchy particles of functionality 4.
 
-\paragraph{Physical Parameters} Particle size, box length, packing fraction, temperature.
+From time and computational constrains we set the total number of partiles to be $N_p=\num{8000}$.
+Which is a lower number of particles with respect other simulations[cites].
+Therefore, to compesate that we take assemble averages of 5 experiments, which is the same as simulating a system of \num{40000} particles, but with a more manageable computation requirements.
+
+The volume of the box was computed by computing the volume of the patchya particle A and B and scaling those values by the number of particles and the desire packing fraction.
+\begin{align*}
+    V_{\mathrm{box}} &= \frac{N_{\mathrm{patchyA}}V_{\mathrm{patchyA}}+N_{\mathrm{patchyB}}V_{\mathrm{patchyB}}}{\phi}
+\end{align*}
+The number of patchy particle of type A is computed as $N_{\mathrm{patchyA}} = c N_p$ and the number of patchy particles of type B as $N_{\mathrm{patchyB}}= N_p - N_{\mathrm{patchyA}}= N_p(1 - c )$.
+
+The temperature was set to be constat thru all the assembly process $T=0.05$ in Lennard-Jones units.
+The damp parameter was set to $\mathrm{damp}=0.01$, and it was a mess to get that value.
+
+The damp controlls the viscous response from the interaction between the thermal bath and the particles, which represents the interaction between water molecules and the polymer network.
+
+\subsection{Ddescription of the deformation}
+
+We use couette flow deformation or shear deformation because that is the deformation that we can implement computationationally.
 
 \paragraph{Deformation protocol} Constant shear rate, vary shear rate between simulations.
 First goes the assembly protocol then the shear deformation.
 Go beyond the elastic limit to see what's up.
+
 
 \section{LAMMPS}
 
