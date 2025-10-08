@@ -147,6 +147,13 @@ This feature allows a single script to run a simulation in stages, alter one or 
     \item \verb|boundary| command
 \end{itemize}
 
+although on lammps we use the fix nve, the simulation does not goes with constant energy.
+This fix invokes the velocity form of the Stoermer-Verlet time integration algorithm (velocity-Verlet).
+Which in the case of this molecular dynamics is makes a constant temperature.
+Which allows us to create a NVT ensemblle.
+Also, the constant volume it ensure with the fix deform, because Note that changing the tilt factors of a triclinic box does not change its volume.
+
+
 \subsection{Three-body potential}
 
 %An importante technica issue to address is the tabulation of the threebody potential to introduce the swap potential into LAMMPS.

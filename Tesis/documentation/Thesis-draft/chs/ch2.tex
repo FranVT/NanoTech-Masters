@@ -880,12 +880,33 @@ The Langevin equation improves conformational sampling over standard molecular d
 
 %\paragraph{Intro} 
 The core concept of the Velocity Verlet algorithm is to update particle positions and velocities using both current and predicted accelerations, ensuring time-reversibility and energy conservation over long simulations. 
-In systems governed by Langevin dynamics, the algorithm can incorporate random forces consistent with the fluctuation-dissipation theorem to simulate physically realistic Brownian motion.
-
-From a mathematical point of view, this algorithm is a second-order integratos for ordinary differential equations.
+From a mathematical point of view, this algorithm is a second-order integrator for ordinary differential equations.
+And is based on truncated Taylor expansion, which is defined as
+\begin{align}
+    r^{n+1} &= r^n + v^n dt + \frac{dt^2}{2m}f^n \\
+    v^{n+1} &= v^n + \frac{dt}{2m}(f^n+f^{n+1}).
+\end{align}
 Furthermore, from a computational perspective, Velocity Verlet is an explicit algorithm, easy to implement, and efficient in term of memory usage.
 It requires only the positions, velocities, and accelerations from the previous timestep.
 Which allows efficient parallelization and eliminates the need for additional memory allocations per step.
+
+The Stormr-Verle method is when we consider two successive time steps and eleminating the velocity variables.
+which gives,
+\begin{align}
+    r^{n+1} + 2r^{n} - r^{n-1} + \frac{dt^2}{m}f^{n},
+\end{align}
+with the associated velocity calculated by the central difference
+\begin{align}
+    v^n = \frac{r^{n+1} - r^{n-1}}{2dt}.
+\end{align}
+
+
+In systems governed by Langevin dynamics, the algorithm can incorporate random forces consistent with the fluctuation-dissipation theorem to simulate physically realistic Brownian motion.
+It is important to notice that the difficulty to develop accurate integrators for Langevin Dynamics stems from the non-analytic nature of $\beta(t)$, which invalidates the Taylor expansion commonly used for the derivation of the Verlet scheme.
+Hence, in order to develop a reliable integrator for Langevin dynamics one therefore needs to carefully treat the copupling between the stochastic and analytic contributions.
+
+Now we are going to derive the Stormer-velocity verlet scheme for the Langevin equation following the process shown in \citep{gronbech-jensenSimpleEffectiveVerlettype2013a}.
+
 
 \begin{algorithm}
 \caption{Velocity Verlet algorithm}\label{alg:two}
