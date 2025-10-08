@@ -906,6 +906,16 @@ It is important to notice that the difficulty to develop accurate integrators fo
 Hence, in order to develop a reliable integrator for Langevin dynamics one therefore needs to carefully treat the copupling between the stochastic and analytic contributions.
 
 Now we are going to derive the Stormer-velocity verlet scheme for the Langevin equation following the process shown in \citep{gronbech-jensenSimpleEffectiveVerlettype2013a}.
+First we integrate eqation[eqn] over a small time interval $dt$,
+
+With no approximation, this can be written as,
+
+cosndiering that we have a Gaussian random number with expected value and variance.
+
+Now, y integrating over we get,
+
+approximating the integral using finite differences and by substituting eqn[eqn] into ...
+
 
 
 \begin{algorithm}
