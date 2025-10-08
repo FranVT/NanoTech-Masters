@@ -27,7 +27,7 @@ In this chapter we are going to develop the framework about Hydrogels, the quant
 From biblipgraphic review, we can define a hydrogel as a ...
 
 
-Me falta habalr de reversible networks
+Me falta hablar de reversible networks
 Profundiar en crosslink mechanisms
 
 Mejorar la descripción de las ecuaciones constitutivas
@@ -38,6 +38,14 @@ Lammps hablar del potencial de 3 cuerpos.
 Hablar de las implementaciones del termostato.
 Hablar de la implementación de la deformación.
 
+Redactar con cuidado lo de los coloides.
+Un gel coloidal es distinto a un gel polimerico.
+Gel coloidal es como el carbopol y el gel polimerico es una red en un liquido.
 
+# Results
+
+Strain vs stress
+Time vs stress 
+Estres residual
 
 
