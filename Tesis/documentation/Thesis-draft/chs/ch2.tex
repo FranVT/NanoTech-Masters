@@ -862,8 +862,8 @@ Furthermore, the fact that the second term is not a function of the position of 
 
 On the other hand, the term $\vec{R}(t)$\footnote{No me acuerdo en donde está que se puede asumir que tiene distribución gaussiana.} is a ``random force'' subject to the following conditions
 \begin{gather}
-    \expval{\vec{R}(t)} = 0 \\
-    \expval{\vec{R}(t)\vec{R}(t')} = 2k_{B}T\gamma\delta\qty(t-t') 
+    \expval{\vec{R}(t)} = 0\label{eqn:LagDynamicNoiseExpval} \\
+    \expval{\vec{R}(t)\vec{R}(t')} = 2k_{B}T\gamma\delta\qty(t-t')\label{eqn:LagDynamicNoiseCorrelation} 
 \end{gather}
 The no time correlation is equivalent to assuming that the viscoelastic relaxation of the solvent is very rapid with respect to solute motions\footnote{Grote land Hynes [26] have investigated this assumption for motions involving barrier crossing and have found that while it is seriously in error for passage over sharp barriers (such as 12 recombination); it is quite adequate for conformational transitions such as might be found in polymer motions.\citep{pastorTechniquesApplicationsLangevin1994}}.
 
@@ -951,22 +951,40 @@ Replacing the term $\vec{v}^{n+1}$ in equation~\eqref{eqn:DerVelVerlet2} with eq
                     \right]
                     +r^n\label{eqn:DerVelVerlet4}.
 \end{equation}
-Now we need are going to tackle the integral of force in equations~\eqref{eqn:DerVelVerlet3,eqn:DerVelVerlet4}.
-Since is a deterministic force, we can approximate the integral such that both equations are correct to second order in $dt$.
+Now we need are going to tackle the integral of force in equations~\eqref{eqn:DerVelVerlet3} and~\eqref{eqn:DerVelVerlet4}.
+Since is a deterministic force, we can approximate the integral such that both equations are correct to second order in $dt$ and have the follwong pair of equations,
 \begin{align}
-    \vec{r}^{n+1} &= \frac{dt}{2+\gamma dt}\left[ 
+    \vec{r}^{n+1} &= r^n
+                    +\frac{dt}{2+\gamma dt}\left[ 
                         2\vec{v}^{n}                
-                        +\frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{F}(t)dt'
+                        +\frac{dt}{m}F^{n}
                         +\frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{R}(t')dt'
-                    \right]
-                    +r^n, \\
-    \vec{v}^{n+1} &= \frac{1}{m}\frac{dt}{2}\qty(\vec{F}^{n} + \vec{F}^{n+1})
+                    \right]\label{eqn:DerVelVerlet5}
+                    , \\
+    \vec{v}^{n+1} &= \vec{v}^{n}
+                     +\frac{1}{m}\frac{dt}{2}\qty(\vec{F}^{n} + \vec{F}^{n+1})
                      -\gamma\qty(r^{n+1}-r^n)
-                     +\frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{R}(t')dt'
-                     +\vec{v}^{n}.
+                     +\frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{R}(t')dt'\label{eqn:DerVelVerlet6}.
 \end{align}
-
-
+Finally, the integral over the random force is going to give another random variable with the same conditions of equations~\eqref{eqn:LagDynamicNoiseExpval} and~\eqref{eqn:LagDynamicNoiseCorrelation}, hence we can define the following,
+\begin{gather}
+    \eta^{n+1}\equiv\int_{t_n}^{t_{n+1}}\vec{R}(t')dt'\label{eqn:DerVelVerlet7},
+\end{gather}
+with $\expval{\eta^{n}}=0$ and $\expval{\eta^{n}\eta^{l}}=2k_{B}T\gamma\delta\qty(t-t')$.
+Replacing~\eqref{eqn:DerVelVerlet7} into equations~\eqref{eqn:DerVelVerlet5} and~\eqref{eqn:DerVelVerlet6},
+\begin{align}
+    \vec{r}^{n+1} &= r^n
+                    +\frac{dt}{2+\gamma dt}\left[ 
+                        2\vec{v}^{n}                
+                        +\frac{dt}{m}F^{n}
+                        +\frac{1}{m}\eta^{n+1}
+                    \right]\label{eqn:DerVelVerlet5}
+                    , \\
+    \vec{v}^{n+1} &= \vec{v}^{n}
+                     +\frac{1}{m}\frac{dt}{2}\qty(\vec{F}^{n} + \vec{F}^{n+1})
+                     -\gamma\qty(r^{n+1}-r^n)
+                     +\frac{1}{m}\eta^{n+1}\label{eqn:DerVelVerlet6}.
+\end{align}
 
 
 \begin{comment}
