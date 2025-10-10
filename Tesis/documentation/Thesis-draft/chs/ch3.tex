@@ -100,8 +100,7 @@ The number of patchy particle of type A is computed as $N_{\mathrm{patchyA}} = c
 Finally, the temperature was set to be constant thru all the assembly process $T=0.05$ in Lennard-Jones units, meanwhile, the damp parameter was set to $\mathrm{damp}=0.1$.
 It is important to notice that the damp controlls the viscous response from the interaction between the thermal bath and the particles, which represents the interaction between water molecules and the polymer network.
 
-\subsection{Description of the deformation}
-
+\paragraph{Deformation protocol} 
 Once the synthesis of the hydrogel was set, we peform a shear deformation to the resulting polymeric network.
 We select the shear deformation because shear forces dominate biological environments where hydrogels are typically deployed. 
 Also, shear testing provides a more uniform stress field throughout the hydrogel sample compared to tensile testing. 
@@ -109,7 +108,6 @@ In rheological measurements using parallel plate or cone-and-plate geometries, t
 Furthermore, shear rheometry excels at characterizing the complex viscoelastic properties that define hydrogel functionality.
 Many hydrogels exhibit shear-thinning behavior that is critical for applications like injection and 3D bioprinting. 
 
-\paragraph{Deformation protocol} 
 Since we are exploring this computational methodology to characterized the mechanical response, we choose to have a constant shear rate to deform beyond the plastic deformation limit.
 Also we vary the shear rate of the deformation to see the viscoelastic response of the material.
 The temperature was held constant to a value of $0.05$ Lennar-Jones units and a damp on \num{0.1}.
@@ -125,7 +123,9 @@ Hence, we need to create a table taking that into consideration, for that we \te
 
 Deformation.
 
+\paragraph{fix deform} To explain how the deformation is perform.
 
+\paragraph{fix stress} to explain how the stress tensor is computed.
 
 \section{Results}
 

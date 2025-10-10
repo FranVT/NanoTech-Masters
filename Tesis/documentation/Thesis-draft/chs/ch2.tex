@@ -423,7 +423,7 @@ In order to explore the effect of cross-link homogeneity in the strain stiffenin
     \includegraphics[width=0.75\textwidth]{figs/explainMechResponse/RAN-REG-networks.jpeg}
     \caption{Hydrogel's network configuration.
         Single network corresponds to 1a and 1b. 
-        Double network corresponds to 2a and 2b.\citep{kongEffectCrossLinkHomogeneity2024}.}\label{fig:RANnetworks}
+        Double network corresponds to 2a and 2b.\citep{kongEffectCrossLinkHomogeneity2024}.}\label{fig:RANREGnetworks}
 \end{figure}
 
 In general terms, randomly cross-linked networks contain a polydisperse distribution of strand lengths with a high fraction of short strands and thus should strain harden at relatively low extensions. 
@@ -447,7 +447,7 @@ On the other hand, in this type of hydrogel the plateau regime is lacking.
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=0.75\textwidth]{figs/explainMechResponse/singleREGtensile.jpeg}
-    \caption{Tensile response of regular crosslink spatial distribution\citep{kongEffectCrossLinkHomogeneity2024}.}\label{fig:RANnetworks}
+    \caption{Tensile response of regular crosslink spatial distribution\citep{kongEffectCrossLinkHomogeneity2024}.}\label{fig:REGnetworks}
 \end{figure}
 
 It is intereseting to notice that with a random network type the strain at break is higher than the strain at break of the regular network.
@@ -1088,7 +1088,7 @@ It is interesting to notice that the noise is represented as a single stochastic
     +\vec{v}^{n}
 \end{comment}
 
-Since we need to solve the equation~\eqref{eqn:BrownianDyn1} for $N$ particle, the implementation of the Velocity Verlet scheme for a many-particle system is computationally handled by the LAMMPS molecular dynamics package.
+Since we need to solve the equation~\eqref{eqn:BrownianDyn1} for a $N$ particle system, the implementation of the Velocity Verlet scheme for a many-particle system is computationally handled by the LAMMPS molecular dynamics software.
 A key benefit of this choice is that LAMMPS comes well-equipped with robust and scalable parallel computing schemes, enabling the efficient simulation of large systems. 
 This pre-existing, optimized framework is crucial, as developing a parallelized numerical solver from the ground up would be prohibitively time-consuming and complex. 
 This allows us to concentrate our efforts on designing the polymer network models and analysing their resulting mechanical properties, rather than on the simulation engine itself.
@@ -1106,20 +1106,21 @@ The program incorporates programming commands that define variables, perform con
 The input script is parsed and executed one line at a time. 
 This feature allows a single script to run a simulation in stages, alter one or more parameters between stages, or run a series of independent simulations where the entire system is reinitialized multiple times.
 
-\paragraph{Langevin} Here add the langevin equation that uses lammps to discuss the damp parameter.
-
+The Langevin equation in LAMMPS is implemented as follows,
 \begin{align}
     F &= F_c -\frac{m}{\mathrm{damp}}v + F_r, \\
-    F_r &\propto\sqrt{\frac{k_B T m}{dt\mathrm{damp}}}
+    F_r &\propto\sqrt{\frac{k_B T m}{dt\mathrm{damp}}},
 \end{align}
+where $F_c$ is the conservative force computed from particle-particle interactions.
+The term $F_r$ is equivalent to $-m\gamma v$ and $F_r$ is equivalent to the term $\vec{R}(t)$ on equation~\eqref{eqn:BrownianDyn1}.
+LAMMPS implements the random numbers to randomize the direction and magnitude of this force, where a uniform random number is used (instead of a Gaussian random number) for speed.
 
- is the conservative force computed via the usual inter-particle interactions (pair\_style, bond\_style, etc). The 
- and 
- terms are added by this fix on a per-particle basis. See the pair\_style dpd/tstat command for a thermostatting option that adds similar terms on a pairwise basis to pairs of interacting particles.
+The magnitud of the random force is derived from the fluctuation/dissipation theorem, where $k_B$ is the Boltzmann constant, $T$ is the desired temperature, $m$ the mass of the particle, $dt$ the timestep size and $\mathrm{damp}$ is the damping factor.
+The damp factor can be thought of as inversely related to the viscosity of the solvent.
+That is a small relaxation time implies a high-viscosity solvent and vice versa.
+This parameter is specified in time units and determines how rapidly the temperature is relaxed.
 
-\paragraph{nve} although on lammps we use the fix nve, the simulation does not goes with constant energy.
-This fix invokes the velocity form of the Stoermer-Verlet time integration algorithm (velocity-Verlet).
-Which in the case of this molecular dynamics is makes a constant temperature.
-Which allows us to create a NVT ensemblle.
-Also, the constant volume it ensure with the fix deform, because Note that changing the tilt factors of a triclinic box does not change its volume.
+On the other hand, to use the velocity verlet scheme previously discussed, we need to used the command \verb|fix nve|.
+Although the command makes allution to the NVE enssemble, what really does is to invoke the velocity form of the Stoermer-Verlet time integration algorithm (velocity-Verlet).
+The combination of \verb|fix langevin| and \verb|fix nve| allow us to perform molecular dynamics with particle-particle interaction for a many particle system.
 
