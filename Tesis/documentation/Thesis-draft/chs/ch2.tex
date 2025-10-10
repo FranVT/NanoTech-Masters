@@ -788,7 +788,7 @@ Then, we will describe Langevin dynamics and explain how to solve them using the
 \subsection{Colloids}
 
 We have explored the concepts of how a hydrogel can be understood as a polymeric network and how that helps to gain insight into the mechanical response and the different mechanical responses.
-Now it is essential to introduce the concepto of colloid to integrate the mathematical tools with the hydrogel representation as a polymeric network.
+Now it is essential to introduce the concept of colloid to integrate the mathematical tools with the hydrogel representation as a polymeric network.
 
 %\paragraph{Colloids} 
 A colloid is a heterogeneous mixture of two substances in different matter states and in different ratio\citep{castaneda-priegoColloidalSoftMatter2021}.
@@ -822,7 +822,7 @@ Naturally, our primary objective is to represent the hydrogel as a gel.
 The hydrogel can be understood as a mixture of water in the liquid state and a polymer network in the solid state.
 Furthermore, the polymeric network typically exhibits a porosity ranging from 5 to 20 nanometers, however they can be tunned to reach the micron-scale size.
 This porosity enables the representation of the water as the dispersed phase, while the polymeric network is represented as the continuous phase.
-Therefore, the hydrogel can be modelled as a colloid.
+Therefore, the hydrogel can be modelled as a colloidal gel.
 
 
 \subsection{Langevin dynamics}
@@ -870,10 +870,7 @@ The no time correlation is equivalent to assuming that the viscoelastic relaxati
 In comparing the results of Langevin dynamics with those of other stochastic methods [28-31], the relevant variable is the velocity relaxation time, $\tau_{v}$ which equals $\gamma^{-1}$\citep{pastorTechniquesApplicationsLangevin1994}
 The Langevin equation improves conformational sampling over standard molecular dynamics\citep{paquetMolecularDynamicsMonte2015}.
 
-\begin{itemize}
-    \item Hablar acerca de que la fuerza aleatoria puede tener distribución gaussiana, pero no necesariamente.
 %    \item hablar de la ecuación de Green-Kubo: \[\eta=\frac{V}{k_B T}\int_{0}^{\infty}\expval{\sigma_{xy}(t)\sigma_{xy}(0)}\mathrm{d}t\]
-\end{itemize}
 
 \subsection{Velocity Verlet}
 
@@ -971,7 +968,7 @@ Finally, the integral over the random force is going to give another random vari
     \eta^{n+1}\equiv\int_{t_n}^{t_{n+1}}\vec{R}(t')dt'\label{eqn:DerVelVerlet7},
 \end{gather}
 with $\expval{\eta^{n}}=0$ and $\expval{\eta^{n}\eta^{l}}=2k_{B}T\gamma\delta\qty(t-t')$.
-Replacing~\eqref{eqn:DerVelVerlet7} into equations~\eqref{eqn:DerVelVerlet5} and~\eqref{eqn:DerVelVerlet6},
+Replacing~\eqref{eqn:DerVelVerlet7} into equations~\eqref{eqn:DerVelVerlet5} and~\eqref{eqn:DerVelVerlet6} we get the scheme to solve Langevin equation using the Velocity Verlet scheme,
 \begin{align}
     \vec{r}^{n+1} &= r^n
                     +\frac{dt}{2+\gamma dt}\left[ 
@@ -985,7 +982,7 @@ Replacing~\eqref{eqn:DerVelVerlet7} into equations~\eqref{eqn:DerVelVerlet5} and
                      -\gamma\qty(r^{n+1}-r^n)
                      +\frac{1}{m}\eta^{n+1}\label{eqn:DerVelVerlet6}.
 \end{align}
-
+It is interesting to notice that the noise is represented as a single stochastic varaible for each time step, realized by a single agregated impulse during $dt$ that influences the dynamics over the time step.
 
 \begin{comment}
 \begin{gather}
@@ -1091,26 +1088,38 @@ Replacing~\eqref{eqn:DerVelVerlet7} into equations~\eqref{eqn:DerVelVerlet5} and
     +\vec{v}^{n}
 \end{comment}
 
-cosndiering that we have a Gaussian random number with expected value and variance.
+Since we need to solve the equation~\eqref{eqn:BrownianDyn1} for $N$ particle, the implementation of the Velocity Verlet scheme for a many-particle system is computationally handled by the LAMMPS molecular dynamics package.
+A key benefit of this choice is that LAMMPS comes well-equipped with robust and scalable parallel computing schemes, enabling the efficient simulation of large systems. 
+This pre-existing, optimized framework is crucial, as developing a parallelized numerical solver from the ground up would be prohibitively time-consuming and complex. 
+This allows us to concentrate our efforts on designing the polymer network models and analysing their resulting mechanical properties, rather than on the simulation engine itself.
 
-Now, y integrating over we get,
+\subsection{LAMMPS}
 
-approximating the integral using finite differences and by substituting eqn[eqn] into ...
+LAMMPS (Large-scale Atomic/Molecular Massively Parallel Simulator) is a highly flexible, open-source molecular dynamics software solution used for simulating atomic, molecular, and mesoscale systems. 
+And is widely recognized for its extensibility, complete documentation, and active support in scientific communities focused on materials modeling and molecular simulation.
+It is designed to efficiently model materials science, chemistry, and physics problems by enabling large-scale simulations on parallel computing architectures.
+Furthermore, its parallelized structure allows efficient computation of large or complex systems, and supports integration with other computational tools and machine learning methods.
 
+To define a simulation with this software we need to create an input script.
+This input script is defined as a series of lines, with each line beginning with a command name and followed by one or more arguments separated by whitespace.
+The program incorporates programming commands that define variables, perform conditional tests, execute loops, or invoke shell commands to launch an external program.
+The input script is parsed and executed one line at a time. 
+This feature allows a single script to run a simulation in stages, alter one or more parameters between stages, or run a series of independent simulations where the entire system is reinitialized multiple times.
 
+\paragraph{Langevin} Here add the langevin equation that uses lammps to discuss the damp parameter.
 
-\begin{algorithm}
-\caption{Velocity Verlet algorithm}\label{alg:two}
-$Nt \gets \mathrm{Simulation~steps}$\;
-$r \gets \mathrm{Initial~potitions}$\;
-$v \gets \mathrm{Initial~velocities}$\;
-\While{$N \leq Nt$}{
-    $v(t+\frac{1}{2}\Delta t) \gets v(t)+\frac{1}{2}a(t)\Delta t$\;
-    $r(t+\Delta t) \gets r(t) + v(t+\frac{1}{2}\Delta t)\Delta t$\;
-    $a(t+\Delta t) \gets -\nabla U(r(t+\Delta t))$\;
-    $v(t+\Delta t) \gets v(t+\frac{1}{2})+\frac{1}{2}a(t+\Delta t)\Delta t$\;
-}
-\end{algorithm}
+\begin{align}
+    F &= F_c -\frac{m}{\mathrm{damp}}v + F_r, \\
+    F_r &\propto\sqrt{\frac{k_B T m}{dt\mathrm{damp}}}
+\end{align}
 
+ is the conservative force computed via the usual inter-particle interactions (pair\_style, bond\_style, etc). The 
+ and 
+ terms are added by this fix on a per-particle basis. See the pair\_style dpd/tstat command for a thermostatting option that adds similar terms on a pairwise basis to pairs of interacting particles.
 
+\paragraph{nve} although on lammps we use the fix nve, the simulation does not goes with constant energy.
+This fix invokes the velocity form of the Stoermer-Verlet time integration algorithm (velocity-Verlet).
+Which in the case of this molecular dynamics is makes a constant temperature.
+Which allows us to create a NVT ensemblle.
+Also, the constant volume it ensure with the fix deform, because Note that changing the tilt factors of a triclinic box does not change its volume.
 

@@ -9,12 +9,12 @@ Finally, we will present and analyze the simulation results.
 \section{Simulation protocol}
 
 One of the microgels that has been the focus of significant research is the type that is based on PNIPAM cross-linked networks.
-In the article \textit{In silico Synthesis of Microgel Particles}, the authors present a flexible numerical protocol capable of designing individual microgel particles based on PNIPAM corr-linked networks. 
+In the article \textit{In silico Synthesis of Microgel Particles}\citep{gnanSilicoSynthesisMicrogel2017}, the authors present a flexible numerical protocol capable of designing individual microgel particles based on PNIPAM corr-linked networks. 
 This protocol can generate particles with properties comparable to the experimental ones.
 In this project, we employ a similar protocol to explore its versatility and identify a numerical tool that can facilitate connections between network configuration and mechanical response.
 
 Our primary focus is on creating networks without spherical confinement and without mimicking the swelling behavior of PINIPAM microgels with temperature.
-Therefore, the central strategy involves the implementation of a binary mixture of patchy particles to generate a disroded polymeric network structure, followed by the application of shear deformation.
+Therefore, the central strategy involves the implementation of a binary mixture of patchy particles to generate a disorded polymeric network structure, followed by the application of shear deformation.
 The primary benefit of this protocol is that previous numerical efforts in microgel modeling have predominantly concentrated on unrealistic networks consisting of chains of equivalent length, frequently establishing cross-linked connections on crystalline lattice regions or where closed polymer networks are assembled by directly integrating randomly dispersed cross-linkers with polymer chains.
 
 \subsection{Patchy particles representation}
@@ -85,83 +85,35 @@ Finally, the energy of interaction between crosslinker patches ($\epsilon_{\mu^i
 \paragraph{Polymeric network parameters}
 Now that the interaction between pathcy particles have been described, we can describe the control parameters for the simulations.
 We set a constant number of patchy particles $N_p$, a packing fraction $\phi$ and a cross-link concentration $c$. 
-From this parameters we compute the volume of the box and the number of patchy particles of functionality 2 and the patchy particles of functionality 4.
+From this parameters we compute the volume of the box and the number of patchy particles of functionality 2 (PB) and the patchy particles of functionality 4 (PA).
 
-From time and computational constrains we set the total number of partiles to be $N_p=\num{8000}$.
-Which is a lower number of particles with respect other simulations[cites].
-Therefore, to compesate that we take assemble averages of 5 experiments, which is the same as simulating a system of \num{40000} particles, but with a more manageable computation requirements.
+Due to limitations related to time and computing resources, we have set the total number of particles to be $N_p=\num{8000}$.
+This is a lower number of particles when compared with other simulations[cites].
+Therefore, in order to compensate, we take the mean of five experiments.
+This is equivalent to simulating a system of \num{40000} particles, but with a more manageable computational requirements.
 
-The volume of the box was computed by computing the volume of the patchya particle A and B and scaling those values by the number of particles and the desire packing fraction.
+Once we set the parameters for the synthesis, the volume of the box was calculated by determining the volume of the patchy particles A and B, and then scaling those values by the number of particles and the desired packing fraction.
 \begin{align*}
     V_{\mathrm{box}} &= \frac{N_{\mathrm{patchyA}}V_{\mathrm{patchyA}}+N_{\mathrm{patchyB}}V_{\mathrm{patchyB}}}{\phi}
 \end{align*}
 The number of patchy particle of type A is computed as $N_{\mathrm{patchyA}} = c N_p$ and the number of patchy particles of type B as $N_{\mathrm{patchyB}}= N_p - N_{\mathrm{patchyA}}= N_p(1 - c )$.
+Finally, the temperature was set to be constant thru all the assembly process $T=0.05$ in Lennard-Jones units, meanwhile, the damp parameter was set to $\mathrm{damp}=0.1$.
+It is important to notice that the damp controlls the viscous response from the interaction between the thermal bath and the particles, which represents the interaction between water molecules and the polymer network.
 
-The temperature was set to be constat thru all the assembly process $T=0.05$ in Lennard-Jones units.
-The damp parameter was set to $\mathrm{damp}=0.01$, and it was a mess to get that value.
+\subsection{Description of the deformation}
 
-The damp controlls the viscous response from the interaction between the thermal bath and the particles, which represents the interaction between water molecules and the polymer network.
-
-\subsection{Ddescription of the deformation}
-
-We use couette flow deformation or shear deformation because that is the deformation that we can implement computationationally.
-
-We can describe any deformaiton as a combinaiton of tensile and shear deformation.
-Since the most common application, such as printing\ldots, are describe as a couette or poiselle flow are shear deformations, we decided to explore a shear deformation.
-Tensile or compression deformation are not cool because buuu.
-
-
-We decided to apply shear deformation because we c
-
-Shear forces dominate biological environments where hydrogels are typically deployed. 
-In vivo, tissues and materials experience complex multiaxial loading conditions rather than simple uniaxial tension.
-
-Shear testing provides a more uniform stress field throughout the hydrogel sample compared to tensile testing. 
+Once the synthesis of the hydrogel was set, we peform a shear deformation to the resulting polymeric network.
+We select the shear deformation because shear forces dominate biological environments where hydrogels are typically deployed. 
+Also, shear testing provides a more uniform stress field throughout the hydrogel sample compared to tensile testing. 
 In rheological measurements using parallel plate or cone-and-plate geometries, the applied shear stress is distributed evenly across the sample, eliminating edge effects and stress concentrations that plague tensile testing.
-Shear rheometry excels at characterizing the complex viscoelastic properties that define hydrogel functionality.
+Furthermore, shear rheometry excels at characterizing the complex viscoelastic properties that define hydrogel functionality.
 Many hydrogels exhibit shear-thinning behavior that is critical for applications like injection and 3D bioprinting. 
 
+\paragraph{Deformation protocol} 
+Since we are exploring this computational methodology to characterized the mechanical response, we choose to have a constant shear rate to deform beyond the plastic deformation limit.
+Also we vary the shear rate of the deformation to see the viscoelastic response of the material.
+The temperature was held constant to a value of $0.05$ Lennar-Jones units and a damp on \num{0.1}.
 
-\paragraph{Deformation protocol} Constant shear rate, vary shear rate between simulations.
-First goes the assembly protocol then the shear deformation.
-Go beyond the elastic limit to see what's up.
-
-
-\section{LAMMPS}
-
-LAMMPS (Large-scale Atomic/Molecular Massively Parallel Simulator) is a highly flexible, open-source molecular dynamics software solution used for simulating atomic, molecular, and mesoscale systems. 
-And is widely recognized for its extensibility, complete documentation, and active support in scientific communities focused on materials modeling and molecular simulation.
-It is designed to efficiently model materials science, chemistry, and physics problems by enabling large-scale simulations on parallel computing architectures.
-Furthermore, its parallelized structure allows efficient computation of large or complex systems, and supports integration with other computational tools and machine learning methods.
-
-To define a simulation with this software we need to create an input script.
-This input script is defined as a series of lines, with each line beginning with a command name and followed by one or more arguments separated by whitespace.
-The program incorporates programming commands that define variables, perform conditional tests, execute loops, or invoke shell commands to launch an external program.
-The input script is parsed and executed one line at a time. 
-This feature allows a single script to run a simulation in stages, alter one or more parameters between stages, or run a series of independent simulations where the entire system is reinitialized multiple times.
-
-\begin{itemize}
-    \item \verb|table| command
-    \item \verb|langevin| command
-    \item \verb|threebody| command
-    \item \verb|boundary| command
-\end{itemize}
-
-although on lammps we use the fix nve, the simulation does not goes with constant energy.
-This fix invokes the velocity form of the Stoermer-Verlet time integration algorithm (velocity-Verlet).
-Which in the case of this molecular dynamics is makes a constant temperature.
-Which allows us to create a NVT ensemblle.
-Also, the constant volume it ensure with the fix deform, because Note that changing the tilt factors of a triclinic box does not change its volume.
-
-
-\subsection{Three-body potential}
-
-%An importante technica issue to address is the tabulation of the threebody potential to introduce the swap potential into LAMMPS.
-This is because the forces on all three particles $I$, $J$, and $K$ of a triplet of this type of three-body interaction potential lie within the plane defined by the three inter-particle distance vectors $\vec{r}_{IJ}$, $\vec{r}_{IK}$ and $\vec{r}_{JK}$.
-This property is used to project the forces onto the inter-particle distance vectors.
-Hence, we need to create a table taking that into consideration, for that we \textbf{\ldots}
-
-Deformation.
 
 \section{Results}
 
