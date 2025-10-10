@@ -62,6 +62,12 @@ On the other hand, the patch-patch interaction is modeled with an attractive pot
 where $r_{\mu\upsilon}$ is the distance between two patches, $\sigma_p$ is the diameter of the patches, $r_c$ is the cut distance of interaction set to $1.5\sigma_p$ and $\epsilon_{\mu,\upsilon}$ is the interaction energy between the patches.
 This potential can be interpreted as a reversible interaction.
 
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/numerical/patchpatch.png}
+    \caption{Comparisson of attractive interaction potentials}\label{fig:patchpatchpot}
+\end{figure}
+
 It is important to say that if we let the polymeric network form with only those potentials, the patches are going to form cluster of more then 2 patches, which is not desirble since this will mean that every single monomer can be a crossliker\footnote{Mejorar este enunciado/idea}.
 Hence, the interaction between patches is complemented by a three-body repulsive potential, defined in terms of~\eqref{eqn:patch-patch_interaction}, that provides an efficient bond-swapping mechanism making possible to easily equilibrate the system at extremely low temperatures, while at the same time, reataining the single-bond-per-patch condition\citep{sciortinoThreebodyPotentialSimulating2017},
 \begin{gather}
