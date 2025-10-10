@@ -115,6 +115,18 @@ Also we vary the shear rate of the deformation to see the viscoelastic response 
 The temperature was held constant to a value of $0.05$ Lennar-Jones units and a damp on \num{0.1}.
 
 
+\subsection{LAMMPS implementation}
+
+\paragraph{Three-body potential}
+%An importante technica issue to address is the tabulation of the threebody potential to introduce the swap potential into LAMMPS.
+This is because the forces on all three particles $I$, $J$, and $K$ of a triplet of this type of three-body interaction potential lie within the plane defined by the three inter-particle distance vectors $\vec{r}_{IJ}$, $\vec{r}_{IK}$ and $\vec{r}_{JK}$.
+This property is used to project the forces onto the inter-particle distance vectors.
+Hence, we need to create a table taking that into consideration, for that we \textbf{\ldots}
+
+Deformation.
+
+
+
 \section{Results}
 
 \subsection{Mechanical response}
