@@ -1,0 +1,144 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tufte Essay
+% LaTeX Template
+% Version 2.0 (19/1/19)
+%
+% This template originates from:
+% http://www.LaTeXTemplates.com
+%
+% Authors:
+% The Tufte-LaTeX Developers (https://www.ctan.org/pkg/tufte-latex)
+% Vel (vel@LaTeXTemplates.com)
+%
+% License:
+% Apache License, version 2.0
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[a4paper]{tufte-handout} % Use A4 paper by default, remove 'a4paper' for US letter
+
+\usepackage{graphics}
+\usepackage{graphicx} % Required for including images
+\setkeys{Gin}{width=\linewidth, totalheight=\textheight, keepaspectratio} % Default images settings
+
+\usepackage{amsmath, amsfonts, amssymb, amsthm} % For math equations, theorems, symbols, etc
+%\usepackage{units} % Non-stacked fractions and better unit spacing
+\usepackage{physics}
+\usepackage{cancel}
+\usepackage{siunitx}
+
+\usepackage{booktabs} % Required for better horizontal rules in tables
+
+% For newtcbtheorem
+\usepackage[most]{tcolorbox}
+\usepackage{cleveref}
+\usepackage{fancybox}		% Recuadros emph eqn
+
+\usepackage{empheq}			% Recuadros para ecuaciones
+
+\setlength{\parskip}{1em}
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\title{Smart Materials\\ Conceptos básicos de polímeros}
+
+\author{Francisco Vazquez-Tavares}
+
+\date{\today} % Date, use \date{} for no date
+
+
+%----------------------------------------------------------------------------------------
+%	COMMANDS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hata}{\hat{a}}
+\newcommand{\hatad}{\hat{a}^\dagger}
+\newcommand{\QDi}{\hat{X}_1}
+\newcommand{\QDj}{\hat{X}_2}
+
+\newtcbtheorem[]{prob}{Problem}%
+    {enhanced,
+    colback = black!5, %white,
+    colbacktitle = black!5,
+    coltitle = black,
+    boxrule = 0pt,
+    frame hidden,
+    borderline west = {0.5mm}{0.0mm}{black},
+    fonttitle = \bfseries\sffamily,
+    breakable,
+    before skip = 3ex,
+    after skip = 3ex
+}{def}
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle % Print the title section
+\justifying
+
+%----------------------------------------------------------------------------------------
+%	ESSAY BODY
+%----------------------------------------------------------------------------------------
+
+\section*{Concpetos}
+
+\paragraph{Temperatura de servicio}
+Es el rango de temperaturas en el cual un polímero puede funcionar de forma continua y fiable, manteniendo sus propiedades mecánicas y dimensionales.
+
+\paragraph{Temperatura VICAT}
+Es una temperatura a la cual un polímero se ablanda de manera medible, determinada bajo una condición de carga y tasa de calentamiento específicas.
+
+\paragraph{Temperatura de transición vítrea}
+Es el rango de temperaturas en el cual un polímero amorfo o las regiones amorfas de un polímero semicristalino pasan de un estado rígido y vítreo a un estado flexible y gomoso.
+
+\paragraph{Índice de fluidez}
+Es una medida de la facilidad con la que un polímero fundido (termoplástico) puede fluir. Se expresa como la masa de polímero (en gramos) que extrusiona a través de un dado de dimensiones específicas en un tiempo de 10 minutos.
+
+\paragraph{Número de CAS}
+Es un identificador numérico único asignado a cada sustancia química (elementos, compuestos, polímeros) registrada en la base de datos de Chemical Abstracts Service (CAS).
+
+\newpage
+
+\section*{Tabla}
+
+\begin{table}[ht!]
+\begin{tabular}{|c|c|c|c|}
+\hline
+\textbf{Parámetro}                           & \textbf{PP}     & \textbf{HDPE}   & \textbf{PS}     \\ \hline
+\textbf{Temp. de fusión (°C)}                & 160-170         & 130-137         & 180-240         \\ \hline
+\textbf{Temp. de servicio (°C)}              & 0-90            & \textless{}90   & Hasta 70-90     \\ \hline
+\textbf{Temp. VICAT (°C)}                    & 150             & 121–131         & 90–100          \\ \hline
+\textbf{Índice de fluidez (g/10 min, 210°C)} & 2-18            & 0.35–20         & 2-5             \\ \hline
+\textbf{Temp. transición vítrea (°C)}        & -10             & -120            & 90–100          \\ \hline
+\textbf{Densidad (g/cm³)}                    & 0.90–0.91       & 0.94–0.97       & 1.03–1.06       \\ \hline
+\textbf{Peso molecular (g/mol)}              & 100,000–600,000 & 200,000–500,000 & 100,000–400,000 \\ \hline
+\textbf{Número CAS}                          & 9003-07-0       & 9002-88-4       & 9003-53-6       \\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[ht!]
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Parámetro}                           & \textbf{PLA}   & \textbf{PHB}      \\ \hline
+\textbf{Temp. de fusión (°C)}                & 150-160        & 170-180           \\ \hline
+\textbf{Temp. de servicio (°C)}              & Hasta 50-60    & Hasta 60          \\ \hline
+\textbf{Temp. VICAT (°C)}                    & 62.9           & 150               \\ \hline
+\textbf{Índice de fluidez (g/10 min, 210°C)} & 7-10           & 17-20             \\ \hline
+\textbf{Temp. transición vítrea (°C)}        & 55-65          & 2-7               \\ \hline
+\textbf{Densidad (g/cm³)}                    & 1.17–1.25      & 1.20–1.25         \\ \hline
+\textbf{Peso molecular (g/mol)}              & 60,000–200,000 & 500,000–1,000,000 \\ \hline
+\textbf{Número CAS}                          & 26100-51-6     & 26063-88-5        \\ \hline
+\end{tabular}
+\end{table}
+
+\end{document}
