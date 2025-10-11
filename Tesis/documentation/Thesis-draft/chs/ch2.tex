@@ -312,11 +312,38 @@ In continuum mechanics and physics, the measure of internal forces distributed w
 As before, this measure is represented by a second-order tensor with units of \SI{}{\kilo\gram\per\meter\per\second\squared}.
 The mathematical representation of the stress tensor is given by the Cauchy stress tensor, which relates a traction vector $\vec{T}$ acting on a surface $\vec{n}$ with the stress tensor $\bm{\sigma}$, equation~\eqref{eqn:stressTensor}.
 
+\begin{gather}
+    \vec{T} = \bm{\sigma}\cdot\vec{n}\label{eqn:stressTensor}
+\end{gather}
+where the operation of the dot product between the normal vector with a tensor is 
+\begin{gather*}
+    \begin{bmatrix}
+        \sigma_{11} & \sigma_{21} & \sigma_{31} \\
+        \sigma_{12} & \sigma_{22} & \sigma_{32} \\
+        \sigma_{13} & \sigma_{23} & \sigma_{33} \\
+    \end{bmatrix}
+    \cdot
+    \begin{bmatrix} n_1 & n_2 & n_3 \end{bmatrix}.
+\end{gather*}
+The component $\sigma_{ij}$ represents the force in the $i$-th direction acting on a surface perpendicular to the $j$-th coordinate axis.
+Also, the tensor is symmetric under the usual ssumption of no body torques and balance of angular momentum.
+
+
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=0.8\textwidth]{figs/Components_stress_tensor_cartesian.pdf}
     \caption{Stress tensor wikipedia}
 \end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/StressTensor.png}
+    \caption{Stress tensor 2D}
+\end{figure}
+
+\begin{gather}
+    \bm{\sigma} = \begin{pmatrix}\sigma_{11} & \sigma_{12} & \sigma_{13} \\ \sigma_{21} & \sigma_{22} & \sigma_{23} \\ \sigma_{31} & \sigma_{32} & \sigma_{33} \end{pmatrix}
+\end{gather}
 
 %\paragraph{Macro-Micro realtion} 
 From a microscopic scale, the stress tensor describes the instantaneous local force from atomic interactions and momentum flux.
