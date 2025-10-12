@@ -170,42 +170,22 @@ In summary, the tensor enables the capture of multidirectional physical properti
 Keeping this in mind, we can proceed with a description of the strain tensor. The stress tensor will be defined until the microscopic section, together with the relation to the microscopic-macroscopic relation.
 This is due to the scope of the thesis.
 
-\begin{comment}
-\begin{gather}
-    \vec{T} = \bm{\sigma}\cdot\vec{n}\label{eqn:stressTensor}
-\end{gather}
-where the operation of the dot product between the normal vector with a tensor is 
-\begin{gather*}
-    \begin{bmatrix}
-        \sigma_{11} & \sigma_{21} & \sigma_{31} \\
-        \sigma_{12} & \sigma_{22} & \sigma_{32} \\
-        \sigma_{13} & \sigma_{23} & \sigma_{33} \\
-    \end{bmatrix}
-    \cdot
-    \begin{bmatrix} n_1 & n_2 & n_3 \end{bmatrix}.
-\end{gather*}
-The component $\sigma_{ij}$ represents the force in the $i$-th direction acting on a surface perpendicular to the $j$-th coordinate axis.
-Also, the tensor is symmetric under the usual ssumption of no body torques and balance of angular momentum.
-\end{comment}
-
 %\paragraph{Strain} 
 In physics, the deformation of a material relative to its original shape under applied forces is quantify by the relative displacement between points in the material.
-This measure is represented by the dimensionless strain tensor (eqn~\eqref{eqn:strainTensor}).
-This quantification tool enables the description of normal strain, such as elongation or compression, through the use of diagonal terms, and shear strain via off-diagonal terms.
-
+This measure is represented by the dimensionless strain tensor,
 \begin{gather}
-    \epsilon_{ij} = \frac{1}{2}\left( \pdv{u_i}{x_j}+\pdv{u_j}{x_i} \right)\label{eqn:strainTensor}
+    \epsilon_{ij} = \frac{1}{2}\left( \pdv{u_i}{x_j}+\pdv{u_j}{x_i} \right).\label{eqn:strainTensor}
 \end{gather}
-This mathematical representation is only valid for infinitesimal small deformations.
 Where $u_i$ are the component of the displacement vector field and $x_j$ are the spatial coordinates.
+This mathematical representation is only valid for infinitesimal small deformations and enables the description of normal strain, such as elongation or compression, through the use of diagonal terms, and shear strain via off-diagonal terms.
+On figure~\ref{fig:strainTensor} is a visual representation of equation~\eqref{eqn:strainTensor} in a two spatial dimensional situation.
+It is important to keep in mind that the strain tensor is the spatial derivative of the displacement, it does not take into account the distance or the path taken.
 
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=0.8\textwidth]{figs/2D_geometric_strain.png}
-    \caption{Strain representation Wikipedia}
+    \caption{Strain representation Wikipedia}\label{fig:strainTensor}
 \end{figure}
-
-(Add the derivation of the book?)
 
 \subsection{Macroscopic description}
 
@@ -221,62 +201,54 @@ Finally, the viscoplastic, combines the irriversible plastic strain with a rate-
 
 %\paragraph{Elastic relation} 
 An elastic deformation is when the material returns to its original configuration once the stress is removed.
-The quantification of this response is given by a linear equation (equation~\eqref{eqn:elasticEQN}),
-with a proportionality constant known as elastic modulus or Young's modulus.
+The quantification of this response is given by a linear equation,
+\begin{gather}
+    \sigma_{ij} = C_{ijkl}\epsilon_{kl}\label{eqn:elasticEQN}
+\end{gather}
+with a proportionality constant ($C_{ijkl}$) known as elastic modulus or Young's modulus.
 The equation~\eqref{eqn:elasticEQN} is interpreted as the stiffness, that is how the material resists deformation.
 Some examples of this type of deformation are the streching of a metal spring within its elastic limit or the compression of a rubber ball.
 
-\begin{gather}
-    \bm{\sigma} = E\bm{\epsilon}\label{eqn:elasticEQN} \\
-    \sigma_{ij} = C_{ijkl}\epsilon_{kl}
-\end{gather}
-
-This establishes a connection between the stress tensor ($\sigma$), the shear modulus ($G$) of the material, the applied strain ($E$), and the Lame first parameter ($\lambda$) of the material\citep{bonyadiReviewFrictionLubrication2020}.
+%This establishes a connection between the stress tensor ($\sigma$), the shear modulus ($G$) of the material, the applied strain ($E$), and the Lame first parameter ($\lambda$) of the material\citep{bonyadiReviewFrictionLubrication2020}.
 
 %\paragraph{Plastic relation} 
 In contrast, a plastic deformation is when the material has an irreversible change in the shape or size.
 It is generally accepted that a material first enters an elastic regime and then reaches a yield point. 
 After this point, the deformation is irreversible.
-The quantification of the plastic relation (eqn~\eqref{eqn:plasticEQN}) typically links stress and plastic strain as a function of the current stress and internal variables.
-This is valid when the deformation goes beyond the yield stress and the specific algebraic expression is dictated by the material's properties.
-
+The quantification of the plastic relation typically links stress and plastic strain as a function of the current stress and internal variables,
 \begin{gather}
-    \dot{\bm{\epsilon}_{p}} = f\left(\bm{\sigma},\mathrm{Internal~varaibles}\right),\quad\bm{\sigma}>\bm{\sigma}_{y}\label{eqn:plasticEQN}.
+    \dot{\bm{\epsilon}}_{p} = f\left(\bm{\sigma},\mathrm{Internal~varaibles}\right),\quad\bm{\sigma}>\bm{\sigma}_{y}\label{eqn:plasticEQN}.
 \end{gather}
+This is valid when the deformation goes beyond the yield stress and the specific algebraic expression is dictated by the material's properties.
+The specific algebraic expression of $f\left(\bm{\sigma},\mathrm{Internal~varaibles}\right)$ depends on the material and conditions in which the deformation took place.
 
-It is important to acknowledge that the definition of yield stress\citep{bonnYieldStressMaterials2017} is also dependent on the material and the loading conditions.
+Furthermore, it is important to acknowledge that the definition of yield stress is also dependent on the material and the loading conditions\citep{bonnYieldStressMaterials2017}.
 For this reason, there are many yield criteria developed for different materials and conditions, such as Drucker-Prager, Mohr-Coulomb, Von Mises or Tresca criterion.
 The two most common yield criteria are the Von Mises and Tresca criterion.
 The von Mises yield criterion it is commonly used for ductile materials.
 It is base on the energy associated with shape change. 
-This is defined by a critical value (as shown in the equation~\eqref{eqn:vonMisesCriterion}) in terms of the distortional energy or equivalent shear stress and independent of hydrostatic pressure. 
-On the other hand, the Tresca yield criterion is a max-shear based criterion.
-It is based on the yield strength in simple tension (see equation~\eqref{eqn:trescaCriterion}).
-
-Von Mises Criterion
+This is defined by a critical value in terms of the distortional energy or equivalent shear stress and independent of hydrostatic pressure, 
 \begin{gather}
     \sigma_y = \sqrt{\frac{3}{2}\bm{s}:\bm{s}}\label{eqn:vonMisesCriterion}
 \end{gather}
-where $\bm{s}$ is the deviatoric stress tensor.
-
-Tresca criterion
+where $\bm{s}$ is the deviatoric stress tensor\footnote{The stress tensor without the diagonal elements.} and $:$ is a tensor constraction, which maps a tensor to a scalar.
+On the other hand, the Tresca yield criterion is a max-shear based criterion.
+It is based on the yield strength in simple tension as follows, 
 \begin{gather}
    \sigma_y = \max\left(\abs{\sigma_1-\sigma_2},\abs{\sigma_2-\sigma_3},\abs{\sigma_3-\sigma_1}\right)\label{eqn:trescaCriterion}
 \end{gather}
-where $\sigma_1$, $\sigma_2$, $\sigma_3$ are the principal stresses.
+where $\sigma_1=\sigma_{11}$, $\sigma_2=\sigma_{22}$, $\sigma_3=\sigma_{33}$ are also known as the principal stresses.
 
 %\paragraph{Viscoelastic relation} 
 A viscoelastic deformation is defined as the process by which a material partially ``stores'' elastic energy and partially dissipates energy.
-The quantification of the relation is by relating the instantaneos stress, strain and a time-dependent relaxation modulus (equation~\eqref{eqn:viscoelastiEQN}).
-This relationship also enables the description and modeling of memory effects and rate dependence, which are commonly observed in polymers, biological tissues, and certain soft solids.
-
-\textbf{Not sure if I want to explain more the relaxation modulus.}
-
-The following equation is the generelized expression of the Maxwell or Kelvin-Voigt model:
+The quantification of the relation is by relating the instantaneous stress, strain and a time-dependent relaxation modulus,
 \begin{gather}
     \sigma(t) = \int_0^t G(t-\tau)\dv{\tau}\epsilon(\tau)d\tau\label{eqn:viscoelastiEQN}.
 \end{gather}
 Where $\tau$ is a dummy variable and $G(t)$ is the time-dependent relaxation modulus.
+This mathematical expression is also known as the generelized expression of the Maxwell or Kelvin-Voigt model.
+The relaxation modulus $G(t)$ describes how a material responds over time to a sudden, constant strain.
+This relationship also enables the description and modeling of memory effects and rate dependence, which are commonly observed in polymers, biological tissues, and certain soft solids.
 
 \begin{comment}
 Time-dependent response combining elastic and viscous behaviour.
@@ -288,15 +260,11 @@ Time-dependent response combining elastic and viscous behaviour.
 %\paragraph{Viscoplastic relation} 
 Finally, a viscoplastic is to describe when a material flows plastically like a viscous fluid under stress beyond the yield stress.
 The quantification is determined by a function of strain rate, stress, yield stress, and internal variables (see equation~\eqref{eqn:viscoplastiEQN}).
-As with the plastic relation, the specific algebraic expression is dictated by the material's properties.
-However, this relationship is used to describe materials that initially respond as solids below the yield stress but flow like viscous fluids once yielding occurs.
-
-\textbf{Add examples of specific constitutive equations}
-
 \begin{gather}
-    \dot{\bm{\epsilon}}_{p} = f\left(\sigma,\sigma_y,\dot{\epsilon},\mathrm{Internal variables}\right)\label{eqn:viscoplastiEQN}
+    \dot{\bm{\epsilon}}_{p} = f\left(\sigma,\sigma_y,\dot{\epsilon},\mathrm{Internal variables}\right)\label{eqn:viscoplastiEQN}.
 \end{gather}
-
+Similar to the plastic constitutive equation~\eqref{eqn:plasticEQN}, the specific algebraic expression for $f$ depends on the material and external conditions. 
+However, this relationship is used to describe materials that initially respond as solids below the yield stress but flow like viscous fluids once yielding occurs.
 
 \begin{comment}
 Combines irreversible plastic strain with rate-dependent visvous effects
@@ -308,50 +276,237 @@ Combines irreversible plastic strain with rate-dependent visvous effects
 \subsection{Microscopic description}
 
 %\paragraph{Stress} 
+Now that we explore the constitutive equations, we are going to link the macroscopic response to the microscopic phenomena.
+In order to do that, lets delve into the mathematical represention of the stress.
 In continuum mechanics and physics, the measure of internal forces distributed within a material that arise in response to external loads is refered as stress.
-As before, this measure is represented by a second-order tensor with units of \SI{}{\kilo\gram\per\meter\per\second\squared}.
-The mathematical representation of the stress tensor is given by the Cauchy stress tensor, which relates a traction vector $\vec{T}$ acting on a surface $\vec{n}$ with the stress tensor $\bm{\sigma}$, equation~\eqref{eqn:stressTensor}.
-
+This measure is represented by a second-order tensor with units of \SI{}{\kilo\gram\per\meter\per\second\squared}.
+The mathematical representation of the stress tensor is given by the Cauchy stress tensor, which relates a traction vector $\vec{T}$ acting on a surface $\vec{n}$ with the stress tensor $\bm{\sigma}$, %equation~\eqref{eqn:stressTensor}.
 \begin{gather}
-    \vec{T} = \bm{\sigma}\cdot\vec{n}\label{eqn:stressTensor}
+    \vec{T} = \bm{\sigma}\cdot\vec{n},\label{eqn:tractionVector}
 \end{gather}
-where the operation of the dot product between the normal vector with a tensor is 
+where $\vec{n}$ is the unit normal vector tot eh surface and $\bm{\sigma}$ is the stress tensor,
 \begin{gather*}
+    \bm{\sigma} = 
     \begin{bmatrix}
         \sigma_{11} & \sigma_{21} & \sigma_{31} \\
         \sigma_{12} & \sigma_{22} & \sigma_{32} \\
         \sigma_{13} & \sigma_{23} & \sigma_{33} \\
-    \end{bmatrix}
-    \cdot
-    \begin{bmatrix} n_1 & n_2 & n_3 \end{bmatrix}.
+    \end{bmatrix}.\label{eqn:stressTensor}
 \end{gather*}
 The component $\sigma_{ij}$ represents the force in the $i$-th direction acting on a surface perpendicular to the $j$-th coordinate axis.
-Also, the tensor is symmetric under the usual ssumption of no body torques and balance of angular momentum.
-
-
+Also, the tensor is symmetric under the usual assumption of no body torques and balance of angular momentum.
+On figure~\ref{fig:stressTensor} is a visual representation of the traction vector~\eqref{eqn:tractionVector} and the interpretation of the stress components of the stress tensor~\eqref{eqn:stressTensor}. 
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=0.8\textwidth]{figs/Components_stress_tensor_cartesian.pdf}
-    \caption{Stress tensor wikipedia}
+    \caption{Stress tensor wikipedia}\label{fig:stressTensor}
 \end{figure}
 
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=0.8\textwidth]{figs/StressTensor.png}
-    \caption{Stress tensor 2D}
-\end{figure}
-
-\begin{gather}
-    \bm{\sigma} = \begin{pmatrix}\sigma_{11} & \sigma_{12} & \sigma_{13} \\ \sigma_{21} & \sigma_{22} & \sigma_{23} \\ \sigma_{31} & \sigma_{32} & \sigma_{33} \end{pmatrix}
-\end{gather}
+%\begin{figure}[ht!]
+%    \centering
+%    \includegraphics[width=0.8\textwidth]{figs/StressTensor.png}
+%    \caption{Stress tensor 2D}
+%\end{figure}
 
 %\paragraph{Macro-Micro realtion} 
 From a microscopic scale, the stress tensor describes the instantaneous local force from atomic interactions and momentum flux.
 As a consequence of the scale, the tensor fluctuates strongly due to thermal motion, position and local arrangement of atoms.
 The bridge between the microscopic description and the macroscopic scale is a spactial and statistical averaging of the microscopic stress over a region much larger than atomic dimensions\footnote{\[\sigma_{ij}^{\mathrm{macro}}=\lim_{V\to\infty}\expval{\sigma_{ij}^{\mathrm{micro}}}\]}.
 
+%\subsection{Bridge of macro to micro stress tensor}
 
-\paragraph{Elastic regime} 
+%\paragraph{Molecular stress is equivalent to continuum stress} 
+%After exploring the constitutive equations and the main mechanisms related to the main mechanical responses observed in hydrogels, 
+% 
+This bridge it is no trivial, so we will demonstrate the validity of the connection between the macroscopic definition of the stress tensor with the microscopic stress tensor, by showing the equivalence between both tensors.
+This mathematical derivation is adressed in the appendix of~\citep{admalUnifiedInterpretationStress2010}.
+Just befor starting and for clarity, the notation is as follows,$\bm{\sigma}$ denotes a tensor, such as $\sigma_{i,j}$, a vector is denoted by $\vec{\sigma}$ and time average is denoted as $\overline{\sigma}$.
+
+%\paragraph{Derivation} 
+Let's start by considering a system of $N$ interacting particles with each particle position given by
+\begin{equation}
+    \vec{r}_{\alpha} = \vec{r} + \vec{s}_{\alpha}\label{eqn:DerVirTen1},
+\end{equation}
+where $\vec{r}$ is the position of the center of mass of the system and $\vec{s}_\alpha$ is the position of each point relative to the center of mass.
+Hence, we can express the momentum of each particle as
+\begin{equation}
+    \vec{p}_\alpha = m_\alpha\qty(\dot{\vec{r}}+\dot{\vec{s}}_\alpha) = m_\alpha\qty(\dot{\vec{r}}+\vec{\upsilon}_\alpha^{\mathrm{rel}}).\label{eqn:DerVirTen2}
+\end{equation}
+Now lets recall that the center of mass of the system is given by
+\begin{equation}
+    \vec{r} = \frac{\sum_{\alpha}m_\alpha\vec{s}_\alpha}{\sum_{\alpha}m_\alpha}\label{eqn:DerVirTen3},
+\end{equation}
+and by replacing~\eqref{eqn:DerVirTen1} in~\eqref{eqn:DerVirTen2} we get the following relations, which will be used later,
+\begin{equation}
+    \sum_\alpha m_\alpha\vec{r}_\alpha = \vec{0},\quad
+    \sum_\alpha m_\alpha\vec{\upsilon}_\alpha^{\mathrm{rel}} = \vec{0}.\label{eqn:DerVirTen4}
+\end{equation}
+
+Now we continue by computing the time derivative of tensorial product $\vec{r}_\alpha\otimes\vec{p}_\alpha$\footnote{It is interesting to note that the tensorial product $\vec{r}_\alpha\otimes\vec{p}_\alpha$ has units of action and by tacking the time derivative we are dealing with terms that has units of energy.
+},
+\begin{equation}
+    \dv{t}\qty(\vec{r}_\alpha\otimes\vec{p}_\alpha) = 
+    \underbrace{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{p}_\alpha}_{\mathrm{Kinetic~term}} 
+        +
+        \underbrace{\vec{r}_\alpha\otimes\vec{f}_\alpha}_{\mathrm{Virial~term}},\label{eqn:DerVirTen5}
+\end{equation}
+which is known as the \textit{dynamical tensor virial theorem} and it is simply an alternative form to express the balance of linear momentum.
+This theorem becomes useful after making the assumption that there existis a time scale $\tau$, which is short relative to macroscopic processes but long relative to the characteristic time of the particles in the system, over which the particles remain close to their original positions with bounded positions and velocities.
+Taking advantage of this property we can compute the time average of~\eqref{eqn:DerVirTen5},
+\begin{equation}
+    \frac{1}{\tau}\qty(\vec{r}_\alpha\otimes\vec{p}_\alpha)\bigg|_{0}^{\tau} = 
+    \overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{p}_\alpha} 
+        +
+    \overline{\vec{r}_\alpha\otimes\vec{f}_\alpha}.\label{eqn:DerVirTen6}
+\end{equation}
+Assuming that $\vec{r}_\alpha\otimes\vec{p}_\alpha$ is bounded, and the time scales between microscopic and continuum processes are large enough, the term on the left-hand side can be as small as desired by tacking $\tau$ sufficiently large and by summing over all particles we achieve the \textit{tensor virial theorem}:
+\begin{equation}
+    \overline{\mathbf{W}} = -2\overline{\mathbf{T}},\label{eqn:DerVirTen7}
+\end{equation}
+where
+\begin{equation}
+    \overline{\mathbf{W}} = \sum_\alpha\overline{\vec{r}_\alpha\otimes\vec{f}_\alpha}\label{eqn:DerVirTen8}
+\end{equation}
+is the time-average virial tensor and
+\begin{equation}
+    \overline{\mathbf{T}}=\frac{1}{2}\sum_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{p}_\alpha}\label{eqn:DerVirTen9}
+\end{equation}
+is the time-average kinetic tensor.
+This expression for the tensor virial theorem applies equally to continuum systems that are not in macroscopic equilibrium as well as those that are at rest.
+
+The assumption of the difference between the time scales allow us to simplify the relation by replacing~\eqref{eqn:DerVirTen2} in~\eqref{eqn:DerVirTen9}, so that,
+\begin{equation}
+    \overline{\mathbf{T}}=
+        \frac{1}{2}\sum_\alpha m_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{v}_\alpha^{\mathrm{rel}}}
+        +
+        \frac{1}{2} \left[\overline{\sum_\alpha m_\alpha\vec{\upsilon}_\alpha^{\mathrm{rel}}}\right]\otimes\dot{\vec{r}}\label{eqn:DerVirTen10},
+\end{equation}
+which is not the simplification we expected, however, by the relations from~\eqref{eqn:DerVirTen4}, equation~\eqref{eqn:DerVirTen10} simplifies to%\footnote{No estoy muy seguro si incluir una discusión acerca del término cinético en la expresión del virial. Posiblemente un párrafo\dots posiblemente lo ponga en la interpretación del teorema.
+%También, no se si ir metiendo interpretación durante la derivación o no, pero bueno.}
+\begin{equation}
+    \overline{\mathbf{T}}=
+        \frac{1}{2}\sum_\alpha m_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{\upsilon}_\alpha^{\mathrm{rel}}}\label{eqn:DerVirTen11}.
+\end{equation}
+On the other hand, instead of reducing the expression, we start to create the conection with the Cauchy stress tensor by distributing~\eqref{eqn:DerVirTen8} into an internal and external contributions,
+\begin{equation}
+    \overline{\mathbf{W}} = 
+    \underbrace{\sum_\alpha\overline{\vec{r}_\alpha\otimes\vec{f}_\alpha^{\mathrm{int}}}}_{\overline{\mathbf{W}}_{\mathrm{int}}}
+        +
+        \underbrace{\sum_\alpha\overline{\vec{r}_\alpha\otimes\vec{f}_\alpha^{\mathrm{ext}}}}_{\overline{\mathbf{W}}_{\mathrm{ext}}}.\label{eqn:DerVirTen12}
+\end{equation}
+The time-average internal virial tensor takes into account the interaction between particle $\alpha$ with the other particles in the system, meanwhile, the time-average external virial tensor considers the interaction with atoms outside the system, via a traction vector $\vec{t}$ and external fields acting on the system represented by $\rho\vec{b}$, where $\rho$ is the mass density of it and $\vec{b}$ is the body force per unit mass applied by the external field.
+Therefore we can express the following,
+\begin{equation}
+    \sum_\alpha\overline{\vec{r}_\alpha\otimes\vec{f}_\alpha^{\mathrm{ext}}}
+    :=
+    \int_{\delta\Omega}\vec{\xi}\otimes\vec{t}dA 
+    +
+    \int_{\Omega}\vec{\xi}\otimes\rho\vec{b}dV.\label{eqn:DerVirTen13}
+\end{equation}
+Where $\vec{\xi}$ is a position vector within the domain $\Omega$ occupied by the system of particles with a continuous closed surface $\delta\Omega$.
+Assuming that $\Omega$ is large enough to express the external forces acting on it in the form of the continuum traction vector $\vec{t}$.
+
+With this we can substitute the traction vector with $\vec{t}=\bm{\sigma}\vec{n}$, where $\bm{\sigma}$ represent the Cauchy stress tensor and applying the divergence theorem in~\eqref{eqn:DerVirTen13}, we have 
+\begin{equation}
+    \overline{\mathbf{W}}_{\mathrm{ext}}
+     =\int_{\Omega}
+        \left[
+            \vec{\xi}\otimes\rho\vec{b}+\mathrm{div}_{\vec{\xi}}\qty(\vec{\xi}\otimes\bm{\sigma})
+        \right]dV
+        =
+    \int_{\Omega}
+        \left[
+            \bm{\sigma}^{\mathrm{T}}
+            +
+            \vec{\xi}\otimes\qty(\mathrm{div}_{\vec{\xi}}\bm{\sigma}+\rho\vec{b})
+        \right]dV\label{eqn:DerVirTen14}
+\end{equation}
+Since we assume that we are under equilibrium conditions, the term $\mathrm{div}_{\vec{\xi}}\bm{\sigma}+\rho\vec{b}$ is zero~\eqref{eqn:DerVirTen14} it simplifies to
+\begin{equation}
+    \overline{\mathbf{W}}_{\mathrm{ext}}
+    =V\bm{\sigma}^{\mathrm{T}}\label{eqn:DerVirTen15}.
+\end{equation}
+By tacking into account that we integrate over the domain $\Omega$ we can say that we compute the spatial average of the Cauchy stress tensor,
+\begin{equation}
+    \bm{\sigma}_{\mathrm{av}} =\frac{1}{V}\int_\Omega\bm{\sigma}dV\label{eqn:DerVirTen16},
+\end{equation}
+in which $V$ is the volume of the domain $\Omega$.
+Replacing~\eqref{eqn:DerVirTen15} into~\eqref{eqn:DerVirTen12}, the tensor virial theorem~\eqref{eqn:DerVirTen7} can be expressed as,
+\begin{equation}
+    \sum_\alpha\overline{\vec{r}_\alpha\otimes\vec{f}_\alpha^{\mathrm{int}}}
+    +
+    V\bm{\sigma}_{\mathrm{av}}^{\mathrm{T}}
+    =
+    -\sum_\alpha m_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{\upsilon}_\alpha^{\mathrm{rel}}}.\label{eqn:DerVirTen17}
+\end{equation}
+Finally, solving for the Cauchy Stress tensor we get,
+\begin{equation}
+    \bm{\sigma}_{\mathrm{av}}
+    =
+    -\frac{1}{V}
+    \left[
+        \sum_\alpha\overline{\vec{f}_\alpha^{\mathrm{int}}\otimes\vec{r}_\alpha}
+        +
+        \sum_\alpha m_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{\upsilon}_\alpha^{\mathrm{rel}}}
+    \right],\label{eqn:DerVirTen18}
+\end{equation}
+an expression that describe the macroscopic stress tensor in terms of microscopic variables\footnote{It is important to acknowledge that several mathematical subtleties were not taken into consideration, however all the mathematical formality is adressed by Nikhil Chandra Admal and E. B. Tadmor in~\citep{admalUnifiedInterpretationStress2010}}.
+
+To end the demostration it is important to show that~\eqref{eqn:DerVirTen18} is symmetric.
+Therefore, we rewrite the internal force as the sum of forces between the particles,
+\begin{equation}
+    \vec{f}^{\mathrm{int}}_\alpha = \sum_{{\beta}_{\beta\neq\alpha}}\vec{f}_{\alpha\beta}\label{eqn:DerVirTen19},
+\end{equation}
+and substituting~\eqref{eqn:DerVirTen19} into~\eqref{eqn:DerVirTen18}, we have
+\begin{equation}
+    \bm{\sigma}_{\mathrm{av}}
+    =
+    -\frac{1}{V}
+    \left[
+        \sum_{{\alpha,\beta}_{\beta\neq\alpha}}\overline{\vec{f}_{\alpha\beta}\otimes\vec{r}_\alpha}
+        +
+        \sum_\alpha m_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{\upsilon}_\alpha^{\mathrm{rel}}}
+    \right].\label{eqn:DerVirTen20}
+\end{equation}
+Due to the property $\vec{f}_{\alpha\beta}=-\vec{f}_{\beta\alpha}$ we obtain the following identity
+\begin{equation}
+    \sum_{{\alpha,\beta}_{\beta\neq\alpha}}\vec{f}_{\alpha\beta}\otimes\vec{r}_\alpha 
+    =
+    \frac{1}{2}\sum_{{\alpha,\beta}_{\beta\neq\alpha}}\left(\vec{f}_{\alpha\beta}\otimes\vec{r}_\alpha+\vec{f}_{\beta\alpha}\otimes\vec{r}_\beta\right)
+    =
+    \frac{1}{2}\sum_{{\alpha,\beta}_{\beta\neq\alpha}}\vec{f}_{\alpha\beta}\otimes\left(\vec{r}_\alpha-\vec{r}_\beta\right).\label{eqn:DerVirTen21}
+\end{equation}
+Therefore, by replacing the identity of~\eqref{eqn:DerVirTen21} into~\eqref{eqn:DerVirTen20}, we have
+\begin{equation}
+    \bm{\sigma}_{\mathrm{av}}
+    =
+    -\frac{1}{V}
+    \left[
+        \frac{1}{2}
+        \sum_{{\alpha,\beta}_{\beta\neq\alpha}}\overline{\vec{f}_{\alpha\beta}\otimes\left(\vec{r}_\alpha-\vec{r}_\beta\right)}
+        +
+        \sum_\alpha m_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{\upsilon}_\alpha^{\mathrm{rel}}}
+    \right],\label{eqn:DerVirTen22}
+\end{equation}
+expressed with indexical notation and using the eistein summation convention,
+\begin{equation}
+    \sigma^{\mathrm{av}}_{ij}
+    =
+    -\frac{1}{V}
+    \left[
+        \frac{1}{2}
+        \sum_{{\alpha,\beta}_{\beta\neq\alpha}}\overline{f^{\alpha\beta}_{i}r^\alpha_{j} + f^{\beta\alpha}_{i}r^\beta_{j}}
+        +
+        \sum_\alpha m_\alpha\overline{\upsilon^{\alpha~\mathrm{rel}}_{i}\upsilon^{\alpha{\mathrm{rel}}}_j}
+    \right].\label{eqn:DerVirTen23}
+\end{equation}
+This allows us to quantify the relationship between the microscopic phenomena of a material with the macroscopic Cauchy stress tensor. 
+Now, let's describe in general terms the relation between the elastic, plastic, viscoelastic and viscoplastic reponses with the microscopic phenomena.
+
+%which is the same expression implemented in~LAMMPS\citep{LAMMPS}.\footnote{No se si poner la referencia a la pagina de documentacion}%\href{https://docs.lammps.org/compute_stress_atom.html}{https://docs.lammps.org/compute\_stress\_atom.html}}
+%As a result, we can begin to explore which molecular process dominates each deformation regime.
+
+%\paragraph{Elastic regime} 
 In the case of an elastic deformation, the force applied to the material is largely retained.
 This is due to the stretching of the distance between the particles.
 The particles' displacement is minimal, with no effect on bond integrity.
@@ -609,204 +764,9 @@ Tensile experiments\ref{romischkeSwellingMechanicalCharacterization2022}
     \caption{compresive tests from\citep{xuestrongtoughrapidrecovery2023}}
 \end{figure}
 
-
-
-
-\subsection{Bridge of macro to micro stress tensor}
-
-%\paragraph{Molecular stress is equivalent to continuum stress} 
-After exploring the constitutive equations and the main mechanisms related to the main mechanical responses observed in hydrogels, we will demonstrate the validity of the methodology of molecular dynamics to analyze the mechanical response via numerical solutions. 
-This will be achieved by showing the equivalence between the macro-stress tensor and the micros-stress tensor.
-This mathematical derivation that links the macro-stress tensor with the micros-stress tensor is adressed in the appendix of~\citep{admalUnifiedInterpretationStress2010}.\footnote{(Eventualmente pondré esto en párrafo) Notation:
-    $\bm{\sigma}$ Tensor, $\vec{\sigma}$ vector, $\sigma_{i,j}$ tensor, $\overline{\sigma}$ time average, 
-}
-
-%\paragraph{Derivation} 
-Consider a system of $N$ interacting particles with each particle position given by
-\begin{equation}
-    \vec{r}_{\alpha} = \vec{r} + \vec{s}_{\alpha}\label{eqn:DerVirTen1},
-\end{equation}
-where $\vec{r}$ is the position of the center of mass of the system and $\vec{s}_\alpha$ is the position of each point relative to the center of mass.
-Hence, we can express the momentum of each particle as
-\begin{equation}
-    \vec{p}_\alpha = m_\alpha\qty(\dot{\vec{r}}+\dot{\vec{s}}_\alpha) = m_\alpha\qty(\dot{\vec{r}}+\vec{\upsilon}_\alpha^{\mathrm{rel}}).\label{eqn:DerVirTen2}
-\end{equation}
-Before starting the procedure, lets take into account that the center of mass of the system is given by
-\begin{equation}
-    \vec{r} = \frac{\sum_{\alpha}m_\alpha\vec{s}_\alpha}{\sum_{\alpha}m_\alpha}\label{eqn:DerVirTen3},
-\end{equation}
-and by replacing~\eqref{eqn:DerVirTen1} in~\eqref{eqn:DerVirTen2} we get the following relations, which will be used later,
-\begin{equation}
-    \sum_\alpha m_\alpha\vec{r}_\alpha = \vec{0},\quad
-    \sum_\alpha m_\alpha\vec{\upsilon}_\alpha^{\mathrm{rel}} = \vec{0}.\label{eqn:DerVirTen4}
-\end{equation}
-
-Now we can start by computing the time derivative of tensorial product $\vec{r}_\alpha\otimes\vec{p}_\alpha$\footnote{It is interesting to note that the tensorial product $\vec{r}_\alpha\otimes\vec{p}_\alpha$ has units of action and by tacking the time derivative we are dealing with terms that has units of energy.
-},
-\begin{equation}
-    \dv{t}\qty(\vec{r}_\alpha\otimes\vec{p}_\alpha) = 
-    \underbrace{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{p}_\alpha}_{\mathrm{Kinetic~term}} 
-        +
-        \underbrace{\vec{r}_\alpha\otimes\vec{f}_\alpha}_{\mathrm{Virial~term}},\label{eqn:DerVirTen5}
-\end{equation}
-which is known as the \textit{dynamical tensor virial theorem} and it is simply an alternative form to express the balance of linear momentum.
-This theorem becomes useful after making the assumption that there existis a time scale $\tau$, which is short relative to macroscopic processes but long relative to the characteristic time of the particles in the system, over which the particles remain close to their original positions with bounded positions and velocities.
-Taking advantage of this property we can compute the time average of~\eqref{eqn:DerVirTen5},
-\begin{equation}
-    \frac{1}{\tau}\qty(\vec{r}_\alpha\otimes\vec{p}_\alpha)\bigg|_{0}^{\tau} = 
-    \overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{p}_\alpha} 
-        +
-    \overline{\vec{r}_\alpha\otimes\vec{f}_\alpha}.\label{eqn:DerVirTen6}
-\end{equation}
-Assuming that $\vec{r}_\alpha\otimes\vec{p}_\alpha$ is bounded, and the time scales between microscopic and continuum processes are large enough, the term on the left-hand side can be as small as desired by tacking $\tau$ sufficiently large and by summing over all particles we achieve the \textit{tensor virial theorem}:
-\begin{equation}
-    \overline{\mathbf{W}} = -2\overline{\mathbf{T}},\label{eqn:DerVirTen7}
-\end{equation}
-where
-\begin{equation}
-    \overline{\mathbf{W}} = \sum_\alpha\overline{\vec{r}_\alpha\otimes\vec{f}_\alpha}\label{eqn:DerVirTen8}
-\end{equation}
-is the time-average virial tensor and
-\begin{equation}
-    \overline{\mathbf{T}}=\frac{1}{2}\sum_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{p}_\alpha}\label{eqn:DerVirTen9}
-\end{equation}
-is the time-average kinetic tensor.
-This expression for the tensor virial theorem applies equally to continuum systems that are not in macroscopic equilibrium as well as those that are at rest.
-
-The assumption of the difference between the time scales allow us to simplify the relation by replacing~\eqref{eqn:DerVirTen2} in~\eqref{eqn:DerVirTen9}, so that,
-\begin{equation}
-    \overline{\mathbf{T}}=
-        \frac{1}{2}\sum_\alpha m_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{v}_\alpha^{\mathrm{rel}}}
-        +
-        \frac{1}{2} \left[\overline{\sum_\alpha m_\alpha\vec{\upsilon}_\alpha^{\mathrm{rel}}}\right]\otimes\dot{\vec{r}}\label{eqn:DerVirTen10},
-\end{equation}
-which is not the simplification we expected, however, by the relations from~\eqref{eqn:DerVirTen4}, equation~\eqref{eqn:DerVirTen10} simplifies to\footnote{No estoy muy seguro si incluir una discusión acerca del término cinético en la expresión del virial. Posiblemente un párrafo\dots posiblemente lo ponga en la interpretación del teorema.
-También, no se si ir metiendo interpretación durante la derivación o no, pero bueno.}
-\begin{equation}
-    \overline{\mathbf{T}}=
-        \frac{1}{2}\sum_\alpha m_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{\upsilon}_\alpha^{\mathrm{rel}}}\label{eqn:DerVirTen11}.
-\end{equation}
-On the other hand, instead of reducing the expression, we start to create the conection with the Cauchy stress tensor by distributing~\eqref{eqn:DerVirTen8} into an internal and external contributions,
-\begin{equation}
-    \overline{\mathbf{W}} = 
-    \underbrace{\sum_\alpha\overline{\vec{r}_\alpha\otimes\vec{f}_\alpha^{\mathrm{int}}}}_{\overline{\mathbf{W}}_{\mathrm{int}}}
-        +
-        \underbrace{\sum_\alpha\overline{\vec{r}_\alpha\otimes\vec{f}_\alpha^{\mathrm{ext}}}}_{\overline{\mathbf{W}}_{\mathrm{ext}}}.\label{eqn:DerVirTen12}
-\end{equation}
-The time-average internal virial tensor takes into account the interaction between particle $\alpha$ with the other particles in the system, meanwhile, the time-average external virial tensor considers the interaction with atoms outside the system, via a traction vector $\vec{t}$ and external fields acting on the system represented by $\rho\vec{b}$, where $\rho$ is the mass density of it and $\vec{b}$ is the body force per unit mass applied by the external field.
-Therefore we can express the following,
-\begin{equation}
-    \sum_\alpha\overline{\vec{r}_\alpha\otimes\vec{f}_\alpha^{\mathrm{ext}}}
-    :=
-    \int_{\delta\Omega}\vec{\xi}\otimes\vec{t}dA 
-    +
-    \int_{\Omega}\vec{\xi}\otimes\rho\vec{b}dV.\label{eqn:DerVirTen13}
-\end{equation}
-Where $\vec{\xi}$ is a position vector within the domain $\Omega$ occupied by the system of particles with a continuous closed surface $\delta\Omega$.
-Assuming that $\Omega$ is large enough to express the external forces acting on it in the form of the continuum traction vector $\vec{t}$.
-
-With this we can substitute the traction vector with $\vec{t}=\bm{\sigma}\vec{n}$, where $\bm{\sigma}$ represent the Cauchy stress tensor and applying the divergence theorem in~\eqref{eqn:DerVirTen13}, we have 
-\begin{equation}
-    \overline{\mathbf{W}}_{\mathrm{ext}}
-     =\int_{\Omega}
-        \left[
-            \vec{\xi}\otimes\rho\vec{b}+\mathrm{div}_{\vec{\xi}}\qty(\vec{\xi}\otimes\bm{\sigma})
-        \right]dV
-        =
-    \int_{\Omega}
-        \left[
-            \bm{\sigma}^{\mathrm{T}}
-            +
-            \vec{\xi}\otimes\qty(\mathrm{div}_{\vec{\xi}}\bm{\sigma}+\rho\vec{b})
-        \right]dV\label{eqn:DerVirTen14}
-\end{equation}
-Since we assume that we are under equilibrium conditions, the term $\mathrm{div}_{\vec{\xi}}\bm{\sigma}+\rho\vec{b}$ is zero~\eqref{eqn:DerVirTen14} it simplifies to
-\begin{equation}
-    \overline{\mathbf{W}}_{\mathrm{ext}}
-    =V\bm{\sigma}^{\mathrm{T}}\label{eqn:DerVirTen15}.
-\end{equation}
-By tacking into account that we integrate over the domain $\Omega$ we can say that we compute the spatial average of the Cauchy stress tensor,
-\begin{equation}
-    \bm{\sigma}_{\mathrm{av}} =\frac{1}{V}\int_\Omega\bm{\sigma}dV\label{eqn:DerVirTen16},
-\end{equation}
-in which $V$ is the volume of the domain $\Omega$.
-Replacing~\eqref{eqn:DerVirTen15} into~\eqref{eqn:DerVirTen12}, the tensor virial theorem~\eqref{eqn:DerVirTen7} can be expressed as,
-\begin{equation}
-    \sum_\alpha\overline{\vec{r}_\alpha\otimes\vec{f}_\alpha^{\mathrm{int}}}
-    +
-    V\bm{\sigma}_{\mathrm{av}}^{\mathrm{T}}
-    =
-    -\sum_\alpha m_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{\upsilon}_\alpha^{\mathrm{rel}}}.\label{eqn:DerVirTen17}
-\end{equation}
-Finally, solving for the Cauchy Stress tensor we get,
-\begin{equation}
-    \bm{\sigma}_{\mathrm{av}}
-    =
-    -\frac{1}{V}
-    \left[
-        \sum_\alpha\overline{\vec{f}_\alpha^{\mathrm{int}}\otimes\vec{r}_\alpha}
-        +
-        \sum_\alpha m_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{\upsilon}_\alpha^{\mathrm{rel}}}
-    \right],\label{eqn:DerVirTen18}
-\end{equation}
-an expression that describe the macroscopic stress tensor in terms of microscopic variables\footnote{It is important to acknowledge that several mathematical subtleties were not taken into consideration, however all the mathematical formality is adressed by Nikhil Chandra Admal and E. B. Tadmor in~\citep{admalUnifiedInterpretationStress2010}}.
-
-To end the section it is important to show that~\eqref{eqn:DerVirTen18} is symmetric.
-Therefore, we rewrite the internal force as the sum of forces between the particles,
-\begin{equation}
-    \vec{f}^{\mathrm{int}}_\alpha = \sum_{{\beta}_{\beta\neq\alpha}}\vec{f}_{\alpha\beta}\label{eqn:DerVirTen19},
-\end{equation}
-and substituting~\eqref{eqn:DerVirTen19} into~\eqref{eqn:DerVirTen18}, we have
-\begin{equation}
-    \bm{\sigma}_{\mathrm{av}}
-    =
-    -\frac{1}{V}
-    \left[
-        \sum_{{\alpha,\beta}_{\beta\neq\alpha}}\overline{\vec{f}_{\alpha\beta}\otimes\vec{r}_\alpha}
-        +
-        \sum_\alpha m_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{\upsilon}_\alpha^{\mathrm{rel}}}
-    \right].\label{eqn:DerVirTen20}
-\end{equation}
-Due to the property $\vec{f}_{\alpha\beta}=-\vec{f}_{\beta\alpha}$ we obtain the following identity
-\begin{equation}
-    \sum_{{\alpha,\beta}_{\beta\neq\alpha}}\vec{f}_{\alpha\beta}\otimes\vec{r}_\alpha 
-    =
-    \frac{1}{2}\sum_{{\alpha,\beta}_{\beta\neq\alpha}}\left(\vec{f}_{\alpha\beta}\otimes\vec{r}_\alpha+\vec{f}_{\beta\alpha}\otimes\vec{r}_\beta\right)
-    =
-    \frac{1}{2}\sum_{{\alpha,\beta}_{\beta\neq\alpha}}\vec{f}_{\alpha\beta}\otimes\left(\vec{r}_\alpha-\vec{r}_\beta\right).\label{eqn:DerVirTen21}
-\end{equation}
-Therefore, by replacing the identity of~\eqref{eqn:DerVirTen21} into~\eqref{eqn:DerVirTen20}, we have
-\begin{equation}
-    \bm{\sigma}_{\mathrm{av}}
-    =
-    -\frac{1}{V}
-    \left[
-        \frac{1}{2}
-        \sum_{{\alpha,\beta}_{\beta\neq\alpha}}\overline{\vec{f}_{\alpha\beta}\otimes\left(\vec{r}_\alpha-\vec{r}_\beta\right)}
-        +
-        \sum_\alpha m_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{\upsilon}_\alpha^{\mathrm{rel}}}
-    \right],\label{eqn:DerVirTen22}
-\end{equation}
-expressed with indexical notation and using the eistein summation convention,
-\begin{equation}
-    \sigma^{\mathrm{av}}_{ij}
-    =
-    -\frac{1}{V}
-    \left[
-        \frac{1}{2}
-        \sum_{{\alpha,\beta}_{\beta\neq\alpha}}\overline{f^{\alpha\beta}_{i}r^\alpha_{j} + f^{\beta\alpha}_{i}r^\beta_{j}}
-        +
-        \sum_\alpha m_\alpha\overline{\upsilon^{\alpha~\mathrm{rel}}_{i}\upsilon^{\alpha{\mathrm{rel}}}_j}
-    \right],\label{eqn:DerVirTen23}
-\end{equation}
-which is the same expression implemented in~LAMMPS\citep{LAMMPS}.\footnote{No se si poner la referencia a la pagina de documentacion}%\href{https://docs.lammps.org/compute_stress_atom.html}{https://docs.lammps.org/compute\_stress\_atom.html}}
-
-This allows us to quantify the relationship between network properties and the macroscopic Cauchy stress tensor. 
-As a result, we can begin to explore which molecular process dominates each deformation regime.
-
 \section{Molecular dynamics}
 
-In this section, we present the mathematical tools, also known as molecular dynamics (MD), employed to simulate the polymeric network.
+Now that we are familiarize with the mechanical response of the hydrogel and how the macroscopic and microscopic stress tensor are equivalent, in this section, we present the mathematical tools, also known as molecular dynamics (MD), employed to simulate the polymeric network.
 Molecular dynamics is a widely used method for analyzing the mechanical responses of polymeric networks because it provides detailed insight into structure-property relationships.
 This is due to its ability to represent atomic-level interactions via Newtonian mechanics, enabling the modeling of different crosslinking mechanisms, polymer chain configurations, time-dependent deformations, and others.
 First, we will introduce the concept of colloids. 
@@ -876,14 +836,14 @@ Therefore, two terms are used to create a mathematical representation of the sol
 
 By considering newtonian mechanics and the previous discussion, the Langevin dynamics are mathematically represented by the following differential equation,
 \begin{gather}
-    m\dv{\vec{v}(t)}{t}=\vec{F}(t)-m\gamma\vec{v}(t)+\vec{R}(t).\label{eqn:BrownianDyn1}
+    m\dv{\vec{v}(t)}{t}=\vec{F}(t)-\gamma\vec{v}(t)+\vec{R}(t).\label{eqn:BrownianDyn1}
 \end{gather}
 The term in the left-hand size of the equation denotes the change of momentum of the particle.
 The first term on the right-hand side of the equation represents the force due to the interaction of the particle with other particles.
 The second term couples the dissipation of energy of the particle due to its interaction with the solvent.
 Finally, the third term takes into account the exchange of momenta with the solvent.
 
-The friction constant $\gamma$\footnote{Cuidado con las unidades. Hacer análisis dimensional, porque por la condición de correlación en $R$, $\gamma$ ocupa tener unidades de masa entre tiempo, pero en la ecuación, solo ocupa unidades de $1/s$.} parametrises the effect of solvent damping and activation.
+The friction constant $\gamma$ parametrises the effect of solvent damping and activation and has units \SI{}{\kilo\gram\per\second}.
 It is commonly referred as the collision frequency in the simulation literature, even though formally a Langevin description implies that the solute suffers an infinite number of collisions with infinitesimally small momentum transfer.
 Furthermore, the fact that the second term is not a function of the position of any of the particles involves the neglect of hydrodynamic interaction or spatial correlation in the friction kernel\citep{pastorTechniquesApplicationsLangevin1994}.
 
@@ -892,16 +852,18 @@ On the other hand, the term $\vec{R}(t)$\footnote{No me acuerdo en donde está q
     \expval{\vec{R}(t)} = 0\label{eqn:LagDynamicNoiseExpval} \\
     \expval{\vec{R}(t)\vec{R}(t')} = 2k_{B}T\gamma\delta\qty(t-t')\label{eqn:LagDynamicNoiseCorrelation} 
 \end{gather}
-The no time correlation is equivalent to assuming that the viscoelastic relaxation of the solvent is very rapid with respect to solute motions\footnote{Grote land Hynes [26] have investigated this assumption for motions involving barrier crossing and have found that while it is seriously in error for passage over sharp barriers (such as 12 recombination); it is quite adequate for conformational transitions such as might be found in polymer motions.\citep{pastorTechniquesApplicationsLangevin1994}}.
+The no time correlation is equivalent to assuming that the viscoelastic relaxation of the solvent is very rapid with respect to solute motions\citep{pastorTechniquesApplicationsLangevin1994}.
+%\footnote{Grote land Hynes [26] have investigated this assumption for motions involving barrier crossing and have found that while it is seriously in error for passage over sharp barriers (such as 12 recombination); it is quite adequate for conformational transitions such as might be found in polymer motions.}
 
-In comparing the results of Langevin dynamics with those of other stochastic methods [28-31], the relevant variable is the velocity relaxation time, $\tau_{v}$ which equals $\gamma^{-1}$\citep{pastorTechniquesApplicationsLangevin1994}
+In comparing the results of Langevin dynamics with those of other stochastic methods, the relevant variable is the velocity relaxation time, $\tau_{v}$ which equals $\gamma^{-1}$\citep{pastorTechniquesApplicationsLangevin1994}
 The Langevin equation improves conformational sampling over standard molecular dynamics\citep{paquetMolecularDynamicsMonte2015}.
 
 %    \item hablar de la ecuación de Green-Kubo: \[\eta=\frac{V}{k_B T}\int_{0}^{\infty}\expval{\sigma_{xy}(t)\sigma_{xy}(0)}\mathrm{d}t\]
 
 \subsection{Velocity Verlet}
 
-%\paragraph{Intro} 
+%\paragraph{Intro}
+In order to solve the Langevin equation~\eqref{eqn:BrownianDyn1} we apply the Velocity Verlet numerical method.
 The core concept of the Velocity Verlet algorithm is to update particle positions and velocities using both current and predicted accelerations, ensuring time-reversibility and energy conservation over long simulations. 
 From a mathematical point of view, this algorithm is a second-order integrator for ordinary differential equations and is based on truncated Taylor expansion.
 Which for a particle with mas $m$, position $r(t)$, and force $f(r,t)$, the velocity Verlet schemes is express as
@@ -935,7 +897,7 @@ In order to accomplish that, we integrate the equation\eqref{eqn:BrownianDyn1} o
     \int_{t_n}^{t_{n+1}}m\dv{\vec{v}(t)}{t}dt'
     =
     \int_{t_n}^{t_{n+1}}\vec{F}(t)dt'
-    -\int_{t_n}^{t_{n+1}}m\gamma\vec{v}(t)dt'
+    -\int_{t_n}^{t_{n+1}}\gamma\vec{v}(t)dt'
     +\int_{t_n}^{t_{n+1}}\vec{R}(t')dt',
 \end{align}
 which it is equal to
@@ -943,7 +905,7 @@ which it is equal to
     m\qty(\vec{v}^{n+1} - \vec{v}^{n})
     =
     \int_{t_n}^{t_{n+1}}\vec{F}(t)dt'
-    -m\gamma\qty(r^{n+1}-r^n)
+    -\gamma\qty(r^{n+1}-r^n)
     +\int_{t_n}^{t_{n+1}}\vec{R}(t')dt'\label{eqn:DerVelVerlet1}.
 \end{align}
 
@@ -962,13 +924,13 @@ The left hand side can be approximated with forward finite differences,
 Solving for $\vec{v}^{n+1}$ from equation~\eqref{eqn:DerVelVerlet1} we get the following expression for the velocity,
 \begin{gather}
     \vec{v}^{n+1} = \frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{F}(t)dt'
-                     -\gamma\qty(r^{n+1}-r^n)
+                     -\frac{\gamma}{m}\qty(r^{n+1}-r^n)
                      +\frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{R}(t')dt'
                      +\vec{v}^{n}\label{eqn:DerVelVerlet3}.
 \end{gather}
 Replacing the term $\vec{v}^{n+1}$ in equation~\eqref{eqn:DerVelVerlet2} with equation~\eqref{eqn:DerVelVerlet3} and some algebraic manipulation we get,
 \begin{equation}
-    \vec{r}^{n+1} = \frac{dt}{2+\gamma dt}\left[ 
+    \vec{r}^{n+1} = \frac{m dt}{2m +\gamma dt}\left[ 
                         2\vec{v}^{n}                
                         +\frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{F}(t)dt'
                         +\frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{R}(t')dt'
@@ -979,7 +941,7 @@ Now we need are going to tackle the integral of force in equations~\eqref{eqn:De
 Since is a deterministic force, we can approximate the integral such that both equations are correct to second order in $dt$ and have the follwong pair of equations,
 \begin{align}
     \vec{r}^{n+1} &= r^n
-                    +\frac{dt}{2+\gamma dt}\left[ 
+                    +\frac{m dt}{2m +\gamma dt}\left[ 
                         2\vec{v}^{n}                
                         +\frac{dt}{m}F^{n}
                         +\frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{R}(t')dt'
@@ -992,30 +954,31 @@ Since is a deterministic force, we can approximate the integral such that both e
 \end{align}
 Finally, the integral over the random force is going to give another random variable with the same conditions of equations~\eqref{eqn:LagDynamicNoiseExpval} and~\eqref{eqn:LagDynamicNoiseCorrelation}, hence we can define the following,
 \begin{gather}
-    \eta^{n+1}\equiv\int_{t_n}^{t_{n+1}}\vec{R}(t')dt'\label{eqn:DerVelVerlet7},
+    \vec{\eta}^{n+1}\equiv\int_{t_n}^{t_{n+1}}\vec{R}(t')dt'\label{eqn:DerVelVerlet7},
 \end{gather}
 with $\expval{\eta^{n}}=0$ and $\expval{\eta^{n}\eta^{l}}=2k_{B}T\gamma\delta\qty(t-t')$.
 Replacing~\eqref{eqn:DerVelVerlet7} into equations~\eqref{eqn:DerVelVerlet5} and~\eqref{eqn:DerVelVerlet6} we get the scheme to solve Langevin equation using the Velocity Verlet scheme,
 \begin{align}
     \vec{r}^{n+1} &= r^n
-                    +\frac{dt}{2+\gamma dt}\left[ 
+                    +\frac{m dt}{2m +\gamma dt}\left[ 
                         2\vec{v}^{n}                
                         +\frac{dt}{m}F^{n}
-                        +\frac{1}{m}\eta^{n+1}
+                        +\frac{1}{m}\vec{\eta}^{n+1}
                     \right]\label{eqn:DerVelVerlet5}
                     , \\
     \vec{v}^{n+1} &= \vec{v}^{n}
                      +\frac{1}{m}\frac{dt}{2}\qty(\vec{F}^{n} + \vec{F}^{n+1})
                      -\gamma\qty(r^{n+1}-r^n)
-                     +\frac{1}{m}\eta^{n+1}\label{eqn:DerVelVerlet6}.
+                     +\frac{1}{m}\vec{\eta}^{n+1}\label{eqn:DerVelVerlet6}.
 \end{align}
 It is interesting to notice that the noise is represented as a single stochastic varaible for each time step, realized by a single agregated impulse during $dt$ that influences the dynamics over the time step.
+Finally, it is important to notice that $\vec{F}^{n}$, $\vec{F}^{n+1}$ and $\vec{\eta}^{n+1}$ have units of momenta \SI{}{\kilo\gram\meter\per\second} and the constant $\frac{m dt}{2m +\gamma dt}$ has units of time \SI{}{\second}. 
 
 \begin{comment}
 \begin{gather}
     \vec{r}^{n+1} = \frac{dt}{2}\left[ 
                         \frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{F}(t)dt'
-                        -\gamma\qty(r^{n+1}-r^n)
+                        -\frac{\gamma}{m}\qty(r^{n+1}-r^n)
                         +\frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{R}(t')dt'
                         +2\vec{v}^{n}
                     \right]
@@ -1023,7 +986,7 @@ It is interesting to notice that the noise is represented as a single stochastic
 \end{gather}
 
 \begin{equation}
-    \vec{r}^{n+1} = -\frac{dt}{2}\gamma\qty(r^{n+1}-r^n)
+    \vec{r}^{n+1} = -\frac{dt}{2}\frac{\gamma}{m}\qty(r^{n+1}-r^n)
                     +
                     \frac{dt}{2}\left[ 
                         \frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{F}(t)dt'
@@ -1035,7 +998,7 @@ It is interesting to notice that the noise is represented as a single stochastic
 
 
 \begin{equation}
-    \vec{r}^{n+1} = -\frac{dt}{2}\gamma r^{n+1}+\frac{dt}{2}\gamma r^n
+    \vec{r}^{n+1} = -\frac{dt}{2}\frac{\gamma}{m} r^{n+1}+\frac{dt}{2}\gamma r^n
                     +
                     \frac{dt}{2}\left[ 
                         \frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{F}(t)dt'
@@ -1046,7 +1009,7 @@ It is interesting to notice that the noise is represented as a single stochastic
 \end{equation}
 
 \begin{equation}
-    \vec{r}^{n+1}\qty(1+\frac{dt}{2}\gamma) = \frac{dt}{2}\gamma r^n
+    \vec{r}^{n+1}\qty(1+\frac{dt}{2}\frac{\gamma}{m}) = \frac{dt}{2}\gamma r^n
                     +
                     \frac{dt}{2}\left[ 
                         \frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{F}(t)dt'
@@ -1057,7 +1020,7 @@ It is interesting to notice that the noise is represented as a single stochastic
 \end{equation}
 
 \begin{equation}
-    \vec{r}^{n+1}\qty(1+\frac{dt}{2}\gamma) = 
+    \vec{r}^{n+1}\qty(1+\frac{dt}{2}\frac{\gamma}{m}) = 
                     \frac{dt}{2}\left[ 
                         \frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{F}(t)dt'
                         +\frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{R}(t')dt'
@@ -1068,7 +1031,7 @@ It is interesting to notice that the noise is represented as a single stochastic
 \end{equation}
 
 \begin{equation}
-    \vec{r}^{n+1}\qty(1+\frac{dt}{2}\gamma) = 
+    \vec{r}^{n+1}\qty(1+\frac{dt}{2}\frac{\gamma}{m}) = 
                     \frac{dt}{2}\left[ 
                         \frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{F}(t)dt'
                         +\frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{R}(t')dt'
@@ -1079,7 +1042,7 @@ It is interesting to notice that the noise is represented as a single stochastic
 \end{equation}
 
 \begin{equation}
-    \vec{r}^{n+1} = \frac{dt}{2\qty(1+\frac{dt}{2}\gamma)}\left[ 
+    \vec{r}^{n+1} = \frac{dt}{2\qty(1+\frac{dt}{2}\frac{\gamma}{m})}\left[ 
                         \frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{F}(t)dt'
                         +\frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{R}(t')dt'
                         +2\vec{v}^{n}
