@@ -97,7 +97,7 @@ For instance, linear, unbranched, or insufficiently crosslinked polymers remain 
 According to the literature, the most common classification is typically as physical or covalent hydrogels.
 In regards to the main crosslink mechanism present in the polymeric network.
 However, it is important to note that, although the crosslink mechanism plays a significant role in network integrity, it is not the sole mechanism that can adequately describe the mechanical response in terms of network structure.
-In this regard, three primary crosslink mechanisms can be identified: covalent, physical interactions, and mechanical\footnote{No estoy seguro si hablar de técincas de sintetización o si explicar mejor los mecanismos de bond exchange en redes covalentes y en redes físicas.}\citep{bustamantetorresHydrogelsClassificationAccording2021}.
+In this regard, three primary crosslink mechanisms can be identified: covalent, physical interactions, and mechanical\citep{bustamantetorresHydrogelsClassificationAccording2021}.
 
 %\paragraph{Covalent Crosslinking} 
 Polymer chains are linked by covalent bonds, which are typically formed through free-radical polymerization, click chemistry, or UV-induced reactions.
@@ -166,7 +166,7 @@ Before proceeding, it is necessary to know the quantitative representation of st
 Both quantities are mathematically represented as second-rank tensors, which can be algebraically expressed as a $n\times n$ matrix.
 Furthermore, it is important to interpret tensors as a generalization of scalars, vectors, and matrices to describe physical quantities which depend on direction and coordinate system, yet follow specific transformation rules under changes of coordinates.
 Allowing to quantify not just the magnitud but also aorientation and how the physical quantity acts along different directions in space.
-In summary, the tensor enables the capture of multidirectional physical properties that remain constant under coordinate changes\footnote{Quiero poner una imagen de como se ve el tensor y asi con proyecciones en el plano cartesiano}.
+In summary, the tensor enables the capture of multidirectional physical properties that remain constant under coordinate changes.
 Keeping this in mind, we can proceed with a description of the strain tensor. The stress tensor will be defined until the microscopic section, together with the relation to the microscopic-macroscopic relation.
 This is due to the scope of the thesis.
 
@@ -831,7 +831,7 @@ Since the solid phase of the colloid has a large mass, it will change their mome
 This time scale difference can be used to our favour in the sense that we can eliminate the details of the degrees of freedom of the solvent particles and represent their effect by stochastic and dissipative forces allowing longer simulations that would be impossible if the solvent were explicitly included\citep{pastorTechniquesApplicationsLangevin1994}.
 
 However, the representation of the solvent by a stochastic and dissipative force, introduce the problem of characterize two very different timescales.
-One associated with the slow relaxation of the initial velocity of the particle and another linked to the frequent collisions that the particle suffers with particles of the bath\citep{tsl2006}\footnote{Para traer a colación la sensibilidad de la respuesta mecánica al parámetro de damp.}. 
+One associated with the slow relaxation of the initial velocity of the particle and another linked to the frequent collisions that the particle suffers with particles of the bath\citep{tsl2006}. 
 Therefore, two terms are used to create a mathematical representation of the solvent: a frictional force proportional to the velocity of the particle and a fluctuating force. 
 
 By considering newtonian mechanics and the previous discussion, the Langevin dynamics are mathematically represented by the following differential equation,
@@ -847,7 +847,7 @@ The friction constant $\gamma$ parametrises the effect of solvent damping and ac
 It is commonly referred as the collision frequency in the simulation literature, even though formally a Langevin description implies that the solute suffers an infinite number of collisions with infinitesimally small momentum transfer.
 Furthermore, the fact that the second term is not a function of the position of any of the particles involves the neglect of hydrodynamic interaction or spatial correlation in the friction kernel\citep{pastorTechniquesApplicationsLangevin1994}.
 
-On the other hand, the term $\vec{R}(t)$\footnote{No me acuerdo en donde está que se puede asumir que tiene distribución gaussiana.} is a ``random force'' subject to the following conditions
+On the other hand, the term $\vec{R}(t)$ is a ``random force'' subject to the following conditions
 \begin{gather}
     \expval{\vec{R}(t)} = 0\label{eqn:LagDynamicNoiseExpval} \\
     \expval{\vec{R}(t)\vec{R}(t')} = 2k_{B}T\gamma\delta\qty(t-t')\label{eqn:LagDynamicNoiseCorrelation} 
