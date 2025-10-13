@@ -98,10 +98,11 @@ The parameter $\epsilon_{m,n}$ is the energy of repulsion and $w$ is used to tun
 The cut off distance $r_c$ is the same as in the potential of interaction between patches, meanwhile the minimum distance $r_{\min}$ is the distance at the minimum of~\eqref{eqn:patch-patch_interaction}, \textit{i.e.} $\epsilon_{m,n}\equiv\abs{U_{\mathrm{patchy}}(r_{\min})}$.
 
 In figure~\ref{fig:swappot} shows the patch-patch potential with the swap potential.
-The first swap potential assumes that the distance between patch $i$ with patch $j$ is equal to the potential well $r_{ij}=\sigma$ and we let the distance $r_{ik}$.
-
-conditions between the distance of a patch $i$ with patch $j$.
-
+The patch-patch potential in the figure is the energy of the interaction between patch $i$ with patch $k$.
+The swap potential is the energy between patch $i$ with patch $k$ leaving the distance between patch $i$ and patch $j$ fixed.
+Tacking into account this, when the patches $i-j$ are at the potential well ($r_{ij}=\sigma$), the interaction between $i-k$ is null.
+When the patches $i-j$ is bigger than the potential well but smaller than the cutoff distance ($r_{\mathrm{cut}}>r_{ij}>\sigma$), the interaction between $i-k$ is mild attractive.
+Finally, when the patches $i-j$ is bigger than the cutoff distance ($r_{\mathrm{cut}}<r_{ij}$), the interaction between $i-k$ is attractive.
 
 \begin{figure}[ht!]
     \centering
@@ -111,9 +112,8 @@ conditions between the distance of a patch $i$ with patch $j$.
 
 
 
-Finally, the energy of interaction between crosslinker patches ($\epsilon_{\mu^i,\mu^i}$) are set to $0$ to allow only crosslinker-monomer and monomer-monomer bonding.
 
-\paragraph{Polymeric network parameters}
+%\paragraph{Polymeric network parameters}
 Now that the interaction between pathcy particles have been described, we can describe the control parameters for the simulations.
 We set a constant number of patchy particles $N_p$, a packing fraction $\phi$ and a cross-link concentration $c$. 
 From this parameters we compute the volume of the box and the number of patchy particles of functionality 2 (PB) and the patchy particles of functionality 4 (PA).
@@ -130,6 +130,14 @@ Once we set the parameters for the synthesis, the volume of the box was calculat
 The number of patchy particle of type A is computed as $N_{\mathrm{patchyA}} = c N_p$ and the number of patchy particles of type B as $N_{\mathrm{patchyB}}= N_p - N_{\mathrm{patchyA}}= N_p(1 - c )$.
 Finally, the temperature was set to be constant thru all the assembly process $T=0.05$ in Lennard-Jones units, meanwhile, the damp parameter was set to $\mathrm{damp}=0.1$.
 It is important to notice that the damp controlls the viscous response from the interaction between the thermal bath and the particles, which represents the interaction between water molecules and the polymer network.
+
+We set the radius of the central particle at $0.5$ ($\sigma=1$) and the radius of the patches at $0.2$ ($\sigma_p=0.4$).
+The energy of interaction between central particles is 1 $\epsilon_{i,j}=1$.
+In constrast, the energy of interaction between patches is difend as follows,
+the interaction between patches of patchy particles with two patches is set to 1 ($\epsilon_{\mu,\upsilon}=1$), 
+the interaction between patches of patchy particles with four patches is set to \num{0} ($\epsilon_{\mu,\upsilon}=0$) 
+and the interaction between patches of patchy particles with four patches with patchs of patchy particles of two patches is set to \num{1} ($\epsilon_{\mu,\upsilon}=1$).
+This is to allow only crosslinker-monomer and monomer-monomer bonding.
 
 \paragraph{Deformation protocol} 
 Once the synthesis of the hydrogel was set, we peform a shear deformation to the resulting polymeric network.
