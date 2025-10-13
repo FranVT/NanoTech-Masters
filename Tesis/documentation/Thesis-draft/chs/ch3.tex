@@ -78,7 +78,7 @@ Hence, this numerical methodology is like having a polymeric network with physic
 In contrast, the difference between the Lennard-Jones potential with patch-patch interaction is that the minimum potential undergoes horizontal translation, and the rate of change from the minimum to the cut distance is more pronounced in the patch-patch interaction.
 This translates into a more ``strong'' interaction between the patches using equation~\eqref{eqn:patch-patch_interaction} than a Lennard-Jones potential.
 
-In addition, if we let the polymeric network form with only those potentials, the patches are going to form cluster of more than 2 patches, which is not desirable, because it does not follows the single bond per patch condition.
+In addition, if we let the polymeric network form with the interaction of equation~\eqref{eqn:patch-patch_interaction}, the patches are going to form cluster of more than 2 patches, which is not desirable.
 Hence, the interaction between patches is complemented by a three-body repulsive potential, defined in terms of~\eqref{eqn:patch-patch_interaction}, that provides an efficient bond-swapping mechanism making possible to easily equilibrate the system at extremely low temperatures, while at the same time, reataining the single bond per patch condition\citep{sciortinoThreebodyPotentialSimulating2017},
 \begin{gather}
     U_{\mathrm{swap}}(r_{l,m},r_{l,n}) = w\sum_{l,m,n}\epsilon_{m,n}U_3\qty(r_{l,m})U_3\qty(r_{l,n}),\quad r_{l,n}\in\qty[0,r_c],\label{eqn:swap_interaction}
@@ -96,7 +96,22 @@ The sum in~\eqref{eqn:swap_interaction} runs over all triples of bonded patches 
 $r_{l,m}$ and $r_{l,n}$ are the distances between the reference patch and the other two patches.
 The parameter $\epsilon_{m,n}$ is the energy of repulsion and $w$ is used to tuned the swapping ($w=1$) and non-swapping bonds ($w\gg1$). 
 The cut off distance $r_c$ is the same as in the potential of interaction between patches, meanwhile the minimum distance $r_{\min}$ is the distance at the minimum of~\eqref{eqn:patch-patch_interaction}, \textit{i.e.} $\epsilon_{m,n}\equiv\abs{U_{\mathrm{patchy}}(r_{\min})}$.
-Finally, the energy of interaction between crosslinker patches ($\epsilon_{\mu^i,\mu^i}$) are set to $0$ to allow only crosslinker-monomer and monomer-monomer bonding (figure~\ref{fig:intento2}).
+
+In figure~\ref{fig:swappot} shows the patch-patch potential with the swap potential.
+The first swap potential assumes that the distance between patch $i$ with patch $j$ is equal to the potential well $r_{ij}=\sigma$ and we let the distance $r_{ik}$.
+
+conditions between the distance of a patch $i$ with patch $j$.
+
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{figs/numerical/swapPotential.png}
+    \caption{Swap potential for patch-patch interaction to ensure single bond per patch condition.}\label{fig:swappot}
+\end{figure}
+
+
+
+Finally, the energy of interaction between crosslinker patches ($\epsilon_{\mu^i,\mu^i}$) are set to $0$ to allow only crosslinker-monomer and monomer-monomer bonding.
 
 \paragraph{Polymeric network parameters}
 Now that the interaction between pathcy particles have been described, we can describe the control parameters for the simulations.
