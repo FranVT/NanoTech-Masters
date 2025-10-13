@@ -38,7 +38,8 @@ Finally, the particle volume fraction contributes to the ability of the particle
 
 \subsection{Description of the system}
 
-\paragraph{Interaction potentials} We start by describing the interaction potentials between patchy particles.
+%\paragraph{Interaction potentials} 
+We start by describing the interaction potentials between patchy particles.
 The interaction between the central particles is modeled with a Weeks-Chandler-Andersen repulsive potential,
 \begin{gather}
     U_{WCA}(r_{i,j}) =\left\{ 
@@ -60,15 +61,24 @@ On the other hand, the patch-patch interaction is modeled with an attractive pot
             \right.\label{eqn:patch-patch_interaction}
 \end{gather}
 where $r_{\mu\upsilon}$ is the distance between two patches, $\sigma_p$ is the diameter of the patches, $r_c$ is the cut distance of interaction set to $1.5\sigma_p$ and $\epsilon_{\mu,\upsilon}$ is the interaction energy between the patches.
-This potential can be interpreted as a reversible interaction.
+%This potential can be interpreted as a reversible interaction.
+
+In figure~\ref{fig:patchpatchpot} is a contrast between the patch-patch interaction potential~\eqref{eqn:patch-patch_interaction}, the Lennard-Jones potential and the FENE potential.
+Qualitatively, the Lennard-Jones and the patch-patch potential are similar, in the sense that after a cut off distance, both potentials tends to zero.
+In contrast, the FENE potential goes to infinity if the distance is to short or to wide.
+This main difference allow us to implement the patch-patch interaction as a reversible interaction, rather than the FENE, which is more suitable to represent non-reversible interaction.
+Hence, this numerical methodology is like having a polymeric network with physical crosslinkers.
 
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=0.8\textwidth]{figs/numerical/patchpatch.png}
-    \caption{Comparisson of attractive interaction potentials}\label{fig:patchpatchpot}
+    \caption{Comparisson between equation~\eqref{eqn:patch-patch_interaction} with Lennard-Jones and FENE potentials.}\label{fig:patchpatchpot}
 \end{figure}
 
-It is important to say that if we let the polymeric network form with only those potentials, the patches are going to form cluster of more than 2 patches, which is not desirable, because it does not follows the single bond per patch condition.
+In contrast, the difference between the Lennard-Jones potential with patch-patch interaction is that the minimum potential undergoes horizontal translation, and the rate of change from the minimum to the cut distance is more pronounced in the patch-patch interaction.
+This translates into a more ``strong'' interaction between the patches using equation~\eqref{eqn:patch-patch_interaction} than a Lennard-Jones potential.
+
+In addition, if we let the polymeric network form with only those potentials, the patches are going to form cluster of more than 2 patches, which is not desirable, because it does not follows the single bond per patch condition.
 Hence, the interaction between patches is complemented by a three-body repulsive potential, defined in terms of~\eqref{eqn:patch-patch_interaction}, that provides an efficient bond-swapping mechanism making possible to easily equilibrate the system at extremely low temperatures, while at the same time, reataining the single bond per patch condition\citep{sciortinoThreebodyPotentialSimulating2017},
 \begin{gather}
     U_{\mathrm{swap}}(r_{l,m},r_{l,n}) = w\sum_{l,m,n}\epsilon_{m,n}U_3\qty(r_{l,m})U_3\qty(r_{l,n}),\quad r_{l,n}\in\qty[0,r_c],\label{eqn:swap_interaction}

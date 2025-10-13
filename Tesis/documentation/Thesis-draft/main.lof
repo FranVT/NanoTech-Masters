@@ -23,7 +23,7 @@
 \contentsline {figure}{\numberline {2.17}{\ignorespaces Compresive tests from\citep {wangRapidUniaxialActuation2018}}}{49}{figure.2.17}%
 \contentsline {figure}{\numberline {2.18}{\ignorespaces compresive tests from\citep {xuestrongtoughrapidrecovery2023}}}{49}{figure.2.18}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Comparisson of attractive interaction potentials}}{61}{figure.3.1}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Comparisson between equation~\eqref {eqn:patch-patch_interaction} with Lennard-Jones and FENE potentials.}}{61}{figure.3.1}%
 \contentsline {figure}{\numberline {3.2}{\ignorespaces results from computational results test}}{65}{figure.3.2}%
 \addvspace {10\p@ }
 \contentsfinish 
