@@ -120,7 +120,6 @@ Where $r_o$ and $\theta_o$ represent the equilibrium bond distance and angle.
 Meanwhile, $K$ is equal to $K=k/2$, where $k$ is the energy of the bond.
 This allow us to create patchy particles with patches fixed at a convinient position.
 
-
 %\paragraph{Polymeric network parameters}
 Now that the interaction between pathcy particles have been described, we can describe the control parameters for the simulations.
 We set a constant number of patchy particles $N_p$, a packing fraction $\phi$ and a cross-link concentration $c$. 
@@ -129,11 +128,11 @@ From this parameters we compute the volume of the box and the number of patchy p
 Due to limitations related to time and computing resources, we have set the total number of particles to be $N_p=\num{8000}$.
 This is a lower number of particles when compared with other simulations[cites].
 Therefore, in order to compensate, we take the mean of five experiments.
+In addition, the timestep was set to \num{0.001}, as a good rule of thumb\footnote{Talk about LJ units.}.
 This is equivalent to simulating a system of \num{40000} particles, but with a more manageable computational requirements.
 Finally, the values of $K_r$ and $K_\theta$ is set to \num{100}, to create a strong bond and prevent stretching.
 The value of $r_o$ is set to \num{0.45}.
 The value of $\theta_o$ is set to \SI{180}{\degree} for PB particles and \SI{109.4712}{\degree} for PA particles.
-
 
 Once we set the parameters for the synthesis, the volume of the box was calculated by determining the volume of the patchy particles A and B, and then scaling those values by the number of particles and the desired packing fraction.
 \begin{align*}
@@ -170,19 +169,73 @@ The temperature and damp parameter where set to be the same as in the assembly p
 
 As said before, we take advantage of the LAMMPS software as a computational tool to solve the langevin equation in a many-particle system.
 However, it is usefull to explain how we apply the simulation in this software.
-In this regard, we discuss briefly the $\mathrm{damp}$ parameter, the implementation of the swap potential~\eqref{eqn:swapmod_interaction} and the shear deformation.
+In this regard, we discuss briefly the $\mathrm{damp}$ parameter, the implementation of the swap potential~\eqref{eqn:swapmod_interaction}, the shear deformation and the calculation of the stress tensor.
 
-\paragraph{Three-body potential}
-%An importante technica issue to address is the tabulation of the threebody potential to introduce the swap potential into LAMMPS.
-This is because the forces on all three particles $I$, $J$, and $K$ of a triplet of this type of three-body interaction potential lie within the plane defined by the three inter-particle distance vectors $\vec{r}_{IJ}$, $\vec{r}_{IK}$ and $\vec{r}_{JK}$.
-This property is used to project the forces onto the inter-particle distance vectors.
-Hence, we need to create a table taking that into consideration, for that we \textbf{\ldots}
+%\paragraph{damp}
+As we saw in equations~\eqref{eqn:MolDylammps1} and~\eqref{eqn:MolDylammps2}, the viscosity parameter $\gamma$ of the lagevin equation~\eqref{eqn:BrownianDyn1} does appears, instead the $\mathrm{damp}$ parameter appears.
+This parameter is specified in time units and determines how rapidly the temperature is relaxed so that can be more easily be used as a thermostat\citep{LAMMPS}.
+That is, if damp is set to \num{100}, the temperature will relax in a timespan of roughly \num{100} time units.
+By making dimensional analysis, the damp factor can be think as inversely related to the viscotity of the solvent.
+This tells us that a small damp represents a high-viscosity solvent and vice versa.
+Therefore, since we set this parameter to \num{0.1} the polymeric network is in a high-viscosity solvent.
 
-Deformation.
+%\paragraph{Three-body potential}
+Now moving towards the implementation of the swap-potential.
+We use the \verb|pair_style threebody/table| command because it allow us to implement a generic tabulated three-body interactions.
+However, in lammps, the tabulation is done on a three-dimensional grid of the two distances $r_{ij}$ and $r_{ik}$ as well as the angle $\theta_{ijk}$, where the forces on all three particles $I$, $J$, and $K$ lie within the plane defined by the three inter-particle distance vectors $\vec{r}_{IJ}$, $\vec{r}_{IK}$ and $\vec{r}_{JK}$\citep{LAMMPS}.
+Allowing the following property to project the forces onto the inter-particle distance vectors,
+\begin{equation}
+    \begin{pmatrix}\vec{f}_i \\ \vec{f}_j \\ \vec{f}_k\end{pmatrix}
+    =
+    \begin{pmatrix}f_{i1} & f_{i2} & 0 \\ f_{j1} & 0 & f_{j2} \\ 0 & f_{k1} & f_{k2} \end{pmatrix}
+    \begin{pmatrix}\vec{r}_{ij} \\ \vec{f}_{ik} \\ \vec{f}_{jk}\end{pmatrix}.
+\end{equation}
+And due to symmetry reasons, we have that $f_{i1}=-f_{j1}$, $f_{i2}=-f_{k1}$ and $f_{j2}=-f_{k2}$.
+Hence, we need to project the force of the swap potential into the inter-particle plane in order to have a correct tabulation.
 
-\paragraph{fix deform} To explain how the deformation is perform.
+This projection\ldots
 
-\paragraph{fix stress} to explain how the stress tensor is computed.
+Now we are going to briefly explain the implementation of the shear deformation on the $xy$ plane using the \verb|fix deform| command.
+We choose to apply the engineering deformation rate (\verb|erate| style) because changes a dimension of the box at a “constant engineering strain rate”.
+The box length L as a function of time will change as
+\begin{gather}
+    L(t) = L_o\qty(1 + \mathrm{erate}~dt),
+\end{gather}
+where $L_o$ is the original box length and $\mathrm{erate}$ is the shear rate in units of $1/\mathrm{time}$\citep{LAMMPS}.
+This deformation is apply in the $xy$ plane and the change in length is along the $x$ direction.
+This set of parameter ensures that the volume does not change during the deformation\citep{LAMMPS}.
+In addition to the \verb|erate| style, we set the \verb|remap| keyword to \verb|x| in order to remap particle positions without altering their velocities\citep{LAMMPS}.
+Finally, we also use the \verb|flip| keyword to flip the box when the tilt factors exceed half the distance of the parallel box length, in order to prevent computational inneficiency and errors\citep{LAMMPS}.
+
+%\paragraph{fix stress} 
+In order to finish the section, we are going to cover how LAMMPS compute the stress tensor.
+This quantity is computed by the \verb|compute stress/atom| which gives the stress tensor for an atom $I$ by the following equation,
+\begin{gather}
+    S_{ab} = -v_a v_b - W_{ab}\label{eqn:stressLAMMPS},
+\end{gather}
+where $a$ and $b$ represent the spatial coordinates $x$, $y$ and $z$, and $W_{ab}$ is the virial contribution given by
+\begin{multline}
+    W_{ab} = \frac{1}{2}\sum_{n=1}^{N_p}\qty(r_{1a} F_{1b} + r_{2a} F_{2b})
+            +\frac{1}{2}\sum_{n=1}^{N_b}\qty(r_{1a} F_{1b} + r_{2a} F_{2b}) \\
+            +\frac{1}{3}\sum_{n=1}^{N_a}\qty(r_{1a} F_{1b} + r_{2a} F_{2b} + r_{3a} F_{3b})
+            +\frac{1}{4}\sum_{n=1}^{N_d}\qty(r_{1a} F_{1b} + r_{2a} F_{2b} + r_{3a} F_{3b} + r_{4a} F_{4b}) \\
+            +\frac{1}{4}\sum_{n=1}^{N_i}\qty(r_{1a} F_{1b} + r_{2a} F_{2b} + r_{3a} F_{3b} + r_{4a} F_{4b}) 
+            +\mathrm{Kspace}(r_{ia},F_{ib}) 
+            +\sum_{n=1}^{N_f}r_{ia} F_{ib}.
+\end{multline}
+The first term includes the contribution from pairwise interactions, the second term considers bond contributions, the third, fourth and fith terms consider contributions from interactions in terms of angles.
+The sixth term considers long range Coulombic interactions and the final term consider contributions from \verb|fix| commands such as \verb|fix rigid| or \verb|fix shake|.
+Since we only declare pairwise interactions, bonds and angles interactions, the virial contribution it simplifies to,
+\begin{multline}
+    W_{ab} = \frac{1}{2}\sum_{n=1}^{N_p}\qty(r_{1a} F_{1b} + r_{2a} F_{2b})
+            +\frac{1}{2}\sum_{n=1}^{N_b}\qty(r_{1a} F_{1b} + r_{2a} F_{2b}) \\
+            +\frac{1}{3}\sum_{n=1}^{N_a}\qty(r_{1a} F_{1b} + r_{2a} F_{2b} + r_{3a} F_{3b})\label{eqn:virialLAMMPS}.
+\end{multline}
+
+By substituting the virial term~\eqref{eqn:virialLAMMPS} into the per particle stress tensor~\eqref{eqn:stressLAMMPS} we get a similar expression for the stress derived previously~\eqref{eqn:DerVirTen23}.
+Where the main difference is that stress tensor in equation~\eqref{eqn:DerVirTen23} is a temporal and spatial average, while the definition of the stress tensor in~\eqref{eqn:stressLAMMPS} is per particle.
+Hence, in order to analyze the mechanical response by the Cauchy stress tensor we need to apply a proper time average and then a spatial average of the per particle stress tensor along the patchy particle network, that is including the patches.
+
 
 \section{Results}
 

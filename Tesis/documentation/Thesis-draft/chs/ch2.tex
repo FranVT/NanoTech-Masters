@@ -1098,8 +1098,8 @@ This feature allows a single script to run a simulation in stages, alter one or 
 
 The Langevin equation in LAMMPS is implemented as follows,
 \begin{align}
-    F &= F_c -\frac{m}{\mathrm{damp}}v + F_r, \\
-    F_r &\propto\sqrt{\frac{k_B T m}{dt\mathrm{damp}}},
+    F &= F_c -\frac{m}{\mathrm{damp}}v + F_r,\label{eqn:MolDylammps1} \\
+    F_r &\propto\sqrt{\frac{k_B T m}{dt\mathrm{damp}}},\label{eqn:MolDylammps2}
 \end{align}
 where $F_c$ is the conservative force computed from particle-particle interactions.
 The term $F_r$ is equivalent to $-m\gamma v$ and $F_r$ is equivalent to the term $\vec{R}(t)$ on equation~\eqref{eqn:BrownianDyn1}.
