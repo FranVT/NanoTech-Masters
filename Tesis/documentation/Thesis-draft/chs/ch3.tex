@@ -139,7 +139,7 @@ Once we set the parameters for the synthesis, the volume of the box was calculat
     V_{\mathrm{box}} &= \frac{N_{\mathrm{patchyA}}V_{\mathrm{patchyA}}+N_{\mathrm{patchyB}}V_{\mathrm{patchyB}}}{\phi}
 \end{align*}
 The number of patchy particle of type A is computed as $N_{\mathrm{patchyA}} = c N_p$ and the number of patchy particles of type B as $N_{\mathrm{patchyB}}= N_p - N_{\mathrm{patchyA}}= N_p(1 - c )$.
-Finally, the temperature was set to be constant thru all the assembly process $T=0.05$ in Lennard-Jones units, meanwhile, the damp parameter was set to $\mathrm{damp}=0.1$.
+Finally, the temperature was set to be constant thru all the assembly process $T=\num{0.05}$ in Lennard-Jones units, meanwhile, the damp parameter was set to $\mathrm{damp}=\num{0.5}$.
 It is important to notice that the damp controlls the viscous response from the interaction between the thermal bath and the particles, which represents the interaction between water molecules and the polymer network.
 
 We set the radius of the central particle at $0.5$ ($\sigma=1$) and the radius of the patches at $0.2$ ($\sigma_p=0.4$).
@@ -149,7 +149,6 @@ the interaction between patches of patchy particles with two patches is set to 1
 the interaction between patches of patchy particles with four patches is set to \num{0} ($\epsilon_{\mu,\upsilon}=0$) 
 and the interaction between patches of patchy particles with four patches with patchs of patchy particles of two patches is set to \num{1} ($\epsilon_{\mu,\upsilon}=1$).
 This is to allow only crosslinker-monomer and monomer-monomer bonding.
-
 
 %\paragraph{Deformation protocol}
 Once the assembly simulation of the patchy particles network was done, we peform a shear deformation to the resulting network.
@@ -209,7 +208,7 @@ Finally, we also use the \verb|flip| keyword to flip the box when the tilt facto
 
 %\paragraph{fix stress} 
 In order to finish the section, we are going to cover how LAMMPS compute the stress tensor.
-This quantity is computed by the \verb|compute stress/atom| which gives the stress tensor for an atom $I$ by the following equation,
+This quantity is computed by the \verb|compute stress/atom| which gives the stress tensor for an atom $I$ by the following equation\citep{thompsonGeneralFormulationPressure2009,LAMMPS},
 \begin{gather}
     S_{ab} = -v_a v_b - W_{ab}\label{eqn:stressLAMMPS},
 \end{gather}
@@ -245,7 +244,94 @@ Strain stress graph
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/strain-vs-stressxy.png}
+    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/CL3/StrainStressXY.png}
+    \caption{results from computational results test}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/CL3/SmallStrainStressXY.png}
+    \caption{results from computational results test}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/CL3/ElasticStrainStressXY.png}
+    \caption{results from computational results test}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/CL3/ViscoElasticStrainStressXY.png}
+    \caption{results from computational results test}
+\end{figure}
+
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/CL3/shearRate.png}
+    \caption{results from computational results test}
+\end{figure}
+
+% Another crosslinker concentration
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/CL5/StrainStressXY.png}
+    \caption{results from computational results test}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/CL5/SmallStrainStressXY.png}
+    \caption{results from computational results test}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/CL5/ElasticStrainStressXY.png}
+    \caption{results from computational results test}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/CL5/ViscoElasticStrainStressXY.png}
+    \caption{results from computational results test}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/CL5/shearRate.png}
+    \caption{results from computational results test}
+\end{figure}
+
+% Another crosslinker concentration
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/CL10/StrainStressXY.png}
+    \caption{results from computational results test}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/CL10/SmallStrainStressXY.png}
+    \caption{results from computational results test}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/CL10/ElasticStrainStressXY.png}
+    \caption{results from computational results test}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/CL10/ViscoElasticStrainStressXY.png}
+    \caption{results from computational results test}
+\end{figure}
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/CL10/shearRate.png}
     \caption{results from computational results test}
 \end{figure}
 
