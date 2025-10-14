@@ -110,7 +110,15 @@ Finally, when the patches $i-j$ is bigger than the cutoff distance ($r_{\mathrm{
     \caption{Swap potential for patch-patch interaction to ensure single bond per patch condition.}\label{fig:swappot}
 \end{figure}
 
-
+Before proceeding to the description of the parameteros for the simulation, it is necessary to describe the interaction between the central particle and the patches.
+The patches and the central particles are linked by harmonic potentials,
+\begin{align}
+    E_r &= K_r\qty(r-r_{o})^2, \\
+    E_\theta &= K_\theta\qty(\theta-\theta_{o})^2.
+\end{align}
+Where $r_o$ and $\theta_o$ represent the equilibrium bond distance and angle.
+Meanwhile, $K$ is equal to $K=k/2$, where $k$ is the energy of the bond.
+This allow us to create patchy particles with patches fixed at a convinient position.
 
 
 %\paragraph{Polymeric network parameters}
@@ -122,6 +130,10 @@ Due to limitations related to time and computing resources, we have set the tota
 This is a lower number of particles when compared with other simulations[cites].
 Therefore, in order to compensate, we take the mean of five experiments.
 This is equivalent to simulating a system of \num{40000} particles, but with a more manageable computational requirements.
+Finally, the values of $K_r$ and $K_\theta$ is set to \num{100}, to create a strong bond and prevent stretching.
+The value of $r_o$ is set to \num{0.45}.
+The value of $\theta_o$ is set to \SI{180}{\degree} for PB particles and \SI{109.4712}{\degree} for PA particles.
+
 
 Once we set the parameters for the synthesis, the volume of the box was calculated by determining the volume of the patchy particles A and B, and then scaling those values by the number of particles and the desired packing fraction.
 \begin{align*}
@@ -139,20 +151,26 @@ the interaction between patches of patchy particles with four patches is set to 
 and the interaction between patches of patchy particles with four patches with patchs of patchy particles of two patches is set to \num{1} ($\epsilon_{\mu,\upsilon}=1$).
 This is to allow only crosslinker-monomer and monomer-monomer bonding.
 
-\paragraph{Deformation protocol} 
-Once the synthesis of the hydrogel was set, we peform a shear deformation to the resulting polymeric network.
+
+%\paragraph{Deformation protocol}
+Once the assembly simulation of the patchy particles network was done, we peform a shear deformation to the resulting network.
 We select the shear deformation because shear forces dominate biological environments where hydrogels are typically deployed. 
 Also, shear testing provides a more uniform stress field throughout the hydrogel sample compared to tensile testing. 
 In rheological measurements using parallel plate or cone-and-plate geometries, the applied shear stress is distributed evenly across the sample, eliminating edge effects and stress concentrations that plague tensile testing.
 Furthermore, shear rheometry excels at characterizing the complex viscoelastic properties that define hydrogel functionality.
 Many hydrogels exhibit shear-thinning behavior that is critical for applications like injection and 3D bioprinting. 
 
-Since we are exploring this computational methodology to characterized the mechanical response, we choose to have a constant shear rate to deform beyond the plastic deformation limit.
-Also we vary the shear rate of the deformation to see the viscoelastic response of the material.
-The temperature was held constant to a value of $0.05$ Lennar-Jones units and a damp on \num{0.1}.
-
+The shear deformation was done at a constant shear rate in the $xy$ plane.
+The shear rates where in the \num{d-3} order of magnitude and final strain was \num{15} units.
+This is because we are exploring this computational methodology to characterized the mechanical response and to deform beyond the plastic deformation limit.
+Also the variation of the shear rate was perform to see the viscoelastic response of the material.
+The temperature and damp parameter where set to be the same as in the assembly process.
 
 \subsection{LAMMPS implementation}
+
+As said before, we take advantage of the LAMMPS software as a computational tool to solve the langevin equation in a many-particle system.
+However, it is usefull to explain how we apply the simulation in this software.
+In this regard, we discuss briefly the $\mathrm{damp}$ parameter, the implementation of the swap potential~\eqref{eqn:swapmod_interaction} and the shear deformation.
 
 \paragraph{Three-body potential}
 %An importante technica issue to address is the tabulation of the threebody potential to introduce the swap potential into LAMMPS.
