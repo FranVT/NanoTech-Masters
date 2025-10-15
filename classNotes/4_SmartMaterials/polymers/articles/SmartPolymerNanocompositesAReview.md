@@ -116,4 +116,33 @@ Specfici preparation methods
 
 ### Polimerization
 
+prepared temperature-responsive poly(N-isopropylacrylamide) (PNIPAm)multi-walled carbon nanotube (MWCNT) conjugates via stimuli-responsive linkages by combination reversible addition-fragmentation chain transfer (RAFT) polymerization and thiol-coupling reaction.
+
+
+PNIPAm-MWCNT nanocomposites are sensitive to both temperature and bio-stimuli (e.g., glutathione concentration). 
+Biological molecules (e.g.,  protein, deoxyribonucleic acid (DNA), peptide) are easily attached to carbon nanotubes (CNT) via a disulfide bond, and it can be released from CNT in the presence of external stimuli.
+
+### Melt compounding
+
+It can be achieved by readily available mixing and molding equipment, e.g., extrusion and injection molding.
+
+### Solution mixing
+
+The dispersion of nanofiller in the polymer prepared using solution mixing can often be enhanced by using ultra-sonification.
+
+
+### Hydrogels (Other processing techniques)
+
+Stimuli-responsive nanocomposite hydrogels possess an inherent intelligence and self-adaptation ability when subjected to different external stimuli, e.g., temperature, pH, electric current, light, and ionic strength.
+
+Nanocomposite hydrogels have attracted much attention due to their rapid swelling-deswelling response, high swelling ratios, and tunable physical properties [95, 96].
+
+### Filament spinning and electrospinning (Other processing techniques)
+
+Smart polymer ultrafine fibers have gained attention attributed to their potential application, such as electronic textiles, dust-free clothing, electromagnetic interference shielding, filtration, and biomedical use
+
+### Thermosetting resins (Other processing techniques) 
+
+Thermoset-based SMPs with high heat resistance are suitable for use in high temperature environment
+
 
