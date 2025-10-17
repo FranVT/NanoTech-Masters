@@ -25,14 +25,14 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Comparisson between equation~\eqref {eqn:patch-patch_interaction} with Lennard-Jones and FENE potentials.}}{61}{figure.3.1}%
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Swap potential for patch-patch interaction to ensure single bond per patch condition.}}{63}{figure.3.2}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Stress of a polymeric network with 3\%}}{68}{figure.3.3}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Stress of a polymeric network with 5\%}}{69}{figure.3.4}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Stress of a polymeric network with 10\%}}{70}{figure.3.5}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Stress for different polymeric network at shear rate of \num {0.001}}}{71}{figure.3.6}%
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Stress for different polymeric network at shear rate of \num {0.005}}}{72}{figure.3.7}%
-\contentsline {figure}{\numberline {3.8}{\ignorespaces Stress for different polymeric network at shear rate of \num {0.01}}}{73}{figure.3.8}%
-\contentsline {figure}{\numberline {3.9}{\ignorespaces Stress stiffening for a shear rate of \num {0.01} at different crosslinker concentrations.}}{74}{figure.3.9}%
-\contentsline {figure}{\numberline {3.10}{\ignorespaces Stress relaxation for a shear rate of \num {0.01} at different crosslinker concentrations.}}{75}{figure.3.10}%
-\contentsline {figure}{\numberline {3.11}{\ignorespaces Yield stress from computational results}}{76}{figure.3.11}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Stress of a polymeric network with 3\%}}{69}{figure.3.3}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Stress of a polymeric network with 5\%}}{70}{figure.3.4}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Stress of a polymeric network with 10\%}}{71}{figure.3.5}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Stress for different polymeric network at shear rate of \num {0.001}}}{72}{figure.3.6}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Stress for different polymeric network at shear rate of \num {0.005}}}{73}{figure.3.7}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Stress for different polymeric network at shear rate of \num {0.01}}}{74}{figure.3.8}%
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Stress stiffening for a shear rate of \num {0.01} at different crosslinker concentrations.}}{75}{figure.3.9}%
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Stress relaxation for a shear rate of \num {0.01} at different crosslinker concentrations.}}{76}{figure.3.10}%
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Yield stress from computational results}}{77}{figure.3.11}%
 \addvspace {10\p@ }
 \contentsfinish 
