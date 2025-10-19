@@ -187,12 +187,44 @@ Allowing the following property to project the forces onto the inter-particle di
     \begin{pmatrix}\vec{f}_i \\ \vec{f}_j \\ \vec{f}_k\end{pmatrix}
     =
     \begin{pmatrix}f_{i1} & f_{i2} & 0 \\ f_{j1} & 0 & f_{j2} \\ 0 & f_{k1} & f_{k2} \end{pmatrix}
-    \begin{pmatrix}\vec{r}_{ij} \\ \vec{f}_{ik} \\ \vec{f}_{jk}\end{pmatrix}.
+    \begin{pmatrix}\vec{r}_{ij} \\ \vec{r}_{ik} \\ \vec{r}_{jk}\end{pmatrix}.
 \end{equation}
 And due to symmetry reasons, we have that $f_{i1}=-f_{j1}$, $f_{i2}=-f_{k1}$ and $f_{j2}=-f_{k2}$.
 Hence, we need to project the force of the swap potential into the inter-particle plane in order to have a correct tabulation.
 
-This projection\ldots
+Recalling that the force is equivalent to $-\nabla U(r)$ and the potencials has only radial dependence, we can express the force as,
+\begin{gather}
+    \vec{f}_n = -\pdv{U_{\mathrm{swap}}(r_m,r_l)}{r}\hat{e}_r,
+\end{gather}
+where $n$ repsent the particle $i$, $j$ or $k$, while $m$ and $l$ are place holders for distances $ij$, $ik$ and $jk$.
+Hence, 
+\begin{align}
+    \vec{f_{i}} &= -\pdv{U_{\mathrm{swap}}(r_{ij},r_{ik})}{r}\hat{e}_r\label{eqn:3body1}, \\
+    \vec{f_{j}} &= -\pdv{U_{\mathrm{swap}}(r_{ji},r_{jk})}{r}\hat{e}_r\label{eqn:3body2}, \\
+    \vec{f_{k}} &= -\pdv{U_{\mathrm{swap}}(r_{ki},r_{kj})}{r}\hat{e}_r\label{eqn:3body3}.
+\end{align}
+In order to proyect the force into the plane, we need to compute the dot product between $\hat{e}_r$ into the basis that represent the plane. 
+Since the software defines the plane using the distances between the particles, we can define the following 2 dimensional basis, $\hat{e}_1=\qty[1,0]$ and $\hat{e}_2=\qty[\cos\theta,\sin\theta]$.
+Where $\theta$ is the angle between distances $\vec{r}_{ij}$ and $\vec{r}_{ik}$.
+With this we can compute the following projections,
+\begin{align}
+    \hat{e}_r \cdot \hat{e}_1 &= 1\\
+    \hat{e}_r \cdot \hat{e}_2 &= \cos\theta. 
+\end{align}
+Also, we can define the following vector, $\hat{e}_3 = \hat{e}_1 - \hat{e}_2 = \qty[1-\cos\theta,-\sin\theta]$ to represent the $j-k$ distance and the proyection will be,
+\begin{align}
+    \hat{e}_r \cdot \hat{e}_3 &= 1-\cos\theta.
+\end{align}
+
+With this proyections we can express the forces in~\eqref{eqn:3body1},~\eqref{eqn:3body1}, and~\eqref{eqn:3body1} as follows,
+\begin{align}
+    f_{i1} &= -\pdv{U_{\mathrm{swap}}(r_{ij},r_{ik})}{r}\label{eqn:3body4a}, \\
+    f_{i2} &= -\pdv{U_{\mathrm{swap}}(r_{ij},r_{ik})}{r}\cos\theta\label{eqn:3body4b}, \\
+    f_{j2} &= -\pdv{U_{\mathrm{swap}}(r_{ji},r_{jk})}{r}\qty(1-\cos\theta)\label{eqn:3body5}.
+\end{align}
+And due to the symmetry relations we can tabulate the potential into the LAMMPS software.
+Naturally, if the scale factors from the projection not be included, the one bond per patch condition will not be met. 
+This may result in numerical instability during shear deformation.
 
 Now we are going to briefly explain the implementation of the shear deformation on the $xy$ plane using the \verb|fix deform| command.
 We choose to apply the engineering deformation rate (\verb|erate| style) because changes a dimension of the box at a “constant engineering strain rate”.
@@ -261,6 +293,8 @@ On figure\ref{fig:yieldStressResults} it is shown the average of the stress duri
 
 On figure\ldots we can see the stress relaxation phenomena in the patchy particle system.
 It was found that increasing the crosslinker concentration the maximum stress is increase and also the residual stress.
+
+\newpage
 
 \begin{figure}[ht!]
     \centering
