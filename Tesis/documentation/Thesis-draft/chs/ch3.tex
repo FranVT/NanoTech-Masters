@@ -223,8 +223,7 @@ With this proyections we can express the forces in~\eqref{eqn:3body1},~\eqref{eq
     f_{j2} &= -\pdv{U_{\mathrm{swap}}(r_{ji},r_{jk})}{r}\qty(1-\cos\theta)\label{eqn:3body5}.
 \end{align}
 And due to the symmetry relations we can tabulate the potential into the LAMMPS software.
-Naturally, if the scale factors from the projection not be included, the one bond per patch condition will not be met. 
-This may result in numerical instability during shear deformation.
+Naturally, if the scale factors from the projection not be included, the one bond per patch condition will not be met and it may result in numerical instability during shear deformation.
 
 Now we are going to briefly explain the implementation of the shear deformation on the $xy$ plane using the \verb|fix deform| command.
 We choose to apply the engineering deformation rate (\verb|erate| style) because changes a dimension of the box at a “constant engineering strain rate”.
@@ -279,13 +278,31 @@ The concentrations of crosslinkers that we test are $\mathrm{CL}\%\in\{3,5,10\}$
 Meanwhile, the shear rate that we test are in the range of milli-shear rate, $\dot{\gamma}\in\{1,2,3,4,5,6,7,8,9,10\}\times10^{-3}$.
 In a qualitatively scope, we can describe that the network experience a rapid stress increment.
 Then we found two responses.
-For networks with 3\% and 5\% at the lower shear rate, after a certain strain, the stress stop increasing and strarts fluctuating around a constant stress value thru the rest of the shear deformaiton.
+For networks with 3\% and 5\% at the lower shear rate, after a certain strain, the stress stop increasing and eventually attains a steady value.
 On the rest of the networks, the stress increases until it reaches a maximum stress value.
 After reaching this maximum stress value, the stress starts decreasing, until it decays to a stress value.
 This different responses can be easily seen in figure[figure] panels\ldots
 
+This behaviour has also been reported in the mechanical response of a carbopol microgel system\citep{divouxStressOvershootSimple2011} and in other polymeric systems\citep{osakiStressOvershootPolymer2000a,ravindranathUniversalScalingCharacteristics2008,boukanyUniversalScalingBehavior2009}.
+It has also has been reported in molecular dynamics simulations\citep{jeongEffectChainOrientation2017,caoSimulatingStartupShear2015,mohagheghiMolecularlyBasedCriteria2016,baigFlowEffectsMelt2010a} and has been analysed in other articles\citep{wangExploringStressOvershoot2009}.
 
-This behaviour is also reported in the mechanical response of a carbopol microgel system\citep{divouxStressOvershootSimple2011} and in a polyethylene simulation\citep{jeongEffectChainOrientation2017}.
+As reported in the previous literature, the maximum stress is observed to occur at strain values around $2-3$.
+It is also noted that the peak strain value increases slightly with increasing shear rate, and that the height of the peak also increases with the applied shear rate.
+Our results are in accordance with the protocol's validation for simulating polymeric networks under shear.
+
+According to the articles\citep{jeongEffectChainOrientation2017,janeschitz-krieglPolymerMeltRheology1983,pearsonFlowInducedBirefringenceConcentrated1989,masubuchiPrimitiveChainNetwork2020}, the stress overshoot is one of the most significant nonlinear rheological phenomena exhibited by polymeric liquids undergoing start-up shear above a certain flow strength.
+This phenomenon is primarly driven by the chain orientation of the network.
+This was demonstrated through analysis of the birefringence of the system, in conjunction with the transient behaviour of the order tensor of entanglement strands along the chains, as outlined in the tube theory for entangled polymers.
+The reason for this is that the refractive index is dependent on the orientation distribution of these bond vectors. 
+In other words, the greater the alignment of the bond vectors, the greater the difference in refractive index along different directions. 
+The anisotropy of the bond vectors results in an asymmetric polarizability tensor, which manifests macroscopically as birefringence.
+
+For future works we can \dots analyze the following important topological measures associated with the entanglement network: the primitive path countour length, the number of entanglements per chain, the end-to-end length of an entanglement strand and the number of central particles per entanglement strand.
+
+
+%Others says that the stress overshoot is derectly associated with the global chain streching rather than with the segmental orientation.
+
+
 The rapid increment in stress is describe as an ``stress overshoot''.
 Resume of the articles\ldots.
 
