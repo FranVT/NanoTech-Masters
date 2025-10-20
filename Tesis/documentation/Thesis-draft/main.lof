@@ -27,8 +27,6 @@
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Swap potential for patch-patch interaction to ensure single bond per patch condition.}}{63}{figure.3.2}%
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Computational results at different crosslinker concentrations. Each line reprensent the average of 5 experiments with \num {8000} patchy particles with a packing fraction of \num {0.5}, damp of \num {0.5} and the time average is in intervals of \num {5d-2}$\dot {\gamma }$.}}{70}{figure.3.3}%
 \contentsline {figure}{\numberline {3.4}{\ignorespaces Computational results at different crosslinker concentrations with different shear rates. Each line reprensent the average of 5 experiments with \num {8000} patchy particles with a packing fraction of \num {0.5}, damp of \num {0.5} and the time average is in intervals of \num {5d-2}$\dot {\gamma }$.}}{72}{figure.3.4}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Stress stiffening for a shear rate of \num {0.01} at different crosslinker concentrations.}}{73}{figure.3.5}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Stress relaxation for a shear rate of \num {0.01} at different crosslinker concentrations.}}{74}{figure.3.6}%
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Yield stress from computational results}}{75}{figure.3.7}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Yield stress from computational results}}{73}{figure.3.5}%
 \addvspace {10\p@ }
 \contentsfinish 

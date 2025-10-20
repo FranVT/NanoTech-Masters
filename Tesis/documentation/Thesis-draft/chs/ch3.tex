@@ -271,15 +271,14 @@ Hence, in order to analyze the mechanical response by the Cauchy stress tensor w
 
 \subsection{Mechanical response}
 
-On figure~\ref{fig:stres-strainResults} it is shown the strain-stress curve of the patchy particle network under a set of shear rates with 3 different crosslinkers concentrations.
-The concentrations of crosslinkers that we test are $\mathrm{CL}\%\in\{3,5,10\}$, panel a b, and c respectively.
-Meanwhile, the shear rate that we test are in the range of milli-shear rate, $\dot{\gamma}\in\{1,2,3,4,5,6,7,8,9,10\}\times10^{-3}$.
-In a qualitatively scope, we can describe that the network experience a rapid stress increment.
-Then we found two responses.
-For networks with 3\% and 5\% at the lower shear rate, after a certain strain, the stress stop increasing and eventually attains a steady value.
-On the rest of the networks, the stress increases until it reaches a maximum stress value.
-After reaching this maximum stress value, the stress starts decreasing, until it decays to a stress value.
-This different responses can be easily seen in figure\ref{fig:stres-strainCLResults} panels\ldots
+As illustrated in figure~\ref{fig:stres-strainResults}, the strain-stress curve of the patchy particle network is presented, demonstrating the effect of varying shear rates and three distinct crosslinker concentrations.
+The concentrations of crosslinkers that we test are shown in the panels a, b and c of figure~\ref{fig:stres-strainResults}.
+Meanwhile, the shear rates that we test are in the range of milli-shear rates.
+From a qualitative point of view, the network is experiencing a rapid increase in stress.
+We subsequently received two responses.
+In the case of networks with 3\% points and 5\% at the lower shear rate, it is evident that, after a certain strain, the stress will cease to increase and will ultimately attain a steady value.
+On the other networks, the stress increases until it reaches its maximum value.
+Once this maximum stress value has been reached, the stress will begin to decrease until it reaches a stress value.
 
 \begin{figure}[ht!]
     \centering
@@ -288,11 +287,7 @@ This different responses can be easily seen in figure\ref{fig:stres-strainCLResu
 \end{figure}
 
 This behaviour has also been reported in the mechanical response of a carbopol microgel system\citep{divouxStressOvershootSimple2011} and in other polymeric systems\citep{osakiStressOvershootPolymer2000a,ravindranathUniversalScalingCharacteristics2008,boukanyUniversalScalingBehavior2009}.
-It has also has been reported in molecular dynamics simulations\citep{jeongEffectChainOrientation2017,caoSimulatingStartupShear2015,mohagheghiMolecularlyBasedCriteria2016,baigFlowEffectsMelt2010a} and has been analysed in other articles\citep{wangExploringStressOvershoot2009}.
-
-As reported in the previous literature, the maximum stress is observed to occur at strain values around $2-3$.
-It is also noted that the peak strain value increases slightly with increasing shear rate, and that the height of the peak also increases with the applied shear rate.
-Our results are in accordance with the protocol's validation for simulating polymeric networks under shear.
+As outlined in the relevant literature, including molecular dynamics simulations\citep{jeongEffectChainOrientation2017,caoSimulatingStartupShear2015,mohagheghiMolecularlyBasedCriteria2016,baigFlowEffectsMelt2010a}, as well as an analysis in other articles by \citep{wangExploringStressOvershoot2009}, the subject has been thoroughly researched.
 
 According to the articles\citep{jeongEffectChainOrientation2017,janeschitz-krieglPolymerMeltRheology1983,pearsonFlowInducedBirefringenceConcentrated1989,masubuchiPrimitiveChainNetwork2020}, the stress overshoot is one of the most significant nonlinear rheological phenomena exhibited by polymeric liquids undergoing start-up shear above a certain flow strength.
 This phenomenon is primarly driven by the chain orientation of the network.
@@ -301,10 +296,23 @@ The reason for this is that the refractive index is dependent on the orientation
 In other words, the greater the alignment of the bond vectors, the greater the difference in refractive index along different directions. 
 The anisotropy of the bond vectors results in an asymmetric polarizability tensor, which manifests macroscopically as birefringence.
 
+In figure~\ref{fig:stress-strainCLResults}, we present our findings on the strain-stress relation of the three systems with different crosslinker concentrations at \num{1}, \num{5}, and \num{10} milli shear rates.
+The purpose of this comparative analysis is to highlight the previously mentioned qualitative differences between them.
+By focusing at the same shear rate, it is evident that the crosslinker concentration increases the overshoot response and the steady stress value.
+Furthermore, by examining the variation in shear rate at a constant concentration, we can better recognise the occurrence of overshoot as the shear rate increases.
+As stated in previous literature, the maximum stress is observed to occur at strain values of approximately $2-3$.
+It is also noted that the peak strain value increases slightly with increasing shear rate, and that the height of the peak also increases with the applied shear rate.
+However, it should be noted that in figure~\ref{fig:stress-strainCLResults} the maximum stress levels occur before the strain values of $2$. 
+Additionally, the shift in strain at maximum stress is not distinguishable.
+
+On the other hand, looking at the panel c of figure~\ref{fig:stress-strainCLResults} we can clearly appriate the stress relaxation response of viscoelatic materials.
+Also, we can appriate how the crosslinker 
+
+
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=\textwidth]{figs/ComputaitonalResults/zoom-clResponse.pdf}
-    \caption{Computational results at different crosslinker concentrations with different shear rates. Each line reprensent the average of 5 experiments with \num{8000} patchy particles with a packing fraction of \num{0.5}, damp of \num{0.5} and the time average is in intervals of \num{5d-2}$\dot{\gamma}$.}\label{fig:stres-strainCLResults}
+    \caption{Computational results at different crosslinker concentrations with different shear rates. Each line reprensent the average of 5 experiments with \num{8000} patchy particles with a packing fraction of \num{0.5}, damp of \num{0.5} and the time average is in intervals of \num{5d-2}$\dot{\gamma}$.}\label{fig:stress-strainCLResults}
 \end{figure}
 
 
@@ -326,23 +334,10 @@ It was found that increasing the crosslinker concentration the maximum stress is
 \newpage
 
 
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/stiff_dgamma10Stress.png}
-    \caption{Stress stiffening for a shear rate of \num{0.01} at different crosslinker concentrations.}
-\end{figure}
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/srlx_dgamma10Stress.png}
-    \caption{Stress relaxation for a shear rate of \num{0.01} at different crosslinker concentrations.}
-\end{figure}
-
-
-
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/yieldStress.png}
+    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/yieldStress.pdf}
     \caption{Yield stress from computational results}\label{fig:yieldStressResults}
 \end{figure}
 
