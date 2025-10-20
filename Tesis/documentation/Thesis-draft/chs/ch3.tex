@@ -271,9 +271,7 @@ Hence, in order to analyze the mechanical response by the Cauchy stress tensor w
 
 \subsection{Mechanical response}
 
-Strain stress graph
-
-On figure[figure] it is shown the strain-stress curve of the patchy particle network under a set of shear rates with 3 different crosslinkers concentrations.
+On figure~\ref{fig:stres-strainResults} it is shown the strain-stress curve of the patchy particle network under a set of shear rates with 3 different crosslinkers concentrations.
 The concentrations of crosslinkers that we test are $\mathrm{CL}\%\in\{3,5,10\}$, panel a b, and c respectively.
 Meanwhile, the shear rate that we test are in the range of milli-shear rate, $\dot{\gamma}\in\{1,2,3,4,5,6,7,8,9,10\}\times10^{-3}$.
 In a qualitatively scope, we can describe that the network experience a rapid stress increment.
@@ -281,7 +279,13 @@ Then we found two responses.
 For networks with 3\% and 5\% at the lower shear rate, after a certain strain, the stress stop increasing and eventually attains a steady value.
 On the rest of the networks, the stress increases until it reaches a maximum stress value.
 After reaching this maximum stress value, the stress starts decreasing, until it decays to a stress value.
-This different responses can be easily seen in figure[figure] panels\ldots
+This different responses can be easily seen in figure\ref{fig:stres-strainCLResults} panels\ldots
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/stress-strain.pdf}
+    \caption{Computational results at different crosslinker concentrations. Each line reprensent the average of 5 experiments with \num{8000} patchy particles with a packing fraction of \num{0.5}, damp of \num{0.5} and the time average is in intervals of \num{5d-2}$\dot{\gamma}$.}\label{fig:stres-strainResults}
+\end{figure}
 
 This behaviour has also been reported in the mechanical response of a carbopol microgel system\citep{divouxStressOvershootSimple2011} and in other polymeric systems\citep{osakiStressOvershootPolymer2000a,ravindranathUniversalScalingCharacteristics2008,boukanyUniversalScalingBehavior2009}.
 It has also has been reported in molecular dynamics simulations\citep{jeongEffectChainOrientation2017,caoSimulatingStartupShear2015,mohagheghiMolecularlyBasedCriteria2016,baigFlowEffectsMelt2010a} and has been analysed in other articles\citep{wangExploringStressOvershoot2009}.
@@ -296,6 +300,14 @@ This was demonstrated through analysis of the birefringence of the system, in co
 The reason for this is that the refractive index is dependent on the orientation distribution of these bond vectors. 
 In other words, the greater the alignment of the bond vectors, the greater the difference in refractive index along different directions. 
 The anisotropy of the bond vectors results in an asymmetric polarizability tensor, which manifests macroscopically as birefringence.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/zoom-clResponse.pdf}
+    \caption{Computational results at different crosslinker concentrations with different shear rates. Each line reprensent the average of 5 experiments with \num{8000} patchy particles with a packing fraction of \num{0.5}, damp of \num{0.5} and the time average is in intervals of \num{5d-2}$\dot{\gamma}$.}\label{fig:stres-strainCLResults}
+\end{figure}
+
+
 
 For future works we can \dots analyze the following important topological measures associated with the entanglement network: the primitive path countour length, the number of entanglements per chain, the end-to-end length of an entanglement strand and the number of central particles per entanglement strand.
 
@@ -312,42 +324,6 @@ On figure\ldots we can see the stress relaxation phenomena in the patchy particl
 It was found that increasing the crosslinker concentration the maximum stress is increase and also the residual stress.
 
 \newpage
-
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/CL3/StrainStressXY.png}
-    \caption{Stress of a polymeric network with 3\%}
-\end{figure}
-
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/CL5/StrainStressXY.png}
-    \caption{Stress of a polymeric network with 5\%}
-\end{figure}
-
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/CL10/StrainStressXY.png}
-    \caption{Stress of a polymeric network with 10\%}
-\end{figure}
-
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/dgamma1Stress.png}
-    \caption{Stress for different polymeric network at shear rate of \num{0.001}}
-\end{figure}
-
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/dgamma5Stress.png}
-    \caption{Stress for different polymeric network at shear rate of \num{0.005}}
-\end{figure}
-
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/dgamma10Stress.png}
-    \caption{Stress for different polymeric network at shear rate of \num{0.01}}
-\end{figure}
 
 
 \begin{figure}[ht!]
