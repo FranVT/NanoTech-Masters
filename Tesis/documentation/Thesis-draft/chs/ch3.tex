@@ -286,7 +286,7 @@ Once this maximum stress value has been reached, the stress will begin to decrea
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/stress-strain.pdf}
+    \includegraphics[width=0.9\textwidth]{figs/ComputaitonalResults/stress-strain.pdf}
     \caption{Computational results at different crosslinker concentrations. Each line reprensent the average of 5 experiments with \num{8000} patchy particles with a packing fraction of \num{0.5}, damp of \num{0.5} and the time average is in intervals of \num{5d-2}$\dot{\gamma}$.}\label{fig:stres-strainResults}
 \end{figure}
 
@@ -312,7 +312,7 @@ Additionally, the shift in strain at maximum stress is not distinguishable.
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/zoom-clResponse.pdf}
+    \includegraphics[width=0.9\textwidth]{figs/ComputaitonalResults/zoom-clResponse.pdf}
     \caption{Computational results at different crosslinker concentrations with different shear rates. Each line reprensent the average of 5 experiments with \num{8000} patchy particles with a packing fraction of \num{0.5}, damp of \num{0.5} and the time average is in intervals of \num{5d-2}$\dot{\gamma}$.}\label{fig:stress-strainCLResults}
 \end{figure}
 
@@ -327,26 +327,40 @@ We decided to applied this criteria due to the quality of the numeric results.
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/yieldStress.pdf}
+    \includegraphics[width=0.9\textwidth]{figs/ComputaitonalResults/yieldStress.pdf}
     \caption{Time average of steady-stress regime from computational results. Dashed lines represent exponential fits.}\label{fig:yieldStressResults}
 \end{figure}
 
 %\subsection{Network analysis}
 
 Now that we explore the strain-stress response of the system, let's move on to analyze the network response to the applied shear.
-On figure~\ref{fig:network1}
+On figure~\ref{fig:network1} is a qualitative comparisson of the polymeric network before and after a shear deformation.
+The network corresponds to one configuration with \num{10}\% of crosslinker and a shear rate of \num{10d-3}.
+The visualization tool used is ovito with the modifiers\ldots.
+Panel a and b are the before and after the deformation from a ortho view.
+Meanwhile, panels c and d are the before and after from a top view ($xy$-plane).
+Although there is no quantitative proof in the figure of the change in morphology, we can appreciate the after the shear the polymeric networks the strands are more parallel to the $x$ axis.
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/networkConfigurations.pdf}
+    \includegraphics[width=0.9\textwidth]{figs/ComputaitonalResults/networkConfigurations.pdf}
     \caption{Network configuration after and before the shear deformation.}\label{fig:network1}
 \end{figure}
 
+In order to find a quantitative description of this change, on figure~\ref{fig:network2} we show the histogram of the metrics of the gyration tensor for the same system of figure~\ref{fig:network1} along the hole deformation at different shear rates.
+The gyration tensor was computed for the biggest cluster in the simulation.
+In general terms, we can see that the increment of crosslinker concentration, the distirbution shifts to the right in the four metrics.
+Recalling that smaller values in the gyration radius $R_g$ the morpohology is near a sphere.
+$k^2$ \num{0} means spherically symmetric.
+\num{1} means if all points lie on a line.
 
+$b$ \num{0} means spherically symmetric or whenever the particle distribution is symmetric with respect to the three coordinate axes, for example a cube, tetrahedorn or platonic solid.
+
+$c$ \num{0} means cylindrically symmetric, or whenever the particle distribution is symmetric with respect to the two coordinate axex, for example when the particles are distributed uniformly on a regular prism.
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/metricsGyrationTensor.pdf}
+    \includegraphics[width=0.9\textwidth]{figs/ComputaitonalResults/metricsGyrationTensor.pdf}
     \caption{Gyration tensor metrics for three different shear rates at constant \num{10}\% crosslinker concentration.}\label{fig:network2}
 \end{figure}
 
