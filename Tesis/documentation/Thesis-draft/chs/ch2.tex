@@ -239,6 +239,16 @@ It is based on the yield strength in simple tension as follows,
 \end{gather}
 where $\sigma_1=\sigma_{11}$, $\sigma_2=\sigma_{22}$, $\sigma_3=\sigma_{33}$ are also known as the principal stresses.
 
+Furthermore, there are materials known as ``\textit{yield stress materials}'' and that is when a material does not flow if the imposed stress is below a threshold value and flows rather easily after this value is exceeded\citep{bonnYieldStressMaterials2017}.
+For a simple shear geometry, the flow curve is a representation of the dependence of the shear stress on the shear rate.
+For a newtonian fluid, these functions are linearly related $\sigma=\eta\dot{\gamma}$, where $\eta$ is a constant viscosity.
+For a yield stress material, the viscosity becomes formally a function of the shear rate, $\sigma=\eta(\dot{\gamma})\dot{\gamma}$, and the flow curve is not a simple straight line crossling the origin.
+One of the popular yield stress models is the Herschel-Bulkey, 
+\begin{gather}
+    \sigma = \sigma_y + K\dot{\gamma}^{n},\sigma\geq\sigma_y\label{eqn:herschel-bulkey},
+\end{gather}
+where $\sigma_y$ is the yield stress (the stress at which the deformation starts to be plastic) and $K$ and $n$ are model parameters.
+
 %\paragraph{Viscoelastic relation} 
 A viscoelastic deformation is defined as the process by which a material partially ``stores'' elastic energy and partially dissipates energy.
 The quantification of the relation is by relating the instantaneous stress, strain and a time-dependent relaxation modulus,
