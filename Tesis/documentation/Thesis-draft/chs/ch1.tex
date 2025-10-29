@@ -4,37 +4,38 @@
 
 % About this thesis
 
-I found it very interesting to explore how to describe material's mechanical response from first principles, and I devoted two years to this research, with the possibility of extending it further.
-Despite the financial constraints and significant computational resources required to solve quantum mechanical systems, we have implemented a feasible computational methodology to investigate the correlation between molecular geometrical structure and mechanical response.
-In addition, the computational methodology is based on a numeric protocol that replicates the polymeric network of PNIPAM microgels, which are a size-tunable hydrogel.
+The present work aims to explore the description of the mechanical response of hydrogels from first principles.
+The research has benn developed over a two-year period and lays the foundation for further extensions\ldots
 
-A brief literature review shows that hydrogels have a wide range of applications.
-However, the precise origin of the mechanical response in hydrogels remains debated in the literature.
-In this regard, the key objective of the thesis is to explore a computational methodology for identifying parameters that can represent the main properties of the polymeric network. 
+The proposed methodology is based on a previous work where they replicate the polymeric network of PNIPAM microgels\ldots 
+
+
+A review of the literature reveals that hydrogels have a wide range of applications.
+However, the precise origin of the mechanical response in hydrogels remains a topic of debate.
+Thus, the main the key objective of this thesis is to explore a computational methodology capable of identifying parameters that can model the main properties of the polymeric network. 
 These parameters can then be coupled into a constitutive relations to predict the mechanical response of a simplified polymeric network.
 To that end, we have established the following specific objectives:
 \begin{itemize}
-    \item Replicate the numeric protocol.
+    \item Replicate the existing numerical protocol.
     \item Adapt the protocol to create a more general network.
-    \item Apply shear deformation to the network.
+    \item Apply controlled shear deformations.
     \item Characterize the network before and after shear.
     \item Analyze the strain-stress curves of the material under different shear conditions and different network parameters.
 \end{itemize}
-We expect that the analysis will assist us in selecting a parameter or a combination of parameters to couple them into a constitutive equation.
-It is important to clarify that the definition of the constitutive equation or the mathematical procedure/proposal are not within the scope of this thesis. 
-The objective is to identify a relation between network characteristics and mechanical response of the network.
+The analysis is expected to help selectiva one or more parameters that can later be incorporated into a constitutive equation.
+It is important to clarify that the explicit formulation of such an equation is not within the scope of this thesis. 
+The objective is to identify a relation between the network characteristics and its mechanical response.
 
-In the following section, we will explore the applications of hydrogels identified during the literature review. 
-We will also introduce the main characteristics of the mechanical response in general terms.
+The following section, explores the applications of hydrogels identified in the literature review, followed by a discussion of their characteristic mechanical responses.
 The subsequent theoretical framework chapter begins by explaining how to quantify the properties of the material and how to apply numerical simulations to analyze the system.
-Finally, we closed with the analysis of the numerical solutions chapter and the conclusion of this work.
+The last part of this work covers the analysis of the numerical results and the conclusions.
 
 \section{About Hydrogels}
 
 While the numerical protocol was initially developed for a specific polymeric network, we modified it to represent a more simplified case that resembles a broader group of polymeric networks.
 These polymeric networks are collectively referred to as hydrogels.
 Hydrogels are composed primarily of hydrophilic monomers, which are biocompatible, making them suitable for medical applications.
-In general terms, hydrogels exhibit visco-elastic and visco-plastic mechanical responses.
+In general terms, hydrogels exhibit viscoelastic and viscoplastic mechanical responses.
 The material's viscoelasticity response makes it suitable for use in shock absorption, vibration damping, and biological tissue mimicry.
 Meanwhile, the viscoplasticity response makes the material suitable for energy dissipation.
 First, we will explore various applications of this material.
