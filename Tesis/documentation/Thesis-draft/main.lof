@@ -8,7 +8,7 @@
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Strain representation Wikipedia}}{29}{figure.2.2}%
 \contentsline {figure}{\numberline {2.3}{\ignorespaces Stress tensor wikipedia}}{33}{figure.2.3}%
 \contentsline {figure}{\numberline {2.4}{\ignorespaces Energy dissipation mechanism\citep {naritaViscoelasticPropertiesPolyvinyl2013}.}}{41}{figure.2.4}%
-\contentsline {figure}{\numberline {2.5}{\ignorespaces Stress relaxation mechanism for dual cross-linking mechanisms network\citep {naritaViscoelasticPropertiesPolyvinyl2013}.}}{42}{figure.2.5}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Stress relaxation mechanism for dual cross-linking mechanisms network\citep {naritaViscoelasticPropertiesPolyvinyl2013}.}}{41}{figure.2.5}%
 \contentsline {figure}{\numberline {2.6}{\ignorespaces Hydrogel's network configuration. Single network corresponds to 1a and 1b. Double network corresponds to 2a and 2b.\citep {kongEffectCrossLinkHomogeneity2024}.}}{42}{figure.2.6}%
 \contentsline {figure}{\numberline {2.7}{\ignorespaces Tensile response of random crosslink spatial distribution\citep {kongEffectCrossLinkHomogeneity2024}.}}{43}{figure.2.7}%
 \contentsline {figure}{\numberline {2.8}{\ignorespaces Tensile response of regular crosslink spatial distribution\citep {kongEffectCrossLinkHomogeneity2024}.}}{44}{figure.2.8}%
@@ -18,12 +18,13 @@
 \contentsline {figure}{\numberline {2.12}{\ignorespaces Results presented in\citep {romischkeSwellingMechanicalCharacterization2022}. Panel a is the hydrogel with $\mathrm {MASO}_3$ as a monomer and BAP (2 mol\%) as a crosslinker with different monomer concentration. Panel b is ChondroFiller liquid hydrogel. Each color indicates a different measurement until the breakage. }}{46}{figure.2.12}%
 \contentsline {figure}{\numberline {2.13}{\ignorespaces Results presented in\citep {romischkeSwellingMechanicalCharacterization2022}. Hydrogel with $\mathrm {AAMPSO}_3$ as a monomer and BAP (2 mol\%) as a crosslinker with different monomer concentration. Each color indicates a different monomer concentration. }}{47}{figure.2.13}%
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Comparisson between equation~\eqref {eqn:patch-patch_interaction} with Lennard-Jones and FENE potentials.}}{59}{figure.3.1}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Comparisson between equation~\eqref {eqn:patch-patch_interaction} with Lennard-Jones and FENE potentials.}}{60}{figure.3.1}%
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Swap potential for patch-patch interaction to ensure single bond per patch condition.}}{61}{figure.3.2}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Computational results at different crosslinker concentrations. Each line reprensent the average of 5 experiments with \num {8000} patchy particles with a packing fraction of \num {0.5}, damp of \num {0.5} and the time average is in intervals of \num {5d-2}$\dot {\gamma }$.}}{68}{figure.3.3}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Computational results at different crosslinker concentrations with different shear rates. Each line reprensent the average of 5 experiments with \num {8000} patchy particles with a packing fraction of \num {0.5}, damp of \num {0.5} and the time average is in intervals of \num {5d-2}$\dot {\gamma }$.}}{70}{figure.3.4}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Time average of steady-stress regime from computational results. Dashed lines represent exponential fits.}}{71}{figure.3.5}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Network configuration after and before the shear deformation.}}{72}{figure.3.6}%
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Gyration tensor metrics for three different shear rates at constant \num {10}\% crosslinker concentration.}}{74}{figure.3.7}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Interaction between patchy particles}}{62}{figure.3.3}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Computational results at different crosslinker concentrations. Each line reprensent the average of 5 experiments with \num {8000} patchy particles with a packing fraction of \num {0.5}, damp of \num {0.5} and the time average is in intervals of \num {5d-2}$\dot {\gamma }$.}}{69}{figure.3.4}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Computational results at different crosslinker concentrations with different shear rates. Each line reprensent the average of 5 experiments with \num {8000} patchy particles with a packing fraction of \num {0.5}, damp of \num {0.5} and the time average is in intervals of \num {5d-2}$\dot {\gamma }$.}}{71}{figure.3.5}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Time average of steady-stress regime from computational results. Dashed lines represent exponential fits.}}{72}{figure.3.6}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Network configuration after and before the shear deformation.}}{73}{figure.3.7}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Gyration tensor metrics for three different shear rates at constant \num {10}\% crosslinker concentration.}}{74}{figure.3.8}%
 \addvspace {10\p@ }
 \contentsfinish 
