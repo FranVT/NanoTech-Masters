@@ -1,30 +1,35 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {1.1}{\ignorespaces Examples of tough hydrogels applied in the areas of a) tissue engineering, b) soft electronics, c) shape memory materials, d) 3D printing, e) biomedical devices, and f) adhesives. It is worth noting that the majority of the highlighted examples have biomedical applications.\citep {petelinsekToughHydrogelsLoadBearing2024}.}}{18}{figure.1.1}%
 \contentsline {figure}{\numberline {1.2}{\ignorespaces Deformation at constant stress in an elastic (left), viscous (middle) and viscoelastic materials (right). Figure retrieve from\citep {courbotRoleExtracellularMatrix2025}}}{20}{figure.1.2}%
-\contentsline {figure}{\numberline {1.3}{\ignorespaces Deformation at constant stress in a viscoelastic material. Creep response at the left and the stress relaxation behaviour at the right. Figure retrieve from\citep {courbotRoleExtracellularMatrix2025}}}{21}{figure.1.3}%
+\contentsline {figure}{\numberline {1.3}{\ignorespaces Deformation at constant stress in a viscoelastic material. Creep response at the left and the stress relaxation behaviour at the right. Figure retrieve from\citep {petelinsekToughHydrogelsLoadBearing2024}}}{21}{figure.1.3}%
 \contentsline {figure}{\numberline {1.4}{\ignorespaces Creep response of viscoelastic materials. Figure retrieve from\citep {courbotRoleExtracellularMatrix2025}}}{22}{figure.1.4}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {2.1}{\ignorespaces Image with the three different crosslinker mechanisms}}{27}{figure.2.1}%
 \contentsline {figure}{\numberline {2.2}{\ignorespaces Strain representation Wikipedia}}{29}{figure.2.2}%
 \contentsline {figure}{\numberline {2.3}{\ignorespaces Stress tensor wikipedia}}{33}{figure.2.3}%
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Energy dissipation mechanism\citep {naritaViscoelasticPropertiesPolyvinyl2013}.}}{41}{figure.2.4}%
-\contentsline {figure}{\numberline {2.5}{\ignorespaces Stress relaxation mechanism for dual cross-linking mechanisms network\citep {naritaViscoelasticPropertiesPolyvinyl2013}.}}{41}{figure.2.5}%
-\contentsline {figure}{\numberline {2.6}{\ignorespaces Hydrogel's network configuration. Single network corresponds to 1a and 1b. Double network corresponds to 2a and 2b.\citep {kongEffectCrossLinkHomogeneity2024}.}}{42}{figure.2.6}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Energy dissipation mechanism\citep {petelinsekToughHydrogelsLoadBearing2024}.}}{41}{figure.2.4}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Stress relaxation mechanism for dual cross-linking mechanisms network\citep {naritaViscoelasticPropertiesPolyvinyl2013}.}}{42}{figure.2.5}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Hydrogel's network configuration. Single network corresponds to 1a and 1b. Double network corresponds to 2a and 2b.\citep {kongEffectCrossLinkHomogeneity2024}.}}{43}{figure.2.6}%
 \contentsline {figure}{\numberline {2.7}{\ignorespaces Tensile response of random crosslink spatial distribution\citep {kongEffectCrossLinkHomogeneity2024}.}}{43}{figure.2.7}%
 \contentsline {figure}{\numberline {2.8}{\ignorespaces Tensile response of regular crosslink spatial distribution\citep {kongEffectCrossLinkHomogeneity2024}.}}{44}{figure.2.8}%
-\contentsline {figure}{\numberline {2.9}{\ignorespaces Tensile response of regular crosslink spatial distribution\citep {kongEffectCrossLinkHomogeneity2024}.}}{44}{figure.2.9}%
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Tensile response of regular crosslink spatial distribution\citep {kongEffectCrossLinkHomogeneity2024}.}}{45}{figure.2.9}%
 \contentsline {figure}{\numberline {2.10}{\ignorespaces Tensile response of random crosslink spatial distribution\citep {kongEffectCrossLinkHomogeneity2024}.}}{45}{figure.2.10}%
 \contentsline {figure}{\numberline {2.11}{\ignorespaces Shear-thinning\citep {varela-feijooMultiscaleInvestigationViscoelastic2023}.}}{46}{figure.2.11}%
-\contentsline {figure}{\numberline {2.12}{\ignorespaces Results presented in\citep {romischkeSwellingMechanicalCharacterization2022}. Panel a is the hydrogel with $\mathrm {MASO}_3$ as a monomer and BAP (2 mol\%) as a crosslinker with different monomer concentration. Panel b is ChondroFiller liquid hydrogel. Each color indicates a different measurement until the breakage. }}{46}{figure.2.12}%
+\contentsline {figure}{\numberline {2.12}{\ignorespaces Results presented in\citep {romischkeSwellingMechanicalCharacterization2022}. Panel a is the hydrogel with $\mathrm {MASO}_3$ as a monomer and BAP (2 mol\%) as a crosslinker with different monomer concentration. Panel b is ChondroFiller liquid hydrogel. Each color indicates a different measurement until the breakage. }}{47}{figure.2.12}%
 \contentsline {figure}{\numberline {2.13}{\ignorespaces Results presented in\citep {romischkeSwellingMechanicalCharacterization2022}. Hydrogel with $\mathrm {AAMPSO}_3$ as a monomer and BAP (2 mol\%) as a crosslinker with different monomer concentration. Each color indicates a different monomer concentration. }}{47}{figure.2.13}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Comparisson between equation~\eqref {eqn:patch-patch_interaction} with Lennard-Jones and FENE potentials.}}{60}{figure.3.1}%
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Swap potential for patch-patch interaction to ensure single bond per patch condition.}}{61}{figure.3.2}%
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Interaction between patchy particles}}{62}{figure.3.3}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Computational results at different crosslinker concentrations. Each line reprensent the average of 5 experiments with \num {8000} patchy particles with a packing fraction of \num {0.5}, damp of \num {0.5} and the time average is in intervals of \num {5d-2}$\dot {\gamma }$.}}{69}{figure.3.4}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Computational results at different crosslinker concentrations with different shear rates. Each line reprensent the average of 5 experiments with \num {8000} patchy particles with a packing fraction of \num {0.5}, damp of \num {0.5} and the time average is in intervals of \num {5d-2}$\dot {\gamma }$.}}{71}{figure.3.5}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Time average of steady-stress regime from computational results. Dashed lines represent exponential fits.}}{72}{figure.3.6}%
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Network configuration after and before the shear deformation.}}{73}{figure.3.7}%
-\contentsline {figure}{\numberline {3.8}{\ignorespaces Gyration tensor metrics for three different shear rates at constant \num {10}\% crosslinker concentration.}}{74}{figure.3.8}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Cluster visualization}}{68}{figure.3.4}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Shear Bonds}}{69}{figure.3.5}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Shear Bonds}}{70}{figure.3.6}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Flip Patches}}{71}{figure.3.7}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Flip Bonds}}{72}{figure.3.8}%
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Computational results at different crosslinker concentrations. Each line reprensent the average of 5 experiments with \num {8000} patchy particles with a packing fraction of \num {0.5}, damp of \num {0.5} and the time average is in intervals of \num {5d-2}$\dot {\gamma }$.}}{73}{figure.3.9}%
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Computational results at different crosslinker concentrations with different shear rates. Each line reprensent the average of 5 experiments with \num {8000} patchy particles with a packing fraction of \num {0.5}, damp of \num {0.5} and the time average is in intervals of \num {5d-2}$\dot {\gamma }$.}}{74}{figure.3.10}%
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Time average of steady-stress regime from computational results. Dashed lines represent exponential fits.}}{75}{figure.3.11}%
+\contentsline {figure}{\numberline {3.12}{\ignorespaces Network configuration after and before the shear deformation.}}{76}{figure.3.12}%
+\contentsline {figure}{\numberline {3.13}{\ignorespaces Gyration tensor metrics for three different shear rates at constant \num {10}\% crosslinker concentration.}}{78}{figure.3.13}%
 \addvspace {10\p@ }
 \contentsfinish 
