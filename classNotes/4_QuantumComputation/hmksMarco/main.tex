@@ -47,7 +47,7 @@
 %	TITLE SECTION
 %----------------------------------------------------------------------------------------
 
-\title{Quantum Computation\\ The qubit geometry}
+\title{Quantum Computation\\ Quantum Circuits Activity}
 
 \author{Francisco Vazquez-Tavares}
 
@@ -91,6 +91,71 @@
 %	ESSAY BODY
 %----------------------------------------------------------------------------------------
 
+\begin{prob}{~}{label1}
+    Compare the effect of the following two circuits
+
+    \includegraphics[width=0.9\textwidth]{imgs/image-7.png}
+
+\end{prob}
+
+Let's consider the following general state $\ket{\psi}=a\ket{0} + b\ket{1}$ with $a,c\in\mathbb{C}$.
+The first circuit can be represented with the following algebraic expression
+\begin{gather*}
+    \left[\left(\hat{H}\otimes\mathbb{1}\right)\left(\Lambda\hat{X}\right)\left(\hat{H}\otimes\mathbb{1}\right)\right]\left(\ket{\psi}\otimes\ket{0}\right).
+\end{gather*}
+Where $\Lambda\hat{X}$ denotes the controlled $\hat{X}$ gate ($\dyad{0}\otimes\mathbb{1} + \dyad{1}\otimes\hat{X})$,
+$\hat{H}$ is the Haddamard gate and $\hat{X}$ is the $X$ gate.
+
+Starting with the first gate,
+\begin{align*}
+    \left(\hat{H}\otimes\mathbb{1}\right)\left(\ket{\psi}\otimes\ket{0}\right) &= \hat{H}\ket{\psi}\otimes\mathbb{1}\ket{0} \\
+                                                                               &= \left[\frac{a}{\sqrt{2}}\qty(\ket{0}+\ket{1})+\frac{b}{\sqrt{2}}\qty(\ket{0}-\ket{1})\right]\otimes\mathbb{1}\ket{0} \\
+                                                                               &= \left[\frac{\qty(a+b)}{\sqrt{2}}\ket{0}+\frac{\qty(a-b)}{\sqrt{2}}\ket{1}\right]\otimes\mathbb{1}\ket{0} \\
+                                                                               &= \frac{\qty(a+b)}{\sqrt{2}}\ket{00}+\frac{\qty(a-b)}{\sqrt{2}}\ket{10}.
+\end{align*}
+
+Now we compute the controlled $\hat{X}$ gate with the new state with the following mnemonic rule, \textit{It flips the second qubit if the first qubit is \num{1} and leaves unchanged otherwise}, therefore
+\begin{gather*}
+    \Lambda\hat{X}\left[\frac{\qty(a+b)}{\sqrt{2}}\ket{00}+\frac{\qty(a-b)}{\sqrt{2}}\ket{10}\right] = \frac{\qty(a+b)}{\sqrt{2}}\ket{00}+\frac{\qty(a-b)}{\sqrt{2}}\ket{11}=\ket{\psi_2}.
+\end{gather*}
+
+Finally, we apply the last Haddamard gate into the nwe state,
+\begin{align*}
+    \left(\hat{H}\otimes\mathbb{1}\right)\ket{\psi_2} &=\frac{\qty(a+b)}{\sqrt{2}}\hat{H}\ket{0}\otimes\mathbb{1}\ket{0} + \frac{\qty(a-b)}{\sqrt{2}}\hat{H}\ket{1}\otimes\mathbb{1}\ket{1} \\
+                                                      &=\frac{\qty(a+b)}{\sqrt{2}}\left(\frac{1}{\sqrt{2}}\qty(\ket{0}+\ket{1})\right)\otimes\mathbb{1}\ket{0} + \frac{\qty(a-b)}{\sqrt{2}}\left(\frac{1}{\sqrt{2}}\qty(\ket{0}-\ket{1})\right)\otimes\mathbb{1}\ket{1} \\
+                                                      &=\frac{\qty(a+b)}{2}\left(\ket{00}+\ket{10}\right) + \frac{\qty(a-b)}{2}\left(\ket{01}-\ket{11}\right).
+\end{align*}
+After expanding the expression and minor algebraic manipulations we can express the final state in terms of the of the Bell states,
+\begin{gather*}
+    \left(\hat{H}\otimes\mathbb{1}\right)\ket{\psi_2}=\frac{a}{\sqrt{2}}\left(\ket{\Psi^+} + \ket{\Phi^+} \right) + \frac{b}{\sqrt{2}}\left(\ket{\Psi^+} - \ket{\Phi^-} \right)
+\end{gather*}
+
+Bottom circuit.
+
+\begin{align*}
+    \left[\left(\mathbb{1}\otimes\hat{H}\right)\left(\Lambda\hat{Z}\right)\left(\mathbb{1}\otimes\hat{H}\right)\right]\left(\ket{\psi}\otimes\ket{0}\right)
+\end{align*}
+
+
+
+\begin{prob}{~}{label2}
+    Show that the following quantum circuit is equivalent to a controlled Z-gate
+
+    \includegraphics[width=0.9\textwidth]{imgs/image-8.png}
+
+\end{prob}
+
+
+\begin{prob}{~}{label3}
+    The three qubit GHZ-state is defined as\[\ket{GHZ}=\frac{1}{2}\left(\ket{000}+\ket{111}\right).\]
+
+    Design a circuit that upon of the separable state $\ket{000}$ constructs the GHZ-state.
+
+\end{prob}
+
+
+
+\begin{comment}
 The expectation value of an operator (or quantum gate) $A$ over a qubit $\ket{\psi}$ is defined as
 \begin{equation}
     \expval{A} = \expval{A}{\psi}.
@@ -188,7 +253,7 @@ Usefull trigonometric and complex exponentials identities for the excersices.
 \begin{gather*}
     \cos(A)\sin(B) = \frac{\sin(A+B)-\sin(A-B)}{2} \\
     \cos(x) = \frac{1}{2}\left(e^{ix}+e^{-ix}\right) \\
-    \sin(x) = \frac{1}{2i}\left(e^{ix}-e^{-ix}\right) \\
+    \sin(x) = \frac{1}{2i}\left(e^{ix}-e^{-ix}\right)
 \end{gather*}
 }
 
@@ -212,6 +277,6 @@ Finally,
         &= \cos^2\left(\frac{\theta}{2}\right) - \sin^2\left(\frac{\theta}{2}\right) \\
         &= \cos\left(\theta\right).
 \end{align*}
-
+\end{comment}
 
 \end{document}

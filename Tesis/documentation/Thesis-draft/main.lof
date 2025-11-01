@@ -21,15 +21,15 @@
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Comparisson between equation~\eqref {eqn:patch-patch_interaction} with Lennard-Jones and FENE potentials.}}{62}{figure.3.1}%
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Swap potential for patch-patch interaction to ensure single bond per patch condition.}}{63}{figure.3.2}%
 \contentsline {figure}{\numberline {3.3}{\ignorespaces Interaction between patchy particles}}{64}{figure.3.3}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Cluster visualization}}{70}{figure.3.4}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Shear Bonds}}{71}{figure.3.5}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Shear Bonds}}{72}{figure.3.6}%
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Flip Patches}}{73}{figure.3.7}%
-\contentsline {figure}{\numberline {3.8}{\ignorespaces Flip Bonds}}{74}{figure.3.8}%
-\contentsline {figure}{\numberline {3.9}{\ignorespaces Computational results at different crosslinker concentrations. Each line reprensent the average of 5 experiments with \num {8000} patchy particles with a packing fraction of \num {0.5}, damp of \num {0.5} and the time average is in intervals of \num {5d-2}$\dot {\gamma }$.}}{75}{figure.3.9}%
-\contentsline {figure}{\numberline {3.10}{\ignorespaces Computational results at different crosslinker concentrations with different shear rates. Each line reprensent the average of 5 experiments with \num {8000} patchy particles with a packing fraction of \num {0.5}, damp of \num {0.5} and the time average is in intervals of \num {5d-2}$\dot {\gamma }$.}}{76}{figure.3.10}%
-\contentsline {figure}{\numberline {3.11}{\ignorespaces Time average of steady-stress regime from computational results. Dashed lines represent exponential fits.}}{77}{figure.3.11}%
-\contentsline {figure}{\numberline {3.12}{\ignorespaces Network configuration after and before the shear deformation.}}{78}{figure.3.12}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Cluster visualization}}{71}{figure.3.4}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Shear Bonds}}{72}{figure.3.5}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Shear Bonds}}{73}{figure.3.6}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Flip Patches}}{74}{figure.3.7}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Flip Bonds}}{75}{figure.3.8}%
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Computational results at different crosslinker concentrations. Each line reprensent the average of 5 experiments with \num {8000} patchy particles with a packing fraction of \num {0.5}, damp of \num {0.5} and the time average is in intervals of \num {5d-2}$\dot {\gamma }$.}}{76}{figure.3.9}%
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Computational results at different crosslinker concentrations with different shear rates. Each line reprensent the average of 5 experiments with \num {8000} patchy particles with a packing fraction of \num {0.5}, damp of \num {0.5} and the time average is in intervals of \num {5d-2}$\dot {\gamma }$.}}{77}{figure.3.10}%
+\contentsline {figure}{\numberline {3.11}{\ignorespaces Time average of steady-stress regime from computational results. Dashed lines represent exponential fits.}}{78}{figure.3.11}%
+\contentsline {figure}{\numberline {3.12}{\ignorespaces Network configuration after and before the shear deformation.}}{79}{figure.3.12}%
 \contentsline {figure}{\numberline {3.13}{\ignorespaces Gyration tensor metrics for three different shear rates at constant \num {10}\% crosslinker concentration.}}{80}{figure.3.13}%
 \addvspace {10\p@ }
 \contentsfinish 
