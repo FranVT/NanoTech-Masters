@@ -348,7 +348,7 @@ If we only focus in the first term we get the same as the controlled $\hat{Z}$ g
 \newpage
 
 \begin{prob}{~}{label3}
-    The three qubit GHZ-state is defined as\[\ket{GHZ}=\frac{1}{2}\left(\ket{000}+\ket{111}\right).\]
+    The three qubit GHZ-state is defined as\[\ket{GHZ}=\frac{1}{\sqrt{2}}\left(\ket{000}+\ket{111}\right).\]
 
     Design a circuit that upon of the separable state $\ket{000}$ constructs the GHZ-state.
 
@@ -373,9 +373,6 @@ Now, lets finish with the second controlled $\hat{X}$ gate,
 \begin{align*}
     \qty(\Lambda\otimes\mathbb{1}\otimes\hat{X})\frac{1}{\sqrt{2}}\qty(\ket{000}+\ket{110}) = \frac{1}{\sqrt{2}}\qty(\ket{000}+\ket{111}).
 \end{align*}
-
-It is missed the factor of $1/2$, however due to time constrictions I could not explore more circuits and this circuit was the one that give the nearest result.
-To get the factor of $1/2$ my intuition guide my to apply two haddamard gates, however, the process to eliminate the cross terms is overwelming and could not find a circuit that gives the require state.
 
 \begin{comment}
 The expectation value of an operator (or quantum gate) $A$ over a qubit $\ket{\psi}$ is defined as
