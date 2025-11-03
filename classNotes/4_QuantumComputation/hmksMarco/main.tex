@@ -130,13 +130,159 @@ After expanding the expression and minor algebraic manipulations we can express 
     \left(\hat{H}\otimes\mathbb{1}\right)\ket{\psi_2}=\frac{a}{\sqrt{2}}\left(\ket{\Psi^+} + \ket{\Phi^+} \right) + \frac{b}{\sqrt{2}}\left(\ket{\Psi^+} - \ket{\Phi^-} \right)
 \end{gather*}
 
-Bottom circuit.
 
+Now let's compute the final state in the second circuit to compare it with the previous result.
+First we state th algebraic representation of the circuit as follows,
+\begin{gather*}
+    \left[\left(\mathbb{1}\otimes\hat{H}\right)\left(\hat{Z}\Lambda\right)\left(\mathbb{1}\otimes\hat{H}\right)\right]\left(\ket{\psi}\otimes\ket{0}\right).
+\end{gather*}
+Where $\hat{Z}\Lambda$ denotes the controlled $\hat{Z}$ gate ($\mathbb{1}\otimes\dyad{0} + \hat{Z}\otimes\dyad{1}$),
+$\hat{H}$ is the Haddamard gate and $\hat{Z}$ is the $Z$ gate.
+
+Let's begin with the first gate,
 \begin{align*}
-    \left[\left(\mathbb{1}\otimes\hat{H}\right)\left(\Lambda\hat{Z}\right)\left(\mathbb{1}\otimes\hat{H}\right)\right]\left(\ket{\psi}\otimes\ket{0}\right)
+    \ket{\psi_2} &= \left(\mathbb{1}\otimes\hat{H}\right)\left(\ket{\psi}\otimes\ket{0}\right) \\
+                 &= \mathbb{1}\ket{\psi}\otimes\hat{H}\ket{0} \\
+                 &= \qty(a\ket{0}+b\ket{1})\otimes\left(\frac{1}{\sqrt{2}}\qty(\ket{0}+\ket{1})\right) \\
+                 &= a\ket{0}\otimes\left(\frac{1}{\sqrt{2}}\qty(\ket{0}+\ket{1})\right)
+                    + b\ket{1}\otimes\left(\frac{1}{\sqrt{2}}\qty(\ket{0}+\ket{1})\right) \\
+                 &= \frac{a}{\sqrt{2}}\left(\ket{00}+\ket{01}\right) + \frac{b}{\sqrt{2}}\left(\ket{10}+\ket{11}\right).
 \end{align*}
 
+The next step is to compute the controlled $\hat{Z}$ gate into the new state,
+\begin{align*}
+    \hat{Z}\Lambda\ket{\psi_2} &= \left(\mathbb{1}\otimes\dyad{0} + \hat{Z}\otimes\dyad{1}\right)\left(\frac{a}{\sqrt{2}}\left(\ket{00}+\ket{01}\right) + \frac{b}{\sqrt{2}}\left(\ket{10}+\ket{11}\right)\right) \\
+\end{align*}
 
+\begin{multline*}
+    \hat{Z}\Lambda\ket{\psi_2} =\left[
+                                        \frac{a}{\sqrt{2}}\left(\mathbb{1}\otimes\dyad{0}\right)\left(\ket{00}+\ket{01}\right) 
+                                        +
+                                        \frac{b}{\sqrt{2}}\left(\mathbb{1}\otimes\dyad{0}\right)\left(\ket{10}+\ket{11}\right)\right. \\ \left.
+                                        +
+                                        \frac{a}{\sqrt{2}}\left(\hat{Z}\otimes\dyad{1}\right)\left(\ket{00}+\ket{01}\right)
+                                        +\frac{b}{\sqrt{2}}\left(\hat{Z}\otimes\dyad{1}\right)\left(\ket{10}+\ket{11}\right)
+                                    \right]
+\end{multline*}
+
+\begin{multline*}
+    \hat{Z}\Lambda\ket{\psi_2} =
+    \left[
+        \frac{a}{\sqrt{2}}\left(
+            \left(\mathbb{1}\ket{0}\otimes\dyad{0}\ket{0}\right)
+            +
+            \left(\mathbb{1}\ket{0}\otimes\dyad{0}\ket{1}\right)
+        \right) 
+    \right.
+        \\
+        +
+        \frac{b}{\sqrt{2}}\left(
+            \left(\mathbb{1}\ket{1}\otimes\dyad{0}\ket{0}\right)
+            +
+            \left(\mathbb{1}\ket{1}\otimes\dyad{0}\ket{1}\right)
+        \right)
+        \\
+        +
+        \frac{a}{\sqrt{2}}\left(
+            \left(\hat{Z}\ket{0}\otimes\dyad{1}\ket{0}\right)
+            +
+            \left(\hat{Z}\ket{0}\otimes\dyad{1}\ket{1}\right)
+        \right)
+        \\
+    \left.
+        +
+        \frac{b}{\sqrt{2}}\left(
+        \left(\hat{Z}\ket{1}\otimes\dyad{1}\ket{0}\right)
+        +
+        \left(\hat{Z}\ket{1}\otimes\dyad{1}\ket{1}\right)
+        \right)
+    \right]
+\end{multline*}
+
+
+\begin{multline*}
+    \hat{Z}\Lambda\ket{\psi_2} =
+    \left[
+        \frac{a}{\sqrt{2}}\left(
+            \left(\mathbb{1}\ket{0}\otimes\ket{0}\right)
+            +
+            \left(\mathbb{1}\ket{0}\otimes\ket{\emptyset}\right)
+        \right) 
+    \right.
+        \\
+        +
+        \frac{b}{\sqrt{2}}\left(
+            \left(\mathbb{1}\ket{1}\otimes\ket{0}\right)
+            +
+            \left(\mathbb{1}\ket{1}\otimes\ket{\emptyset}\right)
+        \right)
+        \\
+        +
+        \frac{a}{\sqrt{2}}\left(
+            \left(\hat{Z}\ket{0}\otimes\ket{\emptyset}\right)
+            +
+            \left(\hat{Z}\ket{0}\otimes\ket{1}\right)
+        \right)
+        \\
+    \left.
+        +
+        \frac{b}{\sqrt{2}}\left(
+        \left(\hat{Z}\ket{1}\otimes\ket{\emptyset}\right)
+        +
+        \left(\hat{Z}\ket{1}\otimes\ket{1}\right)
+        \right)
+    \right]
+\end{multline*}
+
+\begin{multline*}
+    \hat{Z}\Lambda\ket{\psi_2} =
+    \left[
+        \frac{a}{\sqrt{2}}\left(
+            \left(\mathbb{1}\ket{0}\otimes\ket{0}\right)
+        \right) 
+    \right.
+        \\
+        +
+        \frac{b}{\sqrt{2}}\left(
+            \left(\mathbb{1}\ket{1}\otimes\ket{0}\right)
+        \right)
+        +
+        \frac{a}{\sqrt{2}}\left(
+            \left(\hat{Z}\ket{0}\otimes\ket{1}\right)
+        \right)
+        \\
+    \left.
+        +
+        \frac{b}{\sqrt{2}}\left(
+        \left(\hat{Z}\ket{1}\otimes\ket{1}\right)
+        \right)
+    \right]
+\end{multline*}
+
+\begin{align*}
+    \hat{Z}\Lambda\ket{\psi_2} &= \frac{a}{\sqrt{2}}\qty(\ket{00}+\ket{11}) + \frac{b}{\sqrt{2}}\qty(\ket{10}+\ket{01}) = \ket{\psi_3}
+\end{align*}
+
+Finally, with the new state we can compute the last Haddamard gate in order to compare the result with the previous one,
+\begin{align*}
+    \left(\mathbb{1}\otimes\hat{H}\right)\ket{\psi_3} &= \left(\mathbb{1}\otimes\hat{H}\right)\left(\frac{a}{\sqrt{2}}\qty(\ket{00}+\ket{11}) + \frac{b}{\sqrt{2}}\qty(\ket{10}+\ket{01})\right)
+\\
+                                                      &=\left(\frac{a}{\sqrt{2}}\left(\mathbb{1}\otimes\hat{H}\right)\qty(\ket{00}+\ket{11}) + \frac{b}{\sqrt{2}}\left(\mathbb{1}\otimes\hat{H}\right)\qty(\ket{10}+\ket{01})\right)
+                                                      \\
+                                                      &=\left(\frac{a}{2}\qty(\ket{00}+\ket{01}+\ket{10}-\ket{11}) 
+                                                      + \frac{b}{2}\qty(\ket{10}+\ket{11}+\ket{00}-\ket{01})\right) \\
+                                                      &=\frac{a}{\sqrt{2}}\left(\ket{\Psi^-}+\ket{\Phi^+}\right) + \frac{b}{\sqrt{2}}\left(\ket{\Psi^+}+\ket{\Phi^-}\right)
+\end{align*}
+Now that we have the final state of the second circuit we can compare both results,
+\begin{align*}
+    \mathrm{First~circuit}\ket{\psi0} &\to\frac{a}{\sqrt{2}}\left(\ket{\Psi^+} + \ket{\Phi^+} \right) + \frac{b}{\sqrt{2}}\left(\ket{\Psi^+} - \ket{\Phi^-} \right) \\
+    \mathrm{Second~circuit}\ket{\psi0} &\to\frac{a}{\sqrt{2}}\left(\ket{\Psi^-}+\ket{\Phi^+}\right) + \frac{b}{\sqrt{2}}\left(\ket{\Psi^+}+\ket{\Phi^-}\right).
+\end{align*}
+In both cases we can see how the states transforms from a computaitonal basis to a linear combination of the Bells states basis.
+That can be interpreted as that this cirsuits transforms a state to a linear combination of entangle states.
+On th eother hand, we can see that the main difference between both circuits is that change in sign on the second term of the linear combination and the change of the bell state in the first term.
+
+\newpage
 
 \begin{prob}{~}{label2}
     Show that the following quantum circuit is equivalent to a controlled Z-gate
@@ -145,6 +291,61 @@ Bottom circuit.
 
 \end{prob}
 
+Let's start by computing the result of the controlled $Z$ gate in the two qubit system $\ket{\psi}\otimes\ket{0}$, where $\ket{\psi}$ is a general state $\ket{\psi}=a\ket{0}+b\ket{1}$,
+\begin{align*}
+    \Lambda\hat{Z}\ket{\psi0} &= \left(\dyad{0}\otimes\mathbb{1}+\dyad{1}\otimes\hat{Z}\right)\left(a\ket{00}+b\ket{10}\right) \\
+                             &= \left(\dyad{0}\otimes\mathbb{1}\right)\left(a\ket{00}+b\ket{10}\right)+\left(\dyad{1}\otimes\hat{Z}\right)\left(a\ket{00}+b\ket{10}\right) \\
+                             %&= \left(\dyad{0}\otimes\mathbb{1}\right)\left(a\ket{00}+b\ket{10}\right)
+                             % +
+                             % \left(\dyad{1}\otimes\hat{Z}\right)\left(a\ket{00}+b\ket{10}\right)
+                             &= a\ket{00} + b\ket{10}.
+\end{align*}
+
+Now it is time to compute the circuit shown in the previous figure.
+Let's begin with the first Haddamard gate,
+\begin{align*}
+    \qty(\hat{H}\otimes\mathbb{1})\ket{\psi 0} &= a\qty(\hat{H}\otimes\mathbb{1})\ket{00}+b\qty(\hat{H}\otimes\mathbb{1})\ket{10} \\
+%                                               &= a\left(\frac{1}{\sqrt{2}}\qty(\ket{0}+\ket{1})\right)\otimes\ket{0}
+%                                               + b\left(\frac{1}{\sqrt{2}}\qty(\ket{0}-\ket{1})\right)\otimes\ket{0}
+                                               &= a\left(\frac{1}{\sqrt{2}}\qty(\ket{00}+\ket{10})\right)
+                                               +b\left(\frac{1}{\sqrt{2}}\qty(\ket{00}-\ket{10})\right) \\
+                                               &= \frac{a+b}{\sqrt{2}}\ket{00} + \frac{a-b}{\sqrt{2}}\ket{10}.
+\end{align*}
+
+Now, we can applied the controlled $\hat{X}$ gate,
+\begin{align*}
+    \Lambda\hat{Z}\qty(\hat{H}\otimes\mathbb{1})\ket{\psi0} &= \left(\dyad{0}\otimes\mathbb{1}+\dyad{1}\otimes\hat{Z}\right)\left(\frac{a+b}{\sqrt{2}}\ket{00} + \frac{a-b}{\sqrt{2}}\ket{10}\right) \\
+                              &= \left(\dyad{0}\otimes\mathbb{1}\right)\left(\frac{a+b}{\sqrt{2}}\ket{00} + \frac{a-b}{\sqrt{2}}\ket{10}\right) + \left(\dyad{1}\otimes\hat{Z}\right)\left(\frac{a+b}{\sqrt{2}}\ket{00} + \frac{a-b}{\sqrt{2}}\ket{10}\right) \\ 
+                              &= \frac{a+b}{\sqrt{2}}\ket{00} + \frac{a-b}{\sqrt{2}}\ket{10}
+\end{align*}
+%\begin{align*}
+%    \qty(\hat{H}\otimes\mathbb{1})\Lambda\hat{X}\qty(\hat{H}\otimes\mathbb{1})\ket{\psi 0}
+%\end{align*}
+
+To finish, let's apply the last Haddamard gate,
+\begin{align*}
+    \qty(\hat{H}\otimes\mathbb{1})\left(\frac{a+b}{\sqrt{2}}\ket{00} + \frac{a-b}{\sqrt{2}}\ket{10}\right) &=\frac{a+b}{\sqrt{2}}\left(\frac{1}{\sqrt{2}}\qty(a\ket{00}+b\ket{10})\right) + \frac{a-b}{\sqrt{2}}\left(\frac{1}{\sqrt{2}}\qty(a\ket{00} - b\ket{10})\right) \\
+                                                                                                           &=\frac{a+b}{2}\qty(a\ket{00}+b\ket{10}) + \frac{a-b}{2}\qty(a\ket{00} - b\ket{10}) \\
+                                                                                                           &= a^2\ket{00} + \qty(b^2+ab)\ket{10}.
+\end{align*}
+
+We can see that this circuit is not equivalent as claimed in the exercise.
+On the other hand, if we change te circuit by swapping the controlled $\hat{X}$ gate to the $\hat{X}$ gate, the result is equivalent to applying a controlled $\hat{Z}$ gate.
+Let's resume from the first Haddamard gate,
+\begin{align*}
+    \left(\hat{X}\otimes\mathbb{1}\right)\left(\frac{a+b}{\sqrt{2}}\ket{00} + \frac{a-b}{\sqrt{2}}\ket{10}\right) = \left(\frac{a+b}{\sqrt{2}}\ket{10} + \frac{a-b}{\sqrt{2}}\ket{00}\right).
+\end{align*}
+Now, let's finish by applying the last Haddamard gate,
+\begin{align*}
+    \left(\hat{H}\otimes\mathbb{1}\right)\left(\frac{a+b}{\sqrt{2}}\ket{10} + \frac{a-b}{\sqrt{2}}\ket{00}\right) &= \left(\frac{a+b}{\sqrt{2}}\frac{1}{\sqrt{2}}\left(\ket{00}-\ket{10}\right)\right) 
+    +\left(\frac{a-b}{\sqrt{2}}\frac{1}{\sqrt{2}}\left(\ket{00}+\ket{10}\right)\right) \\
+    &= \left(\frac{a+b}{2}\left(\ket{00}-\ket{10}\right)\right) 
+    +\left(\frac{a-b}{2}\left(\ket{00}+\ket{10}\right)\right) \\
+    &= a\ket{00}-b\ket{10}.
+\end{align*}
+If we only focus in the first term we get the same as the controlled $\hat{Z}$ gate, however we get a sign difference in the second term.
+
+\newpage
 
 \begin{prob}{~}{label3}
     The three qubit GHZ-state is defined as\[\ket{GHZ}=\frac{1}{2}\left(\ket{000}+\ket{111}\right).\]
@@ -153,7 +354,28 @@ Bottom circuit.
 
 \end{prob}
 
+For this last problem, it is implemented the following circuit,
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.8\textwidth]{imgs/circuit3.pdf}
+\end{figure}
 
+
+Let's start by computing the first Haddamard gate,
+\begin{align*}
+    \qty(\hat{H}\otimes\mathbb{1}\otimes\mathbb{1})\ket{000} = \frac{1}{\sqrt{2}}\qty(\ket{000}+\ket{100}). 
+\end{align*}
+Now, lets apply the first controlled $\hat{X}$ gate,
+\begin{align*}
+    \qty(\Lambda\otimes\hat{X}\otimes\mathbb{1})\frac{1}{\sqrt{2}}\qty(\ket{000}+\ket{100}) = \frac{1}{\sqrt{2}}\qty(\ket{000}+\ket{110}).
+\end{align*}
+Now, lets finish with the second controlled $\hat{X}$ gate,
+\begin{align*}
+    \qty(\Lambda\otimes\mathbb{1}\otimes\hat{X})\frac{1}{\sqrt{2}}\qty(\ket{000}+\ket{110}) = \frac{1}{\sqrt{2}}\qty(\ket{000}+\ket{111}).
+\end{align*}
+
+It is missed the factor of $1/2$, however due to time constrictions I could not explore more circuits and this circuit was the one that give the nearest result.
+To get the factor of $1/2$ my intuition guide my to apply two haddamard gates, however, the process to eliminate the cross terms is overwelming and could not find a circuit that gives the require state.
 
 \begin{comment}
 The expectation value of an operator (or quantum gate) $A$ over a qubit $\ket{\psi}$ is defined as
