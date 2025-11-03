@@ -199,41 +199,6 @@ The next step is to compute the controlled $\hat{Z}$ gate into the new state,
     \right]
 \end{multline*}
 
-
-\begin{multline*}
-    \hat{Z}\Lambda\ket{\psi_2} =
-    \left[
-        \frac{a}{\sqrt{2}}\left(
-            \left(\mathbb{1}\ket{0}\otimes\ket{0}\right)
-            +
-            \left(\mathbb{1}\ket{0}\otimes\ket{\emptyset}\right)
-        \right) 
-    \right.
-        \\
-        +
-        \frac{b}{\sqrt{2}}\left(
-            \left(\mathbb{1}\ket{1}\otimes\ket{0}\right)
-            +
-            \left(\mathbb{1}\ket{1}\otimes\ket{\emptyset}\right)
-        \right)
-        \\
-        +
-        \frac{a}{\sqrt{2}}\left(
-            \left(\hat{Z}\ket{0}\otimes\ket{\emptyset}\right)
-            +
-            \left(\hat{Z}\ket{0}\otimes\ket{1}\right)
-        \right)
-        \\
-    \left.
-        +
-        \frac{b}{\sqrt{2}}\left(
-        \left(\hat{Z}\ket{1}\otimes\ket{\emptyset}\right)
-        +
-        \left(\hat{Z}\ket{1}\otimes\ket{1}\right)
-        \right)
-    \right]
-\end{multline*}
-
 \begin{multline*}
     \hat{Z}\Lambda\ket{\psi_2} =
     \left[
@@ -314,9 +279,9 @@ Let's begin with the first Haddamard gate,
 
 Now, we can applied the controlled $\hat{X}$ gate,
 \begin{align*}
-    \Lambda\hat{Z}\qty(\hat{H}\otimes\mathbb{1})\ket{\psi0} &= \left(\dyad{0}\otimes\mathbb{1}+\dyad{1}\otimes\hat{Z}\right)\left(\frac{a+b}{\sqrt{2}}\ket{00} + \frac{a-b}{\sqrt{2}}\ket{10}\right) \\
-                              &= \left(\dyad{0}\otimes\mathbb{1}\right)\left(\frac{a+b}{\sqrt{2}}\ket{00} + \frac{a-b}{\sqrt{2}}\ket{10}\right) + \left(\dyad{1}\otimes\hat{Z}\right)\left(\frac{a+b}{\sqrt{2}}\ket{00} + \frac{a-b}{\sqrt{2}}\ket{10}\right) \\ 
-                              &= \frac{a+b}{\sqrt{2}}\ket{00} + \frac{a-b}{\sqrt{2}}\ket{10}
+    \Lambda\hat{X}\qty(\hat{H}\otimes\mathbb{1})\ket{\psi0} &= \left(\dyad{0}\otimes\mathbb{1}+\dyad{1}\otimes\hat{X}\right)\left(\frac{a+b}{\sqrt{2}}\ket{00} + \frac{a-b}{\sqrt{2}}\ket{10}\right) \\
+                              &= \left(\dyad{0}\otimes\mathbb{1}\right)\left(\frac{a+b}{\sqrt{2}}\ket{00} + \frac{a-b}{\sqrt{2}}\ket{10}\right) + \left(\dyad{1}\otimes\hat{X}\right)\left(\frac{a+b}{\sqrt{2}}\ket{00} + \frac{a-b}{\sqrt{2}}\ket{10}\right) \\ 
+                              &= \frac{a+b}{\sqrt{2}}\ket{00} + \frac{a-b}{\sqrt{2}}\ket{11}
 \end{align*}
 %\begin{align*}
 %    \qty(\hat{H}\otimes\mathbb{1})\Lambda\hat{X}\qty(\hat{H}\otimes\mathbb{1})\ket{\psi 0}
@@ -324,9 +289,9 @@ Now, we can applied the controlled $\hat{X}$ gate,
 
 To finish, let's apply the last Haddamard gate,
 \begin{align*}
-    \qty(\hat{H}\otimes\mathbb{1})\left(\frac{a+b}{\sqrt{2}}\ket{00} + \frac{a-b}{\sqrt{2}}\ket{10}\right) &=\frac{a+b}{\sqrt{2}}\left(\frac{1}{\sqrt{2}}\qty(a\ket{00}+b\ket{10})\right) + \frac{a-b}{\sqrt{2}}\left(\frac{1}{\sqrt{2}}\qty(a\ket{00} - b\ket{10})\right) \\
-                                                                                                           &=\frac{a+b}{2}\qty(a\ket{00}+b\ket{10}) + \frac{a-b}{2}\qty(a\ket{00} - b\ket{10}) \\
-                                                                                                           &= a^2\ket{00} + \qty(b^2+ab)\ket{10}.
+    \qty(\hat{H}\otimes\mathbb{1})\left(\frac{a+b}{\sqrt{2}}\ket{00} + \frac{a-b}{\sqrt{2}}\ket{11}\right) &=\frac{a+b}{\sqrt{2}}\left(\frac{1}{\sqrt{2}}\qty(a\ket{00}+b\ket{11})\right) + \frac{a-b}{\sqrt{2}}\left(\frac{1}{\sqrt{2}}\qty(a\ket{00} - b\ket{11})\right) \\
+                                                                                                           &=\frac{a+b}{2}\qty(a\ket{00}+b\ket{11}) + \frac{a-b}{2}\qty(a\ket{00} - b\ket{11}) \\
+                                                                                                           &= a^2\ket{00} + \qty(b^2+ab)\ket{11}.
 \end{align*}
 
 We can see that this circuit is not equivalent as claimed in the exercise.
