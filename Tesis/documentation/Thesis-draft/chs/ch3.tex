@@ -279,82 +279,112 @@ By substituting the virial term~\eqref{eqn:virialLAMMPS} into the per particle s
 Where the main difference is that stress tensor in equation~\eqref{eqn:DerVirTen23} is a temporal and spatial average, while the definition of the stress tensor in~\eqref{eqn:stressLAMMPS} is per particle.
 Hence, in order to analyze the mechanical response by the Cauchy stress tensor we need to apply a proper time average and then a spatial average of the per particle stress tensor along the patchy particle network, that is including the patches.
 
-\subsection{Gyration tensor}
+%\subsection{Gyration tensor}
 
-Talk about the gyration tensor.
+%Talk about the gyration tensor.
 
 \section{Results}
 
+Let's begin with the patchy particle configuration that results from the assembling stage. Figure~\ref{fig:assemblyCluster} shows how the color of the patchy particles indicates clusters. The patchy particles initiate at random positions (panel a); then after \num{8d6} time steps, almost every patch is coupled via the patch-patch interaction potential (panel b).
+The amount of time steps for this stage have been established as a rule of thumb.
+The assembly protocol is stopped when more than 90\% of patches are in the same cluster.
+Only one assembly protocol was used for each crosslinker concentration.
+
+%Once the assembly protocol was completed, the final configuration was archived in a file before applying a shear deformation.
+%The patchy particle network was then subjected to a set of five shear rate-matched deformations.
+%Once the metrics from the five simulations had been stored, an average of those experiments was performed.
+
+After the assembly procedure, shear deformation in the $xy$ plane was conducted.
+Panel a of Figure~\ref{fig:flipPatches} shows the starting configuration of a shear deformation.
+Panel b of the same image pictures the deformation at a strain of $0.5L$.
+For computational stability, LAMMPS flips the deformed box to a box with strain of $-0.5\cdot L$, as illustrated in panel c.
+Finally, this process is repeated until the deformation reaches a strain of $15$.
 
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=\textwidth]{figs/ComputaitonalResults/New/assemblyCluster.png}
-    \caption{Cluster visualization}\label{fig:assemblyCluster}
+    \caption{The network generated during the simulation's assembly stage is visualized as clusters.
+        The color in each patchy particle represents the cluster's id.
+        If the patches are the same color, they share the cluster's id.
+        Panel A depicts the initial arrangement.
+        Panel B depicts the assembly simulation's finished configuration.
+        Ovito is used for color processing, with a \num{0.6} cut-off between each patch.
+    }\label{fig:assemblyCluster}
 \end{figure}
 
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/New/shearBonds.png}
-    \caption{Shear Bonds}\label{fig:shearBonds}
-\end{figure}
-
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/New/shearBonds.png}
-    \caption{Shear Bonds}\label{fig:shearBonds}
-\end{figure}
 
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=\textwidth]{figs/ComputaitonalResults/New/flipPatches.png}
-    \caption{Flip Patches}\label{fig:flipPatches}
+    \caption{A graphical representation of the shear deformation applied to the patchy particle network in the $xy$ plane.
+            Panel A displays the initial arrangement.
+            Then, in panel b, the box achieves the maximum tilt to assure numerical stability.
+            Panel c then displays the flip manipulation, which continues the deformation.
+            Finally, panel d shows that the box enters a configuration with no tilt but a system with strain $1$.
+            Orange spheres are the central particle of monomers. 
+            Red spheres represent the central particle of crosslinkers. 
+            Blue spheres represent patches.
+    }\label{fig:flipPatches}
 \end{figure}
 
-
+Furthermore, Figure~\ref{fig:shearBonds} shows the system's shear deformation after (panels a and b) and before (panels c and d).  
+Orange spheres are the core particles of monomers.  
+Red spheres indicate the crosslinker's core particles.  
+Blue spheres symbolize patches. 
+Panels b and d, on the other hand, display the bonds between patches, providing a useful view of the network's topology.
+Although difficult to detect, we can see in panel d that the bonds align parallel to the $x$ coordinate following shear.
+Now that the configurational outcomes of the patchy particle network have been briefly presented, we can continue on to the strain-stress relationships of the deformations.
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/New/flipBonds.png}
-    \caption{Flip Bonds}\label{fig:flipBonds}
+    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/New/shearBonds.png}
+    \caption{Panels a and c show the system with patchy particles.
+        Panels b and d, on the other hand, illustrate the bonds between patches as a simplified representation of the network's structure.
+    }\label{fig:shearBonds}
 \end{figure}
 
+%\begin{figure}[ht!]
+%    \centering
+%    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/New/flipBonds.png}
+%    \caption{Flip Bonds}\label{fig:flipBonds}
+%\end{figure}
 
 %\subsection{Mechanical response}
 
-As illustrated in figure~\ref{fig:stres-strainResults}, the strain-stress curve of the patchy particle network is presented, demonstrating the effect of varying shear rates and three distinct crosslinker concentrations.
-The concentrations of crosslinkers that we test are shown in the panels a, b and c of figure~\ref{fig:stres-strainResults}.
-Meanwhile, the shear rates that we test are in the range of milli-shear rates.
-From a qualitative point of view, the network is experiencing a rapid increase in stress.
-We subsequently received two responses.
-In the case of networks with 3\% points and 5\% at the lower shear rate, it is evident that, after a certain strain, the stress will cease to increase and will ultimately attain a steady value.
-On the other networks, the stress increases until it reaches its maximum value.
-Once this maximum stress value has been reached, the stress will begin to decrease until it reaches a stress value.
+Figure~\ref{fig:stres-strainResults} shows the strain-stress curve of the patchy particle network, demonstrating the effect of different shear rates and crosslinker concentrations.
+The stress is calculated as the assembly and time average of the stress tensor's $xy$ component.
+From a qualitative perspective, the network's stress levels are rapidly increasing.
+As a result, the patchy particle systems display two different responses.
+In networks with 3\% and 5\% of crosslinkers at lower shear rates, it is evident that at a particular strain, the stress will cease to increase and eventually acquire a constant value.
+On the other networks, the stress rises until it reaches its maximum level.
+When the maximum stress value is reached, the stress begins to drop until it reaches a stress value.
 
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=0.9\textwidth]{figs/ComputaitonalResults/stress-strain.pdf}
-    \caption{Computational results at different crosslinker concentrations. Each line reprensent the average of 5 experiments with \num{8000} patchy particles with a packing fraction of \num{0.5}, damp of \num{0.5} and the time average is in intervals of \num{5d-2}$\dot{\gamma}$.}\label{fig:stres-strainResults}
+    \caption{Strain-stress relation for a set of 10 different shear rates applied to three different patchy particles systems with crosslinker concentration of 3, 5 and 10 percent.
+        Each line represent a 5 experiments average with an assembly average and a moving time average.}\label{fig:stres-strainResults}
+    %Computational results at different crosslinker concentrations. Each line reprensent the average of 5 experiments with \num{8000} patchy particles with a packing fraction of \num{0.5}, damp of \num{0.5} and the time average is in intervals of \num{5d-2}$\dot{\gamma}$.
 \end{figure}
 
-This behaviour has also been reported in the mechanical response of a carbopol microgel system\citep{divouxStressOvershootSimple2011} and in other polymeric systems\citep{osakiStressOvershootPolymer2000a,ravindranathUniversalScalingCharacteristics2008,boukanyUniversalScalingBehavior2009}.
-As outlined in the relevant literature, including molecular dynamics simulations\citep{jeongEffectChainOrientation2017,caoSimulatingStartupShear2015,mohagheghiMolecularlyBasedCriteria2016,baigFlowEffectsMelt2010a}, as well as an analysis in other articles by \citep{wangExploringStressOvershoot2009}, the subject has been thoroughly researched.
-According to the articles\citep{jeongEffectChainOrientation2017,janeschitz-krieglPolymerMeltRheology1983,pearsonFlowInducedBirefringenceConcentrated1989,masubuchiPrimitiveChainNetwork2020}, the stress overshoot is one of the most significant nonlinear rheological phenomena exhibited by polymeric liquids undergoing start-up shear above a certain flow strength.
-This phenomenon is primarly driven by the chain orientation of the network.
-This was demonstrated through analysis of the birefringence of the system, in conjunction with the transient behaviour of the order tensor of entanglement strands along the chains, as outlined in the tube theory for entangled polymers.
-The reason for this is that the refractive index is dependent on the orientation distribution of these bond vectors. 
-In other words, the greater the alignment of the bond vectors, the greater the difference in refractive index along different directions. 
-The anisotropy of the bond vectors results in an asymmetric polarizability tensor, which manifests macroscopically as birefringence.
+This behavior has also been documented in the mechanical response of a carbopol microgel system\citep{divouxStressOvershootSimple2011} and in other polymeric systems\citep{osakiStressOvershootPolymer2000a,ravindranathUniversalScalingCharacteristics2008,boukanyUniversalScalingBehavior2009}.
+ The subject has been thoroughly researched, as outlined in relevant literature, including molecular dynamics simulations \citep{jeongEffectChainOrientation2017,caoSimulatingStartupShear2015,mohagheghiMolecularlyBasedCriteria2016,baigFlowEffectsMelt2010a} and an analysis in other articles by \citep{wangExploringStressOvershoot2009}.
+According to the articles \citep{jeongEffectChainOrientation2017,janeschitz-krieglPolymerMeltRheology1983,pearsonFlowInducedBirefringenceConcentrated1989,masubuchiPrimitiveChainNetwork2020}, stress overshoot is one of the most significant nonlinear rheological phenomenon exhibited by polymeric liquids undergoing start-up shear above a certain flow strength.
+Furthermore, the articles clarify that the primary driver of this phenomenon is the network's chain orientation.
+This was proved by analyzing the system's birefringence, as well as the transient behaviour of the order tensor of entanglement strands along the chains, as described in the tube theory for entangled polymers.
+The reason for this is that the refractive index is determined by the orientation distribution of these bond vectors.
+In other words, the better the alignment of the bond vectors, the greater the difference in refractive index across different directions. 
+ The anisotropy of the bond vectors produces an asymmetric polarizability tensor, which is seen macroscopically as birefringence.
 
-In figure~\ref{fig:stress-strainCLResults}, we present our findings on the strain-stress relation of the three systems with different crosslinker concentrations at \num{1}, \num{5}, and \num{10} milli shear rates.
-The purpose of this comparative analysis is to highlight the previously mentioned qualitative differences between them.
-By focusing at the same shear rate, it is evident that the crosslinker concentration increases the overshoot response and the steady stress value.
-Furthermore, by examining the variation in shear rate at a constant concentration, we can better recognise the occurrence of overshoot as the shear rate increases (Same color in the different panels).
-As stated in previous literature, the maximum stress is observed to occur at strain values of approximately $2-3$.
-It is also noted that the peak strain value increases slightly with increasing shear rate, and that the height of the peak also increases with the applied shear rate.
-In regard to the panel C of figure~\ref{fig:stress-strainCLResults}, it is evident that the stress-relaxation response of viscoelastic materials can be clearly observed.
-In addition, we can appreciate how the crosslinker increases the viscoelastic response by increasing the maximum stress before the start of stress relaxation.
-However, it should be noted that in figure~\ref{fig:stress-strainCLResults} the maximum stress levels occur before the strain values of $2$. 
-Additionally, the shift in strain at maximum stress is not distinguishable.
+Moving forward, figure~\ref{fig:stress-strainCLResults} illustrates the strain-stress relationship of three systems with varying crosslinker concentrations at \num{1}, \num{5}, and \num{10} milli shear rates.
+The goal of this comparative analysis is to highlight the previously stated qualitative distinctions between them.
+By focusing on the same shear rate, it is clear that the crosslinker concentration increases both the overshoot response and the constant stress value.
+Furthermore, by evaluating the fluctuation in shear rate at a fixed concentration, we can better detect overshoot as the shear rate increases (same color in each panel).
+It is also worth noting that the peak strain value and peak height increase in proportion to the shear rate.
+ Panel C of figure~\ref{fig:stress-strainCLResults} shows the stress-relaxation response of viscoelastic materials.
+ Furthermore, we can see how the crosslinker enhances the viscoelastic response by increasing the maximum stress prior to stress relaxation.
+ However, it should be noted that in figure~\ref{fig:stress-strainCLResults}, the greatest stress levels occur before the strain value of $2$, which differs with the earlier cites, which reported that the highest stress occurs at strain values of about $2-3$.
+ Furthermore, the strain shift at the maximum stress is indistinguishable.
 
 \begin{figure}[ht!]
     \centering
@@ -362,14 +392,13 @@ Additionally, the shift in strain at maximum stress is not distinguishable.
     \caption{Computational results at different crosslinker concentrations with different shear rates. Each line reprensent the average of 5 experiments with \num{8000} patchy particles with a packing fraction of \num{0.5}, damp of \num{0.5} and the time average is in intervals of \num{5d-2}$\dot{\gamma}$.}\label{fig:stress-strainCLResults}
 \end{figure}
 
-Another interesting result is the change in the steady-stress regime after the overshoot.
-On figure~\ref{fig:yieldStressResults} it is shown the average of the stress during the strain \num{10} until \num{15} ($\gamma\in[10,15]$) with respect the shear rate at differenct crosslinker concentrations.
-The dashed lines are exponential fits $m(p_1,p_2,\dot{\gamma}) = p_1\dot{\gamma}^{p_2}$, where the exponents are $\{0.5901,0.4880,0.4045\}$ for the \num{10}\%, \num{5}\%, \num{3}\% crosslinker concentration respectivly.
-This result was include as a starting point to understand the yield stress phenomena in polymeric networks.
-Recalling that a ``\textit{yield stress material}'' can be quantitive describe wit the Herschel-Bulkey model~\eqref{eqn:herschel-bulkey}, the high congruence between the exponential fit with the numerical results, tell us that the polymeric network shows similar phenomena as a ``\textit{yield stress material}''.
-However, it is important to notice that we didn't applied the Tresca or the Von Mises criteria to define the yield stress $\sigma_y$.
-Instead we decided to compute the time average of the last part of the deformation assuming that system was already in the plsatic deformatoin regime.
-We decided to applied this criteria due to the quality of the numeric results.
+Another intriguing finding is the change in the steady-stress regime much after the overshoot.
+Figure~\ref{fig:yieldStressResults} illustrates the average stress throughout the strain from \num{10} to \num{15} ($\gamma\in[10,15]$) with respect to the shear rate at various crosslinker concentrations.
+The dashed lines represent exponential fits $m(p_1,p_2,\dot{\gamma}) = p_1\dot{\gamma}^{p_2}$, with exponents $\{0.5901,0.4880,0.4045\}$ for the \num{10}\%, \num{5}\%, and \num{3}\% crosslinker concentrations, respectively.
+This finding served as a starting point for further investigation into yield stress events in polymeric networks.
+The Herschel-Bulkey model can quantitatively describe a ''\textit{yield stress material}'', and the high congruence between the exponential fit and the numerical results indicates that the polymeric network exhibits similar phenomena.
+However, the yield stress $\sigma_y$ was not defined using the Tresca or Von Mises criterion.
+Instead, it was chosen to compute the temporal average of the final portion of the deformation, assuming that the system achieves plastic deformation after the overshoot.
 
 \begin{figure}[ht!]
     \centering
@@ -379,20 +408,7 @@ We decided to applied this criteria due to the quality of the numeric results.
 
 %\subsection{Network analysis}
 
-Now that we explore the strain-stress response of the system, let's move on to analyze the network response to the applied shear.
-On figure~\ref{fig:network1} is a qualitative comparisson of the polymeric network before and after a shear deformation.
-The network corresponds to one configuration with \num{10}\% of crosslinker and a shear rate of \num{10d-3}.
-The visualization tool used is ovito with the modifiers\ldots.
-Panel a and b are the before and after the deformation from a ortho view.
-Meanwhile, panels c and d are the before and after from a top view ($xy$-plane).
-Although there is no quantitative proof in the figure of the change in morphology, we can appreciate the after the shear the polymeric networks the strands are more parallel to the $x$ axis.
-
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=0.9\textwidth]{figs/ComputaitonalResults/networkConfigurations.pdf}
-    \caption{Network configuration after and before the shear deformation.}\label{fig:network1}
-\end{figure}
-
+\begin{comment}
 In order to describe the network with a quantitative framework, on figure~\ref{fig:network2} we show a set of histograms of the metrics from the gyration tensor for the same system of figure~\ref{fig:network1} along the hole deformation at different shear rates.
 This gyration tensor corresponds to the biggest cluster in the simulation.
 In panel a it is show the radii of gyration $R_g$, which is the distance of the patchy particle from its center of mass;
@@ -403,13 +419,13 @@ finally, in panel d is the acylindricity, which is zero when the distribution of
 In general terms, we can see that the increment of crosslinker concentration, the distirbution shifts to the right in the four metrics.
 For panels c and d, this means that the cluster starts to deviate from spherical and cylindrical symmetry, meanwhile, for the anisitrpopy parameter, it tells us, that the cluster starts to align into a thin line.
 Another important result, is that when the concentration of crosslinker it is increase, the radii of gyration has a more probability to have numeric value around \num{0}, indicating that the morphology of the cluster is spherically symmetric.
+\end{comment}
 
-
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=0.9\textwidth]{figs/ComputaitonalResults/metricsGyrationTensor.pdf}
-    \caption{Gyration tensor metrics for three different shear rates at constant \num{10}\% crosslinker concentration.}\label{fig:network2}
-\end{figure}
+%\begin{figure}[ht!]
+%    \centering
+%    \includegraphics[width=0.9\textwidth]{figs/ComputaitonalResults/metricsGyrationTensor.pdf}
+%    \caption{Gyration tensor metrics for three different shear rates at constant \num{10}\% crosslinker concentration.}\label{fig:network2}
+%\end{figure}
 
 
 

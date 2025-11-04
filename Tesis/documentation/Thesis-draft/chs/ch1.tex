@@ -10,27 +10,27 @@ The proposed methodology relies on prior research in which the polymeric network
 
 A review of the literature reveals that hydrogels have a wide range of applications.
 However, the precise origin of the mechanical response in hydrogels remains a topic of debate.
-Thus, the main the key objective of this thesis is to explore a computational methodology capable of identifying parameters that can model the main properties of the polymeric network. 
+Thus, the main key objective of this thesis is to explore a computational methodology capable of identifying parameters that can model the main properties of the polymeric network. 
 These parameters can then be coupled into a constitutive relations to predict the mechanical response of a simplified polymeric network.
 To that end, we have established the following specific objectives:
 \begin{itemize}
-    \item Replicate the existing numerical protocol.
+    \item Replicate the existing numerical protocol using patchy particles proposed in reference~\citep{gnanSilicoSynthesisMicrogel2017}.
     \item Adapt the protocol to create a more general network.
     \item Apply controlled shear deformations.
     \item Characterize the network before and after shear.
     \item Analyze the strain-stress curves of the material under different shear conditions and different network parameters.
 \end{itemize}
-The analysis is expected to help selective one or more parameters that can later be incorporated into a constitutive equation.
+The analysis is expected to help select one or more parameters that can later be incorporated into a constitutive equation.
 It is important to clarify that the explicit formulation of such an equation is not within the scope of this thesis. 
 The objective is to identify a relation between the network characteristics and its mechanical response.
 
-The following section, explores the applications of hydrogels identified in the literature review, followed by a discussion of their characteristic mechanical responses.
+The following section reviews the applications of hydrogels identified in the literature, followed by a discussion of their characteristic mechanical responses.
 The subsequent theoretical framework chapter begins by explaining how to quantify the properties of the material and how to apply numerical simulations to analyze the system.
 The last part of this work covers the analysis of the numerical results and the conclusions.
 
 \section{About Hydrogels}
 
-While the numerical protocol was initially developed for a specific polymeric network, it was modified to represent a simplified case that resembles a broader group of polymeric networks.
+While the numerical protocol was initially developed for a specific material, it was modified to represent a simplified case that resembles a broader group of polymeric networks.
 These polymeric networks are collectively referred to as hydrogels.
 Hydrogels are composed primarily of hydrophilic monomers, which are biocompatible, making them suitable for medical applications.
 In general terms, hydrogels exhibit viscoelastic and viscoplastic mechanical responses.
@@ -44,31 +44,32 @@ Then, we will provide a brief introduction to viscoelasticity and viscoplasticit
 The selection of applications is guided by three key factors. 
 First, considering the imminent threat that climate change poses to the global environment, investigating environmentally relevant applications is a priority.
 Second, to align with the institution's strategic research interests in biomedical applications.
-Lastly, from prior academic experience in smart materials, some examples from this sectors where included.
+Lastly, from prior academic experience in smart materials, some examples from this sector where included.
 
 %\paragraph{Environmental applications} 
-By the chemical structure, hydrogels can effectively remove a wide range of toxic compounds, such as heavy metals, organic pollutants and pathogens from aqueous environments.
+Due to their chemical structure, hydrogels can effectively remove a wide range of toxic compounds, such as heavy metals, organic pollutants and pathogens from aqueous environments.
 Reference~\citep{cinfrigniniGoldRushDesigning2024} explores an easy-to-make poly(acrylamide-co-acrylic acid) hydrogels as adsorbents for gold recovery from industrial wastewater containing other precious metals.
-This review~\citep{randoFunctionalBioBasedPolymeric2024} investigates the emerging topic of stimuli-responsive smart hydrogels, underscoring their potential in both adsorption and detection of water pollutants.
-On this other review~\citep{darbanHydrogelBasedAdsorbentMaterial2022a} explains the synthesis and adsorption mechanicsms in detail with the understanding of the regeneration, recovery, and reuse of hydrogel-based adsorbent materials.
+Reference~\citep{randoFunctionalBioBasedPolymeric2024} reviews the emerging topic of stimuli-responsive smart hydrogels, underscoring their potential in both adsorption and detection of water pollutants.
+This other review~\citep{darbanHydrogelBasedAdsorbentMaterial2022a} explains the synthesis and adsorption mechanicsms in detail with the understanding of the regeneration, recovery, and reuse of hydrogel-based adsorbent materials.
 Finally in the reference~\citep{songSynthesisHydrogelsTheir2022} different synthetic strategies, crosslinking methods and their corresponding limitations and outstanding contributions of applications in the fields of removing environmental pollutants are reviewed to further provide a prospective view of their applications in water resources sustainability.
 
 %\paragraph{Medical applications} 
 Hydrogels have garnered significant attention as versatile materials for biomedical applications due to their high water content, biocompatibility, and tunable properties. 
 They mimic natural tissue environments, enhancing cell viability and function.
-Reference~\citep{wuAdvancementsHydrogelsCorneal2024} they discuss the fundamentals of hydrogels, emphasizing their relevance to corneal tissue engineering, and explore various types of hydrogels, including stimuli-responsive variants.
+Reference~\citep {wuAdvancementsHydrogelsCorneal2024} covers the principles of hydrogels and their importance to corneal tissue engineering. 
+It also explores several forms, including stimuli-responsive versions.
 Reference~\citep{kaurHydrogelsPotentialBiomaterial2024} highlight some of the recent interesting applications of bioactive hydrogels in the field of antibacterial wound healing, oral delivery of drugs, cancer immunotherapy, tissue regeneration, and similar potential biomedical aspects.
 Finally, reference~\citep{thummaIntroductionClassificationApplications2025} presents a thorough investigation of the synthesis and medicinal uses of different naturally occurring and synthetic hydrogels, for cancer therapy, mainly via 3D modeling and printing.
 
 %\paragraph{Smart materials} 
 Stimuli-responsive hydrogels are emerging as smart materials due to their tunable chemical and physical properties in response to various stimuli such as pH, temperature, chemicals, pressure, electrical or light. 
-In~\citep{bishnoiCellulosebasedSmartMaterials2024}, we have discussed the role and overview of cellulose‐based hydrogels in elements of energy storage systems.
+In~\\citep{bishnoiCellulosebasedSmartMaterials2024}, they examined the role and overview of cellulose-based hydrogels in energy storage systems.
 According to~\citep{zhaoIntelligentHydrogelActuators2021} near infrared laser driven intelligent hydrogel actuator systems with a high response rate were prepared via three-dimensional printing and hydrothermal synthesis.
 As reported in~\citep{shomePhotoresponsiveSmartHydrogels2024}, basic mechanisms responsible for photo-responsiveness in hydrogels along with their potential applications are discussed.
 Finally, reference~\citep{duttaSmartMaterialsFlexible2024}, they discuss the state-of-the-art applications of hydrogels in flexible electronics, such as energy storage, touch panels, memristor devices, and sensors like temperature, gas, humidity, chemical, strain, and textile sensors, and the latest synthesis methods of hydrogels.
 
 % Clousure/transition paragraph
-Several of these applications are illustrated in Figure~\ref{fig:applications} and discussed in \citep{petelinsekToughHydrogelsLoadBearing2024}. 
+Figure~\ref{fig:applications} in \citep{petelinsekToughHydrogelsLoadBearing2024} shows just a handful of these applications.
 Although there is experimental data on potential applications, a fundamental explanation of the molecular mechanisms that enable this diversity based on first principles is still lacking. 
 The intention of this work is therefore to validate a simulation methodology with the ultimate goal of providing a basis for optimising their formulation. 
 Having established this context, we now explore the mechanical properties that enable such a wide range of applications.
@@ -110,11 +111,11 @@ Applying pressure to the hydrogels causes water to flow in or out of the network
 This phenomenon is known as poroelasticity. 
 It is important to note that these changes result in viscous dissipation, which in turn impacts the viscoelastic properties\citep{sheikoArchitecturalCodeRubber2019,courbotRoleExtracellularMatrix2025}.
 
-The previous characteristics are quantify by the strain-stress relation.
-On figure~\ref{fig:mechresponse0-a} it is a graphical resume of the strain-stress relation for an elastics, plastic and viscoelastic material.
-When a constant force (stress) is applied in an elastic material, the material deformes instantly and mantains that deformation until the load is remove, at wich point it returns to its original shape (panel a.1).
+The previous characteristics are quantified by the strain-stress relation.
+Figure~\ref{fig:mechresponse0-a} provides a graphical summary of the strain-stress relationship for elastic, plastic, and viscoelastic materials.
+When a constant force (stress) is applied in an elastic material, the material deforms instantly and mantains that deformation until the load is removed, at wich point it returns to its original shape (panel a.1).
 However, when this constant force applied in a viscous material, the deformation is no longer instantaneous, instead, it undergoes continuous deformation and when the applied force is removed, the material stays in the deformed shape (panel a.2).
-Therefore, when a viscoelastic material is deformed, it displays an initial immediate response to the force, followed by an increase in the defomation over time, then, when the force it is remove, the material recovers its original shape (panel a.3).
+Therefore, when a viscoelastic material is deformed, it displays an initial immediate response to the force, followed by an increase in the defomation over time, then, when the force is removed, the material recovers its original shape (panel a.3).
 
 \begin{figure}[ht!]
     \centering
@@ -127,7 +128,7 @@ Delveving into more specific viscoelastic properties, figure~\ref{fig:mechrespon
 When the viscoelastic material is under a constant force, the material starts to elastically deform.
 The more viscoelasitc the material is, the more it deformes over time under the load.
 Once the force it is removed, the deformation starts to undo.
-On the other hand, when a constant deformation it is applied to a viscoelastic material, the stress increases like an elastic material, however, the stress starts to reduce over the applied deformation.
+On the other hand, when a constant deformation is applied to a viscoelastic material, the stress increases initially, similar to an elastic material, except then decreases with time.
 The more viscoelastic is the material, the faster the stress decreases. 
 Once the deformation it is removed, the stress goes to zero.
 
@@ -141,7 +142,8 @@ Once the deformation it is removed, the stress goes to zero.
 \end{figure}
 
 Finally, it is important to notice that when the deformation goes beyond the plastic limit, the material has a plastic deformation.
-In figure~\ref{fig:mechresponse0-c} it is shown the creep response of the viescoelastic material under constant force, and when the stress is removed, the deformation remains.
+Figure~\ref{fig:mechresponse0-c} illustrates the creep response of a viscoelastic material under constant force. 
+When stress is removed, the deformation persists.
 
 \begin{figure}[ht!]
     \centering
@@ -152,7 +154,7 @@ In figure~\ref{fig:mechresponse0-c} it is shown the creep response of the viesco
 \end{figure}
 
 In this regard, the key point for the thesis is to explore how we can use molecular dynamics to determine the extent to which the mechanical response of hydrogels can be explained by the topological features of the polymeric networks.
-In addition, elucidate a methodology to quantify the influence of the cross-linker concentration and dynamics in the response.
+In addition, we develop a methodology to quantify the influence of the cross-linker concentration and dynamics in the response.
 In the following chapter, we will explore the mathematical tools that enable us to quantify this relationship.
 Furthermore, we will provide a comprehensive explanation of how these relationships can be simulated using molecular dynamics. 
 We will also discuss the correlation between numerical simulations and experimental results.
