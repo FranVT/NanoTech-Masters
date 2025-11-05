@@ -5,8 +5,8 @@
 \contentsline {figure}{\numberline {1.4}{\ignorespaces Creep response of viscoelastic materials. Figure retrieve from\citep {courbotRoleExtracellularMatrix2025}}}{24}{figure.1.4}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {2.1}{\ignorespaces Image with the three different crosslinker mechanisms}}{29}{figure.2.1}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Strain representation Wikipedia}}{31}{figure.2.2}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Stress tensor wikipedia}}{35}{figure.2.3}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Graphical representation of a deformation through the strain tensor. Image retrieved from Wikipedia.}}{31}{figure.2.2}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces The traction vectors are represented by blue arrows in each surface of the cube. The coordinate system represented by the red arrows has its origin in the box's center of mass. Finally, each component of the stress tensor is represented with black arrows on each surface of the cube. It is important to acknowledge that even though they appear to be representing a coordinate system, they represent the direction of the force experienced at the surface. Image retrieved from Wikipedia.}}{36}{figure.2.3}%
 \contentsline {figure}{\numberline {2.4}{\ignorespaces Energy dissipation mechanism\citep {petelinsekToughHydrogelsLoadBearing2024}.}}{43}{figure.2.4}%
 \contentsline {figure}{\numberline {2.5}{\ignorespaces Stress relaxation mechanism for dual cross-linking mechanisms network\citep {naritaViscoelasticPropertiesPolyvinyl2013}.}}{44}{figure.2.5}%
 \contentsline {figure}{\numberline {2.6}{\ignorespaces Hydrogel's network configuration. Single network corresponds to 1a and 1b. Double network corresponds to 2a and 2b.\citep {kongEffectCrossLinkHomogeneity2024}.}}{45}{figure.2.6}%

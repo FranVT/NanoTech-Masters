@@ -117,14 +117,15 @@ As a result, the network's topoplogy fluctuates during the disruption, and this
 As a result, understanding how to control physical crosslinker mechanisms is critical for tailoring the equilibrium and dynamics of bond formation/dissociation.
 
 %\paragraph{Covalent networks} 
-In ``dynamic'' covalent bonds like imine, boronate ester, thioester, disulfide, and transesterification, the network can break and rebuild in reaction to high-energy external stimuli.  External cues promote the exchange of polymer chains at crosslinked sites via associative or dissociative mechanisms.
-The associative process happens when new bonds develop before existing bonds break.  In contrast, the dissociation mechanism occurs when existing relationships disintegrate before new ones form.
-The exchange of polymer chains allows the material to display self-healing, stress relaxation, and form adaptation while retaining the mechanical strength supplied by covalent links in the network.
-Finally, it is vital to highlight that the energy barrier for exchange, bond stability, and stimulus dependence all influence the rate and reversibility of the process.
+In contrast, a high-energy external stimulus activates the crosslinker mechanisms for "dynamic" covalent bonds such as imine, boronate ester, thioester, disulfide, and transesterification.
+This high-energy external stimulus may encourage the formation of new bonds prior to the dissolution of existing ones, or it may encourage the dissolution of existing ties prior to the formation of new ones.
+The associative mechanism refers to the first phenomena, whereas the dissociation process refers to the second.
+ Through this process, the network can adapt while retaining its mechanical strength by switching out polymer chains. 
+Finally, it is crucial to emphasize that the energy barrier for exchange, bond stability, and stimulus reliance all affect the process's rate and reversibility.
 
 \section{Mechanical response}
 
-The concept of a material's mechanical response describes the relationship between the deformation of a material and the applied stress and/or shear rate.
+The concept of a material's mechanical response describes the relationship between the deformation of a material and the applied stress and shear rate.
 Nevertheless, this relationship can be described from a macroscopic scale and also from a microscopic scale.
 At the macroscopic level, the description captures the effective mechanical response as a continuum property. 
 At the microscopic level, it provides insights into the origin of the mechanical response and how structural features at small scales control the macroscopic response.
@@ -134,48 +135,51 @@ In this section, we will delve into the various descriptions and explore the qua
 The relationship between deformation and stress is expressed through a constitutive equation.
 This equation is a mathematical tool that quantifies the relationship. 
 It is used to predict or model material behavior, as reflected by empirical observations.
+Additionally, these equations can be defined from both the microscopic and macroscopic scales.
+These two scales are linked through the implementation of averaging or homogenization procedures.
+However, there is a difference in interpretation and application.
+These issues will be addressed in the following sections
+
+The relationship between deformation and stress is expressed through a constitutive equation.
+This equation is a mathematical tool that quantifies the relationship. 
+It is used to predict or model material behavior, as reflected by empirical observations.
 Additionally, these equations can be defined from both the microscopic and microscopic scale.
 These two scales are linked through the implementation of averaging or homogenization procedures.
 However, there is a difference in interpretation and application.
 Thse issues will be addressed in the following sections.
 
-%\paragraph{Tensors} 
-Before proceeding, it is necessary to know the quantitative representation of stress and strain.
-Both quantities are mathematically represented as second-rank tensors, which can be algebraically expressed as a $n\times n$ matrix.
-Furthermore, it is important to interpret tensors as a generalization of scalars, vectors, and matrices to describe physical quantities which depend on direction and coordinate system, yet follow specific transformation rules under changes of coordinates.
-Allowing to quantify not just the magnitud but also aorientation and how the physical quantity acts along different directions in space.
-In summary, the tensor enables the capture of multidirectional physical properties that remain constant under coordinate changes.
-Keeping this in mind, we can proceed with a description of the strain tensor. The stress tensor will be defined until the microscopic section, together with the relation to the microscopic-macroscopic relation.
-This is due to the scope of the thesis.
+%\paragraph{Tensors}
+The first issue addressed is the mathematical tools to quantify the strain-stress relation.
+Both quantities are mathematically represented as second-rank tensors, which can be algebraically expressed as an $n\times n$ matrix.
+In addition, it is crucial to understand tensors as a generalization of scalars, vectors, and matrices to characterize physical variables that follow particular transformation rules under coordinate changes but depend on direction and a coordinate system, enabling the measurement of the physical quantity's orientation and how it behaves in various spatial directions in addition to its magnitude.
+In conclusion, multidirectional physical qualities that are invariant by coordinate changes can be represented through a tensor.
+With this in mind, let's move on into the definition of strain.
 
 %\paragraph{Strain} 
-In physics, the deformation of a material relative to its original shape under applied forces is quantify by the relative displacement between points in the material.
+In physics, the deformation of a material relative to its original shape under applied forces is quantified by the relative displacement between points in the material. 
 This measure is represented by the dimensionless strain tensor,
 \begin{gather}
     \epsilon_{ij} = \frac{1}{2}\left( \pdv{u_i}{x_j}+\pdv{u_j}{x_i} \right).\label{eqn:strainTensor}
 \end{gather}
-Where $u_i$ are the component of the displacement vector field and $x_j$ are the spatial coordinates.
-This mathematical representation is only valid for infinitesimal small deformations and enables the description of normal strain, such as elongation or compression, through the use of diagonal terms, and shear strain via off-diagonal terms.
-On figure~\ref{fig:strainTensor} is a visual representation of equation~\eqref{eqn:strainTensor} in a two spatial dimensional situation.
-It is important to keep in mind that the strain tensor is the spatial derivative of the displacement, it does not take into account the distance or the path taken.
+Where $u_i$ are the components of the displacement vector field and $x_j$ are the spatial coordinates.
+This mathematical representation is only valid for infinitesimally small deformations and enables the description of normal strain, such as elongation or compression, through the use of diagonal terms, and shear strain via off-diagonal terms.
+Figure~\ref{fig:strainTensor} is a visual representation of equation~\eqref{eqn:strainTensor} in a two-spatial-dimensional situation.
+It is important to keep in mind that the strain tensor is the spatial derivative of the displacement; it does not take into account the distance or the path taken.
 
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=10cm]{figs/2D_geometric_strain.png}
-    \caption{Strain representation Wikipedia}\label{fig:strainTensor}
+    \caption{Graphical representation of a deformation through the strain tensor. Image retrieved from Wikipedia.}\label{fig:strainTensor}
 \end{figure}
 
 \subsection{Macroscopic description}
 
-Now that we know how the quantify strain, we can quantify the four main mechanical responses,
-    elastic,
-    plastic,
-    viscoelastic,
-    and viscoplastic.
+With the strain defined, it is time to move on to explore the concept of stress in relation to strain.
+There are four main strain-stress relations: elastic, plastic, viscoelastic, and viscoplastic.
 In a broad sense, the elastic relation is when the material returns to its original shape after load removal.
 In contrast, the plastic deformation is a permanent deformation once stress exceeds a yield threshold $\sigma_y$.
-Furthermore, the viscoelastic response is time-dependent combining the elastic and viscous behaviour.
-Finally, the viscoplastic, combines the irriversible plastic strain with a rate-dependent viscous effects.
+Furthermore, the viscoelastic response is time-dependent, combining the elastic and viscous behaviors.
+Finally, the viscoplastic combines the irreversible plastic strain with rate-dependent viscous effects.
 
 %\paragraph{Elastic relation} 
 An elastic deformation is when the material returns to its original configuration once the stress is removed.
@@ -184,8 +188,8 @@ The quantification of this response is given by a linear equation,
     \sigma_{ij} = C_{ijkl}\epsilon_{kl}\label{eqn:elasticEQN}
 \end{gather}
 with a proportionality constant ($C_{ijkl}$) known as elastic modulus or Young's modulus.
-The equation~\eqref{eqn:elasticEQN} is interpreted as the stiffness, that is how the material resists deformation.
-Some examples of this type of deformation are the streching of a metal spring within its elastic limit or the compression of a rubber ball.
+The equation~\eqref{eqn:elasticEQN} is interpreted as the stiffness, that is, how the material resists deformation.
+Some examples of this type of deformation are the stretching of a metal spring within its elastic limit or the compression of a rubber ball.
 
 %This establishes a connection between the stress tensor ($\sigma$), the shear modulus ($G$) of the material, the applied strain ($E$), and the Lame first parameter ($\lambda$) of the material\citep{bonyadiReviewFrictionLubrication2020}.
 
@@ -193,34 +197,34 @@ Some examples of this type of deformation are the streching of a metal spring wi
 In contrast, a plastic deformation is when the material has an irreversible change in the shape or size.
 It is generally accepted that a material first enters an elastic regime and then reaches a yield point. 
 After this point, the deformation is irreversible.
-The quantification of the plastic relation typically links stress and plastic strain as a function of the current stress and internal variables,
+Stress and plastic strain are usually linked as a function of the current stress and internal variables,
 \begin{gather}
     \dot{\bm{\epsilon}}_{p} = f\left(\bm{\sigma},\mathrm{Internal~varaibles}\right),\quad\bm{\sigma}>\bm{\sigma}_{y}\label{eqn:plasticEQN}.
 \end{gather}
-This is valid when the deformation goes beyond the yield stress and the specific algebraic expression is dictated by the material's properties.
+This is valid when the deformation goes beyond the yield stress, and the specific algebraic expression is dictated by the material's properties.
 The specific algebraic expression of $f\left(\bm{\sigma},\mathrm{Internal~varaibles}\right)$ depends on the material and conditions in which the deformation took place.
 
-Furthermore, it is important to acknowledge that the definition of yield stress is also dependent on the material and the loading conditions\citep{bonnYieldStressMaterials2017}.
-For this reason, there are many yield criteria developed for different materials and conditions, such as Drucker-Prager, Mohr-Coulomb, Von Mises or Tresca criterion.
-The two most common yield criteria are the Von Mises and Tresca criterion.
-The von Mises yield criterion it is commonly used for ductile materials.
-It is base on the energy associated with shape change. 
-This is defined by a critical value in terms of the distortional energy or equivalent shear stress and independent of hydrostatic pressure, 
+Furthermore, it is important to acknowledge that the definition of yield stress is also dependent on the material and the loading conditions \citep{bonnYieldStressMaterials2017}.
+For this reason, there are many yield criteria developed for different materials and conditions, such as the Drucker-Prager, Mohr-Coulomb, Von Mises, or Tresca criterion.
+The two most common yield criteria are the Von Mises and Tresca criteria.
+The von Mises yield criterion is commonly used for ductile materials.
+It is based on the energy associated with shape change. 
+This is defined by a critical value in terms of the distortional energy or equivalent shear stress and is independent of hydrostatic pressure, 
 \begin{gather}
     \sigma_y = \sqrt{\frac{3}{2}\bm{s}:\bm{s}}\label{eqn:vonMisesCriterion}
 \end{gather}
-where $\bm{s}$ is the deviatoric stress tensor\footnote{The stress tensor without the diagonal elements.} and $:$ is a tensor constraction, which maps a tensor to a scalar.
-On the other hand, the Tresca yield criterion is a max-shear based criterion.
-It is based on the yield strength in simple tension as follows, 
+where $\bm{s}$ is the deviatoric stress tensor\footnote{The stress tensor without the diagonal elements.} and $:$ is a tensor contraction, which maps a tensor to a scalar.
+On the other hand, the Tresca yield criterion is a max-shear-based criterion.
+It is based on the yield strength in simple tension as follows:
 \begin{gather}
    \sigma_y = \max\left(\abs{\sigma_1-\sigma_2},\abs{\sigma_2-\sigma_3},\abs{\sigma_3-\sigma_1}\right)\label{eqn:trescaCriterion}
 \end{gather}
-where $\sigma_1=\sigma_{11}$, $\sigma_2=\sigma_{22}$, $\sigma_3=\sigma_{33}$ are also known as the principal stresses.
+where $\sigma_1=\sigma_{11}$, $\sigma_2=\sigma_{22}$, and $\sigma_3=\sigma_{33}$ are also known as the principal stresses.
 
-Furthermore, there are materials known as ``\textit{yield stress materials}'' and that is when a material does not flow if the imposed stress is below a threshold value and flows rather easily after this value is exceeded\citep{bonnYieldStressMaterials2017}.
+Furthermore, there are materials that do not flow if the imposed stress is below a threshold value and flow rather easily after this value is exceeded, known as ``\textit{yield stress materials}''\citep{bonnYieldStressMaterials2017}.
 For a simple shear geometry, the flow curve is a representation of the dependence of the shear stress on the shear rate.
-For a newtonian fluid, these functions are linearly related $\sigma=\eta\dot{\gamma}$, where $\eta$ is a constant viscosity.
-For a yield stress material, the viscosity becomes formally a function of the shear rate, $\sigma=\eta(\dot{\gamma})\dot{\gamma}$, and the flow curve is not a simple straight line crossling the origin.
+For a Newtonian fluid, these functions are linearly related $\sigma=\eta\dot{\gamma}$, where $\eta$ is a constant viscosity.
+For a yield stress material, the viscosity becomes formally a function of the shear rate, $\sigma=\eta(\dot{\gamma})\dot{\gamma}$, and the flow curve is not a simple straight line crossing the origin.
 One of the popular yield stress models is the Herschel-Bulkey, 
 \begin{gather}
     \sigma = \sigma_y + K\dot{\gamma}^{n},\sigma\geq\sigma_y\label{eqn:herschel-bulkey},
@@ -229,12 +233,12 @@ where $\sigma_y$ is the yield stress (the stress at which the deformation starts
 
 %\paragraph{Viscoelastic relation} 
 A viscoelastic deformation is defined as the process by which a material partially ``stores'' elastic energy and partially dissipates energy.
-The quantification of the relation is by relating the instantaneous stress, strain and a time-dependent relaxation modulus,
+For this deformation, the quantification is done by relating the instantaneous stress, strain, and a time-dependent relaxation modulus,
 \begin{gather}
     \sigma(t) = \int_0^t G(t-\tau)\dv{\tau}\epsilon(\tau)d\tau\label{eqn:viscoelastiEQN}.
 \end{gather}
 Where $\tau$ is a dummy variable and $G(t)$ is the time-dependent relaxation modulus.
-This mathematical expression is also known as the generelized expression of the Maxwell or Kelvin-Voigt model.
+This mathematical expression is also known as the generalized expression of the Maxwell or Kelvin-Voigt model.
 The relaxation modulus $G(t)$ describes how a material responds over time to a sudden, constant strain.
 This relationship also enables the description and modeling of memory effects and rate dependence, which are commonly observed in polymers, biological tissues, and certain soft solids.
 
@@ -246,7 +250,7 @@ Time-dependent response combining elastic and viscous behaviour.
 \end{comment}
 
 %\paragraph{Viscoplastic relation} 
-Finally, a viscoplastic is to describe when a material flows plastically like a viscous fluid under stress beyond the yield stress.
+Finally, ``viscoplastic'' is used to describe when a material flows plastically like a viscous fluid under stress beyond the yield stress.
 The quantification is determined by a function of strain rate, stress, yield stress, and internal variables (see equation~\eqref{eqn:viscoplastiEQN}).
 \begin{gather}
     \dot{\bm{\epsilon}}_{p} = f\left(\sigma,\sigma_y,\dot{\epsilon},\mathrm{Internal variables}\right)\label{eqn:viscoplastiEQN}.
@@ -264,15 +268,15 @@ Combines irreversible plastic strain with rate-dependent visvous effects
 \subsection{Microscopic description}
 
 %\paragraph{Stress} 
-Now that we explore the constitutive equations, we are going to link the macroscopic response to the microscopic phenomena.
-In order to do that, lets delve into the mathematical represention of the stress.
-In continuum mechanics and physics, the measure of internal forces distributed within a material that arise in response to external loads is refered as stress.
+Now that the macroscopic constitutive equations have been explored, let's move on into the microscopic framework.
+The first issue to address is the concept and mathematical representation of the stress.
+In continuum mechanics and physics, the measure of internal forces distributed within a material that arise in response to external loads is referred to as stress.
 This measure is represented by a second-order tensor with units of \SI{}{\kilo\gram\per\meter\per\second\squared}.
-The mathematical representation of the stress tensor is given by the Cauchy stress tensor, which relates a traction vector $\vec{T}$ acting on a surface $\vec{n}$ with the stress tensor $\bm{\sigma}$, %equation~\eqref{eqn:stressTensor}.
+The mathematical description of the macroscopic stress tensor, also known as the Cauchy stress tensor, establishes a relationship between a traction vector $\vec{T}$ operating on a surface $\vec{n}$ and the stress tensor $\bm{\sigma}$,
 \begin{gather}
     \vec{T} = \bm{\sigma}\cdot\vec{n},\label{eqn:tractionVector}
 \end{gather}
-where $\vec{n}$ is the unit normal vector tot eh surface and $\bm{\sigma}$ is the stress tensor,
+where $\vec{n}$ is the unit normal vector to the surface and $\bm{\sigma}$ is the stress tensor,
 \begin{gather*}
     \bm{\sigma} = 
     \begin{bmatrix}
@@ -283,11 +287,16 @@ where $\vec{n}$ is the unit normal vector tot eh surface and $\bm{\sigma}$ is th
 \end{gather*}
 The component $\sigma_{ij}$ represents the force in the $i$-th direction acting on a surface perpendicular to the $j$-th coordinate axis.
 Also, the tensor is symmetric under the usual assumption of no body torques and balance of angular momentum.
-On figure~\ref{fig:stressTensor} is a visual representation of the traction vector~\eqref{eqn:tractionVector} and the interpretation of the stress components of the stress tensor~\eqref{eqn:stressTensor}. 
+Figure~\ref{fig:stressTensor} is a visual representation of the traction vector~\eqref{eqn:tractionVector} and the interpretation of the stress components of the stress tensor~\eqref{eqn:stressTensor}.
+
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=0.8\textwidth]{figs/Components_stress_tensor_cartesian.pdf}
-    \caption{Stress tensor wikipedia}\label{fig:stressTensor}
+    \caption{The traction vectors are represented by blue arrows in each surface of the cube.
+        The coordinate system represented by the red arrows has its origin in the box's center of mass.
+        Finally, each component of the stress tensor is represented with black arrows on each surface of the cube.
+        It is important to acknowledge that even though they appear to be representing a coordinate system, they represent the direction of the force experienced at the surface.
+        Image retrieved from Wikipedia.}\label{fig:stressTensor}
 \end{figure}
 
 %\begin{figure}[ht!]
@@ -297,18 +306,21 @@ On figure~\ref{fig:stressTensor} is a visual representation of the traction vect
 %\end{figure}
 
 %\paragraph{Macro-Micro realtion} 
-From a microscopic scale, the stress tensor describes the instantaneous local force from atomic interactions and momentum flux.
-As a consequence of the scale, the tensor fluctuates strongly due to thermal motion, position and local arrangement of atoms.
-The bridge between the microscopic description and the macroscopic scale is a spactial and statistical averaging of the microscopic stress over a region much larger than atomic dimensions\footnote{\[\sigma_{ij}^{\mathrm{macro}}=\lim_{V\to\infty}\expval{\sigma_{ij}^{\mathrm{micro}}}\]}.
+On a microscopic scale, the stress tensor describes the instantaneous local force caused by atomic interactions and momentum flux.
+The scale causes significant changes in the tensor due to the local organization, location, and thermal motion of the atoms.
+The connection between the microscopic description and the macroscopic scale is provided by a spatial and statistical average of the microscopic stress across a region much greater than atomic dimensions.
+\begin{equation}
+    \sigma_{ij}^{\mathrm{macro}}=\lim_{V\to\infty}\expval{\sigma_{ij}^{\mathrm{micro}}}
+\end{equation}
 
 %\subsection{Bridge of macro to micro stress tensor}
 
 %\paragraph{Molecular stress is equivalent to continuum stress} 
 %After exploring the constitutive equations and the main mechanisms related to the main mechanical responses observed in hydrogels, 
 % 
-This bridge it is no trivial, so we will demonstrate the validity of the connection between the macroscopic definition of the stress tensor with the microscopic stress tensor, by showing the equivalence between both tensors.
-This mathematical derivation is adressed in the appendix of~\citep{admalUnifiedInterpretationStress2010}.
-Just befor starting and for clarity, the notation is as follows,$\bm{\sigma}$ denotes a tensor, such as $\sigma_{i,j}$, a vector is denoted by $\vec{\sigma}$ and time average is denoted as $\overline{\sigma}$.
+This bridge is not trivial, so we will demonstrate the validity of the connection between the macroscopic definition of the stress tensor and the microscopic stress tensor by showing the equivalence between both tensors.
+This mathematical derivation is addressed in the appendix of~\citep{admalUnifiedInterpretationStress2010}.
+Just before starting, and for clarity, the notation is as follows: $\bm{\sigma}$ denotes a tensor, such as $\sigma_{i,j}$, a vector is denoted by $\vec{\sigma}$, and time average is denoted as $\overline{\sigma}$.
 
 %\paragraph{Derivation} 
 Let's start by considering a system of $N$ interacting particles with each particle position given by
@@ -339,7 +351,7 @@ Now we continue by computing the time derivative of tensorial product $\vec{r}_\
         \underbrace{\vec{r}_\alpha\otimes\vec{f}_\alpha}_{\mathrm{Virial~term}},\label{eqn:DerVirTen5}
 \end{equation}
 which is known as the \textit{dynamical tensor virial theorem} and it is simply an alternative form to express the balance of linear momentum.
-This theorem becomes useful after making the assumption that there existis a time scale $\tau$, which is short relative to macroscopic processes but long relative to the characteristic time of the particles in the system, over which the particles remain close to their original positions with bounded positions and velocities.
+This theorem becomes useful after making the assumption that there is a time scale $\tau$, which is small relative to macroscopic processes but big relative to the characteristic time of the particles in the system, over which the particles remain close to their original positions with bounded positions and velocities.
 Taking advantage of this property we can compute the time average of~\eqref{eqn:DerVirTen5},
 \begin{equation}
     \frac{1}{\tau}\qty(\vec{r}_\alpha\otimes\vec{p}_\alpha)\bigg|_{0}^{\tau} = 
@@ -394,7 +406,7 @@ Therefore we can express the following,
 Where $\vec{\xi}$ is a position vector within the domain $\Omega$ occupied by the system of particles with a continuous closed surface $\delta\Omega$.
 Assuming that $\Omega$ is large enough to express the external forces acting on it in the form of the continuum traction vector $\vec{t}$.
 
-With this we can substitute the traction vector with $\vec{t}=\bm{\sigma}\vec{n}$, where $\bm{\sigma}$ represent the Cauchy stress tensor and applying the divergence theorem in~\eqref{eqn:DerVirTen13}, we have 
+With this we can substitute the traction vector with $\vec{t}=\bm{\sigma}\vec{n}$, where $\bm{\sigma}$ represents the Cauchy stress tensor and applying the divergence theorem in~\eqref{eqn:DerVirTen13}, we have 
 \begin{equation}
     \overline{\mathbf{W}}_{\mathrm{ext}}
      =\int_{\Omega}
@@ -407,14 +419,14 @@ With this we can substitute the traction vector with $\vec{t}=\bm{\sigma}\vec{n}
             \bm{\sigma}^{\mathrm{T}}
             +
             \vec{\xi}\otimes\qty(\mathrm{div}_{\vec{\xi}}\bm{\sigma}+\rho\vec{b})
-        \right]dV\label{eqn:DerVirTen14}
+        \right]dV.\label{eqn:DerVirTen14}
 \end{equation}
 Since we assume that we are under equilibrium conditions, the term $\mathrm{div}_{\vec{\xi}}\bm{\sigma}+\rho\vec{b}$ is zero~\eqref{eqn:DerVirTen14} it simplifies to
 \begin{equation}
     \overline{\mathbf{W}}_{\mathrm{ext}}
     =V\bm{\sigma}^{\mathrm{T}}\label{eqn:DerVirTen15}.
 \end{equation}
-By tacking into account that we integrate over the domain $\Omega$ we can say that we compute the spatial average of the Cauchy stress tensor,
+By taking into account that we integrate over the domain $\Omega$ we can say that we compute the spatial average of the Cauchy stress tensor,
 \begin{equation}
     \bm{\sigma}_{\mathrm{av}} =\frac{1}{V}\int_\Omega\bm{\sigma}dV\label{eqn:DerVirTen16},
 \end{equation}
@@ -438,7 +450,7 @@ Finally, solving for the Cauchy Stress tensor we get,
         \sum_\alpha m_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{\upsilon}_\alpha^{\mathrm{rel}}}
     \right],\label{eqn:DerVirTen18}
 \end{equation}
-an expression that describe the macroscopic stress tensor in terms of microscopic variables\footnote{It is important to acknowledge that several mathematical subtleties were not taken into consideration, however all the mathematical formality is adressed by Nikhil Chandra Admal and E. B. Tadmor in~\citep{admalUnifiedInterpretationStress2010}}.
+an expression that describes the macroscopic stress tensor in terms of microscopic variables\footnote{Although it is crucial to recognize that a number of mathematical technicalities were overlooked, Nikhil Chandra Admal and E. B. Tadmor address all mathematical formalities in~\citep{admalUnifiedInterpretationStress2010}}.
 
 To end the demostration it is important to show that~\eqref{eqn:DerVirTen18} is symmetric.
 Therefore, we rewrite the internal force as the sum of forces between the particles,
@@ -476,7 +488,7 @@ Therefore, by replacing the identity of~\eqref{eqn:DerVirTen21} into~\eqref{eqn:
         \sum_\alpha m_\alpha\overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{\upsilon}_\alpha^{\mathrm{rel}}}
     \right],\label{eqn:DerVirTen22}
 \end{equation}
-expressed with indexical notation and using the eistein summation convention,
+expressed with indexical notation and using the Einstein summation convention,
 \begin{equation}
     \sigma^{\mathrm{av}}_{ij}
     =
@@ -495,26 +507,25 @@ Now, let's describe in general terms the relation between the elastic, plastic, 
 %As a result, we can begin to explore which molecular process dominates each deformation regime.
 
 %\paragraph{Elastic regime} 
-In the case of an elastic deformation, the force applied to the material is largely retained.
-This is due to the stretching of the distance between the particles.
+In the case of an elastic deformation, the force applied to the material is largely retained due to the stretching of the distance between the particles.
 The particles' displacement is minimal, with no effect on bond integrity.
 This is generally understood to mean that the material stores potential energy that is released during unloading.
 
 %\paragraph{Plastic regime}\footnote{Here it is important the idea of reversibility and stuf about self healing} 
 In the context of plastic deformation, the phenomenon is often described as dislocation and crystal defects in crystalline materials.
 However, given that the material under consideration is a polymeric network, plastic deformation is more likely to involve the rupture of crosslinks between chains and the sliding or stretching of individual chains beyond their reversible limit.
-In the scenario of networks with physical entanglements, chains have the potential to slip past another, thereby overcoming energy barriers and irreversibly reorganizing the networks' topology.
+In the scenario of networks with physical entanglements, chains have the potential to slip past one another, thereby overcoming energy barriers and irreversibly reorganizing the networks' topology.
 In the cases of bond rupture, the crosslink density can be reduced or the polymeric chain can be broken.
 
 %\paragraph{Viscoelastic regime} 
-For this type of mechanical response, the network undergoes an elastic deformation.
+For viscoelastic deformations, the network mainly undergoes an elastic deformation.
 However, during the elastic deformation process, the network may undergo changes in configuration due to polymer sliding or crosslinking reconfiguration.
 During these changes, the interaction between polymer chains causes an energy dissipation process, resulting in a viscous response and a time dependency.
 This time dependency is commonly known as \textit{stress relaxation}, which refers to the time-dependent decrease in stress under a constant, maintained strain.
 
 %\paragraph{Viscoplastic regime} 
 The viscoplastic response is comparable to the viscoelastic response because it integrates plastic deformation with an energy dissipation process.
-The most significant distinction is that, in contrast to the elastic process of network sliding or crosslink reconfiguration, the polymeric network undergoes bond breakage.
+The most important difference is that the polymeric network experiences bond breakage as opposed to the elastic process of network sliding or crosslink reconfiguration.
 Additionally, the disentanglement of chains is a significant phenomenon that plays a crucial role in energy dissipation.
 Furthermore, the response is contingent on the time scale. 
 The reconfiguration of the network is determined by the relaxation time following bond breakage and crosslinking reconfiguration.
@@ -524,37 +535,27 @@ Finally, similar to the plastic deformation, the viscoplastic deformation occurs
 
 %\citep{bouzidElasticallyDrivenIntermittent2017}.
 
-\paragraph{Intro}
-In this section it is going to be a brief literature review from the reported mechanical response of hydrogel with the focus in searching for a connection between the strctural properties on a molecular level and the mechanical properties of the macroscopic hydrogel.
-Lets start with the review article\citep{petelinsekToughHydrogelsLoadBearing2024}, in which they interpret the physical crosslinking mechansism as energy dissipation mechanisms.
-This energy dissipation mechanisms helps to reversibly recover from a mechanical impact, allowing to create stiff and tough hydrogels.
-The energy dissipation is often achieve through the introduction of sacrificial bonds by adding a second more brittle network within a loosly crosslinked network or by cross-links made from supramolecular transient interactions, which can be reversibly broken and reformed.
-In the first case, the material is streched and a share of the bonds in the more brittle network are broken leading to an increased dissipation of the energy from mechanical impact.
-In the second case, the sacrificial bonds are non-covalent nature and can reversibly break and reform.
+%\paragraph{Intro}
+In this section there is going to be a brief literature review of the reported mechanical response of hydrogel, with the focus on searching for a connection between the structural properties on a molecular level and the mechanical properties of the macroscopic hydrogel.
+Let's start with the review article\citep{petelinsekToughHydrogelsLoadBearing2024}, in which they interpret the physical crosslinking mechanism as an energy dissipation mechanism.
+This energy dissipation mechanism helps to reversibly recover from a mechanical impact, allowing the creation of stiff and tough hydrogels.
+The energy dissipation is often achieved through the introduction of sacrificial bonds by adding a second, more brittle network within a loosely cross-linked network or by cross-links made from supramolecular transient interactions, which can be reversibly broken and reformed.
+In the first case, the material is stretched, and a share of the bonds in the more brittle network are broken, leading to an increased dissipation of the energy from mechanical impact.
+In the second case, the sacrificial bonds are non-covalent in nature and can reversibly break and reform.
 
-Some of the non-covalent interactions are 
-    metal–ligand, 
-    ionic interactions, 
-    hydrogen bonding, 
-    microphase separation 
-    and hydrophobic interactions, 
-    polymer–nanomaterial adsorption, 
-    host–guest complexation, 
-    or supramolecular self-assembly.
-However, in the review they center into the electrostatoc interaction, microphase separation, composites and self-assembly.
-In figure~\ref{fig:energyDissipation} is a visual summary of the mechanisms that are going to be described in the following paragraphs.
+Some of the non-covalent interactions are metal-ligand, ionic interactions, hydrogen bonding, microphase separation and hydrophobic interactions, polymer-nanomaterial adsorption, host-guest complexation, or supramolecular self-assembly. The mechanisms that will be discussed in the subsequent paragraphs are summarized visually in Figure~\ref{fig:energyDissipation}.
 
-From the electrostatic mechanism it can be said that ionic attractions between oppositly charged monomers led to tough, mechanically robust materials.
-In addition, hydrogen bonds can be a powerful motif to enchance reversible interactions between polymer chains and hence, dissipate energy.
+The electrostatic mechanism states that strong, physically robust polymers are formed by ionic attractions between oppositely charged monomers.
+In addition, hydrogen bonds can be a powerful motif to enhance reversible interactions between polymer chains and hence, dissipate energy.
 
-From the microphase sparation, it is important to acknowledge that microcrystallization is the process of polymer chains forming submicrometer-sized crystallites, representing a microphaseseparated domain surrounded by amorphous polymer chains.
-Overall, hydrogels obtained through microcrystallization managed to improve the fracture energies and stiffness due to the collective hydrophobic interactions. 
+It is crucial to recognize that microcrystallization—a microphase-separated domain encircled by amorphous polymer chains—is the process by which polymer chains form submicrometer-sized crystallites.
+Because of the combined hydrophobic interactions, hydrogels produced by microcrystallization have the capacity to increase stiffness and fracture energies.
 
-From the composite mechanism it can be said that adding micellar agregates, soft polymers microspheres improve the thoughness of the hydrogel.
-In addition, (nano)fibers may greatly enhance the fracture mechanics of tough hydrogels, however, their ductility often suffers greatly, especially when macroscopic fiber mats are inserted.
+According to the composite mechanism, adding micellar aggregates and soft polymer microspheres increases the hydrogel's toughness.
+Additionally, (nano)fibers can greatly enhance the fracture mechanics of strong hydrogels, but their ductility often declines, especially when macroscopic fiber mats are added.
 
-Finally, from the self-assembly mechanism, it can be said that is a promising source of energy dissipation have been introduced by elastomeric proteins, which function as molecular springs and unfold once a stress is applied. 
-This mechanical unfolding can be observed in smaller elastin-like polypeptides, as well as in larger proteins
+Finally, from the self-assembly mechanism, it can be said that a promising source of energy dissipation has been introduced by elastomeric proteins, which function as molecular springs and unfold once a stress is applied. 
+This mechanical unfolding is seen in both larger proteins and smaller elastin-like polypeptides.
 
 \begin{figure}[ht!]
     \centering
@@ -564,7 +565,7 @@ This mechanical unfolding can be observed in smaller elastin-like polypeptides, 
 \end{figure}
 
 
-\paragraph{Stress relaxation of a dual network}
+%\paragraph{Stress relaxation of a dual network}
 The stress relaxation can be explain by the dynamics of association and dissasociation of chains\citep{naritaViscoelasticPropertiesPolyvinyl2013}.
 In figure~\ref{fig:hydroMechResponse1} it is a comparison of a network with physical crosslinking mechanisms (left column) and a network with physical and chemical crosslink mechanisms (right row).
 Taking a lot of attation into the physical elastically active and the physical elastically inactive positions, we can see the main difference is the functionality of the crosslinking.
@@ -583,7 +584,7 @@ One, the elastically active physical cross-link increases, decresing the time of
 Second, increase the elastically inactive cross-links, which increases the time of association.
 In this hydrogel the ''competition'' of this two effects results in the increase in the time of association, which induces an incomplete relaxation or the chain reassociates before complre stress relaxation.
 
-\paragraph{Strain stifeening in dual networks}
+%\paragraph{Strain stifeening in dual networks}
 In this other article\citep{kongEffectCrossLinkHomogeneity2024}, they prepare randomly cross-linked networks of poly(n-butyl acrylate) via thermally initiated free-radical polymerization and regularly cross-linked networks via thiol-bromine coupling of tetrafunctional poly(n-butyl acrylate) star polymers. 
 Then they swell both types of networks in a mixture of monomer and cross-linker, which is polymerized to form double networks.
 In order to explore the effect of cross-link homogeneity in the strain stiffening behavior of regular and random networks.
@@ -646,7 +647,7 @@ Finally, all of this is resume in the figure~\ref{fig:REGRANDNcomparison}.
 \end{figure}
 
 
-\paragraph{About shear thinning}
+%\paragraph{About shear thinning}
 In the article\citep{varela-feijooMultiscaleInvestigationViscoelastic2023} analyze the viscoelastic properties of an alginate hydrogel.
 For low concentrations the stifness and electrostatic repulsive interactions between chains and monomers are the main mechanisms that influence the viscosity.
 However, when salt it is added to screen the electrostatic repulsions at the same low concentrations, the polymer chains contracted decreasin the volume occupied by a dosium alginate coil, causing a reduction in viscosity.
@@ -662,7 +663,7 @@ This behaviour can be explained by the disintanglement and alignment of alginate
     \caption{Shear-thinning\citep{varela-feijooMultiscaleInvestigationViscoelastic2023}.}\label{fig:hydroMechResponse2}
 \end{figure}
 
-\paragraph{Different monomer, different mech response}
+%\paragraph{Different monomer, different mech response}
 Finally, to elucidate the importance of the crosslinking mechanism, we show the results of compressive measurements reported at\citep{romischkeSwellingMechanicalCharacterization2022} in figure\ref{fig:mechResponseEnd} and~\ref{fig:mechResponseEnd1}.
 In that article they synthesized and intensvely characterized in their swelling behaviour and mechanical properties of polyelectrolyte hydrogels such as $\mathrm{polyAMMPSO}_3$ and polyMATMA and compare them with ChondroFiller liquid, which is already use for the treatment of cartilage lesions.
 The crosslinker that they use is benzoylphenylalanine (BAP).
