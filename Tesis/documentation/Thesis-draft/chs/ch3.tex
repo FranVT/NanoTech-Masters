@@ -141,8 +141,7 @@ Finally, the values of $K_r$ and $K_\theta$ are set to \num{100} to create a str
 The value of $r_o$ is set to \num{0.45}.
 The value of $\theta_o$ is set to \SI{180}{\degree} for PB particles and \SI{109.4712}{\degree} for PA particles.
 
-Once we set the parameters for the synthesis, the volume of the box was calculated by determining the volume of the patchy particles A and B and then scaling those values by the number of particles and the desired packing fraction.
-
+Once the parameters for the synthesis were set, the volume of the box was calculated by determining the volume of the patchy particles A and B and then scaling those values by the number of particles and the desired packing fraction.
 \begin{align*}
     V_{\mathrm{box}} &= \frac{N_{\mathrm{patchyA}}V_{\mathrm{patchyA}}+N_{\mathrm{patchyB}}V_{\mathrm{patchyB}}}{\phi}
 \end{align*}
@@ -156,37 +155,37 @@ The interaction of patchy particles with two patches is set to 1 ($\epsilon_{\mu
 This is to allow only crosslinker-monomer and monomer-monomer bonding.
 
 %\paragraph{Deformation protocol}
-Once the assembly simulation of the patchy particles network was done, we peform a shear deformation to the resulting network.
+Once the assembly simulation of the patchy particle network was done, we performed a shear deformation to the resulting network.
 We select the shear deformation because shear forces dominate biological environments where hydrogels are typically deployed. 
 Also, shear testing provides a more uniform stress field throughout the hydrogel sample compared to tensile testing. 
 In rheological measurements using parallel plate or cone-and-plate geometries, the applied shear stress is distributed evenly across the sample, eliminating edge effects and stress concentrations that plague tensile testing.
 Furthermore, shear rheometry excels at characterizing the complex viscoelastic properties that define hydrogel functionality.
 Many hydrogels exhibit shear-thinning behavior that is critical for applications like injection and 3D bioprinting. 
-
 The shear deformation was done at a constant shear rate in the $xy$ plane.
-The shear rates where in the \num{d-3} order of magnitude and final strain was \num{15} units.
-This is because we are exploring this computational methodology to characterized the mechanical response and to deform beyond the plastic deformation limit.
-Also the variation of the shear rate was perform to see the viscoelastic response of the material.
-The temperature and damp parameter where set to be the same as in the assembly process.
+
+The shear rates were in the \num{d-3} order of magnitude, and the final strain was \num{15} units.
+This is because we are exploring this computational methodology to characterize the mechanical response and to deform beyond the plastic deformation limit.
+Also, the variation of the shear rate was performed to see the viscoelastic response of the material.
+The temperature and dampness parameters were set to be the same as in the assembly process.
 
 \subsection{LAMMPS implementation}
 
-As said before, we take advantage of the LAMMPS software as a computational tool to solve the langevin equation in a many-particle system.
-However, it is usefull to explain how we apply the simulation in this software.
-In this regard, we discuss briefly the $\mathrm{damp}$ parameter, the implementation of the swap potential~\eqref{eqn:swapmod_interaction}, the shear deformation and the calculation of the stress tensor.
+As said before, LAMMPS software is used to solve the Langevin equation in a many-particle system.
+However, it is useful to explain how the simulation is defined in this software.
+In this regard, in the next paragraphs, it briefly discusses the $\mathrm{damp}$ parameter, the implementation of the swap potential~\eqref{eqn:swapmod_interaction}, the shear deformation, and the calculation of the stress tensor.
 
 %\paragraph{damp}
-As we saw in equations~\eqref{eqn:MolDylammps1} and~\eqref{eqn:MolDylammps2}, the viscosity parameter $\gamma$ of the lagevin equation~\eqref{eqn:BrownianDyn1} does appears, instead the $\mathrm{damp}$ parameter appears.
-This parameter is specified in time units and determines how rapidly the temperature is relaxed so that can be more easily be used as a thermostat\citep{LAMMPS}.
+By making a comparison between equations~\eqref{eqn:MolDylammps1} and~\eqref{eqn:MolDylammps2}, the viscosity parameter $\gamma$ of the Langevin equation~\eqref{eqn:BrownianDyn1} does not appear; instead, the $\mathrm{damp}$ parameter appears.
+This parameter is specified in time units and determines how rapidly the temperature is relaxed so that it can be more easily used as a thermostat\citep{LAMMPS}.
 That is, if damp is set to \num{100}, the temperature will relax in a timespan of roughly \num{100} time units.
-By making dimensional analysis, the damp factor can be think as inversely related to the viscotity of the solvent.
+By making dimensional analysis, the damp factor can be thought of as inversely related to the viscosity of the solvent.
 This tells us that a small damp represents a high-viscosity solvent and vice versa.
-Therefore, since we set this parameter to \num{0.1} the polymeric network is in a high-viscosity solvent.
+Therefore, since the damp is set to \num{0.1}, the polymeric network is in a high-viscosity solvent.
 
 %\paragraph{Three-body potential}
-Now moving towards the implementation of the swap-potential.
-We use the \verb|pair_style threebody/table| command because it allow us to implement a generic tabulated three-body interactions.
-However, in lammps, the tabulation is done on a three-dimensional grid of the two distances $r_{ij}$ and $r_{ik}$ as well as the angle $\theta_{ijk}$, where the forces on all three particles $I$, $J$, and $K$ lie within the plane defined by the three inter-particle distance vectors $\vec{r}_{IJ}$, $\vec{r}_{IK}$ and $\vec{r}_{JK}$\citep{LAMMPS}.
+Now moving towards the implementation of the swap potential.
+The \verb|pair_style threebody/table| command is used to implement generic tabulated three-body interactions.
+However, in LAMMPS, the tabulation is done on a three-dimensional grid of the two distances $r_{ij}$ and $r_{ik}$ as well as the angle $\theta_{ijk}$, where the forces on all three particles $I$, $J$, and $K$ lie within the plane defined by the three inter-particle distance vectors $\vec{r}_{IJ}$, $\vec{r}_{IK}$, and $\vec{r}_{JK}$\citep{LAMMPS}.
 Allowing the following property to project the forces onto the inter-particle distance vectors,
 \begin{equation}
     \begin{pmatrix}\vec{f}_i \\ \vec{f}_j \\ \vec{f}_k\end{pmatrix}
@@ -194,10 +193,10 @@ Allowing the following property to project the forces onto the inter-particle di
     \begin{pmatrix}f_{i1} & f_{i2} & 0 \\ f_{j1} & 0 & f_{j2} \\ 0 & f_{k1} & f_{k2} \end{pmatrix}
     \begin{pmatrix}\vec{r}_{ij} \\ \vec{r}_{ik} \\ \vec{r}_{jk}\end{pmatrix}.
 \end{equation}
-And due to symmetry reasons, we have that $f_{i1}=-f_{j1}$, $f_{i2}=-f_{k1}$ and $f_{j2}=-f_{k2}$.
+And due to symmetry reasons, $f_{i1}=-f_{j1}$, $f_{i2}=-f_{k1}$, and $f_{j2}=-f_{k2}$.
 Hence, we need to project the force of the swap potential into the inter-particle plane in order to have a correct tabulation.
 
-Recalling that the force is equivalent to $-\nabla U(r)$ and the potencials has only radial dependence, we can express the force as,
+Recalling that the force is equivalent to $-\nabla U(r)$ and the potential has only radial dependence, we can express the force 
 \begin{gather}
     \vec{f}_n = -\pdv{U_{\mathrm{swap}}(r_m,r_l)}{r}\hat{e}_r,
 \end{gather}
