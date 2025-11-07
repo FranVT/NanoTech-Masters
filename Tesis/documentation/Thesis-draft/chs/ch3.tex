@@ -1,47 +1,41 @@
 \chapter{Methods and Results}
 % Patchy particle scheme for hydrophilic polymeric networks
 
-Now that we have covered the theoretical framework, we can delve into the numerical tools that will help us find relations between the polymeric network and the mechanical response.
-First, we will describe the patchy particle scheme for simulating PNIPAM cross-linked networks.
-Then, we will describe the numerical simulation protocol.
-Next, we will introduce the LAMMPS package and explain how it can be used to simulate these systems.
-Finally, we will present and analyze the simulation results.
+Now, after having shown how molecular dynamics can simulate the mechanical response of hydrogels, allowing the construction of relationships between responses to molecular phenomena, it's time to present the methods for simulating shear deformation in a hydrogel employing patchy particles.
 
 \section{Simulation protocol}
 
 One of the microgels that has been the focus of significant research is the type that is based on PNIPAM cross-linked networks.
-In the article \textit{In silico Synthesis of Microgel Particles}\citep{gnanSilicoSynthesisMicrogel2017}, the authors present a flexible numerical protocol capable of designing individual microgel particles based on PNIPAM corr-linked networks. 
+In the article \textit{In silico Synthesis of Microgel Particles}\citep{gnanSilicoSynthesisMicrogel2017}, the authors present a flexible numerical protocol capable of designing individual microgel particles based on PNIPAM cross-linked networks. 
 This protocol can generate particles with properties comparable to the experimental ones.
 In this project, we employ a similar protocol to explore its versatility and identify a numerical tool that can facilitate connections between network configuration and mechanical response.
 
-Our primary focus is on creating networks without spherical confinement and without mimicking the swelling behavior of PINIPAM microgels with temperature.
-Therefore, the central strategy involves the implementation of a binary mixture of patchy particles to generate a disorded polymeric network structure, followed by the application of shear deformation.
+The primary focus is on creating networks without spherical confinement and without mimicking the swelling behavior of PINIPAM microgels with temperature.
+As a result, the central technique involves using a binary mixture of patchy particles to create a disordered polymeric network structure, which is then deformed using shear forces.
 The primary benefit of this protocol is that previous numerical efforts in microgel modeling have predominantly concentrated on unrealistic networks consisting of chains of equivalent length, frequently establishing cross-linked connections on crystalline lattice regions or where closed polymer networks are assembled by directly integrating randomly dispersed cross-linkers with polymer chains.
 
 \subsection{Patchy particles representation}
 
 A patchy particle\citep{bianchiPhaseDiagramPatchy2006,bianchiTheoreticalNumericalStudy2008} can be defined as a sphere with radius $r$ containing $n$ spheres of radius $l<r$ on its surface.
-The smaller spheres are typically referred to as ``patches'' and the number of patches is often refer to as ``functionality''.
+The smaller spheres are typically referred to as ``patches,'' and the number of patches is often referred to as ``functionality''.
 The center of the patches can be placed on the surface of the central particle. 
 However, it can also be modified to be at a point inside the enclosed volume of the main particle.
 
-The implementation of patchy particles as monomers and crosslinkers is a highly effective strategy.
-This is due to the fact that it facilitates the integration of the infinitesimal representation by the Langevin dynamics with a particle that possesses volume and functionality.
+The use of patchy particles as monomers and crosslinkers is a highly effective method since it allows for the integration of Langevin dynamics' infinitesimal representation with a particle with volume and functionality.
 The functionality representation is important because it allows for the representation of the monomer and cross-linker molecules that can form a polymeric network.
-However, it is important to recognize that the geometry of the monomers and functional groups is assume to be spherical.
+However, it is important to note that the monomers and interaction sites are considered to be spherical.
 
-Finally, to define the volume of the particle, a repulsive pairwise interaction is defined between the central particles.
-Meanwhile, to the formation of a polymeric network is facilitated by an attractive pairwise interaction defined between patches.
-Because this model is designed to simulate the final network, not the synthesis process, the pairswise interaction between central particles and patches is not defined.
-
-In contrast, the softness explain by particle interactions is characterized by the form of the repulsive pair potential between two particles.
-Finally, the particle volume fraction contributes to the ability of the particles to deform or compress, in contrast to hard spheres\footnote{The patchy particles are hard spheres, but the hydrogel network is a soft ``particle''}\citep{vlassopoulosTunableRheologyDense2014}.
+To define the volume of the particle, a repulsive pairwise interaction is defined between the central particles.
+Meanwhile, the formation of the polymeric network is encouraged by a pairwise interaction between patches.
+Because this model is designed to simulate the final network, not the synthesis process, the pairwise interaction between central particles and patches is not defined.
+In contrast, the softness explained by particle interactions is characterized by the form of the repulsive pair potential between two particles.
+Finally, the particle volume fraction contributes to the ability of the particles to deform or compress, in contrast to hard spheres\citep{vlassopoulosTunableRheologyDense2014}.\footnote{The patchy particles are hard spheres, but the hydrogel network is a soft ``particle''.}
 
 \subsection{Description of the system}
 
-%\paragraph{Interaction potentials} 
-We start by describing the interaction potentials between patchy particles.
-The interaction between the central particles is modeled with a Weeks-Chandler-Andersen repulsive potential,
+%\paragraph{Interaction potentials}
+Let's start by describing the interaction potentials between patchy particles.
+The interaction between the central particles is modeled with a Weeks-Chandler-Andersen repulsive potential.
 \begin{gather}
     U_{WCA}(r_{i,j}) =\left\{ 
         \begin{array}{ll}
