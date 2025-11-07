@@ -185,7 +185,7 @@ Therefore, since the damp is set to \num{0.1}, the polymeric network is in a hig
 %\paragraph{Three-body potential}
 Now moving towards the implementation of the swap potential.
 The \verb|pair_style threebody/table| command is used to implement generic tabulated three-body interactions.
-However, in LAMMPS, the tabulation is done on a three-dimensional grid of the two distances $r_{ij}$ and $r_{ik}$ as well as the angle $\theta_{ijk}$, where the forces on all three particles $I$, $J$, and $K$ lie within the plane defined by the three inter-particle distance vectors $\vec{r}_{IJ}$, $\vec{r}_{IK}$, and $\vec{r}_{JK}$\citep{LAMMPS}.
+However, in LAMMPS, the tabulation is done on a three-dimensional plane of the two distances $r_{ij}$ and $r_{ik}$ with the angle $\theta_{ijk}$, where the forces on all three particles $I$, $J$, and $K$ lie within the plane defined by the three inter-particle distance vectors $\vec{r}_{IJ}$, $\vec{r}_{IK}$, and $\vec{r}_{JK}$\citep{LAMMPS}.
 Allowing the following property to project the forces onto the inter-particle distance vectors,
 \begin{equation}
     \begin{pmatrix}\vec{f}_i \\ \vec{f}_j \\ \vec{f}_k\end{pmatrix}
@@ -194,9 +194,9 @@ Allowing the following property to project the forces onto the inter-particle di
     \begin{pmatrix}\vec{r}_{ij} \\ \vec{r}_{ik} \\ \vec{r}_{jk}\end{pmatrix}.
 \end{equation}
 And due to symmetry reasons, $f_{i1}=-f_{j1}$, $f_{i2}=-f_{k1}$, and $f_{j2}=-f_{k2}$.
-Hence, we need to project the force of the swap potential into the inter-particle plane in order to have a correct tabulation.
 
-Recalling that the force is equivalent to $-\nabla U(r)$ and the potential has only radial dependence, we can express the force 
+Therefore, to have a correct tabulation, it is necessary to project the force into the inter-particle plane.
+Recalling that the force is equivalent to $-\nabla U(r)$ and the potential has only radial dependence, the force can be expressed as
 \begin{gather}
     \vec{f}_n = -\pdv{U_{\mathrm{swap}}(r_m,r_l)}{r}\hat{e}_r,
 \end{gather}
@@ -207,43 +207,41 @@ Hence,
     \vec{f_{j}} &= -\pdv{U_{\mathrm{swap}}(r_{ji},r_{jk})}{r}\hat{e}_r\label{eqn:3body2}, \\
     \vec{f_{k}} &= -\pdv{U_{\mathrm{swap}}(r_{ki},r_{kj})}{r}\hat{e}_r\label{eqn:3body3}.
 \end{align}
-In order to proyect the force into the plane, we need to compute the dot product between $\hat{e}_r$ into the basis that represent the plane. 
-Since the software defines the plane using the distances between the particles, we can define the following 2 dimensional basis, $\hat{e}_1=\qty[1,0]$ and $\hat{e}_2=\qty[\cos\theta,\sin\theta]$.
-Where $\theta$ is the angle between distances $\vec{r}_{ij}$ and $\vec{r}_{ik}$.
-With this we can compute the following projections,
+The projection of the force into the plane is computed via the dot product between $\hat{e}_r$ and the basis that represents the plane. 
+Which can be defined by the following 2-dimensional basis, $\hat{e}_1=\qty[1,0] $ and $\hat{e}_2=\qty[\cos\theta,\sin\theta] $, and $\theta$ is the angle between distances $\vec{r}_{ij}$ and $\vec{r}_{ik}$ since the software defines the plane using the distances between the particles.
+With this we can compute the following projections:
 \begin{align}
     \hat{e}_r \cdot \hat{e}_1 &= 1\\
     \hat{e}_r \cdot \hat{e}_2 &= \cos\theta. 
 \end{align}
-Also, we can define the following vector, $\hat{e}_3 = \hat{e}_1 - \hat{e}_2 = \qty[1-\cos\theta,-\sin\theta]$ to represent the $j-k$ distance and the proyection will be,
+Also, the following vector can be defined as $\hat{e}_3 = \hat{e}_1 - \hat{e}_2 = \qty[1-\cos\theta,-\sin\theta]$ to represent the $j-k$ distance, and the projection will be
 \begin{align}
     \hat{e}_r \cdot \hat{e}_3 &= 1-\cos\theta.
 \end{align}
 
-With this proyections we can express the forces in~\eqref{eqn:3body1},~\eqref{eqn:3body1}, and~\eqref{eqn:3body1} as follows,
+With these projections the forces can be expressed in~\eqref{eqn:3body1},~\eqref{eqn:3body1}, and~\eqref{eqn:3body1} as follows:
 \begin{align}
     f_{i1} &= -\pdv{U_{\mathrm{swap}}(r_{ij},r_{ik})}{r}\label{eqn:3body4a}, \\
     f_{i2} &= -\pdv{U_{\mathrm{swap}}(r_{ij},r_{ik})}{r}\cos\theta\label{eqn:3body4b}, \\
     f_{j2} &= -\pdv{U_{\mathrm{swap}}(r_{ji},r_{jk})}{r}\qty(1-\cos\theta)\label{eqn:3body5}.
 \end{align}
-And due to the symmetry relations we can tabulate the potential into the LAMMPS software.
-Naturally, if the scale factors from the projection not be included, the one bond per patch condition will not be met and it may result in numerical instability during shear deformation.
+And due to the symmetry relations, the potential can be tabulated into the LAMMPS software to introduce the one-bond-per-patch condition and mitigate numerical instability during shear deformation.
 
-Now we are going to briefly explain the implementation of the shear deformation on the $xy$ plane using the \verb|fix deform| command.
-We choose to apply the engineering deformation rate (\verb|erate| style) because changes a dimension of the box at a “constant engineering strain rate”.
-The box length L as a function of time will change as
+The \verb|fix deform| command simulates a shear deformation on the $xy$ plane.
+It uses the engineering deformation rate (\verb|erate| style) to adjust the box's dimension at a ``constant engineering strain rate''.
+The length of the box, L, will be modified over time,
 \begin{gather}
     L(t) = L_o\qty(1 + \mathrm{erate}~dt),
 \end{gather}
 where $L_o$ is the original box length and $\mathrm{erate}$ is the shear rate in units of $1/\mathrm{time}$\citep{LAMMPS}.
-This deformation is apply in the $xy$ plane and the change in length is along the $x$ direction.
-This set of parameter ensures that the volume does not change during the deformation\citep{LAMMPS}.
-In addition to the \verb|erate| style, we set the \verb|remap| keyword to \verb|x| in order to remap particle positions without altering their velocities\citep{LAMMPS}.
-Finally, we also use the \verb|flip| keyword to flip the box when the tilt factors exceed half the distance of the parallel box length, in order to prevent computational inneficiency and errors\citep{LAMMPS}.
+This deformation is applied in the $xy$ plane, and the change in length is along the $x$ direction.
+This set of parameters ensures that the volume does not change during the deformation\citep{LAMMPS}.
+In addition to the \verb|erate| style, the \verb|remap| keyword was set to \verb|x| to remap particle positions without affecting their velocities\citep{LAMMPS}.
+Finally, the \verb|flip| keyword is used to flip the box when the tilt factors exceed half the distance of the parallel box length to avoid computational inefficiency and errors\citep{LAMMPS}.
 
 %\paragraph{fix stress} 
-In order to finish the section, we are going to cover how LAMMPS compute the stress tensor.
-This quantity is computed by the \verb|compute stress/atom| which gives the stress tensor for an atom $I$ by the following equation\citep{thompsonGeneralFormulationPressure2009,LAMMPS},
+This section concludes with an explanation of how LAMMPS computes the stress tensor.
+The \verb|compute stress/atom| calculates the stress tensor for an atom $I$ using the equation \citep{thompsonGeneralFormulationPressure2009,LAMMPS},
 \begin{gather}
     S_{ab} = -v_a v_b - W_{ab}\label{eqn:stressLAMMPS},
 \end{gather}
@@ -257,18 +255,18 @@ where $a$ and $b$ represent the spatial coordinates $x$, $y$ and $z$, and $W_{ab
             +\mathrm{Kspace}(r_{ia},F_{ib}) 
             +\sum_{n=1}^{N_f}r_{ia} F_{ib}.
 \end{multline}
-The first term includes the contribution from pairwise interactions, the second term considers bond contributions, the third, fourth and fith terms consider contributions from interactions in terms of angles.
-The sixth term considers long range Coulombic interactions and the final term consider contributions from \verb|fix| commands such as \verb|fix rigid| or \verb|fix shake|.
-Since we only declare pairwise interactions, bonds and angles interactions, the virial contribution it simplifies to,
+The first term accounts for pairwise interactions, the second for bond contributions, and the third, fourth, and fifth for angle-based interactions.
+The sixth term considers long-range Coulombic interactions, and the final term considers contributions from \verb|fix| commands such as \verb|fix rigid| or \verb|fix shake|.
+Since we only declare pairwise interactions and bond and angle interactions, the virial contribution simplifies to
 \begin{multline}
     W_{ab} = \frac{1}{2}\sum_{n=1}^{N_p}\qty(r_{1a} F_{1b} + r_{2a} F_{2b})
             +\frac{1}{2}\sum_{n=1}^{N_b}\qty(r_{1a} F_{1b} + r_{2a} F_{2b}) \\
             +\frac{1}{3}\sum_{n=1}^{N_a}\qty(r_{1a} F_{1b} + r_{2a} F_{2b} + r_{3a} F_{3b})\label{eqn:virialLAMMPS}.
 \end{multline}
 
-By substituting the virial term~\eqref{eqn:virialLAMMPS} into the per particle stress tensor~\eqref{eqn:stressLAMMPS} we get a similar expression for the stress derived previously~\eqref{eqn:DerVirTen23}.
-Where the main difference is that stress tensor in equation~\eqref{eqn:DerVirTen23} is a temporal and spatial average, while the definition of the stress tensor in~\eqref{eqn:stressLAMMPS} is per particle.
-Hence, in order to analyze the mechanical response by the Cauchy stress tensor we need to apply a proper time average and then a spatial average of the per particle stress tensor along the patchy particle network, that is including the patches.
+Substituting the virial term~\eqref{eqn:virialLAMMPS} into the per-particle stress tensor~\eqref{eqn:stressLAMMPS} yields a similar expression for the previously derived stress~\eqref{eqn:DerVirTen23}.
+The stress tensor in equation~\eqref{\eqn:DerVirTen23} is a temporal and spatial average, whereas the stress tensor in~\eqref{\eqn:stressLAMMPS} is defined per particle.
+As a result, in order to study the mechanical response of the Cauchy stress tensor, a suitable time average, followed by a spatial average of the per-particle stress tensor along the patchy particle network, including the patches, is required.
 
 %\subsection{Gyration tensor}
 
@@ -277,7 +275,7 @@ Hence, in order to analyze the mechanical response by the Cauchy stress tensor w
 \section{Results}
 
 Let's begin with the patchy particle configuration that results from the assembling stage. Figure~\ref{fig:assemblyCluster} shows how the color of the patchy particles indicates clusters. The patchy particles initiate at random positions (panel a); then after \num{8d6} time steps, almost every patch is coupled via the patch-patch interaction potential (panel b).
-The amount of time steps for this stage have been established as a rule of thumb.
+The number of time steps for this stage has been established as a rule of thumb.
 The assembly protocol is stopped when more than 90\% of patches are in the same cluster.
 Only one assembly protocol was used for each crosslinker concentration.
 
@@ -286,9 +284,9 @@ Only one assembly protocol was used for each crosslinker concentration.
 %Once the metrics from the five simulations had been stored, an average of those experiments was performed.
 
 After the assembly procedure, shear deformation in the $xy$ plane was conducted.
-Panel a of Figure~\ref{fig:flipPatches} shows the starting configuration of a shear deformation.
+Panel a of Figure~\ref{fig:flipPatches} shows the initial configuration of a shear deformation.
 Panel b of the same image pictures the deformation at a strain of $0.5L$.
-For computational stability, LAMMPS flips the deformed box to a box with strain of $-0.5\cdot L$, as illustrated in panel c.
+For computational stability, LAMMPS flips the deformed box to a box with a strain of $-0.5\cdot L$, as illustrated in panel c.
 Finally, this process is repeated until the deformation reaches a strain of $15$.
 
 \begin{figure}[ht!]
@@ -323,8 +321,8 @@ Orange spheres are the core particles of monomers.
 Red spheres indicate the crosslinker's core particles.  
 Blue spheres symbolize patches. 
 Panels b and d, on the other hand, display the bonds between patches, providing a useful view of the network's topology.
-Although difficult to detect, we can see in panel d that the bonds align parallel to the $x$ coordinate following shear.
-Now that the configurational outcomes of the patchy particle network have been briefly presented, we can continue on to the strain-stress relationships of the deformations.
+Although difficult to see, panel d shows that the bonds align parallel to the $x$ coordinate after shear.
+After briefly discussing the configurational results of the patchy particle network, let's move on to the strain-stress relationships of the deformations.
 
 \begin{figure}[ht!]
     \centering
@@ -362,20 +360,20 @@ This behavior has also been documented in the mechanical response of a carbopol 
  The subject has been thoroughly researched, as outlined in relevant literature, including molecular dynamics simulations \citep{jeongEffectChainOrientation2017,caoSimulatingStartupShear2015,mohagheghiMolecularlyBasedCriteria2016,baigFlowEffectsMelt2010a} and an analysis in other articles by \citep{wangExploringStressOvershoot2009}.
 According to the articles \citep{jeongEffectChainOrientation2017,janeschitz-krieglPolymerMeltRheology1983,pearsonFlowInducedBirefringenceConcentrated1989,masubuchiPrimitiveChainNetwork2020}, stress overshoot is one of the most significant nonlinear rheological phenomenon exhibited by polymeric liquids undergoing start-up shear above a certain flow strength.
 Furthermore, the articles clarify that the primary driver of this phenomenon is the network's chain orientation.
-This was proved by analyzing the system's birefringence, as well as the transient behaviour of the order tensor of entanglement strands along the chains, as described in the tube theory for entangled polymers.
+This was proved by analyzing the system's birefringence, as well as the transient behavior of the order tensor of entanglement strands along the chains, as described in the tube theory for entangled polymers.
 The reason for this is that the refractive index is determined by the orientation distribution of these bond vectors.
 In other words, the better the alignment of the bond vectors, the greater the difference in refractive index across different directions. 
- The anisotropy of the bond vectors produces an asymmetric polarizability tensor, which is seen macroscopically as birefringence.
+The anisotropy of the bond vectors produces an asymmetric polarizability tensor, which is seen macroscopically as birefringence.
 
 Moving forward, figure~\ref{fig:stress-strainCLResults} illustrates the strain-stress relationship of three systems with varying crosslinker concentrations at \num{1}, \num{5}, and \num{10} milli shear rates.
 The goal of this comparative analysis is to highlight the previously stated qualitative distinctions between them.
 By focusing on the same shear rate, it is clear that the crosslinker concentration increases both the overshoot response and the constant stress value.
 Furthermore, by evaluating the fluctuation in shear rate at a fixed concentration, we can better detect overshoot as the shear rate increases (same color in each panel).
 It is also worth noting that the peak strain value and peak height increase in proportion to the shear rate.
- Panel C of figure~\ref{fig:stress-strainCLResults} shows the stress-relaxation response of viscoelastic materials.
- Furthermore, we can see how the crosslinker enhances the viscoelastic response by increasing the maximum stress prior to stress relaxation.
- However, it should be noted that in figure~\ref{fig:stress-strainCLResults}, the greatest stress levels occur before the strain value of $2$, which differs with the earlier cites, which reported that the highest stress occurs at strain values of about $2-3$.
- Furthermore, the strain shift at the maximum stress is indistinguishable.
+Panel C of figure~\ref{fig:stress-strainCLResults} shows the stress-relaxation response of viscoelastic materials.
+Furthermore, we can see how the crosslinker enhances the viscoelastic response by increasing the maximum stress prior to stress relaxation.
+However, it should be noted that in figure~\ref{fig:stress-strainCLResults}, the greatest stress levels occur before the strain value of $2$, which differs from the earlier cites, which reported that the highest stress occurs at strain values of about $2-3$.
+Furthermore, the strain shift at the maximum stress is indistinguishable.
 
 \begin{figure}[ht!]
     \centering
@@ -387,7 +385,7 @@ Another intriguing finding is the change in the steady-stress regime much after 
 Figure~\ref{fig:yieldStressResults} illustrates the average stress throughout the strain from \num{10} to \num{15} ($\gamma\in[10,15]$) with respect to the shear rate at various crosslinker concentrations.
 The dashed lines represent exponential fits $m(p_1,p_2,\dot{\gamma}) = p_1\dot{\gamma}^{p_2}$, with exponents $\{0.5901,0.4880,0.4045\}$ for the \num{10}\%, \num{5}\%, and \num{3}\% crosslinker concentrations, respectively.
 This finding served as a starting point for further investigation into yield stress events in polymeric networks.
-The Herschel-Bulkey model can quantitatively describe a ''\textit{yield stress material}'', and the high congruence between the exponential fit and the numerical results indicates that the polymeric network exhibits similar phenomena.
+The Herschel-Bulkey model can quantitatively describe a ''\textit{yield stress material},'' and the high congruence between the exponential fit and the numerical results indicates that the polymeric network exhibits similar phenomena.
 However, the yield stress $\sigma_y$ was not defined using the Tresca or Von Mises criterion.
 Instead, it was chosen to compute the temporal average of the final portion of the deformation, assuming that the system achieves plastic deformation after the overshoot.
 

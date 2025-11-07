@@ -119,7 +119,7 @@
     side,
     ragged,
 ]{footmisc}
-% \RequirePackage{marginfix}
+\RequirePackage{marginfix}
 \makeatletter
   \renewcommand\@makefnmark{%
     \hbox{%
@@ -285,7 +285,7 @@
 
 % 	Doctoral thesis (subsubtitle)
 \newcommand\type[1]{\renewcommand\@type{#1}}
-\newcommand\@type{Masters thesis}
+\newcommand\@type{Submitted to the School of Engineering and Sciences in partial fulfillment of the requirements for the degree of \\ Master in Nanotechnology}
 
 % 	shoutouts
 \newcommand\shoutouts[1]{\renewcommand\@shoutouts{#1}}
@@ -301,19 +301,15 @@
 		\begin{minipage}{.8\linewidth}
 		\raggedright
 
-		{\large\scshape
-				\MakeLowercase{\@university}%
+		{\large
+				\@university%
 
 				\bigskip
 
-				\MakeLowercase{\@lab}%  <- this percent is mandatory -- without it latex places and awkward space
+				\@lab%  <- this percent is mandatory -- without it latex places and awkward space
 		}
 
-		\vskip 80pt
-
-		{\large\itshape\@author}
-
-		\vskip 40 pt
+		\vskip 20 pt
 
 		{%
 			\huge
@@ -332,9 +328,9 @@
 
 		{\Large \@type}%
 
-		\vskip 40pt
+		\vskip 20pt
 
-		{\itshape\@date}
+		{\large\itshape\@author}
 
 		\end{minipage}
 
@@ -346,9 +342,13 @@
 			\people{}
 		\end{tabular}
 
-		\vskip 40pt
+		\vskip 20pt
 
 		\logos{}
+
+        \vskip 10pt
+
+        {\itshape Monterrey, Nuevo León, México, \@date}
 
 	\end{titlepage}
 
