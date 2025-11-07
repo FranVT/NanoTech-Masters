@@ -58,11 +58,11 @@ On the other hand, the patch-patch interaction is modeled with an attractive pot
 where $r_{\mu\upsilon}$ is the distance between two patches, $\sigma_p$ is the diameter of the patches, $r_c$ is the cut distance of interaction set to $1.5\sigma_p$ and $\epsilon_{\mu,\upsilon}$ is the interaction energy between the patches.
 %This potential can be interpreted as a reversible interaction.
 
-In figure~\ref{fig:patchpatchpot} is a contrast between the patch-patch interaction potential~\eqref{eqn:patch-patch_interaction}, the Lennard-Jones potential and the FENE potential.
-Qualitatively, the Lennard-Jones and the patch-patch potential are similar, in the sense that after a cut off distance, both potentials tends to zero.
-In contrast, the FENE potential goes to infinity if the distance is to short or to wide.
-This main difference allow us to implement the patch-patch interaction as a reversible interaction, rather than the FENE, which is more suitable to represent non-reversible interaction.
-Hence, this numerical methodology is like having a polymeric network with physical crosslinkers.
+Figure~\ref{fig:patchpatchpot} compares the patch-patch interaction potential, the Lennard-Jones potential, and the FENE potential.
+The Lennard-Jones and patch-patch potentials are qualitatively similar in that they both tend to zero after a certain cutoff distance.
+In contrast, the FENE potential goes to infinity if the distance is too short or too wide.
+This key distinction enables us to design the patch-patch interaction as a reversible interaction rather than the FENE, which is better suited to representing non-reversible interactions.
+As a result, the computational methodology simulates a polymeric network with physical crosslinkers.
 
 \begin{figure}[ht!]
     \centering
@@ -70,11 +70,11 @@ Hence, this numerical methodology is like having a polymeric network with physic
     \caption{Comparisson between equation~\eqref{eqn:patch-patch_interaction} with Lennard-Jones and FENE potentials.}\label{fig:patchpatchpot}
 \end{figure}
 
-In contrast, the difference between the Lennard-Jones potential with patch-patch interaction is that the minimum potential undergoes horizontal translation, and the rate of change from the minimum to the cut distance is more pronounced in the patch-patch interaction.
-This translates into a more ``strong'' interaction between the patches using equation~\eqref{eqn:patch-patch_interaction} than a Lennard-Jones potential.
+The patch-patch interaction differs from the Lennard-Jones potential in that the minimum potential is horizontally translated, and the rate of change from the minimum to the cut distance is more apparent.
+Equation~\eqref{eqn:patch-patch_interaction} represents a more ``strong'' interaction between the patches compared to a Lennard-Jones potential.
 
-In addition, if we let the polymeric network form with the interaction of equation~\eqref{eqn:patch-patch_interaction}, the patches are going to form cluster of more than 2 patches, which is not desirable.
-Hence, the interaction between patches is complemented by a three-body repulsive potential, defined in terms of~\eqref{eqn:patch-patch_interaction}, that provides an efficient bond-swapping mechanism making possible to easily equilibrate the system at extremely low temperatures, while at the same time, reataining the single bond per patch condition\citep{sciortinoThreebodyPotentialSimulating2017},
+However, if the simulation for the polymeric network is simply performed using the Lennard-Jones and patch-patch potentials, the patches will form interactions of more than two patches, which is undesirable.
+Hence, the interaction between patches is complemented by a three-body repulsive potential, defined in terms of~\eqref{eqn:patch-patch_interaction}, that provides an efficient bond-swapping mechanism, making it possible to easily equilibrate the system at extremely low temperatures, while at the same time retaining the single bond per patch condition\citep{sciortinoThreebodyPotentialSimulating2017}.
 \begin{gather}
     U_{\mathrm{swap}}(r_{l,m},r_{l,n}) = w\sum_{l,m,n}\epsilon_{m,n}U_3\qty(r_{l,m})U_3\qty(r_{l,n}),\quad r_{l,n}\in\qty[0,r_c],\label{eqn:swap_interaction}
 \end{gather}
@@ -89,15 +89,15 @@ where
 \end{gather}
 The sum in~\eqref{eqn:swap_interaction} runs over all triples of bonded patches (patch $l$ bonded both with $m$ and $n$).
 $r_{l,m}$ and $r_{l,n}$ are the distances between the reference patch and the other two patches.
-The parameter $\epsilon_{m,n}$ is the energy of repulsion and $w$ is used to tuned the swapping ($w=1$) and non-swapping bonds ($w\gg1$). 
-The cut off distance $r_c$ is the same as in the potential of interaction between patches, meanwhile the minimum distance $r_{\min}$ is the distance at the minimum of~\eqref{eqn:patch-patch_interaction}, \textit{i.e.} $\epsilon_{m,n}\equiv\abs{U_{\mathrm{patchy}}(r_{\min})}$.
+The parameter $\epsilon_{m,n}$ is the energy of repulsion, and $w$ is used to tune the swapping ($w=1$) and non-swapping bonds ($w\gg1$). 
+The cutoff distance $r_c$ is the same as in the potential of interaction between patches, meanwhile the minimum distance $r_{\min}$ is the distance at the minimum of~\eqref{eqn:patch-patch_interaction}, \textit{i.e.} $\epsilon_{m,n}\equiv\abs{U_{\mathrm{patchy}}(r_{\min})}$.
 
-In figure~\ref{fig:swappot} shows the patch-patch potential with the swap potential.
-The patch-patch potential in the figure is the energy of the interaction between patch $i$ with patch $k$.
-The swap potential is the energy between patch $i$ with patch $k$ leaving the distance between patch $i$ and patch $j$ fixed.
-Tacking into account this, when the patches $i-j$ are at the potential well ($r_{ij}=\sigma$), the interaction between $i-k$ is null.
-When the patches $i-j$ is bigger than the potential well but smaller than the cutoff distance ($r_{\mathrm{cut}}>r_{ij}>\sigma$), the interaction between $i-k$ is mild attractive.
-Finally, when the patches $i-j$ is bigger than the cutoff distance ($r_{\mathrm{cut}}<r_{ij}$), the interaction between $i-k$ is attractive.
+Figure~\ref{fig:swappot} shows the patch-patch potential with the swap potential.
+The patch-patch potential in the figure is the energy of the interaction between patch $i$ and patch $k$.
+The swap potential is the energy between patch $i$ and patch $k$, leaving the distance between patch $i$ and patch $j$ fixed.
+Taking into account this, when the patches $i-j$ are at the potential well ($r_{ij}=\sigma$), the interaction between $i-k$ is null.
+When the patches $i-j$ are bigger than the potential well but smaller than the cutoff distance ($r_{\mathrm{cut}}>r_{ij}>\sigma$), the interaction between $i-k$ is mildly attractive.
+Finally, when the patches $i-j$ are bigger than the cutoff distance ($r_{\mathrm{cut}}<r_{ij}$), the interaction between $i-k$ is attractive.
 
 \begin{figure}[ht!]
     \centering
@@ -105,20 +105,22 @@ Finally, when the patches $i-j$ is bigger than the cutoff distance ($r_{\mathrm{
     \caption{Swap potential for patch-patch interaction to ensure single bond per patch condition.}\label{fig:swappot}
 \end{figure}
 
-Before proceeding to the description of the parameteros for the simulation, it is necessary to describe the interaction between the central particle and the patches.
-The patches and the central particles are linked by harmonic potentials,
+Before proceeding to the description of the parameters for the simulation, it is necessary to describe the interaction between the central particle and the patches.
+The patches and the central particles are linked by harmonic potentials.
 \begin{align}
     E_r &= K_r\qty(r-r_{o})^2, \\
     E_\theta &= K_\theta\qty(\theta-\theta_{o})^2.
 \end{align}
 Where $r_o$ and $\theta_o$ represent the equilibrium bond distance and angle.
 Meanwhile, $K$ is equal to $K=k/2$, where $k$ is the energy of the bond.
-This allow us to create patchy particles with patches fixed at a convinient position.
+This allows us to create patchy particles with patches fixed at a convenient position.
 
-All of the above description it is summarize in figure~\ref{fig:interactionPatches}.
-The central particles of colour orange represent the patchy particles with valence \num{2}, while the patcy particles with red central particle are those with valence of \num{4}, as shown in panel a and b.
-On panels c and d we can appreciate the swap dynamic allowed by the threebody potential.
-On panel c a patcy particle it is approaching to a pair of bonded patches.
+% GRAMMAR corrections
+
+All of the above descriptions are summarized in figure~\ref{fig:interactionPatches}.
+The central particles of color orange represent the patchy particles with valence \num{2}, while the patchy particles with red central particles are those with valence of \num{4}, as shown in panels a and b.
+On panels c and d we can appreciate the swap dynamic allowed by the three-body potential.
+On panel c a patchy particle is approaching a pair of bonded patches.
 Due to the swap potential, instead of creating a bond between the three patches, the interaction can swap to have a bond with the approaching particle.
 
 \begin{figure}[ht!]
