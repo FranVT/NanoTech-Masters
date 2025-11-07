@@ -776,29 +776,20 @@ They explain that this decrease can be related to a drying effect of the hydroge
 
 \section{Molecular dynamics}
 
-Now that we are familiarized with the mechanical response of the hydrogel and how the macroscopic and microscopic stress tensors are equivalent, in this section, we present the mathematical tools, also known as molecular dynamics (MD), employed to simulate the polymeric network.
+Now that the equivalence between the macroscopic and microscopic stress tensor is settle, let's move on into a brief introduction of molecular dynamics.
 Molecular dynamics is a widely used method for analyzing the mechanical responses of polymeric networks because it offers comprehensive information about structure-property relationships.
 This is due to its ability to represent atomic-level interactions via Newtonian mechanics, enabling the modeling of different crosslinking mechanisms, polymer chain configurations, time-dependent deformations, and others.
-First, we will introduce the concept of colloids. 
-Then, we will describe Langevin dynamics and explain how to solve them using the Velocity Verlet algorithm.
+In order to understand how molecular dynamics helps to simulate the mechanical response of hydrogels, it is need to intrduce the concept of colloids.
+After that, an explanation of Langevin dynamics it is given with an explanation of the Velocity Verlet algorithm to solve the system of differential equations.
 
 \subsection{Colloids}
 
-We have explored the concepts of how a hydrogel can be understood as a polymeric network and how that helps to gain insight into the mechanical response and the different mechanical responses.
-Now it is essential to introduce the concept of colloid to integrate the mathematical tools with the hydrogel representation as a polymeric network.
-
-%\paragraph{Colloids} 
-A colloid is a heterogeneous mixture of two substances in different matter states and in different ratio\citep{castaneda-priegoColloidalSoftMatter2021}.
-It is commonly describe that one of the substance is dispersed into the other substance.
-The disparsed substance it is commonly denoted as disparsed phase, while the other substance is denoted as the continuous phase.
+A colloid is a heterogeneous mixture of two substances in different matter states and in different ratios\citep{castaneda-priegoColloidalSoftMatter2021}.
+It is usually stated that one material is distributed to the other.
+The dispersed substance It is commonly denoted as the dispersed phase, while the other substance is denoted as the continuous phase.
 The average size of the scattered phase's spots ranges from 1 nanometer to 1 micrometer.
-
-This definition enables the classification of the material into the following eight categories:
-foam, solid foam,
-aerosol, emulsion, gel,
-aerosol (solid), sol and solid sol.
-As outlined in the table~\ref{tab:colloids}.
-Naturally, our primary objective is to represent the hydrogel as a gel.
+This definition classifies the substance into eight categories: foam, solid foam, aerosol, emulsion, gel, aerosol (solid), sol, and solid sol. As outlined in the table~\ref{tab:colloids}.
+%Naturally, our primary objective is to represent the hydrogel as a gel.
 
 \begin{table}[ht!]
 \centering
@@ -834,48 +825,44 @@ Therefore, the hydrogel can be modelled as a colloidal gel.
 
 \subsection{Langevin dynamics}
 
-Now that we know that we can model a hydrogel as a colloid, we can start applying mathematical tools to create a quantitative description of the material.
-Langevin dynamics is an excellent framework for representing this system, as it couples 
-    the pairwise interactions of the polymers 
-    with an efficient representation of the interaction of the water with the polymer, 
-    and the dissipation of energy due that results from the water-polymer interaction.
+Langevin dynamics is an excellent framework for representing this system, as it couples the pairwise interactions of the polymers with an efficient representation of the interaction of the water with the polymer and the dissipation of energy that results from the water-polymer interaction.
 It is important to note that this mathematical representation models an infinitesimal particle.
 Therefore, a methodology is required that couples the infinitesimal particle with a polymer network.
-The following methodology will be outlined following a description of the Langevin equation and the Velocity Verlet algorithm, in order to facilitate the process of storytelling.
 
 %From a general point of view there are two types of methods to make a quatitative description of systems: one focused on simulating dynamics at the microscale, and the other dedicated to deriving or establishing evolutionary equations at the macroscale\citep{wangMultiscaleModelingSimulation2025}.
 %At this scale there are two commonly used mathematical frameworks to model the molecular dynamics, the continuous time random walk (CTRW) model and the Langevin equation\citep{wangMultiscaleModelingSimulation2025}.
 
 Taking into account the colloidal representation of the hydrogel, the Langevin theory takes advantage of the densities of the solid and liquid phases.
 Since the solid phase of the colloid has a large mass, it will change their momenta after many collisions with the water molecules and the picture which emerges is that of the heavy particles forming a system with a much longer time scale than the solvent molecules\citep{Thijssen2007}.
-This time scale difference can be used to our favour in the sense that we can eliminate the details of the degrees of freedom of the solvent particles and represent their effect by stochastic and dissipative forces allowing longer simulations that would be impossible if the solvent were explicitly included\citep{pastorTechniquesApplicationsLangevin1994}.
+This time scale difference can be used to our favor in the sense that we can eliminate the details of the degrees of freedom of the solvent particles and represent their effect by stochastic and dissipative forces, allowing longer simulations that would be impossible if the solvent were explicitly included\citep{pastorTechniquesApplicationsLangevin1994}.
 
-However, the representation of the solvent by a stochastic and dissipative force, introduce the problem of characterize two very different timescales.
-One associated with the slow relaxation of the initial velocity of the particle and another linked to the frequent collisions that the particle suffers with particles of the bath\citep{tsl2006}. 
-Therefore, two terms are used to create a mathematical representation of the solvent: a frictional force proportional to the velocity of the particle and a fluctuating force. 
+However, the representation of the solvent by a stochastic and dissipative force introduces the problem of characterizing two very different timescales.
+One is associated with the slow relaxation of the particle's initial velocity, and another is tied to the particle's numerous collisions with particles in the bath\citep{tsl2006}. 
+Therefore, two terms are used to create a mathematical representation of the solvent: a frictional force proportional to the velocity of the particle and a fluctuating force.
 
 By considering newtonian mechanics and the previous discussion, the Langevin dynamics are mathematically represented by the following differential equation,
 \begin{gather}
     m\dv{\vec{v}(t)}{t}=\vec{F}(t)-\gamma\vec{v}(t)+\vec{R}(t).\label{eqn:BrownianDyn1}
 \end{gather}
-The term in the left-hand size of the equation denotes the change of momentum of the particle.
+The term on the left-hand side of the equation denotes the change of momentum of the particle.
 The first term on the right-hand side of the equation represents the force due to the interaction of the particle with other particles.
 The second term couples the dissipation of energy of the particle due to its interaction with the solvent.
 Finally, the third term takes into account the exchange of momenta with the solvent.
 
-The friction constant $\gamma$ parametrises the effect of solvent damping and activation and has units \SI{}{\kilo\gram\per\second}.
-It is commonly referred as the collision frequency in the simulation literature, even though formally a Langevin description implies that the solute suffers an infinite number of collisions with infinitesimally small momentum transfer.
-Furthermore, the fact that the second term is not a function of the position of any of the particles involves the neglect of hydrodynamic interaction or spatial correlation in the friction kernel\citep{pastorTechniquesApplicationsLangevin1994}.
+The friction constant $\gamma$ parametrizes the effect of solvent damping and activation and has units \SI{}{\kilo\gram\per\second}.
+It is commonly referred to as the collision frequency in the simulation literature, even though formally a Langevin description implies that the solute suffers an infinite number of collisions with infinitesimally small momentum transfer.
+Furthermore, the fact that the second term is not a function of the position of any of the particles implies ignoring of hydrodynamic interaction or spatial correlation in the friction kernel\citep{pastorTechniquesApplicationsLangevin1994}.
 
-On the other hand, the term $\vec{R}(t)$ is a ``random force'' subject to the following conditions
+On the other hand, the term $\vec{R}(t)$ is a ``random force'' subject to the following conditions:
 \begin{gather}
     \expval{\vec{R}(t)} = 0\label{eqn:LagDynamicNoiseExpval} \\
     \expval{\vec{R}(t)\vec{R}(t')} = 2k_{B}T\gamma\delta\qty(t-t')\label{eqn:LagDynamicNoiseCorrelation} 
 \end{gather}
-The no time correlation is equivalent to assuming that the viscoelastic relaxation of the solvent is very rapid with respect to solute motions\citep{pastorTechniquesApplicationsLangevin1994}.
+The lack of time correlation implies that the solvent's viscoelastic relaxation is fast in comparison to solute motions \citep{pastorTechniquesApplicationsLangevin1994}.
+
 %\footnote{Grote land Hynes [26] have investigated this assumption for motions involving barrier crossing and have found that while it is seriously in error for passage over sharp barriers (such as 12 recombination); it is quite adequate for conformational transitions such as might be found in polymer motions.}
 
-In comparing the results of Langevin dynamics with those of other stochastic methods, the relevant variable is the velocity relaxation time, $\tau_{v}$ which equals $\gamma^{-1}$\citep{pastorTechniquesApplicationsLangevin1994}
+In comparing the results of Langevin dynamics with those of other stochastic methods, the relevant variable is the velocity relaxation time, $\tau_{v}$, which equals $\gamma^{-1}$\citep{pastorTechniquesApplicationsLangevin1994}.
 The Langevin equation improves conformational sampling over standard molecular dynamics\citep{paquetMolecularDynamicsMonte2015}.
 
 %    \item hablar de la ecuación de Green-Kubo: \[\eta=\frac{V}{k_B T}\int_{0}^{\infty}\expval{\sigma_{xy}(t)\sigma_{xy}(0)}\mathrm{d}t\]
@@ -883,15 +870,15 @@ The Langevin equation improves conformational sampling over standard molecular d
 \subsection{Velocity Verlet}
 
 %\paragraph{Intro}
-In order to solve the Langevin equation~\eqref{eqn:BrownianDyn1} we apply the Velocity Verlet numerical method.
-The core concept of the Velocity Verlet algorithm is to update particle positions and velocities using both current and predicted accelerations, ensuring time-reversibility and energy conservation over long simulations. 
+To solve the Langevin equation~\eqref{eqn:BrownianDyn1}, the numerical method Velocity Verlet it is used.
+The Velocity Verlet algorithm's central principle is to update particle locations and velocities with both current and predicted accelerations, ensuring temporal reversibility and energy conservation across extended simulations.
 From a mathematical point of view, this algorithm is a second-order integrator for ordinary differential equations and is based on truncated Taylor expansion.
-Which for a particle with mas $m$, position $r(t)$, and force $f(r,t)$, the velocity Verlet schemes is express as
+For a particle of mass $m$, position $r(t)$, and force $f(r,t)$, the velocity Verlet scheme is given as
 \begin{align}
     r^{n+1} &= r^n + v^n dt + \frac{dt^2}{2m}f^n \\
     v^{n+1} &= v^n + \frac{dt}{2m}(f^n+f^{n+1}).
 \end{align}
-Furthermore, from a computational perspective, Velocity Verlet is an explicit algorithm, easy to implement, and efficient in term of memory usage.
+Furthermore, from a computational perspective, Velocity Verlet is an explicit algorithm, easy to implement, and efficient in terms of memory usage.
 It requires only the positions, velocities, and accelerations from the previous timestep.
 Which allows efficient parallelization and eliminates the need for additional memory allocations per step.
 
@@ -905,6 +892,14 @@ with the associated velocity calculated by the central difference
     v^n = \frac{r^{n+1} - r^{n-1}}{2dt}.
 \end{align}
 This is important because the software used for the molecular dynamics implements this version of the velocity verlet.
+In systems governed by Langevin dynamics, the algorithm can incorporate random forces consistent with the fluctuation-dissipation theorem to simulate physically realistic Brownian motion.
+However, the non-analytical term $\vec{R}(t)$ from equation~\eqref{eqn:BrownianDyn1} invalidates the Taylor expansion used for the derivation of the Verlet scheme.
+Hence, in order to develop a reliable integrator for Langevin dynamics, one therefore needs to carefully treat the coupling between the stochastic and analytic contributions.
+Therefore, we are going to show the derivation of the Stormer-velocity Verlet scheme for the Langevin equation following the process shown in \citep{gronbech-jensenSimpleEffectiveVerlettype2013a}.
+
+This is important because the software used for the molecular dynamics implements this version of the velocity verlet.
+
+
 
 In systems governed by Langevin dynamics, the algorithm can incorporate random forces consistent with the fluctuation-dissipation theorem to simulate physically realistic Brownian motion.
 Howver, the non-analytical term $\vec{R}(t)$ from equation~\eqref{eqn:BrownianDyn1} invalidates the Taylor expansion used for the derivation of the Verlet scheme.
@@ -912,7 +907,7 @@ Hence, in order to develop a reliable integrator for Langevin dynamics one there
 Therefore, we are going to show the derivation of the Stormer-velocity Verlet scheme for the Langevin equation following the process shown in \citep{gronbech-jensenSimpleEffectiveVerlettype2013a}.
 
 The first step is to translate the continuous variable $t$ to a discrete variable.
-In order to accomplish that, we integrate the equation\eqref{eqn:BrownianDyn1} over a small time interval $dt$ from $t_n$ to $t_{n+1}=t_{n}+dt$,
+To accomplish this, the equation~\eqref{eqn:BrownianDyn1} is integrated across a small time period $dt$ from $t_n$ to $t_{n+1}=t_{n}+dt$.
 \begin{align}
     \int_{t_n}^{t_{n+1}}m\dv{\vec{v}(t)}{t}dt'
     =
@@ -948,7 +943,7 @@ Solving for $\vec{v}^{n+1}$ from equation~\eqref{eqn:DerVelVerlet1} we get the f
                      +\frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{R}(t')dt'
                      +\vec{v}^{n}\label{eqn:DerVelVerlet3}.
 \end{gather}
-Replacing the term $\vec{v}^{n+1}$ in equation~\eqref{eqn:DerVelVerlet2} with equation~\eqref{eqn:DerVelVerlet3} and some algebraic manipulation we get,
+Replacing the term $\vec{v}^{n+1}$ in equation~\eqref{eqn:DerVelVerlet2} with equation~\eqref{eqn:DerVelVerlet3} and some algebraic manipulation, it goes transforms to,
 \begin{equation}
     \vec{r}^{n+1} = \frac{m dt}{2m +\gamma dt}\left[ 
                         2\vec{v}^{n}                
@@ -957,8 +952,8 @@ Replacing the term $\vec{v}^{n+1}$ in equation~\eqref{eqn:DerVelVerlet2} with eq
                     \right]
                     +r^n\label{eqn:DerVelVerlet4}.
 \end{equation}
-Now we need are going to tackle the integral of force in equations~\eqref{eqn:DerVelVerlet3} and~\eqref{eqn:DerVelVerlet4}.
-Since is a deterministic force, we can approximate the integral such that both equations are correct to second order in $dt$ and have the follwong pair of equations,
+Now it is time to tackle the integral of force in equations~\eqref{eqn:DerVelVerlet3} and~\eqref{eqn:DerVelVerlet4}.
+Since it is a deterministic force, the integral can be approximate such that both equations are correct to second order in $dt$ and have the following pair of equations:
 \begin{align}
     \vec{r}^{n+1} &= r^n
                     +\frac{m dt}{2m +\gamma dt}\left[ 
@@ -972,7 +967,7 @@ Since is a deterministic force, we can approximate the integral such that both e
                      -\gamma\qty(r^{n+1}-r^n)
                      +\frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{R}(t')dt'\label{eqn:DerVelVerlet6}.
 \end{align}
-Finally, the integral over the random force is going to give another random variable with the same conditions of equations~\eqref{eqn:LagDynamicNoiseExpval} and~\eqref{eqn:LagDynamicNoiseCorrelation}, hence we can define the following,
+Finally, the integral over the random force will yield another random variable with the same conditions of equations~\eqref{eqn:LagDynamicNoiseExpval} and~\eqref{eqn:LagDynamicNoiseCorrelation}, thus
 \begin{gather}
     \vec{\eta}^{n+1}\equiv\int_{t_n}^{t_{n+1}}\vec{R}(t')dt'\label{eqn:DerVelVerlet7},
 \end{gather}
@@ -991,8 +986,8 @@ Replacing~\eqref{eqn:DerVelVerlet7} into equations~\eqref{eqn:DerVelVerlet5} and
                      -\gamma\qty(r^{n+1}-r^n)
                      +\frac{1}{m}\vec{\eta}^{n+1}\label{eqn:DerVelVerlet6}.
 \end{align}
-It is interesting to notice that the noise is represented as a single stochastic varaible for each time step, realized by a single agregated impulse during $dt$ that influences the dynamics over the time step.
-Finally, it is important to notice that $\vec{F}^{n}$, $\vec{F}^{n+1}$ and $\vec{\eta}^{n+1}$ have units of momenta \SI{}{\kilo\gram\meter\per\second} and the constant $\frac{m dt}{2m +\gamma dt}$ has units of time \SI{}{\second}. 
+It is interesting to notice that the noise is represented as a single stochastic variable for each time step, realized by a single aggregated impulse during $dt$ that influences the dynamics over the time step.
+Finally, it is important to notice that $\vec{F}^{n}$, $\vec{F}^{n+1}$, and $\vec{\eta}^{n+1}$ have units of momenta \SI{}{\kilo\gram\meter\per\second} and the constant $\frac{m dt}{2m +\gamma dt}$ has units of time \SI{}{\second}.
 
 \begin{comment}
 \begin{gather}
@@ -1098,7 +1093,7 @@ Finally, it is important to notice that $\vec{F}^{n}$, $\vec{F}^{n+1}$ and $\vec
     +\vec{v}^{n}
 \end{comment}
 
-Since we need to solve the equation~\eqref{eqn:BrownianDyn1} for a $N$ particle system, the implementation of the Velocity Verlet scheme for a many-particle system is computationally handled by the LAMMPS molecular dynamics software.
+To solve the equation~\eqref{eqn:BrownianDyn1} for a $N$-particle system, the Velocity Verlet scheme for a many-particle system is implemented computationally via the LAMMPS molecular dynamics software.
 A key benefit of this choice is that LAMMPS comes well-equipped with robust and scalable parallel computing schemes, enabling the efficient simulation of large systems. 
 This pre-existing, optimized framework is crucial, as developing a parallelized numerical solver from the ground up would be prohibitively time-consuming and complex. 
 This allows us to concentrate our efforts on designing the polymer network models and analysing their resulting mechanical properties, rather than on the simulation engine itself.
@@ -1106,11 +1101,11 @@ This allows us to concentrate our efforts on designing the polymer network model
 \subsection{LAMMPS}
 
 LAMMPS (Large-scale Atomic/Molecular Massively Parallel Simulator) is a highly flexible, open-source molecular dynamics software solution used for simulating atomic, molecular, and mesoscale systems. 
-And is widely recognized for its extensibility, complete documentation, and active support in scientific communities focused on materials modeling and molecular simulation.
+And it is widely recognized for its extensibility, complete documentation, and active support in scientific communities focused on materials modeling and molecular simulation.
 It is designed to efficiently model materials science, chemistry, and physics problems by enabling large-scale simulations on parallel computing architectures.
-Furthermore, its parallelized structure allows efficient computation of large or complex systems, and supports integration with other computational tools and machine learning methods.
+Furthermore, its parallelized structure allows efficient computation of large or complex systems and supports integration with other computational tools and machine learning methods.
 
-To define a simulation with this software we need to create an input script.
+To define a simulation with this software, we need to create an input script.
 This input script is defined as a series of lines, with each line beginning with a command name and followed by one or more arguments separated by whitespace.
 The program incorporates programming commands that define variables, perform conditional tests, execute loops, or invoke shell commands to launch an external program.
 The input script is parsed and executed one line at a time. 
@@ -1125,12 +1120,11 @@ where $F_c$ is the conservative force computed from particle-particle interactio
 The term $F_r$ is equivalent to $-m\gamma v$ and $F_r$ is equivalent to the term $\vec{R}(t)$ on equation~\eqref{eqn:BrownianDyn1}.
 LAMMPS implements the random numbers to randomize the direction and magnitude of this force, where a uniform random number is used (instead of a Gaussian random number) for speed.
 
-The magnitud of the random force is derived from the fluctuation/dissipation theorem, where $k_B$ is the Boltzmann constant, $T$ is the desired temperature, $m$ the mass of the particle, $dt$ the timestep size and $\mathrm{damp}$ is the damping factor.
+The magnitude of the random force is derived from the fluctuation/dissipation theorem, where $k_B$ is the Boltzmann constant, $T$ is the desired temperature, $m$ is the mass of the particle, $dt$ is the timestep size, and $\mathrm{damp}$ is the damping factor.
 The damp factor can be thought of as inversely related to the viscosity of the solvent.
-That is a small relaxation time implies a high-viscosity solvent and vice versa.
+That is, a small relaxation time implies a high-viscosity solvent and vice versa.
 This parameter is specified in time units and determines how rapidly the temperature is relaxed.
 
-On the other hand, to use the velocity verlet scheme previously discussed, we need to used the command \verb|fix nve|.
-Although the command makes allution to the NVE enssemble, what really does is to invoke the velocity form of the Stoermer-Verlet time integration algorithm (velocity-Verlet).
-The combination of \verb|fix langevin| and \verb|fix nve| allow us to perform molecular dynamics with particle-particle interaction for a many particle system.
-
+On the other hand, to use the velocity Verlet scheme previously discussed, we need to use the command \verb|fix nve|.
+Although the command makes allusion to the NVE ensemble, what it really does is to invoke the velocity form of the Stoermer-Verlet time integration algorithm (velocity-Verlet).
+The combination of \verb|fix langevin| and \verb|fix nve| allows us to perform molecular dynamics with particle-particle interaction for a many-particle system.
