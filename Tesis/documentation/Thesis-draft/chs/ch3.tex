@@ -58,7 +58,7 @@ On the other hand, the patch-patch interaction is modeled with an attractive pot
 where $r_{\mu\upsilon}$ is the distance between two patches, $\sigma_p$ is the diameter of the patches, $r_c$ is the cut distance of interaction set to $1.5\sigma_p$ and $\epsilon_{\mu,\upsilon}$ is the interaction energy between the patches.
 %This potential can be interpreted as a reversible interaction.
 
-Figure~\ref{fig:patchpatchpot} compares the patch-patch interaction potential, the Lennard-Jones potential, and the FENE potential\footnote{Add the FENE definition and clarify why we are comparing with this potential.}.
+Figure~\ref{fig:patchpatchpot}\footnote{Add the WCA potential} compares the patch-patch interaction potential, the Lennard-Jones potential, and the FENE potential\footnote{Add the FENE definition and clarify why we are comparing with this potential.}.
 The Lennard-Jones and patch-patch potentials are qualitatively similar in that they both tend to zero after a certain cutoff distance.
 In contrast, the FENE potential goes to infinity if the distance is too short or too wide.
 This key distinction enables us to design the patch-patch interaction as a reversible interaction rather than the FENE, which is better suited to representing non-reversible interactions.
@@ -67,7 +67,7 @@ As a result, the computational methodology simulates a polymeric network with ph
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=12cm]{figs/numerical/patchpatch.png}
-    \caption{Comparisson between equation~\eqref{eqn:patch-patch_interaction} with Lennard-Jones and FENE potentials\footnote{Add the WCA potential}.}\label{fig:patchpatchpot}
+    \caption{Comparisson between equation~\eqref{eqn:patch-patch_interaction} with Lennard-Jones and FENE potentials.}\label{fig:patchpatchpot}
 \end{figure}
 
 The patch-patch interaction differs from the Lennard-Jones potential in that the minimum potential is horizontally translated, and the rate of change from the minimum to the cut distance is more apparent.
@@ -92,7 +92,7 @@ $r_{l,m}$ and $r_{l,n}$ are the distances between the reference patch and the ot
 The parameter $\epsilon_{m,n}$ is the energy of repulsion, and $w$ is used to tune the swapping ($w=1$) and non-swapping bonds ($w\gg1$). 
 The cutoff distance $r_c$ is the same as in the potential of interaction between patches, meanwhile the minimum distance $r_{\min}$ is the distance at the minimum of~\eqref{eqn:patch-patch_interaction}, \textit{i.e.} $\epsilon_{m,n}\equiv\abs{U_{\mathrm{patchy}}(r_{\min})}$.
 
-Figure~\ref{fig:swappot} shows the patch-patch potential with the swap potential.
+Figure~\ref{fig:swappot}\footnote{Be carefull with the sign interpretation and more detail about the different curves.} shows the patch-patch potential with the swap potential.
 The patch-patch potential in the figure is the energy of the interaction between patch $i$ and patch $k$.
 The swap potential is the energy between patch $i$ and patch $k$, leaving the distance between patch $i$ and patch $j$ fixed.
 Taking into account this, when the patches $i-j$ are at the potential well ($r_{ij}=\sigma$), the interaction between $i-k$ is null.
@@ -102,7 +102,7 @@ Finally, when the patches $i-j$ are bigger than the cutoff distance ($r_{\mathrm
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=12cm]{figs/numerical/swapPotential.png}
-    \caption{Swap potential for patch-patch interaction to ensure single bond per patch condition\footnote{Be carefull with the sign interpretation and more detail about the different curves.}.}\label{fig:swappot}
+    \caption{Swap potential for patch-patch interaction to ensure single bond per patch condition.}\label{fig:swappot}
 \end{figure}
 
 Before proceeding to the description of the parameters for the simulation, it is necessary to describe the interaction between the central particle and the patches.
