@@ -49,11 +49,12 @@ At this configuration of the network, the transition is characterized by the div
 However, not all polymer networks reach the gel point, and in order to achieve it, the network must have an adequate crosslinking density and a sufficient number of reactive sites to connect the polymers. 
 For example, polymers that are linear, unbranched, or have insufficient crosslinking are soluble and do not gel.
 
-%\paragraph{Crosslink}
-So far, it has been stated that the crosslinking process is responsible for maintaining the network's structure during the swelling phenomenon, as well as the viscoelastic-viscoplastic responses.
-Therefore, for a long portion of the section, the crosslinking phenomenon is going to be described along with the two main categories: physical and covalent.
+\subsection{Crosslink mechanisms}
 
-The underlying principles of the crosslink mechanism are either the physical interactions or covalent bonds. 
+%\paragraph{Crosslink}
+So far, it has been stated that the crosslinking process is responsible for maintaining the network's structure during the swelling phenomenon, as well as the viscoelastic-viscoplastic responses and the key mechanism to reach the gel point let's explore in more detail this phenomenon.
+
+According to the literature, crosslinking mechanisms are typically classified as physical or covalent crosslinkers since the basic principles of the crosslink mechanism are either physical interactions or covalent bonds.
 However, it is essential to realize that, for example, given sufficiently strong and static physical interactions, physical networks could function similarly to covalently linked networks;
 Alternatively, the incorporation of mechanisms for covalent bond exchange can result in chemical networks that exhibit adaptable mechanical properties regulated by external stimuli~\citep{hanDynamicCovalentHydrogels2022,mariopereraDynamicCovalentBonds2020,chenCovalentAdaptablePolymer2024}, mimicking the main property of physically crosslinked networks. 
 Consequently, an emphasis on bond strengths and exchange rates provides more informative insights for accurately inferring the properties of hydrogels\citep{priyaComprehensiveReviewHydrogel2024}.
@@ -63,42 +64,45 @@ A covalent bond is defined as a specific type of chemical bond that occurs when 
 On the other hand, a physical interaction is defined as a non-covalent force that describes how atoms, ions, or molecules attract or repel each other without forming new molecules.
 In other words, the covalent bond is the outcome of quantum mechanical interactions between atomic orbitals, with shared electrons occupying a molecule orbital that spans both atoms~\citep{levineClarifyingQuantumMechanical2020,nordholmBasicsCovalentBonding2020}.
 In contrast, physical interactions are attributed to electrostatic, van der Waals, or dipole forces, arising from the redistribution of electron density and the consequent energy alterations between particles~\citep{stohrCoulombInteractionsDipolar2021}.
-There also can be identified a third type of crosslinker mechanism, which is when the polymer chains are physically entangled, and this phenomenon is commonly known as mechanical crosslinking.
+There also can be identified a third type of crosslinker mechanism, which is when the polymer chains are physically entangled, and this phenomenon is commonly known as mechanical crosslinking~\citep{hartMaterialPropertiesApplications2021}.
 
-The next section discusses several polymer network types and cross-linking processes.
-The essential ideas of mechanical reactions are then presented using constitutive relationships. 
-Finally, the section will present an overview of hydrogel mechanical processes, including the molecular events that underpin some of them.
 
-\subsection{Crosslink mechanisms}
-
-%\paragraph{Intro} 
-Now that the importance of the crosslinking mechanism for creating a gel material has been introduced, let's explore in more detail this phenomenon. 
-According to the literature, crosslinking processes are most commonly classified as physical or covalent crosslinkers. 
-However, it is crucial to emphasize that, while the crosslink mechanism is important for network integrity, it is not the only mechanism capable of accurately describing the mechanical reaction in terms of network topology.  
+%However, it is crucial to emphasize that, while the crosslink mechanism is important for network integrity, it is not the only mechanism capable of accurately describing the mechanical response in terms of network topology.  
+%\paragraph{Covalent Crosslinking}
 In this regard, three main crosslinking methods may be identified: covalent, physical interactions, and mechanical\citep{bustamantetorresHydrogelsClassificationAccording2021}.
-For this section, the hydrogels are going to be referred to as \emph{polymer chains}, since the crosslink mechanism is a phenomenon that can be found in a wider spectrum of materials.
-
-%\paragraph{Covalent Crosslinking} 
-Polymer chains with covalent connections are often generated by free-radical polymerization, click chemistry, or UV-induced processes.
+Covalently polymer networks are often generated by free-radical polymerization, click chemistry, or UV-induced processes.
 This produces a static, stable, and resilient network with great mechanical strength and low reversibility.
-However, dynamic covalent chemistry can enable bond exchange and self-healing characteristics.
-
+However, dynamic covalent chemistry can enable bond exchange and self-healing characteristics, as shown in panel c in figure~\ref{fig:physicalCovalentCrossLink}.
 %\paragraph{Physical Crosslinking} 
-Non-covalent interactions like hydrogen bonding, ionic contacts, hydrophobic associations, and van der Waals forces connect polymer chains to form physical networks.
+Non-covalent interactions like hydrogen bonding, ionic contacts, hydrophobic associations, and van der Waals forces connect polymer chains to form physical networks, as shown in panels a and b in figure~\ref{fig:physicalCovalentCrossLink}.
 These connections allow bond exchange under lower energy conditions, resulting in a dynamic network topology.
 As a result, they are often softer and less physically robust than covalently crosslinked hydrogels.
 These networks are widely used in self-healing, shape memory, and stimulus-responsive applications.
 
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\textwidth]{figs/crosslinker_mechanisms.png}
+    \caption{Schematics of physical crosslink processes.  
+        Panels a and b show examples of physical crosslinks, while panel c depicts dynamic covalent crosslinks.
+    Image retrieved from~\citep{zhaoSoftMaterialsDesign2021}}\label{fig:physicalCovalentCrossLink}
+\end{figure}
+
 %\paragraph{Mechanical Crosslinking} 
-Finally, mechanical crosslinking connects the polymer chains via physical entanglements or interpenetrating polymer chains.
+Finally, mechanical crosslinking connects the polymer chains via physical entanglements or interpenetrating polymer chains, as shown in figure~\citep{fig:mechanicalCL}.
 Examples include double-network hydrogels, slide-ring gels, and extremely entangled topologies.
+The most typical example is based on the rotaxane architecture: a ring (macrocycle) threaded onto a dumbbell-like component, with the ring sliding back and forth but being prevented from dethreading by bulky stoppers.
 This improves toughness and elasticity by dispersing energy via chain movement and entanglement.
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=\textwidth]{figs/crosslinker_mechanisms.png}
-    \caption{Image with the three different crosslinker mechanisms}
+    \includegraphics[width=0.8\textwidth]{figs/mechanicalCL.png}
+    \caption{In a main-chain polyrotaxane, the m rings can move in the same way that tiny molecules can, but across larger distances, depending on the number of rings.
+    Image retrieved from~\citep{hartMaterialPropertiesApplications2021}}\label{fig:mechanicalCL}
 \end{figure}
+
+
+
+%For this section, the hydrogels are going to be referred to as \emph{polymer chains}, since the crosslink mechanism is a phenomenon that can be found in a wider spectrum of materials.
 
 \subsection{Reversible networks}\footnote{Add References}
 
@@ -119,6 +123,7 @@ This high-energy external stimulus may encourage the formation of new bonds prio
 The associative mechanism refers to the first phenomena, whereas the dissociation process refers to the second.
  Through this process, the network can adapt while retaining its mechanical strength by switching out polymer chains. 
 Finally, it is crucial to emphasize that the energy barrier for exchange, bond stability, and stimulus reliance all affect the process's rate and reversibility.
+
 
 \section{Mechanical response}
 
