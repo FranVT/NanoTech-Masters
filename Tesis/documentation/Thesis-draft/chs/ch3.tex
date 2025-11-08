@@ -22,20 +22,20 @@ The center of the patches can be placed on the surface of the central particle.
 However, it can also be modified to be at a point inside the enclosed volume of the main particle.
 
 The use of patchy particles as monomers and crosslinkers is a highly effective method since it allows for the integration of Langevin dynamics' infinitesimal representation with a particle with volume and functionality.
-The functionality representation is important because it allows for the representation of the monomer and cross-linker molecules that can form a polymeric network.
+The functionality is important because it allows for the representation of the monomer and cross-linker molecules that can form a polymeric network.
 However, it is important to note that the monomers and interaction sites are considered to be spherical.
 
 To define the volume of the particle, a repulsive pairwise interaction is defined between the central particles.
 Meanwhile, the formation of the polymeric network is encouraged by a pairwise interaction between patches.
 Because this model is designed to simulate the final network, not the synthesis process, the pairwise interaction between central particles and patches is not defined.
-In contrast, the softness explained by particle interactions is characterized by the form of the repulsive pair potential between two particles.
+%In contrast, the softness explained by particle interactions is characterized by the form of the repulsive pair potential between two particles.
 Finally, the particle volume fraction contributes to the ability of the particles to deform or compress, in contrast to hard spheres\citep{vlassopoulosTunableRheologyDense2014}.\footnote{The patchy particles are hard spheres, but the hydrogel network is a soft ``particle''.}
 
 \subsection{Description of the system}
 
 %\paragraph{Interaction potentials}
 Let's start by describing the interaction potentials between patchy particles.
-The interaction between the central particles is modeled with a Weeks-Chandler-Andersen repulsive potential.
+The interaction between the central particles is modeled using a Weeks-Chandler-Andersen repulsive potential.
 \begin{gather}
     U_{WCA}(r_{i,j}) =\left\{ 
         \begin{array}{ll}
@@ -58,7 +58,7 @@ On the other hand, the patch-patch interaction is modeled with an attractive pot
 where $r_{\mu\upsilon}$ is the distance between two patches, $\sigma_p$ is the diameter of the patches, $r_c$ is the cut distance of interaction set to $1.5\sigma_p$ and $\epsilon_{\mu,\upsilon}$ is the interaction energy between the patches.
 %This potential can be interpreted as a reversible interaction.
 
-Figure~\ref{fig:patchpatchpot} compares the patch-patch interaction potential, the Lennard-Jones potential, and the FENE potential.
+Figure~\ref{fig:patchpatchpot} compares the patch-patch interaction potential, the Lennard-Jones potential, and the FENE potential\footnote{Add the FENE definition and clarify why we are comparing with this potential.}.
 The Lennard-Jones and patch-patch potentials are qualitatively similar in that they both tend to zero after a certain cutoff distance.
 In contrast, the FENE potential goes to infinity if the distance is too short or too wide.
 This key distinction enables us to design the patch-patch interaction as a reversible interaction rather than the FENE, which is better suited to representing non-reversible interactions.
@@ -67,7 +67,7 @@ As a result, the computational methodology simulates a polymeric network with ph
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=12cm]{figs/numerical/patchpatch.png}
-    \caption{Comparisson between equation~\eqref{eqn:patch-patch_interaction} with Lennard-Jones and FENE potentials.}\label{fig:patchpatchpot}
+    \caption{Comparisson between equation~\eqref{eqn:patch-patch_interaction} with Lennard-Jones and FENE potentials\footnote{Add the WCA potential}.}\label{fig:patchpatchpot}
 \end{figure}
 
 The patch-patch interaction differs from the Lennard-Jones potential in that the minimum potential is horizontally translated, and the rate of change from the minimum to the cut distance is more apparent.
@@ -102,7 +102,7 @@ Finally, when the patches $i-j$ are bigger than the cutoff distance ($r_{\mathrm
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=12cm]{figs/numerical/swapPotential.png}
-    \caption{Swap potential for patch-patch interaction to ensure single bond per patch condition.}\label{fig:swappot}
+    \caption{Swap potential for patch-patch interaction to ensure single bond per patch condition\footnote{Be carefull with the sign interpretation and more detail about the different curves.}.}\label{fig:swappot}
 \end{figure}
 
 Before proceeding to the description of the parameters for the simulation, it is necessary to describe the interaction between the central particle and the patches.
@@ -133,7 +133,7 @@ Each system had a fixed number of patchy particles $N_p$, packing fraction $\phi
 Based on these characteristics, we calculate the box's volume as well as the number of patchy particles of functionality 2 (PB) and functionality 4 (PA).
 
 Due to limitations related to time and computing resources, the total number of particles is set to be $N_p=\num{8000}$.
-This is a lower number of particles when compared with other simulations [cites].
+This is a lower number of particles when compared with other simulations [\textbf{cites}].
 Therefore, in order to compensate, we take the mean of five experiments.
 In addition, the timestep was set to \num{0.001}, as a rule of thumb\footnote{Talk about LJ units.}.
 This is equivalent to simulating a system of \num{40000} particles, but with more manageable computational requirements.
@@ -201,7 +201,7 @@ Recalling that the force is equivalent to $-\nabla U(r)$ and the potential has o
     \vec{f}_n = -\pdv{U_{\mathrm{swap}}(r_m,r_l)}{r}\hat{e}_r,
 \end{gather}
 where $n$ repsent the particle $i$, $j$ or $k$, while $m$ and $l$ are place holders for distances $ij$, $ik$ and $jk$.
-Hence, 
+Hence\footnote{If time allows, add a figure}, 
 \begin{align}
     \vec{f_{i}} &= -\pdv{U_{\mathrm{swap}}(r_{ij},r_{ik})}{r}\hat{e}_r\label{eqn:3body1}, \\
     \vec{f_{j}} &= -\pdv{U_{\mathrm{swap}}(r_{ji},r_{jk})}{r}\hat{e}_r\label{eqn:3body2}, \\
@@ -236,7 +236,7 @@ The length of the box, L, will be modified over time,
 where $L_o$ is the original box length and $\mathrm{erate}$ is the shear rate in units of $1/\mathrm{time}$\citep{LAMMPS}.
 This deformation is applied in the $xy$ plane, and the change in length is along the $x$ direction.
 This set of parameters ensures that the volume does not change during the deformation\citep{LAMMPS}.
-In addition to the \verb|erate| style, the \verb|remap| keyword was set to \verb|x| to remap particle positions without affecting their velocities\citep{LAMMPS}.
+In addition to the \verb|erate| style, the \verb|remap| keyword was set to \verb|x| to remap\footnote{Explain what is remaping} particle positions without affecting their velocities\citep{LAMMPS}.
 Finally, the \verb|flip| keyword is used to flip the box when the tilt factors exceed half the distance of the parallel box length to avoid computational inefficiency and errors\citep{LAMMPS}.
 
 %\paragraph{fix stress} 
@@ -252,11 +252,9 @@ where $a$ and $b$ represent the spatial coordinates $x$, $y$ and $z$, and $W_{ab
             +\frac{1}{3}\sum_{n=1}^{N_a}\qty(r_{1a} F_{1b} + r_{2a} F_{2b} + r_{3a} F_{3b})
             +\frac{1}{4}\sum_{n=1}^{N_d}\qty(r_{1a} F_{1b} + r_{2a} F_{2b} + r_{3a} F_{3b} + r_{4a} F_{4b}) \\
             +\frac{1}{4}\sum_{n=1}^{N_i}\qty(r_{1a} F_{1b} + r_{2a} F_{2b} + r_{3a} F_{3b} + r_{4a} F_{4b}) 
-            +\mathrm{Kspace}(r_{ia},F_{ib}) 
             +\sum_{n=1}^{N_f}r_{ia} F_{ib}.
 \end{multline}
 The first term accounts for pairwise interactions, the second for bond contributions, and the third, fourth, and fifth for angle-based interactions.
-The sixth term considers long-range Coulombic interactions, and the final term considers contributions from \verb|fix| commands such as \verb|fix rigid| or \verb|fix shake|.
 Since we only declare pairwise interactions and bond and angle interactions, the virial contribution simplifies to
 \begin{multline}
     W_{ab} = \frac{1}{2}\sum_{n=1}^{N_p}\qty(r_{1a} F_{1b} + r_{2a} F_{2b})
@@ -267,6 +265,8 @@ Since we only declare pairwise interactions and bond and angle interactions, the
 Substituting the virial term~\eqref{eqn:virialLAMMPS} into the per-particle stress tensor~\eqref{eqn:stressLAMMPS} yields a similar expression for the previously derived stress~\eqref{eqn:DerVirTen23}.
 The stress tensor in equation~\eqref{eqn:DerVirTen23} is a temporal and spatial average, whereas the stress tensor in~\eqref{eqn:stressLAMMPS} is defined per particle.
 As a result, in order to study the mechanical response of the Cauchy stress tensor, a suitable time average, followed by a spatial average of the per-particle stress tensor along the patchy particle network, including the patches, is required.
+
+\paragraph{Explain transition protocol} I haven't describe the assembly to shear protocol.
 
 %\subsection{Gyration tensor}
 
@@ -329,6 +329,7 @@ After briefly discussing the configurational results of the patchy particle netw
     \includegraphics[width=\textwidth]{figs/ComputaitonalResults/New/shearBonds.png}
     \caption{Panels a and c show the system with patchy particles.
         Panels b and d, on the other hand, illustrate the bonds between patches as a simplified representation of the network's structure.
+        After and before shear.
     }\label{fig:shearBonds}
 \end{figure}
 
@@ -372,7 +373,7 @@ Furthermore, by evaluating the fluctuation in shear rate at a fixed concentratio
 It is also worth noting that the peak strain value and peak height increase in proportion to the shear rate.
 Panel C of figure~\ref{fig:stress-strainCLResults} shows the stress-relaxation response of viscoelastic materials.
 Furthermore, we can see how the crosslinker enhances the viscoelastic response by increasing the maximum stress prior to stress relaxation.
-However, it should be noted that in figure~\ref{fig:stress-strainCLResults}, the greatest stress levels occur before the strain value of $2$, which differs from the earlier cites, which reported that the highest stress occurs at strain values of about $2-3$.
+However, it should be noted that in figure~\ref{fig:stress-strainCLResults}, the greatest stress levels occur before the strain value of $2$, which differs from the earlier reports [\textbf{cites}], which reported that the highest stress occurs at strain values of about $2-3$.
 Furthermore, the strain shift at the maximum stress is indistinguishable.
 
 \begin{figure}[ht!]
