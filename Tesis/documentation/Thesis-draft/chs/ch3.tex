@@ -33,7 +33,7 @@ To define the volume of the particle, a repulsive pairwise interaction is define
 Meanwhile, the formation of the polymeric network is encouraged by a pairwise interaction between patches.
 Because this model is designed to simulate the final network, not the synthesis process, the pairwise interaction between central particles and patches is not defined.
 %In contrast, the softness explained by particle interactions is characterized by the form of the repulsive pair potential between two particles.
-Finally, the particle volume fraction contributes to the ability of the particles to deform or compress, in contrast to hard spheres\citep{vlassopoulosTunableRheologyDense2014}.\footnote{The patchy particles are hard spheres, but the hydrogel network is a soft ``particle''.}
+Finally, the particle volume fraction contributes to the ability of the particles to deform or compress, in contrast to hard spheres\citep{vlassopoulosTunableRheologyDense2014}.%\footnote{The patchy particles are hard spheres, but the hydrogel network is a soft ``particle''.}
 
 \subsection{Description of the system}
 
@@ -146,7 +146,10 @@ Because of the swap potential, instead of forming a bond between the three patch
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=8cm]{figs/numerical/interactionPatches.png}
-    \caption{Interaction between patchy particles}\label{fig:interactionPatches}
+    \caption{Interaction between patchy particles.
+    Panels (a) and (b) represent the monomer-monomer and monomer-crosslink interactions, respectively.
+    Meanwhile, panels (c) and (d) represent the swap potential interaction when the patches are not at the potential well distance, allowing the swap of bonds.
+    }\label{fig:interactionPatches}
 \end{figure}
 
 %\paragraph{Polymeric network parameters}
@@ -404,33 +407,31 @@ Moving forward, figure~\ref{fig:stress-strainCLResults} illustrates the strain-s
 The goal of this comparative analysis is to highlight the previously stated qualitative distinctions between them.
 By focusing on the same shear rate, it is clear that the crosslinker concentration increases both the overshoot response and the constant stress value.
 Furthermore, by evaluating the fluctuation in shear rate at a fixed concentration, we can better detect overshoot as the shear rate increases (same color in each panel).
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figs/ComputaitonalResults/zoom-clResponse.pdf}
+    \caption{Computational results at different crosslinker concentrations with different shear rates. Each line reprensent the average of 5 experiments with \num{8000} patchy particles with a packing fraction of \num{0.5}, damp of \num{0.5} and the time average is in intervals of \num{5d-2}$\dot{\gamma}$.}\label{fig:stress-strainCLResults}
+\end{figure}
 It is also worth noting that the peak strain value and peak height increase in proportion to the shear rate.
 Panel C of figure~\ref{fig:stress-strainCLResults} shows the stress-relaxation response of viscoelastic materials.
 Furthermore, we can see how the crosslinker enhances the viscoelastic response by increasing the maximum stress prior to stress relaxation.
 However, it should be noted that in figure~\ref{fig:stress-strainCLResults}, the greatest stress levels occur before the strain value of $2$, which differs from the earlier reports \citep{jeongEffectChainOrientation2017,janeschitz-krieglPolymerMeltRheology1983,pearsonFlowInducedBirefringenceConcentrated1989,masubuchiPrimitiveChainNetwork2020}, which reported that the highest stress occurs at strain values of about $2-3$.
 Furthermore, the strain shift at the maximum stress is indistinguishable.
 
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=0.9\textwidth]{figs/ComputaitonalResults/zoom-clResponse.pdf}
-    \caption{Computational results at different crosslinker concentrations with different shear rates. Each line reprensent the average of 5 experiments with \num{8000} patchy particles with a packing fraction of \num{0.5}, damp of \num{0.5} and the time average is in intervals of \num{5d-2}$\dot{\gamma}$.}\label{fig:stress-strainCLResults}
-\end{figure}
-
 Another intriguing finding is the change in the steady-stress regime after the overshoot.
 Figure~\ref{fig:yieldStressResults} illustrates the average stress throughout the strain from \num{10} to \num{15} ($\gamma\in[10,15]$) with respect to the shear rate at various crosslinker concentrations.
 The dashed lines represent a powerlaw fits $p_1\dot{\gamma}^{p_2}$, where $p_1$ and $p_2$ stands for parameter one and parameter two.
 With exponents ($p_2$) $\{0.5901,0.4880,0.4045\}$ for the \num{10}\%, \num{5}\%, and \num{3}\% crosslinker concentrations, respectively.
 This finding served as a starting point for further investigation into yield stress events in polymeric networks.
-The Herschel-Bulkey model can quantitatively describe a ''\textit{yield stress material},'' and the high congruence between the exponential fit and the numerical results indicates that the polymeric network exhibits similar phenomena.
-However, the yield stress $\sigma_y$ was not defined using the Tresca or Von Mises criterion.
-Instead, it was chosen to compute the temporal average of the final portion of the deformation, assuming that the system achieves plastic deformation after the overshoot.
-
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.8\textwidth]{figs/ComputaitonalResults/yieldStress.pdf}
+    \includegraphics[width=0.75\textwidth]{figs/ComputaitonalResults/yieldStress.pdf}
     \caption{Time average of steady-stress regime from computational results. Dashed lines represent exponential fits.}\label{fig:yieldStressResults}
 \end{figure}
 
+The Herschel-Bulkey model can quantitatively describe a ''\textit{yield stress material},'' and the high congruence between the exponential fit and the numerical results indicates that the polymeric network exhibits similar phenomena.
+However, the yield stress $\sigma_y$ was not defined using the Tresca or Von Mises criterion.
+Instead, it was chosen to compute the temporal average of the final portion of the deformation, assuming that the system achieves plastic deformation after the overshoot.
 %\subsection{Network analysis}
 
 \begin{comment}
