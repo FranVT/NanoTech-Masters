@@ -9,7 +9,8 @@ To finished the chapter, the numerical results are analyzed.
 \section{Simulation protocol}
 
 One of the microgels that has been the focus of significant research is the type that is based on PNIPAM cross-linked networks.
-In the article \textit{In silico Synthesis of Microgel Particles}\citep{gnanSilicoSynthesisMicrogel2017}, the authors present a flexible numerical protocol capable of designing individual microgel particles based on PNIPAM crosslinked networks. 
+A flexible numerical portocol capable of designing these individual microgel particles has been presented in the literure \citep{gnanSilicoSynthesisMicrogel2017}.
+The authors present a flexible numerical protocol capable of designing individual microgel particles based on PNIPAM crosslinked networks. 
 This protocol can generate particles with properties comparable to the experimental ones.
 In this project, we employ a similar protocol to explore its versatility and identify a numerical tool that can facilitate connections between network configuration and mechanical response.
 
@@ -40,7 +41,7 @@ Finally, the particle volume fraction contributes to the ability of the particle
 Let's start by describing the interaction potentials between patchy particles.
 The interaction between the central particles is modeled using a Weeks-Chandler-Andersen repulsive potential.
 \begin{gather}
-    U_{WCA}(r_{i,j}) =\left\{ 
+    U_{\mathrm{WCA}}(r_{i,j}) =\left\{ 
         \begin{array}{ll}
             4\epsilon_{i,j}\left[\qty(\frac{\sigma}{r_{i,j}})^{12}-\qty(\frac{\sigma}{r_{i,j}})^6\right]+\epsilon_{i,j}, & r_{i,j}\in[0,2^{1/6}\sigma], \\
             0, & r_{i,j}>2^{1/6}\sigma
@@ -49,6 +50,7 @@ The interaction between the central particles is modeled using a Weeks-Chandler-
     ,\label{eqn:CL-MO_interaction}
 \end{gather}
 where $r_{i,j}$ is the distance between the center of the central particles, $\sigma$ is the diameter of the particles and $\epsilon_{i,j}$ is the energy of the interacton.
+It is noteworthy that the WCA potential can be understood as the Lennard-Jones potential with a vertical shift of $\epsilon$, resulting in entirely repulsive interactions.
 On the other hand, the patch-patch interaction is modeled with an attractive potential,
 \begin{gather}
     U_{\mathrm{patchy}}\qty(r_{\mu\upsilon}) = \left\{
@@ -107,7 +109,7 @@ $r_{l,m}$ and $r_{l,n}$ are the distances between the reference patch and the ot
 The parameter $\epsilon_{m,n}$ is the energy of repulsion, and $w$ is used to tune the swapping ($w=1$) and non-swapping bonds ($w\gg1$). 
 The cutoff distance $r_c$ is the same as in the potential of interaction between patches, meanwhile the minimum distance $r_{\min}$ is the distance at the minimum of~\eqref{eqn:patch-patch_interaction}, \textit{i.e.} $\epsilon_{m,n}\equiv\abs{U_{\mathrm{patchy}}(r_{\min})}$.
 
-Figure~\ref{fig:swappot}\footnote{Be carefull with the sign interpretation and more detail about the different curves.} shows the patch-patch potential with the swap potential.
+Figure~\ref{fig:swappot} shows the patch-patch potential with the swap potential.
 The patch-patch potential in the figure is the energy of the interaction between patch $i$ and patch $k$.
 The swap potential is the energy between patch $i$ and patch $k$, leaving the distance between patch $i$ and patch $j$ fixed.
 Taking into account this, when the patches $i$ and $j$ are at the potential well ($r_{ij}=\sigma$), the interaction between $i$ and $k$ is null.
@@ -190,9 +192,9 @@ The temperature and dampness parameters were set to be the same as in the assemb
 
 \subsection{LAMMPS implementation}
 
-As said before, LAMMPS software is used to solve the Langevin equation in a many-particle system.
+As said before, the LAMMPS software is used to solve the Langevin equation in a many-particle system.
 However, it is useful to explain how the simulation is defined in this software.
-In this regard, in the next paragraphs, it briefly discusses the $\mathrm{damp}$ parameter, the implementation of the swap potential~\eqref{eqn:swapmod_interaction}, the shear deformation, and the calculation of the stress tensor.
+In this regard, the following paragraphs briefly discuss the damp parameter, the implementation of the swap potential~\eqref{eqn:swapmod_interaction}, the shear deformation, and the calculation of the stress tensor.
 
 %\paragraph{damp}
 Comparin equation~\eqref{eqn:MolDylammps1} with equation~\eqref{eqn:MolDylammps2}, the viscosity parameter $\gamma$ of the Langevin equation~\eqref{eqn:BrownianDyn1} does not appear; instead, the $\mathrm{damp}$ parameter appears.
@@ -204,8 +206,7 @@ Therefore, since the damp is set to \num{0.1}, the polymeric network is in a hig
 In addition it is important to mention that all the simulations are done with Lennard Jones units.
 
 %\paragraph{Three-body potential}
-Moving towards the implementation of the swap potential.
-The \verb|threebody/table| pair style command is used to implement generic tabulated three-body interactions.
+In regard to the swap potential, the \verb|threebody/table| pair style command is used to implement generic tabulated three-body interactions.
 However, in LAMMPS, the tabulation is done on a three-dimensional plane of the two distances $r_{ij}$ and $r_{ik}$ with the angle $\theta_{ijk}$, where the forces on all three particles $I$, $J$, and $K$ lie within the plane defined by the three inter-particle distance vectors $\vec{r}_{IJ}$, $\vec{r}_{IK}$, and $\vec{r}_{JK}$\citep{LAMMPS}.
 Allowing the following property to project the forces onto the inter-particle distance vectors,
 \begin{equation}
@@ -327,8 +328,8 @@ Finally, this process is repeated until the deformation reaches a strain of $15~
     \caption{The network generated during the simulation's assembly stage is visualized as clusters.
         The color in each patchy particle represents the cluster's id.
         If the patches are the same color, they share the cluster's id.
-        Panel A depicts the initial arrangement.
-        Panel B depicts the assembly simulation's finished configuration.
+        Panel (a) depicts the initial arrangement.
+        Panel (b) depicts the assembly simulation's finished configuration.
         Ovito is used for color processing, with a \num{0.6} cut-off between each patch.
     }\label{fig:assemblyCluster}
 \end{figure}
@@ -338,10 +339,10 @@ Finally, this process is repeated until the deformation reaches a strain of $15~
     \centering
     \includegraphics[width=\textwidth]{figs/ComputaitonalResults/New/flipPatches.png}
     \caption{A graphical representation of the shear deformation applied to the patchy particle network in the $xy$ plane.
-            Panel A displays the initial arrangement.
-            Then, in panel b, the box achieves the maximum tilt to assure numerical stability.
-            Panel c then displays the flip manipulation, which continues the deformation.
-            Finally, panel d shows that the box enters a configuration with no tilt but a system with strain $1$.
+            Panel (a) displays the initial arrangement.
+            Then, in panel (b), the box achieves the maximum tilt to assure numerical stability.
+            Panel (c) then displays the flip manipulation, which continues the deformation.
+            Finally, panel (d) shows that the box enters a configuration with no tilt but a system with strain $1$.
             Orange spheres are the central particle of monomers. 
             Red spheres represent the central particle of crosslinkers. 
             Blue spheres represent patches.
@@ -359,9 +360,9 @@ After briefly discussing the configurational results of the patchy particle netw
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=\textwidth]{figs/ComputaitonalResults/New/shearBonds.png}
-    \caption{Panels a and c show the system with patchy particles.
-        Panels b and d, on the other hand, illustrate the bonds between patches as a simplified representation of the network's structure.
-        In addition, panels a and b are before the shear and c and d after the shear.
+    \caption{Panels (a) and (c) show the system with patchy particles.
+        Panels (b) and (d), on the other hand, illustrate the bonds between patches as a simplified representation of the network's structure.
+        In addition, panels (a) and (b) are before the shear and (c) and (d) after the shear.
         After and before shear.
     }\label{fig:shearBonds}
 \end{figure}
@@ -426,7 +427,7 @@ Instead, it was chosen to compute the temporal average of the final portion of t
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.9\textwidth]{figs/ComputaitonalResults/yieldStress.pdf}
+    \includegraphics[width=0.8\textwidth]{figs/ComputaitonalResults/yieldStress.pdf}
     \caption{Time average of steady-stress regime from computational results. Dashed lines represent exponential fits.}\label{fig:yieldStressResults}
 \end{figure}
 

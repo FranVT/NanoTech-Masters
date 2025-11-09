@@ -27,7 +27,7 @@ This influences the structural and property characteristics of the resulting pol
 %\paragraph{Introduction}
 In general, a polymeric network can be classified into four major categories: thermosets, thermoplastics, elastomers, and gels~\citep{guPolymerNetworksPlastics2020}.
 Thermosets are rigid, covalently bonded polymer networks with high modulus, which are insoluble and degrade rather than melt upon heating. 
-In contrast, thermoplastics are held together by strong physical interactions, allowing them to be remolded and recycled when heated\footnote{Add examples in the paragraph}. 
+In contrast, thermoplastics are held together by strong physical interactions, allowing them to be remolded and recycled when heated. 
 Elastomers are soft and deformable with covalent networks used above their glass transition temperature, capable of large reversible extensions. 
 Finally, gels are liquid-swollen networks formed by either covalent or physical interactions that are soft and highly deformable.
 
@@ -49,7 +49,7 @@ At this configuration of the network, the transition is characterized by the div
 However, not all polymer networks reach the gel point, and in order to achieve it, the network must have an adequate crosslinking density and a sufficient number of reactive sites to connect the polymers. 
 For example, polymers that are linear, unbranched, or have insufficient crosslinking are soluble and do not gel.
 
-\subsection{Crosslink mechanisms}
+\subsection{Crosslinking mechanisms}
 
 %\paragraph{Crosslink}
 So far, it has been stated that the crosslinking process is responsible for maintaining the network's structure during the swelling phenomenon, as well as the viscoelastic-viscoplastic responses and the key mechanism to reach the gel point let's explore in more detail this phenomenon.
@@ -83,7 +83,7 @@ These networks are widely used in self-healing, shape memory, and stimulus-respo
     \centering
     \includegraphics[width=\textwidth]{figs/crosslinker_mechanisms.png}
     \caption{Schematics of physical crosslink processes.  
-        Panels a and b show examples of physical crosslinks, while panel c depicts dynamic covalent crosslinks.
+        Panels (a) and (b) show examples of physical crosslinks, while panel (c) depicts dynamic covalent crosslinks.
     Image retrieved from~\citep{zhaoSoftMaterialsDesign2021}}\label{fig:physicalCovalentCrossLink}
 \end{figure}
 
@@ -97,7 +97,7 @@ This improves toughness and elasticity by dispersing energy via chain movement a
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=0.8\textwidth]{figs/mechanicalCL.png}
-    \caption{In a main-chain polyrotaxane, the m rings can move in the same way that tiny molecules can, but across larger distances, depending on the number of rings.
+    \caption{In a main-chain polyrotaxane, the \emph{m} rings can move in the same way that tiny molecules can, but across larger distances, depending on the number of rings.
     Image retrieved from~\citep{hartMaterialPropertiesApplications2021}}\label{fig:mechanicalCL}
 \end{figure}
 
@@ -343,7 +343,7 @@ The connection between the microscopic description and the macroscopic scale is 
 % 
 This bridge is not trivial, so we will demonstrate the validity of the connection between the macroscopic definition of the stress tensor and the microscopic stress tensor by showing the equivalence between both tensors.
 This mathematical derivation is addressed in the appendix of~\citep{admalUnifiedInterpretationStress2010}.
-Just before starting, and for clarity, the notation is as follows: $\bm{\sigma}$ denotes a tensor, such as $\sigma_{i,j}$, a vector is denoted by $\vec{\sigma}$, and time average is denoted as $\overline{\sigma}$.
+Just before starting, and for clarity, the notation is as follows: $\bm{\sigma}$ and $\sigma_{i,j}$ denotes a tensor, a vector is denoted by $\vec{\sigma}$, and time average is denoted as $\overline{\sigma}$.
 
 %\paragraph{Derivation} 
 Let's start by considering a system of $N$ interacting particles with each particle position given by
@@ -365,7 +365,7 @@ and by replacing~\eqref{eqn:DerVirTen1} in~\eqref{eqn:DerVirTen3} we get the fol
     \sum_\alpha m_\alpha\vec{\upsilon}_\alpha^{\mathrm{rel}} = \vec{0}.\label{eqn:DerVirTen4}
 \end{equation}
 
-Now we continue by computing the time derivative of tensorial product $\vec{r}_\alpha\otimes\vec{p}_\alpha$\footnote{It is interesting to note that the tensorial product $\vec{r}_\alpha\otimes\vec{p}_\alpha$ has units of action and by tacking the time derivative we are dealing with terms that have units of energy.
+Now we continue by computing the time derivative of tensor product $\vec{r}_\alpha\otimes\vec{p}_\alpha$\footnote{It is interesting to note that the tensor product $\vec{r}_\alpha\otimes\vec{p}_\alpha$ has units of action and by tacking the time derivative we are dealing with terms that have units of energy.
 },
 \begin{equation}
     \dv{t}\qty(\vec{r}_\alpha\otimes\vec{p}_\alpha) = 
@@ -423,9 +423,9 @@ Therefore we can express the following,
 \begin{equation}
     \sum_\alpha\overline{\vec{r}_\alpha\otimes\vec{f}_\alpha^{\mathrm{ext}}}
     :=
-    \int_{\delta\Omega}\vec{\xi}\otimes\vec{t}dA 
+    \oint_{\delta\Omega}\vec{\xi}\otimes\vec{t}\mathrm{d}A 
     +
-    \int_{\Omega}\vec{\xi}\otimes\rho\vec{b}dV.\label{eqn:DerVirTen13}
+    \int_{\Omega}\vec{\xi}\otimes\rho\vec{b}\mathrm{d}V.\label{eqn:DerVirTen13}
 \end{equation}
 Where $\vec{\xi}$ is a position vector within the domain $\Omega$ occupied by the system of particles with a continuous closed surface $\delta\Omega$.
 Assuming that $\Omega$ is large enough to express the external forces acting on it in the form of the continuum traction vector $\vec{t}$.
@@ -622,8 +622,8 @@ After that, they expand both kinds of networks in a monomer and cross-linker mix
     \centering
     \includegraphics[width=\textwidth]{figs/explainMechResponse/RAN-REG-networks.jpeg}
     \caption{Hydrogel's network configuration.
-        Single network corresponds to 1a and 1b. 
-        Double network corresponds to 2a and 2b.\citep{kongEffectCrossLinkHomogeneity2024}.}\label{fig:RANREGnetworks}
+        Single network corresponds to (1a) and (1b). 
+        Double network corresponds to (2a) and (2b).\citep{kongEffectCrossLinkHomogeneity2024}.}\label{fig:RANREGnetworks}
 \end{figure}
 
 In general terms, randomly cross-linked networks contain a polydisperse distribution of strand lengths with a high fraction of short strands and thus should strain harden at relatively low extensions. 
@@ -697,8 +697,8 @@ The crosslinker that they use is benzoylphenylalanine (BAP).
     \includegraphics[width=12cm]{figs/mechResponse/2-ab.png}
     \caption{
         Results presented in\citep{romischkeSwellingMechanicalCharacterization2022}. 
-    Panel a is the hydrogel with $\mathrm{MASO}_3$ as a monomer and BAP (2 mol\%) as a crosslinker with different monomer concentration.
-    Panel b is ChondroFiller liquid hydrogel.
+    Panel (a) is the hydrogel with $\mathrm{MASO}_3$ as a monomer and BAP (2 mol\%) as a crosslinker with different monomer concentration.
+    Panel (b) is ChondroFiller liquid hydrogel.
     Each color indicates a different measurement until the breakage.    
 }\label{fig:mechResponseEnd}
 \end{figure}
@@ -1006,12 +1006,12 @@ Replacing~\eqref{eqn:DerVelVerlet7} into equations~\eqref{eqn:DerVelVerlet5} and
                         2\vec{v}^{n}                
                         +\frac{dt}{m}F^{n}
                         +\frac{1}{m}\vec{\eta}^{n+1}
-                    \right]\label{eqn:DerVelVerlet5}
+                    \right]\label{eqn:DerVelVerlet7}
                     , \\
     \vec{v}^{n+1} &= \vec{v}^{n}
                      +\frac{1}{m}\frac{dt}{2}\qty(\vec{F}^{n} + \vec{F}^{n+1})
                      -\gamma\qty(r^{n+1}-r^n)
-                     +\frac{1}{m}\vec{\eta}^{n+1}\label{eqn:DerVelVerlet6}.
+                     +\frac{1}{m}\vec{\eta}^{n+1}\label{eqn:DerVelVerlet8}.
 \end{align}
 It is interesting to see that the noise is represented as a single stochastic variable for each time step, realized by a single aggregated impulse during $dt$ that influences the dynamics over the time step.
 Finally, it is important to see that $\vec{F}^{n}$, $\vec{F}^{n+1}$, and $\vec{\eta}^{n+1}$ have units of momentum \SI{}{\kilo\gram\meter\per\second} and the constant $\frac{m dt}{2m +\gamma dt}$ has units of time \SI{}{\second}.

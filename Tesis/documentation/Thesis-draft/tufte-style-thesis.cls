@@ -367,7 +367,7 @@
 	\hfill
 	\vfill
 	\makeatletter
-	\noindent\begin{flushleft}\@author,\quad \textit{\@title,} \@subtitle, \@date.
+	\noindent\begin{flushleft}\@author,\quad \textit{\@title,} \@date.
     \end{flushleft}
 	\makeatother
 
