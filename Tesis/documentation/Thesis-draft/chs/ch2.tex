@@ -244,7 +244,6 @@ The constitutive equation for viscous deformation usually follows Newton’s law
 where $\eta$ is the dynamic viscosity and $\eta\dot{\bm{\epsilon}}$ is the strain rate. 
 This linear relation indicates that stress is proportional to the rate at which deformation occurs.
 
-
 %\paragraph{Viscoelastic relation} 
 However, as it was mentioned in the introduction, the reported mechanical response of hydrogels is described as viscoelastic.
 Which can be thought of as a combination of a viscous response with a plastic response.
@@ -281,6 +280,13 @@ Combines irreversible plastic strain with rate-dependent visvous effects
 \end{gather}
 \end{comment}
 
+As a brief summary, before proceeding to the microscopic description of the mechanical response, the stress tensor's mathematical definition addresses three primary strain-stress relationships: elastic, plastic, and viscous. 
+Elastic response indicates a material's ability to revert to its original shape post-stress, characterized by Hooke's law involving the elastic modulus. 
+Plastic deformation results in irreversible changes once stress surpasses the yield threshold, with stress and plastic strain linked through internal variables. 
+Yield stress is material-dependent, with established criteria like Von Mises and Tresca for ductile materials. 
+Viscous response is time-dependent and exhibits energy dissipation, outlined by Newton's law of viscosity, leading to viscoelastic behavior in materials such as hydrogels, which combine features of both viscous and elastic responses. 
+Additionally, viscoplastic responses describe materials that behave plastically when stress exceeds yield but flow like fluids under specific conditions.
+
 \subsection{Microscopic description}
 
 %\paragraph{Stress} 
@@ -301,6 +307,8 @@ where $\vec{n}$ is the unit normal vector to the surface and $\bm{\sigma}$ is th
         \sigma_{13} & \sigma_{23} & \sigma_{33} \\
     \end{bmatrix}.\label{eqn:stressTensor}
 \end{gather*}
+
+The traction vector is the force per unit area activing on a specific surface within a material.
 The component $\sigma_{ij}$ represents the force in the $i$-th direction acting on a surface perpendicular to the $j$-th coordinate axis.
 Also, the tensor is symmetric under the usual assumption of no body torques and balance of angular momentum.
 Figure~\ref{fig:stressTensor} is a visual representation of the traction vector~\eqref{eqn:tractionVector} and the interpretation of the stress components of the stress tensor~\eqref{eqn:stressTensor}.
@@ -522,13 +530,11 @@ Now, let's describe in general terms the relation between the elastic, plastic, 
 %which is the same expression implemented in~LAMMPS\citep{LAMMPS}.\footnote{No se si poner la referencia a la pagina de documentacion}%\href{https://docs.lammps.org/compute_stress_atom.html}{https://docs.lammps.org/compute\_stress\_atom.html}}
 %As a result, we can begin to explore which molecular process dominates each deformation regime.
 
-%\paragraph{Elastic regime} 
 In the case of an elastic deformation, the force applied to the material is largely retained due to the stretching of the distance between the particles.
 The particles' displacement is minimal, with no effect on bond integrity.
 This is generally understood to mean that the material stores potential energy that is released during unloading.
-
-%\paragraph{Plastic regime}\footnote{Here it is important the idea of reversibility and stuf about self healing} 
 In the context of plastic deformation, the phenomenon is often described as dislocation and crystal defects in crystalline materials.
+
 However, plastic deformation is more likely to involve the rupture of crosslinks between chains and the sliding or stretching of individual chains beyond their reversible limit.
 In the scenario of networks with physical entanglements, chains have the potential to slip past one another, thereby overcoming energy barriers and irreversibly reorganizing the networks' topology.
 In the cases of bond rupture, the crosslink density can be reduced or the polymeric chain can be broken.
@@ -552,16 +558,18 @@ Finally, similar to the plastic deformation, the viscoplastic deformation occurs
 %\citep{bouzidElasticallyDrivenIntermittent2017}.
 
 %\paragraph{Intro}
-The reported mechanical response of hydrogel will be briefly reviewed in this section, with an emphasis on finding a link between the macroscopic hydrogel's mechanical properties and its molecular structural characteristics.
-Let's start with the review article\citep{petelinsekToughHydrogelsLoadBearing2024}, in which they interpret the physical crosslinking mechanism as an energy dissipation mechanism.
+Let's now examine the mechanical response reported for hydrogels after providing an overview of hydrogel, the relationship between some of the molecular mechanisms and the mechanical response, how this response is quantified using constitutive equations, and the mathematical representations and interpretations of the strain and stress tensor, with an emphasis on finding a link between the macroscopic hydrogel's mechanical properties and its molecular structural characteristics.
+
+Let's start with the reference\citep{petelinsekToughHydrogelsLoadBearing2024}, in which they interpret the physical crosslinking mechanism as an energy dissipation mechanism.
 This energy dissipation mechanism helps to reversibly recover from a mechanical impact, allowing the creation of stiff and tough hydrogels.
 The energy dissipation is often achieved through the introduction of sacrificial bonds by adding a second, more brittle network within a loosely cross-linked network or by cross-links made from supramolecular transient interactions, which can be reversibly broken and reformed.
 In the first case, the material is stretched, and a share of the bonds in the more brittle network are broken, leading to an increased dissipation of the energy from mechanical impact.
 In the second case, the sacrificial bonds are non-covalent in nature and can reversibly break and reform.
 
-Some of the non-covalent interactions are metal-ligand, ionic interactions, hydrogen bonding, microphase separation and hydrophobic interactions, polymer-nanomaterial adsorption, host-guest complexation, or supramolecular self-assembly. The mechanisms that will be discussed in the subsequent paragraphs are summarized visually in Figure~\ref{fig:energyDissipation}.
+Metal-ligand, ionic, hydrogen bonding, microphase separation, hydrophobic, polymer-nanomaterial adsorption, host-guest complexation, and supramolecular self-assembly are a few examples of non-covalent interactions. 
 
-The electrostatic mechanism states that strong, physically robust polymers are formed by ionic attractions between oppositely charged monomers.
+Some of the non-covalent interactions are metal-ligand, ionic interactions, hydrogen bonding, microphase separation and hydrophobic interactions, polymer-nanomaterial adsorption, host-guest complexation, or supramolecular self-assembly. 
+Starting with the electrostatic mechanism, it can create strong, physically robust polymers by ionic attractions between oppositely charged monomers.
 In addition, hydrogen bonds can be a powerful motif to enhance reversible interactions between polymer chains and hence, dissipate energy.
 
 It is crucial to recognize that microcrystallization—a microphase-separated domain encircled by amorphous polymer chains—is the process by which polymer chains form submicrometer-sized crystallites.
@@ -572,6 +580,9 @@ Additionally, (nano)fibers can greatly enhance the fracture mechanics of strong 
 
 Finally, from the self-assembly mechanism, it can be said that a promising source of energy dissipation has been introduced by elastomeric proteins, which function as molecular springs and unfold once a stress is applied. 
 This mechanical unfolding is seen in both larger proteins and smaller elastin-like polypeptides.
+
+Figure~\ref{fig:energyDissipation} shows a graphical representation of the previous dissipation mechanisms.
+Applying a general comparisson with figure~\ref{fig:physicalCovalentCrossLink}
 
 \begin{figure}[ht!]
     \centering
