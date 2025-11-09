@@ -235,10 +235,20 @@ where $\sigma_y$ is the yield stress (the stress at which the deformation starts
 %Furthermore, the viscoelastic response is time-dependent, combining the elastic and viscous behaviors.
 %Finally, the viscoplastic combines the irreversible plastic strain with rate-dependent viscous effects [\textbf{cite}].
 
+Lastly, a viscous response is characterized by a time dependency and irreversible deformation.
+This response describes materials that continuously deform and undergo an energy dissipation process through viscous friction.
+The constitutive equation for viscous deformation usually follows Newton’s law of viscosity,
+\begin{equation}
+    \bm{\sigma} = \eta\dot{\bm{\epsilon}},\label{eqn:viscousResponse}
+\end{equation}
+where $\eta$ is the dynamic viscosity and $\eta\dot{\bm{\epsilon}}$ is the strain rate. 
+This linear relation indicates that stress is proportional to the rate at which deformation occurs.
 
 
 %\paragraph{Viscoelastic relation} 
-A viscoelastic deformation is defined as the process by which a material partially ``stores'' elastic energy and partially dissipates energy.
+However, as it was mentioned in the introduction, the reported mechanical response of hydrogels is described as viscoelastic.
+Which can be thought of as a combination of a viscous response with a plastic response.
+In more detail, a viscoelastic deformation is defined as the process by which a material partially ``stores'' elastic energy and partially dissipates energy.
 For this deformation, the quantification is done by relating the instantaneous stress, strain, and a time-dependent relaxation modulus,
 \begin{gather}
     \sigma(t) = \int_0^t G(t-\tau)\dv{\tau}\epsilon(\tau)d\tau\label{eqn:viscoelastiEQN}.
@@ -246,7 +256,7 @@ For this deformation, the quantification is done by relating the instantaneous s
 Where $\tau$ is a dummy variable and $G(t)$ is the time-dependent relaxation modulus.
 This mathematical expression is also known as the generalized expression of the Maxwell or Kelvin-Voigt model.
 The relaxation modulus $G(t)$ describes how a material responds over time to a sudden, constant strain.
-This relationship also enables the description and modeling of memory effects and rate dependence, which are commonly observed in polymers, biological tissues, and certain soft solids [\textbf{cite}].
+This relationship also enables the description and modeling of memory effects and rate dependence, which are commonly observed in polymers, biological tissues, and certain soft solids~\citep{chenViscoelasticResponseHydrous2024}.
 
 \begin{comment}
 Time-dependent response combining elastic and viscous behaviour.
