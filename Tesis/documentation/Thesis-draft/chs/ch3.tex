@@ -1,12 +1,15 @@
 \chapter{Methods and Results}
 % Patchy particle scheme for hydrophilic polymeric networks
 
-Now, after having shown how molecular dynamics can simulate the mechanical response of hydrogels, allowing the construction of relationships between responses to molecular phenomena, it's time to present the methods for simulating shear deformation in a hydrogel employing patchy particles.
+Now that the theoretical framework was covered, lets delve into the numerical tools that will help to find relations between the polymeric network and the mechanical response. 
+First, the patchy particle scheme for simulating PNIPAM cross-linked networks is presented, detailing the numerical simulation protocol.
+Also an introduction to the LAMMPS software and how it was used to simulate this system is covered.
+To finished the chapter, the numerical results are analyzed.
 
 \section{Simulation protocol}
 
 One of the microgels that has been the focus of significant research is the type that is based on PNIPAM cross-linked networks.
-In the article \textit{In silico Synthesis of Microgel Particles}\citep{gnanSilicoSynthesisMicrogel2017}, the authors present a flexible numerical protocol capable of designing individual microgel particles based on PNIPAM cross-linked networks. 
+In the article \textit{In silico Synthesis of Microgel Particles}\citep{gnanSilicoSynthesisMicrogel2017}, the authors present a flexible numerical protocol capable of designing individual microgel particles based on PNIPAM crosslinked networks. 
 This protocol can generate particles with properties comparable to the experimental ones.
 In this project, we employ a similar protocol to explore its versatility and identify a numerical tool that can facilitate connections between network configuration and mechanical response.
 
@@ -58,7 +61,14 @@ On the other hand, the patch-patch interaction is modeled with an attractive pot
 where $r_{\mu\upsilon}$ is the distance between two patches, $\sigma_p$ is the diameter of the patches, $r_c$ is the cut distance of interaction set to $1.5\sigma_p$ and $\epsilon_{\mu,\upsilon}$ is the interaction energy between the patches.
 %This potential can be interpreted as a reversible interaction.
 
-Figure~\ref{fig:patchpatchpot}\footnote{Add the WCA potential} compares the patch-patch interaction potential, the Lennard-Jones potential, and the FENE potential\footnote{Add the FENE definition and clarify why we are comparing with this potential.}.
+In order to put in context the type of polymeric network that this potentials models, equation~\eqref{eqn:patch-patch_interaction} is compared with the FENE potential,
+\begin{equation}
+    U_{\mathrm{FENE}}(r) = -\frac{1}{2}KR_o^2\ln\left[1-\left(\frac{r}{R_o}\right)^2\right]+U_{WCA}(r),\label{eqn:FENEpot}
+\end{equation}
+where $R_o$ is the maximum extent of the bond and $K$ is the energy of the bond and has units of energy over area.
+This potential it is used to represent covalent bonds between monomers in a polymers.
+
+Figure~\ref{fig:patchpatchpot} compares the patch-patch interaction potential, the Lennard-Jones potential, and the FENE potential.
 The Lennard-Jones and patch-patch potentials are qualitatively similar in that they both tend to zero after a certain cutoff distance.
 In contrast, the FENE potential goes to infinity if the distance is too short or too wide.
 This key distinction enables us to design the patch-patch interaction as a reversible interaction rather than the FENE, which is better suited to representing non-reversible interactions.
@@ -67,14 +77,19 @@ As a result, the computational methodology simulates a polymeric network with ph
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=12cm]{figs/numerical/patchpatch.png}
-    \caption{Comparisson between equation~\eqref{eqn:patch-patch_interaction} with Lennard-Jones and FENE potentials.}\label{fig:patchpatchpot}
+    \caption{Comparisson between the potentials used in the simulation with standard potentials.
+        Orange and green line are the potentials used in the simulation for the interaction between central particles and patches, respectively.
+        While, the blue and red are the Lennard-Jones and FENE potentials, commonly used to represent interparticle interactions.
+        All distances where modifed to match the patches particles for comparison reasons.
+}\label{fig:patchpatchpot}
 \end{figure}
 
 The patch-patch interaction differs from the Lennard-Jones potential in that the minimum potential is horizontally translated, and the rate of change from the minimum to the cut distance is more apparent.
-Equation~\eqref{eqn:patch-patch_interaction} represents a more ``strong'' interaction between the patches compared to a Lennard-Jones potential.
+Equation~\eqref{eqn:patch-patch_interaction} represents a stronger interaction between the patches compared to a Lennard-Jones potential.
 
 However, if the simulation for the polymeric network is simply performed using the Lennard-Jones and patch-patch potentials, the patches will form interactions of more than two patches, which is undesirable.
-Hence, the interaction between patches is complemented by a three-body repulsive potential, defined in terms of~\eqref{eqn:patch-patch_interaction}, that provides an efficient bond-swapping mechanism, making it possible to easily equilibrate the system at extremely low temperatures, while at the same time retaining the single bond per patch condition\citep{sciortinoThreebodyPotentialSimulating2017}.
+Hence, the interaction between patches is complemented by a three-body repulsive potential, defined in terms of~\eqref{eqn:patch-patch_interaction}, that provides an efficient bond-swapping mechanism, making it possible to easily equilibrate the system even at low temperatures, while at the same time retaining the single bond per patch condition\citep{sciortinoThreebodyPotentialSimulating2017}.
+This interaction is given by:
 \begin{gather}
     U_{\mathrm{swap}}(r_{l,m},r_{l,n}) = w\sum_{l,m,n}\epsilon_{m,n}U_3\qty(r_{l,m})U_3\qty(r_{l,n}),\quad r_{l,n}\in\qty[0,r_c],\label{eqn:swap_interaction}
 \end{gather}
@@ -95,14 +110,19 @@ The cutoff distance $r_c$ is the same as in the potential of interaction between
 Figure~\ref{fig:swappot}\footnote{Be carefull with the sign interpretation and more detail about the different curves.} shows the patch-patch potential with the swap potential.
 The patch-patch potential in the figure is the energy of the interaction between patch $i$ and patch $k$.
 The swap potential is the energy between patch $i$ and patch $k$, leaving the distance between patch $i$ and patch $j$ fixed.
-Taking into account this, when the patches $i-j$ are at the potential well ($r_{ij}=\sigma$), the interaction between $i-k$ is null.
-When the patches $i-j$ are bigger than the potential well but smaller than the cutoff distance ($r_{\mathrm{cut}}>r_{ij}>\sigma$), the interaction between $i-k$ is mildly attractive.
-Finally, when the patches $i-j$ are bigger than the cutoff distance ($r_{\mathrm{cut}}<r_{ij}$), the interaction between $i-k$ is attractive.
+Taking into account this, when the patches $i$ and $j$ are at the potential well ($r_{ij}=\sigma$), the interaction between $i$ and $k$ is null.
+When the distance between patches $i$ and $j$ are bigger than the potential well but smaller than the cutoff distance ($r_{\mathrm{cut}}>r_{ij}>\sigma$), the interaction between $i-k$ is mildly attractive.
+Finally, when the patches $i-j$ are bigger than the cutoff distance ($r_{\mathrm{cut}}<r_{ij}$), the interaction between $i-k$ is repulsive.
 
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=12cm]{figs/numerical/swapPotential.png}
-    \caption{Swap potential for patch-patch interaction to ensure single bond per patch condition.}\label{fig:swappot}
+    \caption{Swap potential for patch-patch interaction to ensure single bond per patch condition.
+        Blue line represents the patch-patch interaction potential.
+        Orange, green and red lines represent the swap potential with a fix distance between patch $i$ with patch $j$ and a free patch $k$.
+        When the patches $i$ and $j$ are at the potential well, the interaction between partches $i-k$ and $j-k$ is repulsive (orange line).
+        However, when the distance between patches $i$ and $j$ starts to increase, the repulsive interaction with patch $k$ diminishes.
+    }\label{fig:swappot}
 \end{figure}
 
 Before proceeding to the description of the parameters for the simulation, it is necessary to describe the interaction between the central particle and the patches.
@@ -133,11 +153,11 @@ Each system had a fixed number of patchy particles $N_p$, packing fraction $\phi
 Based on these characteristics, we calculate the box's volume as well as the number of patchy particles of functionality 2 (PB) and functionality 4 (PA).
 
 Due to limitations related to time and computing resources, the total number of particles is set to be $N_p=\num{8000}$.
-This is a lower number of particles when compared with other simulations [\textbf{cites}].
+This is a lower number of particles when compared with other simulations~\citep{gnanSilicoSynthesisMicrogel2017}.
 Therefore, in order to compensate, we take the mean of five experiments.
 In addition, the timestep was set to \num{0.001}, as a rule of thumb\footnote{Talk about LJ units.}.
-This is equivalent to simulating a system of \num{40000} particles, but with more manageable computational requirements.
-Finally, the values of $K_r$ and $K_\theta$ are set to \num{100} to create a strong bond and prevent stretching.
+This allow us to obtain good average observables.
+Finally, the values of $K_r$ and $K_\theta$ are set to \num{100} to create a strong bond and prevent stretching of monomers (patchy particles B) and crosslinkers (patchy particles A).
 The value of $r_o$ is set to \num{0.45}.
 The value of $\theta_o$ is set to \SI{180}{\degree} for PB particles and \SI{109.4712}{\degree} for PA particles.
 
@@ -151,7 +171,7 @@ It is very important to note that the damp controls the viscous response caused 
 
 The energy of interaction between central particles is 1 $\epsilon_{i,j}=1$.
 In contrast, the energy of interaction between patches is defined as follows:
-The interaction of patchy particles with two patches is set to 1 ($\epsilon_{\mu,\upsilon}=1$), whereas the interaction with four patches is set to \num{0} ($\epsilon_{\mu,\upsilon}=0$), and the interaction between patches of patchy particles with four patches with patches of patchy particles of two patches is set to \num{1} ($\epsilon_{\mu,\upsilon}=1$).
+The interaction of patchy particles B is set to 1 ($\epsilon_{\mu,\upsilon}=1$), whereas the interaction between patchy particles A is set to \num{0} ($\epsilon_{\mu,\upsilon}=0$), and the interaction between patches of patchy particles A with patchy particles B is set to \num{1} ($\epsilon_{\mu,\upsilon}=1$).
 This is to allow only crosslinker-monomer and monomer-monomer bonding.
 
 %\paragraph{Deformation protocol}
@@ -164,7 +184,7 @@ Many hydrogels exhibit shear-thinning behavior that is critical for applications
 The shear deformation was done at a constant shear rate in the $xy$ plane.
 
 The shear rates were in the \num{d-3} order of magnitude, and the final strain was \num{15} units.
-This is because we are exploring this computational methodology to characterize the mechanical response and to deform beyond the plastic deformation limit.
+This is to characterize the mechanical response and to deform beyond the plastic deformation limit.
 Also, the variation of the shear rate was performed to see the viscoelastic response of the material.
 The temperature and dampness parameters were set to be the same as in the assembly process.
 

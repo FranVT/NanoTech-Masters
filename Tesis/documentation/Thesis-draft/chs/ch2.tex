@@ -727,10 +727,6 @@ The stress relaxation features of dual network hydrogels are reviewed, emphasizi
 Furthermore, a comparison of mechanical responses under tensile deformation between randomly and regularly cross-linked networks, as well as the shear behavior of alginate hydrogels, focusing on viscosity changes caused by shear thinning was found. 
 This findings highlight the impact of monomers and crosslinking methods on hydrogel stress responses and characteristics.
 
-
-\paragraph{Add conclusion}
-
-
 \begin{comment}
 \begin{figure}[ht!]
     \centering
@@ -822,7 +818,7 @@ After that, an explanation of Langevin dynamics it is given with an explanation 
 
 \subsection{Colloids}
 
-A colloid is a heterogeneous mixture of two substances in different matter states and in different ratios\citep{castaneda-priegoColloidalSoftMatter2021}.
+A colloid is a heterogeneous mixture of two substances in different matter states (commonly refer as phases) and in different ratios\citep{castaneda-priegoColloidalSoftMatter2021}.
 It is usually stated that one material is distributed to the other.
 The dispersed substance it is commonly denoted as the dispersed phase, while the other substance is denoted as the continuous phase.
 The average size of the scattered phase's spots ranges from 1 nanometer to 1 micrometer.
@@ -872,11 +868,11 @@ Therefore, a methodology is required that couples the infinitesimal particle wit
 
 Taking into account the colloidal representation of the hydrogel, the Langevin theory takes advantage of the densities of the solid and liquid phases.
 Since the solid phase of the colloid has a large mass, it will change their momenta after many collisions with the water molecules and the picture which emerges is that of the heavy particles forming a system with a much longer time scale than the solvent molecules\citep{Thijssen2007}.
-This time scale difference can be used to our favor in the sense that we can eliminate the details of the degrees of freedom of the solvent particles and represent their effect by stochastic and dissipative forces, allowing longer simulations that would be impossible if the solvent were explicitly included\citep{pastorTechniquesApplicationsLangevin1994}.
+This time scale difference can be used to our favor to eliminate the details of the degrees of freedom of the solvent particles and represent their effect by stochastic and dissipative forces, allowing longer simulations that would be impossible if the solvent were explicitly included\citep{pastorTechniquesApplicationsLangevin1994}.
 
 However, the representation of the solvent by a stochastic and dissipative force introduces the problem of characterizing two very different timescales.
 One is associated with the slow relaxation of the particle's initial velocity, and another is tied to the particle's numerous collisions with particles in the bath\citep{tsl2006}. 
-Therefore, two terms are used to create a mathematical representation of the solvent: a frictional force proportional to the velocity of the particle and a fluctuating force.
+Two terms are used to create a mathematical representation of the solvent: a frictional force proportional to the velocity of the particle and a fluctuating force.
 
 By considering newtonian mechanics and the previous discussion, the Langevin dynamics are mathematically represented by the following differential equation,
 \begin{gather}
@@ -911,9 +907,9 @@ The Langevin equation improves conformational sampling over standard molecular d
 To solve the Langevin equation~\eqref{eqn:BrownianDyn1}, the numerical method Velocity Verlet it is used.
 The Velocity Verlet algorithm's central principle is to update particle locations and velocities with both current and predicted accelerations, ensuring temporal reversibility and energy conservation across extended simulations.
 From a mathematical point of view, this algorithm is a second-order integrator for ordinary differential equations and is based on truncated Taylor expansion.
-For a particle of mass $m$, position $r(t)$, and force $f(r,t)$, the velocity Verlet scheme is given as
+For a particle of mass $m$, position $r(t)$, and force $f(r,t)$, the velocity Verlet equations are
 \begin{align}
-    r^{n+1} &= r^n + v^n dt + \frac{dt^2}{2m}f^n \\
+    r^{n+1} &= r^n + v^n dt + \frac{dt^2}{2m}f^n, \\
     v^{n+1} &= v^n + \frac{dt}{2m}(f^n+f^{n+1}).
 \end{align}
 Furthermore, from a computational perspective, Velocity Verlet is an explicit algorithm, easy to implement, and efficient in terms of memory usage.
@@ -932,7 +928,7 @@ with the associated velocity calculated by the central difference
 %This is important because the software used for the molecular dynamics implements this version of the velocity verlet.
 In systems governed by Langevin dynamics, the algorithm can incorporate random forces consistent with the fluctuation-dissipation theorem to simulate physically realistic Brownian motion.
 However, the non-analytical term $\vec{R}(t)$ from equation~\eqref{eqn:BrownianDyn1} invalidates the Taylor expansion used for the derivation of the Verlet scheme.
-Hence, in order to develop a reliable integrator for Langevin dynamics, one therefore needs to carefully treat the coupling between the stochastic and analytic contributions.
+Hence, in order to develop a reliable integrator for Langevin dynamics, one needs to carefully treat the coupling between the stochastic and analytic contributions.
 Therefore, we are going to show the derivation of the Stormer-velocity Verlet scheme for the Langevin equation following the process shown in \citep{gronbech-jensenSimpleEffectiveVerlettype2013a}.
 
 %This is important because the software used for the molecular dynamics implements this version of the velocity verlet.
@@ -1158,4 +1154,4 @@ This parameter is specified in time units and determines how rapidly the tempera
 
 On the other hand, to implement the velocity Verlet scheme previously discussed, we need to use the command \verb|fix nve|.
 Although the command makes allusion to the NVE ensemble, what it really does is to invoke the velocity form of the Stoermer-Verlet time integration algorithm (velocity-Verlet).
-The combination of \verb|fix langevin| and \verb|fix nve| allows us to perform molecular dynamics with particle-particle interaction for a many-particle system.
+The combination of \verb|fix langevin| and \verb|fix nve| allows us to perform molecular dynamics with particle-particle interaction for a many-particle system as a NVT enssemble.
