@@ -144,18 +144,10 @@ These two scales are linked through the implementation of averaging or homogeniz
 However, there is a difference in interpretation and application.
 These issues will be addressed in the following sections
 
-The relationship between deformation and stress is expressed through a constitutive equation.
-This equation is a mathematical tool that quantifies the relationship. 
-It is used to predict or model material behavior, as reflected by empirical observations.
-Additionally, these equations can be defined from both the microscopic and macroscopic scale.
-These two scales are linked through the implementation of averaging or homogenization procedures.
-However, there is a difference in interpretation and application.
-Thse issues will be addressed in the following sections.
-
 %\paragraph{Tensors}
 The first issue addressed is the mathematical tools to quantify the strain-stress relation.
 Both quantities are mathematically represented as second-rank tensors, which can be algebraically expressed as an $n\times n$ matrix where $n$ is the dimensionality of the physical space.
-In addition, it is crucial to understand tensors as a generalization of scalars, vectors, and matrices to characterize physical variables that follow particular transformation rules under coordinate changes but depend on direction and a coordinate system, enabling the measurement of the physical quantity's orientation and how it behaves in various spatial directions in addition to its magnitude.
+In addition, it is helpfull to understand tensors as a generalization of scalars, vectors, and matrices to characterize physical variables that follow particular transformation rules under coordinate changes but depend on direction and a coordinate system, enabling the measurement of the physical quantity's orientation and how it behaves in various spatial directions in addition to its magnitude.
 In conclusion, multidirectional physical qualities that are invariant by coordinate changes can be represented through a tensor.
 With this in mind, let's move on into the definition of strain.
 
@@ -179,14 +171,14 @@ It is important to keep in mind that the strain tensor is the spatial derivative
 \subsection{Macroscopic description}
 
 With the strain defined, it is time to move on to explore the concept of stress in relation to strain.
-There are four main strain-stress relations: elastic, plastic, viscoelastic, and viscoplastic\footnote{What about pure viscosity}.
-In a broad sense, the elastic relation is when the material returns to its original shape after load removal.
-In contrast, the plastic deformation is a permanent deformation once stress exceeds a yield threshold $\sigma_y$.
-Furthermore, the viscoelastic response is time-dependent, combining the elastic and viscous behaviors.
-Finally, the viscoplastic combines the irreversible plastic strain with rate-dependent viscous effects [\textbf{cite}].
+The mathematical definition of the stress tensor is going to be tackled at the microscopic description as a consequence of the objectives of the thesis.
+There are three main strain-stress relations: elastic, plastic, and viscous.
+In a broad sense, the elastic response is when the material returns to its original shape after load removal.
+In contrast, the plastic response is a permanent deformation once stress exceeds a yield threshold $\sigma_y$.
+Finally, the viscous response is a resistance to flow where all the energy used to deform the material is dissipated as heat, making an irreversible deformation and a time-dependent response.
 
 %\paragraph{Elastic relation} 
-An elastic deformation occurs when the material returns to its original configuration once the stress is removed.
+An elastic deformation happens when a force is given to a material, and it instantly returns to its original configuration once the stress is released.
 The quantification of this response is given by a linear equation,
 \begin{gather}
     \sigma_{ij} = C_{ijkl}\epsilon_{kl}\label{eqn:elasticEQN}
@@ -198,22 +190,20 @@ Some examples of this type of deformation are the stretching of a metal spring w
 %This establishes a connection between the stress tensor ($\sigma$), the shear modulus ($G$) of the material, the applied strain ($E$), and the Lame first parameter ($\lambda$) of the material\citep{bonyadiReviewFrictionLubrication2020}.
 
 %\paragraph{Plastic relation} 
-In contrast, a plastic deformation is when the material has an irreversible change in the shape or size.
-It is generally accepted that a material first enters an elastic regime and then reaches a yield point. 
+In contrast, a plastic deformation is when the material experiences an irreversible change in the shape or size and has a time-dependent response.
+It is generally accepted that a material first enters an elastic response and then reaches a yield point. 
 After this point, the deformation is irreversible.
 Stress and plastic strain are usually linked as a function of the current stress and internal variables,
 \begin{gather}
     \dot{\bm{\epsilon}}_{p} = f\left(\bm{\sigma},\mathrm{Internal~varaibles}\right),\quad\bm{\sigma}>\bm{\sigma}_{y}\label{eqn:plasticEQN}.
 \end{gather}
-$\bold{\sigma}_y$ is the yield stress and $\dot{\bm{\epsilon}}_{p}$ is the time derivative of the strain after reaching the plastic deformation.
-This is valid when the deformation goes beyond the yield stress, and the specific algebraic expression is dictated by the material's properties.
+$\bold{\sigma}_y$ is the yield stress, and $\dot{\bm{\epsilon}}_{p}$ is the time derivative of the strain after reaching the plastic deformation.
 The specific algebraic expression of $f\left(\bm{\sigma},\mathrm{Internal~varaibles}\right)$ depends on the material and conditions in which the deformation took place.
 
 Furthermore, it is important to acknowledge that the definition of yield stress is also dependent on the material and the loading conditions \citep{bonnYieldStressMaterials2017}.
 For this reason, there are many yield criteria developed for different materials and conditions, such as the Drucker-Prager, Mohr-Coulomb, Von Mises, or Tresca criterion.
 The two most common yield criteria are the Von Mises and Tresca criteria.
-The von Mises yield criterion is commonly used for ductile materials.
-It is based on the energy associated with shape change. 
+The von Mises yield criterion is commonly used for ductile materials and is based on the energy associated with shape change. 
 This is defined by a critical value in terms of the distortional energy or equivalent shear stress and is independent of hydrostatic pressure, 
 \begin{gather}
     \sigma_y = \sqrt{\frac{3}{2}\bm{s}:\bm{s}}\label{eqn:vonMisesCriterion}
@@ -228,8 +218,8 @@ It is based on the yield strength in simple tension as follows:
 \end{gather}
 where $\sigma_1=\sigma_{11}$, $\sigma_2=\sigma_{22}$, and $\sigma_3=\sigma_{33}$ are the diagonal terms, also known as the principal stresses.
 
-Furthermore, there are materials that do not flow if the imposed stress is below a threshold value and flow rather easily after this value is exceeded, known as ``\textit{yield stress materials}''\citep{bonnYieldStressMaterials2017}.
-For a simple shear geometry, the flow curve is a representation of the dependence of the shear stress on the shear rate.
+However, there are materials that do not deform if the imposed stress is below a threshold value and flow rather easily after this value is exceeded, known as ``\textit{yield stress materials}''\citep{bonnYieldStressMaterials2017}.
+In these types of situations, the mechanical response depends on the rate of deformation, also known as shear rate.
 For a Newtonian fluid, these functions are linearly related $\sigma=\eta\dot{\gamma}$, where $\eta$ is a constant viscosity.
 For a yield stress material, the viscosity becomes formally a function of the shear rate, $\sigma=\eta(\dot{\gamma})\dot{\gamma}$, and the flow curve is not a simple straight line crossing the origin.
 One of the popular yield stress models is the Herschel-Bulkey, 
@@ -237,6 +227,15 @@ One of the popular yield stress models is the Herschel-Bulkey,
     \sigma = \sigma_y + K\dot{\gamma}^{n},\sigma\geq\sigma_y\label{eqn:herschel-bulkey},
 \end{gather}
 where $\sigma_y$ is the yield stress (the stress at which the deformation starts to be plastic) and $K$ and $n$ are model parameters.
+
+%\paragraph{Viscous response}
+
+
+%, viscoelastic, and viscoplastic\footnote{What about pure viscosity}.
+%Furthermore, the viscoelastic response is time-dependent, combining the elastic and viscous behaviors.
+%Finally, the viscoplastic combines the irreversible plastic strain with rate-dependent viscous effects [\textbf{cite}].
+
+
 
 %\paragraph{Viscoelastic relation} 
 A viscoelastic deformation is defined as the process by which a material partially ``stores'' elastic energy and partially dissipates energy.
