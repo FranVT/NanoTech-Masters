@@ -63,6 +63,8 @@
 %	ESSAY BODY
 %----------------------------------------------------------------------------------------
 
+\justifying
+
 \section{Introducción}
 Hola, mcuhas gracias por estar aquí.
 
@@ -135,21 +137,34 @@ Si de alguna forma, logran hacer una gelatina microscopica, entonces lograron si
 
 \subsection{Aplicaciones de los geles}
 
-Y entonces?
-Para que tanto rollo con los hidrogeles.
-Pues resulta que el hecho de restinguir que la fase dispersa sea agua en materiales gelatinosos, hace que los polímeros que forman la fase continua sean hidrofílicas e incrementa la probabilidad de encontrar polímeros biocompatibles.
-Y el hecho de tener un material biocompatible permite desarrollar las siguientes aplicaciones, despacho controlado de medicamento, auxiliar para el cultivo de piel, o el diseño de lentes de contacto.
-
-También los hidrogeles se pueden aplicar en sistemas de retención de contaminantes en agua, pero por el tamaño es más común en sensores de contaminantes.
-También es posible aplicaciones en electrónica flexible.
+Además de ser comida o geles para cabello, los hidrogeles, con los monómeros correctos, pueden ser biocomplatibles y tener aplicaciones como liberación controlada de medicamentos, impresión de piel, lentes de contacto, entre otros.
+Además se pueden implementar sensoters de metales pesados como oro, cadmio o arsénico o en la creación de pruebas de conceptos de electrónica flexible.
+Así que el caracterizar la respuesta mecánica de estos materiales ayuda mucho para proceso de diseño de las aplicaciones y también para los procesos de manufactura.
 
 \subsection{Y entonces que onda con la Tesis}
 
-Ahora, ya que tenemos todo este contexto, les puedo comentar que lo que se hizo en la Tesis, es buscar una forma de simular hidrogeles para analizar la respuesta mecánica, con la tirada de poder conectar la respuesta mecánica con las características de la fase continua.
-Es decir, qué hice simulaciones para ver si estás pueden ayudar en describir la respuesta mecánica a partir de si la red está semi rota o si está toda enmarañada o si tiene loops.
-Como spoiler, si se puede usar.
+Ahora, ya que tenemos todo este contexto, les puedo comentar que lo que se hizo en la Tesis, es buscar una forma de simular hidrogeles para analizar la respuesta mecánica, con el objetivo de poder conectar la respuesta mecánica con las características de la red polimérica.
+El fin último, sería poder diseñar una red polimérica que tenga una respuesta mecánica deseada y apartir de ahí diseñar los procesos de síntesis/fabricación del hidrogel.
 
-Pero antes de poder explicar a detalle esto de las simulaciones, ocupamos saber a que me refiero con respuesta mecánica y porque nos enfocamos en eso y no entras cosas, como el proceso de síntesis y así.
+\section{Respuesta mecánica}
+
+Antes de pasar a ver la metodología y resultados, necesitamos ponernos en contexto con las distintas respuestas mecánicas que hay y cuáles son las que están presentes en los hidrogeles.
+
+Hay 3 respuestas mecánicas \emph{ideales} o \emph{puras}.
+Son respuesta elástica, plástica y viscosa.
+La respuesta elástica es cuando hay una deformación instantánea cuando se deforma el material y se regresa a su posición inicial después interrumpir la deformación.
+La respuesta plástica es cuando la deformación se va desarrolando en el tiempo y cuando se termina la deformación, el material se quedá en la posición final.
+Finalmente, la respuesta viscosa, es cuando la deformación se transforma en energía térmica y se disipa en el material.
+
+Sin embargo, los hidrogeles tiene una respuesta mecánica visco-elástica.
+Es decir, que tinen una respuesta elástica, pero durante esa deformación elástica hay un proceso de disipación de energía.
+Esto hace sentido.
+La respuestá elaśtica está asociada a la respuesta de la red polimérica, mientrás que la respuesta viscosa está relacionada con la disipación de energía que se da cuando la red polimérica interactúa con el agua.
+Es como tener una liga amarrada a una piedra sumergida en aceite.
+Cuando jalas la liga, está de se estira de forma elástica.
+Pero llega un punto en que la liga se deja de estirar y empieza a mover la piedra, obtiene una deformación viscosa.
+
+
 
 \subsection{Crosslinkers: Reticulantes}
 
