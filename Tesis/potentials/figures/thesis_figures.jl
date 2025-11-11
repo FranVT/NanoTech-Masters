@@ -28,6 +28,15 @@ r_ln=0.47;
 Upatch_ij=map(s->Upatch(eps_ij,2*rad_pac,s),r);
 Uwca=map(s->WCA(eps_wca,2*rad_pat,s),r);
 
+
+UsPWell=map(s->SwapU(w,eps_ij,eps_ik,eps_jk,2*rad_pac,2*rad_pac,s,1.5*2*rad_pac),r);  
+UsPoff=map(s->SwapU(w,eps_ij,eps_ik,eps_jk,2*rad_pac,2.5*rad_pac,s,1.5*2*rad_pac),r);  
+
+
+
+#SwapU(w,eps_ij,eps_ik,eps_jk,sig_p,r_ij,r_ik,r_c)
+
+
 # 3 body of patch i
 swap_w_i=map(s->SwapU(w,eps_ij,eps_ik,eps_jk,2*rad_pac,s,r_ln,1.5*2*rad_pac),r);
 swap_2w_i=map(s->SwapU(2*w,eps_ij,eps_ik,eps_jk,2*rad_pac,s,r_ln,1.5*2*rad_pac),r);
@@ -52,12 +61,17 @@ ax_pot = Axis(fig_patch[1:1,1:1],
             xminorticksvisible = true, 
             xminorgridvisible = true,
             xminorticks = IntervalsBetween(5),
-            limits=(0.5*rad_pac,last(r),-1.5*eps_ij,10*eps_ij),
+            limits=(rad_pac,last(r),-1.5*eps_ij,1.5*eps_ij),
             backgroundcolor = :transparent
          )
 
 #lines!(ax_pot,r,Uwca, linewidth=0.1cm)
 lines!(ax_pot,r,Upatch_ij)
+lines!(ax_pot,r,UsPWell)
+#lines!(ax_pot,r,UsPoff)
+
+
+
 #lines!(ax_pot,r,Upatch_ij.+swap_w_i)
 #lines!(ax_pot,r,Upatch_ij.+swap_2w_i)
 
