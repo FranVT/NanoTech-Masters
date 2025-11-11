@@ -2,7 +2,7 @@
     Script for correction in the potentials
 """
 
-using GLMakie
+using CairoMakie
 
 # Create the functions
 function WCA(eps_pair,sig_p,r)

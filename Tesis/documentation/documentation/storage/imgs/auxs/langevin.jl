@@ -2,7 +2,7 @@
     Script to see the relations of friction and viscouse force sin langevin thermostat.
 """
 
-using GLMakie
+using CairoMakie
 
 kB=1;
 T=0.05;
