@@ -1,0 +1,3012 @@
+%!PS-Adobe-2.0 EPSF-2.0
+%%BoundingBox: 98 84 496 347
+%%Creator: Igor
+%%Title: Layout1
+%%Creation Date: jeu. 21 avr. 2011 13:33
+%%DocumentFonts:  (atend) 
+%%EndComments
+0 444 translate  1 -1 scale
+/IgorSave save def
+
+1000 dict begin
+
+0 setgray 0 setlinecap
+1 setlinewidth 0 setlinejoin
+1 setmiterlimit [] 0 setdash
+
+/aw 0 def 	/ah 0 def
+/x0 0 def	/y0 0 def	/x1 0 def	/y1 0 def
+/rx0 0 def	/ry0 0 def	/rx1 0 def	/ry1 0 def
+/tmp0 0 def /tmp1 0 def
+/packedRed 0 def /packedGreen 0 def /packedBlue 0 def
+/x 0 def	/y 0 def	/w 0 def	/c 0 string def
+
+/rbak 1 def	/gbak 1 def	/bbak 1 def
+/rfor 0 def	/gfor 0 def	/bfor 0 def
+
+/bdef{bind def}bind def
+/ldef{load def}bdef
+/xdef{exch def}bdef
+
+/setuserscreendict 22 dict def
+setuserscreendict begin
+
+/tempctm matrix def
+/temprot matrix def
+/tempscale matrix def
+
+/concatprocs{
+	/proc2 exch cvlit def
+	/proc1 exch cvlit def
+	/newproc proc1 length proc2 length add array def
+	newproc 0 proc1 putinterval
+	newproc proc1 length proc2 putinterval
+	newproc cvx
+}def
+
+/resmatrix matrix def
+/findresolution{
+	72 0 resmatrix defaultmatrix dtransform
+	/yres xdef /xres xdef
+	xres dup mul yres dup mul add sqrt
+}def
+end
+
+/setuserscreen{
+  setuserscreendict begin
+	/spotfunction xdef
+	/screenangle xdef
+	/cellsize xdef
+	
+	/m tempctm currentmatrix def
+	/rm screenangle temprot rotate def
+	/sm cellsize dup tempscale scale def
+	
+	sm rm m m concatmatrix m concatmatrix pop
+	1 0 m dtransform /y1 xdef /x1 xdef
+	/veclength x1 dup mul y1 dup mul add sqrt def
+	/frequency findresolution veclength div def
+	/newscreenangle y1 x1 atan def
+	m 2 get m 1 get mul m 0 get m 3 get mul sub 0 gt
+	{
+		{ neg } /spotfunction load concatprocs
+		/spotfunction xdef
+	} if
+	frequency newscreenangle /spotfunction load setscreen
+  end
+}def
+
+/setpatterndict 18 dict def
+setpatterndict begin
+/bitison{
+	/ybit xdef /xbit xdef
+	/bytevalue bstring ybit bwidth mul xbit 8 idiv add get def
+	/mask 1 7 xbit 8 mod sub bitshift def
+	bytevalue mask and 0 ne
+}def
+end
+
+/bitpatternspotfunction{
+  setpatterndict begin
+	/y xdef /x xdef
+	/xindex x 1 add 2 div bpside mul cvi def
+	/yindex y 1 add 2 div bpside mul cvi def
+	xindex yindex bitison
+	{ /onbits onbits 1 add def 1 }
+	{ /offbits offbits 1 add def 0 }
+	ifelse
+  end
+}def
+
+/setpattern{
+  setpatterndict begin
+	/cellsz xdef
+	/angle xdef
+	/bwidth xdef
+	/bpside xdef
+	/bstring xdef
+	
+	/onbits 0 def /offbits 0 def
+	cellsz angle /bitpatternspotfunction load setuserscreen
+	{} settransfer
+	offbits offbits onbits add div setgray
+  end
+}def
+
+/FillPattern{	% patternstring --
+	/pat xdef
+	gsave
+	pat 8 1 0 72 300 32 div div setpattern
+	fill
+	grestore
+}def
+
+
+
+/UseBack{ rbak gbak bbak setrgbcolor }bdef
+/UseFore{ rfor gfor bfor setrgbcolor }bdef
+/SetBack {/bbak xdef /gbak xdef /rbak xdef }bdef
+/SetFore {/bfor xdef /gfor xdef /rfor xdef }bdef
+
+
+/ps {setlinewidth} bdef	
+/clw {currentlinewidth} bdef
+/sd {0 setdash} bdef
+
+/mstroke {0 clw eq {newpath}{stroke} ifelse} bdef
+
+/_R{ .5 sub round .5 add}bdef
+/allign { transform _R exch _R exch itransform }bdef
+/L {allign lineto} bdef
+/M {allign moveto} bdef
+
+/addto { dup load exec 3 -1 roll add store }bdef
+/MacLine{		% xto yto xfrom yfrom MacLine --
+	newpath		% only handles horizontal or vertical lines
+	/y0 xdef /x0 xdef /y1 xdef /x1 xdef
+	x1 x0 sub abs
+	y1 y0 sub abs gt
+	{clw x1 x0 gt {/x1}{/x0}ifelse  addto  clw 2 div dup /y0 addto /y1 addto}
+	{clw y1 y0 gt {/y1}{/y0}ifelse  addto  clw 2 div dup /x0 addto /x1 addto}
+	ifelse
+	x0 y0 M
+	x1 y1 L
+	mstroke
+}bdef
+
+/FillPath{		% graylevel FillPath --   fills current path and leaves path alive
+	gsave
+	dup 1 exch sub		% glev 1-glev
+	rbak 2 index mul	rfor 2 index mul add
+	gbak 3 index mul	gfor 3 index mul add
+	bbak 4 index mul	bfor 4 index mul add
+	setrgbcolor
+	pop pop
+	fill
+	grestore
+}bdef
+
+/StrokePath{		% linejoin StrokePath --   strokes current path and leaves path alive
+	gsave
+	setlinejoin
+	mstroke
+	grestore
+}bdef
+
+/RectPath{		% x0 y0 x1 y1 RectPath -- sets current path to a rectange
+	/y1 xdef /x1 xdef /y0 xdef /x0 xdef
+	newpath
+	x0 y0 M
+	x1 y0 L
+	x1 y1 L
+	x0 y1 L
+	closepath
+}bdef
+
+/PaintRect{		% x0 y0 x1 y1 graylevel PaintRect --
+	gsave
+	5 1 roll
+	RectPath
+	FillPath
+	grestore
+}bdef
+
+
+
+
+% **** begin image stuff *****
+% The following are used for images. This has to be kept
+% in synch with corresponding code in ImageDisp.c.In particular
+% the expansion factor, 8, has to be in synch.
+% packedcolor is (red*256+green)*256+blue
+
+/SetPackedColor{	% packedcolor SetPackedColor --
+	dup 256 mod /tmp0 xdef	% extract blue
+	256 idiv
+	dup 256 mod /tmp1 xdef	% extract green
+	256 idiv 				% extract red
+	255 div /packedRed xdef
+	tmp1 255 div /packedGreen xdef
+	tmp0 255 div /packedBlue xdef
+}bdef
+
+/IR_FillRect{
+	gsave
+	newpath
+	rx0 ry0 M
+	rx1 ry0 L
+	rx1 ry1 L
+	rx0 ry1 L
+	closepath
+	packedRed packedGreen packedBlue setrgbcolor
+	fill
+	grestore
+}bdef
+
+/NewRectImageLine{	% x0 y0 x1 y1 packedcolor NewRectImageLine --
+	SetPackedColor
+
+	/ry1 xdef /rx1 xdef /ry0 xdef /rx0 xdef	% remember starting rectange for following calls
+	
+	IR_FillRect
+}bdef
+
+/rx{		% xdist rx --
+	8 div
+	dup 0 lt
+	{ rx0 /rx1 xdef rx1 add /rx0 xdef }		% neg delta steps left
+	{ rx1 /rx0 xdef rx0 add /rx1 xdef }
+	ifelse
+	IR_FillRect
+}bdef
+
+/ry{		% ydist rr --
+	8 div
+	dup 0 lt
+	{ ry1 /ry0 xdef ry0 exch sub /ry1 xdef }		% neg delta steps down
+	{ ry0 /ry1 xdef ry1 exch sub /ry0 xdef }
+	ifelse
+	IR_FillRect
+}bdef
+
+
+/cx{		% xdist packedcolor cx --
+	SetPackedColor
+	rx
+}bdef
+
+/cy{		% ydist packedcolor cx --
+	SetPackedColor
+	ry
+}bdef
+
+% **** end image stuff *****
+
+
+
+/EraseRect{		% x0 y0 x1 y1 EraseRect --  fills rect with background color
+	gsave
+	RectPath
+	UseBack fill
+	grestore
+}bdef
+
+/FrameRect{		% x0 y0 x1 y1 FrameRect --
+	RectPath
+	mstroke
+}bdef
+
+/FrameMacRect{		% x0 y0 x1 y1 FrameMacRect --  Mac-like version
+	RectPath
+	mstroke
+}bdef
+
+
+/ellipse{
+	/savematrix matrix currentmatrix def
+	translate scale 0 0 1 0 360 arc
+	savematrix setmatrix
+}bdef
+
+
+
+/OvalPath{		% x0 y0 x1 y1 OvalPath -- sets current path to an oval inside rectange
+	/y1 xdef /x1 xdef /y0 xdef /x0 xdef
+	newpath
+	x0 x1 sub abs 2 div y0 y1 sub abs 2 div x0 x1 add 2 div y0 y1 add 2 div ellipse
+	closepath
+}bdef
+
+
+/PaintOval{		% x0 y0 x1 y1 graylevel PaintOval --
+	gsave
+	5 1 roll
+	OvalPath
+	FillPath
+	grestore
+}bdef
+
+/EraseOval{		% x0 y0 x1 y1 EraseOval --  fills with background color
+	gsave
+	OvalPath
+	UseBack fill
+	grestore
+}bdef
+
+/FrameOval{		% x0 y0 x1 y1 FrameOval --
+	OvalPath
+	mstroke
+}bdef
+
+
+/RRectPath{		% x0 y0 x1 y1 r OvalPath -- sets current path to rounded rectange, radius r
+	/radius xdef
+	/y1 xdef /x1 xdef /y0 xdef /x0 xdef
+	newpath
+	x0 radius add y0 M
+	x1 y0 x1 y1 radius arcto 4{pop}repeat
+	x1 y1 x0 y1 radius arcto 4{pop}repeat
+	x0 y1 x0 y0 radius arcto 4{pop}repeat
+	x0 y0 x1 y0 radius arcto 4{pop}repeat
+	closepath
+}bdef
+
+
+/PaintRRect{		% x0 y0 x1 y1 r graylevel PaintRRect --
+	gsave
+	6 1 roll
+	RRectPath
+	FillPath
+	grestore
+}bdef
+
+/EraseRRect{		% x0 y0 x1 y1 r EraseRRect --  fills rect with background color
+	gsave
+	RRectPath
+	UseBack fill
+	grestore
+}bdef
+
+/FrameRRect{		% x0 y0 x1 y1 r FrameRect --
+	RRectPath
+	mstroke
+}bdef
+
+
+
+
+/CapLine{		% x0 y0 x1 y1 linecap CapLine -- draws line using given line cap
+	gsave
+	setlinecap
+	/y1 xdef /x1 xdef /y0 xdef /x0 xdef
+	newpath
+	x0 y0 M
+	x1 y1 L
+	mstroke
+	grestore
+}bdef
+
+/Arrow{		% x0 y0 x1 y1 width height graylevel Arrow -- draws arrow at end of line from P0 to P1
+	gsave
+	/gl xdef 1 add /aw xdef 1 add /ah xdef /y0 xdef /x0 xdef /y1 xdef /x1 xdef 
+	x0 y0 translate
+	/x1 x1 x0 sub def
+	/y1 y1 y0 sub def
+	y1 x1 atan rotate
+	newpath
+	0 0 M
+	aw ah 2 div L
+	aw ah 2 div neg L
+	closepath
+	gl FillPath
+%	10 setmiterlimit
+%	1 ps
+%	0 StrokePath
+	grestore
+}bdef
+
+
+% ************ fonts ************
+
+
+/normal 0 def
+/bold 1 def
+/italic 2 def
+/underline 4 def
+/outline 8 def
+/shadow 16 def
+
+/FACE1 bold italic or def
+/FACE2 outline shadow or def
+
+/Shadow {
+	gsave
+	siz 0.08 mul 1 index mul x add
+	exch siz 0.07 mul mul y add M
+	c show
+	grestore
+} def
+
+/Outline {
+	gsave
+	siz .02 mul setlinewidth
+	x y M c true charpath
+	gsave UseBack fill grestore stroke
+	grestore
+} def
+
+/Underline{
+	gsave
+	siz 0.08 mul ps
+	x y clw add M x c stringwidth pop add y clw add L stroke
+	grestore
+}bdef
+
+/DoShow{	% assumes x,y,c are already set
+	fontkind FACE2 and
+	dup normal eq 				{c x y M show} if
+	dup outline eq 				{Outline} if
+	dup shadow eq 				{1 Shadow Outline} if
+	outline shadow or eq 		{1 Shadow 1.5 Shadow Outline} if
+	fontkind underline and 0 ne { Underline } if
+}bdef
+
+/DoWShow{	% assumes x,y,c & w are already set
+	gsave
+	x y translate
+	/x 0 def  /y 0 def
+	w c stringwidth pop div 1 scale
+	DoShow
+	grestore
+}bdef
+
+/S{
+	/y xdef /x xdef /c xdef
+	DoShow
+}bdef
+
+/WS{		% string x y desiredwidth WS -
+	/w xdef /y xdef /x xdef /c xdef
+	DoWShow
+}bdef
+
+/F{
+	/fontkind xdef
+	findfont exch /siz xdef [siz 0 0 siz neg  0 0] makefont setfont
+}bdef
+
+
+
+/Re-encode {
+	dup length array copy
+	/eap 0 def
+	exch {
+		dup type /integertype eq
+		{ /eap xdef }
+		{
+			1 index
+			exch
+			eap exch
+			put
+			/eap eap 1 add def
+		}
+		ifelse
+	} forall
+} bind def
+
+[ 39/quotesingle 96/grave 128/.notdef/.notdef/quotesinglbase
+/florin/quotedblbase/ellipsis/dagger/daggerdbl/circumflex
+/perthousand/Scaron/guilsinglleft/OE/.notdef/.notdef
+/.notdef/.notdef/quoteleft/quoteright/quotedblleft/quotedblright
+/bullet/endash/emdash/tilde/trademark/scaron/guilsinglright
+/oe/.notdef/.notdef/Ydieresis/.notdef/exclamdown/cent
+/sterling/currency/yen/brokenbar/section/dieresis/copyright
+/ordfeminine/guillemotleft/logicalnot/.notdef/registered
+/macron/degree/plusminus/twosuperior/threesuperior/acute
+/mu/paragraph/periodcentered/cedilla/onesuperior/ordmasculine
+/guillemotright/onequarter/onehalf/threequarters/questiondown
+/Agrave/Aacute/Acircumflex/Atilde/Adieresis/Aring/AE
+/Ccedilla/Egrave/Eacute/Ecircumflex/Edieresis/Igrave
+/Iacute/Icircumflex/Idieresis/Eth/Ntilde/Ograve/Oacute
+/Ocircumflex/Otilde/Odieresis/multiply/Oslash/Ugrave
+/Uacute/Ucircumflex/Udieresis/Yacute/Thorn/germandbls
+/agrave/aacute/acircumflex/atilde/adieresis/aring/ae
+/ccedilla/egrave/eacute/ecircumflex/edieresis/igrave
+/iacute/icircumflex/idieresis/eth/ntilde/ograve/oacute
+/ocircumflex/otilde/odieresis/divide/oslash/ugrave/uacute
+/ucircumflex/udieresis/yacute/thorn/ydieresis]
+/zzz xdef
+
+/OurEncoding{ zzz StandardEncoding Re-encode }bdef
+
+/EncodeFont	{
+	findfont
+	dup length dict begin
+	{
+		1 index /FID ne
+		{ def }
+		{ pop pop }
+		ifelse
+	} forall
+	/FontName xdef
+	/Encoding xdef
+	FontName currentdict
+	end
+	definefont pop
+} bind def
+
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+0 0 translate
+AnObj restore
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+95 85 translate
+1.00 ps
+gsave 1.00 ps 55.88 18.12 55.88 227.75 0 CapLine grestore
+gsave 1.00 ps 384.00 18.12 384.00 227.75 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 384.50 18.12 380.50 18.12 0 CapLine grestore
+gsave 1.00 ps 55.38 18.12 59.38 18.12 0 CapLine grestore
+1 ps
+ OurEncoding /_Helvetica /Helvetica EncodeFont
+15.00 (_Helvetica) 0 F
+(105) 29.13 24.00 24.75 WS
+1.00 ps
+gsave 1.00 ps 384.50 60.00 380.50 60.00 0 CapLine grestore
+gsave 1.00 ps 55.38 60.00 59.38 60.00 0 CapLine grestore
+1 ps
+15.00 (_Helvetica) 0 F
+(100) 29.13 65.88 24.75 WS
+1.00 ps
+gsave 1.00 ps 384.50 102.00 380.50 102.00 0 CapLine grestore
+gsave 1.00 ps 55.38 102.00 59.38 102.00 0 CapLine grestore
+1 ps
+15.00 (_Helvetica) 0 F
+(95) 37.38 107.87 16.50 WS
+1.00 ps
+gsave 1.00 ps 384.50 143.88 380.50 143.88 0 CapLine grestore
+gsave 1.00 ps 55.38 143.88 59.38 143.88 0 CapLine grestore
+1 ps
+15.00 (_Helvetica) 0 F
+(90) 37.38 149.75 16.50 WS
+1.00 ps
+gsave 1.00 ps 384.50 185.88 380.50 185.88 0 CapLine grestore
+gsave 1.00 ps 55.38 185.88 59.38 185.88 0 CapLine grestore
+1 ps
+15.00 (_Helvetica) 0 F
+(85) 37.38 191.75 16.50 WS
+1.00 ps
+gsave 1.00 ps 384.50 227.75 380.50 227.75 0 CapLine grestore
+gsave 1.00 ps 55.38 227.75 59.38 227.75 0 CapLine grestore
+1 ps
+15.00 (_Helvetica) 0 F
+(80) 37.38 233.63 16.50 WS
+15.00 (_Helvetica) 0 F
+gsave 15.00 148.00 translate -90 rotate
+( G' \(Pa\)) 0.00 0.00 50.25 WS
+grestore
+1.00 ps
+gsave 1.00 ps 55.88 227.75 384.00 227.75 0 CapLine grestore
+gsave 1.00 ps 55.88 18.12 384.00 18.12 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 384.00 17.62 384.00 21.62 0 CapLine grestore
+gsave 1.00 ps 384.00 228.25 384.00 224.25 0 CapLine grestore
+1 ps
+15.00 (_Helvetica) 0 F
+(1000) 367.50 245.25 33.00 WS
+1.00 ps
+gsave 1.00 ps 318.38 17.62 318.38 21.62 0 CapLine grestore
+gsave 1.00 ps 318.38 228.25 318.38 224.25 0 CapLine grestore
+1 ps
+15.00 (_Helvetica) 0 F
+(800) 306.00 245.25 24.75 WS
+1.00 ps
+gsave 1.00 ps 252.75 17.62 252.75 21.62 0 CapLine grestore
+gsave 1.00 ps 252.75 228.25 252.75 224.25 0 CapLine grestore
+1 ps
+15.00 (_Helvetica) 0 F
+(600) 240.38 245.25 24.75 WS
+1.00 ps
+gsave 1.00 ps 187.13 17.62 187.13 21.62 0 CapLine grestore
+gsave 1.00 ps 187.13 228.25 187.13 224.25 0 CapLine grestore
+1 ps
+15.00 (_Helvetica) 0 F
+(400) 174.75 245.25 24.75 WS
+1.00 ps
+gsave 1.00 ps 121.50 17.62 121.50 21.62 0 CapLine grestore
+gsave 1.00 ps 121.50 228.25 121.50 224.25 0 CapLine grestore
+1 ps
+15.00 (_Helvetica) 0 F
+(200) 109.13 245.25 24.75 WS
+1.00 ps
+gsave 1.00 ps 55.88 17.62 55.88 21.62 0 CapLine grestore
+gsave 1.00 ps 55.88 228.25 55.88 224.25 0 CapLine grestore
+1 ps
+15.00 (_Helvetica) 0 F
+(0) 51.75 245.25 8.25 WS
+15.00 (_Helvetica) 0 F
+(t \(s\)) 205.88 270.88 28.00 WS
+1.00 ps
+newpath 57.50 218.88 M
+59.13 161.00 L
+60.75 147.88 L
+62.50 138.38 L
+64.13 132.63 L
+65.75 127.88 L
+67.37 123.38 L
+69.00 120.00 L
+70.62 116.88 L
+72.25 114.25 L
+73.87 111.50 L
+75.62 109.50 L
+77.25 107.13 L
+78.87 105.13 L
+80.50 103.62 L
+82.12 101.62 L
+83.75 100.50 L
+85.38 98.87 L
+87.00 97.25 L
+88.75 95.75 L
+90.38 94.38 L
+92.00 93.25 L
+93.62 92.12 L
+95.25 91.12 L
+96.88 90.00 L
+98.50 89.25 L
+100.13 88.25 L
+101.88 87.50 L
+103.50 86.12 L
+105.13 85.12 L
+106.75 84.62 L
+108.38 83.87 L
+110.00 82.88 L
+111.63 81.88 L
+113.25 81.25 L
+115.00 80.75 L
+116.63 79.63 L
+118.25 78.75 L
+119.88 78.50 L
+121.50 78.38 L
+123.13 77.37 L
+124.75 76.87 L
+126.38 76.25 L
+128.13 75.25 L
+129.75 74.87 L
+131.38 74.37 L
+133.00 73.75 L
+134.63 72.75 L
+136.25 72.13 L
+137.88 72.37 L
+139.50 72.00 L
+141.25 70.62 L
+142.88 70.00 L
+144.50 70.38 L
+146.13 70.12 L
+147.75 68.87 L
+149.38 67.88 L
+151.00 67.88 L
+152.62 67.88 L
+154.38 67.37 L
+156.00 66.87 L
+157.62 66.25 L
+159.25 65.88 L
+160.88 65.62 L
+162.50 65.25 L
+164.13 64.75 L
+165.75 64.37 L
+167.50 63.88 L
+169.13 63.38 L
+170.75 63.38 L
+172.37 62.63 L
+174.00 62.63 L
+175.62 62.50 L
+177.25 61.88 L
+178.88 61.13 L
+180.50 61.00 L
+182.25 60.75 L
+183.88 60.13 L
+185.50 60.13 L
+187.13 59.63 L
+188.75 59.00 L
+190.38 59.13 L
+192.00 58.25 L
+193.63 58.38 L
+195.38 58.38 L
+197.00 58.00 L
+198.62 57.13 L
+200.25 56.50 L
+201.88 56.13 L
+203.50 56.38 L
+205.13 56.50 L
+206.75 56.38 L
+208.50 55.88 L
+210.13 55.13 L
+211.75 54.75 L
+213.38 54.50 L
+215.00 55.13 L
+216.63 54.13 L
+218.25 53.25 L
+219.87 54.13 L
+221.62 53.38 L
+223.25 53.13 L
+224.88 53.25 L
+226.50 52.88 L
+228.13 52.50 L
+229.75 52.38 L
+231.38 51.75 L
+233.00 51.75 L
+234.75 51.50 L
+236.38 51.50 L
+238.00 50.88 L
+239.63 51.25 L
+241.25 50.75 L
+242.88 50.13 L
+244.50 49.63 L
+246.13 49.63 L
+247.88 49.63 L
+249.50 49.13 L
+251.13 49.00 L
+252.75 48.88 L
+254.38 48.75 L
+256.00 48.50 L
+257.63 48.50 L
+259.38 47.88 L
+261.00 47.50 L
+262.63 47.50 L
+264.25 47.63 L
+265.88 46.88 L
+267.50 47.13 L
+269.13 46.75 L
+270.75 46.25 L
+272.50 46.38 L
+274.13 46.25 L
+275.75 46.00 L
+277.38 46.13 L
+279.00 45.75 L
+280.63 45.88 L
+282.25 46.00 L
+283.88 45.13 L
+285.63 44.63 L
+287.25 44.13 L
+288.88 44.38 L
+290.50 44.38 L
+292.13 44.25 L
+293.75 43.38 L
+295.38 43.88 L
+297.00 43.75 L
+298.75 43.63 L
+300.38 42.75 L
+302.00 43.00 L
+303.63 42.75 L
+305.25 42.75 L
+306.88 42.13 L
+308.50 42.25 L
+310.13 42.13 L
+311.88 42.00 L
+313.50 42.38 L
+315.13 41.88 L
+316.75 41.63 L
+318.38 41.13 L
+320.00 41.13 L
+321.63 41.00 L
+323.25 41.00 L
+325.00 40.50 L
+326.63 40.25 L
+328.25 39.63 L
+329.87 40.25 L
+331.50 39.63 L
+333.13 39.75 L
+334.75 39.25 L
+336.37 39.63 L
+338.13 39.25 L
+339.75 39.25 L
+341.38 39.50 L
+343.00 39.38 L
+344.63 39.00 L
+346.25 38.38 L
+347.88 39.13 L
+349.50 37.50 L
+351.25 37.63 L
+352.88 37.88 L
+354.50 38.50 L
+356.13 36.75 L
+357.75 37.38 L
+359.38 36.75 L
+361.00 38.88 L
+362.63 36.38 L
+364.38 36.25 L
+366.00 37.00 L
+367.62 36.88 L
+369.25 36.00 L
+370.88 36.00 L
+372.50 36.25 L
+374.13 35.88 L
+375.75 35.75 L
+377.50 35.75 L
+mstroke
+newpath 377.50 35.75 M
+379.13 35.63 L
+380.75 35.25 L
+382.38 35.38 L
+384.00 35.50 L
+mstroke
+[] sd
+1 ps
+0.50 ps
+newpath 57.50 218.88 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 59.13 161.00 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 60.75 147.88 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 62.50 138.38 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 64.13 132.63 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 65.75 127.88 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 67.37 123.38 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 69.00 120.00 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 70.62 116.88 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 72.25 114.25 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 73.87 111.50 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 75.62 109.50 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 77.25 107.13 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 78.87 105.13 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 80.50 103.62 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 82.12 101.62 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 83.75 100.50 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 85.38 98.87 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 87.00 97.25 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 88.75 95.75 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 90.38 94.38 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 92.00 93.25 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 93.62 92.12 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 95.25 91.12 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 96.88 90.00 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 98.50 89.25 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 100.13 88.25 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 101.88 87.50 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 103.50 86.12 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 105.13 85.12 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 106.75 84.62 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 108.38 83.87 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 110.00 82.88 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 111.63 81.88 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 113.25 81.25 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 115.00 80.75 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 116.63 79.63 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 118.25 78.75 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 119.88 78.50 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 121.50 78.38 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 123.13 77.37 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 124.75 76.87 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 126.38 76.25 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 128.13 75.25 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 129.75 74.87 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 131.38 74.37 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 133.00 73.75 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 134.63 72.75 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 136.25 72.13 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 137.88 72.37 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 139.50 72.00 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 141.25 70.62 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 142.88 70.00 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 144.50 70.38 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 146.13 70.12 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 147.75 68.87 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 149.38 67.88 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 151.00 67.88 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 152.62 67.88 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 154.38 67.37 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 156.00 66.87 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 157.62 66.25 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 159.25 65.88 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 160.88 65.62 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 162.50 65.25 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 164.13 64.75 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 165.75 64.37 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 167.50 63.88 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 169.13 63.38 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 170.75 63.38 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 172.37 62.63 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 174.00 62.63 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 175.62 62.50 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 177.25 61.88 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 178.88 61.13 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 180.50 61.00 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 182.25 60.75 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 183.88 60.13 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 185.50 60.13 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 187.13 59.63 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 188.75 59.00 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 190.38 59.13 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 192.00 58.25 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 193.63 58.38 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 195.38 58.38 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 197.00 58.00 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 198.62 57.13 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 200.25 56.50 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 201.88 56.13 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 203.50 56.38 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 205.13 56.50 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 206.75 56.38 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 208.50 55.88 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 210.13 55.13 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 211.75 54.75 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 213.38 54.50 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 215.00 55.13 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 216.63 54.13 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 218.25 53.25 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 219.87 54.13 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 221.62 53.38 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 223.25 53.13 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 224.88 53.25 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 226.50 52.88 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 228.13 52.50 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 229.75 52.38 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 231.38 51.75 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 233.00 51.75 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 234.75 51.50 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 236.38 51.50 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 238.00 50.88 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 239.63 51.25 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 241.25 50.75 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 242.88 50.13 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 244.50 49.63 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 246.13 49.63 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 247.88 49.63 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 249.50 49.13 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 251.13 49.00 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 252.75 48.88 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 254.38 48.75 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 256.00 48.50 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 257.63 48.50 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 259.38 47.88 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 261.00 47.50 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 262.63 47.50 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 264.25 47.63 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 265.88 46.88 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 267.50 47.13 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 269.13 46.75 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 270.75 46.25 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 272.50 46.38 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 274.13 46.25 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 275.75 46.00 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 277.38 46.13 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 279.00 45.75 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 280.63 45.88 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 282.25 46.00 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 283.88 45.13 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 285.63 44.63 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 287.25 44.13 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 288.88 44.38 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 290.50 44.38 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 292.13 44.25 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 293.75 43.38 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 295.38 43.88 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 297.00 43.75 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 298.75 43.63 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 300.38 42.75 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 302.00 43.00 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 303.63 42.75 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 305.25 42.75 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 306.88 42.13 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 308.50 42.25 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 310.13 42.13 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 311.88 42.00 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 313.50 42.38 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 315.13 41.88 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 316.75 41.63 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 318.38 41.13 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 320.00 41.13 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 321.63 41.00 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 323.25 41.00 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 325.00 40.50 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 326.63 40.25 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 328.25 39.63 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 329.87 40.25 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 331.50 39.63 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 333.13 39.75 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 334.75 39.25 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 336.37 39.63 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 338.13 39.25 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 339.75 39.25 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 341.38 39.50 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 343.00 39.38 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 344.63 39.00 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 346.25 38.38 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 347.88 39.13 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 349.50 37.50 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 351.25 37.63 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 352.88 37.88 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 354.50 38.50 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 356.13 36.75 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 357.75 37.38 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 359.38 36.75 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 361.00 38.88 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 362.63 36.38 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 364.38 36.25 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 366.00 37.00 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 367.62 36.88 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 369.25 36.00 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 370.88 36.00 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 372.50 36.25 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 374.13 35.88 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 375.75 35.75 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 377.50 35.75 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 379.13 35.63 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 380.75 35.25 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 382.38 35.38 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 384.00 35.50 3.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+1 ps
+gsave
+[ 10 10 ] sd
+gsave 1.00 ps 115.25 227.75 115.25 18.12 0 CapLine grestore
+grestore
+AnObj restore
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+0 0 translate
+AnObj restore
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+233 155 translate
+1.00 ps
+gsave 1.00 ps 49.00 15.63 49.00 127.75 0 CapLine grestore
+gsave 1.00 ps 223.50 15.63 223.50 127.75 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 224.00 15.63 220.00 15.63 0 CapLine grestore
+gsave 1.00 ps 48.50 15.63 52.50 15.63 0 CapLine grestore
+1 ps
+ OurEncoding /_Helvetica /Helvetica EncodeFont
+13.00 (_Helvetica) 0 F
+(105) 25.63 20.75 21.37 WS
+1.00 ps
+gsave 1.00 ps 224.00 38.00 220.00 38.00 0 CapLine grestore
+gsave 1.00 ps 48.50 38.00 52.50 38.00 0 CapLine grestore
+1 ps
+13.00 (_Helvetica) 0 F
+(100) 25.63 43.13 21.37 WS
+1.00 ps
+gsave 1.00 ps 224.00 60.50 220.00 60.50 0 CapLine grestore
+gsave 1.00 ps 48.50 60.50 52.50 60.50 0 CapLine grestore
+1 ps
+13.00 (_Helvetica) 0 F
+(95) 32.75 65.62 14.25 WS
+1.00 ps
+gsave 1.00 ps 224.00 82.88 220.00 82.88 0 CapLine grestore
+gsave 1.00 ps 48.50 82.88 52.50 82.88 0 CapLine grestore
+1 ps
+13.00 (_Helvetica) 0 F
+(90) 32.75 88.00 14.25 WS
+1.00 ps
+gsave 1.00 ps 224.00 105.38 220.00 105.38 0 CapLine grestore
+gsave 1.00 ps 48.50 105.38 52.50 105.38 0 CapLine grestore
+1 ps
+13.00 (_Helvetica) 0 F
+(85) 32.75 110.50 14.25 WS
+1.00 ps
+gsave 1.00 ps 224.00 127.75 220.00 127.75 0 CapLine grestore
+gsave 1.00 ps 48.50 127.75 52.50 127.75 0 CapLine grestore
+1 ps
+13.00 (_Helvetica) 0 F
+(80) 32.75 132.88 14.25 WS
+13.00 (_Helvetica) 0 F
+gsave 13.00 93.37 translate -90 rotate
+( G' \(Pa\)) 0.00 0.00 43.63 WS
+grestore
+1.00 ps
+gsave 1.00 ps 49.00 127.75 223.50 127.75 0 CapLine grestore
+gsave 1.00 ps 49.00 15.63 223.50 15.63 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 49.00 15.13 49.00 17.62 0 CapLine grestore
+gsave 1.00 ps 49.00 128.25 49.00 125.75 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 57.13 15.13 57.13 17.62 0 CapLine grestore
+gsave 1.00 ps 57.13 128.25 57.13 125.75 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 63.38 15.13 63.38 17.62 0 CapLine grestore
+gsave 1.00 ps 63.38 128.25 63.38 125.75 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 68.50 15.13 68.50 17.62 0 CapLine grestore
+gsave 1.00 ps 68.50 128.25 68.50 125.75 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 72.75 15.13 72.75 17.62 0 CapLine grestore
+gsave 1.00 ps 72.75 128.25 72.75 125.75 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 76.50 15.13 76.50 17.62 0 CapLine grestore
+gsave 1.00 ps 76.50 128.25 76.50 125.75 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 79.87 15.13 79.87 17.62 0 CapLine grestore
+gsave 1.00 ps 79.87 128.25 79.87 125.75 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 82.75 15.13 82.75 19.13 0 CapLine grestore
+gsave 1.00 ps 82.75 128.25 82.75 124.25 0 CapLine grestore
+1 ps
+13.00 (_Helvetica) 0 F
+(10) 75.62 147.37 14.25 WS
+1.00 ps
+gsave 1.00 ps 102.25 15.13 102.25 17.62 0 CapLine grestore
+gsave 1.00 ps 102.25 128.25 102.25 125.75 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 113.63 15.13 113.63 17.62 0 CapLine grestore
+gsave 1.00 ps 113.63 128.25 113.63 125.75 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 121.75 15.13 121.75 17.62 0 CapLine grestore
+gsave 1.00 ps 121.75 128.25 121.75 125.75 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 128.00 15.13 128.00 17.62 0 CapLine grestore
+gsave 1.00 ps 128.00 128.25 128.00 125.75 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 133.13 15.13 133.13 17.62 0 CapLine grestore
+gsave 1.00 ps 133.13 128.25 133.13 125.75 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 137.50 15.13 137.50 17.62 0 CapLine grestore
+gsave 1.00 ps 137.50 128.25 137.50 125.75 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 141.25 15.13 141.25 17.62 0 CapLine grestore
+gsave 1.00 ps 141.25 128.25 141.25 125.75 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 144.50 15.13 144.50 17.62 0 CapLine grestore
+gsave 1.00 ps 144.50 128.25 144.50 125.75 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 147.50 15.13 147.50 19.13 0 CapLine grestore
+gsave 1.00 ps 147.50 128.25 147.50 124.25 0 CapLine grestore
+1 ps
+13.00 (_Helvetica) 0 F
+(100) 136.88 147.37 21.37 WS
+1.00 ps
+gsave 1.00 ps 166.88 15.13 166.88 17.62 0 CapLine grestore
+gsave 1.00 ps 166.88 128.25 166.88 125.75 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 178.25 15.13 178.25 17.62 0 CapLine grestore
+gsave 1.00 ps 178.25 128.25 178.25 125.75 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 186.38 15.13 186.38 17.62 0 CapLine grestore
+gsave 1.00 ps 186.38 128.25 186.38 125.75 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 192.63 15.13 192.63 17.62 0 CapLine grestore
+gsave 1.00 ps 192.63 128.25 192.63 125.75 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 197.75 15.13 197.75 17.62 0 CapLine grestore
+gsave 1.00 ps 197.75 128.25 197.75 125.75 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 202.13 15.13 202.13 17.62 0 CapLine grestore
+gsave 1.00 ps 202.13 128.25 202.13 125.75 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 205.88 15.13 205.88 17.62 0 CapLine grestore
+gsave 1.00 ps 205.88 128.25 205.88 125.75 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 209.12 15.13 209.12 17.62 0 CapLine grestore
+gsave 1.00 ps 209.12 128.25 209.12 125.75 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 212.13 15.13 212.13 19.13 0 CapLine grestore
+gsave 1.00 ps 212.13 128.25 212.13 124.25 0 CapLine grestore
+1 ps
+13.00 (_Helvetica) 0 F
+(1000) 197.88 147.37 28.50 WS
+13.00 (_Helvetica) 0 F
+( t \(s\)) 188.12 117.37 28.38 WS
+0.664073 0.664073 0.664073 SetFore  UseFore
+2.00 ps
+newpath 49.00 107.00 M
+49.88 106.63 L
+50.75 106.12 L
+51.63 105.75 L
+52.50 105.25 L
+53.38 104.87 L
+54.25 104.38 L
+55.13 104.00 L
+56.00 103.50 L
+56.88 103.13 L
+57.75 102.62 L
+58.63 102.25 L
+59.50 101.75 L
+60.38 101.38 L
+61.25 100.88 L
+62.13 100.38 L
+63.00 100.00 L
+63.88 99.50 L
+64.75 99.13 L
+65.62 98.62 L
+66.50 98.25 L
+67.37 97.75 L
+68.25 97.37 L
+69.13 96.88 L
+70.00 96.50 L
+70.88 96.00 L
+71.75 95.63 L
+72.62 95.12 L
+73.50 94.62 L
+74.37 94.25 L
+75.25 93.75 L
+76.12 93.37 L
+77.00 92.88 L
+77.88 92.50 L
+78.87 92.00 L
+79.75 91.63 L
+80.63 91.12 L
+81.50 90.75 L
+82.37 90.25 L
+83.25 89.87 L
+84.13 89.38 L
+85.00 88.87 L
+85.87 88.50 L
+86.75 88.00 L
+87.62 87.62 L
+88.50 87.12 L
+89.38 86.75 L
+90.25 86.25 L
+91.12 85.87 L
+92.00 85.38 L
+92.88 85.00 L
+93.75 84.50 L
+94.62 84.13 L
+95.50 83.62 L
+96.37 83.13 L
+97.25 82.75 L
+98.13 82.25 L
+99.00 81.88 L
+99.87 81.37 L
+100.75 81.00 L
+101.62 80.50 L
+102.50 80.12 L
+103.38 79.63 L
+104.25 79.25 L
+105.13 78.75 L
+106.00 78.38 L
+106.88 77.88 L
+107.75 77.50 L
+108.63 77.00 L
+109.50 76.50 L
+110.38 76.12 L
+111.25 75.62 L
+112.13 75.25 L
+113.00 74.75 L
+113.88 74.37 L
+114.75 73.87 L
+115.63 73.50 L
+116.50 73.00 L
+117.37 72.62 L
+118.25 72.13 L
+119.13 71.75 L
+120.00 71.25 L
+120.88 70.75 L
+121.75 70.38 L
+122.63 69.87 L
+123.50 69.50 L
+124.38 69.00 L
+125.25 68.62 L
+126.13 68.12 L
+127.00 67.75 L
+127.88 67.25 L
+128.75 66.87 L
+129.63 66.37 L
+130.50 66.00 L
+131.38 65.50 L
+132.25 65.00 L
+133.13 64.63 L
+134.00 64.13 L
+134.87 63.75 L
+135.75 63.25 L
+136.75 62.88 L
+137.63 62.38 L
+138.50 62.00 L
+139.38 61.50 L
+140.25 61.13 L
+141.12 60.63 L
+142.00 60.25 L
+142.88 59.75 L
+143.75 59.25 L
+144.63 58.88 L
+145.50 58.38 L
+146.37 58.00 L
+147.25 57.50 L
+148.13 57.13 L
+149.00 56.63 L
+149.88 56.25 L
+150.75 55.75 L
+151.63 55.38 L
+152.50 54.88 L
+153.38 54.50 L
+154.25 54.00 L
+155.13 53.63 L
+156.00 53.13 L
+156.88 52.63 L
+157.75 52.25 L
+158.63 51.75 L
+159.50 51.38 L
+160.38 50.88 L
+161.25 50.50 L
+162.13 50.00 L
+163.00 49.63 L
+163.88 49.13 L
+164.75 48.75 L
+165.62 48.25 L
+166.50 47.88 L
+167.37 47.38 L
+168.25 46.88 L
+169.13 46.50 L
+170.00 46.00 L
+170.88 45.63 L
+171.75 45.13 L
+172.63 44.75 L
+173.50 44.25 L
+174.38 43.88 L
+175.25 43.38 L
+176.13 43.00 L
+177.00 42.50 L
+177.88 42.13 L
+178.75 41.63 L
+179.63 41.13 L
+180.50 40.75 L
+181.38 40.25 L
+182.25 39.88 L
+183.12 39.38 L
+184.00 39.00 L
+184.87 38.50 L
+185.75 38.13 L
+186.63 37.63 L
+187.50 37.25 L
+188.38 36.75 L
+189.25 36.38 L
+190.13 35.88 L
+191.00 35.50 L
+191.88 35.00 L
+192.75 34.50 L
+193.63 34.13 L
+194.63 33.63 L
+195.50 33.25 L
+196.38 32.75 L
+197.25 32.38 L
+198.13 31.88 L
+199.00 31.50 L
+199.88 31.00 L
+200.75 30.63 L
+201.63 30.12 L
+202.50 29.75 L
+203.38 29.25 L
+204.25 28.75 L
+205.13 28.38 L
+206.00 27.88 L
+206.88 27.50 L
+207.75 27.00 L
+208.63 26.63 L
+209.50 26.12 L
+210.38 25.75 L
+211.25 25.25 L
+212.13 24.87 L
+213.00 24.38 L
+213.88 24.00 L
+214.75 23.50 L
+215.63 23.00 L
+216.50 22.62 L
+217.37 22.13 L
+218.25 21.75 L
+219.13 21.25 L
+220.00 20.88 L
+mstroke
+newpath 220.00 20.88 M
+220.88 20.37 L
+221.75 20.00 L
+222.63 19.50 L
+223.50 19.13 L
+mstroke
+[] sd
+1 ps
+0 0 0 SetFore  UseFore
+1.00 ps
+newpath 63.38 123.00 M
+82.75 92.12 L
+94.25 85.00 L
+102.25 80.00 L
+108.50 76.87 L
+113.63 74.37 L
+118.00 71.87 L
+121.75 70.12 L
+125.00 68.38 L
+128.00 67.13 L
+130.63 65.62 L
+133.13 64.50 L
+135.38 63.25 L
+137.50 62.13 L
+139.38 61.38 L
+141.25 60.25 L
+142.88 59.63 L
+144.50 58.88 L
+146.00 58.00 L
+147.50 57.13 L
+148.88 56.38 L
+150.13 55.75 L
+151.37 55.25 L
+152.62 54.63 L
+153.75 54.00 L
+154.87 53.63 L
+155.88 53.13 L
+156.88 52.75 L
+157.88 52.00 L
+158.87 51.50 L
+159.75 51.13 L
+160.63 50.75 L
+161.50 50.25 L
+162.38 49.75 L
+163.12 49.38 L
+164.00 49.13 L
+164.75 48.50 L
+165.50 48.00 L
+166.25 47.88 L
+166.88 47.88 L
+167.63 47.38 L
+168.25 47.00 L
+169.00 46.63 L
+169.63 46.25 L
+170.25 46.00 L
+170.88 45.75 L
+171.50 45.38 L
+172.00 44.88 L
+172.63 44.50 L
+173.25 44.63 L
+173.75 44.50 L
+174.25 43.75 L
+174.88 43.38 L
+175.38 43.50 L
+175.88 43.38 L
+176.38 42.75 L
+176.87 42.25 L
+177.38 42.25 L
+177.88 42.25 L
+178.25 42.00 L
+178.75 41.75 L
+179.25 41.38 L
+179.63 41.13 L
+180.13 41.00 L
+180.50 40.88 L
+181.00 40.63 L
+181.38 40.38 L
+181.87 40.13 L
+182.25 39.88 L
+182.63 39.88 L
+183.00 39.38 L
+183.38 39.38 L
+183.88 39.38 L
+184.25 39.00 L
+184.63 38.63 L
+185.00 38.63 L
+185.38 38.38 L
+185.63 38.13 L
+186.00 38.13 L
+186.38 37.88 L
+186.75 37.50 L
+187.13 37.50 L
+187.38 37.00 L
+187.75 37.13 L
+188.12 37.13 L
+188.38 37.00 L
+188.75 36.50 L
+189.13 36.13 L
+189.37 36.00 L
+189.75 36.13 L
+190.00 36.13 L
+190.25 36.13 L
+190.62 35.75 L
+190.88 35.50 L
+191.25 35.25 L
+191.50 35.13 L
+191.75 35.38 L
+192.13 34.88 L
+192.37 34.50 L
+192.63 34.88 L
+192.88 34.50 L
+193.25 34.38 L
+193.50 34.38 L
+193.75 34.25 L
+194.00 34.00 L
+194.25 34.00 L
+194.50 33.63 L
+194.88 33.63 L
+195.13 33.50 L
+195.38 33.50 L
+195.63 33.13 L
+195.88 33.38 L
+196.12 33.00 L
+196.38 32.75 L
+196.63 32.50 L
+196.88 32.50 L
+197.00 32.50 L
+197.25 32.25 L
+197.50 32.13 L
+197.75 32.13 L
+198.00 32.00 L
+198.25 31.88 L
+198.50 31.88 L
+198.75 31.50 L
+198.88 31.37 L
+199.13 31.37 L
+199.38 31.37 L
+199.63 31.00 L
+199.75 31.12 L
+200.00 30.88 L
+200.25 30.63 L
+200.50 30.75 L
+200.63 30.75 L
+200.88 30.50 L
+201.12 30.63 L
+201.25 30.38 L
+201.50 30.50 L
+201.75 30.50 L
+201.88 30.12 L
+202.13 29.75 L
+202.25 29.50 L
+202.50 29.63 L
+202.75 29.63 L
+202.87 29.63 L
+203.13 29.13 L
+203.25 29.38 L
+203.50 29.25 L
+203.63 29.25 L
+203.88 28.87 L
+204.00 28.87 L
+204.25 28.75 L
+204.38 28.75 L
+204.63 28.38 L
+204.75 28.50 L
+205.00 28.50 L
+205.13 28.38 L
+205.38 28.62 L
+205.50 28.25 L
+205.63 28.13 L
+205.88 28.00 L
+206.00 27.88 L
+206.25 27.88 L
+206.38 27.88 L
+206.50 27.62 L
+206.75 27.50 L
+206.88 27.13 L
+207.00 27.50 L
+207.25 27.13 L
+207.37 27.25 L
+207.50 27.00 L
+207.75 27.13 L
+207.88 26.88 L
+208.00 26.88 L
+208.25 27.00 L
+208.38 27.00 L
+208.50 26.75 L
+208.63 26.50 L
+208.88 26.88 L
+209.00 26.00 L
+209.12 26.00 L
+209.25 26.25 L
+209.50 26.50 L
+209.63 25.50 L
+209.75 25.88 L
+209.88 25.63 L
+210.13 26.75 L
+210.25 25.38 L
+210.38 25.25 L
+210.50 25.75 L
+210.63 25.63 L
+210.88 25.12 L
+211.00 25.12 L
+211.12 25.38 L
+211.25 25.12 L
+211.38 25.00 L
+211.50 25.00 L
+mstroke
+newpath 211.50 25.00 M
+211.75 25.00 L
+211.88 24.87 L
+212.00 24.87 L
+212.13 24.87 L
+mstroke
+[] sd
+1 ps
+0.50 ps
+newpath 63.38 123.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 82.75 92.12 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 94.25 85.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 102.25 80.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 108.50 76.87 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 113.63 74.37 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 118.00 71.87 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 121.75 70.12 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 125.00 68.38 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 128.00 67.13 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 130.63 65.62 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 133.13 64.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 135.38 63.25 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 137.50 62.13 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 139.38 61.38 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 141.25 60.25 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 142.88 59.63 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 144.50 58.88 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 146.00 58.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 147.50 57.13 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 148.88 56.38 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 150.13 55.75 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 151.37 55.25 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 152.62 54.63 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 153.75 54.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 154.87 53.63 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 155.88 53.13 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 156.88 52.75 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 157.88 52.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 158.87 51.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 159.75 51.13 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 160.63 50.75 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 161.50 50.25 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 162.38 49.75 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 163.12 49.38 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 164.00 49.13 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 164.75 48.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 165.50 48.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 166.25 47.88 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 166.88 47.88 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 167.63 47.38 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 168.25 47.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 169.00 46.63 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 169.63 46.25 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 170.25 46.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 170.88 45.75 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 171.50 45.38 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 172.00 44.88 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 172.63 44.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 173.25 44.63 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 173.75 44.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 174.25 43.75 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 174.88 43.38 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 175.38 43.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 175.88 43.38 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 176.38 42.75 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 176.87 42.25 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 177.38 42.25 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 177.88 42.25 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 178.25 42.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 178.75 41.75 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 179.25 41.38 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 179.63 41.13 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 180.13 41.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 180.50 40.88 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 181.00 40.63 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 181.38 40.38 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 181.87 40.13 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 182.25 39.88 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 182.63 39.88 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 183.00 39.38 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 183.38 39.38 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 183.88 39.38 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 184.25 39.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 184.63 38.63 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 185.00 38.63 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 185.38 38.38 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 185.63 38.13 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 186.00 38.13 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 186.38 37.88 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 186.75 37.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 187.13 37.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 187.38 37.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 187.75 37.13 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 188.12 37.13 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 188.38 37.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 188.75 36.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 189.13 36.13 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 189.37 36.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 189.75 36.13 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 190.00 36.13 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 190.25 36.13 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 190.62 35.75 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 190.88 35.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 191.25 35.25 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 191.50 35.13 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 191.75 35.38 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 192.13 34.88 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 192.37 34.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 192.63 34.88 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 192.88 34.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 193.25 34.38 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 193.50 34.38 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 193.75 34.25 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 194.00 34.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 194.25 34.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 194.50 33.63 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 194.88 33.63 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 195.13 33.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 195.38 33.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 195.63 33.13 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 195.88 33.38 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 196.12 33.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 196.38 32.75 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 196.63 32.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 196.88 32.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 197.00 32.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 197.25 32.25 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 197.50 32.13 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 197.75 32.13 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 198.00 32.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 198.25 31.88 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 198.50 31.88 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 198.75 31.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 198.88 31.37 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 199.13 31.37 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 199.38 31.37 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 199.63 31.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 199.75 31.12 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 200.00 30.88 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 200.25 30.63 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 200.50 30.75 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 200.63 30.75 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 200.88 30.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 201.12 30.63 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 201.25 30.38 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 201.50 30.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 201.75 30.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 201.88 30.12 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 202.13 29.75 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 202.25 29.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 202.50 29.63 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 202.75 29.63 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 202.87 29.63 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 203.13 29.13 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 203.25 29.38 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 203.50 29.25 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 203.63 29.25 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 203.88 28.87 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 204.00 28.87 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 204.25 28.75 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 204.38 28.75 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 204.63 28.38 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 204.75 28.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 205.00 28.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 205.13 28.38 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 205.38 28.62 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 205.50 28.25 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 205.63 28.13 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 205.88 28.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 206.00 27.88 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 206.25 27.88 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 206.38 27.88 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 206.50 27.62 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 206.75 27.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 206.88 27.13 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 207.00 27.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 207.25 27.13 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 207.37 27.25 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 207.50 27.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 207.75 27.13 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 207.88 26.88 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 208.00 26.88 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 208.25 27.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 208.38 27.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 208.50 26.75 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 208.63 26.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 208.88 26.88 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 209.00 26.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 209.12 26.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 209.25 26.25 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 209.50 26.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 209.63 25.50 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 209.75 25.88 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 209.88 25.63 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 210.13 26.75 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 210.25 25.38 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 210.38 25.25 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 210.50 25.75 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 210.63 25.63 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 210.88 25.12 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 211.00 25.12 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 211.12 25.38 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 211.25 25.12 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 211.38 25.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 211.50 25.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 211.75 25.00 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 211.88 24.87 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 212.00 24.87 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 212.13 24.87 2.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+1 ps
+AnObj restore
+end
+IgorSave restore
+%%DocumentFonts: Helvetica

@@ -1,0 +1,2499 @@
+%!PS-Adobe-2.0 EPSF-2.0
+%%BoundingBox: 104 72 468 585
+%%Creator: Igor
+%%Title: Layout0
+%%Creation Date: mer. 22 juin 2011 14:23
+%%DocumentFonts:  (atend) 
+%%EndComments
+0 672 translate  1 -1 scale
+/IgorSave save def
+
+1000 dict begin
+
+0 setgray 0 setlinecap
+1 setlinewidth 0 setlinejoin
+1 setmiterlimit [] 0 setdash
+
+/aw 0 def 	/ah 0 def
+/x0 0 def	/y0 0 def	/x1 0 def	/y1 0 def
+/rx0 0 def	/ry0 0 def	/rx1 0 def	/ry1 0 def
+/tmp0 0 def /tmp1 0 def
+/packedRed 0 def /packedGreen 0 def /packedBlue 0 def
+/x 0 def	/y 0 def	/w 0 def	/c 0 string def
+
+/rbak 1 def	/gbak 1 def	/bbak 1 def
+/rfor 0 def	/gfor 0 def	/bfor 0 def
+
+/bdef{bind def}bind def
+/ldef{load def}bdef
+/xdef{exch def}bdef
+
+/setuserscreendict 22 dict def
+setuserscreendict begin
+
+/tempctm matrix def
+/temprot matrix def
+/tempscale matrix def
+
+/concatprocs{
+	/proc2 exch cvlit def
+	/proc1 exch cvlit def
+	/newproc proc1 length proc2 length add array def
+	newproc 0 proc1 putinterval
+	newproc proc1 length proc2 putinterval
+	newproc cvx
+}def
+
+/resmatrix matrix def
+/findresolution{
+	72 0 resmatrix defaultmatrix dtransform
+	/yres xdef /xres xdef
+	xres dup mul yres dup mul add sqrt
+}def
+end
+
+/setuserscreen{
+  setuserscreendict begin
+	/spotfunction xdef
+	/screenangle xdef
+	/cellsize xdef
+	
+	/m tempctm currentmatrix def
+	/rm screenangle temprot rotate def
+	/sm cellsize dup tempscale scale def
+	
+	sm rm m m concatmatrix m concatmatrix pop
+	1 0 m dtransform /y1 xdef /x1 xdef
+	/veclength x1 dup mul y1 dup mul add sqrt def
+	/frequency findresolution veclength div def
+	/newscreenangle y1 x1 atan def
+	m 2 get m 1 get mul m 0 get m 3 get mul sub 0 gt
+	{
+		{ neg } /spotfunction load concatprocs
+		/spotfunction xdef
+	} if
+	frequency newscreenangle /spotfunction load setscreen
+  end
+}def
+
+/setpatterndict 18 dict def
+setpatterndict begin
+/bitison{
+	/ybit xdef /xbit xdef
+	/bytevalue bstring ybit bwidth mul xbit 8 idiv add get def
+	/mask 1 7 xbit 8 mod sub bitshift def
+	bytevalue mask and 0 ne
+}def
+end
+
+/bitpatternspotfunction{
+  setpatterndict begin
+	/y xdef /x xdef
+	/xindex x 1 add 2 div bpside mul cvi def
+	/yindex y 1 add 2 div bpside mul cvi def
+	xindex yindex bitison
+	{ /onbits onbits 1 add def 1 }
+	{ /offbits offbits 1 add def 0 }
+	ifelse
+  end
+}def
+
+/setpattern{
+  setpatterndict begin
+	/cellsz xdef
+	/angle xdef
+	/bwidth xdef
+	/bpside xdef
+	/bstring xdef
+	
+	/onbits 0 def /offbits 0 def
+	cellsz angle /bitpatternspotfunction load setuserscreen
+	{} settransfer
+	offbits offbits onbits add div setgray
+  end
+}def
+
+/FillPattern{	% patternstring --
+	/pat xdef
+	gsave
+	pat 8 1 0 72 300 32 div div setpattern
+	fill
+	grestore
+}def
+
+
+
+/UseBack{ rbak gbak bbak setrgbcolor }bdef
+/UseFore{ rfor gfor bfor setrgbcolor }bdef
+/SetBack {/bbak xdef /gbak xdef /rbak xdef }bdef
+/SetFore {/bfor xdef /gfor xdef /rfor xdef }bdef
+
+
+/ps {setlinewidth} bdef	
+/clw {currentlinewidth} bdef
+/sd {0 setdash} bdef
+
+/mstroke {0 clw eq {newpath}{stroke} ifelse} bdef
+
+/_R{ .5 sub round .5 add}bdef
+/allign { transform _R exch _R exch itransform }bdef
+/L {allign lineto} bdef
+/M {allign moveto} bdef
+
+/addto { dup load exec 3 -1 roll add store }bdef
+/MacLine{		% xto yto xfrom yfrom MacLine --
+	newpath		% only handles horizontal or vertical lines
+	/y0 xdef /x0 xdef /y1 xdef /x1 xdef
+	x1 x0 sub abs
+	y1 y0 sub abs gt
+	{clw x1 x0 gt {/x1}{/x0}ifelse  addto  clw 2 div dup /y0 addto /y1 addto}
+	{clw y1 y0 gt {/y1}{/y0}ifelse  addto  clw 2 div dup /x0 addto /x1 addto}
+	ifelse
+	x0 y0 M
+	x1 y1 L
+	mstroke
+}bdef
+
+/FillPath{		% graylevel FillPath --   fills current path and leaves path alive
+	gsave
+	dup 1 exch sub		% glev 1-glev
+	rbak 2 index mul	rfor 2 index mul add
+	gbak 3 index mul	gfor 3 index mul add
+	bbak 4 index mul	bfor 4 index mul add
+	setrgbcolor
+	pop pop
+	fill
+	grestore
+}bdef
+
+/StrokePath{		% linejoin StrokePath --   strokes current path and leaves path alive
+	gsave
+	setlinejoin
+	mstroke
+	grestore
+}bdef
+
+/RectPath{		% x0 y0 x1 y1 RectPath -- sets current path to a rectange
+	/y1 xdef /x1 xdef /y0 xdef /x0 xdef
+	newpath
+	x0 y0 M
+	x1 y0 L
+	x1 y1 L
+	x0 y1 L
+	closepath
+}bdef
+
+/PaintRect{		% x0 y0 x1 y1 graylevel PaintRect --
+	gsave
+	5 1 roll
+	RectPath
+	FillPath
+	grestore
+}bdef
+
+
+
+
+% **** begin image stuff *****
+% The following are used for images. This has to be kept
+% in synch with corresponding code in ImageDisp.c.In particular
+% the expansion factor, 8, has to be in synch.
+% packedcolor is (red*256+green)*256+blue
+
+/SetPackedColor{	% packedcolor SetPackedColor --
+	dup 256 mod /tmp0 xdef	% extract blue
+	256 idiv
+	dup 256 mod /tmp1 xdef	% extract green
+	256 idiv 				% extract red
+	255 div /packedRed xdef
+	tmp1 255 div /packedGreen xdef
+	tmp0 255 div /packedBlue xdef
+}bdef
+
+/IR_FillRect{
+	gsave
+	newpath
+	rx0 ry0 M
+	rx1 ry0 L
+	rx1 ry1 L
+	rx0 ry1 L
+	closepath
+	packedRed packedGreen packedBlue setrgbcolor
+	fill
+	grestore
+}bdef
+
+/NewRectImageLine{	% x0 y0 x1 y1 packedcolor NewRectImageLine --
+	SetPackedColor
+
+	/ry1 xdef /rx1 xdef /ry0 xdef /rx0 xdef	% remember starting rectange for following calls
+	
+	IR_FillRect
+}bdef
+
+/rx{		% xdist rx --
+	8 div
+	dup 0 lt
+	{ rx0 /rx1 xdef rx1 add /rx0 xdef }		% neg delta steps left
+	{ rx1 /rx0 xdef rx0 add /rx1 xdef }
+	ifelse
+	IR_FillRect
+}bdef
+
+/ry{		% ydist rr --
+	8 div
+	dup 0 lt
+	{ ry1 /ry0 xdef ry0 exch sub /ry1 xdef }		% neg delta steps down
+	{ ry0 /ry1 xdef ry1 exch sub /ry0 xdef }
+	ifelse
+	IR_FillRect
+}bdef
+
+
+/cx{		% xdist packedcolor cx --
+	SetPackedColor
+	rx
+}bdef
+
+/cy{		% ydist packedcolor cx --
+	SetPackedColor
+	ry
+}bdef
+
+% **** end image stuff *****
+
+
+
+/EraseRect{		% x0 y0 x1 y1 EraseRect --  fills rect with background color
+	gsave
+	RectPath
+	UseBack fill
+	grestore
+}bdef
+
+/FrameRect{		% x0 y0 x1 y1 FrameRect --
+	RectPath
+	mstroke
+}bdef
+
+/FrameMacRect{		% x0 y0 x1 y1 FrameMacRect --  Mac-like version
+	RectPath
+	mstroke
+}bdef
+
+
+/ellipse{
+	/savematrix matrix currentmatrix def
+	translate scale 0 0 1 0 360 arc
+	savematrix setmatrix
+}bdef
+
+
+
+/OvalPath{		% x0 y0 x1 y1 OvalPath -- sets current path to an oval inside rectange
+	/y1 xdef /x1 xdef /y0 xdef /x0 xdef
+	newpath
+	x0 x1 sub abs 2 div y0 y1 sub abs 2 div x0 x1 add 2 div y0 y1 add 2 div ellipse
+	closepath
+}bdef
+
+
+/PaintOval{		% x0 y0 x1 y1 graylevel PaintOval --
+	gsave
+	5 1 roll
+	OvalPath
+	FillPath
+	grestore
+}bdef
+
+/EraseOval{		% x0 y0 x1 y1 EraseOval --  fills with background color
+	gsave
+	OvalPath
+	UseBack fill
+	grestore
+}bdef
+
+/FrameOval{		% x0 y0 x1 y1 FrameOval --
+	OvalPath
+	mstroke
+}bdef
+
+
+/RRectPath{		% x0 y0 x1 y1 r OvalPath -- sets current path to rounded rectange, radius r
+	/radius xdef
+	/y1 xdef /x1 xdef /y0 xdef /x0 xdef
+	newpath
+	x0 radius add y0 M
+	x1 y0 x1 y1 radius arcto 4{pop}repeat
+	x1 y1 x0 y1 radius arcto 4{pop}repeat
+	x0 y1 x0 y0 radius arcto 4{pop}repeat
+	x0 y0 x1 y0 radius arcto 4{pop}repeat
+	closepath
+}bdef
+
+
+/PaintRRect{		% x0 y0 x1 y1 r graylevel PaintRRect --
+	gsave
+	6 1 roll
+	RRectPath
+	FillPath
+	grestore
+}bdef
+
+/EraseRRect{		% x0 y0 x1 y1 r EraseRRect --  fills rect with background color
+	gsave
+	RRectPath
+	UseBack fill
+	grestore
+}bdef
+
+/FrameRRect{		% x0 y0 x1 y1 r FrameRect --
+	RRectPath
+	mstroke
+}bdef
+
+
+
+
+/CapLine{		% x0 y0 x1 y1 linecap CapLine -- draws line using given line cap
+	gsave
+	setlinecap
+	/y1 xdef /x1 xdef /y0 xdef /x0 xdef
+	newpath
+	x0 y0 M
+	x1 y1 L
+	mstroke
+	grestore
+}bdef
+
+/Arrow{		% x0 y0 x1 y1 width height graylevel Arrow -- draws arrow at end of line from P0 to P1
+	gsave
+	/gl xdef 1 add /aw xdef 1 add /ah xdef /y0 xdef /x0 xdef /y1 xdef /x1 xdef 
+	x0 y0 translate
+	/x1 x1 x0 sub def
+	/y1 y1 y0 sub def
+	y1 x1 atan rotate
+	newpath
+	0 0 M
+	aw ah 2 div L
+	aw ah 2 div neg L
+	closepath
+	gl FillPath
+%	10 setmiterlimit
+%	1 ps
+%	0 StrokePath
+	grestore
+}bdef
+
+
+% ************ fonts ************
+
+
+/normal 0 def
+/bold 1 def
+/italic 2 def
+/underline 4 def
+/outline 8 def
+/shadow 16 def
+
+/FACE1 bold italic or def
+/FACE2 outline shadow or def
+
+/Shadow {
+	gsave
+	siz 0.08 mul 1 index mul x add
+	exch siz 0.07 mul mul y add M
+	c show
+	grestore
+} def
+
+/Outline {
+	gsave
+	siz .02 mul setlinewidth
+	x y M c true charpath
+	gsave UseBack fill grestore stroke
+	grestore
+} def
+
+/Underline{
+	gsave
+	siz 0.08 mul ps
+	x y clw add M x c stringwidth pop add y clw add L stroke
+	grestore
+}bdef
+
+/DoShow{	% assumes x,y,c are already set
+	fontkind FACE2 and
+	dup normal eq 				{c x y M show} if
+	dup outline eq 				{Outline} if
+	dup shadow eq 				{1 Shadow Outline} if
+	outline shadow or eq 		{1 Shadow 1.5 Shadow Outline} if
+	fontkind underline and 0 ne { Underline } if
+}bdef
+
+/DoWShow{	% assumes x,y,c & w are already set
+	gsave
+	x y translate
+	/x 0 def  /y 0 def
+	w c stringwidth pop div 1 scale
+	DoShow
+	grestore
+}bdef
+
+/S{
+	/y xdef /x xdef /c xdef
+	DoShow
+}bdef
+
+/WS{		% string x y desiredwidth WS -
+	/w xdef /y xdef /x xdef /c xdef
+	DoWShow
+}bdef
+
+/F{
+	/fontkind xdef
+	findfont exch /siz xdef [siz 0 0 siz neg  0 0] makefont setfont
+}bdef
+
+
+
+/Re-encode {
+	dup length array copy
+	/eap 0 def
+	exch {
+		dup type /integertype eq
+		{ /eap xdef }
+		{
+			1 index
+			exch
+			eap exch
+			put
+			/eap eap 1 add def
+		}
+		ifelse
+	} forall
+} bind def
+
+[ 39/quotesingle 96/grave 128/.notdef/.notdef/quotesinglbase
+/florin/quotedblbase/ellipsis/dagger/daggerdbl/circumflex
+/perthousand/Scaron/guilsinglleft/OE/.notdef/.notdef
+/.notdef/.notdef/quoteleft/quoteright/quotedblleft/quotedblright
+/bullet/endash/emdash/tilde/trademark/scaron/guilsinglright
+/oe/.notdef/.notdef/Ydieresis/.notdef/exclamdown/cent
+/sterling/currency/yen/brokenbar/section/dieresis/copyright
+/ordfeminine/guillemotleft/logicalnot/.notdef/registered
+/macron/degree/plusminus/twosuperior/threesuperior/acute
+/mu/paragraph/periodcentered/cedilla/onesuperior/ordmasculine
+/guillemotright/onequarter/onehalf/threequarters/questiondown
+/Agrave/Aacute/Acircumflex/Atilde/Adieresis/Aring/AE
+/Ccedilla/Egrave/Eacute/Ecircumflex/Edieresis/Igrave
+/Iacute/Icircumflex/Idieresis/Eth/Ntilde/Ograve/Oacute
+/Ocircumflex/Otilde/Odieresis/multiply/Oslash/Ugrave
+/Uacute/Ucircumflex/Udieresis/Yacute/Thorn/germandbls
+/agrave/aacute/acircumflex/atilde/adieresis/aring/ae
+/ccedilla/egrave/eacute/ecircumflex/edieresis/igrave
+/iacute/icircumflex/idieresis/eth/ntilde/ograve/oacute
+/ocircumflex/otilde/odieresis/divide/oslash/ugrave/uacute
+/ucircumflex/udieresis/yacute/thorn/ydieresis]
+/zzz xdef
+
+/OurEncoding{ zzz StandardEncoding Re-encode }bdef
+
+/EncodeFont	{
+	findfont
+	dup length dict begin
+	{
+		1 index /FID ne
+		{ def }
+		{ pop pop }
+		ifelse
+	} forall
+	/FontName xdef
+	/Encoding xdef
+	FontName currentdict
+	end
+	definefont pop
+} bind def
+
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+0 0 translate
+AnObj restore
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+101 71 translate
+1.00 ps
+gsave 1.00 ps 59.88 18.12 59.88 210.00 0 CapLine grestore
+gsave 1.00 ps 365.00 18.12 365.00 210.00 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 365.50 210.00 362.50 210.00 0 CapLine grestore
+gsave 1.00 ps 59.38 210.00 62.38 210.00 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 365.50 186.00 362.50 186.00 0 CapLine grestore
+gsave 1.00 ps 59.38 186.00 62.38 186.00 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 365.50 167.37 362.50 167.37 0 CapLine grestore
+gsave 1.00 ps 59.38 167.37 62.38 167.37 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 365.50 152.25 362.50 152.25 0 CapLine grestore
+gsave 1.00 ps 59.38 152.25 62.38 152.25 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 365.50 139.38 362.50 139.38 0 CapLine grestore
+gsave 1.00 ps 59.38 139.38 62.38 139.38 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 365.50 128.25 362.50 128.25 0 CapLine grestore
+gsave 1.00 ps 59.38 128.25 62.38 128.25 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 365.50 118.50 362.50 118.50 0 CapLine grestore
+gsave 1.00 ps 59.38 118.50 62.38 118.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 365.50 109.63 360.50 109.63 0 CapLine grestore
+gsave 1.00 ps 59.38 109.63 64.37 109.63 0 CapLine grestore
+1 ps
+ OurEncoding /_Helvetica /Helvetica EncodeFont
+15.00 (_Helvetica) 0 F
+(100) 27.62 115.50 24.75 WS
+1.00 ps
+gsave 1.00 ps 365.50 51.88 362.50 51.88 0 CapLine grestore
+gsave 1.00 ps 59.38 51.88 62.38 51.88 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 365.50 18.12 362.50 18.12 0 CapLine grestore
+gsave 1.00 ps 59.38 18.12 62.38 18.12 0 CapLine grestore
+1 ps
+15.00 (Symbol) 0 F
+gsave 15.13 139.13 translate -90 rotate
+(s) 0.00 0.00 9.00 WS
+grestore
+ OurEncoding /_Helvetica /Helvetica EncodeFont
+10.50 (_Helvetica) 0 F
+gsave 20.37 130.13 translate -90 rotate
+(m) 0.00 0.00 8.88 WS
+grestore
+15.00 (_Helvetica) 0 F
+gsave 15.13 121.25 translate -90 rotate
+( \(Pa\)) 0.00 0.00 32.38 WS
+grestore
+1.00 ps
+gsave 1.00 ps 59.88 210.00 365.00 210.00 0 CapLine grestore
+gsave 1.00 ps 59.88 18.12 365.00 18.12 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 59.88 17.62 59.88 22.62 0 CapLine grestore
+gsave 1.00 ps 59.88 210.50 59.88 205.50 0 CapLine grestore
+1 ps
+15.00 (_Helvetica) 0 F
+(10) 46.88 237.88 16.50 WS
+10.50 (_Helvetica) 0 F
+(-4) 63.38 228.00 9.63 WS
+1.00 ps
+gsave 1.00 ps 77.25 17.62 77.25 20.63 0 CapLine grestore
+gsave 1.00 ps 77.25 210.50 77.25 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 87.37 17.62 87.37 20.63 0 CapLine grestore
+gsave 1.00 ps 87.37 210.50 87.37 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 94.50 17.62 94.50 20.63 0 CapLine grestore
+gsave 1.00 ps 94.50 210.50 94.50 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 100.13 17.62 100.13 20.63 0 CapLine grestore
+gsave 1.00 ps 100.13 210.50 100.13 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 104.63 17.62 104.63 20.63 0 CapLine grestore
+gsave 1.00 ps 104.63 210.50 104.63 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 108.50 17.62 108.50 20.63 0 CapLine grestore
+gsave 1.00 ps 108.50 210.50 108.50 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 111.88 17.62 111.88 20.63 0 CapLine grestore
+gsave 1.00 ps 111.88 210.50 111.88 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 114.75 17.62 114.75 20.63 0 CapLine grestore
+gsave 1.00 ps 114.75 210.50 114.75 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 117.37 17.62 117.37 22.62 0 CapLine grestore
+gsave 1.00 ps 117.37 210.50 117.37 205.50 0 CapLine grestore
+1 ps
+15.00 (_Helvetica) 0 F
+(10) 104.38 237.88 16.50 WS
+10.50 (_Helvetica) 0 F
+(-3) 120.88 228.00 9.63 WS
+1.00 ps
+gsave 1.00 ps 134.75 17.62 134.75 20.63 0 CapLine grestore
+gsave 1.00 ps 134.75 210.50 134.75 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 144.88 17.62 144.88 20.63 0 CapLine grestore
+gsave 1.00 ps 144.88 210.50 144.88 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 152.13 17.62 152.13 20.63 0 CapLine grestore
+gsave 1.00 ps 152.13 210.50 152.13 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 157.62 17.62 157.62 20.63 0 CapLine grestore
+gsave 1.00 ps 157.62 210.50 157.62 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 162.25 17.62 162.25 20.63 0 CapLine grestore
+gsave 1.00 ps 162.25 210.50 162.25 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 166.12 17.62 166.12 20.63 0 CapLine grestore
+gsave 1.00 ps 166.12 210.50 166.12 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 169.37 17.62 169.37 20.63 0 CapLine grestore
+gsave 1.00 ps 169.37 210.50 169.37 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 172.37 17.62 172.37 20.63 0 CapLine grestore
+gsave 1.00 ps 172.37 210.50 172.37 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 175.00 17.62 175.00 22.62 0 CapLine grestore
+gsave 1.00 ps 175.00 210.50 175.00 205.50 0 CapLine grestore
+1 ps
+15.00 (_Helvetica) 0 F
+(10) 162.00 237.88 16.50 WS
+10.50 (_Helvetica) 0 F
+(-2) 178.50 228.00 9.63 WS
+1.00 ps
+gsave 1.00 ps 192.37 17.62 192.37 20.63 0 CapLine grestore
+gsave 1.00 ps 192.37 210.50 192.37 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 202.50 17.62 202.50 20.63 0 CapLine grestore
+gsave 1.00 ps 202.50 210.50 202.50 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 209.63 17.62 209.63 20.63 0 CapLine grestore
+gsave 1.00 ps 209.63 210.50 209.63 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 215.25 17.62 215.25 20.63 0 CapLine grestore
+gsave 1.00 ps 215.25 210.50 215.25 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 219.75 17.62 219.75 20.63 0 CapLine grestore
+gsave 1.00 ps 219.75 210.50 219.75 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 223.62 17.62 223.62 20.63 0 CapLine grestore
+gsave 1.00 ps 223.62 210.50 223.62 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 227.00 17.62 227.00 20.63 0 CapLine grestore
+gsave 1.00 ps 227.00 210.50 227.00 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 229.87 17.62 229.87 20.63 0 CapLine grestore
+gsave 1.00 ps 229.87 210.50 229.87 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 232.50 17.62 232.50 22.62 0 CapLine grestore
+gsave 1.00 ps 232.50 210.50 232.50 205.50 0 CapLine grestore
+1 ps
+15.00 (_Helvetica) 0 F
+(10) 219.50 237.88 16.50 WS
+10.50 (_Helvetica) 0 F
+(-1) 236.00 228.00 9.63 WS
+1.00 ps
+gsave 1.00 ps 249.88 17.62 249.88 20.63 0 CapLine grestore
+gsave 1.00 ps 249.88 210.50 249.88 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 260.00 17.62 260.00 20.63 0 CapLine grestore
+gsave 1.00 ps 260.00 210.50 260.00 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 267.25 17.62 267.25 20.63 0 CapLine grestore
+gsave 1.00 ps 267.25 210.50 267.25 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 272.75 17.62 272.75 20.63 0 CapLine grestore
+gsave 1.00 ps 272.75 210.50 272.75 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 277.38 17.62 277.38 20.63 0 CapLine grestore
+gsave 1.00 ps 277.38 210.50 277.38 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 281.25 17.62 281.25 20.63 0 CapLine grestore
+gsave 1.00 ps 281.25 210.50 281.25 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 284.50 17.62 284.50 20.63 0 CapLine grestore
+gsave 1.00 ps 284.50 210.50 284.50 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 287.50 17.62 287.50 20.63 0 CapLine grestore
+gsave 1.00 ps 287.50 210.50 287.50 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 290.13 17.62 290.13 22.62 0 CapLine grestore
+gsave 1.00 ps 290.13 210.50 290.13 205.50 0 CapLine grestore
+1 ps
+15.00 (_Helvetica) 0 F
+(10) 279.00 237.88 16.50 WS
+10.50 (_Helvetica) 0 F
+(0) 295.50 228.00 5.75 WS
+1.00 ps
+gsave 1.00 ps 307.50 17.62 307.50 20.63 0 CapLine grestore
+gsave 1.00 ps 307.50 210.50 307.50 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 317.63 17.62 317.63 20.63 0 CapLine grestore
+gsave 1.00 ps 317.63 210.50 317.63 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 324.75 17.62 324.75 20.63 0 CapLine grestore
+gsave 1.00 ps 324.75 210.50 324.75 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 330.38 17.62 330.38 20.63 0 CapLine grestore
+gsave 1.00 ps 330.38 210.50 330.38 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 334.88 17.62 334.88 20.63 0 CapLine grestore
+gsave 1.00 ps 334.88 210.50 334.88 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 338.75 17.62 338.75 20.63 0 CapLine grestore
+gsave 1.00 ps 338.75 210.50 338.75 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 342.13 17.62 342.13 20.63 0 CapLine grestore
+gsave 1.00 ps 342.13 210.50 342.13 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 345.00 17.62 345.00 20.63 0 CapLine grestore
+gsave 1.00 ps 345.00 210.50 345.00 207.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 347.63 17.62 347.63 22.62 0 CapLine grestore
+gsave 1.00 ps 347.63 210.50 347.63 205.50 0 CapLine grestore
+1 ps
+15.00 (_Helvetica) 0 F
+(10) 336.50 237.88 16.50 WS
+10.50 (_Helvetica) 0 F
+(1) 353.00 228.00 5.75 WS
+1.00 ps
+gsave 1.00 ps 365.00 17.62 365.00 20.63 0 CapLine grestore
+gsave 1.00 ps 365.00 210.50 365.00 207.50 0 CapLine grestore
+1 ps
+15.00 (_Helvetica) 0 F
+( ) 190.62 265.75 4.75 WS
+15.00 (Symbol) 0 F
+(g) 195.38 265.75 6.12 WS
+ OurEncoding /_Helvetica /Helvetica EncodeFont
+15.00 (_Helvetica) 0 F
+( \(s) 201.50 265.75 17.25 WS
+10.50 (_Helvetica) 0 F
+(-1) 218.75 256.00 9.63 WS
+15.00 (_Helvetica) 0 F
+(\)) 228.38 265.75 5.75 WS
+0.73048 0.73048 0.73048 SetFore  UseFore
+1.50 ps
+newpath 230.38 210.00 M
+231.63 209.12 L
+233.38 208.00 L
+235.13 206.88 L
+236.88 205.75 L
+238.62 204.63 L
+240.38 203.50 L
+242.13 202.38 L
+243.88 201.12 L
+245.63 200.00 L
+247.25 198.88 L
+249.00 197.75 L
+250.75 196.63 L
+252.50 195.50 L
+254.25 194.38 L
+256.00 193.25 L
+257.75 192.13 L
+259.50 191.00 L
+261.25 189.87 L
+262.88 188.75 L
+264.63 187.63 L
+266.38 186.50 L
+268.13 185.38 L
+269.88 184.25 L
+271.63 183.12 L
+273.38 182.00 L
+275.13 180.75 L
+276.75 179.63 L
+278.50 178.50 L
+280.25 177.38 L
+282.00 176.25 L
+283.75 175.13 L
+285.50 174.00 L
+287.25 172.88 L
+289.00 171.75 L
+290.75 170.62 L
+292.37 169.50 L
+294.13 168.38 L
+295.88 167.25 L
+297.63 166.12 L
+299.38 165.00 L
+301.13 163.88 L
+302.88 162.75 L
+304.63 161.63 L
+306.25 160.38 L
+308.00 159.25 L
+309.75 158.13 L
+311.50 157.00 L
+313.25 155.88 L
+315.00 154.75 L
+316.75 153.62 L
+318.50 152.50 L
+320.25 151.37 L
+321.88 150.25 L
+323.62 149.13 L
+325.38 148.00 L
+327.13 146.88 L
+328.88 145.75 L
+330.63 144.63 L
+332.38 143.50 L
+334.13 142.37 L
+335.88 141.25 L
+337.50 140.12 L
+339.25 138.88 L
+341.00 137.75 L
+342.75 136.63 L
+344.50 135.50 L
+346.25 134.38 L
+348.00 133.25 L
+349.75 132.13 L
+351.37 131.00 L
+353.13 129.87 L
+354.87 128.75 L
+356.63 127.62 L
+358.38 126.50 L
+360.13 125.38 L
+361.88 124.25 L
+363.63 123.13 L
+365.00 122.13 L
+mstroke
+[] sd
+1 ps
+0 0 0 SetFore  UseFore
+0.73048 0.73048 0.73048 SetFore  UseFore
+1.50 ps
+newpath 213.13 210.00 M
+214.38 209.12 L
+216.13 207.88 L
+217.75 206.63 L
+219.50 205.25 L
+221.25 204.00 L
+223.00 202.75 L
+224.75 201.38 L
+226.50 200.13 L
+228.25 198.88 L
+230.00 197.63 L
+231.63 196.25 L
+233.38 195.00 L
+235.13 193.75 L
+236.88 192.50 L
+238.62 191.12 L
+240.38 189.87 L
+242.13 188.63 L
+243.88 187.38 L
+245.63 186.00 L
+247.25 184.75 L
+249.00 183.50 L
+250.75 182.25 L
+252.50 180.88 L
+254.25 179.63 L
+256.00 178.38 L
+257.75 177.13 L
+259.50 175.75 L
+261.25 174.50 L
+262.88 173.25 L
+264.63 172.00 L
+266.38 170.62 L
+268.13 169.37 L
+269.88 168.13 L
+271.63 166.88 L
+273.38 165.50 L
+275.13 164.25 L
+276.75 163.00 L
+278.50 161.75 L
+280.25 160.38 L
+282.00 159.13 L
+283.75 157.88 L
+285.50 156.50 L
+287.25 155.25 L
+289.00 154.00 L
+290.75 152.75 L
+292.37 151.37 L
+294.13 150.13 L
+295.88 148.88 L
+297.63 147.63 L
+299.38 146.25 L
+301.13 145.00 L
+302.88 143.75 L
+304.63 142.50 L
+306.25 141.12 L
+308.00 139.88 L
+309.75 138.63 L
+311.50 137.38 L
+313.25 136.00 L
+315.00 134.75 L
+316.75 133.50 L
+318.50 132.25 L
+320.25 130.88 L
+321.88 129.63 L
+323.62 128.38 L
+325.38 127.13 L
+327.13 125.75 L
+328.88 124.50 L
+330.63 123.25 L
+332.38 122.00 L
+334.13 120.63 L
+335.88 119.38 L
+337.50 118.13 L
+339.25 116.88 L
+341.00 115.50 L
+342.75 114.25 L
+344.50 113.00 L
+346.25 111.75 L
+348.00 110.38 L
+349.75 109.13 L
+351.37 107.87 L
+353.13 106.50 L
+354.87 105.25 L
+356.63 104.00 L
+358.38 102.75 L
+360.13 101.38 L
+361.88 100.13 L
+363.63 98.87 L
+365.00 97.88 L
+mstroke
+[] sd
+1 ps
+0 0 0 SetFore  UseFore
+0.73048 0.73048 0.73048 SetFore  UseFore
+1.50 ps
+newpath 140.75 210.00 M
+141.50 209.63 L
+143.13 208.50 L
+144.88 207.50 L
+146.63 206.50 L
+148.38 205.38 L
+150.13 204.38 L
+151.88 203.25 L
+153.62 202.25 L
+155.38 201.12 L
+157.00 200.13 L
+158.75 199.13 L
+160.50 198.00 L
+162.25 197.00 L
+164.00 195.88 L
+165.75 194.88 L
+167.50 193.88 L
+169.25 192.75 L
+171.00 191.75 L
+172.63 190.62 L
+174.38 189.63 L
+176.13 188.63 L
+177.88 187.50 L
+179.63 186.50 L
+181.38 185.38 L
+183.12 184.37 L
+184.87 183.38 L
+186.63 182.25 L
+188.25 181.25 L
+190.00 180.13 L
+191.75 179.13 L
+193.50 178.12 L
+195.25 177.00 L
+197.00 176.00 L
+198.75 174.88 L
+200.50 173.88 L
+202.13 172.88 L
+203.88 171.75 L
+205.63 170.75 L
+207.37 169.63 L
+209.12 168.63 L
+210.88 167.63 L
+212.63 166.50 L
+214.38 165.50 L
+216.13 164.37 L
+217.75 163.38 L
+219.50 162.38 L
+221.25 161.25 L
+223.00 160.25 L
+224.75 159.13 L
+226.50 158.13 L
+228.25 157.13 L
+230.00 156.00 L
+231.63 155.00 L
+233.38 153.88 L
+235.13 152.88 L
+236.88 151.88 L
+238.62 150.75 L
+240.38 149.75 L
+242.13 148.62 L
+243.88 147.63 L
+245.63 146.63 L
+247.25 145.50 L
+249.00 144.50 L
+250.75 143.38 L
+252.50 142.37 L
+254.25 141.38 L
+256.00 140.25 L
+257.75 139.25 L
+259.50 138.13 L
+261.25 137.13 L
+262.88 136.12 L
+264.63 135.00 L
+266.38 134.00 L
+268.13 132.88 L
+269.88 131.88 L
+271.63 130.88 L
+273.38 129.75 L
+275.13 128.75 L
+276.75 127.62 L
+278.50 126.63 L
+280.25 125.63 L
+282.00 124.50 L
+283.75 123.50 L
+285.50 122.37 L
+287.25 121.37 L
+289.00 120.38 L
+290.75 119.25 L
+292.37 118.25 L
+294.13 117.13 L
+295.88 116.12 L
+297.63 115.12 L
+299.38 114.00 L
+301.13 113.00 L
+302.88 111.88 L
+304.63 110.88 L
+306.25 109.87 L
+308.00 108.75 L
+309.75 107.75 L
+311.50 106.63 L
+313.25 105.63 L
+315.00 104.63 L
+316.75 103.50 L
+318.50 102.50 L
+320.25 101.38 L
+321.88 100.38 L
+323.62 99.38 L
+325.38 98.25 L
+327.13 97.25 L
+328.88 96.12 L
+330.63 95.12 L
+332.38 94.13 L
+334.13 93.00 L
+335.88 92.00 L
+337.50 90.87 L
+339.25 89.87 L
+341.00 88.75 L
+342.75 87.75 L
+344.50 86.75 L
+346.25 85.63 L
+348.00 84.62 L
+349.75 83.50 L
+351.37 82.50 L
+353.13 81.50 L
+354.87 80.38 L
+356.63 79.37 L
+358.38 78.25 L
+360.13 77.25 L
+361.88 76.25 L
+363.63 75.12 L
+365.00 74.25 L
+mstroke
+[] sd
+1 ps
+0 0 0 SetFore  UseFore
+0.73048 0.73048 0.73048 SetFore  UseFore
+1.50 ps
+newpath 67.75 210.00 M
+68.50 209.63 L
+70.25 208.63 L
+72.00 207.63 L
+73.75 206.75 L
+75.50 205.75 L
+77.25 204.75 L
+79.00 203.88 L
+80.75 202.87 L
+82.37 202.00 L
+84.13 201.00 L
+85.87 200.00 L
+87.62 199.13 L
+89.38 198.13 L
+91.12 197.13 L
+92.88 196.25 L
+94.62 195.25 L
+96.37 194.38 L
+98.00 193.38 L
+99.75 192.37 L
+101.50 191.50 L
+103.25 190.50 L
+105.00 189.50 L
+106.75 188.63 L
+108.50 187.63 L
+110.25 186.75 L
+112.00 185.75 L
+113.63 184.75 L
+115.38 183.88 L
+117.13 182.88 L
+118.88 181.87 L
+120.63 181.00 L
+122.37 180.00 L
+124.13 179.00 L
+125.88 178.12 L
+127.50 177.13 L
+129.25 176.25 L
+131.00 175.25 L
+132.75 174.25 L
+134.50 173.38 L
+136.25 172.37 L
+138.00 171.38 L
+139.75 170.50 L
+141.50 169.50 L
+143.13 168.63 L
+144.88 167.63 L
+146.63 166.63 L
+148.38 165.75 L
+150.13 164.75 L
+151.88 163.75 L
+153.62 162.88 L
+155.38 161.88 L
+157.00 161.00 L
+158.75 160.00 L
+160.50 159.00 L
+162.25 158.13 L
+164.00 157.13 L
+165.75 156.13 L
+167.50 155.25 L
+169.25 154.25 L
+171.00 153.38 L
+172.63 152.38 L
+174.38 151.37 L
+176.13 150.50 L
+177.88 149.50 L
+179.63 148.50 L
+181.38 147.63 L
+183.12 146.63 L
+184.87 145.75 L
+186.63 144.75 L
+188.25 143.75 L
+190.00 142.88 L
+191.75 141.88 L
+193.50 140.88 L
+195.25 140.00 L
+197.00 139.00 L
+198.75 138.13 L
+200.50 137.13 L
+202.13 136.12 L
+203.88 135.25 L
+205.63 134.25 L
+207.37 133.25 L
+209.12 132.38 L
+210.88 131.38 L
+212.63 130.50 L
+214.38 129.50 L
+216.13 128.50 L
+217.75 127.62 L
+219.50 126.63 L
+221.25 125.63 L
+223.00 124.75 L
+224.75 123.75 L
+226.50 122.88 L
+228.25 121.88 L
+230.00 120.88 L
+231.63 120.00 L
+233.38 119.00 L
+235.13 118.00 L
+236.88 117.13 L
+238.62 116.12 L
+240.38 115.12 L
+242.13 114.25 L
+243.88 113.25 L
+245.63 112.37 L
+247.25 111.38 L
+249.00 110.38 L
+250.75 109.50 L
+252.50 108.50 L
+254.25 107.50 L
+256.00 106.63 L
+257.75 105.63 L
+259.50 104.75 L
+261.25 103.75 L
+262.88 102.75 L
+264.63 101.88 L
+266.38 100.88 L
+268.13 99.87 L
+269.88 99.00 L
+271.63 98.00 L
+273.38 97.13 L
+275.13 96.12 L
+276.75 95.12 L
+278.50 94.25 L
+280.25 93.25 L
+282.00 92.25 L
+283.75 91.37 L
+285.50 90.38 L
+287.25 89.50 L
+289.00 88.50 L
+290.75 87.50 L
+292.37 86.63 L
+294.13 85.63 L
+295.88 84.62 L
+297.63 83.75 L
+299.38 82.75 L
+301.13 81.88 L
+302.88 80.87 L
+304.63 79.87 L
+306.25 79.00 L
+308.00 78.00 L
+309.75 77.00 L
+311.50 76.12 L
+313.25 75.12 L
+315.00 74.25 L
+316.75 73.25 L
+318.50 72.25 L
+320.25 71.37 L
+321.88 70.38 L
+323.62 69.37 L
+325.38 68.50 L
+327.13 67.50 L
+328.88 66.63 L
+330.63 65.62 L
+332.38 64.63 L
+334.13 63.75 L
+335.88 62.75 L
+337.50 61.75 L
+339.25 60.88 L
+341.00 59.88 L
+342.75 58.88 L
+344.50 58.00 L
+346.25 57.00 L
+348.00 56.13 L
+349.75 55.13 L
+351.37 54.13 L
+353.13 53.25 L
+354.87 52.25 L
+356.63 51.25 L
+358.38 50.38 L
+360.13 49.38 L
+361.88 48.50 L
+363.63 47.50 L
+365.00 46.75 L
+mstroke
+[] sd
+1 ps
+0 0 0 SetFore  UseFore
+0.0664073 0.0664073 0.0664073 SetFore  UseFore
+0.50 ps
+newpath 87.37 148.25 M
+91.37 156.25 L
+83.37 156.25 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 117.37 149.88 M
+121.37 157.88 L
+113.38 157.88 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 175.00 158.00 M
+179.00 166.00 L
+171.00 166.00 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 202.50 153.88 M
+206.50 161.88 L
+198.50 161.88 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 232.50 149.88 M
+236.50 157.88 L
+228.50 157.88 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 260.00 134.38 M
+264.00 142.37 L
+256.00 142.37 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 290.13 115.50 M
+294.13 123.50 L
+286.12 123.50 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 317.63 99.25 M
+321.63 107.25 L
+313.63 107.25 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 347.63 80.63 M
+351.63 88.62 L
+343.63 88.62 L
+closepath
+0 FillPath
+0 StrokePath newpath
+1 ps
+0 0 0 SetFore  UseFore
+0.0664073 0.0664073 0.0664073 SetFore  UseFore
+0.50 ps
+newpath 100.13 148.88 4.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 144.88 153.38 4.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 166.12 149.88 4.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 175.00 142.63 4.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 202.50 138.25 4.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 223.62 129.00 4.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 232.50 118.38 4.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 249.88 111.88 4.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 272.75 97.88 4.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 290.13 88.00 4.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 307.50 80.75 4.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 330.38 66.63 4.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 347.63 53.88 4.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+1 ps
+0 0 0 SetFore  UseFore
+0.50 ps
+140.88 150.63 148.88 158.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+171.00 161.25 179.00 169.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+198.50 165.13 206.50 173.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+228.50 167.88 236.50 175.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+256.00 168.50 264.00 176.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+286.12 150.63 294.13 158.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+313.63 130.13 321.63 138.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+343.63 105.88 351.63 113.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+1 ps
+0.0664073 0.0664073 0.0664073 SetFore  UseFore
+0.50 ps
+newpath 87.37 146.50 M
+91.37 150.50 L
+87.37 154.50 L
+83.37 150.50 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 117.37 154.87 M
+121.37 158.87 L
+117.37 162.88 L
+113.38 158.87 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 175.00 165.38 M
+179.00 169.37 L
+175.00 173.38 L
+171.00 169.37 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 232.50 174.50 M
+236.50 178.50 L
+232.50 182.50 L
+228.50 178.50 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 260.00 177.50 M
+264.00 181.50 L
+260.00 185.50 L
+256.00 181.50 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 290.13 162.88 M
+294.13 166.88 L
+290.13 170.88 L
+286.12 166.88 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 317.63 154.63 M
+321.63 158.63 L
+317.63 162.63 L
+313.63 158.63 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 347.63 127.75 M
+351.63 131.75 L
+347.63 135.75 L
+343.63 131.75 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 354.25 125.25 M
+358.25 129.25 L
+354.25 133.25 L
+350.25 129.25 L
+closepath
+0 FillPath
+0 StrokePath newpath
+1 ps
+0 0 0 SetFore  UseFore
+AnObj restore
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+0 0 translate
+AnObj restore
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+168 90 translate
+1.00 ps
+gsave 1.00 ps 50.13 12.13 50.13 79.75 0 CapLine grestore
+gsave 1.00 ps 145.00 12.13 145.00 79.75 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 145.50 71.87 140.50 71.87 0 CapLine grestore
+gsave 1.00 ps 49.63 71.87 54.63 71.87 0 CapLine grestore
+1 ps
+ OurEncoding /_Helvetica /Helvetica EncodeFont
+10.00 (_Helvetica) 0 F
+(10) 27.25 77.62 11.00 WS
+7.00 (_Helvetica) 0 F
+(-2) 38.25 71.00 6.37 WS
+1.00 ps
+gsave 1.00 ps 145.50 45.88 140.50 45.88 0 CapLine grestore
+gsave 1.00 ps 49.63 45.88 54.63 45.88 0 CapLine grestore
+1 ps
+10.00 (_Helvetica) 0 F
+(10) 27.25 51.63 11.00 WS
+7.00 (_Helvetica) 0 F
+(-1) 38.25 45.00 6.37 WS
+1.00 ps
+gsave 1.00 ps 145.50 20.00 140.50 20.00 0 CapLine grestore
+gsave 1.00 ps 49.63 20.00 54.63 20.00 0 CapLine grestore
+1 ps
+10.00 (_Helvetica) 0 F
+(10) 29.75 25.75 11.00 WS
+7.00 (_Helvetica) 0 F
+(0) 40.75 19.13 3.87 WS
+1.00 ps
+gsave 1.00 ps 50.13 79.75 145.00 79.75 0 CapLine grestore
+gsave 1.00 ps 50.13 12.13 145.00 12.13 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 50.13 11.63 50.13 16.63 0 CapLine grestore
+gsave 1.00 ps 50.13 80.25 50.13 75.25 0 CapLine grestore
+1 ps
+10.00 (_Helvetica) 0 F
+(1) 47.38 95.25 5.50 WS
+1.00 ps
+gsave 1.00 ps 88.37 11.63 88.37 16.63 0 CapLine grestore
+gsave 1.00 ps 88.37 80.25 88.37 75.25 0 CapLine grestore
+1 ps
+10.00 (_Helvetica) 0 F
+(10) 82.88 95.25 11.00 WS
+1.00 ps
+gsave 1.00 ps 126.75 11.63 126.75 16.63 0 CapLine grestore
+gsave 1.00 ps 126.75 80.25 126.75 75.25 0 CapLine grestore
+1 ps
+10.00 (_Helvetica) 0 F
+(100) 118.50 95.25 16.50 WS
+0.73048 0.73048 0.73048 SetFore  UseFore
+2.00 ps
+newpath 50.88 12.13 M
+51.13 12.25 L
+51.50 12.50 L
+52.00 12.88 L
+52.50 13.25 L
+53.00 13.50 L
+53.50 13.88 L
+54.00 14.13 L
+54.38 14.50 L
+54.88 14.75 L
+55.38 15.13 L
+55.88 15.50 L
+56.38 15.75 L
+56.75 16.12 L
+57.25 16.37 L
+57.75 16.75 L
+58.25 17.13 L
+58.75 17.37 L
+59.13 17.75 L
+59.63 18.00 L
+60.13 18.38 L
+60.63 18.75 L
+61.13 19.00 L
+61.63 19.37 L
+62.00 19.63 L
+62.50 20.00 L
+63.00 20.25 L
+63.50 20.63 L
+64.00 21.00 L
+64.37 21.25 L
+64.87 21.62 L
+65.38 21.88 L
+65.88 22.25 L
+66.37 22.62 L
+66.75 22.87 L
+67.25 23.25 L
+67.75 23.50 L
+68.25 23.87 L
+68.75 24.25 L
+69.25 24.50 L
+69.63 24.87 L
+70.12 25.12 L
+70.62 25.50 L
+71.12 25.75 L
+71.63 26.12 L
+72.00 26.50 L
+72.50 26.75 L
+73.00 27.13 L
+73.50 27.37 L
+74.00 27.75 L
+74.50 28.13 L
+74.87 28.38 L
+75.38 28.75 L
+75.88 29.00 L
+76.37 29.38 L
+76.87 29.75 L
+77.25 30.00 L
+77.75 30.38 L
+78.25 30.63 L
+78.75 31.00 L
+79.25 31.25 L
+79.63 31.63 L
+80.12 32.00 L
+80.63 32.25 L
+81.12 32.63 L
+81.63 32.88 L
+82.12 33.25 L
+82.50 33.63 L
+83.00 33.88 L
+83.50 34.25 L
+84.00 34.50 L
+84.50 34.88 L
+84.87 35.25 L
+85.38 35.50 L
+85.87 35.88 L
+86.37 36.13 L
+86.88 36.50 L
+87.25 36.75 L
+87.75 37.13 L
+88.25 37.50 L
+88.75 37.75 L
+89.25 38.13 L
+89.75 38.38 L
+90.12 38.75 L
+90.63 39.13 L
+91.12 39.38 L
+91.63 39.75 L
+92.12 40.00 L
+92.50 40.38 L
+93.00 40.75 L
+93.50 41.00 L
+94.00 41.38 L
+94.50 41.63 L
+95.00 42.00 L
+95.38 42.25 L
+95.87 42.63 L
+96.37 43.00 L
+96.88 43.25 L
+97.37 43.63 L
+97.75 43.88 L
+98.25 44.25 L
+98.75 44.63 L
+99.25 44.88 L
+99.75 45.25 L
+100.13 45.50 L
+100.63 45.88 L
+101.13 46.25 L
+101.62 46.50 L
+102.13 46.88 L
+102.62 47.13 L
+103.00 47.50 L
+103.50 47.75 L
+104.00 48.13 L
+104.50 48.50 L
+105.00 48.75 L
+105.38 49.13 L
+105.88 49.38 L
+106.38 49.75 L
+106.88 50.13 L
+107.38 50.38 L
+107.87 50.75 L
+108.25 51.00 L
+108.75 51.38 L
+109.25 51.75 L
+109.75 52.00 L
+110.25 52.38 L
+110.63 52.63 L
+111.12 53.00 L
+111.63 53.25 L
+112.13 53.63 L
+112.63 54.00 L
+113.00 54.25 L
+113.50 54.63 L
+114.00 54.88 L
+114.50 55.25 L
+115.00 55.63 L
+115.50 55.88 L
+115.88 56.25 L
+116.37 56.50 L
+116.88 56.88 L
+117.37 57.25 L
+117.88 57.50 L
+118.25 57.88 L
+118.75 58.13 L
+119.25 58.50 L
+119.75 58.75 L
+120.25 59.13 L
+120.63 59.50 L
+121.13 59.75 L
+121.63 60.13 L
+122.13 60.38 L
+122.63 60.75 L
+123.13 61.13 L
+123.50 61.38 L
+124.00 61.75 L
+124.50 62.00 L
+125.00 62.38 L
+125.50 62.75 L
+125.88 63.00 L
+126.38 63.38 L
+126.88 63.63 L
+127.38 64.00 L
+127.88 64.25 L
+128.38 64.63 L
+128.75 65.00 L
+129.25 65.25 L
+129.75 65.62 L
+130.25 65.88 L
+130.75 66.25 L
+131.13 66.63 L
+131.63 66.87 L
+132.13 67.25 L
+132.63 67.50 L
+133.13 67.88 L
+133.50 68.25 L
+134.00 68.50 L
+134.50 68.87 L
+135.00 69.13 L
+135.50 69.50 L
+136.00 69.75 L
+136.38 70.12 L
+136.88 70.50 L
+137.38 70.75 L
+137.88 71.12 L
+138.38 71.37 L
+138.75 71.75 L
+139.25 72.13 L
+139.75 72.37 L
+140.25 72.75 L
+140.75 73.00 L
+141.12 73.38 L
+141.63 73.75 L
+142.13 74.00 L
+142.63 74.37 L
+143.13 74.63 L
+143.63 75.00 L
+mstroke
+newpath 143.63 75.00 M
+144.00 75.25 L
+144.50 75.62 L
+145.00 76.00 L
+mstroke
+[] sd
+1 ps
+0 0 0 SetFore  UseFore
+0.0664073 0.0664073 0.0664073 SetFore  UseFore
+0.50 ps
+newpath 68.38 27.75 3.00 0 360 arc
+0 FillPath
+newpath
+newpath 88.37 33.50 3.00 0 360 arc
+0 FillPath
+newpath
+newpath 118.25 53.75 3.00 0 360 arc
+0 FillPath
+newpath
+newpath 136.50 74.50 3.00 0 360 arc
+0 FillPath
+newpath
+1 ps
+0 0 0 SetFore  UseFore
+AnObj restore
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+0 0 translate
+439.50 249.75 457.50 267.00 EraseRect
+AnObj restore
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+0 0 translate
+439.50 250.13 457.50 267.00 EraseRect
+ OurEncoding /_Helvetica /Helvetica EncodeFont
+13.97 (_Helvetica) 0 F
+(\(a\)) 439.50 264.09 18.00 WS
+AnObj restore
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+0 0 translate
+439.50 518.25 458.25 535.50 EraseRect
+AnObj restore
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+0 0 translate
+439.50 518.63 457.88 535.50 EraseRect
+ OurEncoding /_Helvetica /Helvetica EncodeFont
+13.97 (_Helvetica) 0 F
+(\(b\)) 439.50 532.59 18.38 WS
+AnObj restore
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+0 0 translate
+247.50 189.75 271.50 204.00 EraseRect
+AnObj restore
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+0 0 translate
+247.50 189.09 271.41 204.00 EraseRect
+ OurEncoding /_Helvetica /Helvetica EncodeFont
+10.03 (_Helvetica) 0 F
+(t) 247.50 199.13 3.37 WS
+7.03 (_Helvetica) 0 F
+(w) 250.88 202.59 5.25 WS
+10.03 (_Helvetica) 0 F
+( \(s\)) 256.13 199.13 15.28 WS
+AnObj restore
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+0 0 translate
+AnObj restore
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+0 0 translate
+ OurEncoding /_Helvetica /Helvetica EncodeFont
+13.03 (_Helvetica) 0 F
+(.) 297.75 326.53 3.94 WS
+AnObj restore
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+0 0 translate
+AnObj restore
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+0 0 translate
+ OurEncoding /_Helvetica /Helvetica EncodeFont
+10.03 (_Helvetica) 0 F
+gsave 185.53 142.50 translate -90 rotate
+( ) 0.00 0.00 2.81 WS
+grestore
+13.03 (Symbol) 0 F
+gsave 185.53 139.69 translate -90 rotate
+(g) 0.00 0.00 5.34 WS
+grestore
+ OurEncoding /_Helvetica /Helvetica EncodeFont
+9.09 (_Helvetica) 0 F
+gsave 190.13 134.34 translate -90 rotate
+(w) 0.00 0.00 6.75 WS
+grestore
+10.03 (_Helvetica) 0 F
+gsave 185.53 127.59 translate -90 rotate
+( \(s) 0.00 0.00 11.44 WS
+grestore
+7.03 (_Helvetica) 0 F
+gsave 179.81 116.16 translate -90 rotate
+(-1) 0.00 0.00 6.37 WS
+grestore
+10.03 (_Helvetica) 0 F
+gsave 185.53 109.78 translate -90 rotate
+(\)) 0.00 0.00 3.84 WS
+grestore
+AnObj restore
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+0 0 translate
+AnObj restore
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+0 0 translate
+ OurEncoding /_Helvetica /Helvetica EncodeFont
+13.03 (_Helvetica) 0 F
+(.) 172.50 137.53 3.94 WS
+AnObj restore
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+0 0 translate
+AnObj restore
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+120 335 translate
+1.00 ps
+gsave 1.00 ps 40.38 18.12 40.38 211.50 0 CapLine grestore
+gsave 1.00 ps 346.00 18.12 346.00 211.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 346.50 211.50 344.00 211.50 0 CapLine grestore
+gsave 1.00 ps 39.88 211.50 42.38 211.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 346.50 178.25 344.00 178.25 0 CapLine grestore
+gsave 1.00 ps 39.88 178.25 42.38 178.25 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 346.50 152.50 344.00 152.50 0 CapLine grestore
+gsave 1.00 ps 39.88 152.50 42.38 152.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 346.50 131.38 344.00 131.38 0 CapLine grestore
+gsave 1.00 ps 39.88 131.38 42.38 131.38 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 346.50 113.63 344.00 113.63 0 CapLine grestore
+gsave 1.00 ps 39.88 113.63 42.38 113.63 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 346.50 98.25 344.00 98.25 0 CapLine grestore
+gsave 1.00 ps 39.88 98.25 42.38 98.25 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 346.50 84.62 344.00 84.62 0 CapLine grestore
+gsave 1.00 ps 39.88 84.62 42.38 84.62 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 346.50 72.37 342.50 72.37 0 CapLine grestore
+gsave 1.00 ps 39.88 72.37 43.88 72.37 0 CapLine grestore
+1 ps
+ OurEncoding /_Helvetica /Helvetica EncodeFont
+15.00 (_Helvetica) 0 F
+(1) 24.63 78.25 8.25 WS
+1.00 ps
+gsave 1.00 ps 346.50 51.38 344.75 51.38 0 CapLine grestore
+gsave 1.00 ps 39.88 51.38 41.63 51.38 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 346.50 33.50 344.75 33.50 0 CapLine grestore
+gsave 1.00 ps 39.88 33.50 41.63 33.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 346.50 18.12 344.75 18.12 0 CapLine grestore
+gsave 1.00 ps 39.88 18.12 41.63 18.12 0 CapLine grestore
+1 ps
+15.00 (Symbol) 0 F
+gsave 15.13 134.38 translate -90 rotate
+(s) 0.00 0.00 9.00 WS
+grestore
+ OurEncoding /_Helvetica /Helvetica EncodeFont
+10.50 (_Helvetica) 0 F
+gsave 20.37 125.38 translate -90 rotate
+(m) 0.00 0.00 8.88 WS
+grestore
+15.00 (_Helvetica) 0 F
+gsave 15.13 116.50 translate -90 rotate
+(/G) 0.00 0.00 15.75 WS
+grestore
+10.50 (_Helvetica) 0 F
+gsave 20.37 100.75 translate -90 rotate
+(0) 0.00 0.00 5.75 WS
+grestore
+1.00 ps
+gsave 1.00 ps 40.38 211.50 346.00 211.50 0 CapLine grestore
+gsave 1.00 ps 40.38 18.12 346.00 18.12 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 40.38 17.62 40.38 20.12 0 CapLine grestore
+gsave 1.00 ps 40.38 212.00 40.38 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 43.88 17.62 43.88 20.12 0 CapLine grestore
+gsave 1.00 ps 43.88 212.00 43.88 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 46.88 17.62 46.88 20.12 0 CapLine grestore
+gsave 1.00 ps 46.88 212.00 46.88 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 49.38 17.62 49.38 20.12 0 CapLine grestore
+gsave 1.00 ps 49.38 212.00 49.38 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 51.63 17.62 51.63 20.12 0 CapLine grestore
+gsave 1.00 ps 51.63 212.00 51.63 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 53.75 17.62 53.75 21.62 0 CapLine grestore
+gsave 1.00 ps 53.75 212.00 53.75 208.00 0 CapLine grestore
+1 ps
+15.00 (_Helvetica) 0 F
+(10) 40.75 239.38 16.50 WS
+10.50 (_Helvetica) 0 F
+(-3) 57.25 229.50 9.63 WS
+1.00 ps
+gsave 1.00 ps 67.00 17.62 67.00 20.12 0 CapLine grestore
+gsave 1.00 ps 67.00 212.00 67.00 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 74.87 17.62 74.87 20.12 0 CapLine grestore
+gsave 1.00 ps 74.87 212.00 74.87 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 80.38 17.62 80.38 20.12 0 CapLine grestore
+gsave 1.00 ps 80.38 212.00 80.38 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 84.62 17.62 84.62 20.12 0 CapLine grestore
+gsave 1.00 ps 84.62 212.00 84.62 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 88.13 17.62 88.13 20.12 0 CapLine grestore
+gsave 1.00 ps 88.13 212.00 88.13 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 91.12 17.62 91.12 20.12 0 CapLine grestore
+gsave 1.00 ps 91.12 212.00 91.12 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 93.62 17.62 93.62 20.12 0 CapLine grestore
+gsave 1.00 ps 93.62 212.00 93.62 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 96.00 17.62 96.00 20.12 0 CapLine grestore
+gsave 1.00 ps 96.00 212.00 96.00 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 98.00 17.62 98.00 21.62 0 CapLine grestore
+gsave 1.00 ps 98.00 212.00 98.00 208.00 0 CapLine grestore
+1 ps
+15.00 (_Helvetica) 0 F
+(10) 85.00 239.38 16.50 WS
+10.50 (_Helvetica) 0 F
+(-2) 101.50 229.50 9.63 WS
+1.00 ps
+gsave 1.00 ps 111.25 17.62 111.25 20.12 0 CapLine grestore
+gsave 1.00 ps 111.25 212.00 111.25 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 119.13 17.62 119.13 20.12 0 CapLine grestore
+gsave 1.00 ps 119.13 212.00 119.13 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 124.63 17.62 124.63 20.12 0 CapLine grestore
+gsave 1.00 ps 124.63 212.00 124.63 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 128.88 17.62 128.88 20.12 0 CapLine grestore
+gsave 1.00 ps 128.88 212.00 128.88 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 132.38 17.62 132.38 20.12 0 CapLine grestore
+gsave 1.00 ps 132.38 212.00 132.38 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 135.38 17.62 135.38 20.12 0 CapLine grestore
+gsave 1.00 ps 135.38 212.00 135.38 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 138.00 17.62 138.00 20.12 0 CapLine grestore
+gsave 1.00 ps 138.00 212.00 138.00 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 140.25 17.62 140.25 20.12 0 CapLine grestore
+gsave 1.00 ps 140.25 212.00 140.25 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 142.25 17.62 142.25 21.62 0 CapLine grestore
+gsave 1.00 ps 142.25 212.00 142.25 208.00 0 CapLine grestore
+1 ps
+15.00 (_Helvetica) 0 F
+(10) 129.25 239.38 16.50 WS
+10.50 (_Helvetica) 0 F
+(-1) 145.75 229.50 9.63 WS
+1.00 ps
+gsave 1.00 ps 155.63 17.62 155.63 20.12 0 CapLine grestore
+gsave 1.00 ps 155.63 212.00 155.63 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 163.38 17.62 163.38 20.12 0 CapLine grestore
+gsave 1.00 ps 163.38 212.00 163.38 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 168.88 17.62 168.88 20.12 0 CapLine grestore
+gsave 1.00 ps 168.88 212.00 168.88 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 173.25 17.62 173.25 20.12 0 CapLine grestore
+gsave 1.00 ps 173.25 212.00 173.25 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 176.75 17.62 176.75 20.12 0 CapLine grestore
+gsave 1.00 ps 176.75 212.00 176.75 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 179.63 17.62 179.63 20.12 0 CapLine grestore
+gsave 1.00 ps 179.63 212.00 179.63 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 182.25 17.62 182.25 20.12 0 CapLine grestore
+gsave 1.00 ps 182.25 212.00 182.25 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 184.50 17.62 184.50 20.12 0 CapLine grestore
+gsave 1.00 ps 184.50 212.00 184.50 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 186.50 17.62 186.50 21.62 0 CapLine grestore
+gsave 1.00 ps 186.50 212.00 186.50 208.00 0 CapLine grestore
+1 ps
+15.00 (_Helvetica) 0 F
+(10) 175.38 239.38 16.50 WS
+10.50 (_Helvetica) 0 F
+(0) 191.88 229.50 5.75 WS
+1.00 ps
+gsave 1.00 ps 199.88 17.62 199.88 20.12 0 CapLine grestore
+gsave 1.00 ps 199.88 212.00 199.88 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 207.63 17.62 207.63 20.12 0 CapLine grestore
+gsave 1.00 ps 207.63 212.00 207.63 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 213.13 17.62 213.13 20.12 0 CapLine grestore
+gsave 1.00 ps 213.13 212.00 213.13 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 217.50 17.62 217.50 20.12 0 CapLine grestore
+gsave 1.00 ps 217.50 212.00 217.50 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 221.00 17.62 221.00 20.12 0 CapLine grestore
+gsave 1.00 ps 221.00 212.00 221.00 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 224.00 17.62 224.00 20.12 0 CapLine grestore
+gsave 1.00 ps 224.00 212.00 224.00 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 226.50 17.62 226.50 20.12 0 CapLine grestore
+gsave 1.00 ps 226.50 212.00 226.50 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 228.75 17.62 228.75 20.12 0 CapLine grestore
+gsave 1.00 ps 228.75 212.00 228.75 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 230.75 17.62 230.75 21.62 0 CapLine grestore
+gsave 1.00 ps 230.75 212.00 230.75 208.00 0 CapLine grestore
+1 ps
+15.00 (_Helvetica) 0 F
+(10) 219.63 239.38 16.50 WS
+10.50 (_Helvetica) 0 F
+(1) 236.12 229.50 5.75 WS
+1.00 ps
+gsave 1.00 ps 244.13 17.62 244.13 20.12 0 CapLine grestore
+gsave 1.00 ps 244.13 212.00 244.13 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 251.88 17.62 251.88 20.12 0 CapLine grestore
+gsave 1.00 ps 251.88 212.00 251.88 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 257.50 17.62 257.50 20.12 0 CapLine grestore
+gsave 1.00 ps 257.50 212.00 257.50 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 261.75 17.62 261.75 20.12 0 CapLine grestore
+gsave 1.00 ps 261.75 212.00 261.75 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 265.25 17.62 265.25 20.12 0 CapLine grestore
+gsave 1.00 ps 265.25 212.00 265.25 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 268.25 17.62 268.25 20.12 0 CapLine grestore
+gsave 1.00 ps 268.25 212.00 268.25 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 270.75 17.62 270.75 20.12 0 CapLine grestore
+gsave 1.00 ps 270.75 212.00 270.75 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 273.00 17.62 273.00 20.12 0 CapLine grestore
+gsave 1.00 ps 273.00 212.00 273.00 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 275.13 17.62 275.13 21.62 0 CapLine grestore
+gsave 1.00 ps 275.13 212.00 275.13 208.00 0 CapLine grestore
+1 ps
+15.00 (_Helvetica) 0 F
+(10) 264.00 239.38 16.50 WS
+10.50 (_Helvetica) 0 F
+(2) 280.50 229.50 5.75 WS
+1.00 ps
+gsave 1.00 ps 288.38 17.62 288.38 20.12 0 CapLine grestore
+gsave 1.00 ps 288.38 212.00 288.38 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 296.25 17.62 296.25 20.12 0 CapLine grestore
+gsave 1.00 ps 296.25 212.00 296.25 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 301.75 17.62 301.75 20.12 0 CapLine grestore
+gsave 1.00 ps 301.75 212.00 301.75 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 306.00 17.62 306.00 20.12 0 CapLine grestore
+gsave 1.00 ps 306.00 212.00 306.00 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 309.50 17.62 309.50 20.12 0 CapLine grestore
+gsave 1.00 ps 309.50 212.00 309.50 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 312.50 17.62 312.50 20.12 0 CapLine grestore
+gsave 1.00 ps 312.50 212.00 312.50 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 315.00 17.62 315.00 20.12 0 CapLine grestore
+gsave 1.00 ps 315.00 212.00 315.00 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 317.37 17.62 317.37 20.12 0 CapLine grestore
+gsave 1.00 ps 317.37 212.00 317.37 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 319.38 17.62 319.38 21.62 0 CapLine grestore
+gsave 1.00 ps 319.38 212.00 319.38 208.00 0 CapLine grestore
+1 ps
+15.00 (_Helvetica) 0 F
+(10) 308.25 239.38 16.50 WS
+10.50 (_Helvetica) 0 F
+(3) 324.75 229.50 5.75 WS
+1.00 ps
+gsave 1.00 ps 332.62 17.62 332.62 20.12 0 CapLine grestore
+gsave 1.00 ps 332.62 212.00 332.62 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 340.50 17.62 340.50 20.12 0 CapLine grestore
+gsave 1.00 ps 340.50 212.00 340.50 209.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 346.00 17.62 346.00 20.12 0 CapLine grestore
+gsave 1.00 ps 346.00 212.00 346.00 209.50 0 CapLine grestore
+1 ps
+15.00 (Symbol) 0 F
+(g.) 181.87 259.63 9.88 WS
+ OurEncoding /_Helvetica /Helvetica EncodeFont
+15.00 (_Helvetica) 0 F
+(t) 191.75 259.63 5.00 WS
+10.50 (_Helvetica) 0 F
+(w) 196.75 264.88 7.75 WS
+0.50 ps
+newpath 109.25 141.88 M
+113.25 149.88 L
+105.25 149.88 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 132.38 139.00 M
+136.38 147.00 L
+128.38 147.00 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 176.75 156.63 M
+180.75 164.63 L
+172.75 164.63 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 197.88 148.88 M
+201.88 156.88 L
+193.88 156.88 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 221.00 140.63 M
+225.00 148.62 L
+217.00 148.62 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 242.13 122.63 M
+246.13 130.63 L
+238.13 130.63 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 265.25 94.00 M
+269.25 102.00 L
+261.25 102.00 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 286.38 71.63 M
+290.38 79.63 L
+282.38 79.63 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 309.50 45.75 M
+313.50 53.75 L
+305.50 53.75 L
+closepath
+0 FillPath
+0 StrokePath newpath
+1 ps
+0.50 ps
+newpath 140.25 161.75 4.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 174.63 172.25 4.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 191.00 166.88 4.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 197.88 155.13 4.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 219.00 152.13 4.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 235.25 139.38 4.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 242.13 126.25 4.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 255.38 113.38 4.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 273.00 106.25 4.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 286.38 85.50 4.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 299.75 67.50 4.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 317.37 52.75 4.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 330.63 33.50 4.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+1 ps
+0.50 ps
+115.12 141.63 123.13 149.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+138.25 156.38 146.25 164.37 RectPath
+1 FillPath
+0 StrokePath
+newpath
+159.38 161.88 167.37 169.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+182.50 165.75 190.50 173.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+203.63 166.50 211.63 174.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+226.75 141.75 234.75 149.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+247.88 113.38 255.88 121.37 RectPath
+1 FillPath
+0 StrokePath
+newpath
+271.13 79.75 279.13 87.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+1 ps
+0.50 ps
+newpath 51.63 125.00 M
+55.63 129.00 L
+51.63 133.00 L
+47.63 129.00 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 74.87 136.50 M
+78.87 140.50 L
+74.87 144.50 L
+70.88 140.50 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 119.13 151.13 M
+123.13 155.13 L
+119.13 159.13 L
+115.12 155.13 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 163.38 163.88 M
+167.37 167.88 L
+163.38 171.87 L
+159.38 167.88 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 184.50 168.00 M
+188.50 172.00 L
+184.50 176.00 L
+180.50 172.00 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 207.63 147.63 M
+211.63 151.63 L
+207.63 155.63 L
+203.63 151.63 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 228.75 136.25 M
+232.75 140.25 L
+228.75 144.25 L
+224.75 140.25 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 251.88 99.00 M
+255.88 103.00 L
+251.88 107.00 L
+247.88 103.00 L
+closepath
+0 FillPath
+0 StrokePath newpath
+newpath 257.00 95.63 M
+261.00 99.63 L
+257.00 103.62 L
+253.00 99.63 L
+closepath
+0 FillPath
+0 StrokePath newpath
+1 ps
+gsave
+[ 10 10 ] sd
+gsave 1.00 ps 201.25 211.50 201.25 17.37 0 CapLine grestore
+grestore
+AnObj restore
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+0 0 translate
+AnObj restore
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+0 0 translate
+ OurEncoding /_Helvetica /Helvetica EncodeFont
+13.03 (_Helvetica) 0 F
+(.) 303.00 584.53 3.94 WS
+AnObj restore
+end
+IgorSave restore
+%%DocumentFonts: Helvetica
+%%+Symbol

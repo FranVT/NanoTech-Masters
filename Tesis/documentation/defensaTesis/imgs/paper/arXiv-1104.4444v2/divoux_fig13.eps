@@ -1,0 +1,4677 @@
+%!PS-Adobe-2.0 EPSF-2.0
+%%BoundingBox: 95 105 498 356
+%%Creator: Igor
+%%Title: Layout0
+%%Creation Date: mer. 22 juin 2011 14:12
+%%DocumentFonts:  (atend) 
+%%EndComments
+0 469 translate  1 -1 scale
+/IgorSave save def
+
+1000 dict begin
+
+0 setgray 0 setlinecap
+1 setlinewidth 0 setlinejoin
+1 setmiterlimit [] 0 setdash
+
+/aw 0 def 	/ah 0 def
+/x0 0 def	/y0 0 def	/x1 0 def	/y1 0 def
+/rx0 0 def	/ry0 0 def	/rx1 0 def	/ry1 0 def
+/tmp0 0 def /tmp1 0 def
+/packedRed 0 def /packedGreen 0 def /packedBlue 0 def
+/x 0 def	/y 0 def	/w 0 def	/c 0 string def
+
+/rbak 1 def	/gbak 1 def	/bbak 1 def
+/rfor 0 def	/gfor 0 def	/bfor 0 def
+
+/bdef{bind def}bind def
+/ldef{load def}bdef
+/xdef{exch def}bdef
+
+/setuserscreendict 22 dict def
+setuserscreendict begin
+
+/tempctm matrix def
+/temprot matrix def
+/tempscale matrix def
+
+/concatprocs{
+	/proc2 exch cvlit def
+	/proc1 exch cvlit def
+	/newproc proc1 length proc2 length add array def
+	newproc 0 proc1 putinterval
+	newproc proc1 length proc2 putinterval
+	newproc cvx
+}def
+
+/resmatrix matrix def
+/findresolution{
+	72 0 resmatrix defaultmatrix dtransform
+	/yres xdef /xres xdef
+	xres dup mul yres dup mul add sqrt
+}def
+end
+
+/setuserscreen{
+  setuserscreendict begin
+	/spotfunction xdef
+	/screenangle xdef
+	/cellsize xdef
+	
+	/m tempctm currentmatrix def
+	/rm screenangle temprot rotate def
+	/sm cellsize dup tempscale scale def
+	
+	sm rm m m concatmatrix m concatmatrix pop
+	1 0 m dtransform /y1 xdef /x1 xdef
+	/veclength x1 dup mul y1 dup mul add sqrt def
+	/frequency findresolution veclength div def
+	/newscreenangle y1 x1 atan def
+	m 2 get m 1 get mul m 0 get m 3 get mul sub 0 gt
+	{
+		{ neg } /spotfunction load concatprocs
+		/spotfunction xdef
+	} if
+	frequency newscreenangle /spotfunction load setscreen
+  end
+}def
+
+/setpatterndict 18 dict def
+setpatterndict begin
+/bitison{
+	/ybit xdef /xbit xdef
+	/bytevalue bstring ybit bwidth mul xbit 8 idiv add get def
+	/mask 1 7 xbit 8 mod sub bitshift def
+	bytevalue mask and 0 ne
+}def
+end
+
+/bitpatternspotfunction{
+  setpatterndict begin
+	/y xdef /x xdef
+	/xindex x 1 add 2 div bpside mul cvi def
+	/yindex y 1 add 2 div bpside mul cvi def
+	xindex yindex bitison
+	{ /onbits onbits 1 add def 1 }
+	{ /offbits offbits 1 add def 0 }
+	ifelse
+  end
+}def
+
+/setpattern{
+  setpatterndict begin
+	/cellsz xdef
+	/angle xdef
+	/bwidth xdef
+	/bpside xdef
+	/bstring xdef
+	
+	/onbits 0 def /offbits 0 def
+	cellsz angle /bitpatternspotfunction load setuserscreen
+	{} settransfer
+	offbits offbits onbits add div setgray
+  end
+}def
+
+/FillPattern{	% patternstring --
+	/pat xdef
+	gsave
+	pat 8 1 0 72 300 32 div div setpattern
+	fill
+	grestore
+}def
+
+
+
+/UseBack{ rbak gbak bbak setrgbcolor }bdef
+/UseFore{ rfor gfor bfor setrgbcolor }bdef
+/SetBack {/bbak xdef /gbak xdef /rbak xdef }bdef
+/SetFore {/bfor xdef /gfor xdef /rfor xdef }bdef
+
+
+/ps {setlinewidth} bdef	
+/clw {currentlinewidth} bdef
+/sd {0 setdash} bdef
+
+/mstroke {0 clw eq {newpath}{stroke} ifelse} bdef
+
+/_R{ .5 sub round .5 add}bdef
+/allign { transform _R exch _R exch itransform }bdef
+/L {allign lineto} bdef
+/M {allign moveto} bdef
+
+/addto { dup load exec 3 -1 roll add store }bdef
+/MacLine{		% xto yto xfrom yfrom MacLine --
+	newpath		% only handles horizontal or vertical lines
+	/y0 xdef /x0 xdef /y1 xdef /x1 xdef
+	x1 x0 sub abs
+	y1 y0 sub abs gt
+	{clw x1 x0 gt {/x1}{/x0}ifelse  addto  clw 2 div dup /y0 addto /y1 addto}
+	{clw y1 y0 gt {/y1}{/y0}ifelse  addto  clw 2 div dup /x0 addto /x1 addto}
+	ifelse
+	x0 y0 M
+	x1 y1 L
+	mstroke
+}bdef
+
+/FillPath{		% graylevel FillPath --   fills current path and leaves path alive
+	gsave
+	dup 1 exch sub		% glev 1-glev
+	rbak 2 index mul	rfor 2 index mul add
+	gbak 3 index mul	gfor 3 index mul add
+	bbak 4 index mul	bfor 4 index mul add
+	setrgbcolor
+	pop pop
+	fill
+	grestore
+}bdef
+
+/StrokePath{		% linejoin StrokePath --   strokes current path and leaves path alive
+	gsave
+	setlinejoin
+	mstroke
+	grestore
+}bdef
+
+/RectPath{		% x0 y0 x1 y1 RectPath -- sets current path to a rectange
+	/y1 xdef /x1 xdef /y0 xdef /x0 xdef
+	newpath
+	x0 y0 M
+	x1 y0 L
+	x1 y1 L
+	x0 y1 L
+	closepath
+}bdef
+
+/PaintRect{		% x0 y0 x1 y1 graylevel PaintRect --
+	gsave
+	5 1 roll
+	RectPath
+	FillPath
+	grestore
+}bdef
+
+
+
+
+% **** begin image stuff *****
+% The following are used for images. This has to be kept
+% in synch with corresponding code in ImageDisp.c.In particular
+% the expansion factor, 8, has to be in synch.
+% packedcolor is (red*256+green)*256+blue
+
+/SetPackedColor{	% packedcolor SetPackedColor --
+	dup 256 mod /tmp0 xdef	% extract blue
+	256 idiv
+	dup 256 mod /tmp1 xdef	% extract green
+	256 idiv 				% extract red
+	255 div /packedRed xdef
+	tmp1 255 div /packedGreen xdef
+	tmp0 255 div /packedBlue xdef
+}bdef
+
+/IR_FillRect{
+	gsave
+	newpath
+	rx0 ry0 M
+	rx1 ry0 L
+	rx1 ry1 L
+	rx0 ry1 L
+	closepath
+	packedRed packedGreen packedBlue setrgbcolor
+	fill
+	grestore
+}bdef
+
+/NewRectImageLine{	% x0 y0 x1 y1 packedcolor NewRectImageLine --
+	SetPackedColor
+
+	/ry1 xdef /rx1 xdef /ry0 xdef /rx0 xdef	% remember starting rectange for following calls
+	
+	IR_FillRect
+}bdef
+
+/rx{		% xdist rx --
+	8 div
+	dup 0 lt
+	{ rx0 /rx1 xdef rx1 add /rx0 xdef }		% neg delta steps left
+	{ rx1 /rx0 xdef rx0 add /rx1 xdef }
+	ifelse
+	IR_FillRect
+}bdef
+
+/ry{		% ydist rr --
+	8 div
+	dup 0 lt
+	{ ry1 /ry0 xdef ry0 exch sub /ry1 xdef }		% neg delta steps down
+	{ ry0 /ry1 xdef ry1 exch sub /ry0 xdef }
+	ifelse
+	IR_FillRect
+}bdef
+
+
+/cx{		% xdist packedcolor cx --
+	SetPackedColor
+	rx
+}bdef
+
+/cy{		% ydist packedcolor cx --
+	SetPackedColor
+	ry
+}bdef
+
+% **** end image stuff *****
+
+
+
+/EraseRect{		% x0 y0 x1 y1 EraseRect --  fills rect with background color
+	gsave
+	RectPath
+	UseBack fill
+	grestore
+}bdef
+
+/FrameRect{		% x0 y0 x1 y1 FrameRect --
+	RectPath
+	mstroke
+}bdef
+
+/FrameMacRect{		% x0 y0 x1 y1 FrameMacRect --  Mac-like version
+	RectPath
+	mstroke
+}bdef
+
+
+/ellipse{
+	/savematrix matrix currentmatrix def
+	translate scale 0 0 1 0 360 arc
+	savematrix setmatrix
+}bdef
+
+
+
+/OvalPath{		% x0 y0 x1 y1 OvalPath -- sets current path to an oval inside rectange
+	/y1 xdef /x1 xdef /y0 xdef /x0 xdef
+	newpath
+	x0 x1 sub abs 2 div y0 y1 sub abs 2 div x0 x1 add 2 div y0 y1 add 2 div ellipse
+	closepath
+}bdef
+
+
+/PaintOval{		% x0 y0 x1 y1 graylevel PaintOval --
+	gsave
+	5 1 roll
+	OvalPath
+	FillPath
+	grestore
+}bdef
+
+/EraseOval{		% x0 y0 x1 y1 EraseOval --  fills with background color
+	gsave
+	OvalPath
+	UseBack fill
+	grestore
+}bdef
+
+/FrameOval{		% x0 y0 x1 y1 FrameOval --
+	OvalPath
+	mstroke
+}bdef
+
+
+/RRectPath{		% x0 y0 x1 y1 r OvalPath -- sets current path to rounded rectange, radius r
+	/radius xdef
+	/y1 xdef /x1 xdef /y0 xdef /x0 xdef
+	newpath
+	x0 radius add y0 M
+	x1 y0 x1 y1 radius arcto 4{pop}repeat
+	x1 y1 x0 y1 radius arcto 4{pop}repeat
+	x0 y1 x0 y0 radius arcto 4{pop}repeat
+	x0 y0 x1 y0 radius arcto 4{pop}repeat
+	closepath
+}bdef
+
+
+/PaintRRect{		% x0 y0 x1 y1 r graylevel PaintRRect --
+	gsave
+	6 1 roll
+	RRectPath
+	FillPath
+	grestore
+}bdef
+
+/EraseRRect{		% x0 y0 x1 y1 r EraseRRect --  fills rect with background color
+	gsave
+	RRectPath
+	UseBack fill
+	grestore
+}bdef
+
+/FrameRRect{		% x0 y0 x1 y1 r FrameRect --
+	RRectPath
+	mstroke
+}bdef
+
+
+
+
+/CapLine{		% x0 y0 x1 y1 linecap CapLine -- draws line using given line cap
+	gsave
+	setlinecap
+	/y1 xdef /x1 xdef /y0 xdef /x0 xdef
+	newpath
+	x0 y0 M
+	x1 y1 L
+	mstroke
+	grestore
+}bdef
+
+/Arrow{		% x0 y0 x1 y1 width height graylevel Arrow -- draws arrow at end of line from P0 to P1
+	gsave
+	/gl xdef 1 add /aw xdef 1 add /ah xdef /y0 xdef /x0 xdef /y1 xdef /x1 xdef 
+	x0 y0 translate
+	/x1 x1 x0 sub def
+	/y1 y1 y0 sub def
+	y1 x1 atan rotate
+	newpath
+	0 0 M
+	aw ah 2 div L
+	aw ah 2 div neg L
+	closepath
+	gl FillPath
+%	10 setmiterlimit
+%	1 ps
+%	0 StrokePath
+	grestore
+}bdef
+
+
+% ************ fonts ************
+
+
+/normal 0 def
+/bold 1 def
+/italic 2 def
+/underline 4 def
+/outline 8 def
+/shadow 16 def
+
+/FACE1 bold italic or def
+/FACE2 outline shadow or def
+
+/Shadow {
+	gsave
+	siz 0.08 mul 1 index mul x add
+	exch siz 0.07 mul mul y add M
+	c show
+	grestore
+} def
+
+/Outline {
+	gsave
+	siz .02 mul setlinewidth
+	x y M c true charpath
+	gsave UseBack fill grestore stroke
+	grestore
+} def
+
+/Underline{
+	gsave
+	siz 0.08 mul ps
+	x y clw add M x c stringwidth pop add y clw add L stroke
+	grestore
+}bdef
+
+/DoShow{	% assumes x,y,c are already set
+	fontkind FACE2 and
+	dup normal eq 				{c x y M show} if
+	dup outline eq 				{Outline} if
+	dup shadow eq 				{1 Shadow Outline} if
+	outline shadow or eq 		{1 Shadow 1.5 Shadow Outline} if
+	fontkind underline and 0 ne { Underline } if
+}bdef
+
+/DoWShow{	% assumes x,y,c & w are already set
+	gsave
+	x y translate
+	/x 0 def  /y 0 def
+	w c stringwidth pop div 1 scale
+	DoShow
+	grestore
+}bdef
+
+/S{
+	/y xdef /x xdef /c xdef
+	DoShow
+}bdef
+
+/WS{		% string x y desiredwidth WS -
+	/w xdef /y xdef /x xdef /c xdef
+	DoWShow
+}bdef
+
+/F{
+	/fontkind xdef
+	findfont exch /siz xdef [siz 0 0 siz neg  0 0] makefont setfont
+}bdef
+
+
+
+/Re-encode {
+	dup length array copy
+	/eap 0 def
+	exch {
+		dup type /integertype eq
+		{ /eap xdef }
+		{
+			1 index
+			exch
+			eap exch
+			put
+			/eap eap 1 add def
+		}
+		ifelse
+	} forall
+} bind def
+
+[ 39/quotesingle 96/grave 128/.notdef/.notdef/quotesinglbase
+/florin/quotedblbase/ellipsis/dagger/daggerdbl/circumflex
+/perthousand/Scaron/guilsinglleft/OE/.notdef/.notdef
+/.notdef/.notdef/quoteleft/quoteright/quotedblleft/quotedblright
+/bullet/endash/emdash/tilde/trademark/scaron/guilsinglright
+/oe/.notdef/.notdef/Ydieresis/.notdef/exclamdown/cent
+/sterling/currency/yen/brokenbar/section/dieresis/copyright
+/ordfeminine/guillemotleft/logicalnot/.notdef/registered
+/macron/degree/plusminus/twosuperior/threesuperior/acute
+/mu/paragraph/periodcentered/cedilla/onesuperior/ordmasculine
+/guillemotright/onequarter/onehalf/threequarters/questiondown
+/Agrave/Aacute/Acircumflex/Atilde/Adieresis/Aring/AE
+/Ccedilla/Egrave/Eacute/Ecircumflex/Edieresis/Igrave
+/Iacute/Icircumflex/Idieresis/Eth/Ntilde/Ograve/Oacute
+/Ocircumflex/Otilde/Odieresis/multiply/Oslash/Ugrave
+/Uacute/Ucircumflex/Udieresis/Yacute/Thorn/germandbls
+/agrave/aacute/acircumflex/atilde/adieresis/aring/ae
+/ccedilla/egrave/eacute/ecircumflex/edieresis/igrave
+/iacute/icircumflex/idieresis/eth/ntilde/ograve/oacute
+/ocircumflex/otilde/odieresis/divide/oslash/ugrave/uacute
+/ucircumflex/udieresis/yacute/thorn/ydieresis]
+/zzz xdef
+
+/OurEncoding{ zzz StandardEncoding Re-encode }bdef
+
+/EncodeFont	{
+	findfont
+	dup length dict begin
+	{
+		1 index /FID ne
+		{ def }
+		{ pop pop }
+		ifelse
+	} forall
+	/FontName xdef
+	/Encoding xdef
+	FontName currentdict
+	end
+	definefont pop
+} bind def
+
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+0 0 translate
+AnObj restore
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+79 95 translate
+1.00 ps
+gsave 1.00 ps 53.00 20.50 53.00 227.00 0 CapLine grestore
+gsave 1.00 ps 409.00 20.50 409.00 227.00 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 409.50 227.00 404.50 227.00 0 CapLine grestore
+gsave 1.00 ps 52.50 227.00 57.50 227.00 0 CapLine grestore
+1 ps
+ OurEncoding /_Helvetica /Helvetica EncodeFont
+17.00 (_Helvetica) 0 F
+(-2) 35.13 233.75 15.38 WS
+1.00 ps
+gsave 1.00 ps 409.50 162.88 404.50 162.88 0 CapLine grestore
+gsave 1.00 ps 52.50 162.88 57.50 162.88 0 CapLine grestore
+1 ps
+17.00 (_Helvetica) 0 F
+(-1) 35.13 169.63 15.38 WS
+1.00 ps
+gsave 1.00 ps 409.50 98.75 404.50 98.75 0 CapLine grestore
+gsave 1.00 ps 52.50 98.75 57.50 98.75 0 CapLine grestore
+1 ps
+17.00 (_Helvetica) 0 F
+(0) 41.25 105.50 9.25 WS
+1.00 ps
+gsave 1.00 ps 409.50 34.63 404.50 34.63 0 CapLine grestore
+gsave 1.00 ps 52.50 34.63 57.50 34.63 0 CapLine grestore
+1 ps
+17.00 (_Helvetica) 0 F
+(1) 41.25 41.38 9.25 WS
+gsave
+[ 6 6 ] sd
+gsave 1.00 ps 53.50 98.75 408.50 98.75 0 CapLine grestore
+grestore
+17.00 (_Helvetica) 0 F
+gsave 29.00 138.75 translate -90 rotate
+(v/v) 0.00 0.00 23.50 WS
+grestore
+11.88 (_Helvetica) 0 F
+gsave 34.63 115.25 translate -90 rotate
+(0) 0.00 0.00 6.50 WS
+grestore
+1.00 ps
+gsave 1.00 ps 53.00 227.00 409.00 227.00 0 CapLine grestore
+gsave 1.00 ps 53.00 20.50 409.00 20.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 409.00 20.00 409.00 25.00 0 CapLine grestore
+gsave 1.00 ps 409.00 227.50 409.00 222.50 0 CapLine grestore
+1 ps
+17.00 (_Helvetica) 0 F
+(20) 399.75 247.00 18.50 WS
+1.00 ps
+gsave 1.00 ps 373.38 20.00 373.38 23.00 0 CapLine grestore
+gsave 1.00 ps 373.38 227.50 373.38 224.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 337.75 20.00 337.75 25.00 0 CapLine grestore
+gsave 1.00 ps 337.75 227.50 337.75 222.50 0 CapLine grestore
+1 ps
+17.00 (_Helvetica) 0 F
+(16) 328.50 247.00 18.50 WS
+1.00 ps
+gsave 1.00 ps 302.25 20.00 302.25 23.00 0 CapLine grestore
+gsave 1.00 ps 302.25 227.50 302.25 224.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 266.63 20.00 266.63 25.00 0 CapLine grestore
+gsave 1.00 ps 266.63 227.50 266.63 222.50 0 CapLine grestore
+1 ps
+17.00 (_Helvetica) 0 F
+(12) 257.38 247.00 18.50 WS
+1.00 ps
+gsave 1.00 ps 231.00 20.00 231.00 23.00 0 CapLine grestore
+gsave 1.00 ps 231.00 227.50 231.00 224.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 195.38 20.00 195.38 25.00 0 CapLine grestore
+gsave 1.00 ps 195.38 227.50 195.38 222.50 0 CapLine grestore
+1 ps
+17.00 (_Helvetica) 0 F
+(8) 190.75 247.00 9.25 WS
+1.00 ps
+gsave 1.00 ps 159.75 20.00 159.75 23.00 0 CapLine grestore
+gsave 1.00 ps 159.75 227.50 159.75 224.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 124.25 20.00 124.25 25.00 0 CapLine grestore
+gsave 1.00 ps 124.25 227.50 124.25 222.50 0 CapLine grestore
+1 ps
+17.00 (_Helvetica) 0 F
+(4) 119.63 247.00 9.25 WS
+1.00 ps
+gsave 1.00 ps 88.62 20.00 88.62 23.00 0 CapLine grestore
+gsave 1.00 ps 88.62 227.50 88.62 224.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 53.00 20.00 53.00 25.00 0 CapLine grestore
+gsave 1.00 ps 53.00 227.50 53.00 222.50 0 CapLine grestore
+1 ps
+17.00 (_Helvetica) 0 F
+(0) 48.38 247.00 9.25 WS
+17.00 (Symbol) 0 F
+(g) 227.50 264.25 7.00 WS
+0.796887 0 0 SetFore  UseFore
+1.00 ps
+newpath 59.50 69.00 M
+60.13 55.88 L
+60.88 61.38 L
+61.50 54.38 L
+62.13 50.13 L
+62.88 51.88 L
+63.50 52.63 L
+64.13 49.88 L
+64.87 47.00 L
+65.50 156.50 L
+66.12 217.00 L
+66.87 145.63 L
+67.50 106.38 L
+68.12 95.00 L
+68.87 95.38 L
+69.50 94.62 L
+70.12 97.13 L
+70.88 98.75 L
+71.50 99.13 L
+72.13 97.75 L
+72.88 93.50 L
+73.50 94.00 L
+74.13 97.25 L
+74.87 99.00 L
+75.50 97.50 L
+76.12 97.25 L
+76.87 99.13 L
+77.50 98.87 L
+78.12 100.25 L
+78.87 100.25 L
+79.50 97.37 L
+80.12 99.13 L
+80.87 101.38 L
+81.50 101.13 L
+82.12 97.62 L
+82.88 95.50 L
+83.50 98.87 L
+84.13 98.50 L
+84.87 99.13 L
+85.50 98.25 L
+86.12 96.12 L
+86.88 96.12 L
+87.50 98.38 L
+88.13 98.25 L
+88.87 98.38 L
+89.50 98.50 L
+90.12 96.00 L
+90.87 98.50 L
+91.50 98.38 L
+92.12 96.12 L
+92.88 100.25 L
+93.50 99.00 L
+94.25 92.88 L
+94.87 91.50 L
+95.50 90.63 L
+96.25 87.25 L
+96.88 84.50 L
+97.50 79.50 L
+98.25 73.62 L
+98.87 69.50 L
+99.50 68.50 L
+100.25 69.13 L
+100.88 70.00 L
+101.50 75.00 L
+102.25 68.87 L
+102.88 67.00 L
+103.50 69.87 L
+104.25 66.37 L
+104.87 65.38 L
+105.50 56.00 L
+106.25 46.13 L
+106.88 39.38 L
+107.50 36.88 L
+108.25 45.25 L
+108.87 48.25 L
+109.50 40.63 L
+110.25 33.63 L
+110.88 35.50 L
+111.50 34.75 L
+112.25 36.00 L
+112.88 41.50 L
+113.50 45.50 L
+114.25 51.75 L
+114.88 43.63 L
+115.50 36.50 L
+116.25 26.37 L
+116.88 20.50 L
+mstroke
+newpath 116.88 20.50 M
+117.50 31.00 L
+118.25 34.50 L
+118.88 28.87 L
+119.50 37.50 L
+120.25 46.50 L
+120.88 37.75 L
+121.50 35.25 L
+122.25 34.63 L
+122.88 33.00 L
+123.50 36.50 L
+124.25 38.75 L
+124.88 37.00 L
+125.50 36.50 L
+126.25 40.00 L
+126.88 45.00 L
+127.62 48.88 L
+128.25 52.00 L
+128.88 50.00 L
+129.63 49.50 L
+130.25 47.63 L
+130.88 42.63 L
+131.63 49.00 L
+132.25 48.63 L
+132.88 47.75 L
+133.63 45.38 L
+134.25 45.00 L
+134.87 47.25 L
+135.63 37.13 L
+136.25 30.63 L
+136.88 33.75 L
+137.63 40.25 L
+138.25 39.75 L
+138.88 48.13 L
+139.63 55.13 L
+140.25 53.13 L
+140.88 62.50 L
+141.63 67.37 L
+142.25 60.00 L
+142.88 52.75 L
+143.63 45.00 L
+144.25 45.75 L
+144.88 52.13 L
+145.63 49.25 L
+146.25 47.38 L
+146.88 50.50 L
+147.63 53.88 L
+148.25 54.13 L
+148.88 53.75 L
+149.63 48.13 L
+150.25 35.63 L
+150.88 30.63 L
+151.63 37.63 L
+152.25 43.25 L
+152.88 45.13 L
+153.62 44.25 L
+154.25 52.88 L
+154.87 59.00 L
+155.63 55.00 L
+156.25 52.00 L
+156.88 51.50 L
+157.62 58.63 L
+158.25 58.38 L
+158.87 58.13 L
+159.63 54.88 L
+160.25 52.75 L
+161.00 57.13 L
+161.63 56.38 L
+162.25 54.38 L
+163.00 52.38 L
+163.63 50.38 L
+164.25 51.38 L
+165.00 53.38 L
+165.62 54.25 L
+166.25 59.38 L
+167.00 58.25 L
+167.63 50.88 L
+168.25 53.75 L
+169.00 57.50 L
+169.63 54.50 L
+170.25 55.63 L
+171.00 54.88 L
+171.63 50.00 L
+172.25 55.88 L
+173.00 60.38 L
+173.62 59.00 L
+174.25 64.50 L
+175.00 69.13 L
+175.62 63.25 L
+176.25 51.50 L
+177.00 46.88 L
+177.63 44.25 L
+178.25 40.50 L
+179.00 41.75 L
+179.63 46.50 L
+180.25 55.75 L
+181.00 61.50 L
+181.63 55.00 L
+182.25 56.38 L
+183.00 55.38 L
+183.62 54.13 L
+184.25 62.88 L
+185.00 60.88 L
+185.63 59.38 L
+186.25 63.75 L
+187.00 60.13 L
+187.63 58.13 L
+188.25 59.13 L
+189.00 54.88 L
+189.63 54.13 L
+190.25 53.00 L
+191.00 52.00 L
+191.63 51.13 L
+192.25 52.75 L
+193.00 56.38 L
+193.63 58.13 L
+194.38 58.13 L
+195.00 54.88 L
+195.63 59.63 L
+196.38 63.75 L
+197.00 54.88 L
+197.63 52.75 L
+198.38 58.38 L
+199.00 53.88 L
+199.63 42.38 L
+200.38 37.13 L
+201.00 40.00 L
+201.63 47.38 L
+202.38 51.75 L
+203.00 56.38 L
+203.63 57.13 L
+204.38 61.50 L
+205.00 65.75 L
+205.63 59.50 L
+206.38 57.63 L
+207.00 63.75 L
+207.63 63.00 L
+208.38 56.13 L
+209.00 57.63 L
+209.63 61.75 L
+210.38 61.00 L
+211.00 64.25 L
+211.63 65.25 L
+212.38 63.13 L
+213.00 64.63 L
+213.62 60.63 L
+214.38 60.38 L
+215.00 63.00 L
+215.63 63.63 L
+216.38 56.13 L
+217.00 52.88 L
+217.63 58.25 L
+mstroke
+[] sd
+1 ps
+0.50 ps
+58.50 68.00 60.50 70.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+59.13 54.88 61.13 56.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+59.88 60.38 61.88 62.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+60.50 53.38 62.50 55.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+61.13 49.13 63.13 51.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+61.88 50.88 63.88 52.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+62.50 51.63 64.50 53.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+63.13 48.88 65.12 50.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+63.88 46.00 65.88 48.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+64.50 155.50 66.50 157.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+65.12 216.00 67.13 218.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+65.88 144.63 67.88 146.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+66.50 105.38 68.50 107.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+67.13 94.00 69.13 96.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+67.88 94.38 69.87 96.37 RectPath
+1 FillPath
+0 StrokePath
+newpath
+68.50 93.62 70.50 95.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+69.13 96.12 71.12 98.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+69.87 97.75 71.87 99.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+70.50 98.13 72.50 100.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+71.12 96.75 73.12 98.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+71.87 92.50 73.87 94.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+72.50 93.00 74.50 95.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+73.12 96.25 75.12 98.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+73.87 98.00 75.88 100.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+74.50 96.50 76.50 98.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+75.12 96.25 77.13 98.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+75.88 98.13 77.88 100.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+76.50 97.88 78.50 99.87 RectPath
+1 FillPath
+0 StrokePath
+newpath
+77.13 99.25 79.13 101.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+77.88 99.25 79.87 101.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+78.50 96.37 80.50 98.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+79.13 98.13 81.12 100.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+79.87 100.38 81.88 102.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+80.50 100.13 82.50 102.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+81.12 96.63 83.13 98.62 RectPath
+1 FillPath
+0 StrokePath
+newpath
+81.88 94.50 83.87 96.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+82.50 97.88 84.50 99.87 RectPath
+1 FillPath
+0 StrokePath
+newpath
+83.13 97.50 85.12 99.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+83.87 98.13 85.87 100.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+84.50 97.25 86.50 99.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+85.12 95.12 87.12 97.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+85.87 95.12 87.88 97.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+86.50 97.37 88.50 99.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+87.12 97.25 89.13 99.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+87.88 97.37 89.87 99.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+88.50 97.50 90.50 99.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+89.13 95.00 91.12 97.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+89.87 97.50 91.88 99.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+90.50 97.37 92.50 99.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+91.12 95.12 93.13 97.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+91.88 99.25 93.87 101.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+92.50 98.00 94.50 100.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+93.25 91.88 95.25 93.87 RectPath
+1 FillPath
+0 StrokePath
+newpath
+93.87 90.50 95.87 92.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+94.50 89.62 96.50 91.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+95.25 86.25 97.25 88.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+95.87 83.50 97.88 85.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+96.50 78.50 98.50 80.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+97.25 72.62 99.25 74.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+97.88 68.50 99.87 70.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+98.50 67.50 100.50 69.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+99.25 68.12 101.25 70.12 RectPath
+1 FillPath
+0 StrokePath
+newpath
+99.87 69.00 101.88 71.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+100.50 74.00 102.50 76.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+101.25 67.88 103.25 69.87 RectPath
+1 FillPath
+0 StrokePath
+newpath
+101.88 66.00 103.87 68.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+102.50 68.87 104.50 70.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+103.25 65.38 105.25 67.37 RectPath
+1 FillPath
+0 StrokePath
+newpath
+103.87 64.37 105.88 66.37 RectPath
+1 FillPath
+0 StrokePath
+newpath
+104.50 55.00 106.50 57.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+105.25 45.13 107.25 47.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+105.88 38.38 107.87 40.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+106.50 35.88 108.50 37.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+107.25 44.25 109.25 46.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+107.87 47.25 109.87 49.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+108.50 39.63 110.50 41.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+109.25 32.63 111.25 34.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+109.87 34.50 111.88 36.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+110.50 33.75 112.50 35.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+111.25 35.00 113.25 37.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+111.88 40.50 113.88 42.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+112.50 44.50 114.50 46.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+113.25 50.75 115.25 52.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+113.88 42.63 115.88 44.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+114.50 35.50 116.50 37.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+115.25 25.38 117.25 27.37 RectPath
+1 FillPath
+0 StrokePath
+newpath
+116.50 30.00 118.50 32.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+117.25 33.50 119.25 35.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+117.88 27.88 119.88 29.87 RectPath
+1 FillPath
+0 StrokePath
+newpath
+118.50 36.50 120.50 38.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+119.25 45.50 121.25 47.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+119.88 36.75 121.88 38.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+120.50 34.25 122.50 36.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+121.25 33.63 123.25 35.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+121.88 32.00 123.88 34.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+122.50 35.50 124.50 37.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+123.25 37.75 125.25 39.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+123.88 36.00 125.88 38.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+124.50 35.50 126.50 37.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+125.25 39.00 127.25 41.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+125.88 44.00 127.88 46.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+126.63 47.88 128.62 49.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+127.25 51.00 129.25 53.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+127.88 49.00 129.87 51.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+128.62 48.50 130.63 50.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+129.25 46.63 131.25 48.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+129.87 41.63 131.88 43.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+130.63 48.00 132.63 50.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+131.25 47.63 133.25 49.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+131.88 46.75 133.87 48.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+132.63 44.38 134.63 46.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+133.25 44.00 135.25 46.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+133.87 46.25 135.88 48.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+134.63 36.13 136.63 38.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+135.25 29.63 137.25 31.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+135.88 32.75 137.88 34.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+136.63 39.25 138.63 41.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+137.25 38.75 139.25 40.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+137.88 47.13 139.88 49.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+138.63 54.13 140.63 56.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+139.25 52.13 141.25 54.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+139.88 61.50 141.88 63.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+140.63 66.37 142.63 68.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+141.25 59.00 143.25 61.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+141.88 51.75 143.88 53.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+142.63 44.00 144.63 46.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+143.25 44.75 145.25 46.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+143.88 51.13 145.88 53.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+144.63 48.25 146.63 50.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+145.25 46.38 147.25 48.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+145.88 49.50 147.88 51.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+146.63 52.88 148.62 54.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+147.25 53.13 149.25 55.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+147.88 52.75 149.88 54.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+148.62 47.13 150.63 49.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+149.25 34.63 151.25 36.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+149.88 29.63 151.88 31.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+150.63 36.63 152.62 38.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+151.25 42.25 153.25 44.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+151.88 44.13 153.88 46.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+152.62 43.25 154.63 45.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+153.25 51.88 155.25 53.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+153.88 58.00 155.88 60.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+154.63 54.00 156.63 56.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+155.25 51.00 157.25 53.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+155.88 50.50 157.88 52.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+156.63 57.63 158.63 59.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+157.25 57.38 159.25 59.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+157.88 57.13 159.87 59.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+158.63 53.88 160.63 55.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+159.25 51.75 161.25 53.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+160.00 56.13 162.00 58.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+160.63 55.38 162.63 57.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+161.25 53.38 163.25 55.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+162.00 51.38 164.00 53.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+162.63 49.38 164.63 51.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+163.25 50.38 165.25 52.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+164.00 52.38 166.00 54.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+164.63 53.25 166.63 55.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+165.25 58.38 167.25 60.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+166.00 57.25 168.00 59.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+166.63 49.88 168.63 51.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+167.25 52.75 169.25 54.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+168.00 56.50 170.00 58.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+168.63 53.50 170.62 55.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+169.25 54.63 171.25 56.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+170.00 53.88 172.00 55.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+170.62 49.00 172.63 51.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+171.25 54.88 173.25 56.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+172.00 59.38 174.00 61.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+172.63 58.00 174.63 60.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+173.25 63.50 175.25 65.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+174.00 68.12 176.00 70.12 RectPath
+1 FillPath
+0 StrokePath
+newpath
+174.63 62.25 176.63 64.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+175.25 50.50 177.25 52.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+176.00 45.88 178.00 47.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+176.63 43.25 178.62 45.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+177.25 39.50 179.25 41.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+178.00 40.75 180.00 42.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+178.62 45.50 180.63 47.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+179.25 54.75 181.25 56.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+180.00 60.50 182.00 62.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+180.63 54.00 182.63 56.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+181.25 55.38 183.25 57.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+182.00 54.38 184.00 56.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+182.63 53.13 184.63 55.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+183.25 61.88 185.25 63.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+184.00 59.88 186.00 61.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+184.63 58.38 186.63 60.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+185.25 62.75 187.25 64.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+186.00 59.13 188.00 61.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+186.63 57.13 188.63 59.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+187.25 58.13 189.25 60.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+188.00 53.88 190.00 55.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+188.63 53.13 190.62 55.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+189.25 52.00 191.25 54.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+190.00 51.00 192.00 53.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+190.62 50.13 192.63 52.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+191.25 51.75 193.25 53.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+192.00 55.38 194.00 57.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+192.63 57.13 194.63 59.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+193.38 57.13 195.38 59.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+194.00 53.88 196.00 55.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+194.63 58.63 196.63 60.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+195.38 62.75 197.37 64.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+196.00 53.88 198.00 55.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+196.63 51.75 198.62 53.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+197.37 57.38 199.38 59.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+198.00 52.88 200.00 54.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+198.62 41.38 200.63 43.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+199.38 36.13 201.38 38.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+200.00 39.00 202.00 41.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+200.63 46.38 202.63 48.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+201.38 50.75 203.38 52.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+202.00 55.38 204.00 57.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+202.63 56.13 204.63 58.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+203.38 60.50 205.38 62.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+204.00 64.75 206.00 66.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+204.63 58.50 206.63 60.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+205.38 56.63 207.37 58.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+206.00 62.75 208.00 64.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+206.63 62.00 208.63 64.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+207.37 55.13 209.38 57.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+208.00 56.63 210.00 58.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+208.63 60.75 210.63 62.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+209.38 60.00 211.38 62.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+210.00 63.25 212.00 65.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+210.63 64.25 212.63 66.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+211.38 62.13 213.38 64.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+212.00 63.63 214.00 65.62 RectPath
+1 FillPath
+0 StrokePath
+newpath
+212.63 59.63 214.63 61.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+213.38 59.38 215.37 61.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+214.00 62.00 216.00 64.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+214.63 62.63 216.63 64.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+215.37 55.13 217.37 57.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+216.00 51.88 218.00 53.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+216.63 57.25 218.63 59.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+1 ps
+0 0 0 SetFore  UseFore
+0.996109 0.664073 0 SetFore  UseFore
+1.00 ps
+newpath 53.88 99.13 M
+55.63 95.63 L
+57.38 89.75 L
+59.25 31.25 L
+61.00 39.38 L
+62.75 27.62 L
+64.50 55.38 L
+66.37 134.13 L
+68.12 107.00 L
+69.87 98.87 L
+71.63 96.50 L
+73.50 97.75 L
+75.25 96.12 L
+77.00 91.00 L
+78.75 82.00 L
+80.63 70.62 L
+82.37 63.63 L
+84.13 66.87 L
+85.87 62.38 L
+87.75 52.13 L
+89.50 58.50 L
+91.25 55.38 L
+93.00 61.13 L
+94.75 61.75 L
+96.63 64.87 L
+98.38 60.75 L
+100.13 60.38 L
+101.88 62.75 L
+103.75 57.38 L
+105.50 55.63 L
+107.25 60.75 L
+109.00 63.50 L
+110.88 62.38 L
+112.63 62.88 L
+114.38 68.12 L
+116.12 64.13 L
+118.00 64.63 L
+119.75 50.75 L
+121.50 50.13 L
+123.25 58.50 L
+125.13 61.63 L
+126.88 61.38 L
+128.62 59.63 L
+130.38 59.50 L
+132.25 57.38 L
+134.00 58.38 L
+135.75 65.62 L
+137.50 66.37 L
+139.25 68.87 L
+141.12 69.25 L
+142.88 70.12 L
+144.63 65.25 L
+146.37 69.50 L
+148.25 65.00 L
+150.00 58.00 L
+151.75 63.75 L
+153.50 64.37 L
+155.38 63.50 L
+157.13 62.63 L
+158.87 54.38 L
+160.63 60.13 L
+162.50 66.12 L
+164.25 59.63 L
+166.00 61.63 L
+167.75 65.50 L
+169.63 63.38 L
+171.38 71.50 L
+173.13 68.25 L
+174.88 48.00 L
+176.75 57.50 L
+178.50 66.37 L
+180.25 68.12 L
+182.00 64.63 L
+183.75 65.50 L
+185.63 59.50 L
+187.38 57.88 L
+189.13 58.63 L
+190.88 58.25 L
+192.75 56.00 L
+194.50 57.88 L
+196.25 61.88 L
+198.00 70.00 L
+199.88 73.25 L
+201.63 66.87 L
+203.38 73.75 L
+205.13 64.25 L
+207.00 66.12 L
+208.75 59.75 L
+210.50 59.63 L
+212.25 56.63 L
+214.13 55.50 L
+215.88 59.75 L
+217.63 61.63 L
+219.38 58.63 L
+221.25 65.75 L
+223.00 63.38 L
+224.75 58.25 L
+226.50 57.75 L
+228.25 62.88 L
+230.13 65.00 L
+231.88 57.75 L
+233.63 55.38 L
+235.38 58.63 L
+237.25 62.75 L
+239.00 63.38 L
+240.75 57.38 L
+242.50 57.00 L
+244.38 58.25 L
+246.13 62.13 L
+247.88 62.75 L
+249.63 66.75 L
+251.50 70.12 L
+253.25 67.13 L
+255.00 70.12 L
+256.75 68.62 L
+258.63 60.75 L
+260.38 70.38 L
+262.13 67.62 L
+263.88 54.00 L
+265.75 67.13 L
+267.50 58.13 L
+269.25 54.63 L
+271.00 67.37 L
+272.75 67.13 L
+274.63 65.88 L
+276.38 61.88 L
+278.13 65.75 L
+279.87 65.75 L
+281.75 61.88 L
+283.50 61.13 L
+285.25 64.25 L
+287.00 60.38 L
+288.88 61.75 L
+290.63 61.00 L
+292.37 62.75 L
+294.13 60.75 L
+296.00 66.37 L
+297.75 61.50 L
+299.50 64.37 L
+301.25 65.62 L
+303.13 65.00 L
+304.87 65.00 L
+306.63 55.13 L
+308.38 55.50 L
+310.25 63.00 L
+312.00 59.50 L
+313.75 68.62 L
+315.50 66.25 L
+317.25 63.25 L
+319.13 62.13 L
+320.88 66.00 L
+322.63 64.37 L
+324.38 60.25 L
+326.25 63.00 L
+328.00 65.88 L
+329.75 53.00 L
+331.50 57.13 L
+333.38 62.50 L
+335.13 68.12 L
+336.88 70.88 L
+338.63 74.63 L
+340.50 65.50 L
+342.25 52.38 L
+344.00 54.38 L
+345.75 51.38 L
+347.63 65.62 L
+349.38 64.00 L
+351.13 67.13 L
+352.88 69.63 L
+354.75 63.38 L
+356.50 67.88 L
+358.25 59.50 L
+360.00 61.63 L
+361.75 60.00 L
+363.63 60.38 L
+365.38 62.63 L
+367.13 63.50 L
+368.88 62.88 L
+370.75 66.12 L
+372.50 64.00 L
+374.25 60.50 L
+376.00 62.88 L
+377.88 67.75 L
+379.63 59.75 L
+381.38 58.13 L
+383.13 59.50 L
+385.00 61.75 L
+386.75 61.63 L
+388.50 68.62 L
+390.25 66.63 L
+392.13 66.25 L
+393.88 60.25 L
+395.63 59.88 L
+397.38 59.00 L
+399.25 62.38 L
+401.00 60.38 L
+mstroke
+newpath 401.00 60.38 M
+402.75 57.38 L
+404.50 57.63 L
+406.25 63.88 L
+408.13 66.87 L
+409.00 69.37 L
+mstroke
+[] sd
+1 ps
+0.50 ps
+newpath 53.88 98.13 M
+54.88 100.13 L
+52.88 100.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 55.63 94.62 M
+56.63 96.63 L
+54.63 96.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 57.38 88.75 M
+58.38 90.75 L
+56.38 90.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 59.25 30.25 M
+60.25 32.25 L
+58.25 32.25 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 61.00 38.38 M
+62.00 40.38 L
+60.00 40.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 62.75 26.63 M
+63.75 28.62 L
+61.75 28.62 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 64.50 54.38 M
+65.50 56.38 L
+63.50 56.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 66.37 133.13 M
+67.37 135.13 L
+65.38 135.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 68.12 106.00 M
+69.13 108.00 L
+67.13 108.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 69.87 97.88 M
+70.88 99.87 L
+68.87 99.87 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 71.63 95.50 M
+72.62 97.50 L
+70.62 97.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 73.50 96.75 M
+74.50 98.75 L
+72.50 98.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 75.25 95.12 M
+76.25 97.13 L
+74.25 97.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 77.00 90.00 M
+78.00 92.00 L
+76.00 92.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 78.75 81.00 M
+79.75 83.00 L
+77.75 83.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 80.63 69.63 M
+81.63 71.63 L
+79.63 71.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 82.37 62.63 M
+83.37 64.63 L
+81.37 64.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 84.13 65.88 M
+85.12 67.88 L
+83.13 67.88 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 85.87 61.38 M
+86.88 63.38 L
+84.87 63.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 87.75 51.13 M
+88.75 53.13 L
+86.75 53.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 89.50 57.50 M
+90.50 59.50 L
+88.50 59.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 91.25 54.38 M
+92.25 56.38 L
+90.25 56.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 93.00 60.13 M
+94.00 62.13 L
+92.00 62.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 94.75 60.75 M
+95.75 62.75 L
+93.75 62.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 96.63 63.88 M
+97.62 65.88 L
+95.63 65.88 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 98.38 59.75 M
+99.38 61.75 L
+97.37 61.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 100.13 59.38 M
+101.13 61.38 L
+99.13 61.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 101.88 61.75 M
+102.88 63.75 L
+100.88 63.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 103.75 56.38 M
+104.75 58.38 L
+102.75 58.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 105.50 54.63 M
+106.50 56.63 L
+104.50 56.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 107.25 59.75 M
+108.25 61.75 L
+106.25 61.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 109.00 62.50 M
+110.00 64.50 L
+108.00 64.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 110.88 61.38 M
+111.88 63.38 L
+109.87 63.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 112.63 61.88 M
+113.63 63.88 L
+111.63 63.88 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 114.38 67.13 M
+115.38 69.13 L
+113.38 69.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 116.12 63.13 M
+117.13 65.12 L
+115.12 65.12 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 118.00 63.63 M
+119.00 65.62 L
+117.00 65.62 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 119.75 49.75 M
+120.75 51.75 L
+118.75 51.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 121.50 49.13 M
+122.50 51.13 L
+120.50 51.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 123.25 57.50 M
+124.25 59.50 L
+122.25 59.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 125.13 60.63 M
+126.13 62.63 L
+124.13 62.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 126.88 60.38 M
+127.88 62.38 L
+125.88 62.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 128.62 58.63 M
+129.63 60.63 L
+127.62 60.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 130.38 58.50 M
+131.38 60.50 L
+129.38 60.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 132.25 56.38 M
+133.25 58.38 L
+131.25 58.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 134.00 57.38 M
+135.00 59.38 L
+133.00 59.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 135.75 64.63 M
+136.75 66.63 L
+134.75 66.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 137.50 65.38 M
+138.50 67.37 L
+136.50 67.37 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 139.25 67.88 M
+140.25 69.87 L
+138.25 69.87 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 141.12 68.25 M
+142.13 70.25 L
+140.12 70.25 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 142.88 69.13 M
+143.88 71.12 L
+141.88 71.12 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 144.63 64.25 M
+145.63 66.25 L
+143.63 66.25 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 146.37 68.50 M
+147.37 70.50 L
+145.38 70.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 148.25 64.00 M
+149.25 66.00 L
+147.25 66.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 150.00 57.00 M
+151.00 59.00 L
+149.00 59.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 151.75 62.75 M
+152.75 64.75 L
+150.75 64.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 153.50 63.38 M
+154.50 65.38 L
+152.50 65.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 155.38 62.50 M
+156.38 64.50 L
+154.38 64.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 157.13 61.63 M
+158.13 63.63 L
+156.13 63.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 158.87 53.38 M
+159.87 55.38 L
+157.88 55.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 160.63 59.13 M
+161.63 61.13 L
+159.63 61.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 162.50 65.12 M
+163.50 67.13 L
+161.50 67.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 164.25 58.63 M
+165.25 60.63 L
+163.25 60.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 166.00 60.63 M
+167.00 62.63 L
+165.00 62.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 167.75 64.50 M
+168.75 66.50 L
+166.75 66.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 169.63 62.38 M
+170.62 64.37 L
+168.63 64.37 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 171.38 70.50 M
+172.37 72.50 L
+170.38 72.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 173.13 67.25 M
+174.13 69.25 L
+172.13 69.25 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 174.88 47.00 M
+175.88 49.00 L
+173.88 49.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 176.75 56.50 M
+177.75 58.50 L
+175.75 58.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 178.50 65.38 M
+179.50 67.37 L
+177.50 67.37 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 180.25 67.13 M
+181.25 69.13 L
+179.25 69.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 182.00 63.63 M
+183.00 65.62 L
+181.00 65.62 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 183.75 64.50 M
+184.75 66.50 L
+182.75 66.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 185.63 58.50 M
+186.63 60.50 L
+184.63 60.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 187.38 56.88 M
+188.38 58.88 L
+186.38 58.88 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 189.13 57.63 M
+190.13 59.63 L
+188.12 59.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 190.88 57.25 M
+191.88 59.25 L
+189.87 59.25 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 192.75 55.00 M
+193.75 57.00 L
+191.75 57.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 194.50 56.88 M
+195.50 58.88 L
+193.50 58.88 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 196.25 60.88 M
+197.25 62.88 L
+195.25 62.88 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 198.00 69.00 M
+199.00 71.00 L
+197.00 71.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 199.88 72.25 M
+200.88 74.25 L
+198.88 74.25 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 201.63 65.88 M
+202.63 67.88 L
+200.63 67.88 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 203.38 72.75 M
+204.38 74.75 L
+202.38 74.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 205.13 63.25 M
+206.13 65.25 L
+204.13 65.25 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 207.00 65.12 M
+208.00 67.13 L
+206.00 67.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 208.75 58.75 M
+209.75 60.75 L
+207.75 60.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 210.50 58.63 M
+211.50 60.63 L
+209.50 60.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 212.25 55.63 M
+213.25 57.63 L
+211.25 57.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 214.13 54.50 M
+215.13 56.50 L
+213.13 56.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 215.88 58.75 M
+216.88 60.75 L
+214.88 60.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 217.63 60.63 M
+218.63 62.63 L
+216.63 62.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 219.38 57.63 M
+220.38 59.63 L
+218.38 59.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 221.25 64.75 M
+222.25 66.75 L
+220.25 66.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 223.00 62.38 M
+224.00 64.37 L
+222.00 64.37 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 224.75 57.25 M
+225.75 59.25 L
+223.75 59.25 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 226.50 56.75 M
+227.50 58.75 L
+225.50 58.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 228.25 61.88 M
+229.25 63.88 L
+227.25 63.88 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 230.13 64.00 M
+231.13 66.00 L
+229.13 66.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 231.88 56.75 M
+232.88 58.75 L
+230.88 58.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 233.63 54.38 M
+234.63 56.38 L
+232.63 56.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 235.38 57.63 M
+236.38 59.63 L
+234.38 59.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 237.25 61.75 M
+238.25 63.75 L
+236.25 63.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 239.00 62.38 M
+240.00 64.37 L
+238.00 64.37 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 240.75 56.38 M
+241.75 58.38 L
+239.75 58.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 242.50 56.00 M
+243.50 58.00 L
+241.50 58.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 244.38 57.25 M
+245.38 59.25 L
+243.38 59.25 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 246.13 61.13 M
+247.13 63.13 L
+245.13 63.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 247.88 61.75 M
+248.88 63.75 L
+246.88 63.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 249.63 65.75 M
+250.63 67.75 L
+248.62 67.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 251.50 69.13 M
+252.50 71.12 L
+250.50 71.12 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 253.25 66.12 M
+254.25 68.12 L
+252.25 68.12 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 255.00 69.13 M
+256.00 71.12 L
+254.00 71.12 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 256.75 67.62 M
+257.75 69.63 L
+255.75 69.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 258.63 59.75 M
+259.63 61.75 L
+257.63 61.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 260.38 69.37 M
+261.38 71.37 L
+259.38 71.37 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 262.13 66.63 M
+263.13 68.62 L
+261.12 68.62 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 263.88 53.00 M
+264.88 55.00 L
+262.88 55.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 265.75 66.12 M
+266.75 68.12 L
+264.75 68.12 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 267.50 57.13 M
+268.50 59.13 L
+266.50 59.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 269.25 53.63 M
+270.25 55.63 L
+268.25 55.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 271.00 66.37 M
+272.00 68.38 L
+270.00 68.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 272.75 66.12 M
+273.75 68.12 L
+271.75 68.12 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 274.63 64.87 M
+275.63 66.87 L
+273.62 66.87 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 276.38 60.88 M
+277.38 62.88 L
+275.38 62.88 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 278.13 64.75 M
+279.13 66.75 L
+277.13 66.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 279.87 64.75 M
+280.88 66.75 L
+278.88 66.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 281.75 60.88 M
+282.75 62.88 L
+280.75 62.88 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 283.50 60.13 M
+284.50 62.13 L
+282.50 62.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 285.25 63.25 M
+286.25 65.25 L
+284.25 65.25 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 287.00 59.38 M
+288.00 61.38 L
+286.00 61.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 288.88 60.75 M
+289.87 62.75 L
+287.88 62.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 290.63 60.00 M
+291.63 62.00 L
+289.63 62.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 292.37 61.75 M
+293.38 63.75 L
+291.38 63.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 294.13 59.75 M
+295.13 61.75 L
+293.13 61.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 296.00 65.38 M
+297.00 67.37 L
+295.00 67.37 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 297.75 60.50 M
+298.75 62.50 L
+296.75 62.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 299.50 63.38 M
+300.50 65.38 L
+298.50 65.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 301.25 64.63 M
+302.25 66.63 L
+300.25 66.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 303.13 64.00 M
+304.13 66.00 L
+302.13 66.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 304.87 64.00 M
+305.88 66.00 L
+303.88 66.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 306.63 54.13 M
+307.63 56.13 L
+305.63 56.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 308.38 54.50 M
+309.38 56.50 L
+307.38 56.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 310.25 62.00 M
+311.25 64.00 L
+309.25 64.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 312.00 58.50 M
+313.00 60.50 L
+311.00 60.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 313.75 67.62 M
+314.75 69.63 L
+312.75 69.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 315.50 65.25 M
+316.50 67.25 L
+314.50 67.25 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 317.25 62.25 M
+318.25 64.25 L
+316.25 64.25 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 319.13 61.13 M
+320.12 63.13 L
+318.13 63.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 320.88 65.00 M
+321.88 67.00 L
+319.88 67.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 322.63 63.38 M
+323.62 65.38 L
+321.63 65.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 324.38 59.25 M
+325.38 61.25 L
+323.38 61.25 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 326.25 62.00 M
+327.25 64.00 L
+325.25 64.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 328.00 64.87 M
+329.00 66.87 L
+327.00 66.87 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 329.75 52.00 M
+330.75 54.00 L
+328.75 54.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 331.50 56.13 M
+332.50 58.13 L
+330.50 58.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 333.38 61.50 M
+334.38 63.50 L
+332.38 63.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 335.13 67.13 M
+336.12 69.13 L
+334.13 69.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 336.88 69.87 M
+337.88 71.87 L
+335.88 71.87 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 338.63 73.62 M
+339.63 75.62 L
+337.63 75.62 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 340.50 64.50 M
+341.50 66.50 L
+339.50 66.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 342.25 51.38 M
+343.25 53.38 L
+341.25 53.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 344.00 53.38 M
+345.00 55.38 L
+343.00 55.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 345.75 50.38 M
+346.75 52.38 L
+344.75 52.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 347.63 64.63 M
+348.62 66.63 L
+346.63 66.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 349.38 63.00 M
+350.38 65.00 L
+348.38 65.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 351.13 66.12 M
+352.13 68.12 L
+350.13 68.12 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 352.88 68.62 M
+353.88 70.62 L
+351.88 70.62 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 354.75 62.38 M
+355.75 64.37 L
+353.75 64.37 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 356.50 66.87 M
+357.50 68.87 L
+355.50 68.87 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 358.25 58.50 M
+359.25 60.50 L
+357.25 60.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 360.00 60.63 M
+361.00 62.63 L
+359.00 62.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 361.75 59.00 M
+362.75 61.00 L
+360.75 61.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 363.63 59.38 M
+364.63 61.38 L
+362.63 61.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 365.38 61.63 M
+366.38 63.63 L
+364.38 63.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 367.13 62.50 M
+368.13 64.50 L
+366.13 64.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 368.88 61.88 M
+369.88 63.88 L
+367.88 63.88 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 370.75 65.12 M
+371.75 67.13 L
+369.75 67.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 372.50 63.00 M
+373.50 65.00 L
+371.50 65.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 374.25 59.50 M
+375.25 61.50 L
+373.25 61.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 376.00 61.88 M
+377.00 63.88 L
+375.00 63.88 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 377.88 66.75 M
+378.88 68.75 L
+376.88 68.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 379.63 58.75 M
+380.63 60.75 L
+378.63 60.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 381.38 57.13 M
+382.38 59.13 L
+380.38 59.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 383.13 58.50 M
+384.13 60.50 L
+382.13 60.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 385.00 60.75 M
+386.00 62.75 L
+384.00 62.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 386.75 60.63 M
+387.75 62.63 L
+385.75 62.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 388.50 67.62 M
+389.50 69.63 L
+387.50 69.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 390.25 65.62 M
+391.25 67.62 L
+389.25 67.62 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 392.13 65.25 M
+393.13 67.25 L
+391.13 67.25 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 393.88 59.25 M
+394.88 61.25 L
+392.88 61.25 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 395.63 58.88 M
+396.63 60.88 L
+394.63 60.88 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 397.38 58.00 M
+398.38 60.00 L
+396.38 60.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 399.25 61.38 M
+400.25 63.38 L
+398.25 63.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 401.00 59.38 M
+402.00 61.38 L
+400.00 61.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 402.75 56.38 M
+403.75 58.38 L
+401.75 58.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 404.50 56.63 M
+405.50 58.63 L
+403.50 58.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 406.25 62.88 M
+407.25 64.87 L
+405.25 64.87 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 408.13 65.88 M
+409.13 67.88 L
+407.12 67.88 L
+closepath
+1 FillPath
+0 StrokePath newpath
+1 ps
+0 0 0 SetFore  UseFore
+1.00 ps
+newpath 58.88 60.88 M
+62.50 35.38 L
+66.00 141.75 L
+69.63 102.25 L
+73.12 96.00 L
+76.63 96.75 L
+80.25 99.25 L
+83.75 99.00 L
+87.37 96.88 L
+90.87 98.13 L
+94.50 99.00 L
+98.00 99.38 L
+101.62 98.00 L
+105.13 97.75 L
+108.75 83.37 L
+112.25 59.88 L
+115.88 42.25 L
+119.38 42.75 L
+123.00 49.38 L
+126.50 56.63 L
+130.13 64.25 L
+133.63 61.63 L
+137.25 59.13 L
+140.75 50.50 L
+144.38 56.50 L
+147.88 62.50 L
+151.50 46.00 L
+155.00 59.38 L
+158.63 55.88 L
+162.13 60.75 L
+165.62 63.25 L
+169.25 58.50 L
+172.75 61.50 L
+176.38 58.63 L
+179.87 59.75 L
+183.50 60.63 L
+187.00 58.75 L
+190.62 55.38 L
+194.13 65.38 L
+197.75 68.25 L
+201.25 66.25 L
+204.87 59.75 L
+208.38 61.50 L
+212.00 62.50 L
+215.50 60.75 L
+219.13 61.13 L
+222.63 65.12 L
+226.25 58.63 L
+229.75 60.63 L
+233.38 62.00 L
+236.88 65.38 L
+240.50 63.25 L
+244.00 67.62 L
+247.63 62.75 L
+251.13 66.00 L
+254.63 54.75 L
+258.25 62.13 L
+261.75 66.25 L
+265.38 66.50 L
+268.88 63.75 L
+272.50 58.25 L
+276.00 61.88 L
+279.63 68.50 L
+283.13 68.87 L
+286.75 73.62 L
+290.25 69.13 L
+293.88 62.50 L
+297.38 59.38 L
+301.00 63.50 L
+304.50 66.63 L
+308.13 64.50 L
+311.63 67.88 L
+315.25 71.63 L
+318.75 65.12 L
+322.38 65.12 L
+325.88 67.25 L
+329.50 65.62 L
+333.00 66.37 L
+336.63 64.50 L
+340.12 69.50 L
+343.63 62.75 L
+347.25 68.12 L
+350.75 67.00 L
+354.38 71.12 L
+357.88 62.38 L
+361.50 62.00 L
+365.00 67.00 L
+368.63 66.00 L
+mstroke
+[] sd
+1 ps
+0.50 ps
+newpath 58.88 60.88 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 62.50 35.38 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 66.00 141.75 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 69.63 102.25 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 73.12 96.00 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 76.63 96.75 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 80.25 99.25 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 83.75 99.00 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 87.37 96.88 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 90.87 98.13 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 94.50 99.00 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 98.00 99.38 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 101.62 98.00 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 105.13 97.75 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 108.75 83.37 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 112.25 59.88 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 115.88 42.25 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 119.38 42.75 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 123.00 49.38 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 126.50 56.63 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 130.13 64.25 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 133.63 61.63 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 137.25 59.13 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 140.75 50.50 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 144.38 56.50 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 147.88 62.50 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 151.50 46.00 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 155.00 59.38 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 158.63 55.88 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 162.13 60.75 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 165.62 63.25 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 169.25 58.50 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 172.75 61.50 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 176.38 58.63 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 179.87 59.75 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 183.50 60.63 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 187.00 58.75 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 190.62 55.38 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 194.13 65.38 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 197.75 68.25 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 201.25 66.25 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 204.87 59.75 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 208.38 61.50 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 212.00 62.50 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 215.50 60.75 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 219.13 61.13 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 222.63 65.12 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 226.25 58.63 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 229.75 60.63 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 233.38 62.00 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 236.88 65.38 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 240.50 63.25 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 244.00 67.62 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 247.63 62.75 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 251.13 66.00 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 254.63 54.75 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 258.25 62.13 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 261.75 66.25 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 265.38 66.50 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 268.88 63.75 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 272.50 58.25 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 276.00 61.88 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 279.63 68.50 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 283.13 68.87 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 286.75 73.62 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 290.25 69.13 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 293.88 62.50 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 297.38 59.38 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 301.00 63.50 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 304.50 66.63 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 308.13 64.50 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 311.63 67.88 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 315.25 71.63 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 318.75 65.12 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 322.38 65.12 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 325.88 67.25 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 329.50 65.62 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 333.00 66.37 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 336.63 64.50 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 340.12 69.50 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 343.63 62.75 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 347.25 68.12 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 350.75 67.00 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 354.38 71.12 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 357.88 62.38 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 361.50 62.00 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 365.00 67.00 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 368.63 66.00 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+1 ps
+AnObj restore
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+0 0 translate
+AnObj restore
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+228 188 translate
+1.00 ps
+gsave 1.00 ps 54.50 14.50 54.50 103.00 0 CapLine grestore
+gsave 1.00 ps 217.00 14.50 217.00 103.00 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 217.50 22.50 212.50 22.50 0 CapLine grestore
+gsave 1.00 ps 54.00 22.50 59.00 22.50 0 CapLine grestore
+1 ps
+ OurEncoding /_Helvetica /Helvetica EncodeFont
+12.00 (_Helvetica) 0 F
+(1.0) 35.38 27.25 16.63 WS
+1.00 ps
+gsave 1.00 ps 217.50 42.63 212.50 42.63 0 CapLine grestore
+gsave 1.00 ps 54.00 42.63 59.00 42.63 0 CapLine grestore
+1 ps
+12.00 (_Helvetica) 0 F
+(0.5) 35.38 47.38 16.63 WS
+1.00 ps
+gsave 1.00 ps 217.50 62.75 212.50 62.75 0 CapLine grestore
+gsave 1.00 ps 54.00 62.75 59.00 62.75 0 CapLine grestore
+1 ps
+12.00 (_Helvetica) 0 F
+(0.0) 35.38 67.50 16.63 WS
+1.00 ps
+gsave 1.00 ps 217.50 82.88 212.50 82.88 0 CapLine grestore
+gsave 1.00 ps 54.00 82.88 59.00 82.88 0 CapLine grestore
+1 ps
+12.00 (_Helvetica) 0 F
+(-0.5) 31.00 87.62 21.00 WS
+1.00 ps
+gsave 1.00 ps 217.50 103.00 212.50 103.00 0 CapLine grestore
+gsave 1.00 ps 54.00 103.00 59.00 103.00 0 CapLine grestore
+1 ps
+12.00 (_Helvetica) 0 F
+(-1.0) 31.00 107.75 21.00 WS
+gsave
+[ 6 6 ] sd
+gsave 1.00 ps 55.00 62.75 216.50 62.75 0 CapLine grestore
+grestore
+12.00 (_Helvetica) 0 F
+gsave 24.00 69.37 translate -90 rotate
+(v/v) 0.00 0.00 16.63 WS
+grestore
+8.38 (_Helvetica) 0 F
+gsave 28.00 52.75 translate -90 rotate
+(0) 0.00 0.00 4.62 WS
+grestore
+1.00 ps
+gsave 1.00 ps 54.50 103.00 217.00 103.00 0 CapLine grestore
+gsave 1.00 ps 54.50 14.50 217.00 14.50 0 CapLine grestore
+1 ps
+1.00 ps
+gsave 1.00 ps 217.00 14.00 217.00 19.00 0 CapLine grestore
+gsave 1.00 ps 217.00 103.50 217.00 98.50 0 CapLine grestore
+1 ps
+12.00 (_Helvetica) 0 F
+(4) 213.75 118.00 6.50 WS
+1.00 ps
+gsave 1.00 ps 176.38 14.00 176.38 19.00 0 CapLine grestore
+gsave 1.00 ps 176.38 103.50 176.38 98.50 0 CapLine grestore
+1 ps
+12.00 (_Helvetica) 0 F
+(3) 173.13 118.00 6.50 WS
+1.00 ps
+gsave 1.00 ps 135.75 14.00 135.75 19.00 0 CapLine grestore
+gsave 1.00 ps 135.75 103.50 135.75 98.50 0 CapLine grestore
+1 ps
+12.00 (_Helvetica) 0 F
+(2) 132.50 118.00 6.50 WS
+1.00 ps
+gsave 1.00 ps 95.12 14.00 95.12 19.00 0 CapLine grestore
+gsave 1.00 ps 95.12 103.50 95.12 98.50 0 CapLine grestore
+1 ps
+12.00 (_Helvetica) 0 F
+(1) 91.88 118.00 6.50 WS
+1.00 ps
+gsave 1.00 ps 54.50 14.00 54.50 19.00 0 CapLine grestore
+gsave 1.00 ps 54.50 103.50 54.50 98.50 0 CapLine grestore
+1 ps
+12.00 (_Helvetica) 0 F
+(0) 51.25 118.00 6.50 WS
+12.00 (Symbol) 0 F
+(g) 133.38 129.38 4.87 WS
+0.796887 0 0 SetFore  UseFore
+1.00 ps
+newpath 69.25 44.13 M
+70.75 35.88 L
+72.37 39.25 L
+73.87 35.00 L
+75.38 32.25 L
+76.87 33.38 L
+78.38 33.88 L
+80.00 32.13 L
+81.50 30.25 L
+83.00 99.00 L
+83.13 103.00 L
+mstroke
+newpath 85.63 103.00 M
+86.00 92.12 L
+87.62 67.50 L
+89.13 60.38 L
+90.63 60.63 L
+92.12 60.25 L
+93.62 61.75 L
+95.12 62.75 L
+96.75 63.00 L
+98.25 62.13 L
+99.75 59.50 L
+101.25 59.75 L
+102.75 61.88 L
+104.38 62.88 L
+105.88 62.00 L
+107.38 61.75 L
+108.87 63.00 L
+110.38 62.88 L
+112.00 63.75 L
+113.50 63.75 L
+115.00 61.88 L
+116.50 63.00 L
+118.00 64.50 L
+119.50 64.25 L
+121.13 62.13 L
+122.63 60.75 L
+124.13 62.88 L
+125.63 62.63 L
+127.13 63.00 L
+128.75 62.50 L
+130.25 61.13 L
+131.75 61.13 L
+133.25 62.63 L
+134.75 62.50 L
+136.38 62.50 L
+137.88 62.63 L
+139.38 61.00 L
+140.88 62.63 L
+142.37 62.50 L
+143.88 61.13 L
+145.50 63.75 L
+147.00 62.88 L
+148.50 59.13 L
+150.00 58.13 L
+151.50 57.63 L
+153.13 55.50 L
+154.63 53.88 L
+156.13 50.75 L
+157.62 47.00 L
+159.13 44.50 L
+160.75 43.75 L
+162.25 44.25 L
+163.75 44.75 L
+165.25 47.88 L
+166.75 44.00 L
+168.25 42.75 L
+169.88 44.75 L
+171.38 42.38 L
+172.88 41.75 L
+174.38 36.00 L
+175.88 29.75 L
+177.50 25.50 L
+179.00 24.00 L
+180.50 29.13 L
+182.00 31.12 L
+183.50 26.37 L
+185.13 21.88 L
+186.63 23.13 L
+188.12 22.62 L
+189.63 23.38 L
+191.12 26.88 L
+192.63 29.38 L
+194.25 33.25 L
+195.75 28.13 L
+197.25 23.62 L
+198.75 17.37 L
+200.00 14.50 L
+mstroke
+newpath 200.50 14.50 M
+201.88 20.25 L
+203.38 22.50 L
+204.87 18.87 L
+206.38 24.38 L
+207.88 30.00 L
+209.50 24.50 L
+211.00 23.00 L
+212.50 22.62 L
+214.00 21.50 L
+215.50 23.75 L
+217.00 25.12 L
+mstroke
+[] sd
+1 ps
+0.50 ps
+68.25 43.13 70.25 45.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+69.75 34.88 71.75 36.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+71.37 38.25 73.38 40.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+72.88 34.00 74.87 36.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+74.37 31.25 76.37 33.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+75.88 32.38 77.88 34.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+77.37 32.88 79.37 34.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+79.00 31.12 81.00 33.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+80.50 29.25 82.50 31.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+82.00 98.00 84.00 100.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+85.00 91.12 87.00 93.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+86.63 66.50 88.62 68.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+88.13 59.38 90.12 61.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+89.62 59.63 91.63 61.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+91.12 59.25 93.13 61.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+92.62 60.75 94.62 62.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+94.13 61.75 96.12 63.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+95.75 62.00 97.75 64.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+97.25 61.13 99.25 63.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+98.75 58.50 100.75 60.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+100.25 58.75 102.25 60.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+101.75 60.88 103.75 62.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+103.38 61.88 105.38 63.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+104.87 61.00 106.88 63.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+106.38 60.75 108.38 62.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+107.87 62.00 109.87 64.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+109.38 61.88 111.38 63.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+111.00 62.75 113.00 64.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+112.50 62.75 114.50 64.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+114.00 60.88 116.00 62.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+115.50 62.00 117.50 64.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+117.00 63.50 119.00 65.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+118.50 63.25 120.50 65.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+120.13 61.13 122.13 63.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+121.63 59.75 123.62 61.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+123.13 61.88 125.13 63.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+124.63 61.63 126.63 63.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+126.13 62.00 128.13 64.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+127.75 61.50 129.75 63.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+129.25 60.13 131.25 62.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+130.75 60.13 132.75 62.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+132.25 61.63 134.25 63.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+133.75 61.50 135.75 63.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+135.38 61.50 137.38 63.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+136.88 61.63 138.88 63.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+138.38 60.00 140.38 62.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+139.88 61.63 141.88 63.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+141.38 61.50 143.38 63.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+142.88 60.13 144.88 62.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+144.50 62.75 146.50 64.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+146.00 61.88 148.00 63.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+147.50 58.13 149.50 60.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+149.00 57.13 151.00 59.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+150.50 56.63 152.50 58.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+152.13 54.50 154.13 56.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+153.62 52.88 155.63 54.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+155.13 49.75 157.13 51.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+156.63 46.00 158.63 48.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+158.13 43.50 160.13 45.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+159.75 42.75 161.75 44.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+161.25 43.25 163.25 45.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+162.75 43.75 164.75 45.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+164.25 46.88 166.25 48.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+165.75 43.00 167.75 45.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+167.25 41.75 169.25 43.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+168.88 43.75 170.88 45.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+170.38 41.38 172.37 43.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+171.87 40.75 173.88 42.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+173.38 35.00 175.38 37.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+174.88 28.75 176.87 30.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+176.50 24.50 178.50 26.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+178.00 23.00 180.00 25.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+179.50 28.13 181.50 30.12 RectPath
+1 FillPath
+0 StrokePath
+newpath
+181.00 30.12 183.00 32.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+182.50 25.38 184.50 27.37 RectPath
+1 FillPath
+0 StrokePath
+newpath
+184.13 20.88 186.12 22.87 RectPath
+1 FillPath
+0 StrokePath
+newpath
+185.63 22.13 187.63 24.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+187.13 21.62 189.13 23.62 RectPath
+1 FillPath
+0 StrokePath
+newpath
+188.63 22.37 190.62 24.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+190.13 25.88 192.13 27.88 RectPath
+1 FillPath
+0 StrokePath
+newpath
+191.63 28.38 193.63 30.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+193.25 32.25 195.25 34.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+194.75 27.13 196.75 29.13 RectPath
+1 FillPath
+0 StrokePath
+newpath
+196.25 22.62 198.25 24.63 RectPath
+1 FillPath
+0 StrokePath
+newpath
+197.75 16.37 199.75 18.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+200.88 19.25 202.87 21.25 RectPath
+1 FillPath
+0 StrokePath
+newpath
+202.38 21.50 204.38 23.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+203.88 17.88 205.88 19.87 RectPath
+1 FillPath
+0 StrokePath
+newpath
+205.38 23.38 207.37 25.38 RectPath
+1 FillPath
+0 StrokePath
+newpath
+206.88 29.00 208.88 31.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+208.50 23.50 210.50 25.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+210.00 22.00 212.00 24.00 RectPath
+1 FillPath
+0 StrokePath
+newpath
+211.50 21.62 213.50 23.62 RectPath
+1 FillPath
+0 StrokePath
+newpath
+213.00 20.50 215.00 22.50 RectPath
+1 FillPath
+0 StrokePath
+newpath
+214.50 22.75 216.50 24.75 RectPath
+1 FillPath
+0 StrokePath
+newpath
+1 ps
+0 0 0 SetFore  UseFore
+0.996109 0.664073 0 SetFore  UseFore
+1.00 ps
+newpath 56.50 63.00 M
+60.50 60.75 L
+64.63 57.13 L
+68.62 20.37 L
+72.75 25.50 L
+76.75 18.12 L
+80.87 35.63 L
+84.87 85.00 L
+89.00 68.00 L
+93.00 62.88 L
+97.13 61.38 L
+101.13 62.13 L
+105.25 61.13 L
+109.25 57.88 L
+113.38 52.25 L
+117.37 45.13 L
+121.50 40.75 L
+125.50 42.75 L
+129.63 40.00 L
+133.63 33.50 L
+137.75 37.50 L
+141.75 35.50 L
+145.88 39.13 L
+149.88 39.50 L
+154.00 41.50 L
+158.00 38.88 L
+162.13 38.63 L
+166.12 40.13 L
+170.25 36.75 L
+174.25 35.75 L
+178.38 38.88 L
+182.38 40.63 L
+186.50 40.00 L
+190.50 40.25 L
+194.63 43.50 L
+198.62 41.00 L
+202.75 41.38 L
+206.75 32.63 L
+210.88 32.25 L
+214.88 37.50 L
+217.00 38.50 L
+mstroke
+[] sd
+1 ps
+0.50 ps
+newpath 56.50 62.00 M
+57.50 64.00 L
+55.50 64.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 60.50 59.75 M
+61.50 61.75 L
+59.50 61.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 64.63 56.13 M
+65.62 58.13 L
+63.63 58.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 68.62 19.37 M
+69.63 21.37 L
+67.62 21.37 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 72.75 24.50 M
+73.75 26.50 L
+71.75 26.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 76.75 17.13 M
+77.75 19.13 L
+75.75 19.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 80.87 34.63 M
+81.88 36.63 L
+79.87 36.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 84.87 84.00 M
+85.87 86.00 L
+83.87 86.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 89.00 67.00 M
+90.00 69.00 L
+88.00 69.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 93.00 61.88 M
+94.00 63.88 L
+92.00 63.88 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 97.13 60.38 M
+98.13 62.38 L
+96.12 62.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 101.13 61.13 M
+102.13 63.13 L
+100.13 63.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 105.25 60.13 M
+106.25 62.13 L
+104.25 62.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 109.25 56.88 M
+110.25 58.88 L
+108.25 58.88 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 113.38 51.25 M
+114.38 53.25 L
+112.37 53.25 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 117.37 44.13 M
+118.38 46.13 L
+116.37 46.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 121.50 39.75 M
+122.50 41.75 L
+120.50 41.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 125.50 41.75 M
+126.50 43.75 L
+124.50 43.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 129.63 39.00 M
+130.63 41.00 L
+128.62 41.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 133.63 32.50 M
+134.63 34.50 L
+132.63 34.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 137.75 36.50 M
+138.75 38.50 L
+136.75 38.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 141.75 34.50 M
+142.75 36.50 L
+140.75 36.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 145.88 38.13 M
+146.88 40.13 L
+144.88 40.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 149.88 38.50 M
+150.88 40.50 L
+148.88 40.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 154.00 40.50 M
+155.00 42.50 L
+153.00 42.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 158.00 37.88 M
+159.00 39.88 L
+157.00 39.88 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 162.13 37.63 M
+163.12 39.63 L
+161.12 39.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 166.12 39.13 M
+167.13 41.13 L
+165.13 41.13 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 170.25 35.75 M
+171.25 37.75 L
+169.25 37.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 174.25 34.75 M
+175.25 36.75 L
+173.25 36.75 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 178.38 37.88 M
+179.38 39.88 L
+177.38 39.88 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 182.38 39.63 M
+183.38 41.63 L
+181.38 41.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 186.50 39.00 M
+187.50 41.00 L
+185.50 41.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 190.50 39.25 M
+191.50 41.25 L
+189.50 41.25 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 194.63 42.50 M
+195.63 44.50 L
+193.63 44.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 198.62 40.00 M
+199.63 42.00 L
+197.63 42.00 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 202.75 40.38 M
+203.75 42.38 L
+201.75 42.38 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 206.75 31.63 M
+207.75 33.63 L
+205.75 33.63 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 210.88 31.25 M
+211.88 33.25 L
+209.88 33.25 L
+closepath
+1 FillPath
+0 StrokePath newpath
+newpath 214.88 36.50 M
+215.88 38.50 L
+213.88 38.50 L
+closepath
+1 FillPath
+0 StrokePath newpath
+1 ps
+0 0 0 SetFore  UseFore
+1.00 ps
+newpath 67.88 39.00 M
+76.00 23.00 L
+84.13 89.75 L
+92.25 65.00 L
+100.38 61.00 L
+108.50 61.50 L
+116.63 63.13 L
+124.75 62.88 L
+132.88 61.63 L
+141.00 62.38 L
+149.13 63.00 L
+157.25 63.13 L
+165.38 62.25 L
+173.50 62.13 L
+181.63 53.13 L
+189.75 38.38 L
+197.88 27.25 L
+206.00 27.62 L
+214.13 31.75 L
+217.00 33.38 L
+mstroke
+[] sd
+1 ps
+0.50 ps
+newpath 67.88 39.00 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 76.00 23.00 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 84.13 89.75 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 92.25 65.00 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 100.38 61.00 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 108.50 61.50 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 116.63 63.13 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 124.75 62.88 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 132.88 61.63 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 141.00 62.38 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 149.13 63.00 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 157.25 63.13 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 165.38 62.25 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 173.50 62.13 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 181.63 53.13 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 189.75 38.38 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 197.88 27.25 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 206.00 27.62 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+newpath 214.13 31.75 1.00 0 360 arc
+1 FillPath
+0 StrokePath
+newpath
+1 ps
+AnObj restore
+/AnObj save def
+1 1 1 SetBack   0 0 0 SetFore  UseFore
+0 0 translate
+gsave
+[ 2 2 ] sd
+gsave 0.75 ps 133.50 119.25 133.50 258.00 0 CapLine grestore
+grestore
+gsave
+[ 2 2 ] sd
+gsave 0.75 ps 201.75 119.25 201.75 258.75 0 CapLine grestore
+grestore
+gsave
+[ 2 2 ] sd
+gsave 0.75 ps 133.50 119.25 201.75 119.25 0 CapLine grestore
+grestore
+gsave
+[ 2 2 ] sd
+gsave 0.75 ps 133.50 258.75 202.50 258.75 0 CapLine grestore
+grestore
+AnObj restore
+end
+IgorSave restore
+%%DocumentFonts: Helvetica
+%%+Symbol
