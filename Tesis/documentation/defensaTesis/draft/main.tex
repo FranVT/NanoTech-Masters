@@ -66,110 +66,71 @@
 \justifying
 
 \section{Introducción}
-Hola, mcuhas gracias por estar aquí.
 
-Mi principal objetivo para estos 40 minutos es compartirles mi investigación a lo largo de 2 años de maestría.
-En términos prácticos, la investigación se basó en replicar una metodología computacional que simula microgeles y adaptarla para simular hidrogeles.
-Y lo que veremos a continuación es explicarles, qué metodología usé, qué es microgel y qué es una hidrogel, la diferencia entre esos dos, por qué esos materiales y también qué es lo que analisamos de esa simulación.
-Así que empezemos con el tema de hidrogeles y microgeles.
+Hola, muchas gracias por estar aquí.
+La inteción de esta exposición es compartirles los resultados que surgieron durante dos años de maestria.
+Cómo podemos ver en el título, hablaré de hidrogeles, respuesta mecánica y simulación numérica.
 
-\section{Hidrogeles}
+\section{Geles}
 
-Por las palabras vemos que tenemos geles, uno que es hidro y el otro que es micro.
-Así que comenzaremos con definer un gel y después nos aveturamos a difeernciar entre hidro y microgel.
+Comenzaremos esclareciendo lo que es un hidrogel.
+con la palabra podemos intuir que hay dos elementos importante, hidro y gel.
+Hidro, hace referencia a agua, mientrás que gel, pues nos hace referencia a un gel.
+Así que vamos a hablar de geles.
 
-En términos muy general, se puede decir que un gel es una combinación de algo líquido disperso en algo sólido.
-Podemos pensar en una esponja para lavar trastes.
-El agua está dispersa en la esponja.
-Cuando estamos lavando trastes, el agua se queda en la esponja.
-También puede ser que dejemos la esponja en un traste con agua y la esponja se empieza expandir por absorber agua.
-Hay otras que no, pero en ambos casos, cuando las sacamos del traste lleno con agua, gran parte del agua se queda en la esponja, hasta que las apretamos.
-Solo que hay un ligero detalle.
-Una esponja no es considerado un gel.
+Pensemos en una esponja.
+La esponja tiene una estructura porosa, que cuando la ponemos en agua, la esponja la absorbe.
+Y cuando apretamos la esponga, el agua que quedó atrapada sale.
+Y eso es algo simiar a un gel.
+Hay un líquido disperso en algo sólido.
+Solo que una epsonja no es un gel.
+Para que la esponja se un gel, la esponja debe de ser tamaño microscopico.
 
-Algunos ejemplos de geles que conocemos son, la gelatina, gel para el cabello o el gel para skin care.
-Y la gran diferencia con la esponja, es que podemos ver la esponja, y en los geles no podemos ver la parte sólida.
-De los ejemplos de geles, la gelatina es lo más intuitivo, porque al hacerla ponemos un polvo en agua caliente.
-Estamos poniendo algo sólido en algo líquido.
-Nada más que esa mezcla de agua caliente con polvo no es un gel.
-Es agua caliente con polvo.
-Entonces, la gelatina es considerada gel hasta que la revolvemos, la metemos en el refrigerador y esperamos quién sabe cuantas horas y como que se solidifica.
+Entonces, ejemplos de geles que tenemos en nuestro día a día, es el gel para cabello, para las quemadura o la gelatina.
+Y cuando estamos interactuando con los geles, podemos notar que estos son más pareceidos a un fluido, pero cuando dejas de manipularlo se quedan quietos, como si fuera un solido.
+Además, también podemos notar que son sensibles a la temperatura.
+Cuando se deja la gelatina en la mesa, se empieza a guadar.
 
-Además, este caso de la gelatina está curioso, porque cuando la sacamos del refri, se quedá ahí.
-Cómo si fuera el gel para cabello, así medio rígido.
-Pero conforme va pasando el timepo, se empieza a medio derretir y se parece más al gel para skin care.
+A lo que me refiero con el ejemplo de la esponja microscopica, es lo siguiente:
+Cuando estamos preparando gelatina, podemos un polvo, algo sólido y después le ponemos agua acaliente, le revolvemos y de ahí al refrigerador.
+Algo pasa entre revolver el agua y el refrigerador, que el agua con polvo deja de ser agua con polvo y se convierte en una microesponja con agua.
 
-Y eso abre varias dudas.
-Qué es lo que hace que la gelatina se mantenga rígida y después ya no.
-Porqué el gel de cabello nos lo podemos poner, pero el cabello no está todo mojado.
-Igual con el skin care.
-La piel no se quedá mojada todo el rato. 
-Se siente baboso, pero después como que se seca.
-Así que vamos a intentar responder estás preguntas usando física y demás.
+A grandes rasgos, el polvito son cadenas poliméricas y cuando las ponemos en agua caliente, las mezaclamos, permitimos que esas cademas se empiezan a conectar y generar la esponja.
+Se empieza a crear una red polimérica.
+Y cuando la temperatura sube, esta red se des hace y se aguada la gelatina.
 
-\subsection{Geles}
+Entonces, el gel, en términos más científicos, es un sistema coloidal donde la fase dispersa es líquida, mientrás que la fase continúa es sólida.
+Es decir, un líquido disperso en un sólido.
+Agua, dispersa en grenetina.
 
-Pues la definición así más formal de un gel es una sistema coloidal con una fase dispersa líquida en una fase cóntínua sólida.
-Es decir, que en la gelatina, la fase dispersa es el agua y la fase continua es el polvito que le ponemos.
-Pero es contraintuitivo y al mismo tiempo es cohesivo.
-Porque cuando ponemos el polivto, pues vemos claramente que hay polvo en el agua.
-Pero después de mezclar y poner en el refri, ya no distinguimos el agua del polvo.
-Y es hasta ese punto en que la gelatina es un gel.
-Entonces algo pasa con el polvito que hace esa gran diferencia entre que la gelatina sea considerada como gel o no.
+La parte de hidro en el hidrogel, quiere decir que son geles que la fase dispersa es únicamente agua.
+Entonces, la gelatina es un hidrogel.
+Si de alguna forma lográn hacer bolitas de gelatina del tañamo de 100 nanometros a 100 micrometros, entonces habrán hecho micro-hidrogel y si hace gelatina aún más chica, pues serán nano-hidrogel.
 
-https://www.anec.org/es/knowledge/biology/what-is-gelatin-35-271.htm
+Además de que algunos hidrogeles sean comida, cuando se cambia la red polimérica por otros grupos funcionales y demás, pues se pueden aplicar en la liberación de fármacos, la creación de adámios para tejidos, sensores, lentes de contacto, tratamiento de heridas, capatición/purificación de agua, entre muchas más aplicaciones.
 
-https://theory.labster.com/es/gelatin/
+Lo que buscamos en el proyecto de Tesis es poder simular hidrogeles para analizar su respuesta mecánica.
+Es decir, queremos explicar que mecanismos moleculares determinan las condiciones de ruptura del hidrogel o cuantas repeticiones se puede hacer cuando se usa como actuador o saber que tanta fuerza hay que aplicar para liberar el fármaco.
+Entonces, ahora daremos paso a hablar de lo que es una respuesta mecánica y porque es importante para esto de la aplicaciones.
 
-https://theory.labster.com/es/gel/
-
-Esa gran diferencia, es que el polvito genera una una red en todo el volumen.
-En otras palabras, el polvo se convierte en una red que percola el sistema.
-Y cuando existe está red, se dice que se alcanzo el punto de gelación.
-Y ahora tenemos una red sólida que atrapa agua.
-
-Ahora, ya que sabemos qué es un gel, podemos distingir entre un hidrogel y un microgel.
-En el caso del hidrogel, la parte "hidro" hace referencia a que siempre, siempre, la fase dispersa es agua.
-Mientrás que la fase dispersa del microgel no necesariamente tiene que ser agua.
-Además, la palabra "micro" hace referencia que la fase continua de estos geles sea de micrometros.
-Entonces, una gelatina es un hidrogel, pero no es un microgel.
-Si de alguna forma, logran hacer una gelatina microscopica, entonces lograron sintetizar un microgel que también es un hidrogel.
-
-\subsection{Aplicaciones de los geles}
-
-Además de ser comida o geles para cabello, los hidrogeles, con los monómeros correctos, pueden ser biocomplatibles y tener aplicaciones como liberación controlada de medicamentos, impresión de piel, lentes de contacto, entre otros.
-Además se pueden implementar sensoters de metales pesados como oro, cadmio o arsénico o en la creación de pruebas de conceptos de electrónica flexible.
-Así que el caracterizar la respuesta mecánica de estos materiales ayuda mucho para proceso de diseño de las aplicaciones y también para los procesos de manufactura.
-
-\subsection{Y entonces que onda con la Tesis}
-
-Ahora, ya que tenemos todo este contexto, les puedo comentar que lo que se hizo en la Tesis, es buscar una forma de simular hidrogeles para analizar la respuesta mecánica, con el objetivo de poder conectar la respuesta mecánica con las características de la red polimérica.
-El fin último, sería poder diseñar una red polimérica que tenga una respuesta mecánica deseada y apartir de ahí diseñar los procesos de síntesis/fabricación del hidrogel.
+\marginpar{Hablar de lo importante de la red polímerica con la respuesta mecánica.}
 
 \section{Respuesta mecánica}
 
-Antes de pasar a ver la metodología y resultados, necesitamos ponernos en contexto con las distintas respuestas mecánicas que hay y cuáles son las que están presentes en los hidrogeles.
+Una de las respuestas mecánicas más conocidas en la respuesta elática.
+Fuertemente asociada con la respuesta de ligas o resortes.
+Cuando se aplica una fuerza al material, este se deforma instanámente y se mantiene la deformación.
+Cuando se detiene la aplicación de fuerza, el material regresa instantánemente a su posición original.
 
-Hay 3 respuestas mecánicas \emph{ideales} o \emph{puras}.
-Son respuesta elástica, plástica y viscosa.
-La respuesta elástica es cuando hay una deformación instantánea cuando se deforma el material y se regresa a su posición inicial después interrumpir la deformación.
-La respuesta plástica es cuando la deformación se va desarrolando en el tiempo y cuando se termina la deformación, el material se quedá en la posición final.
-Finalmente, la respuesta viscosa, es cuando la deformación se transforma en energía térmica y se disipa en el material.
+Por el otro lado, la deformación plástica es cuando al aplicar una fuerza en el material, este se deforma instanánemaente, pero cuando sueltas el objeto, este ya no regresa a su forma original.
+Como los clips o los metales en general.
 
-Sin embargo, los hidrogeles tiene una respuesta mecánica visco-elástica.
-Es decir, que tinen una respuesta elástica, pero durante esa deformación elástica hay un proceso de disipación de energía.
-Esto hace sentido.
-La respuestá elaśtica está asociada a la respuesta de la red polimérica, mientrás que la respuesta viscosa está relacionada con la disipación de energía que se da cuando la red polimérica interactúa con el agua.
-Es como tener una liga amarrada a una piedra sumergida en aceite.
-Cuando jalas la liga, está de se estira de forma elástica.
-Pero llega un punto en que la liga se deja de estirar y empieza a mover la piedra, obtiene una deformación viscosa.
+Finamente, hay una respues llamada viscosa.
+Esta respuesta, en vez de tene runa deformación inmediata con la fuerza aplica, el material se va deformando lentamente y una vez que se termina de aplicar la deformación, ya no regresa a su posición original.
 
+Entonces, tenemos estas respuestas mecánicas.
 
-
-\subsection{Crosslinkers: Reticulantes}
-
-
-\section{Dinámica Molecular}
+\section{Dinamica Molecular}
 
 \section{Resultados}
 
