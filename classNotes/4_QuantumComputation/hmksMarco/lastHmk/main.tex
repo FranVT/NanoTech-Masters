@@ -1,0 +1,120 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tufte Essay
+% LaTeX Template
+% Version 2.0 (19/1/19)
+%
+% This template originates from:
+% http://www.LaTeXTemplates.com
+%
+% Authors:
+% The Tufte-LaTeX Developers (https://www.ctan.org/pkg/tufte-latex)
+% Vel (vel@LaTeXTemplates.com)
+%
+% License:
+% Apache License, version 2.0
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[a4paper]{tufte-handout} % Use A4 paper by default, remove 'a4paper' for US letter
+
+\usepackage{graphics}
+\usepackage{graphicx} % Required for including images
+\setkeys{Gin}{width=\linewidth, totalheight=\textheight, keepaspectratio} % Default images settings
+
+\usepackage{amsmath, amsfonts, amssymb, amsthm} % For math equations, theorems, symbols, etc
+%\usepackage{units} % Non-stacked fractions and better unit spacing
+\usepackage{physics}
+\usepackage{cancel}
+\usepackage{siunitx}
+
+\usepackage{booktabs} % Required for better horizontal rules in tables
+
+% For newtcbtheorem
+\usepackage[most]{tcolorbox}
+\usepackage{cleveref}
+\usepackage{fancybox}		% Recuadros emph eqn
+
+\usepackage{empheq}			% Recuadros para ecuaciones
+
+\setlength{\parskip}{1em}
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\title{Quantum Computation\\ Quantum Circuits Activity}
+
+\author{Francisco Vazquez-Tavares}
+
+\date{\today} % Date, use \date{} for no date
+
+
+%----------------------------------------------------------------------------------------
+%	COMMANDS SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\hata}{\hat{a}}
+\newcommand{\hatad}{\hat{a}^\dagger}
+\newcommand{\QDi}{\hat{X}_1}
+\newcommand{\QDj}{\hat{X}_2}
+
+\newtcbtheorem[]{prob}{Problem}%
+    {enhanced,
+    colback = black!5, %white,
+    colbacktitle = black!5,
+    coltitle = black,
+    boxrule = 0pt,
+    frame hidden,
+    borderline west = {0.5mm}{0.0mm}{black},
+    fonttitle = \bfseries\sffamily,
+    breakable,
+    before skip = 3ex,
+    after skip = 3ex
+}{def}
+
+\bibliographystyle{apalike}
+\nobibliography{}
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle % Print the title section
+\justifying
+
+%----------------------------------------------------------------------------------------
+%	ESSAY BODY
+%----------------------------------------------------------------------------------------
+
+\paragraph{1} Describe the action of the phase shift gate $p(\gamma)=\dyad{0}+e^{i\gamma}\dyad{1}$ on a qubit from the geometrical point of view.
+
+\paragraph{2} Te 4-qubit W-state is defined as, \[\ket{W_4} = \frac{1}{2}\left(\ket{1000}+\ket{0100}+\ket{0010}+\ket{0001}\right).\]
+Design a quantum circuit that upon the initial state $\ket{000}$ constructs $\ket{W_4}$.
+
+\paragraph{3} Design a circuir constructing the Hardy state, \[\ket{H} = \frac{1}{12}\left(3\ket{00}+\ket{01}+\ket{10}+\ket{11}\right).\]
+
+\paragraph{4} Show how to implement the Toffoli gate in terms of single-qubit and controlled-NOT gates.
+
+\paragraph{5} Assume that we start with a fully separable three-qubit states.
+First, qubits 1 and 2 become maximally entangled through an appropiate quantum operation.
+Your task is to design a quantum circuit that transfers this entanglement to qubits (2,3).
+In other words, at the end of te circuit, qubits 2 and 3 should be maximally entangled, while qubit 1 should be disentangled from the rest.
+You are allowed to use elementary gates alone.
+
+\paragraph{6} In the BB84 protocol, Alice create an 8-qubit string (in the conventional $X$ and $Z$ basis): \[\ket{+}\ket{1}\ket{+}\ket{-}\ket{0}\ket{-}\ket{+}\ket{-}.\]
+Use a coin to randomly determine what basis Bob uses to measure each bit, and describe the resulting bit string that Alice and Bob keep.
+
+\paragraph{7} a boolean function $f:\{0,1\}^n \mapsto\{0,1\}$ is said to be constant of $f(x)$ has the same vaue for all $2^n$ inputs and balanced if $f(x)$ returns 0 for exactly half of all inputs and $1$ for the other half,
+\begin{itemize}
+    \item Consider a generalization of the Deuthsch's algorithm having two registers ($n=2$).
+        The correpondent circuit is essentially the same as in the one register case.
+        Discuss the conditions that would determine if a function is wether balanced or constant.
+    \item Analyze the case when the function $f$ is neither constant or nor balanced.
+\end{itemize}
+
+\end{document}
