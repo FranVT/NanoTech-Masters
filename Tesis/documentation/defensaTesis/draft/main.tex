@@ -65,92 +65,15 @@
 
 \justifying
 
-\section{Introducción}
 
-Hola, muchas gracias por estar aquí.
-La inteción de esta exposición es compartirles los resultados que surgieron durante dos años de maestria.
-Cómo podemos ver en el título, hablaré de hidrogeles, respuesta mecánica y simulación numérica.
+Bueno, muchas gracias por aceptar ser parte del comité de evaluación de este trabajo de investigación.
 
-\section{Geles}
+Hoy les compartiré el trabajo de investigación que estuve realizando a lo largo del programa de maestría.
+Iniciaremos con definir que e sun hidrogel y a que nso referimos con respuesta mećanica.
+Después les compartiré la metodología que usamos para simular numéricamente este material y los resultados computacionales.
 
-Comenzaremos esclareciendo lo que es un hidrogel.
-con la palabra podemos intuir que hay dos elementos importante, hidro y gel.
-Hidro, hace referencia a agua, mientrás que gel, pues nos hace referencia a un gel.
-Así que vamos a hablar de geles.
+\section{Introducción: Geles}
 
-Pensemos en una esponja.
-La esponja tiene una estructura porosa, que cuando la ponemos en agua, la esponja la absorbe.
-Y cuando apretamos la esponga, el agua que quedó atrapada sale.
-Y eso es algo simiar a un gel.
-Hay un líquido disperso en algo sólido.
-Solo que una epsonja no es un gel.
-Para que la esponja se un gel, la esponja debe de ser tamaño microscopico.
-
-Entonces, ejemplos de geles que tenemos en nuestro día a día, es el gel para cabello, para las quemadura o la gelatina.
-Y cuando estamos interactuando con los geles, podemos notar que estos son más pareceidos a un fluido, pero cuando dejas de manipularlo se quedan quietos, como si fuera un solido.
-Además, también podemos notar que son sensibles a la temperatura.
-Cuando se deja la gelatina en la mesa, se empieza a guadar.
-
-A lo que me refiero con el ejemplo de la esponja microscopica, es lo siguiente:
-Cuando estamos preparando gelatina, podemos un polvo, algo sólido y después le ponemos agua acaliente, le revolvemos y de ahí al refrigerador.
-Algo pasa entre revolver el agua y el refrigerador, que el agua con polvo deja de ser agua con polvo y se convierte en una microesponja con agua.
-
-A grandes rasgos, el polvito son cadenas poliméricas y cuando las ponemos en agua caliente, las mezaclamos, permitimos que esas cademas se empiezan a conectar y generar la esponja.
-Se empieza a crear una red polimérica.
-Y cuando la temperatura sube, esta red se des hace y se aguada la gelatina.
-
-Entonces, el gel, en términos más científicos, es un sistema coloidal donde la fase dispersa es líquida, mientrás que la fase continúa es sólida.
-Es decir, un líquido disperso en un sólido.
-Agua, dispersa en grenetina.
-
-La parte de hidro en el hidrogel, quiere decir que son geles que la fase dispersa es únicamente agua.
-Entonces, la gelatina es un hidrogel.
-Si de alguna forma lográn hacer bolitas de gelatina del tañamo de 100 nanometros a 100 micrometros, entonces habrán hecho micro-hidrogel y si hace gelatina aún más chica, pues serán nano-hidrogel.
-
-Además de que algunos hidrogeles sean comida, cuando se cambia la red polimérica por otros grupos funcionales y demás, pues se pueden aplicar en la liberación de fármacos, la creación de adámios para tejidos, sensores, lentes de contacto, tratamiento de heridas, capatición/purificación de agua, entre muchas más aplicaciones.
-
-Lo que buscamos en el proyecto de Tesis es poder simular hidrogeles para analizar su respuesta mecánica.
-Es decir, queremos explicar que mecanismos moleculares determinan las condiciones de ruptura del hidrogel o cuantas repeticiones se puede hacer cuando se usa como actuador o saber que tanta fuerza hay que aplicar para liberar el fármaco.
-Entonces, ahora daremos paso a hablar de lo que es una respuesta mecánica y porque es importante para esto de la aplicaciones.
-
-\marginpar{Hablar de lo importante de la red polímerica con la respuesta mecánica.}
-
-\section{Respuesta mecánica}
-
-Una de las respuestas mecánicas más conocidas en la respuesta elática.
-Fuertemente asociada con la respuesta de ligas o resortes.
-Cuando se aplica una fuerza al material, este se deforma instanámente y se mantiene la deformación.
-Cuando se detiene la aplicación de fuerza, el material regresa instantánemente a su posición original.
-
-Por el otro lado, la deformación plástica es cuando al aplicar una fuerza en el material, este se deforma instanánemaente, pero cuando sueltas el objeto, este ya no regresa a su forma original.
-Como los clips o los metales en general.
-
-Finamente, hay una respues llamada viscosa.
-Esta respuesta, en vez de tene runa deformación inmediata con la fuerza aplica, el material se va deformando lentamente y una vez que se termina de aplicar la deformación, ya no regresa a su posición original.
-
-Entonces, tenemos estas respuestas mecánicas.
-Si combinamos estas tres respuestas, obtenemos a muy grandes rasgos la respuesta mecánica de los hidrogeles.
-Teóricamente, se describe estas deformaciones como viscoelástica o viscoplástica.
-Se describe que cuando se introduce una fuerza, la deformación inicial es inmediata.
-Pero después de un tiempo, la respuesta empeiza a ser viscosa.
-Y si al quitar la fuerza, el hydrogel regresa a su posición original, entonces es una deformación viscoelástica, mientrás que si no regressa al mismo lugar, es una deformación viscoplástica.
-
-Sin entrar mucho en detalle, los mecanismos moleculares que permiten explicar en que momento ocurre la trancisión de regimen elástico a plástico aún no están muy claros.
-Aunque normalment se le asigna a las propiedades de la red polímera la respuesta elástica y la respuesta viscosa es explicada por la disipación de enrgía que hay entre las colisiónes del agua con la cadena polimérica.
-
-Entonces, al buscar explicar la respuesta mecánica desde primerio principios, es importante relacionar los tipos de deformaciones con procesos moleculares.
-Se asocia a una deformación elástica cuando ocurren estiramientos entre los enlaces, pero sin llegar a romperse.
-Después, la deformación plástica es cuando se rompen lo enlaces.
-Mientrás que la respues viscosa, sigue siendo explicada por el intercambio de momenta entre las moléculas del agua con los monómeros.
-
-También es importante notar, que normalmente se describe la respuesta mecánica en términos de estrés con respecto a la deformación a plicada.
-En este tipo de gráfica se introduce el concpeto de \emph{yield}.
-
-\section{Dinamica Molecular}
-
-Ahora es momento de explicar que onda con dinámica molecular.
-
-\section{Resultados}
 
 
 \end{document}
