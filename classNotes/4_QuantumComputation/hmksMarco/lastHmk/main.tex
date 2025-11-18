@@ -91,6 +91,60 @@
 %	ESSAY BODY
 %----------------------------------------------------------------------------------------
 
+\section{Mandatory exercises}
+
+\paragraph{5} Assume that we start with a fully separable three-qubit states.
+First, qubits 1 and 2 become maximally entangled through an appropiate quantum operation.
+Your task is to design a quantum circuit that transfers this entanglement to qubits (2,3).
+In other words, at the end of the circuit, qubits 2 and 3 should be maximally entangled, while qubit 1 should be disentangled from the rest.
+You are allowed to use elementary gates alone.
+
+We start with a fully separable three-qubit states $\ket{000}$, which can be expressed as $\ket{0}\otimes\ket{0}\otimes\ket{0}$.
+In order to get a maximally entangled state for qubits 1 and 2 we apply a Haddamard gate in qubit 1,
+\begin{gather}
+    \left(\hat{H}\otimes\hat{I}\otimes\hat{I}\right)\ket{000} = \frac{1}{\sqrt{2}}\left(\ket{000}+\ket{100}\right),
+\end{gather}
+and a controlled X gate with qubit 1 as the control,
+\begin{gather}
+    \left(\hat{\Lambda}\otimes\hat{X}\otimes\hat{I}\right)\frac{1}{\sqrt{2}}\left(\ket{000}+\ket{100}\right)=\frac{1}{\sqrt{2}}\left(\ket{000}+\ket{110}\right).
+\end{gather}
+This final state can be expressed in terms of the Bells states for qubits 1 and 2,
+\begin{align}
+    \frac{1}{\sqrt{2}}\left(\ket{000}+\ket{110}\right) &= \frac{1}{\sqrt{2}}\left(\ket{00}\otimes\ket{0}+\ket{11}\otimes\ket{0}\right) \\
+                                                       &= \ket{\Psi^{+}}\otimes\ket{0}\label{eqn:psi0}.
+\end{align}
+Now that we achive the maximally entangled for qubit 1 and 2, let's show con to transfer this entanglement to qubits 2 and 3.
+First, let's apply a controlled X gate into qubits 2 and 3 to create a maximally entangled 3 qubit state\footnote{From previous homework, this is the GHZ-state.},
+\begin{gather}
+    \left(\hat{I}\otimes\hat{\Lambda}\otimes\hat{X}\right)\ket{\Psi^{+}}\otimes\ket{0}=\frac{1}{\sqrt{2}}\left(\ket{000}+\ket{111}\right).
+\end{gather}
+At this point we can interpert that applying the controlled X gate after the Haddamard gate, it allow us to entangle the control with the target qubit.
+Hence, in order to disentangle the first qubit we apply a controlled qubit with the second qubit as controlled and the first qubit as the target,
+\begin{align}
+    \left(\hat{X}\otimes\hat{\Lambda}\otimes\hat{I}\right)\frac{1}{\sqrt{2}}\left(\ket{000}+\ket{111}\right)&=\frac{1}{\sqrt{2}}\left(\ket{000}+\ket{111}\right)&\\
+    \ket{0}\otimes\ket{\Psi^{+}}\label{eqn:0psi}.
+\end{align}
+By comparing equations~\eqref{eqn:psi0} with~\eqref{eqn:0psi}, we can see how the maximal entanglement has been transferred from qubits 1-2 to qubits 2-3, achieving the desired quantum circuit.
+The graphical representation is shown in figure~\ref{fig:qc5}.
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{imgs/qc5.pdf}
+    \caption{Transfer of entangled states cricuit.}\label{fig:qc5}
+\end{figure}
+
+\paragraph{7} A boolean function $f:\{0,1\}^n \mapsto\{0,1\}$ is said to be constant of $f(x)$ has the same vaue for all $2^n$ inputs and balanced if $f(x)$ returns \num{0} for exactly half of all inputs and $1$ for the other half,
+\begin{itemize}
+    \item Consider a generalization of the Deuthsch's algorithm having two registers ($n=2$).
+        The correpondent circuit is essentially the same as in the one register case.
+        Discuss the conditions that would determine if a function is wether balanced or constant.
+    \item Analyze the case when the function $f$ is neither constant or nor balanced.
+\end{itemize}
+
+
+
+\section{Optional exercises}
+
 \paragraph{1} Describe the action of the phase shift gate $p(\gamma)=\dyad{0}+e^{i\gamma}\dyad{1}$ on a qubit from the geometrical point of view.
 
 Recalling that we can express a qubti as $\ket{\psi}=\cos\left(\frac{\theta}{2}\right)\ket{0} + e^{i\varphi}\sin\left(\frac{\theta}{2}\right)\ket{1}$.
@@ -109,27 +163,33 @@ That is that introduces a displacement along the latitude of the unit sphere.
 \paragraph{2} The 4-qubit W-state is defined as, \[\ket{W_4} = \frac{1}{2}\left(\ket{1000}+\ket{0100}+\ket{0010}+\ket{0001}\right).\]
 Design a quantum circuit that upon the initial state $\ket{0000}$ constructs $\ket{W_4}$.
 
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{imgs/qc2.png}
+    \caption{Quantum circuit to construct the 4-qubit W-state.}\label{fig:qc2}
+\end{figure}
+
 
 
 \paragraph{3} Design a circuir constructing the Hardy state, \[\ket{H} = \frac{1}{\sqrt{12}}\left(3\ket{00}+\ket{01}+\ket{10}+\ket{11}\right).\]
 
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{imgs/qc3.png}
+    \caption{Quantum circuit to construct the Hardy state.}\label{fig:qc3}
+\end{figure}
+
+
 \paragraph{4} Show how to implement the Toffoli gate in terms of single-qubit and controlled-NOT gates.
 
-\paragraph{5} Assume that we start with a fully separable three-qubit states.
-First, qubits 1 and 2 become maximally entangled through an appropiate quantum operation.
-Your task is to design a quantum circuit that transfers this entanglement to qubits (2,3).
-In other words, at the end of te circuit, qubits 2 and 3 should be maximally entangled, while qubit 1 should be disentangled from the rest.
-You are allowed to use elementary gates alone.
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{imgs/qc4.pdf}
+    \caption{Toffoli gate in terms of single-qubit and controlled-NOT gates. Obtain from https://arxiv.org/pdf/0803.2316}\label{fig:qc4}
+\end{figure}
+
 
 \paragraph{6} In the BB84 protocol, Alice create an 8-qubit string (in the conventional $X$ and $Z$ basis): \[\ket{+}\ket{1}\ket{+}\ket{-}\ket{0}\ket{-}\ket{+}\ket{-}.\]
 Use a coin to randomly determine what basis Bob uses to measure each bit, and describe the resulting bit string that Alice and Bob keep.
-
-\paragraph{7} a boolean function $f:\{0,1\}^n \mapsto\{0,1\}$ is said to be constant of $f(x)$ has the same vaue for all $2^n$ inputs and balanced if $f(x)$ returns 0 for exactly half of all inputs and $1$ for the other half,
-\begin{itemize}
-    \item Consider a generalization of the Deuthsch's algorithm having two registers ($n=2$).
-        The correpondent circuit is essentially the same as in the one register case.
-        Discuss the conditions that would determine if a function is wether balanced or constant.
-    \item Analyze the case when the function $f$ is neither constant or nor balanced.
-\end{itemize}
 
 \end{document}
