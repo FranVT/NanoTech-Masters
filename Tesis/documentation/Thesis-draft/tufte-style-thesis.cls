@@ -365,7 +365,83 @@
 	% copyright
 	\thispagestyle{empty}
 	\hfill
-	\vfill
+
+% SIGNATURES
+\begin{center}
+    \Large{ Instituto Tecnol\'{o}gico y de Estudios Superiores de Monterrey\\}
+    \normalsize{Campus Monterrey School of Engineering and Sciences}
+\end{center}
+
+\vspace*{0.5 cm}
+
+The commitee members, hereby, certify that have read the thesis presented by Francisco Javier Vázquez Tavares and that it is fully adequate in scope and quality as a partial requirement for the degree of Master in Nanotechnology.
+
+\vspace*{0.5 cm}
+
+\raggedleft{
+{---------------------------------} \\
+Antonio Ortiz Ambriz, PhD \\
+Thesis Advisor  \\
+School of Engineering and Sciences, Tecnológico de Monterrey\\
+\vspace*{0.6 cm}
+{---------------------------------}\\
+Claudia Elena Ferreiro Cordova, PhD  \\
+Thesis Coadvisor  \\
+School of Engineering and Sciences, Tecnológico de Monterrey\\
+\vspace*{0.6 cm}
+{---------------------------------}\\
+Susana Marin Aguilar, PhD  \\
+Commitee Member  \\
+Postdoctoral Fellow, Sapienza University of Rome\\
+\vspace*{0.6 cm}
+{---------------------------------}\\
+Alejandro Martinez Borquez, PhD  \\
+Commitee Member  \\
+School of Engineering and Sciences, Tecnológico de Monterrey\\
+\vspace*{0.7 cm}
+}
+
+\center{
+{--------------------------------------------------} \\
+Dr. Elisa Virginia Vazquez Lepe\\
+National Director of Graduate Studies\\
+School of Engineering and Sciences Monterrey, Nuevo León, México, December 2025}
+
+
+
+
+
+% COPYRIGHT
+
+\begin{center}
+    \textbf{Declaration of Authorship}
+\end{center}
+
+I, Francisco Javier Vázquez Tavares, declare that this thesis titled, ``Exploration of mechanical responses of Hydrogels via numerical simulation'' and the work presented in it are my own.
+I confirm that:
+\begin{itemize}
+    \item This work was done wholly or mainly while in candidature for a research degree at
+this University.
+    \item Where any part of this thesis has previously been submitted for a degree or any other
+qualification at this University or any other institution, this has been clearly stated.
+    \item Where I have consulted the published work of others, this is always clearly stated.
+    \item Where I have quoted from the work of others, the source is always given. Apart from
+such quotations, this thesis is entirely my own work.
+    \item I have acknowledged all main sources of help.
+    \item Where the thesis is based on work done by myself jointly with others, I have made
+clear exactly what was done by others and what I have contributed myself.
+\end{itemize}
+
+    \vspace{5em}
+
+\raggedleft{
+{---------------------------------} \\
+Francisco Javier Vázquez Tavares \\
+Monterrey, Nuevo León, México, Decemeber
+}
+
+
+    \vfill
 	\makeatletter
 	\noindent\begin{flushleft}\@author,\quad \textit{\@title,} \@date.
     \end{flushleft}
