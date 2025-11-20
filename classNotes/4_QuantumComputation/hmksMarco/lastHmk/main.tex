@@ -77,8 +77,6 @@
     after skip = 3ex
 }{def}
 
-\bibliographystyle{apalike}
-\nobibliography{}
 
 %----------------------------------------------------------------------------------------
 
@@ -138,12 +136,39 @@ The graphical representation is shown in figure~\ref{fig:qc5}.
     \item Consider a generalization of the Deuthsch's algorithm having two registers ($n=2$).
         The correpondent circuit is essentially the same as in the one register case.
         Discuss the conditions that would determine if a function is wether balanced or constant.
+
+        Haddamard
+
+    \begin{gather*}
+        \qty(\hat{H}\otimes\hat{H}\otimes\hat{I})\qty(U_f)\qty(\hat{H}\otimes\hat{H}\otimes\hat{I})
+    \end{gather*}
+
+    The third register is the target.
+    The boolean thing is $\ket{y\oplus f(x)}$
+
     \item Analyze the case when the function $f$ is neither constant or nor balanced.
 \end{itemize}
 
 
 
 \section{Optional exercises}
+
+\begin{gather*}
+    U_{3}\qty(\theta,\phi,\lambda) = 
+    \begin{pmatrix}
+        \cos\qty(\frac{\theta}{2}) & -e^{i\lambda} \\
+        e^{i\phi}\sin\qty(\frac{\theta}{2}) & e^{i\qty(\lambda+\phi)}\cos\qty(\frac{\theta}{2})
+    \end{pmatrix}
+\end{gather*}
+
+\begin{gather*}
+    T = 
+    \begin{pmatrix}
+        1 & 0 \\
+        0 & e^{i\pi/4}
+    \end{pmatrix}
+\end{gather*}
+
 
 \paragraph{1} Describe the action of the phase shift gate $p(\gamma)=\dyad{0}+e^{i\gamma}\dyad{1}$ on a qubit from the geometrical point of view.
 
@@ -191,5 +216,10 @@ Design a quantum circuit that upon the initial state $\ket{0000}$ constructs $\k
 
 \paragraph{6} In the BB84 protocol, Alice create an 8-qubit string (in the conventional $X$ and $Z$ basis): \[\ket{+}\ket{1}\ket{+}\ket{-}\ket{0}\ket{-}\ket{+}\ket{-}.\]
 Use a coin to randomly determine what basis Bob uses to measure each bit, and describe the resulting bit string that Alice and Bob keep.
+
+~\citep{Twoqubits}
+\bibliographystyle{plain} % We choose the "plain" reference style
+\bibliography{refs} % Entries are in the refs.bib file
+
 
 \end{document}
