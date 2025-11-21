@@ -109,7 +109,7 @@
 \RequirePackage{placeins}		% for floatbarrier
 \RequirePackage{xparse}
 \RequirePackage{xpatch}
-\RequirePackage[numbers]{natbib}
+\RequirePackage[sort&compress,numbers]{natbib}
 \RequirePackage{csquotes}
 %%% TEST footmisc
 \RequirePackage[
