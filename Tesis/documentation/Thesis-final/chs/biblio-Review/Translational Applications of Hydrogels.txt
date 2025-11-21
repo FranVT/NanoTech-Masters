@@ -1,0 +1,281 @@
+@article{correaTranslationalApplicationsHydrogels2021,
+  title = {Translational Applications of Hydrogels},
+  author = {Correa, Santiago and Grosskopf, Abigail K. and Lopez Hernandez, Hector and Chan, Doreen and Yu, Anthony C. and Stapleton, Lyndsay M. and Appel, Eric A.},
+  year = {2021},
+  month = sep,
+  journal = {Chemical Reviews},
+  volume = {121},
+  number = {18},
+  pages = {11385--11457},
+  publisher = {American Chemical Society},
+  issn = {0009-2665},
+  doi = {10.1021/acs.chemrev.0c01177},
+  urldate = {2025-08-04},
+  abstract = {Advances in hydrogel technology have unlocked unique and valuable capabilities that are being applied to a diverse set of translational applications. Hydrogels perform functions relevant to a range of biomedical purposes---they can deliver drugs or cells, regenerate hard and soft tissues, adhere to wet tissues, prevent bleeding, provide contrast during imaging, protect tissues or organs during radiotherapy, and improve the biocompatibility of medical implants. These capabilities make hydrogels useful for many distinct and pressing diseases and medical conditions and even for less conventional areas such as environmental engineering. In this review, we cover the major capabilities of hydrogels, with a focus on the novel benefits of injectable hydrogels, and how they relate to translational applications in medicine and the environment. We pay close attention to how the development of contemporary hydrogels requires extensive interdisciplinary collaboration to accomplish highly specific and complex biological tasks that range from cancer immunotherapy to tissue engineering to vaccination. We complement our discussion of preclinical and clinical development of hydrogels with mechanical design considerations needed for scaling injectable hydrogel technologies for clinical application. We anticipate that readers will gain a more complete picture of the expansive possibilities for hydrogels to make practical and impactful differences across numerous fields and biomedical applications.},
+  file = {/home/frenour/Zotero/storage/BAWB2BRF/Correa et al. - 2021 - Translational Applications of Hydrogels.pdf}
+}
+
+# Introduction
+Since their discovery in the 1960s,1 synthetic hydrogels have become increasingly useful for engineering biological systems.
+
+The past three years alone have seen >10,000 publications per year, and with only a few months into 2021 there were already more than 600 new articles indexed in the Web of Science by the time of this publication. 
+Here, we seek to provide a resource for researchers both new and familiar with this technology, delving into many of the fundamentals and open questions of the field and shining a spotlight on both developed and developing applications for these exciting materials. 
+
+The explosion of hydrogel technologies has made significant contributions in biomedical applications that impact the dayto-day lives of millions of people. 
+
+[Examples for the intro]
+For example, hydrogels made one of the most visible (or perhaps we should say invisible?) contributions to modern life in the form of soft contact lenses, creating a new class of optically tunable soft materials and  establishing what is today a multibillion dollar industry.2 
+Early studies also revealed the usefulness of engineered hydrogels for  delivering diverse drugs,3−5 establishing a field for local controlled release of bioactive compounds.6−10 
+
+In the 1970s, surgeons recognized the utility of hydrogels for reconstructive  surgeries,11,12 and by the 1990s, hydrogels were becoming a  foundational technology for tissue regeneration.13−16 
+The  history of hydrogel materials is well reviewed,17−19 and the consistent theme has been that hydrogels continue to find new and exciting applications as the underlying technology improves (Figure 2). 
+
+Emerging applications for hydrogels  today include device coatings,20 environmental engineering,21  soft robotics,22 and adoptive cell therapy.23
+
+[General description of hydrogels]
+Hydrogels come in many flavors, with diverse capabilities and limitations, but in general these systems can all be described as cross-linked macromolecular networks that retain a significant amount of water. 
+As much as 99% of the weight of a hydrogel can be water, which makes these materials quite friendly to water-enriched biological environments such as the human body. 
+
+[Relevance of crosslinks in applications]
+In earlier technologies, harsh mechanisms for macromolecular cross-linking (e.g., toxic agents, radiation,  etc.)24−28 meant that gelation needed to occur prior to introducing gels to biological systems. 
+Unsurprisingly, this limited the bioengineering applications of hydrogels to superficial environments such as the surface of the eye, an open wound, or an exposed surgical bed. 
+Subsequent work developed safer cross-linking mechanisms, which began a trend toward triggering gelation in situ after injection, providing a minimally invasive way of administering  hydrogels to practically any organ or tissue.29,30 
+The most biocompatible iterations of these injectable in situ gelling platforms use specific cues from the body to trigger gelation:  physiological temperature,31 pH,32 or ionic strength.33 
+Unlike earlier hydrogels that relied on covalent cross-links, some of these hydrogels have self-healing properties and possess mechanical properties akin to native tissue, capable of countering natural forces and stresses of a body in motion.
+
+[Covalent and non covalent cross linking]
+More recently, shear-thinning hydrogels were developed that  are formed through dynamic and reversible cross-linking.34 
+For example, physical hydrogels use noncovalent interactions (e.g., supramolecular chemistries) between soluble building blocks in order to self-assemble into a dynamic, reversibly cross-linked  network.35,36 
+Likewise, reversible covalent cross-linking strategies can yield dynamic networks with similar properties.37,38 These “dynamic hydrogels” assembled through reversible cross-links afford the unique property of being injectable even after having formed a gel, due to their shear-thinning and selfhealing behaviors. 
+Current research on dynamic hydrogels has revealed novel and useful capabilities that have opened new frontiers for this technology. 
+For example, they can stabilize delicate protein and cellular cargoes to combat pharmaceutical  cold-chain limitations,39 they can adhere strongly to tissues to  form protective barriers and bandages,40 and they can be delivered through spray applications to coat complex biological  geometries.41
+
+[Like a transition but I don't know]
+While dynamic hydrogels are opening up new translational possibilities, significant progress is also being made to introduce unprecedented levels of functionality into biomaterials. 
+This includes features such as nanoscale patterning of  bioactive molecules,42,43 programmable drug release,44,45 and  stimuli-responsive behaviors.46,47 As a consequence, much of the research in this space is trending toward increasingly interdisciplinary projects that recruit the expertise of nanotechnologists, chemists, protein engineers, and synthetic biologists to develop sophisticated multifunctional hydrogels. 
+These novel systems include the rise of programmable behavior in hydrogels reminiscent to the behaviors we now  associate with digital technology.48 For example, significant advancements have been made to transform simple PEG-based  hydrogels into responsive systems based on Boolean-logic gating decisions (e.g., YES, AND, OR operations) by incorporating functional peptides and proteins into the  hydrogel network.45,49,50 Programmable biotechnologies are already leading to smart injectable materials with the potential to degrade or release drugs based on either endogenous or  exogenous triggers.51,52 
+As these capabilities continue to mature, multifunctional and programmable hydrogels may provide the technological foundation for platforms that can engage more effectively with the complex, multistage biological events that govern processes such as tissue regeneration and immunity.
+
+
+[Description of the content of the article]
+As the capabilities of hydrogels have dramatically increased over time, they have unsurprisingly become useful tools for a wide range of fields and disciplines. 
+Here, we primarily focus on the contributions of injectable hydrogel systems to a range of biomedical applications, with an emphasis on dynamic hydrogels. 
+We begin with a discussion of mechanical considerations for injectable hydrogels and specifically how rheological characterization of these systems is critical for developing technologies with translational potential. 
+From there, we provide a general discussion on strategies for delivering diverse therapeutic cargo, such as small molecule drugs, nucleic acids, and proteins. 
+We focus subsequent discussion of drug delivery toward an emerging area of intense researchthat of cancer immunotherapywhich presents highly complex and novel challenges for controlled multidrug delivery and engagement of immune cells. 
+In the following section, we summarize key considerations for designing hydrogels meant to engage with and manipulate cells. We then review the extensive work on hydrogels for cellular therapies, spanning their use as both tissue scaffolds and cellular carriers for applications ranging from tissue regeneration to adoptive cell therapy. 
+We then turn our attention toward emergent and promising biomedical frontiers outside of drug delivery and cellular therapies. We review how the capabilities of dynamic, shear-thinning hydrogels are now giving rise to a class of tools that prevent or mitigate complications that can arise from surgery. 
+We also discuss new developments for hydrogels as coatings for implantable devices to improve biocompatibility and introduce novel functionalities. 
+We round out our discussion of biomedical applications with a review of the current clinical landscape for injectable hydrogels, with a particular focus on hydrogels in active clinical trials and current limitations relating to manufacturing and scalability. 
+We also highlight how the lessons learned from biomedical hydrogels are informing advances in new application areas in agriculture, water preservation, and cosmetics. Overall, we anticipate that readers will gain a greater perspective on the range of possibilities available for hydrogel technologies to make substantive contributions to society, as well as the need for vibrant interdisciplinary collaboration to fully translate this potential into real world change.
+
+
+# Mechanical considerations for designing injectable hydrogels
+
+Noninjectable hydrogels represent the bulk of the literature as they were the first to be discovered and developed, and their usefulness for both drug and cell delivery led to broad enthusiasm for developing hydrogels for biomedical applications.53−56 
+
+[Introduction -> Applications]
+However, static covalent cross-links ultimately introduced translational challenges for clinical implementation, since traditional covalent gels require invasive surgical implantation to access nonsuperficial tissues. 
+Additionally, new manufacturing processes, such as 3D printing, require dynamic rheological properties during processing, disqualifying the use of traditional covalent  hydrogels.57 
+Interest in further developing the translational potential of hydrogels led to innovative methods to implant them through minimally invasive means, of which the most clinically relevant is injection through a needle or catheter (Figure 3). 
+
+[Applications ish]
+Initial success for injectable systems came about with systems that could gel in situ, which allowed liquid polymer solutions to be injected into tissues where they subsequently solidify. 
+For example, dual-syringe devices can coinject two  solutions that react to form a hydrogel when mixed.58−60 
+Similarly, microencapsulation of gel-inducing molecules could slow down gelation to provide an injection “window” after  combining the components of the gel.61 
+Alternatively, stimuliresponsive polymers have been developed that undergo sol− gel transitions based on environmental factors such as temperature, pH, and ionic strength. 
+These systems are engineered to remain liquid under nonphysiological conditions (e.g., room-temperature, acidic pH, salt-free) but solidify when introduced into the body (e.g., 37 °C, neutral pH, millimolar  salt concentration).62−64 
+While these systems are injectable, many experience problems with gelation kinetics. 
+For example, they may gel too quickly and solidify within the syringe or gel too slowly and prematurely release cargo in vivo, and poor mixing may further cause heterogeneous gelation.62,65−67
+
+
+[Overview of hydroges ]
+dynamic hydrogels, which can seamlessly transition back and forth from solid-like to liquid-like during injection thanks to their shear-thinning and self-healing capabilities. 
+These materials, which are gelled within the syringe before injection, additionally have the ability to stabilize drugs over broad temperature ranges and maintain homogeneously mixed  cell solutions.68−70 
+
+[Discussion about what is a hydrogel]
+Here, we define dynamic hydrogels as any hydrated polymer network cross-linked via reversible chemistries, which can include both covalent and noncovalent chemistries. 
+Early reports of the unique rheology of dynamic networks emerged in the late 1980s with polysaccharide-based networks covalently cross-linked through boric esters, which  identified intriguing self-healing capabilities.71−73 
+However, it was only in the early 2000s that noncovalent chemistries began to be leveraged to make shear-thinning supramolecular  hydrogels based on cyclodextrins,74 engineered peptides,75 and the physical interactions resulting from biopolymer  blends.76 
+Although they can be prepared through diverse chemistries, dynamic hydrogels share unique rheological properties that are directly related to their translational potential as injectable systems. 
+
+## Rheological Considerantions for Injectable Dynamic Hydrogels
+
+
+## Relevant Rheological Properties for Injectability
+The viscosity of a hydrogel is related to its injectability, elucidating the constraints that injectability places on the  viscosity of injectable biomaterials. 
+
+For clinical applications, injectable hydrogels must be delivered through a needle or catheter to the site of injection. 
+
+The injectability of a fluid depends on how much pressure is required to drive this process of injection over relevant time frames. 
+This pressure is a function of the fluid viscosity, injection geometry, and desired flow rate. 
+
+Here, we review how injectability constrains the allowable rheological properties of injectable hydrogels. 
+To elucidate these constraints on rheological properties, it is important to understand the physical process of injection. 
+
+Injection, in its simplest form, is the flow of a fluid through a circular tube of constant diameter and length. 
+Often, there is a maximum pressure that can be applied and a minimum flow rate that is desired. 
+
+A syringe injection, for example, would be limited to the amount of force the average healthcare  personnel could comfortably apply to a syringe plunger.111 
+An autoinjector on the other hand would be limited by the maximum pressure the mechanism could generate. 
+Intuitively, there is a limit to the viscosity (i.e., resistance to flow) of the materials which can be injected under a prescribed set of injection conditions and geometries. 
+Therefore, it is critical to understand how viscosityand its dependence on shear rateaffects injectability, enabling researchers to use simple rheological measurements to design their materials for injectability. 
+
+Steady state flow models are used to model the relationship between a hydrogel’s viscosity and the pressure required to  inject it (Figure 5a).112−114 
+In the case of polymer solutions and physically associated hydrogel materials, the viscosity often obeys a power law (eq 1) that is described by the consistency  index, K, and shear-thinning parameter, n.115,116 
+
+A shearthinning parameter of n = 1 describes a Newtonian fluid with constant viscosity as the shear rate is increased. 
+A value of n < 1 represents a shear-thinning fluid with a viscosity that decreases as the shear rate is increased. 
+
+Assuming power law shear-thinning behavior, the constitutive relationship shown in eq 2 can be used to describe the relationship between the shear stress and shear rate on the fluid. 
+The governing equation for steady state flow through a pipe (eq 3) is derived using this constitutive relationship to model the injection pressure (P) as a function of flow rate (Q), radius (R), length (l), and  viscosity.117−119 
+This model has been used by Paxton et al. to predict the bioprinting window for a variety of 3D printing  materials.113 
+Almendinger et al. validated the model for shearthinning antibody solutions and used it to predict the extrusion  pressure in a variety of injection scenarios.112,120−122 
+Our group validated the model for physically cross-linked hydrogels, demonstrating its applicability for two physical hydrogels with distinct cross-linking mechanisms (polymer−nanoparticle  interactions and ionic cross-linking).123
+
+[Read the references 117-119,112-123,120-122]
+
+
+## Rheological Characterization of Injectable Hydrogels
+
+As we have shown, the rheological properties of injectable hydrogels dictate the function and ultimately a significant fraction of the performance as injectable therapeutic strategies. 
+
+Here, we provide a brief review of characterization methods for measuring the rheological behavior of injectable hydrogels. 
+For an in-depth discussion of these methods, we point the reader  to reports by Ewoldt,129 Larson,115 and Macosko.116 [Check this references]
+
+Dynamic hydrogels demonstrate rheological behavior that may comprise a combination of yielding, shear-thinning, thixotropic,  viscoelastic, and extensible behaviors.130−135 
+Consequently, their characterization is nontrivial and requires a combination of rheological tests to characterize comprehensively. 
+Here, we present the state-of-the-art rheological methods for measuring the viscoelastic and flow behaviors of injectable hydrogels.
+
+
+### Viscoelasticity
+
+The viscoelasticity of a hydrogel is most often measured using dynamic mechanical analysis to measure the bulk elastic and viscous responses of a hydrogel to  an imposed oscillatory shear strain or stress.116 
+
+[This is important to add in the discussion for the intepretation of the simulations and computational results]
+Methods also exist to measure the viscoelasticity of hydrogels at various length scales, which may be important in cell-based applications where they interact with the hydrogel at different  length scales than the bulk.136,137
+
+[They focus n the bulk properties]
+In bulk oscillatory measurements, the amplitude and frequency of the imposed oscillations are varied, and the oscillatory response of the hydrogel is measured. 
+Small amplitude oscillatory shear (SAOS) is the most common experimental method for measuring a hydrogel’s viscoelastic response. 
+The oscillatory response measured in response to the oscillatory input is analyzed and typically represented through dynamic storage and loss moduli (Figure 7a), which describe the elastic and viscous responses of the hydrogel, respectively. 
+When the storage modulus is greater than the loss modulus, the material is said to be solid-like. 
+When the loss modulus is greater than the storage modulus, the material is said to be liquid-like. 
+The storage and loss moduli are only well-defined when experiments are performed within the linear viscoelastic regime (Figure 7), where the hydrogel network responds linearly to the imposed strain or stress amplitude.
+
+Frequency sweeps are performed at a constant strain or stress amplitude, and the frequency of the oscillation is varied to probe the material’s time-dependent viscoelasticity. 
+For irreversible covalent hydrogels, solid-like behavior is observed for all frequencies without any significant frequency dependence due to the permanent cross-links in the network. 
+For dynamic hydrogels, the response to oscillatory shear can be more complex, showing both solid and liquid like responses that depend on the frequency of oscillation. 
+
+[Most important prt of this stuff]
+The point at which the storage modulus is equal to the loss modulus is the crossover frequency and denotes the transition between solid and liquid like states. 
+In general, the viscoelastic response is a function of the thermodynamics and kinetics of the physical  cross-link and network topology.133,135,138−143 [Skimm this literature]
+
+Craig et al. have demonstrated for nonentangled physically cross-linked networks that the relaxation time (τ) of the hydrogel is equal to  the dissociation rate of the physical cross-link.142 
+In a simple system, where the only cross-links originate from physical cross-links, the equilibrium constant (Keq) of the interaction  describes the equilibrium concentration of cross-links and therefore the magnitude of the rubbery plateau. 
+Though not discussed in detail here, stress relaxation experimentswhere a constant deformation is applied and the temporal decrease in stress is monitoredare also a valuable experimental tool for measuring the relaxation time (τ) of dynamically cross-linked  hydrogels.115 
+
+Stress relaxation experiments are especially useful when the relaxation time is longer than the measurable relaxation times in SAOS experiments. 
+Time sweep SAOS measurementswhere the amplitude and frequency of oscillation are kept constantare useful when measuring the transition of a hydrogel or its components from liquid to solid or vice versa, such as in the gelation of covalent and physically cross-linked materials. 
+
+The oscillatory response is measured at a constant frequency and amplitude over an extended period of time. 
+For irreversible covalent materials, mixing of two components can be performed immediately before measuring the materials viscoelastic response. 
+The temporal evolution of the dynamic moduli reveals the kinetics of gelation, where the gelation point is assigned to the time at which the storage modulus surpasses the loss modulus at a crossover time. 
+For dynamically crosslinked hydrogels, time sweep SAOS measurements are used to probe their self-healing behavior. 
+The amplitude of the applied shear strain or stress is transitioned from low-to-high or highto-low to probe the response of the dynamic cross-links. 
+
+The temporal viscoelastic response of a dynamic hydrogel is measured to quantify the kinetics of recovery and degree of self-healing. 
+This process is often alternated and repeated several times to demonstrate reversible self-healing of dynamically cross-linked hydrogels. 
+For injectable applications, dynamic hydrogels typically undergo transitions from a static equilibrium state to a nonlinear flow state and then return to a static equilibrium state. 
+
+The properties of the hydrogels during and after these transitions influence their performance as injectable therapeutics. 
+Measuring these properties, however, is challenging due to the transition from the linear to nonlinear regime. Nonlinear oscillatory shear measurements that go beyond the linear viscoelastic regime, such as large amplitude oscillatory shear  (LAOS), have been a recent area of research focus.86,144−150 
+The storage and loss moduli become ill-defined in the nonlinear regime, and methods for quantifying a hydrogels’ response are more challenging. 
+There have been recent advances in the analysis of nonlinear rheological data using Fourier transform analysis methods and a sequence of physical process methods, which provide more insight into the nonlinear properties of injectable biomaterials.
+
+
+### Flow Rheology
+The flow properties of a hydrogel are measured using a rheometer or capillary viscometer. 
+In these instruments, a simple shear flow is applied to measure the relationship between the shear rate and shear stress of a fluid. 
+This relationship is shown in a flow curve (and is extracted through an analysis of the imposed viscometric  flows).116 
+
+A typical flow curve for a yielding, physically crosslinked hydrogel is shown in (Figure 8a). 
+The viscosity is the ratio of the stress and shear rate and can be constant across shear rates (Newtonian) or be shear rate dependent (nonNewtonian). 
+
+This section will discuss the acquisition of a steady state flow curve, introduce the important features of a flow curve for injectable hydrogels, and discuss the measurement transient thixotropic behaviors (time-dependent change in properties). 
+
+Typical flow curves for physically cross-linked hydrogels show three distinct regimes: (1) preyield, (2) yielding, and (3) flow. 
+We highlight that although discussion about a true yield stress has been a long contentious area of discourse in the scientific literature, the engineering reality of  its effects is readily evident for injectable hydrogels.130,151−153 
+
+#### Some characterization techniques
+[They change to talk about the characterization techniques]
+In a rheometer, an angular velocity is applied to a rotating geometry, and the resulting torque on the geometry is measuredor vice versa. 
+With a known geometry, such as parallel plates or a cone-and-plate, the angular velocity is converted to shear rate and the torque is converted to stress.
+
+In a capillary viscometer, a constant flow rate is applied, and the pressure required to drive the flow is measured. 
+The shear stress is determined from the geometry and pressure, and the shear rate is calculated from the geometry, flow rate, and pressure using the Weissenberg−Rabinowitsch−Mooney analysis.116,154
+
+##### General bechaviour from the characterization techniques
+For Newtonian fluids, the shear rate is a function of the flow rate and channel geometry. 
+For non-Newtonian fluids, the shear rate is also a function of the fluid’s viscosity in addition to the flow rate and channel geometry. 
+
+#### Discussion about which technique to use
+Deciding between a rheometer and viscometer depends on the viscosity of the fluids being measured and on the shear rates that are of  interestoutlined by Pipe et al.154 
+Generally, it is simpler to measure high-shear-rate flow curves using a capillary viscometer. 
+
+In rheometers, there are significant challenges at high shear rates. 
+    The shear rate in rheometers is proportional  to (gap size)−1 and is increased by decreasing the gap size between the two shearing surfaces. 
+    As the gap size is decreased to increase the shear rate, significant errors arise due to  geometrical imperfections. 
+    Rheometers also suffer from radial migration of the sample and subsequent ejection of a sample at high shear rates. 
+
+Capillary viscometers provide an alternative strategy for measuring the viscosity of fluids at high shear rates and use a closed capillary that is not prone to technical issues such as sample ejection. 
+
+Regardless of the measurement technique used, the outcome is a measurement of the stress− shear rate relationship of a fluid. 
+
+#### Now about yield stress
+The yield stress demarcates the minimum required stress necessary to induce flow for the fluid, and several strategies for  measuring it have been developed.153,155,156 [CHECK THIS REFERENCES]
+
+Here, we review the use of flow data to measure the yield stress. 
+Using a stress vs shear rate curve (Figure 8a), the yield stress manifests as a nonzero intercept with the stress axis. 
+
+The yield stress is then calculated using a Herschel−Bulkley model (eq 5) that is fit to the stress-shear rate data. 
+Here, σy is the yield stress with units in Pascals, n is the shear-thinning parameter (unitless), and K is the consistency index with units in Pascal-secondsn. 
+The modified Herschel−Bulkley model is often preferred because it yields fitting parameters with constant units and more intuitive meaning. 
+The consistency index is replaced with γ̇ critical, which  is the critical shear rate with units in s−1 at which the flow stress is double that of the yield stress. 
+
+Alternatively, some authors suggest plotting viscosity vs stress (Figure 8b), where a dramatic decrease of several orders of magnitude in the viscosity is observed for a small increase in the  stress.130,131,152,156−158 
+Here, the stress at which the viscosity decreases is assigned as the yield stress. 
+
+In plots of viscosity vs shear rate (Figure 8c), the preyield regime appears as shearthinning. 
+Before the yielding event, the stress is constant at increasing shear rates, resulting in a viscosity which appears to  decrease.115 On a log−log plot of viscosity vs shear rate, this phenomenon is observed as a slope of −1. 
+In practice, the visualization of rheological data showing flow data with plots of viscosity vs shear rate alone makes it challenging to understand important details about the rheological response of a dynamic hydrogel. 
+For this reason, it is recommended thatat a minimumboth stress vs shear rate and viscosity vs shear rate data be shown when characterizing yield stress fluids. 
+
+The flow curve (stress vs shear rate) shows yielding, while the viscosity versus shear rate plot of the flow regime more clearly shows the degree of shear-thinning for the hydrogel. 
+Postyield, physical hydrogels flow with shear-thinning behavior, where viscosity decreases as the shear rate is increased. 
+Seen as a series of progressively decreasing slopes on a stress vs shear rate plot and as a negative, linear decline (slope = n − 1, where n is between 0 and 1) in a log-base plot  of viscosity vs shear rate (Figure 8c).115 
+
+In a yielding hydrogel, the Hershel−Bulkley model provides information about the non-Newtonian viscosity of a hydrogel, where the consistency index and shear-thinning parameter describe the power law shear thinning of the hydrogel in flow. 
+Alternatively, the flow portion of the viscosity versus shear rate curve can be fit to a power law (eq 1) to find the consistency index and shearthinning parameter fits. 
+It is critical that only the flow portion of the viscosity versus shear rate plot is used when fitting a power law to the rheological data of a dynamic hydrogel. 
+
+In general, because it is difficult to distinguish between the preyield and flow regime, it is important to be cautious when demarcating the flow regime in viscosity vs shear rate plots before measuring the degree of shear thinning with a model fit (Figure 8c). 
+When measuring a flow curve, it is critical to consider the effects of thixotropy and take appropriate precautions with test protocols. 
+Intuitively, materials that are strongly thixotropic have a significant delay in restructuring, resulting in a transient response until equilibrium is reached during a deformation (Figure 9a). 
+
+For dynamically cross-linked systemswhich possess both solid-like and liquid-like behaviorsthe dynamics of the cross-links and network often result in transient material response when changing the shear rate, especially before or  near the yield point. 
+It is common to observe an overshoot in the viscosity (Figure 9b) on the startup of shear as the network structure yields and breaks down to the new equilibrium state.109,157 
+At faster shear rates, the viscosity overshoot is more pronounced and depends on the yielding and relaxation behavior of the material. 
+Figure 9c, shows the viscosity of a thixotropic material when the applied stress is instantly decreased (flow cessation). 
+Instead of the viscosity increasing instantly, the viscosity slowly increases as the structure within the material rebuilds. 
+The recovery of the viscosity can be fit to an exponential to determine the characteristic thixotropic time scales.109 
+
+The phenomena observed upon the sudden application or removal of shear shown in Figure 9b and c probe similar phenomena as described in self-healing SAOS experiments discussed above. 
+Authors will often choose between either self-healing SAOS experiments or flow cessation experiments to demonstrate reversible self-healing. 
+Experimentally, thixotropy can significantly affect the acquisition of a flow curve, making it challenging to determine the equilibrium viscosities, shear-thinning, and yielding behavior of materials.156,157 
+Flow experiments that do not account for thixotropy are often irreproducible and can demonstrate significant hysteresis (Figure 9d). 
+A simple strategy for measuring the equilibrium flow curve is to perform flow experiments using stepwise changes in the stress or shear rate and not ramped protocols.109 
+Stepwise experiments can be designed to apply a deformation until equilibrium is reached before taking a measurement.115 
+
+
+

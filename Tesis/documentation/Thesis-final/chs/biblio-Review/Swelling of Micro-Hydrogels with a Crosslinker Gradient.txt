@@ -1,0 +1,50 @@
+Swelling of Micro-Hydrogels with a Crosslinker Gradient
+
+
+@article{boonSwellingMicrohydrogelsCrosslinker2017,
+  title = {Swelling of Micro-Hydrogels with a Crosslinker Gradient},
+  author = {Boon, Niels and Schurtenberger, Peter},
+  year = {2017},
+  month = sep,
+  journal = {Physical Chemistry Chemical Physics},
+  volume = {19},
+  number = {35},
+  pages = {23740--23746},
+  publisher = {The Royal Society of Chemistry},
+  issn = {1463-9084},
+  doi = {10.1039/C7CP02434G},
+  urldate = {2025-08-19},
+  abstract = {A heterogeneous distribution of crosslinker in micro-hydrogels (microgels) results in a non-uniform polymer density inside the particles. Identifying the morphology of the hydrogel backbone enables a bottom-up approach towards the structural and rheological properties of microgel systems. On a local level we use a Flory--Rehner inspired model that focuses on highly swollen networks, characterized by a Poisson's ratio of 1/4. Our ab initio calculations take account for the nonuniform distribution of crosslinker species during the synthesis of poly(N-isopropylacylamide) (PNIPAM) microgels, yet the method is also applicable to other microgel architectures. We recover a single-particle density profile that is in close agreement with SAXS data. Comparison with experimental data confirms that the surface of the cross-linked particle is decorated with dangling polymers ends of considerable size.},
+  langid = {english},
+  file = {/home/frenour/Zotero/storage/LG5ATCUG/Boon and Schurtenberger - 2017 - Swelling of micro-hydrogels with a crosslinker gradient.pdf}
+}
+
+Microgels are sub-micron sized particles with a backbone of crosslinked polymer.
+They offer high control (in situ) over shape, size, charge,1,2 and soft interactions3,4 by stimuli such as temperature, pH,5,6 or salt concentration.7
+
+Poly(Nisopropylacylamide) (PNIPAM) polymers exhibit a temperature induced volume phase transition from coil9 to globule around 33 degrees Celsius10 and can be shaped into microgels via precipitation polymerization.11 
+This yields particles that reversibly change from a nearly-incompressible sphere to a swollen network upon varying the temperature, which can be used to explore novel routes towards complex structure formation, opens new possibilities for drug delivery12–14 and cell cultivation,15 or can be used to design fluids with adjustable rheological properties.16,17 
+The addition of crosslinkers during synthesis is essential for creating stable hydrogel cores and increasing the amount of crosslinkers results in more rigid particles. 
+Crosslinkers get predominantly incorporated early during the particle synthesis process due to a different reactivity of the crosslinker species and the NIPAM monomers. 
+The resulting particle has, therefore, a relatively dense core and a much softer surface region.18–24 
+Dispersing the crosslinker more homogeneously throughout the particle can be promoted by a controlled feed of crosslinker into the reaction mixture.21,25
+
+[So a hydrogel is a type of microgel]
+
+The precise internal structure of the particles and how this quantitatively affects the properties of the suspension is, however, still unclear.
+
+
+[The importance of crosslinker in the mechanical response]
+The celebrated model for describing the swelling of hydrogels is the Flory–Rehner theory,28–30 which has originally been derived to analyze the elastic properties of rubber-like materials.
+This model can be used to capture the volume phase transition that is observed for PNIPAM microgels, yet it has been unsuccessful in predicting the elastic moduli and soft interactions between the particles.24
+Deviations from bulk-gel behavior due to the crosslinker density gradient may be attributed to this.
+
+It has been suggested by Fernandes et al. that a spatially varying crosslinker distribution can be considered by means of a ‘matryoshka’ approach, i.e. by considering the gel particle as a collection of shells with different gel parameters.31
+
+
+# Theory and model 
+
+## Homogeneous hydrogels
+
+Swelling of charge-neutral hydrogels is induced by excludedvolume interactions between the segments that constitute the polymer network.
+

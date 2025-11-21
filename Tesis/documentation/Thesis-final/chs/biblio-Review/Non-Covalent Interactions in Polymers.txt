@@ -1,0 +1,27 @@
+Non-Covalent Interactions in Polymers
+
+
+@article{novikovNonCovalentInteractionsPolymers2023,
+  title = {Non-Covalent Interactions in Polymers},
+  author = {Novikov, Alexander S.},
+  year = {2023},
+  month = jan,
+  journal = {Polymers},
+  volume = {15},
+  number = {5},
+  pages = {1139},
+  publisher = {Multidisciplinary Digital Publishing Institute},
+  issn = {2073-4360},
+  doi = {10.3390/polym15051139},
+  urldate = {2025-08-14},
+  abstract = {Non-covalent interactions are one of the key topics in modern chemical science. These inter- and intramolecular weak interactions (e.g., hydrogen, halogen, and chalcogen bonds, stacking interactions and metallophilic contacts) have a significant effect on the properties of polymers. In this Special Issue, ``Non-covalent interactions in polymers'', we tried to collect fundamental and applied research manuscripts (original research articles and comprehensive review papers) focused on non-covalent interactions in polymer chemistry and related fields. The scope of the Special Issue is very broad: we welcome all the contributions that deal with the synthesis, structure, functionality and properties of polymer systems involving non-covalent interactions.},
+  copyright = {http://creativecommons.org/licenses/by/3.0/},
+  langid = {english},
+  keywords = {n/a},
+  file = {/home/frenour/Zotero/storage/4Q7QFS4T/Novikov - 2023 - Non-Covalent Interactions in Polymers.pdf}
+}
+
+Non-covalent interactions are inter- and intramolecular weak interactions.
+
+In [8,9], the influence of non-covalent interaction on the self-healing of mechanical properties in supramolecular polymers was discussed.
+

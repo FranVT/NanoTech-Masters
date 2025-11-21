@@ -1,0 +1,104 @@
+\subsection{Structure and mechanical response}
+
+\paragraph{Covalent Adaptable Networks} Covalent adaptable networks (CANs) are produce by incroporating dynamic covalent bonds into convalent polymer networks, which alows for stimulus-induced reconfiguration of networks to reduce stresses or heal damage.
+As a result, CANs not only exhibit the robust mechanical properties typical of thermosets but they can also possess the processability and relaxation behavior of thermoplastics.
+Depending on the exchange mechanism, CANs may be further classified into two groups: dissociative CANs and associative CANs\citep{guPolymerNetworksPlastics2020}\footnote{A distinguishing characteristic between dissociative and associative CANs is that associative CANs display a constant crosslinking density with respect to temperature.
+Since the rate of stress relaxation of these networks depends on the rate of bond rearrangement, the associative bond exchange mechanism is reflected in a viscosity with Arrhenius-like temperature dependence (Figure 9 C).
+}.
+
+\paragraph{Microporus Polymer Networks} Microporous materials are defined as materials containing interconnected pores of less than 2 nm in diameter on average. 
+Due to their large surface area, many conventional microporous materials (e.g., zeolites, activated carbons) are widely used as catalysts, sorbents, and separation membranes. 
+
+
+Due to their strong bonds, covalent polymer networks possess high mechanical strength across a wide range of conditions. 
+
+While such mechanical stability enables their use in daily life, 
+
+Many emerging applications and environmental sustainability concerns demand unconventional properties of polymernetworks, such as reprocessability, repairability upon damage, and adaptability to different environments.
+
+
+Polymer networks with rapid stress relaxation that can heal when damaged (“self-healing”) are often constructed from non-covalent network bonds (e.g., metal–ligand coordination, host–guest interactions, hydrogen bonding, and hydrophobic interactions) that facilitate energy dissipation and structural reorganization. 
+\end{comment}
+
+
+\begin{comment}
+
+\paragraph{Bridge of the experiments and interpretation} Hysteresis curves to get the sotred energy and the dissipated energy.
+
+\paragraph{Name some network structures} The correlation between the structure with the hysteresis loops
+
+\paragraph{Link to mechanical response} Same as before.
+
+
+\paragraph{What if we can change the structure on command and in real time?} Bridge to crosslinkers.
+
+\paragraph{How crosslinking affects the mechanical response}
+
+These include one-step procedures like polymerization and parallel cross-linking of multifunctional monomers, as well as multiple step procedures involving synthesis of polymer molecules having reactive groups and their subsequent cross-linking, possibly also by reacting polymers with suitable cross-linking agents\citep{priyaComprehensiveReviewHydrogel2024}. 
+
+The polymer engineer can design and synthesize polymer networks with molecular-scale control over structure such as cross-linking density and with tailored properties, such as biodegradation, mechanical strength, and chemical and biological response to stimuli\citep{priyaComprehensiveReviewHydrogel2024}.
+
+In general, the three integral parts of the hydrogels preparation are monomer, initiator, and cross-linker. 
+To control the heat of polymerization and the final hydrogels properties, diluents can be used, such as water or other aqueous solutions\citep{ahmedHydrogelPreparationCharacterization2015a}. 
+Then, the hydrogel mass needs to be washed to remove impurities left from the preparation process\citep{ahmedHydrogelPreparationCharacterization2015a}. 
+These include nonreacted monomer, initiators, cross-linkers, and unwanted products produced via side reactions\citep{ahmedHydrogelPreparationCharacterization2015a}.
+
+\end{comment}
+
+
+Crosslinking is another essential process that can be controlled and intentionally modified using ionizing radiations\citep{priyaComprehensiveReviewHydrogel2024}. 
+
+
+
+
+\begin{comment}
+
+-------------------------------------------------
+
+cross-linked polymer
+
+In general, the cross-linkers increases the molecular weight of the polymer chains, which, in turn, limits their translational movement and decreases the solubility of the polymer\citep{priyaComprehensiveReviewHydrogel2024}.
+
+Controlling the crosslinking process with ionizing radiations can be achieved by maniipulating various parameters during exposure, such as exposure time of radiaiton, frquency, temperature and pressure\citep{priyaComprehensiveReviewHydrogel2024}.
+
+
+
+
+-------------------------------------------------
+
+Hydrogels have received considerable attention in the past 50 years, due to their exceptional promise in wide range of applications [2–4]\citep{ahmedHydrogelPreparationCharacterization2015a}. 
+
+They possess also a degree of flexibility very similar to natural tissue due to their large water content\citep{ahmedHydrogelPreparationCharacterization2015a}.
+
+Recently, hydrogels have been defined as two- or multicomponent systems consisting of a three-dimensional network of polymer chains and water that fills the space between macromolecules\citep{ahmedHydrogelPreparationCharacterization2015a}.
+
+Hydrogels are three-dimensional networks of hydrophilic polymers that can absorb and retain large amounts of water while maintaining their structure\footnote{Their ability to retain a large amount of water is due to their 3D structure, which gives them a gel-like appearance and behaviour.}\citep{priyaComprehensiveReviewHydrogel2024}. 
+
+Crosslinkers play a crucial role in providing secondary interactions with biological tissues, and the presence of hydrophilic groups in the polymer chains enhances water uptake [10]\citep{priyaComprehensiveReviewHydrogel2024}. 
+
+These methods allow researchers to create hydrogels with specific properties suitable for various applications such as tissue engineering, biomedicine, and sensing\citep{priyaComprehensiveReviewHydrogel2024}. 
+The properties of hydrogels can be tailored based on the nature and arrangement of their constituent monomers, as well as the preparation method employed\citep{priyaComprehensiveReviewHydrogel2024}.
+
+
+\textbf{Types of Hydrogels} or classification
+
+From\citep{priyaComprehensiveReviewHydrogel2024} 
+\begin{enumerate}
+    \item Natural Polymer: 
+            Natural polymer-derived hydrogels, sourced from plants or animals like polysaccharides and proteins.
+            These hydrogels are adept at absorbing and retaining water, effectively managing pesticide release in soil to boost efficacy and minimize environmental harm caused by excessive application.
+            Despite challenges like mechanical strength variations inherent in natural sources, natural polymer-derived hydrogels hold great promise for sustainable agriculture and environmental conservation.
+            Examples: Cellulose, derivatives such as crboxymethyl celluose, Chitosan, Sodium alginate
+    \item Synthetic Polymer: 
+            Synthetic polymer hydrogels, such as those made from polyacrylamide (PAM) and PVA.
+            controllable structures, mechanical strength, and chemical stability.
+            PAM is especially favoured for its water retention and non-toxic nature, making it prevalent in biomedicines and agriculture. 
+            However, the use of PAM comes with concerns. 
+            Acrylamide, used in PAM synthesis, is potentially neurotoxic and may release unreacted particles, posing environmental and health risks. 
+            Additionally, these hydrogels have low biodegradability, causing environmental residues and potential contamination. 
+            Production of these synthetic polymers often involves harmful chemicals, increasing costs and raising further health and environmental concerns
+    \item Natural-Synthetic Polymer: 
+            blending natural polymers like alginate and xanthan gum with synthetic counterparts such as PAM and PVA.
+            These hydrogels enhance biodegradability and biocompatibility, mitigate long-term soil and water contamination risks, and provide robust mechanical strength and chemical stability.
+\end{enumerate}
+

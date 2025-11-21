@@ -1,0 +1,250 @@
+# Viscoelastic Properties of Polymers
+
+
+
+
+# The Nature of Viscoelastic Behaviour
+
+
+{Introduction}
+Classical theory of elasticity (Hooke's law) states that the stress is directly proportional to strain in small deformations and independent of the rate of strain.
+In classical theory of hydrodynamics (in accordance with Newton's law) the stress is alwas directly proportional to rate of strain and independent of the strain.
+
+For inifnitesimal strains and rates of strain, this models can predict experimental results.
+For strains and rates of strain that do not fall into that condition, deviations are observed.
+It is commonly observe the following two deviations: 
+
+{First typo of deviation: Finite}
+when finite strains are imposed on solids that are soft enough to be deformed substantially without breaking, the stres-strain relation are much more complacated.
+In steady flow finite strain rates, such as polymeric solutions and undiluted uncrosslinked polymers exhibit marked deviations.
+
+[Note: Dividing infinitesimal and finite depends on the level of precision under consideration and it varies greatly from one material to another.]
+
+
+{Second type: }
+In the inifinitesimal regime of strain and rate of strain, a system may exhibit behaviour which combines liquidlike and solidlike characteristics.
+(Not quite solid)
+- A body that is not quite solid does not maintain a constant deformation under constant stress, but goes on slowly deformaing with time, or creeps.
+- Whean such body is constrained at constant deformaiton, the stress required to hold it diminishes gradually or relaxes
+(Not quite liquid ? viscoelastic)
+- A body which is not quite liquid, while flowing under constant stress, store some of the energy input, instead of dissipating it all as heat
+- it may recover part of its deformation when the stress is removed, that is elastic recoil.
+    - When such bodies are subjectd to sinusoidally oscillating stress, the strain is neither exctly in phase with the stress (as it would be for a perfectly elastic solid) nor out of phase (as it would be for a perfectly viscous liquid) but somewhere in between.
+    - Some of the energy input is stored and recovered in each cycle and some is dissipated as heat.
+Materials whose behaviour exhibits such characteristics are called Viscoelastic.
+
+{How it is represented a linear viscoelastic material?}
+If both strain and rate of strain are inifinitesimal, and the time-depedent stress-strain realtions can be described by linear differential equations with constant coefficient, we have linear viscoelastic behaviour, then, in a given experiment the ratio of the stress to strain is a function of time alone, and not the stress magnitud.
+
+"""
+
+A deformation experience by an object can be represented using a strain tensor and strain rate.
+Furthermore, the strain tensor and strain rate can be related to the tensor stress. (Para este punto ya tuve que haber explicado qué es el tensor de estrés).
+The relation between this quantities can be categorize into the inifinitesimal regime or the finite regime.
+For relations that falls into the infinitesimal regime, most of the mathematical models can predict experimental results.
+Meanwhile, for the finite relations, mayor deviations are observed from theoretical models.
+
+By centering our focus into the relations that falls into the infinitesimal regime, there are two main manageable deviations from theoretical frameworks.
+One is related to a "solid-like" response.
+That is, when the relation does not maintain a constant deformation under constant stress, but creeps or goes on slowly deforming with time.
+Also, when there is a constant deformation, the stress required to hold that deformation diminishes gradually or relaxes.
+The second deviation is related to a "liquid-like" response.
+In this case, a system while flowing under constant stress stro son the the energy input instead of dissipating it all as heat.
+Or when the stress is removed, part of the deformation is undo, also known as elastic recoil.
+
+Centering into the "liquid-like" response, when the object is subjected to a sinusoidally oscillating stress, the strain is neither exactly is phase with the stress nor out of phase, but somewhere between.
+Also, it usually interpreted that that some of the energy input is stored and recovered in each cyle and some is dissipated as heat.
+Materials whose behaviour exhibits such response are called viscoelastic.
+This is becauase, for a perfectly elastic solid, the stress-strain relation are exactly in phase.
+Meanwhile, for a perfectly viscous liquid, the stress-strain relation are exaclty out of phase.
+
+"""
+
+
+
+
+{About constitutive equations}
+Are relastions between stress, strain and their time dependences
+
+If strains and/or rates of strain are finite, the constitutive equation may be quite complicated.
+If ther are inifinitesimal corresponding to linear viscoelastic behaviour, the eqn is relatively simple
+
+
+
+{About the theory of linear viscoelasticity}
+The foundations of the phenomenological theory of linear viscoelasticity were inspired by creep and relaxation experiments on fibers of metal and glas and the dissipation of energy in sinusoidally oscillating deformations.
+Linear viscoelasticity has provided valuable information about the structure of metals, the deviations from perfect elasticity here are small.
+
+{Viscoelaticity in polymeric systems}
+In polymeric systems, mechanical behaviour is dominated by viscoelastic phenomena.
+
+The viscoelasticity in polymers is not unexpected when one considers the complicated molecular adjusments.
+
+In deformation of a hard solid, atoms are displaced from equilibrium positions in fields of force which are quite local in character.
+Other mechanical phenomena reflect structural imperfections involving distances discontinuously larger than atomic dimensions.
+
+In an ordinary liquid composed of small molecules, viscous flow reflects the change in time under stress of the distribution of molecules surrounding a given molecule 
+    + the relevant forces adn processes of readjustment are quite lcal in character 
+
+In a polymer, each flexible threadlike molecule pervades an average volume much grater than atomic dimensions and is continually changing the shape of its contour as it wriggles and writhes with its thermal energy.
+
+To characterize the various configurations or contour shapes which it assumes, it is necessary to consider grss long range contour relationships, somewhat more local relationships seen with a moder detailed scale, and so on, eventually including the orientation of bonds in the chain backbone with respecto to each other on a scale of atomic dimensions, .
+
+...
+
+Re-arrangements on a local scale are relatively rapid, on a long-range scale very slow.
+Under stress, a new assorment of configurations is obtained; the response to th local aspect of the new distribution is rapid, the response to the long-range aspects is slow, and all told there is a very wide and continuous range of time scale covering the response of such a system to external stress.
+
+
+Every amorphous polymeric system has a glass transition temperature below which the writhing thermal motions essentially cease.
+Long-range convolutional re-adjustments are severly restricted; there is still a wide range of response states to external stress, but different in nature.
+
+
+(transistion paragraph)
+From measurements of viscoelastic properties of polymers, information can be obtained about the nature and the rates of the configurational rearrangements, and the disposition and interaction of the macromolecules in both their short-range and their long-range interrelations. 
+
+From the standpoint of the physical chemist, this provides a field of inquiry with unique features of interest. 
+Investigation of viscoelastic properties of polymers has also been greatly stimulated, of course, by the practical importance of mechanical behavior in the processing and utilization of rubbers, plastics, and fibers. 
+As a result, a very high propertion of all studies on viscoelasticity in the past four decades has been devoted to the viscoelasticity of polymers.
+
+
+"""
+
+In polymeric systems, the stress-strain relation is mainly represented as a viscoelastic phenomena.
+
+
+
+An intuitive argument to get familiarze of this categorization is that 
+
+
+
+
+"""
+
+
+
+## Strain, stress and Linear constitutive equations (pg 24)
+
+The principal purpose of this book is:
+- to relate the viscoelasticity of polymers to molecular structure and modes of molecular motion
+- to describe the dependence of viscoelastic properties on molecular weight, molecular weight distribution, temperature, concentration, chemical structure, and other variables. 
+
+However, it is necessary first to provide a phenomenological background with definitions of strain and stress and their interrelations in a medium regarded as a continuum.
+
+
+### Euqations of Change
+- Conservation of mass
+- Conservation of momentum
+
+### Infinitesimal Strain Tensor
+In a viscoelastic as in a perfectly elastic body, the state of deformation at a given point is specified by a strain tensor which represents the relative changes in dimensions and angles of a small cubical element cut out at that position. 
+The rate of strain tensor expresses the time derivatives of these relative dimensions and angles. 
+Similarly, the state of stress is specified by a stress tensor which represents the forces acting on different faces of the cubical element from different directions.
+
+### Stress Tensor
+
+### Constitutive equation for linear viscoelasticity in simple shear
+
+If the deformation is uniform (homogeneous), the stress and strain components do not vary with position and are independent of $x_i$.
+There are several specific types of uniform deformation for which the strain and stress tensors assume a relatively simple form. 
+One that corresponds to a commonly used experimental geometry is simple shear, where two opposite faces of the cubical element are displaced by sliding, as illustrated in Fig. 1-3. 
+Conventionally, the 1,3 plane slides in the 1 direction; the strains and stresses are then
+
+
+
+
+## Description of linear time-dependent experiments in shear
+
+The constitutive equations of the preceding section can be used to describe the response of a linear viscoelastic material to various kinds of time-dependent patterns of stress and strain in simple shear. 
+In this section, the subscript 21 will be omitted with the understanding that all equations refer to simple shear.
+
+### Stress RElaxation after Sudden Strain
+
+
+
+# Ilustrations of Viscoelastic Behaviour of Polymeric systems (pg. 54)
+
+## Linear viscoelastic behaviour in shear or simple extension
+
+- Creep compliance
+- Stress relaxation Modulus
+- Storage Modulus
+- Loss Modulus
+- Dynamic Viscosity
+- Storage Compliance
+- Loss Compliance
+- Loss Tangent
+
+## Linear Viscoelastic behaviour in bulk (voluminal) deformation
+
+## Nonlinear viscoelastic phenome in shear
+
+- ...
+- Non newtonian flow
+- Stress relaxation after large sudden strains (pg 73)
+
+
+
+# Molecular Theory for Undiluted Amorphous Polymers and Concentrated Solutions; Netowrks and Entanglements (200)
+
+Qualitatively, the prominence of viscoelastic phenomena in polymers is associated with the versatility of moevement of flexible treadlike macromolecules.
+
+Simple example: a dilute solution of a linear poymer, for which no complications attributable to entanglements appeared, despite a rather high molecular weight.
+
+Experimental data are in prectice never taken at concentrations sufficiently low to eliminate all intermolecular interactions and hence must be extrapolated to infinite dilution to compare with molecular theory.
+
+in general, dilute-solution theory of linear viscoelastic properties describes a transition from a lowe frequnecy regime in which a Netwonian viscosity is measured but elastic energy is stored during flow and normal stresses apper, to a high frequency oscillatory regime.
+
+
+## Rigid Solute Molecules
+Any rigid solute molecule will have a finite [\eta] and [G''] R ; it may also be expected  to have a finite [G']R at sufficiently high frequencies if it is asymmetric.2 
+When a dilute solution of asymmetric molecules is subjected to steady shear flow, the  distribution of orientations departs from spherical symmetry, as is well known from  the classical theory of flow birefringence;3 the resulting decrease in entropy corresponds to a storage of elastic energy. 
+The orientation is opposed by Brownian motion, in which random thermal movements tend to produce a uniform distribution of orientations. 
+The rate of such motion for an axisymmetric molecule can be  characterized by a rotatory diffusion coefficient D, or by a relaxation time r = 1 /6D  which is a measure of the time required for end-over-end rotation; it has the physical  significance that an imposed preferred orientation reverts to random orientation  with an exponential time decay, proportional to e-t/T• 
+For sinusoidally oscillating  flow at frequencies w » 1 / r, the orientation cannot keep pace with the alternating  shear rate and less energy is dissipated, so the dynamic viscosity falls with increasing  frequency to a value characteristic of the high-frequency regime. 
+There are a few  macromolecules which behave in this manner, mostly of biological origin.
+
+
+"""
+
+Any rigid solute molecule will have finite viscosity and G''.
+It may also be expected to have finite G' at sufficiently high frequencies if it is asymmetric.
+
+When a dilute solution of asymetric molecules is subjected to a steady shear flow, the distribution of orientation departs from spherical symmetry.
+The resulting decrease in entropy corresponds to a strage of elastic energy.
+
+The oreintation is oppsed by Brownian motion, in which random thermal movements tend to produce a uniform distribution of orientations.
+
+
+"""
+
+### Elongated rodlike models
+
+### Other rigid models
+
+### Jointed bead-rod model, Three beads 
+
+## Linear flexible random coils: The bead-spring model
+
+### The bead-spring Model with no Hydrodynamic Interaction among Beads (pg 206)
+
+
+
+# Dependence of Viscoelastic Behaviour on Temperature and Pressure
+
+
+## Cross-linked networks
+
+For application to a lightly chemically cross-linked polymer, such as the vulcanized rubbers, Examples VI and VII of Section A of Chapter 2, some modifications in the Rouse theory are clearly necessary. 
+
+The short-range configurational changes should be oblivious of the presence of cross-links, just-as they are of free ends (if the molecular weight is sufficiently high) and of branch points (for long branches); 
+therefore the storage and loss moduli in the transition zone should be given by equation 1 3 for cross-linked and uncross-linked polymers alike, though  the value of �o may possibly depend sligh�ly on the cross-linking density. 
+At zero frequency or long times, however, the theory for a cross-linked system must diverge and predict an essentially constant finite modulus and infinite viscosity instead of a zero modulus and finite viscosity. 
+The fact that 'YJo is infinite makes equation 1 2 and all other previous formulations in terms of 'YJo meaningless.
+
+
+
+### Idealized Network with fixed Cross-links
+
+
+

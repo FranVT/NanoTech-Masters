@@ -1,0 +1,32 @@
+Tough Hybrid Microgel-Reinforced Hydrogels Dependent on the Size and Modulus of the Microgels
+
+
+@article{liToughHybridMicrogelreinforced2021,
+  title = {Tough Hybrid Microgel-Reinforced Hydrogels Dependent on the Size and Modulus of the Microgels},
+  author = {Li, Chun and Zhou, Xiaohu and Zhu, Lifei and Xu, Ziyao and Tan, Peng and Wang, Haifei and Chen, Guokang and Zhou, Xuechang},
+  year = {2021},
+  month = feb,
+  journal = {Soft Matter},
+  volume = {17},
+  number = {6},
+  pages = {1566--1573},
+  publisher = {The Royal Society of Chemistry},
+  issn = {1744-6848},
+  doi = {10.1039/D0SM01703E},
+  urldate = {2025-08-19},
+  abstract = {Microgel-reinforced (MR) hydrogels are tough hydrogels with dispersed rigid microgels embedded in a continuous soft matrix. MR gels have the great potential to provide not only mechanical toughness but also the desired functional matrix by incorporation of various functional microgels. Understanding the toughening mechanism of the MR hydrogels is critical for the rational design of the desired functionally tough MR gels. However, our current knowledge of the toughening mechanism of MR gels mainly comes from the MR hydrogels with both chemically crosslinked dispersed microgels and a continuous matrix. Little is known about the hybrid MR gels with physically crosslinked microgels embedded in a chemically crosslinked matrix. Herein, we synthesize such hybrid MR hydrogels with the ionic crosslinked calcium alginate microgels incorporated into the chemically crosslinked polyacrylamide (PAAm) matrix. The alginate microgels show strong size and modulus effects on the toughening enhancement: the larger microgels could toughen the MR gels more than the small ones, and the microgels with medium modulus could maximize the toughness of the MR gels. By comparison of the mechanical performances of the MR and the corresponding double network (DN) hydrogels, we have proposed that the hybrid MR gels may have the same toughening mechanism as the bulk DN gel. This work tries to better understand the structure--property relationships of both MR and DN gels and help in the design of more functionally tough MR gels with the desired properties.},
+  langid = {english},
+  file = {/home/frenour/Zotero/storage/7NG8HHW5/Li et al. - 2021 - Tough hybrid microgel-reinforced hydrogels dependent on the size and modulus of the microgels.pdf}
+}
+
+In the past decades, to address the mechanical limitation of the conventional synthetic hydrogels, scientists have developed a variety of synthetic strategies to fabricate hydrogels with improved mechanical strength and toughness,1, 2 such as double network (DN) hydrogels,3-5 topological or sliding-ring hydrogels,6, 7 nanocomposite hydrogels,8-11 macromolecular microsphere composite hydrogels,12, 13 and supramolecular hydrogels.14-16
+
+One of the key elements to construct the tough hydrogels is to introduce the effective sacrificial bonds which could rupture to effectively dissipate energy upon deformation.2, 4, 5
+
+For example, DN hydrogels comprise two separately crosslinked polymer networks. 
+The first network of the DN hydrogel is often rigid and brittle, which is normally served as the “sacrificial network” to dissipate energy and increase resistance against crack propagation upon loading. 
+Meanwhile, the second network is soft and ductile, which maintains the high stretchability and integrity after the fracture of the first network.4, 5
+
+
+Inspired by the DN hydrogel, microgel-reinforced (MR) hydrogels use the dispersed densely crosslinked microgels as the sacrificial bonds to toughen the matrix.21, 25-27
+

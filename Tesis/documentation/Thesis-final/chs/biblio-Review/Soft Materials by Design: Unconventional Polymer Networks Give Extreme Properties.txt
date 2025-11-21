@@ -1,0 +1,439 @@
+Soft Materials by Design: Unconventional Polymer Networks Give Extreme Properties
+
+
+@article{zhaoSoftMaterialsDesign2021,
+  title = {Soft {{Materials}} by {{Design}}: {{Unconventional Polymer Networks Give Extreme Properties}}},
+  shorttitle = {Soft {{Materials}} by {{Design}}},
+  author = {Zhao, Xuanhe and Chen, Xiaoyu and Yuk, Hyunwoo and Lin, Shaoting and Liu, Xinyue and Parada, German},
+  year = {2021},
+  month = apr,
+  journal = {Chemical Reviews},
+  volume = {121},
+  number = {8},
+  pages = {4309--4372},
+  publisher = {American Chemical Society},
+  issn = {0009-2665},
+  doi = {10.1021/acs.chemrev.0c01088},
+  urldate = {2025-08-19},
+  abstract = {Hydrogels are polymer networks infiltrated with water. Many biological hydrogels in animal bodies such as muscles, heart valves, cartilages, and tendons possess extreme mechanical properties including being extremely tough, strong, resilient, adhesive, and fatigue-resistant. These mechanical properties are also critical for hydrogels' diverse applications ranging from drug delivery, tissue engineering, medical implants, wound dressings, and contact lenses to sensors, actuators, electronic devices, optical devices, batteries, water harvesters, and soft robots. Whereas numerous hydrogels have been developed over the last few decades, a set of general principles that can rationally guide the design of hydrogels using different materials and fabrication methods for various applications remain a central need in the field of soft materials. This review is aimed at synergistically reporting: (i) general design principles for hydrogels to achieve extreme mechanical and physical properties, (ii) implementation strategies for the design principles using unconventional polymer networks, and (iii) future directions for the orthogonal design of hydrogels to achieve multiple combined mechanical, physical, chemical, and biological properties. Because these design principles and implementation strategies are based on generic polymer networks, they are also applicable to other soft materials including elastomers and organogels. Overall, the review will not only provide comprehensive and systematic guidelines on the rational design of soft materials, but also provoke interdisciplinary discussions on a fundamental question: why does nature select soft materials with unconventional polymer networks to constitute the major parts of animal bodies?},
+  file = {/home/frenour/Zotero/storage/3H6T5LPV/Zhao et al. - 2021 - Soft Materials by Design Unconventional Polymer Networks Give Extreme Properties.pdf}
+}
+
+As hydrophilic polymer networks infiltrated with water,1 hydrogels
+
+The pioneering works in the field of polymers and soft materials have laid the foundation for understanding the elasticity, swelling, poroelasticity, viscoelasticity, fracture, and fatigue of hydrogels (e.g., refs 53−66 and the references therein).
+
+how to design hydrogels that possess certain mechanical properties or certain properties in generalstill poses a grand challenge in the  field of polymers and soft materials.
+
+For example, cartilage is a tough connective tissue that covers the surfaces of joints to  provide reduced friction.79 
+The human knee joint cartilage (i.e., articular cartilage) typically needs to sustain compressive stresses of 4−9 MPa for 1 million cycles per year, while  maintaining high fracture toughness around 1000 J m−2 (Figure  2a).80 
+The high fracture toughness of articular cartilage is mainly attributed to its abundant strong collagen fibers interpenetrated with proteoglycan macromolecules. 
+This structure of articular cartilage provides both viscoelasticity and poroelasticity for  mechanical dissipation.81,82 
+The viscoelasticity of articular cartilage is mainly associated with local rearrangement of aggrecan, adhesive interactions of aggrecan, and reconfiguration  of collagen;82 the poroelasticity of articular cartilage is governed by the interstitial fluid movement through the porous  extracellular matrix.81
+
+The fatigue-resistant adhesion of soft tissues (e.g., tendons, ligaments, and cartilages) to rigid bones is commonly achieved through nanostructured interfaces composed of aligned collagen nanofibrils and ordered  hydroxyapatite nanocrystals.
+
+What are nature’s design principles for various biological hydrogels besides the abovementioned ones (Figure 2) to achieve extreme mechanical properties?
+
+
+many extreme mechanical and physical properties were first achieved in other soft materials than hydrogels. For example, high values of fracture toughness, tensile strength, resilience, and interfacial toughness were realized in elastomers long before in hydrogels; ferromagnetic domains in soft materials were first programmed and 3D printed with  elastomeric inks as well.38,39
+
+
+# Common Polymers and Crosslinks for Hydrogels
+
+A rich library of polymers and cross-links have been used for the design and fabrication of various hydrogels.
+These polymers can be broadly categorized into natural polymers and synthetic polymers. 
+In this section, we will briefly discuss the commonly used natural polymers, synthetic polymers, and permanent covalent cross-links for hydrogels. 
+We will discuss other types of cross-links for hydrogels in section 4.
+
+
+## Natural Polymers for Hydrogels
+
+- Alginate: Alginate is a polysaccharide usually obtained from brown-algae cell walls and two kinds of bacteria,  Azotobacter and Pseudomonas.
+Alginate hydrogels can be formed with various covalent and physical cross-links.
+
+- Hyaluronic acid: Hyaluronic acid (also known as hyaluronan or hyaluronate) is a linear polymer of disaccharides, which is composed of D-glucuronic acid and N-acetyl-Dglucosamine, linked together via alternating β-(1 → 4)-linked  and β-(1 → 3)-linked glycosidic bonds.
+Hyaluronic acid can be covalently cross-linked into  hydrogels by various hydrazide derivatives.136,137
+
+- Collagen: Collagen is one of the major proteins in animal bodies. 
+There are approximately 29 types of collagens  discovered so far.161 
+The structures of collagens can be defined at different levels, including primary structure (amino acid triplet), secondary structure (α-helix), tertiary structure (triple  helix), and quaternary structure (fibril).162,163
+Three left-handed α-helix polypeptide chains then form a tertiary structure via the aldol condensation cross-linking, aldehyde amine condensation cross-linking, and aldol histidine cross-linking.165
+Acid-solubilized collagens can self-assemble to form physically cross-linked hydrogels when the collagen solutions are neutralized and heated.
+Since the physically cross-linked collagen hydrogels are usually mechanically weak and thermally unstable,167,168
+
+- Gelatin: Gelatins are naturally derived polymers obtained through breaking the triple-helix structures of collagens into single-strand molecules. 
+There are two types of gelatins, type A and type B, which are obtained with acid and  alkaline treatments of collagens, respectively.185 Gelatins can be physically cross-linked by simply reducing the temperature of  aqueous solutions of gelatins below a certain temperature.186,187
+
+- Fibrin: Fibrin is a naturally derived polymer obtained  from thrombin-treated fibrinogen.205 
+Fibrin is involved in the natural wound healing process by forming extensive fibrous networks. 
+Fibrin can form clots or hydrogels when mixing  fibrinogen and thrombin solutions at the room temperature.206
+The resultant fibrin hydrogels usually have weak mechanical properties due to the nature of physical cross-links.
+
+- Agarose: Agarose is a neutral polysaccharide composed of β-D-galactopyranosyl and 3,6-anhydro-α-L-galactopyranosyl, mainly extracted from red algae (Rhodophyceae).221 
+As a thermoresponsive polymer, agarose can be heated to dissolve in water and then cooled down to form a hydrogel. 
+During this gelation process, the agarose structure changes from a random-coil configuration to bundles of associated double helices with multiple-chain aggregation in the junction  zone.222,223 
+The gelling temperature and mechanical properties of agarose hydrogels can be tuned by changing the concentration, molecular weight, and structure of the agarose  in the hydrogels.224,225 
+
+- Chitosan: Chitosan is a linear polysaccharide composed of β-(1 → 4)-linked D-glucosamine and N-acetyl-Dglucosamine. 
+Chitosan is mainly prepared by partial deacetylation of chitin (obtained from crab and shrimp shells) to less than  40% of N-acetyl-D-glucosamine residues.231,232 
+The physical, chemical, and biological properties of chitosan materials are highly related to the molecular weight and the degree of  deacetylation of chitosan.233,234 
+Chitosan can form physically cross-linked hydrogels by hydrophobic interaction, hydrogen  bonding,235,236 metal coordination and electrostatic interaction.
+These physically cross-linked chitosan hydrogels usually have weak mechanical properties and short lifetime, which are also  highly influenced by pH, temperature, and ionic strength.232,246 
+To enhance the mechanical properties and stability of chitosan hydrogels, covalent cross-linkers have been introduced into the hydrogels.
+
+- Cellulose: Cellulose consists of β-(1 → 4)-linked D-glucose units, which result in cellulose’s high crystallinity (over 40%) and difficulty in  dissolving in water and other common solvents.269
+Cellulose and its derivatives can be chemically cross-linked to form stable three-dimensional networks. Bifunctional and multifunctional molecules ... can form covalent ester or ether bonds between cellulose chains. 
+Cellulose chains can also be covalently crosslinked by the irradiation of electron beams and γ rays,287,288 which avoids the usage of toxic cross-linkers and allows the simultaneous sterilization of the resultant hydrogels.
+
+
+## Synthetic Polymers for Hydrogels
+
+The synthetic polymer networks of hydrogels are commonly formed by copolymerization of monomers for the polymer backbones and cross-linkers, or by reactions of synthetic polymers, macromers, and/or cross-linkers.
+
+- Poly(acrylic acid): Poly(acrylic acid) (PAA) is a linear polymer prepared by radical polymerization of acrylic acid monomers. The backbone of PAA contains a large number of carboxyl groups. 
+                      PAA can form hydrogels through covalent and physical cross-linking. 
+                      Covalently cross-linked PAA hydrogels are usually formed by copolymerization of di/multivinyl crosslinkers together with acrylic acid monomers.303 
+                      In addition, the carboxyl groups of PAA can form physical interactions with  various doping agents... which can act as physical cross-links for PAA hydrogels; the carboxyl groups can also form hydrogen bonds between PAA chains and introduce self-healing or self-adhesive  properties to PAA hydrogels.307 
+
+- Poly(2-hydroxyethyl methacrylate): Poly(2-hydroxyethyl methacrylate) (PHEMA) hydrogels can be prepared by free-radical polymerization of 2-hydroxyethyl methacrylate (HEMA) monomers with covalent cross-linkers such as trimethylene glycol dimethacrylate (TEGDMA), initiators such as sodium pyrosulfite (SMBS), and ammonium persulfate (APS). 
+                                     The HEMA monomers can also be copolymerized with acrylic or acrylamide monomers to control the swelling and  mechanical properties of the resultant hydrogels.311
+
+- Poly(vinyl alcohol): Poly(vinyl alcohol) (PVA) is mainly obtained from the partial hydrolysis of poly(vinyl  acetate).316
+                       PVA can form stable and elastic hydrogels through  either physical or covalent cross-linking.317,318 
+                       The physically cross-linked PVA hydrogels are commonly obtained by repeated  freezing and thawing of PVA solutions,319 which give elastic,  tough, strong, and fatigue-resistant PVA hydrogels.76,78,320 
+                       PVA can also be covalently cross-linked through the use of difunctional cross-linkers such as glutaraldehyde, epichlorohydrin, boric acid, and dialdehyde.321,322 
+                       Electron-beam and gamma irradiation can also cross-link PVA to avoid residual  covalent cross-linkers in the hydrogels.323 
+
+- Poly(ethylene glycol) or Poly(ethylene oxide): Poly(ethylene glycol)(PEG) is usually obtained from the anionic or cationic polymerization of ethylene oxide.
+                                                 There are various methods to cross-link PEG polymers into hydrogels. 
+                                                 The ends of PEG chains can be modified with unsaturated groups, such as acrylate or methacrylate ends, and then be used as macro-cross-linkers to form hydrogels with other unsaturated monomers by the  photo-/UV-induced radical polymerization.330,331 
+                                                 PEG can also form hydrogels by electron beam irradiation via radiationinduced free radical processes.332
+
+[This is the polymer of the simulations]
+- Poly(N-isopropylacrylamide): Acrylamide and its derivatives have been widely used to prepare hydrogels by radical copolymerization with cross-linkers.
+                               One interesting hydrogel based on acrylamide and its derivatives is the poly(Nisopropylacrylamide) (PNIPAm) hydrogel. 
+                               Un-cross-linked linear PNIPAm exhibits a coil-to-globule phase transition in aqueous solutions when the temperature is raised above a critical  temperature.359,360 
+                               The PNIPAm can be covalently cross-linked by cross-linkers such as bis-acrylamide derivatives through the radical polymerization process. 
+                               The cross-linked PNIPAm hydrogels also possess reversible thermoresponsive behavior  with a critical temperature of around 34 °C,361 above which the  hydrogel structure will collapse and exude water.362,363 
+                               While the thermoresponsive behavior of PNIPAm hydrogels is usually slow, many studies have improved the phase-transition speed of PNIPAm hydrogels by incorporating porous structures during  the hydrogel formation.364,365 
+                               The thermoresponsive PNIPAm  hydrogels can be used as actuators for soft robotics,366 injectable  scaffolds for tissue engineering,367 and thermoresponsive  substrates for on-demand detachment of cell sheets.368,369
+
+- Silicone: Silicone hydrogels are hydrogels that contain  silicone polymers as one of its polymer components.370
+        Silicone  polymers are commonly hydrophobic.371 
+        In order to form silicone hydrogels, hydrophilic monomers and/or polymers have been introduced into the silicone matrix by blending or copolymerization to improve the hydrophilicity of silicone  hydrogels.14,372,373 
+
+
+
+## Permanent Covalent Cross-links for Hydrogels
+
+In this subsection, we will discuss permanent covalent crosslinks that are commonly used in hydrogels (Figure 5c). 
+We will discuss other types of cross-links in section 4 [Unconventional Polymer networks]. 
+The energy of  permanent covalent cross-links ranges from 220 kJ mol−1 to 570  kJ mol−1 (Figure 6).385−387
+
+4318
+
+- Carbon-Carbon Bonds: The energy of the carbon−carbon bond is around 300 kJ mol−1 to 450 kJ mol−1.385−387 
+                        Hydrogels covalently cross-linked by carbon−carbon bonds are usually formed by radical copolymerization of monomers and di-/multivinyl cross-linkers.
+                        These cross-linkers are compatible with various  initiation and polymerization systems.4,254,398
+                        The cross-linkers can be small molecules with two double bonds such as N,N′-methylenebis(acrylamide) (MBA) or macromolecules with several acrylate  groups.6,397 
+                        These cross-linkers are compatible with various  initiation and polymerization systems.4,254,398 
+                        For example, photoradical initiators can be added into the prepolymerization solution together with monomers and di-/multivinyl crosslinkers.318,399,400 
+                        Once the initiator is irradiated by UV light, radicals will be generated to initiate the polymerization of the  double bonds on monomers as well as cross-linkers.401,402 
+                        As a result, hydrogels can be formed in situ and with patterned  structures or biological functions.399,403 
+                        The polymerization of vinyl monomers and cross-linkers can also be carried out with a system composed of peroxydisulfate and N,N,N′N′-tetramethylene-diamine (TEMED), where TEMED can accelerate the decomposition of peroxydisulfate to generate a large number  of radicals.404 
+                        This initiation and polymerization system can effectively and rapidly form various hydrogels under room temperature.
+                        The carbon−carbon cross-links of hydrogels can also be formed by high-energy irradiation (e.g., gamma and electron beams). 
+                        Similar to UV light, high-energy radiation can be used to polymerize unsaturated compounds such as monomers and  cross-linkers with vinyl groups or acrylate groups.405,406 
+                        Highenergy radiation can also cross-link polymers without  unsaturated bonds,407 because radicals can be generated from the homolytic scission of the polymer chains under high-energy radiation. 
+                        The radiolysis of water molecules in the solvent can also generate hydroxyl radicals that attack polymer chains to  form macroradicals.408 
+                        These radicals can then undergo recombination and termination to form covalent polymer networks cross-linked by carbon−carbon bonds.
+
+- Carbon-Nitrogen Bonds: The energy of the  carbon−nitrogen bond is around 300 kJ mol−1 to 430 kJ  mol−1.385−387 
+                        Hydrogels covalently cross-linked by carbon− nitrogen bonds are usually formed by highly effective chemical reactions of complementary groups. 
+                        For example, the amide bonds have been widely used as the covalent cross-links for hydrogels by the condensation reactions between amines with  carboxylic acids and derivatives.409 
+                        N-Hydroxysuccinimide (NHS) and N,N-(3-(dimethylamino)propyl)-N-ethyl carbodiimide (EDC) are widely used to facilitate the condensation  reaction of amines with carboxylic acids.74 
+                        The addition of NHS and EDC will also suppress possible side reactions and give  better control of the cross-link density in the hydrogels.410 
+                        The carbon−nitrogen bonds can also be formed through the addition reactions of amines with electrophiles such as adipic acid  dihydrazide and diisocyanate cross-linkers.6,120,411 
+                        These difunctional cross-linkers have been widely used to cross-link natural macromolecules due to the high reaction efficiency. 
+                        The mechanical properties of the resultant hydrogels can be controlled by tuning the concentration and ratio of the polymers and the cross-linking agents. 
+                        Another category of reactions that can form carbon−nitrogen cross-links for hydrogels is the azide−alkyne cycloaddition reaction, which is one typical click reaction to connect alkyne and azide into triazole. 
+                        The click  reaction has a high efficiency without side reactions.412 
+                        Furthermore, the azide−alkyne cycloaddition can be conducted  in the absence of metal catalysis,413 expanding the applicability of the azide−alkyne cycloaddition for preparing biocompatible hydrogels.
+
+- Carbon-Oxygen Bonds: The energy of the carbon−  oxygen bond is around 280 kJ mol−1 to 370 kJ mol−1.385−387 
+                       The most common carbon−oxygen bond is the ester bond formed by the reactions between hydroxyl groups and carboxylic acids or  derivatives.414 
+                       Such ester cross-links can be hydrolyzed easily and make the hydrogels degradable under ambient temperature and physiological conditions. 
+                       Besides the ester cross-links, the carbon−oxygen bonds are also present in ether groups and urethane groups, which can become cross-links due to the reaction between side groups on polymers (such as hydroxyl groups on polysaccharides and PVA) and reactive cross-linkers  (such as glutaraldehyde,415,416 divinyl sulfone,417 dibromide,418  and diisocyanate419). 
+
+- Carbon-Sulfide Bonds: The energy of the carbon−  sulfide bond is around 220 kJ mol−1 to 310 kJ mol−1.387 
+                        The covalent cross-linking of hydrogels through carbon−sulfide  bonds is mainly formed by the thiol-click reactions.420,421 
+                        The inherent electron density of the sulfide atom makes thiols prone to react with many functional groups through a radical or  catalyzed process.422,423 
+                        Thiol groups can be easily converted into nucleophilic thiolates or electrophilic thiyl radicals, which then proceed with nucleophilic reactions or radical chain  processes to achieve the thiol-click reactions.424 
+                        Specifically, for the radical thiol-click reactions, the thiol group can be activated by heat and/or UV light to generate radicals that initiate the  radical-mediated thiol−ene or thiol−yne reactions.425 
+                        For the nucleophilic thiol-click reactions initiated by strong bases, the thiol groups can readily react with electron-poor ene-functional compounds through the Michael addition, with isocyanates derivatives through carbonyl addition, with halide through SN2 nucleophilic substitution, and with epoxy motifs through SN2  ring-opening reactions.426−429 
+                        The thiol-click reactions commonly have a high efficiency and high conversion rate without any side products, even in the presence of water, ions, and oxygen. 
+                        The thiol-click reactions have been extensively used to  prepare hydrogels for various biomedical applications.430,431
+
+
+' Silicon-Oxygen Bonds: The energy of the silicon−  oxygen bond is around 420 kJ mol−1 to 570 kJ mol−1.385−387 
+                        The silicon−oxygen bonds are mainly used in the formation of  silicone-based hydrogels376,432,433 and can usually enhance the  mechanical properties of the silicone-based hydrogels.434 
+                        In addition, silicon−oxygen bonds have been widely used to form strong bonding between hydrogels and diverse engineering  materials with modified surfaces such as salinized surfaces.49 
+
+# Conventional Polymer Networks
+
+a conventional polymer network is defined as polymer chains cross-linked via permanent covalent bonds into a network, in which entanglements, physical crosslinks, and reversible cross-links of the polymer chains are  negligible.54,57,62
+
+Conventional polymer networks have provided the basic models for the development of unentangled rubber elasticity, including the affine network model and the  phantom network model.54,57,62 
+Conventional polymer networks have also been widely adopted in synthetic hydrogels, although biological hydrogels (Figures 1 and 2) generally rely on unconventional polymer networks which will be discussed in section 4.
+
+
+# Unconventional polymer networks
+
+Section 3 has established that elastomers and hydrogels with conventional polymer networks have intrinsically coupled mechanical properties, including shear modulus, stretch limit, fracture toughness, fatigue threshold, interfacial toughness of adhesion, and interfacial fatigue threshold of adhesion (eqs 6 and 11). 
+
+This section will discuss unconventional polymer networks (UPNs), which constitute most biological hydrogels (Figures 1 and 2) and have been widely used in synthetic hydrogels to achieve extreme mechanical properties.
+The UPNs are defined as polymer networks that are different from the conventional polymer networks in terms of the architectures of the networks and/or the interactions among  polymer chains in the networks.70,438−446 
+Therefore, the UPNs can be broadly classified into two categories: the UPN architectures and the UPN interactions.
+
+## Unconventional Polymer Network Architectures
+
+### Polymer Networks with Slidable Cross-links
+
+### Interpenetrating and Semi-interprenetrating polymer networks
+
+### Polymer Networks with High-functionality cross-links
+
+
+
+## Unconventional Polymer Network Interactions
+
+As illustrated in Figure 10, the UPN interactions are defined as interpolymer and intrapolymer interactions that are different from those in the conventional polymer networks (i.e., permanent covalent cross-links, excluded volumes, and osmotic interactions) (Figure 10). 
+The UPN interactions are vastly  abundant in biological organisms,541 and the UPN interactions have been intensively studied for the design of soft materials such as elastomers, hydrogels and organogels to achieve extreme  mechanical properties among many other purposes.254 
+On the basis of the nature of the UPN interactions, they can be broadly  classified into three categories:62 strong physical cross-links, weak physical cross-links, and dynamic covalent cross-links (Figure 10 and Table 2).
+
+### Strong Physical Cross-Links
+
+### Weak Physical Cross-Links
+
+### dynamic Covalent Cross-Links
+
+### Decoupled Mechanical Properties Due to Unconventional Polymer Network Interactions
+
+
+
+# Design of Hydrogels with extreme mechanical properties
+
+In this section, we will summarize a set of general design principles for hydrogels to achieve the corresponding extreme mechanical properties, including extremely high fracture toughness, tensile strength, resilience, interfacial toughness, fatigue threshold, interfacial toughness, and interfacial fatigue threshold (Table 3 and Table 4).
+
+## Though: Build Dissipation into Stretchy Polymer Networks
+
+### Fracture Toughness
+Fracture toughness has been widely used to characterize a material’s capability to resist fracture under mechanical loads.
+One common definition for the fracture toughness of a material is the energy required to propagate a crack in the material over a unit area measured in the undeformed state
+
+The fracture toughness of soft materials such as elastomers and hydrogels has been measured with many experimental methods such as the pure-shear test and the single-notch test, which have been summarized in a few recent review  papers.67,727,728
+
+the fracture toughness of a conventional polymer network is its intrinsic fracture energy Γ0, which is the energy required to fracture a layer of polymer chains over a unit area (Figure 12b).
+
+### Design Principle for Tough Hydrogels
+The design principle tough hydrogels is ... to integrate both ductility and mechanical dissipation in the same material, so that a process zone with substantial mechanical dissipation develops around the crack tip prior to crack propagation (Figure 12c−e)
+
+The mechanical dissipation of a material manifests as the hysteresis loop on its stress−stretch curve under a loading−unloading cycle (Figure 12c−e).
+
+The ductility of hydrogels generally relies on the high stretchability (or the high stretch limit) of their polymer networks (Figure 12c−e).
+
+the design principle for tough hydrogels is to build dissipation into stretchy polymer  networks.67,733
+
+### Implementation Strategies for tough Hydrogels 
+
+The design principle for tough hydrogels requires the following: 
+    (i) at least one polymer network in the hydrogel maintains a high stretch limit, and therefore the polymer chains in that polymer network need to have a high N value according to eq 7; and 
+    (ii) at least one component in the hydrogel dissipates substantial mechanical energy under the deformation typically experienced in the process zone.
+
+The interpenetrating polymer networks and semi-interpenetrating polymer networks have been widely used for the design of tough hydrogels since the pioneer work of double network (with high N) and a short-chain network (with low  N).70
+
+As the double-network hydrogel deforms, the short-chain network fractures and dissipates substantial mechanical energy, while the long-chain network maintains the integrity of the hydrogel even under high stretches, implementing the design  principle for tough hydrogels (Figure 12c).70,733,735
+
+
+The polymer networks with high-functionality cross-links have given tough hydrogels based on various types of polymers and high-functionality cross-links.
+
+There are multiple polymer chains (e.g., over 10) bridging between two adjacent highfunctionality cross-links, and the lengths of these polymer chains are usually nonuniform (Figure 13b). 
+As the hydrogel deforms, the relatively short polymer chains fracture or detach from the high-functionality cross-links, while the relatively long polymer chains maintain the integrity and high stretchability of the hydrogel, implementing the design principle for tough hydrogels. 
+
+The bonds between the polymer chains and the highfunctionality cross-links can be permanent covalent crosslinks,738 strong physical cross-links,739,740 weak physical crosslinks,741,742 and dynamic covalent cross-links,743,744 or a  combination of them.501 
+Depending on the number and lengths of polymer chains between adjacent cross-links and the types of bonds between polymer chains and cross-links, the corresponding hydrogel can have different capabilities of mechanical dissipation and stretchability and therefore different fracture toughness.
+
+The weak physical cross-links566,584,623,750−757 and dynamic  covalent cross-links743 have been added into polymer networks with long polymer chains (i.e., sparsely cross-linked polymer networks via permanent covalent bonds) to design tough hydrogels.
+The weak physical cross-links and dynamic covalent cross-links act as reversible cross-links in these hydrogels (Figure 13d).
+As the hydrogel deforms, many of these reversible crosslinks dissociate or de-cross-link to dissipate substantial mechanical energy, and the sparsely cross-linked long-chain polymer network still sustains the high stretchability of the polymer network (Figure 13d). 
+A synergy of the mechanical dissipation and the high stretchability enabled by the hybrid reversible and covalent cross-links implements the design principle for tough hydrogels.
+
+The weak physical cross-links and dynamic covalent crosslinks have also been added into UPN architectures such as the  interpenetrating polymer networks (Figure 13a),490,563,758−765 polymer networks with high-functionality cross-links (Figure  13b),739,741,742,766−769 and nano-/microfibrous polymer networks (Figure 13c)745,746,767,770 to further toughen the resultant hydrogels, leveraging these reversible bonds’ capability of dissipating additional mechanical energy.
+
+Furthermore, unlike irreversibly fractured polymer chains, the dissociated weak physical cross-links and dynamic covalent cross-links may reassociate due to their reversible nature, potentially endowing the tough hydrogels with recoverable dissipation over cyclic  loads.490
+
+
+## Strong: Synchronize Stiffening and Fracture of Multiple Polymer Chains
+
+### Tensile Strength
+We will focus on tensile strengths of hydrogels in this paper due to two reasons: 
+    (1) The tensile, compressive, and shear deformations of a sample are related to one another. For example, the uniaxial compression of a sample is equivalent to the biaxial tension of the sample; the pure shear of a sample is equivalent to the sample being elongated in one direction and shortened perpendicularly. 
+    (2) The tensile strength is easier to measure than the shear strength, and the tensile strength is less affected by boundary conditions in the measurement (such as friction) than the compressive strength.
+
+Since soft materials such as elastomers and hydrogels usually do not yield plastically, their tensile strengths are commonly defined as the stresses at which the ultimate tensile failure occurs in the uniaxial tensile test.
+
+
+### Design Principle for Strong Hydrogels
+A generic principle for the design of strong hydrogels is to make a substantial number of polymer chains in the polymer network to stiffen and then fracture simultaneously (Figure 14b).
+
+In realistic situations, almost all materials contain defects in the forms such as notches, microcracks, cavities, impurities, and missing polymer chains or cross-links.
+The presence of defects usually significantly reduces the tensile strengths of the  materials.772−774
+
+
+### Implementation Strategies for Strong Hydrogels
+
+The UPNs with high-functionality cross-links such as nanocrystalline domains have been widely used for the design of strong hydrogels.75 
+As the hydrogels undergo large deformation, relatively short polymer chains are gradually pulled out of the nanocrystalline domains, so that the polymer chains bridging adjacent nanocrystalline domains tend to have similar lengths and therefore stiffen and then fracture simultaneously implementing the design principle for strong hydrogels.
+
+
+The nano-/microfibrous polymer networks are another type of UPN architecture that implements the design principle for strong hydrogels (Figure 15b).
+The strong physical cross-links such as crystalline domains allow the pull-out of polymer chains from them to achieve simultaneous stiffening and then fracture of multiple polymer chains (Figure 15a).75
+The weak physical cross-links such as the hydrogen bonds can facilitate the alignment and self-assembly of polymer chains into bundles (Figure 15b), which tend to stiffen and then fracture simultaneously to give high tensile strengths of the hydrogels.
+
+
+## Resilient: Delay Dissipation 
+
+### resilience
+Resilience of soft materials such as elastomers and hydrogels is commonly defined as the ratio of the energy released in deformation recovery to the energy required to induce the deformation of the materials.782
+The resilience of soft materials has been measured with many experimental methods such as the cyclic tensile test and the dropping-ball test.73,782
+
+
+### Design Principle for Resilient and Tough Hydrogels
+Once a material is deformed to fracture, the elastic  energy stored in the material is mostly dissipated,73,74,783 giving low energy recovery and thus low resilience of the fractured material. 
+Therefore, the high resilience of hydrogels can only be designed up to the fracture of the hydrogels.
+
+A generic principle for the design of resilient hydrogels is to minimize the mechanical dissipation of the hydrogels within certain range of deformation that is commonly experienced by the hydrogels, or  in short, to delay dissipation.73
+
+The design principle for resilient hydrogels also reconciles a pair of seemly contradictory properties, fracture toughness and resilience, in the following manner. 
+The hydrogel is highly resilient under moderate deformation with λ ≤ λR (Figure 16b); however, when a crack attempts to propagate in the hydrogel, the chain stretch in the process zone around the crack tip can be much higher than λR, inducing substantial mechanical dissipation to toughen the hydrogel (Figure 16c).
+
+
+### Implementation Strategiesfor Resilient and Tough Hydrogels
+
+Because the polymer chains in the ideal polymer networks have relatively uniform lengths and no entanglement, the hydrogels with the ideal polymer networks usually can be deformed without significant mechanical dissipation up to stretch limits, giving high resilience (Figure  17a).74,783
+It is also expected that the polymer networks with slidable cross-links may be able to implement the design principle for resilient hydrogels because the energy dissipated for sliding the cross-links during their reconfiguration may be negligibly low.
+
+The multimodal polymer networks including the interpenetrating polymer networks, semi-interpenetrating polymer networks, and polymer networks with high-functionality crosslinks usually begin to dissipate mechanical energy at very small deformation because of the fracture and/or de-cross-link of very short polymer chains in the polymer networks.
+
+
+## Tough Adhesion: Integrate Tough Dssipative Hydrogels and strong Interfacial Linkages
+
+### Interfacial Toughness
+Interfacial toughness, or socalled practical work of adhesion, has been commonly used to characterize the capability of the interface of two adhered materials to resist fracture under mechanical loads.
+One common definition for the interfacial toughness between two adhered materials is the energy required to propagate a crack along the interface or in either material over a unit area measured  in the undeformed state of the materials (Figure 18a).787
+
+If a hydrogel with a conventional polymer network is strongly bonded on a substrate (e.g., via covalent bonds), the interfacial toughness is on the level of the hydrogel’s fracture toughness or intrinsic fracture energy Γ0. 
+This is because the fracture toughness of the hydrogel poses an upper limit for the interfacial toughness, since the cohesive failure mode may occur (Figure  18c).49
+
+### Design Principle for tough Adhesion of hydrogels
+if a hydrogel adheres to a substrate via a low density of weak physical cross-links, a crack can easily propagate along the hydrogel−substrate interface, resulting in low interfacial toughness (Figure 18b). Therefore, the design of tough adhesion of hydrogels first requires strong interfacial linkages between the hydrogels and the adhered  substrates, such as covalent bonds,49,788,789 strong physical  cross-links,48,78,790 connector polymers,26,50,791,792 and mechanical interlocks.793,794
+
+Overall, the design principle for tough adhesion of hydrogels is to integrate tough dissipative hydrogel matrices and strong  interfacial linkages.49 
+When attempting to detach the tough hydrogel from the substrate, the strong interfacial linkages will hold the interfacial crack tip, allowing the bulk hydrogel to develop a process zone with substantial mechanical dissipation (Figure 18d).
+
+Tough adhesion of biological hydrogels in animal bodies such as cartilages, tendons, and ligaments on bones generally relies on the integration of tough hydrogels and strong interfacial linkages.
+
+However, only recently has this design principle been  proposed49 and implemented26,47,49,50,788,791,792,795 for tough adhesion of synthetic hydrogels on diverse substrate materials, including metals, ceramics, glass, silicone, elastomers, hydrogels, and biological tissues. 
+This is because the role of tough dissipative hydrogel matrices has been underexplored or  underestimated in adhesion of hydrogels.49,796,797
+
+
+### Implementation strategies for tough Adhesion of Hydrogels
+In order to achieve tough adhesion, the intrinsic interfacial toughness Γi0nter of the interfacial linkages should at least reach the level of the intrinsic fracture energy Γ0 of tough hydrogels,  i.e., over a few tens of joules per meter squared.49 
+Given this requirement on the intrinsic interfacial toughness, the strong interfacial linkages have been commonly implemented with covalent bonds, strong physical cross-links, connector polymers, and mechanical interlocks (Figure 19).
+
+
+Covalent bonds have been widely adopted to strongly anchor polymer chains in tough hydrogels’ UPNs (as discussed in section 5.1) on various substrates.
+The commonly used covalent bonds for tough adhesion of hydrogels include carbon−carbon, carbon−nitrogen, carbon-sulfide, carbon−oxygen, and silicon−  oxygen bonds (Figure 5c).801
+In order to form these covalent bonds, the hydrogels and substrates are usually designed to possess functional groups such as the cross-linkable unsaturated  bond (to form carbon−carbon bond),802 amine group (to form  carbon−nitrogen bond),49 thiol group (to form carbon-sulfide  bond),803 hydroxyl and carboxyl group (to form carbon−oxygen  bond), and silanol group (to form silicon−oxygen bond)804 (Figure 19a).
+
+
+Strong physical cross-links including crystalline domains, glassy nodules, and high-density physical bonds such as hydrogen bonds can also strongly adhere tough hydrogels on  substrates (Figure 19b).78,757,803−811 
+Since the crystalline domains and glassy nodules usually act as high-functionality cross-links, each of them may anchor multiple polymer chains on the substrate, further enhancing the intrinsic interfacial toughness Γi0nter.
+
+Connector polymers799,812 have been employed to strongly bond elastomers and hydrogels on substrates (Figure 19c). 
+In this case, the substrates usually take the form of polymer networks (i.e., elastomers and hydrogels) as well. 
+To provide strong interfacial linkages, the connector polymers can form  covalent cross-links,26,50 interlocked loops,791,792,803,807,813 and/  or strong physical cross-links792 with the polymer networks of both the hydrogels and the substrates. 
+Specifically, the strong physical cross-links can be crystalline domains, glassy nodules,  and/or high-density weak physical cross-links.792 The connector polymers can be polymerized from monomers in the two  polymer networks26,791,804 or can be directly added on the  interface of the two polymer networks.792
+
+
+Mechanical interlocks between tough hydrogels and substrates usually occur at length scales from micrometers to millimeters (Figure 19d).
+One commonly used method is to impinge precursor solutions of tough hydrogels into porous substrates and then form tough hydrogels that are mechanically  interlocked with the substrates.793 
+Similarly, the surfaces of the substrates can be roughened or patterned to enhance the strength of mechanical interlocks with tough hydrogels.794,814,815 
+As a special yet interesting case, hydrogels have been fabricated into dried microneedles, which can pierce into a soft substrate such as biological tissues and then swell to form  mechanical interlocks.816
+
+## Fatigue-Resistant: Pin Fatigue Cracks with Intrinsically High-energy Phases
+
+### Fatigue Threshold
+
+we will focus on the fatigue fracture of hydrogels with precut cracks under cyclic loads (Figure 20a) because this is one of the most common failure modes of hydrogels in mechanically  dynamic environments such as artificial cartilages823 and soft  robots.26
+
+
+### Design Principle for Fatique-Resistent Hydrogels
+
+The mechanical dissipation in the process zone around the crack tip can dramatically enhance the fracture toughness of the hydrogel. 
+However, the mechanisms for irreversible dissipation such as fracturing polymer chains in the process zone are usually depleted under cyclic loads. 
+The mechanisms for reversible dissipation such as reversible crosslinks, once depleted, usually cannot recover in time to resist fatigue crack propagation in future cycles of loads (Figure  20b).55,56,824
+Consequently, the fatigue threshold of hydrogels  and elastomers is their intrinsic fracture energy,55,56,824
+
+The design principle for fatigue-resistant hydrogels is to make the fatigue crack encounter and fracture objects with energies per unit area much higher than that for fracturing a single layer of polymer chains, or in short, to pin fatigue crack by intrinsically  high-energy phases (Figure 20c).75 
+
+The intrinsically high-energy phases that have been exploited for the design of fatigueresistant hydrogels include nanocrystalline domains (Figure  21a),75 nano-/microfibers (Figure 21b),76 microphase separations (Figure 21c),822,825 and macroscale composites (Figure  21d).77 
+In addition, because the design of fatigue-resistant hydrogels does not rely on mechanical dissipation in the bulk hydrogels, fatigue-resistant hydrogels usually demonstrate low  hysteresis ratio H and high resilience R (eq 23).75,76,826
+
+
+### Implementation Strategies for Fatigue-Resistant Hydrogels
+
+In order to effectively pin fatigue cracks, the density of the intrinsically high-energy phases in the UPNs should be sufficiently high.75
+
+High-functionality cross-links such as nanocrystalline domains can effectively play the role of intrinsically high-energy phases in the UPNs (Figure 21a). 
+The energy required to pull out a polymer chain from a nanocrystalline domain can be multiple times higher than that to fracture the same polymer chain, and the energy required to mechanically damage the nanocrystalline domain can be multiple times higher than that to fracture the corresponding amorphous polymer chains (Figure  21e).78
+
+It is expected other UPNs with sufficiently high densities of highfunctionality cross-links such as crystalline domains and glassy nodules can also implement the design principle for fatigue resistant hydrogels.
+
+.
+.
+.
+
+
+# Design of Hydrogels with Extreme Physical Properties [4345]
+In addition to the extreme mechanical properties discussed in section 5
+
+Examples of hydrogels’ extreme physical properties under development and exploration include 
+    high electrical conductivity,642 
+    patterned magnetization,843 
+    high refractive index and transparency,844,845 
+    tunable acoustic impedance,44 and 
+    selfhealing.846 
+
+Unlike the extreme mechanical properties discussed in section 5, many of the extreme physical properties do not have embodiments in biological hydrogels. 
+Nevertheless, these extreme physical properties can be of similar importance as the extreme mechanical properties to hydrogels’ various applications, especially to the nascent applications of hydrogel machines.20
+
+## electrically Conductive: Percolate Electrically Conductive Phases 
+The design principle for electrically conductive hydrogels is to embed electrically conductive phases such as liquid metals, metallic nanowires, carbon nanotube, graphene, and conducting polymers in hydrogel matrices and make the conductive phases form percolated networks, or in short, to percolate electrically  conductive phases (Figure 24a).642,848,849
+
+
+## Magnetized: Embed Magnetic Particles and Pattern Ferromagnetic Domains
+The design principle for hydrogels to possess patterned magnetization is to embed magnetic components such as hardmagnetic, soft-magnetic, or super-paramagnetic particles in the hydrogels matrices where ferromagnetic domains may be further patterned, or in short, to embed magnetic particles and pattern  ferromagnetic domains (Figure 25).38,843,854−857
+
+## High Reflective Index and Transparency: Uniformly Embed High-Refractive -Index Nonscattering Nanophases
+The refractive indices of common hydrogels are around 1.333, similar to that of water. 
+One general strategy to enhance the refractive indices of hydrogels is to uniformly embed nanophases  such as nanoparticles844,845 and nanocrystalline domains with high refractive indices in the hydrogel matrices. 
+However, the refractive-index mismatch between the nanophases and hydrogel matrices may lead to substantial undesirable light scattering, reducing the transparency of the hydrogels (Figure 26b). 
+It has been found that decreasing the size of the nanophases below one-tenth of the light wavelength (e.g., zinc sulfide nanoparticles with 3 nm diameter) can effectively diminish light scattering to achieve hydrogels with a high refractive index (i.e., 1.49) and  high transparency (Figures 26b−d).844
+
+## Tunable Acoustic Impedance: Tune Densities and Bulk Moduli of Effectively Homogeneous Hydrogels 
+
+## Self-Healing: form New Cross-Links and/or Polymers at Damaged Regions
+
+

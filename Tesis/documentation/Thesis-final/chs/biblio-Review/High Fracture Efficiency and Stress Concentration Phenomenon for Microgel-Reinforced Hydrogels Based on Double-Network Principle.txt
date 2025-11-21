@@ -1,0 +1,33 @@
+High Fracture Efficiency and Stress Concentration Phenomenon for Microgel-Reinforced Hydrogels Based on Double-Network Principle
+
+@article{huHighFractureEfficiency2012,
+  title = {High Fracture Efficiency and Stress Concentration Phenomenon for Microgel-Reinforced Hydrogels Based on Double-Network Principle},
+  author = {Hu, Jian and Kurokawa, Takayuki and Nakajima, Tasuku and Sun, Tao Lin and Suekama, Tiffany and Wu, Zi Liang and Liang, Song Miao and Gong, Jian Ping},
+  year = {2012},
+  month = dec,
+  journal = {Macromolecules},
+  volume = {45},
+  number = {23},
+  pages = {9445--9451},
+  publisher = {American Chemical Society},
+  issn = {0024-9297},
+  doi = {10.1021/ma301933x},
+  urldate = {2025-08-19},
+  abstract = {Double-network hydrogels (DN gels) have aroused considerable interest because of their excellent mechanical strength and toughness, low sliding friction, good biocompatibility, as well as wide tunability in components. By revisiting DN gels, we provide an ingenious way to fabricate a kind of strong and tough microgel-reinforced hydrogels (MR gels), that densely cross-linked polyelectrolyte microgels of poly(2-acrylamido-2-methylpropanesulfonic sodium) (PNaAMPS) (replacing the densely cross-linked PNaAMPS macro-network for conventional DN gels) are incorporated into sparsely cross-linked neutral polyacrylamide (PAAm) matrix. The structure of MR gels can be considered as a two-phase composite, where the disperse phase is the rigid DN microgels, and the continuous phase is the soft PAAm matrix. Similar to DN gels, MR gels show the irreversible energy dissipation in the hysteresis measurement, demonstrating the permanent fracture of the brittle PNaAMPS phase. Thus, the discontinuous brittle phase also serves as sacrificial bonds. Through quantitative comparison of the hysteresis curves with DN gels and monitoring the morphology change of the embedded microgels in MR gels during the real-time stretching process, we conclude that the DN microgels in MR gels show four times higher in fracture efficiency of the sacrificial bonds than bulk DN gels at the same strain, as a result of the stress concentration around the microgels.},
+  file = {/home/frenour/Zotero/storage/TRJETZ3C/Hu et al. - 2012 - High Fracture Efficiency and Stress Concentration Phenomenon for Microgel-Reinforced Hydrogels Based.pdf}
+}
+
+
+Hydrogel science and engineering is a field of important research today where the quest for the Holey Grail is clearly to reinforce the mechanical strength and toughness of these soft materials.
+
+Various solutions have been proposed to solve the paradox of tough hydrogels since 2001, like double-network hydrogels (DN),1 slide-ring hydrogels (SR),2 nanocomposite hydrogels (NC),3 etc.
+
+
+Our previous studies have shown that the strength and toughness of sparsely cross-linked neutral polyacrylamide (PAAm) hydrogels containing densely cross-linked polyelectrolyte microgels of poly(2-acrylamido-2-methylpropanesulfonic sodium) (PNaAMPS) is comparable to the conventional bulk DN gels at their optimal formulation, where the volume fraction of PNaAMPS microgels and the molar ratio of the PAAm to the PNaAMPS in the microgel phase are two critical parameters.27 
+These hydrogels, named as microgel-reinforced hydrogels (MR gels), can be regarded as a two-phase composite, where the disperse phase is the rigid double-network (DN) microgels, and the continuous phase is the sof t PAAm matrix.
+
+In this work, we make a comparison in hysteresis behavior between DN gels and MR gels, in terms of modulus and dissipated energy. 
+Through monitoring the morphology change of the embedded microgels in MR gels during the real-time stretching process, we compare the fracture efficiency of covalent carbon−carbon (C−C) bonds in polyelectrolyte phase between bulk DN gels and DN microgels in MR gels. 
+Finally, we explore the origin of the difference in their fracture efficiency from the point of view of the stress concentration around the microgels in the two-phase composite MR  hydrogels.
+
+

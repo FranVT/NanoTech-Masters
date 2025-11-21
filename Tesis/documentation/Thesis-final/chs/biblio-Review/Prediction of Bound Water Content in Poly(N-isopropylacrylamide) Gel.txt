@@ -1,0 +1,109 @@
+Predictions of Bound Water Content in Poly(N-isopropylacrylamide) Gel
+
+@article{lelePredictionsBoundWater1997,
+  title = {Predictions of Bound Water Content in Poly(N-isopropylacrylamide) Gel},
+  author = {Lele, A. K. and Hirve, M. M. and Badiger, M. V. and Mashelkar, R. A.},
+  year = {1997},
+  month = jan,
+  journal = {Macromolecules},
+  volume = {30},
+  number = {1},
+  pages = {157--159},
+  publisher = {American Chemical Society},
+  issn = {0024-9297},
+  doi = {10.1021/ma950894l},
+  urldate = {2025-09-03},
+  file = {/home/fran/Zotero/storage/7J9FPH6H/Lele et al. - 1997 - Predictions of Bound Water Content in Poly(N-isopropylacrylamide) Gel.pdf}
+}
+
+
+Water exists in two distinctly different physical states in a cross-linked hydrophilic polymeric gel. 
+In the swollen state of the gel, most of the water is in a “free” state and can freeze at the usual freezing point. 
+However, some water molecules which are associated with the polymeric chains of the gel network cannot freeze at the usual freezing point. 
+This water is called “bound water”.
+
+It is essential to know the extent of free and bound water content (BWC) since they give useful physical insight into the mechanism of water transport within the system. 
+
+For example, in the purification of water using polymeric membranes by reverse osmosis, the permeability of the membrane depends on the relative population of bound and free water fractions.1 
+
+The activity of biological systems such as proteins and enzymes depends upon how the water associates with these biomolecules in bringing out specific conformations, which in turn is dictated by the bound water fraction.2 
+
+It is reported that although the bulk water is not crucial for enzymatic hydration, the tightly bound structural water plays an important role in enzymatic catalysis.3,4 
+Equally importantly, the knowledge of BWC is vital in applications involved with controlling drug delivery and also controlling enzyme activity in gels.5
+
+# About the methamtical framework
+
+Recently, we have developed an extended lattice-fluid hydrogen-bond (LFHB) theory7 to predict the thermoreversible discontinuous volume phase transitions of poly(N-isopropylacrylamide) gel (PNIPAm) in water. 
+
+In the present work, we show that the theory can also quantitatively predict the BWC in the PNIPAm gel throughout the volume transition. 
+Our predictions are compared with the experimental data of Dong and Hoffman.6 
+We also show that the onset of free water is clearly demonstrated from 1H static line width NMR measurement on PNIPAm gel.
+
+## Explanation of the mathematical framework
+
+The extended LFHB theory for polymeric gel7 was obtained by adding the free energy of affine deformation of an elastic network to the free energy of mixing given by the LFHB model8 as per the Flory thermodynamic cycle.9 
+The chemical potential of solvent (μ2) inside the gel is given by
+
+The terms of the first two lines of eq 1 account for the entropy and enthalpy of mixing through physical interactions and equation of state properties of components, while the terms of the third and fourth lines account for hydrogen-bonding interactions and elasticity of the network, respectively. 
+
+--------
+
+add 
+- free energy of affine formation of an elastic network
+- free energy of mixing 
+That give the chemical potential.
+Terms represents the 
+- entropy and enthalpy of mixing physical interactions
+- state properties
+hydrogen bonding interactions and elasticity of the network.
+
+--------
+
+In the above equations, φ1 is the volume fraction of polymer, r1 and r2 are the number of lattice sites occupied by one molecule of polymer and solvent, respectively, P ̃ , T ̃ , F ̃, and ν ̃ are the reduced pressure, temperature, density, and volume of the gel, 1* and 2* are mer-mer interaction energies for  polymer and solvent molecules, νij is the fraction of hydrogen bonds formed between i donors and j acceptors, νi0 and ν0j are the fractions of i donors and j acceptors which do not form hydrogen bonds, di are the number of donor groups of type i, aj is the number of acceptor groups of type j, ν2* is the volume occupied by  one molecule of solvent in the close-packed state, and νe/V0 is the cross-link density of the gel. 
+
+The swelling pressure in the gel is given by
+
+where μ2° is the chemical potential of pure water outside the gel. 
+The equilibrium volume fraction of the gel is obtained by setting the right side of eq 3 to zero, and the swelling capacity of the gel is calculated by
+
+where the numerator is the volume of the swollen gel and the denominator is the volume of the dry gel (Vd).
+N is the total number of molecules in the gel (polymer + solvent) and N1 is the number of polymer chains between cross-links which form the gel. 
+
+Water is bound to the polymer chains through hydrogen-bonding associations and through physical (hydrophobic) interactions. 
+The total bound water content (BWC) can be calculated from the ratio of total number of polymer-water contacts in the gel to the number of polymer-water contacts per molecule of bound water.
+In the mean field approximation, the total number ofpolymer-water contacts in the gel is given by
+
+where z is the number of nearest-neighbor lattice sites (lattice coordination number). We use a value of z ) 10, which is accepted in the literature.10,11 If the number of polymer-water contacts per molecule of bound water is fr2, then the grams of bound water per gram of dry gel is given by
+
+The parameter f denotes the number of sites for a molecule of bound water, which are in contact with mers of polymer chains. 
+
+Of the above bound water content, the amount which is hydrogen bonded to the polymer chains is given by
+
+where N12 and N21 are the number of hydrogen bonds between the carbonyl (CdO) of PNIPAm and water and between the amine (NH) of PNIPAm and water, respectively. 
+The factor of one-half is considered since each molecule of water has two donors and two acceptors. 
+The extended LFHB theory7 predicts that the discontinuous volume transition of PNIPAm gel occurs as a result of rearrangements of various hydrogen bonds in the system as well as due to the increasing “hydrophobic nature” of PNIPAm molecules with temperature. 
+
+Figure 1 shows the swelling capacity of PNIPAm gel with temperature. 
+The points are experimental data from  Dong and Hoffman,6 while the theoretical fit is obtained by using parameters listed in Tables 1 and 2. 
+The increasing hydrophobicity of the gel is modeled by the decreasing binary interaction parameter given by7
+
+Using the above parametric values, the theoretically calculated BWC is compared with the experimental data of Dong and Hoffman6 in Figure 2. 
+The theoretical values were obtained from eq 6 by using values of f ) 3 for the swollen gel and f ) 8 for the collapsed gel. 
+Thus in the collapsed state almost 80% of the nearest sites of a bound water molecule are occupied by mers of polymer chains, while in the swollen state only about 30% of nearest sites of bound water molecules are occupied by mers of polymer chains. 
+
+Figure 2 also shows the water molecules associated through hydrogenbonding interactions. 
+It is clearly seen that only a minority of BWC arises from hydrogen-bonding associations between water and polymer molecules. 
+The predictions of BWC compare very well with the data. 
+A sharp transition in the BWC seen at the LCST is caused by the loss of water molecules which are associated via hydrophobic and hydrogen-bonding associations with the polymer chains. 
+
+From Figures 1 and 2, it is seen that most of the water in the collapsed state of the gel is bound water, while that in the swollen gel is mostly free. 
+
+We have also carried out an NMR study of PNIPAm gel hydrated to different extents. 
+Increasing hydration of the polymer enhances the polymer chain mobility. 
+Insitu measurements of 1H static line widths in the NMR spectra give direct information about the local mobility of polymers.12,13 
+The smaller the line width, the greater is the mobility. 
+
+It is interesting to note from Figure 3 that there is a sharp line width transition when the polymer is subjected to increasing hydration. 
+The sharp decrease in the 1H static line width of the polymer peak  occurs at approximately 0.3-0.4 g of water per gram of polymer. 
+At or below the 0.4 g/g level of hydration, the loss of polymer mobility is due to the absence of free water in the gel. 
+Upon further hydration, the free or bulk water content in the polymer increases, resulting into enhanced chain mobility. It is interesting to note that the threshold value of 0.4 g/g hydration measured by NMR corresponds very closely to the BWC in the collapsed PNIPAm gel as seen from Figure 2. We have quantitatively predicted the bound water content in a PNIPAm gel by using the extended LFHB theory. The calculations indicate that the bound water content in the gel is about 0.4 g/g at temperatures above the LCST, whereas the free water content below the LCST is at least 3-4 times greater than the bound water content. The theoretical predictions compare well with the reported DSC data. We have also shown that the polymer 1H static line width measurements in NMR can give BWC, which is in agreement with the reported DSC data and theoretical predictions.

@@ -1,0 +1,88 @@
+Towards developing a criterion to characterize non-covalent bonds: a quantum mechanical study
+
+
+@article{kumarDevelopingCriterionCharacterize2021,
+  title = {Towards Developing a Criterion to Characterize Non-Covalent Bonds: A Quantum Mechanical Study},
+  shorttitle = {Towards Developing a Criterion to Characterize Non-Covalent Bonds},
+  author = {Kumar, Nandan and Saha, Soumen and Sastry, G. Narahari},
+  year = {2021},
+  month = apr,
+  journal = {Physical Chemistry Chemical Physics},
+  volume = {23},
+  number = {14},
+  pages = {8478--8488},
+  publisher = {The Royal Society of Chemistry},
+  issn = {1463-9084},
+  doi = {10.1039/D0CP05689H},
+  urldate = {2025-08-14},
+  abstract = {Chemical bonds are central to chemistry, biology, and allied fields, but still, the criterion to characterize an interaction as a non-covalent bond has not been studied rigorously. Therefore, in this study, we have attempted to characterize the non-covalent bonds by considering a total of 85 model systems depicting different chemical bonds comprising 43 non-covalent and 42 other bonds such as covalent, ionic, and coordinate bonds. The characterization has been done based on interaction energy, energy decomposition analysis (EDA), the NCI plot, and the analysis of topological properties of electron density. The interaction energy values, energy decomposition analysis, and NCI plot give insights into the full understanding of bond strength and its nature, but they fail to distinctively characterize the interaction as a non-covalent bond. Herein, a special criterion has been developed based on the topological parameters to characterize an interaction as a non-covalent bond. Topological parameters illustrate that the values of both ∇2{$\rho$} and H(r) are positive with a value of {$\rho$} {$<$} 0.03 a.u. and [-G(r)/V(r)] {$\geq$} 1.00 for the non-covalent bonds. The value of {$\rho$} increases up to 0.06 a.u. with a positive value of ∇2{$\rho$} and a negative value of H(r) if the non-covalent bond is partially covalent in nature. The analysis of G(r) suggests that it dominates the H(r) of non-covalent bonds with greater than 50\% contribution, whereas the contribution of G(r) varies between 35 and 50\% in the case of bonds which are partially covalent in nature. The criterion based on topological parameters is likely to be very helpful to comprehend and ascertain the non-covalent bonds in the chemical as well as complex biological systems.},
+  langid = {english},
+  file = {/home/frenour/Zotero/storage/6GX8TMRX/Kumar et al. - 2021 - Towards developing a criterion to characterize non-covalent bonds a quantum mechanical study.pdf;/home/frenour/Zotero/storage/UNJU583P/Towards developing a criterion to characterize non-covalent bonds a quantum mechanical study.pdf}
+}
+
+
+
+In comparison to the covalent bonds, non-covalent bonds are generally found to be weaker22–28 but sometimes the strength of non-covalent bonds is comparable to the strength of covalent bonds.7,29.
+
+Several criteria have been proposed for some of the non-covalent bonds based on topological parameters, molecular electrostatic potentials, and interaction energies.
+
+According to Bader, covalent (or shared) interactions should have a high electron density (r) and negative value of Laplacian of electron density (r2r), whereas, a low value of r and a positive value of r2r indicate the closed-shell type of bonding.
+
+it is often desirable to obtain the physical origin of the bond based on the interaction energy components, such as chemical bonds that are either driven by electrostatic or polarization or dispersion energy, depending on the type, size, charge, and substitution of the interacting entities.
+
+Interaction energies are not suited sometimes as bond strength descriptors because they are biased with geometry relaxation of the fragments as well as the reorganization of their electron densities.
+
+# Results and discussion 
+
+The considered non-covalent model systems covering 20 different types of noncovalent bonds, namely hydrogen bond (HB), charged assisted hydrogen bond (CHB), metal ion-lone pair (ML), XH–p (XHP), lone pair–p (LP), anion–p (AP), cation–p (CP), p–p (PP), cationalkane (CA), halogen bond (XB), hydride–XB (HXB), carbon bond (CB), pnicogen bond (PB), chalcogen bond (CGB), tetral bond (TB), lithium bond (LB), van der Waals (VDW), hydrogenHB (HHB), dihydrogen bond (DHB) and beryllium bond (BB).
+
+## Interaction energies
+
+Among the differences between the covalent and noncovalent bonds, the Eint and equilibrium bond distance (r in Å) are believed to be one of the criteria to distinguish the covalent and non-covalent bonds.
+
+the Eint of typical covalent bonds is greater than that of non-covalent bonds, whereas the bond distance is less for covalent bonds than non-covalent bonds.
+
+Fig. 1 The variation of interaction energy (Eint in kcal mol 1) with respect to the equilibrium bond distance (r in Å) for the considered covalent and non-covalent bonds.
+
+The plot of Eint vs. bond distance, shown in Fig. 1 illustrates that some of the covalent and non-covalent bonds share a common Eint and bond distance, i.e. around 1.7 Å to 2.1 Å and 50 kcal mol 1 bond distance and Eint respectively, suggesting that covalent and noncovalent bonds cannot always be distinguished exclusively based on the Eint and bond distance. 
+Moreover, we have not observed a good correlation between Eint and bond distance for the whole set of covalent and non-covalent bonds, shown in Fig. 1, but it might show a good correlation if we separate the whole set of covalent and non-covalent bonds based on the nature and type of the interacting moieties.
+
+
+## Energy decomposition analysis
+
+This suggests that covalent bonds are driven either by DEpol or DEex followed by DEelc and to a lesser extent by the DEdisp component. 
+However, both DEpol and DEex components seem to be highly competitive with each other. 
+From Fig. 2(a) and Table S8(b) in the ESI,† it can be noticed that the chloride type of covalent systems (i.e., 14–19), as well as C2H6 and CH3SH (i.e., 22 and 24, respectively), are driven by the DEex component whereas other typical covalent bonds are DEpol driven.
+
+In the case of coordinate bonds too (i.e., 34–42), the DEex component was found to be dominating with around or more than 40% contribution (Table S10, ESI†) followed by the DEpol or DEelc component.
+
+The nature of non-covalent bonds significantly varies as per the nature and type of interacting moieties.
+
+we could not generalize the nature of non-covalent bonds, as some of the non-covalent bonds are either driven by the DEelc or DEpol component while the remaining are driven by DEex or DEdisp components.
+
+we have further analyzed the contribution of energy components with respect to the strength of non-covalent bonds, as shown in Fig. 3. 
+This suggests that the weak non-covalent bonds are dominated by the DEex component. 
+However, the contribution of DEex component decreases significantly, and the contribution of either DEelc or DEpol or both increases with an increase in the strength of the non-covalent bonds.
+
+the preceding discussion suggests that covalent and coordinate bonds are either DEpol or DEex driven, while the DEelc component dominates the ionic bond. 
+Weak non-covalent bonds are dominated by the DEex component, whereas moderate and strong non-covalent bonds (see Table S6, ESI,† and Fig. 3) are driven either by the DEelc or DEpol component.
+
+
+Overall, Energy Decomposition Analysis (EDA) could not generalize the nature of non-covalent bonds and has also not been able to characterize non-covalent bonds based on the contribution of the energy components.
+
+
+## Non-covalent index plot analysis
+
+
+## AIM analysis
+
+The properties and chemically significant information of the chemical bonds have been studied effectively using Bader’s AIM theory.
+
+According to Bader’s theory, when Laplacian of electron density (r2r) is negative, i.e. r2r o 0 and electron density (r) is large, i.e. r 4 0.20 a.u., corresponds to shared covalent) interaction;
+whereas for closed-shell systems (as found in ionic bonds, in hydrogen bonds, etc.), r is relatively low and r2r is positive, i.e. r2r 4 0.
+
+
+
+
+# Conclusion
+

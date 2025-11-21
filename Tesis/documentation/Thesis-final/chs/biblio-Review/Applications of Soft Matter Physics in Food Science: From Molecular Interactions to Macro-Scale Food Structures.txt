@@ -1,0 +1,41 @@
+Applications of Soft Matter Physics in Food Science: From Molecular Interactions to Macro-Scale Food Structures
+
+
+@article{pawdeApplicationsSoftMatter2025,
+  title = {Applications of Soft Matter Physics in Food Science: From Molecular Interactions to Macro-Scale Food Structures},
+  shorttitle = {Applications of Soft Matter Physics in Food Science},
+  author = {Pawde, Subhash and Dave, Jaydeep},
+  year = {2025},
+  month = jul,
+  journal = {Sustainable Food Technology},
+  volume = {3},
+  number = {4},
+  pages = {979--1004},
+  publisher = {RSC},
+  issn = {2753-8095},
+  doi = {10.1039/D5FB00172B},
+  urldate = {2025-08-18},
+  abstract = {Soft matter physics, encompassing materials such as polymers, colloids, emulsions, gels, and foams, provides a powerful framework for understanding the structural and functional complexity of food systems. This review explores the application of soft matter principles in food science, from molecular interactions to macroscopic structuring. The behavior of food materials under various stresses and environmental conditions is governed by key physical principles including thermodynamics, phase transitions, and molecular dynamics. These principles elucidate how protein-polysaccharide networks, colloidal assemblies, and emulsified systems determine food texture, stability, and sensory properties. Rheology, a central tool of soft matter science, enables quantitative analysis of viscoelastic properties, guiding product design, formulation, and processing optimization. Processing techniques such as extrusion, high-pressure processing, and 3D printing are examined through the lens of soft matter behavior, offering precise control over microstructure and texture. Furthermore, the review highlights the emerging integration of artificial intelligence (AI) in modeling and predicting the physicochemical properties of complex food matrices, accelerating innovation and quality control. By bridging molecular--scale interactions with macro-scale material behavior, soft matter physics enables the rational design of functional, sustainable, and consumer-appealing food products. This interdisciplinary perspective not only advances fundamental scientific understanding but also provides practical insights for improving food quality, safety, and personalization. Overall, the review underscores the transformative potential of soft matter physics in shaping the future of food science and engineering.},
+  langid = {english},
+  file = {/home/frenour/Zotero/storage/S8VL35LJ/Pawde and Dave - 2025 - Applications of soft matter physics in food science from molecular interactions to macro-scale food.pdf}
+}
+
+
+# fundamental principles of soft matter physics in food science
+
+Soft matter constitutes a distinct class of condensed matter characterized by: (1) structural organization at intermediate length scales (nanometers to micrometers) between atomic and macroscopic dimensions; (2) high susceptibility to deformation by thermal uctuations or weak external forces (stresses on the order of 106 to 103 Pa); (3) non-equilibrium behaviors including metastability, path-dependence, and structural relaxation phenomena; and (4) emergent physical properties that arise from collective interactions rather than individual molecular attributes.3
+These materials including polymers, colloids, foams, emulsions, gels, and liquid crystals exhibit dual solidlike and liquid-like properties depending on observation timescales and applied stresses, a phenomenon quantied through viscoelastic parameters.
+
+
+## Key principle: Thermodynamics, phase transistions, and molecular dynamics
+
+Soft matter physics is governed by several key principles, including thermodynamics, phase transitions, and molecular dynamics, which collectively determine the behavior and properties of soft materials.
+
+Molecular dynamics, which involves the simulation of particle motion at the atomic or molecular scale, provides insights into the kinetic behaviors and structural evolution of soft matter systems. 
+These simulations have been instrumental in modeling the self-assembly of proteins, polysaccharides, and lipid molecules in food systems, helping researchers predict the formation of various structures and textures in foods.14
+
+
+### Colloidal systems in foods. 
+
+Colloidal systems represent a fundamental category of so matter characterized by dispersions where one phase is distributed within another at length scales typically ranging from nanometers to micrometers.
+

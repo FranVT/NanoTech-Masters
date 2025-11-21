@@ -1,0 +1,203 @@
+Hydrogels
+
+# Overview
+
+Hydrogels are network polymers – composed principally of hydrophilic, cross-linked macromolecules – that absorb water, aqueous solutions, or physiological fluids, but remain insoluble due to their network structure.1,2 
+
+The cross-links may be strong chemical linkages, temporary entanglements, or weak chemical interactions.3–8 
+Strong chemical cross-links, for example, are commonly made by free radical polymerization of vinyl monomers in the presence of a small amount of cross-linker, which is a comonomer having two or more func tional vinyl groups. 
+This cross-linking mechanism is based on covalent bonding in the hydrogel frame or backbone; 
+however, hydrogels may also be chemically linked by reactive sites in pendent groups, which form bridges in the gel between neigh boring macromolecules. 
+
+Interactions between side groups may include ionic associations, or weaker chemical forces such as hydrogen bonding, dipole interactions, and van der Waals forces. 
+Physical networks or physical portions of networks include entanglements and crystallites. 
+In addition, physical interactions in an otherwise amphorous hydrogel may provide some mechanical integrity to hydrogels in their swollen state. 
+Ultimately, gel structure and thermodynamic compatibility with the surrounding solution determine swelling beha  vior.1,2,9–11  
+
+Applications for hydrogels are vast and ever expanding. Controlled drug delivery, regenerative tissue scaffolding, con tact lenses, wound coverings, organ linings, biosensor membranes, microfluidic valves, and fluid absorbants are just a few applications ...
+
+
+
+"""
+
+Hydrogels are network polymers that absorb water, aqueous solutions, or physiological fluids, but remain insoluble due to their network structure.
+These network structure is composed principally of hydrophilic, cross-linked macromolecules.
+The cross-linking mechanism can be based on covalent bonding, ionic associations, or weaker chemical forces such as hydrogen bonding, dipole interactions, and van der Waals forces.
+
+
+Their high water content and adjustable chemical properties allow hydrogel-based materials to more closely resemble natural tissue tan any other type of synthitic biomaterial.
+
+"""
+
+One method of classifying hydrogels is by the ionic character of the macromolecular components in the network.
+- The  ionic character is particularly important in hydrogels because it dictates equilibrium swelling behavior to a large extent. 
+- Ionic gels (whether cationic, anionic, or amphoteric) are generally charged in aqueous solvents, unless the pH of the solvent is at an extreme value. 
+Gels that deprotonate in the imbibed solvent are referred to as anionic gels, while those that protonate are cationic. 
+- With anionic gels, the quantity of deprotonated, negatively charged pendent groups begins to exceed that of neutral pendent groups as the pH of the solvent is raised above the pKa of the polyacid (commonly carboxylic acids). 
+- Cationic gels, on the other hand, produce positively charged, protonated pendent groups in higher relative concentrations than neutral pendent groups as the pH is lowered below the pKa of the conjugate polyacid (commonly protonated amines). 
+
+Other classifications of gels can include:
+- method of preparation, 
+- constituents, and 
+- physical structure of networks.1–8,18–22 
+
+Various methods of preparation allow the fabrication of hydrogels over at least 8 orders of magnitude, from around 10−8 to 10^0 m. 
+The smallest gels, hydrogel nanoparticles or nanogels, have been synthesized commonly by bottom-up synthesis techniques such as emulsion polymerization, and by top-down fabrication methods including nanoimprint lithography (NIL).23,24 
+Nanogels, microgels, and macroscopic hydrogels can be synthesized by free radical polymerization techniques from monomers and cross-linkers, or by chemical linking of macromolecules using ionization radiation, repeated freezethaw cycles, and pendent group chemical bridge formation, among others.25–30 
+
+Classifying hydrogels by constituents is based on whether the hydrogel is essentially a homopolymer or utilizes various comonomers in its synthesis, and also whether the monomers are principally synthetic or derived from natural materials. 
+- Traditional synthetic hydrogels include poly(2-hydroxyethyl methacrylate) (PHEMA), poly (N-isopropyl-2-acrylamide) (PNIPAAm), and poly(vinyl alco hol) (PVA). 
+- Natural hydrogels have been synthesized from materials such as collagen, fibrin, hyaluronic acid, gelatin, agarose, alginate, and chitosan, and are particularly promising as biomaterials.14,31,32 
+    Generally speaking, natural hydrogels have excellent biocompatibility and often incorporate macro molecules already found in physiological systems, while synthetic hydrogels are more easily tuned for desirable proper ties, have better batch-to-batch variability, and are easier to scale. 
+    An important consideration with hydrogels synthesized using any synthetic material is the purification and removal of any unused, potentially toxic reactants that may be trapped in the gel network. 
+- Biohybrid gels are composed of components from both gel types and thus incorporate advantages from both natural and synthetic hydrogels.32 
+Hybrid gels may include modifications for specific cell-surface interactions, contrast agents for imaging, surface tethers to repel immune and coagu lation proteins, modalities for active targeting, or peptide sequences to encourage cellular attachment.32–37 
+    Using different types of monomers allows for fine-tuning of chemical and physical properties within the gel, which may be critical to drug partitioning, physiological compatibility, chemical stability, diffusive behavior, environmental response, and mechanical integrity. 
+    Degradability, for example, can be achieved by including typical hydrolyzable comonomers in the network structure. 
+    Typical degradable linkages include esters, orthoe sters, amino esters, anhydrides, disulfides, and oligopeptides, among others.38,39 
+
+Physical structure classifications are made based on network morphology and include physical descrip tions such as amorphousness, crystallinity or semicrystallinity, the presence of hydrogen-bonding complexes, supermolecular structures, chain interpenetrations, hydrocolloid aggregates, and composite inclusions.
+
+
+"""
+
+Hydrogels are network polymers that absorb water, aqueous solutions, or physiological fluids, but remain insoluble due to their network structure.
+These network structure is composed principally of hydrophilic, cross-linked macromolecules.
+The cross-linking mechanism can be based on covalent bonding, ionic associations, or weaker chemical forces such as hydrogen bonding, dipole interactions, and van der Waals forces.
+Hydrogels can be classified by the following criteria ionic character, method of preparation, and physical structure of networks.
+
+Ionic gels are generally charge aqueous solvent, unless the pH of the solvent is at an extreme value.
+These types of gels can be cationic, anionic or ampheteric.
+The cationic gels are gelt that have protonated pendent groups in higher relative concentrations than neutral pendent groups, as the pH is lowered below the pKa of the conjugate polyacid.
+On the other thar, anionic gels have negatively charged pendent groups begins to exceed that of neutral pendent groups, as the pH of the solvent is raised above the pKa of the polyacid.
+
+From a method of preparation perspective, it can be identified the following techiniques,
+        emulsion polymerization (bottom-up),
+        nanoimprintin lithography (top-down),
+        free radical polymerization from monomers and cross-linkers, ionization radiation, repreated freezethaw cycles and pendent group chemical formation (chemical linking of macromolecules).
+The smallest gels, like hydrogel nanporticles or nanogels have been synthesized commonly by bottom-up or top-down techiniques.
+Meanwhile, nanogels, microgels and macroscopic hydrogels can be synthesized by chemical linking of macromolecules techniques.
+
+Finally, the clasification of physical structure are made based on network morphology and include physical descriptions such as amorphousness, crystallinity or semicrystallinity, the presence of hydrogen-bonding complexes, supermolecular structures, chain interpenetrations, hydrocolloid aggregates, and composite inclusions.
+
+
+"""
+
+Swelling responses are an extremely important feature in hydrogels that allow direct interaction between gels and their environment in a predetermined manner to achieve novel functionality. 
+Hydrogel swelling causes the network to imbibe or reject the surrounding solvent, dictated by thermodynamic considerations, in direct correlation to the magnitude of the swelling change. 
+Aside from gel structural characteristics, such as chemical compatibility with the solvent, several factors play a role in determining equilibrium and kinetic gel swelling behavior, including the presence of ionizable pendent groups in the network, the average molecular weights of the polymer chains, degree of cross-linking, and type of cross-linker. 
+
+External parameters regarding the solvent and the environment also critically influence swelling behavior and the drastic structural and mechanical changes that are associated with swelling responses. 
+These various solvent and environmental parameters include solvent type, pH and ionic strength of aqueous solvents, temperature and pressure of the environment, dissolved chemical species, and the application of electromagnetic radiation, including electric and magnetic fields.40 
+
+Since the earliest work with PHEMA, the design, synthesis, and utilization of hydrogels have exploded, going in a staggering array of directions and endowing multiple fields of research.41 
+Because these materials are synthesized from chemical building blocks, hydrogels have great design flexibility in terms of molecular response, structural integrity, biodegradability, biocompatibility, and tunable diffusion behavior.42 
+Rather than starting with prefabricated, ‘off-the-shelf’ polymeric materials, and attempting to adapt them for physiological applications, biomaterials based on hydrogels  can be designed from the ‘ground up’ to exactly suit the needs of specific biomedical challenges.43
+
+"""
+
+An extremly important feature in hydrogels is that swelling response.
+This response causes the network to imbibe or reject the surrounding solvent (Not quite sure).
+This response predetermines the interaction with its surroundings, allowing achieve novel functionalities.
+The swelling response is affected by 
+    thermodynamic considerations, 
+    structural characteristics, such as, chemical compatibility with the solvent,
+    presence of ionizable pendent groups,
+    average molecular weights of the polymer chains,
+    degree of cross-linking,
+    type of cross-linker.
+    solvent type,
+    pH,
+    ionic strenght of aqueous solvents,
+    temperatures,
+    pressure of the environment,
+    dissolved chemcal species,
+    application of electromagnetic radiation.
+
+
+"""
+
+## Hydrogel Structure
+
+Hydrogels are networks of polymer chains that are covalently or physically networked into a mesh-like arrangement using a cross-linker. 
+Chain entanglements, weak molecular interactions (such as hydrogen bonding and van der Waals interactions), and microcrystalline regions are types of noncovalent cross-linking, some of which may only exist temporarily or in response to solvent conditions such as solution pH and temperature. 
+While the individual polymer chains comprising the hydrogel must be at least somewhat hydrophilic in order to be classified as a hydrogel, the networks they form are generally insoluble due to their cross-linked structure. 
+
+Ultimately, elastic limits in the network will prevent complete dissolution of hydrogels under normal conditions. 
+Non-inert hydrogels can dilate or retract within an aqueous environment and imbibe or reject fluids in response to a critical condition. 
+
+With responsive swelling, the hydrogel may exhibit a transition from a more solid-like state to a more liquid-like state if the swelling response is significant. 
+This transition may impart a great deal of fragility within the gel or result in irreversible damage to the gel structure, including rupturing. 
+
+"""
+
+From a network structure perspective, the cross-linking mechanism allows to create a mesh-like arrangement.
+The networks are generally insoluble fue to their cross-linked structure.
+
+[Cross-linking]
+Noncovalent cross-linking mechanisms can be 
+    chain entanglements,
+    weak molecular interactions (hydrogen bonding, can der Waals),
+    microcrystaline regions.
+Some of which may only exist temporaily or in response to solvent conditions such as solution pH and temperature.
+
+[Characteristic of hydrogels?]
+- Elastic limits in the network are responsible to preent complete dissolution of hydrogels under normal conditions.
+- Non-inert hydrogels can dilate or retract within an aqueous environment and imbibe or reject fluids in response to a critical condition.
+- With responsive swelling, the hydrogel may exhibit a transition from solid-like to liquid-like state if the swelling seponse is significant.
+ 
+[Swelling stuff]
+If the swelling response is significante, the hydrogel may exhibit a transition from a "solid-like" state to a "liquid-like" state.
+This transition may impart a great deal of fragility within the gel or result in irreversible damage to the gel structure, including rupturing.
+
+"""
+
+Hydrogels are designated as homopolymer gels if the backbone of the network is constructed from a single type of repeating monomer unit. 
+Multipolymer or copolymer hydrogels are synthesized with multiple monomer types. 
+
+Distinct regions with different monomers may exist as entirely separate chains, or as copolymers on individual chains in block, repeating, or random arrangements. 
+Interpenetrating polymer networks (IPNs) have completely separate polymer chain networks, which may be polymerized sequentially or simultaneously, are cross-linked individually, and are physically entangled, but not covalently bonded to each other. 
+IPNs may experience interactions between the distinct networks through hydrogen bonding or other weak interactions. 
+Also, IPNs do not require that both individual networks be cross-linked, as is the case with semi-IPNs. 
+Figure 1 shows these various types of hydrogel structures. 
+
+"""
+
+[Constituents stuff]
+A homopolymer gels is a hydrogel with a backbone network is constructed from a single type of repeating monomer unit.
+Multipolymer or copolymer hydrogels are synthesized with multiple monomer types.
+Interpenetrating polymer networks (IPNs) have completely separate polymer chain networks, which may be polymerized sequentially or simultaneously, are cross-linked individually, and are physically entangled, but not covalently bonded to each other. 
+IPNs may experience interactions between the distinct networks through hydrogen bonding or other weak interactions.
+
+
+"""
+
+Bulk hydrogel properties determine to a significant degree how suited a particular hydrogel is for a given application.2,12,44,45 
+Among the most important quantifiable hydrogel characteristics are polymer volume fraction in the swollen state, υ2,s, number-average molecular weight of the polymer chains between cross-links, MC, and the network mesh size, ξ. 
+The polymer volume fraction is a quantitative description of the relative amount of fluid imbibed into the gel based on volume. 
+The molecular weight between cross-links describes the average macromolecular weight between any two adjacent cross-link points (whether chemical or physical) within the three-dimensional structure of the hydrogel net work. 
+This is essentially a description of the degree of cross-linking of the hydrogel. 
+The mesh size is a measure of the physical distance between network chains available for the diffusive movement of solute molecules. 
+Obtaining these parameters for a given hydrogel immediately indicates to what extent a hydrogel is compatible with the desired solvent, the degree of volume changes to be expected during use, the effec tiveness of the cross-linking technique, a general picture of the physical robustness of the gel once swollen, and what size scale of drug molecule is appropriate for reasonable transport kinetics. 
+The two primary methods for obtaining these para meters rely on equilibrium swelling theory and rubber elasticity theory and are described in detail in the following sections.
+
+"""
+
+Most important quantifiable hydrogel characteristics,
+    polymer volume fraction in the swollen state,
+    number-average molecular weight of the polymer chains between cross-links (description of the degree of cross-linking of the hydrogel),
+    network mesh size.
+The polymer volume fraction is a quantitative description of the relative amount of fluid imbibed into the gel based on volume. 
+The molecular weight between cross-links describes the average macromolecular weight between any two adjacent cross-link points (whether chemical or physical) within the three-dimensional structure of the hydrogel network.
+The mesh size is a measure of the physical distance between network chains available for the diffusive movement of solute molecules. 
+
+Obtaining these parameters for a given hydrogel immediately indicates to what extent a hydrogel is compatible with the desired solvent, the degree of volume changes to be expected during use, the effec tiveness of the cross-linking technique, a general picture of the physical robustness of the gel once swollen, and what size scale of drug molecule is appropriate for reasonable transport kinetics. 
+
+The two primary methods for obtaining these parameters rely on equilibrium swelling theory and rubber elasticity theory.
+
+
+
+"""
+
+
+

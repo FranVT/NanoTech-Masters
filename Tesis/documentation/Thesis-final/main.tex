@@ -1,0 +1,86 @@
+\documentclass[12pt,colorful,boxey]{tufte-style-thesis}
+
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amscd,latexsym}         % ..if you need lots of math symbols
+\usepackage{bm}
+\usepackage{physics}
+\usepackage{mathptmx}
+\usepackage{mathtools}
+\usepackage{cancel}
+\usepackage{centernot} 		% Notacion matematica
+\usepackage{empheq}			% Recuadros para ecuaciones
+\usepackage[most]{tcolorbox}
+\usepackage{comment}
+\usepackage{ragged2e}
+\usepackage{siunitx}
+\usepackage{svg}
+
+\usepackage{algorithm2e}
+
+\usepackage{layouts}
+
+\bibliographystyle{abbrvnat}
+
+
+% Command to make clear the changes  
+\newcommand{\cor}[1]{\textcolor{blue}{#1}}
+
+% Insight of mechanical response of hydrogels via patchy particle methodology
+% INFO : used in the titlepage, copyright and stuff.
+\author{Francisco Javier Vazquez Tavares}
+\title{Exploration of mechanical responses of Hydrogels via numerical simulation}
+%\subtitle{This is the subtitle}
+\university{Instituto Tecnológico de Estudios Superiores de Monterrey \\ Campus Monterrey}
+\lab{School of Engineering and Sciences}
+
+\person{Supervisor}{Antonio Ortiz Ambriz}{~}
+\person{Cosupervisor}{Claudia Elena Ferreiro Cordova}{~}
+\person{Jury member}{Susana Marin Aguilar}{~}
+\person{Jury member}{Alejandro Martinez Borquez}{~}
+\logo{templateStuff/Logo_del_ITESM.svg.png}
+%\logo{example-image-b}
+%\logo{example-image-c}
+\shoutouts{As recognition of stubbornness}
+
+
+\begin{document}
+
+\maketitle
+
+\justifying
+
+\chapter*{Abstract}
+This thesis addresses the theoretical framework required for analyzing computer simulations of a patchy particle network's mechanical response under shear deformation.
+This network is modeled after a hydrophilic polymeric network composed by PNIPAM microgel numerical protocol.
+The protocol has been implemented in LAMMPS to take advantage of the parallelization of the velocity Verlet algorithm to solve the Langevin equations for a many particle system.
+It was found that the methodology simulates a polymeric network with physical crosslinkers and qualitatively captures the mechanical response as well as the network structure caused by shear deformation.
+\cor{clarify that PNIPAM uses chemical CL, while the polymeric gel in the simulaiton has physical crosslinkers.}
+\cor{What are the difference between physical and chemical}
+
+\chapter*{Acknowledgements}
+
+I would want to thank my advisers for the time they have provided me over the last two years.
+I would also like to acknowledge the research group that emerged during the master's program.
+Of course, I appreciate my family's and partner's emotional support and patience.
+And I would like to thank Tecnológico de Monterrey for the tuition grant that allowed me to continue with my master's studies.
+Finally, this work recieved support from Luis Aguilar, Alejandro de León, Alejandro Ávalos and Jair García of the Laboratorio Nacional de Visualización Científica Avanzada.
+
+\tableofcontents
+\listoffigures
+\listoftables
+%\listoflistings
+
+
+\mainmatter
+
+% Chapters
+
+\include{chs/ch1}      % Chapter 1 Intro
+\include{chs/ch2}      % Chapter 2 Theoretical framework
+\include{chs/ch3}      % Chapter 3 Numerical Experiments
+\include{chs/ch4}      % Chapter 4 Conclusion
+
+\bibliography{biblio}     % names file phdrefs.bib as my bibliography file
+
+
+
+\end{document}

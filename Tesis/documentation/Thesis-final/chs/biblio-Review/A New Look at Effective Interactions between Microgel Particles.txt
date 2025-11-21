@@ -1,0 +1,47 @@
+A New Look at Effective Interactions between Microgel Particles
+
+
+@article{bergmanNewLookEffective2018,
+  title = {A New Look at Effective Interactions between Microgel Particles},
+  author = {Bergman, Maxime J. and Gnan, Nicoletta and {Obiols-Rabasa}, Marc and Meijer, Janne-Mieke and Rovigatti, Lorenzo and Zaccarelli, Emanuela and Schurtenberger, Peter},
+  year = {2018},
+  month = nov,
+  journal = {Nature Communications},
+  volume = {9},
+  number = {1},
+  pages = {5039},
+  issn = {2041-1723},
+  doi = {10.1038/s41467-018-07332-5},
+  abstract = {Thermoresponsive microgels find widespread use as colloidal model systems, because their temperature-dependent size allows facile tuning of their volume fraction in situ. However, an interaction potential unifying their behavior across the entire phase diagram is sorely lacking. Here we investigate microgel suspensions in the fluid regime at different volume fractions and temperatures, and in the presence of another population of small microgels, combining confocal microscopy experiments and numerical simulations. We find that effective interactions between microgels are clearly temperature dependent. In addition, microgel mixtures possess an enhanced stability compared to hard colloid mixtures - a property not predicted by a simple Hertzian model. Based on numerical calculations we propose a multi-Hertzian model, which reproduces the experimental behavior for all studied conditions. Our findings highlight that effective interactions between microgels are much more complex than usually assumed, displaying a crucial dependence on temperature and on~the internal core-corona architecture of the particles.},
+  langid = {english},
+  pmcid = {PMC6262015},
+  pmid = {30487527},
+  file = {/home/frenour/Zotero/storage/CLJ4GABN/Bergman et al. - 2018 - A new look at effective interactions between microgel particles.pdf}
+}
+
+Microgels are hybrid particles with dual colloid-polymer nature, belonging to the class of so-called soft  colloids
+A microgel consists of a mesoscopic crosslinked polymer network, which can deform, shrink or interpenetrate with another microgel3,4.
+Often, as a result of the synthesis conditions, a particle possesses a denser core and a  more loosely crosslinked corona5,6, which also includes so-called  dangling ends7,8.
+
+
+Vlassopoulos, D. & Cloitre, M. Tunable rheology of dense soft deformable colloids. Curr. Opin. Colloid In. 19, 561–574 (2014).
+
+van der Scheer, P., van de Laar, T., van der Gucht, J., Vlassopoulos, D. & Sprakel, J. Fragility and strength in nanoparticle glasses. ACS Nano 11, 6755–6763 (2017).
+
+Conley, G. M., Aebischer, P., Nöjd, S., Schurtenberger, P. & Scheffold, F. Jamming and overpacking fuzzy microgels: deformation, interpenetration, and compression. Sci. Adv. 3, e1700969 (2017).
+
+Mohanty, P. S. et al. Interpenetration of polymeric microgels at ultrahigh densities. Sci. Rep. 7, 1487 (2017).
+
+Stieger, M., Pedersen, J. S., Lindner, P. & Richtering, W. Are thermoresponsive microgels model systems for concentrated colloidal suspensions? a rheology and small-angle neutron scattering study. Langmuir 20, 7283–7292 (2004)
+
+
+Microgels are considered smart colloidal materials: in response to external parameters such as temperature, pH, ionic strength, light, or electric field (depending on the nature of the polymers) a particle is able to change its size as well as  other connected properties such as the polarizability9 or elasticity  of the particle10,11.
+
+[Pero a que rangos dimensionales? Cuál es el rango de tamaño del que se refiere?]
+Recent research shows that the interactions between swollen microgels can be more accurately reproduced by a soft Hertzian repulsion in  the fluid region of the phase diagram33, while brush-like models  can be used for highly packed samples34,35.
+
+
+
+Evidently, it is imperative to consider the variation of the interparticle potential upon changing temperature and, crucially, the internal structure of the microgels to correctly describe their behavior, particularly for conditions where microgels are forced together—for example, in electric field applications or in the dense glassy regime, which is most widely studied in the microgel literature. 
+Furthermore, our results raise fundamental questions on the widespread practice to tune the volume fraction via a temperature change without accounting for the different nature of the system.
+

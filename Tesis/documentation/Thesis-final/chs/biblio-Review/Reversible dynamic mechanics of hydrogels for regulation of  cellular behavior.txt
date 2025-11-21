@@ -1,0 +1,32 @@
+Reversible dynamic mechanics of hydrogels for regulation of  cellular behavior
+
+the extracellular matrix (ECM) is highly dynamic during tissue development or regeneration, [16–18] biomaterial systems with reversibly tunable matrix stiffness are highly desirable in tissue engineering and regenerative medicine.
+several innovative strategies have been developed to reversibly control hydrogel stiffness.
+
+## Preparation methodology
+The dual-crosslinkable, biodegradable OMA was prepared by the oxidation and methacrylation of alginates.[26, 27] Briefly, sodium alginate (10 g, Protanal LF 200S, FMC Biopolymer) was dissolved in ultrapure deionized water (diH2O, 900 ml) overnight. Sodium periodate (0.1 g, Sigma) was dissolved in 100 ml diH2O, added to the alginate solution under stirring in the dark at room temperature (RT) and then allowed to react for 24 hrs. 
+To synthesize OMA, 2-morpholinoethanesulfonic acid (MES, 19.52 g, Sigma) and NaCl (17.53 g) were directly added to an oxidized alginate (OA) solution (1 L), and the pH was adjusted to 6.5 with 5 N NaOH. N-hydroxysuccinimide (NHS, 2.12 g; Sigma) and 1 ethyl-3-(3-dimethylaminopropyl)-carbodiimide hydrochloride (EDC, 7.00 g; Sigma) (molar ratio of NHS:EDC = 1:2) were added to the mixture to activate 20% of the carboxylic acid groups of the alginate. 
+After 5 min, 2-aminoethyl metharylate (AEMA, 3.04 g) (molar ratio of NHS:EDC:AEMA = 1:2:1) was added to the product, and the reaction was maintained in the dark at RT for 24 hrs. 
+The reaction mixture was precipitated with the addition of acetone in excess, dried in a fume hood, and rehydrated to a 1 w/v % solution in diH2O for further purification. 
+The OMA was purified by dialysis against diH2O (MWCO 12000 ~14000, Spectrum Laboratories Inc.) for 3 days, treated with activated charcoal (5 g/L, 50–200 mesh, Thermo Fisher Scientific) for 30 min, filtered (0.22 μm filter) and lyophilized.
+
+
+2.4 Mechanical testing  
+
+The elastic moduli of hydrogels were determined by performing uniaxial, unconfined constant strain rate compression testing at RT using a constant crosshead speed of 1%/sec on a mechanical testing machine (225lbs Actuator, TestResources) equipped with a 5 N load cell. 
+Elastic moduli were calculated from the first non-zero linear slope of the stress versus strain plot, and limited to the first 5 % of strain.
+
+
+2.5 Rheology testing  
+
+Dynamic rheological examination of the hydrogel was performed to evaluate with a Kinexus ultra+ rheometer (Malvern Panalytical). 
+In oscillatory mode, a parallel plate (8 mm diameter) geometry measuring system was employed, and the gap was set to 0.36 mm. 
+After the single-crosslinked hydrogel (Soft) was placed between the plates, all the tests were started at 25 °C, and the plate tempearature was maintained at 25 °C. 
+An oscillatory time sweep test at 1 Hz and 1 % shear strain was performed to measure storage moduli (G’) and loss moduli (G”) for 1 min. 
+After the measurement, 1 ml CaCl2 solution (50 mM) was carefully applied around the hydrogel disk for 30 min to stiffen the Soft hydrogel, and then an oscillatory time sweep test was performed as described above after removing excess CaCl2 solution. 
+After the measurement, 1 ml Tris-EDTA (TE, 50 mM Tris, 5 mM EDTA, and pH 7.5) buffer solution was carefully applied around the hydrogel disk for 30 min to reversibly soften the hydrogels by removing calcium ions, and then an oscillatory time sweep test was performed as described above after removing excess Tris-EDTA buffer solution. 
+The stiffening and softening were repeated one more time with the oscillatory time sweep tests.
+
+
+
+

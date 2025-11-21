@@ -1,0 +1,35 @@
+Interpenetration of Polymeric Microgels at Ultrahigh Densities
+
+
+@article{mohantyInterpenetrationPolymericMicrogels2017a,
+  title = {Interpenetration of Polymeric Microgels at Ultrahigh Densities},
+  author = {Mohanty, Priti S. and N{\"o}jd, Sofi and {van Gruijthuijsen}, Kitty and Crassous, J{\'e}r{\^o}me J. and {Obiols-Rabasa}, Marc and Schweins, Ralf and Stradner, Anna and Schurtenberger, Peter},
+  year = {2017},
+  month = may,
+  journal = {Scientific Reports},
+  volume = {7},
+  number = {1},
+  pages = {1487},
+  publisher = {Nature Publishing Group},
+  issn = {2045-2322},
+  doi = {10.1038/s41598-017-01471-3},
+  urldate = {2025-08-19},
+  abstract = {Soft particles such as polymeric microgels can form ultra-dense phases, where the average center-to-center distance as can be smaller than the initial unperturbed particle diameter {$\sigma$}0, due to their ability to interpenetrate and compress. However, despite of the effort devoted to microgels at ultrahigh densities, we know surprisingly little about their response to their environment at effective volume fractions {$\phi$}effabove close packing ({$\phi$}cp), and the existing information is often contradictory. Here we report direct measurements of the size and shape of poly(N-isopropylacrylamide) microgels at concentrations below and above {$\phi$}cpusing the zero average contrast method in small-angle neutron scattering. We complement these experiments with measurements of the average interparticle distances using small-angle x-ray scattering, and a determination of the glass transition using dynamic light scattering. This allows us to unambiguously decouple interaction effects from density-dependent variations of the particle size and shape at all values of {$\phi$}eff. We demonstrate that the microgels used in this study significantly interpenetrate and thus change their size and shape only marginally even for {$\phi$}eff\,{$\gg$}\,{$\phi$}cp, a finding that may require changes in the interpretation of a number of previously published studies on the structural and dynamic properties of dense soft particle systems.},
+  copyright = {2017 The Author(s)},
+  langid = {english},
+  keywords = {Colloids,Polymer characterization},
+  file = {/home/frenour/Zotero/storage/XLVUJC44/Mohanty et al. - 2017 - Interpenetration of polymeric microgels at ultrahigh densities.pdf}
+}
+
+
+Microgel particles are intriguing soft and responsive colloids formed by a cross-linked polymeric structure that can undergo reversible continuous or discontinuous volume transitions upon variations of external stimuli such  as temperature, pH or ionic strength1–3.
+
+In particular thermoresponsive particles such as poly(N-isopropylacrylamide) (PNIPAm)-based microgels have been used recently as seemingly ideal model systems to investigate various  “hot” topics in the physics of crystallisation and melting, dynamical arrest, glass transition and jamming4–8.
+
+These microgel-based investigations have often relied on the ability of the particles to vary their size as a function of temperature, and used temperature as a convenient way to tune the particle size and thus the volume fraction.
+
+Given the fact that microgels can in principle adapt both their size as well as their shape in response to the environment, any attempt to understand the structural and dynamic properties of dense microgel dispersions thus requires quantitative information about the behaviour of the individual particle as a function of temperature and density.
+
+Despite the large number of publications dealing with dense soft particle suspensions, glasses and gels, there is indeed a surprising lack of information about the evolution of the size and shape of soft microgels with increasing concentration at and above close packing.
+
+

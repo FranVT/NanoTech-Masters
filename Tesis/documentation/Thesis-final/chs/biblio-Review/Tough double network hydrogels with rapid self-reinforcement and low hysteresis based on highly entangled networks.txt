@@ -1,0 +1,140 @@
+Tough double network hydrogels with rapid self-reinforcement and low hysteresis based on highly entangled networks
+
+
+@article{zhuToughDoubleNetwork2024a,
+  title = {Tough Double Network Hydrogels with Rapid Self-Reinforcement and Low Hysteresis Based on Highly Entangled Networks},
+  author = {Zhu, Ruixin and Zhu, Dandan and Zheng, Zhen and Wang, Xinling},
+  year = {2024},
+  month = feb,
+  journal = {Nature Communications},
+  volume = {15},
+  number = {1},
+  pages = {1344},
+  publisher = {Nature Publishing Group},
+  issn = {2041-1723},
+  doi = {10.1038/s41467-024-45485-8},
+  urldate = {2025-08-12},
+  abstract = {Most tough hydrogels are reinforced by introducing energy dissipation mechanisms, but simultaneously realizing a high toughness and low hysteresis is challenging because the energy dissipation structure cannot recover rapidly. In this work, high mechanical performance highly entangled double network hydrogels without energy dissipation structure are fabricated, in which physical entanglements act as the primary effective crosslinking in the first network. This sliding entanglement structure allows the hydrogel network to form a highly uniform oriented structure during stretching, resulting in a high tensile strength of {\textasciitilde}3\,MPa, a fracture energy of 8340\,J\,m-2 and a strain-stiffening capability of 47.5 in 90\% water content. Moreover, almost 100\% reversibility is obtained in this hydrogel via energy storage based on entropy loss. The highly entangled double network structure not only overcomes the typical trade-off between the high toughness and low hysteresis of hydrogels, but more importantly, it provides an insight into the application of entanglement structures in high-performance hydrogels.},
+  copyright = {2024 The Author(s)},
+  langid = {english},
+  keywords = {Gels and hydrogels,Mechanical properties,Polymers},
+  file = {/home/frenour/Zotero/storage/BDXIAQQI/Zhu et al. - 2024 - Tough double network hydrogels with rapid self-reinforcement and low hysteresis based on highly enta.pdf}
+}
+
+
+PAMPS/PAAm-based double network hydrogels fracture energy can reach 100-1000Jm^-2 under a 90% water content, and its compression strength up to 40MPa
+
+More significantly, the energy dissipation mechanism of traditional double-network (TDN) hydrogels has inspired the development and application of many high-strength hydrogels.
+
+For example, the DN hydrogel with an alginate-Ca2+ network as the energy dissipation structure achieved a fracture energy of 9000 J m−2 5,, but its toughness declined dramatically after the first stretching cycle and showed high hysteresis. 
+Moreover, this low reversibility is not a exclusive shortcoming of DN hydrogels, but rather an inevitable problem for most hydrogels with energy dissipation mechanisms5–9. 
+Instantaneous recovery cannot be achieved even if non-covalent bonds10–15, nanoparticles16,17 and crystal structures18,19 with recoverable energy dissipation mechanisms are used. 
+Reconstruction of damaged structures usually takes minutes or hours which is much longer than the energy dissipated time, and results in hard instantaneous mechanical property recovery at the experimental observation scale. 
+
+Although some elastic gels that do not use energy dissipation mechanisms exhibit high recovery, their show low tensile strength and toughness20–23. 
+For example, the polyacrylamide hydrogel using hyperbranched silica nanoparticles (HBSPs) as the main junction point showed only 1.3% hysteresis, but its tensile strength was only 150 kPa23. 
+Polymerizable rotaxane hydrogels (PR-Gel) had a reversibility of 97.5%, but their tensile strength was only 80 kPa21. 
+This is consistent with the fact that elastic gels are known to be brittle and notch-sensitive24,25. 
+In other words, the stretchability and strength decrease significantly when a sample contains nicks or other features that produce uneven deformation5. 
+
+Polyrotaxane PEG hydrogels with strain-induced crystallization prepared by Koichi Mayumi and Kohzo Ito et al. achieved a combination of high toughness and low hysteresis to a certain extent. 
+With a water content of 70%, their tensile strength, fracture energy and reversibility were 3 MPa, 2200 J m−2 and almost 100% respectively. 
+Nevertheless, the synthesis of the polyrotaxane is complicated26. 
+
+Therefore, how to prepare hydrogels with high toughness and low hysteresis simply and efficiently is still an urgent problem.
+
+
+Elastic networks without energy dissipation structures can improve the reversibility of hydrogels, and their weak mechanical properties may be improved by adjusting the network structure.
+
+Many studies have shown that the network structure significantly affects the hysteresis27, elasticity28, and fracture behavior29,30 of hydrogels.
+
+hydrogel networks are spatially inhomogeneous, especially those obtained by radical polymerization34,35.
+
+Spatial inhomogeneity refers to inhomogeneous crosslinking, usually resulting in a mixture of densely and loosely crosslinked domains in the network with distances on the order of 10–100 nm36.
+
+Many literatures have demonstrated that a non-uniform microstructure of hydrogels will markedly affects their macroscopic properties, but methods to avoid or reduce this network structure inhomogeneity and thus improve the fracture behavior and hysteresis of the material have not been studied.
+
+In this work, we prepare highly entangled double network (HEDN) hydrogels, in which many physical entanglements act as effective crosslinks for the first network.
+
+The prepared hydrogels show high tensile strength, high toughness and strain-stiffening characteristics. Moreover, the external energy applied to the hydrogels is not dissipated, but rather stored in highly oriented molecular chains as an entropy loss, which endows the hydrogels with low hysteresis.
+
+In traditional double-network (TDN) hydrogels, the first network is usually a brittle polyelectrolyte with dense chemical crosslinks prepared in a dilute monomer solution.
+In contrast, the first network of HEDN hydrogels is a tough polymer with dense physical entanglement points obtained in a high-concentration monomer solution.
+
+Minimal chemical crosslinker MBAA (0.001 mol%) is used in HEDN1st network to prevent the disentanglement of physical entanglement points.
+
+Highly entangled hydrogels mean that there is more entanglement per unit volume under the same solid content.
+
+Entanglements will significantly affect the equilibrium water content of hydrogels.
+
+Many entanglements effectively inhibit the swelling of networks.
+
+The entanglements also increase the stiffness of hydrogels9,20
+
+the stiffness of the gel is determined by the degree of entanglement in this work
+
+The tensile strength also increases with the increase of entanglement, but the elongation at break is opposite
+
+...
+
+The fundamental reason is that sliding entanglement causes the polymer network to form a highly uniform orientation structure under tensile strain.
+
+# Self-reinforcement, high reversibility mechanism of highly entangled double network structures
+
+the pores of the freeze-dried TDN hydrogel are unevenly distributed.
+This uneven pore distribution is not a random distribution of individual pores but rather large and small pores aggregate in different regions or microdomains.
+
+These pores were produced by defects (or large voids) in the first network during free-radical polymerization, and the high-density chemical crosslinking ensures the stability of these defects.
+Thus, the second network formed in the defects can swell more freely.
+
+In contrast, HEDN hydrogels show relatively weak shoulder peak, indicating that the uniformity of the network has been improved to some extent.
+
+The high roughness of the gel is attributed to the different swelling degrees of different microdomains. 
+A more uniform network can effectively avoid the stress concentration within the hydrogels29.
+
+
+The brittle first network of the TDN hydrogel begins to break when stretched, and the polymer chains (those chains with small hidden lengths) in the second network are selectively elongated orientation
+The first network is eventually broken completely at high strain, and the remaining strain is mainly provided by the flexible second network.
+the TDN hydrogel has a higher initial modulus, but the modulus decreases upon increasing the strain.
+
+Whereas for the HEDN hydrogels, the entanglement points in the first network begin to slide under stress and orient the polymer chains along the direction of the applied force, while also incorporating the entangled second network into it.
+The sliding on the entanglement points homogenizes the polymer chains with different hidden lengths, i.e., all polymer chains are equally stretched.
+The HEDN hydrogels show almost no polymer chains breakage during the initial stretching, and only polymer chain orientation occurs. 
+In this process, energy is stored as an entropy loss. When the external force is removed, this energy will be released in the form of an entropy increase. 
+When the HEDN hydrogels are stretched to a certain extent, the polymer chains are highly oriented, and the material becomes very rigid in the direction of the applied force, thus exhibiting typical strainstiffening behavior.
+
+the interference color changes abruptly, which is generated by the high-level orientation of polymer chains caused by high-density chain entanglements.
+
+Strain-stiffening behavior is caused by the higher orientation of polymer chains under large strains
+
+Because the hydrogel network has inhomogeneous cross-linked microdomains, the deformation of these microdomains is different when stretched, so the orientation of the network is not completely uniform.
+If when the network is stretched and the microdomains disappear, the resulting oriented structure is regarded as highly uniformly oriented.
+
+This indicates that although there is a certain non-uniform entanglement network in the undeformed HEDN hydrogels, the sliding entanglements make the stretched polymer network achieve uniform orientation.
+
+The SAXS profiles before and after stretching show almost exactly overlapping curves, indicating that the HEDN hydrogels evolved from a non-uniform initial state to a uniform network structure after stretching, and then returned to a non-uniform structure after unloading. 
+This recovery from a highly ordered stretch structure to a disordered entanglement structure is driven by entropy. 
+Moreover, there is almost no energy dissipation structure in the network. Thus, HEDN hydrogels have high recoverability.
+
+The stretched HEDN-0.8 hydrogel network is highly uniform oriented due to the sliding of entanglement points during stretching.
+This highly uniform orientation structure endows high water content hydrogels with high strength and high strain-stiffening capability. 
+This entropic elastic nature without energy dissipation also gives these hydrogels high reversibility and fatigue resistance.
+
+# Stress dispersion mechanism at the nptch of HEDN hydrogels
+
+The theory of fracture mechanics states that due to the singularity in stress and strain, the deformation field near the crack tip is usually much greater than that in the bulk53–55.
+
+
+Due to the anchoring of polymer chains by the high-density chemical crosslinking sites in the first network of the TDN hydrogel, only the first elongated polymer chain bears the force of stretching, while other polymer chains remain in their original state.
+When the first polymer chain breaks, stress is transferred to other chains, and this breakage causes a chain reaction in the hydrogel network that cause the crack to rapidly expand
+is mainly concentrated near the notch, which indicates that only the polymer chains around the notch are stretched, while other polymer chains remain unstressed or un-oriented. 
+These are a typical stress concentration phenomenon.
+
+
+the HEDN hydrogels not only appears interference color around the notch and bright interference color at other positions, which indicates the stress is distributed to the bulk.
+that notched HEDN hydrogels can recruit more polymer chains to withstand greater external forces.
+
+the densely entangled points begin to slip and distribute the force to other chains, which avoids stress concentration and recruiting more chains bear external force.
+
+the effective stress dispersion induced by entanglement around the notch gives HEDN hydrogels ultrahigh fracture energy.
+

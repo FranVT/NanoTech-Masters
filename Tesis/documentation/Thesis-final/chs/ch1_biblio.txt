@@ -1,0 +1,501 @@
+
+@article{guPolymerNetworksPlastics2020,
+  title = {Polymer Networks: From Plastics and Gels to Porous Frameworks},
+  shorttitle = {Polymer Networks},
+  author = {Gu, Yuwei and Zhao, Julia and Johnson, Jeremiah A.},
+  year = {2020},
+  journal = {Angewandte Chemie International Edition},
+  volume = {59},
+  number = {13},
+  pages = {5022--5049},
+  issn = {1521-3773},
+  doi = {10.1002/anie.201902900},
+  urldate = {2025-06-24},
+  abstract = {Polymer networks, which are materials composed of many smaller components---referred to as ``junctions'' and ``strands''---connected together via covalent or non-covalent/supramolecular interactions, are arguably the most versatile, widely studied, broadly used, and important materials known. From the first commercial polymers through the plastics revolution of the 20th century to today, there are almost no aspects of modern life that are not impacted by polymer networks. Nevertheless, there are still many challenges that must be addressed to enable a complete understanding of these materials and facilitate their development for emerging applications ranging from sustainability and energy harvesting/storage to tissue engineering and additive manufacturing. Here, we provide a unifying overview of the fundamentals of polymer network synthesis, structure, and properties, tying together recent trends in the field that are not always associated with classical polymer networks, such as the advent of crystalline ``framework'' materials. We also highlight recent advances in using molecular design and control of topology to showcase how a deep understanding of structure--property relationships can lead to advanced networks with exceptional properties.},
+  copyright = {{\copyright} 2019 Wiley-VCH Verlag GmbH \& Co. KGaA, Weinheim},
+  langid = {english},
+  keywords = {gels,microporous polymers,polymer networks,polymers},
+  file = {/home/fran/Zotero/storage/SLBZN483/Gu et al. - 2020 - Polymer Networks From Plastics and Gels to Porous Frameworks.pdf;/home/fran/Zotero/storage/IK4K8YB4/anie.html}
+}
+
+[This goes into the gels subsection]
+
+From a structural perspective, polymer networks are composed of network “junctions” (in some cases, these can also be referred to as “crosslinks”, defined as a bond that links one strand to another), which have three or more groups (the exact “branch functionality” we refer to as f) emanating from a core, connected together by f “strands.” 
+
+Strands can be linear polymer chains, flexible short molecules, rigid struts/ linkers, etc.
+
+junctions and strands in polymer networks can be linked together via physical interactions (e.g., van der Waals interactions, hydrophobic interactions, Coulombic interactions, metalligand coordination) or covalent bonds. 
+Hence, polymer networks are conventionally classified as “physical” (supramolecular) or “chemical” (covalent) networks. 
+It should be noted that this classification does not always accurately reflect material properties; bond strengths and exchange rates are much more informative. 
+For example, given sufficiently strong and static physical interactions, physical networks can behave identically to chemical networks; alternatively, the incorporation of mechanisms for covalent bond exchange can result in chemical networks that exhibit adaptable mechanical properties regulated by external stimuli. 
+Thus, the properties of polymer networks can vary widely depending on the composition of the junctions and strands as well as the formation and use conditions. 
+With this broad view in mind, nearly all polymer networks, regardless of their colloquial name, structure, properties, etc. can generally be divided into one of four major classes: thermosets, thermoplastics, elastomers, and gels.
+
+
+### Thermosets
+are polymer networks where the junctions and strands are typically connected via covalent bonds and where the material is used at a temperature well below the glass transition temperature.
+They are rigid materials (Young s moduli of 109 Pa) that are normally insoluble in all solvents and not processable once formed (unless a mechanism for junction/strand exchange is available, such as in covalent adaptable networks/vitrimers).
+Classical thermosets typically degrade rather than become fluid upon heating.
+Some examples of commercially important thermosets include formaldehyde resins, polyurethanes, and epoxy resins.
+
+
+### Thermoplastics
+are networks of macromolecules connected together via non-covalent (supramolecular) interactions, where the material is used well below its glass transition temperature. 
+Above a certain temperature, thermoplastics can transition from rigid solids to processable viscoelastic fluids that can, at least in principle, be remolded, healed, and recycled. 
+We note that thermoplastics are conventionally considered as “non-crosslinked” due to the lack of covalent bonding between macromolecular chains; at their operating temperatures, however, the strength of the intermolecular non-covalent interactions within many thermoplastics is very high, resulting in mechanical properties similar to their thermosetting counterparts and justifying their classification as “polymer networks.” 
+Examples of thermoplastics are polyethylene and polypropylene plastics, poly(methyl methacrylate) acrylics, polycarbonates, and polyamides (e.g., Nylon).
+
+### Elastomers
+are polymer networks that are used at temperatures above their glass transition temperature. 
+They are typically composed of covalently bonded macromolecules, though they can also be constructed from non-covalent interactions (the latter are referred to as “thermoplastic elastomers”). 
+As a result, they are soft but non-fluid materials (Young s moduli of 106 Pa or lower) that can be reversibly stretched to high extensions without breaking. 
+Examples of elastomers include vulcanized natural rubber, silicone rubbers, and EPDM (ethylene propylene diene monomer) rubber.
+
+### Gels
+are polymer networks constructed from either covalent or supramolecular bonds that are swollen in liquid media such as water or organic solvents. 
+The network structure ensures that the liquid is held within the material. 
+Gels are usually very soft (Young s moduli of 103–104 Pa) but are often capable of undergoing relatively large deformation.
+Examples of gels include gelatin, fibrin, and polyacrylamide hydrogel.
+
+
+# Mechanisms for polymer network formation
+
+There are three major mechanisms used for polymer network synthesis: 
+    addition/chain-growth polymerization, 
+    step-growth polymerization, and 
+    vulcanization.
+
+### Addition/chain-growth polymerization 
+occurs by a chain reaction wherein one monomer (typically an unsaturated compound, e.g., an olefin) at a time adds onto the end of growing polymer strands. 
+In the presence of multifunctional monomers (“crosslinkers,” e.g., divinylbenzene in the case of radical polymerization) that serve as junctions, two or more propagating polymer chains can be linked together (“crosslinked”), inducing the formation of a polymer network.
+
+
+### Step-growth polymerization
+starts from multifunctional monomers that are capable of reacting with each other to form dimers, then oligomers, and eventually polymers. 
+If one or more of the monomers have a functionality (f) greater than two, branched polymers are formed; further reactions between these branched polymers can lead to polymer network formation. 
+One common strategy for forming polymer networks through a step-growth process is referred to as “end-linking,” where the chain ends of bifunctional molecules (referred to as “A2”) are linked by multi-functional monomers (referred to as “Bf”) in a reaction between functional groups A and B.
+
+
+### Vulcanization
+is a special case wherein preformed polymers are crosslinked by forming bonds between functional groups present on the polymer backbone or sidechains. 
+A well-known example is sulfur vulcanization of natural rubber, where the alkene groups of polyisoprene strands are crosslinked by reaction with sulfur. 
+Notably, vulcanization can also be viewed as a step-growth polymerization wherein the preformed polymer (e.g., polyisoprene) serves as a multifunctional (e.g., Bf) component.[10]
+
+
+----------
+
+## Gel point
+
+For any polymer network forming process, there is a critical point known as the “gel point,” where the reaction phase transitions from liquid to solid. 
+Since many properties of polymer networks change abruptly at the gel point and are only useful beyond the gel point, several theoretical models have been developed to predict the gel point for various network formation processes, such as mean-field theory,[11,12] critical percolation theory,[12,13] and the kinetic gelation model.[14] 
+Here, we introduce two classical approaches—the Carothers model[15] and the Flory–Stockmayer model[11,16]to predicting the relationship between gelation and the extent of reaction in step-growth polymerization.
+
+### Carothers model
+that gelation occurs when the number-average molar mass of the macromolecules in a network forming process approaches infinity. 
+In a step-growth polymerization containing equivalent numbers of A and B groups, Carothers derived that the critical extent of reaction pc at the gel point is given by [Eq. (1)]:
+
+### Flory-Stockmayer
+derived an expression for predicting pc (critical extente of reaction) by calculating the point at which the weight average molar mass approaches infinity, or Mw ! 1. 
+The Flory–Stockmayer model is a mean-field approach, where network formation is modeled as percolation on a Bethe lattice. 
+For a step-growth polymerization involving A and B groups, they postulated that [Eq. (2)]:
+
+
+----------
+
+[This goes into the introduction Chapter]
+
+# Polymer Network Structure
+
+Chemical and topological structure together dictate the properties of polymer networks. 
+The chemical structure is described by the chemical composition of network components; as we will discuss later in the review, tuning chemical composition is an effective approach to imparting functions to polymer networks.
+Polymer network topology delineates how the junctions and strands of a polymer network are connected.
+Given that many properties (e.g., elasticity, porosity, and swellability) of polymer networks have topological origins, there is growing interest in understanding and controlling polymer network topology from a molecular perspective.
+The vast majority of polymer networks are amorphous or semicrystalline (i.e., featuring amorphous and crystalline domains) and, thus, are rich in topological features that span across several length scales, ranging from the molecular ( angstrom) to submicron scale.
+
+### 10-100 nm
+From 10–100 nm, polymer network topology is characterized by inhomogeneity in junction/strand density (Figure 1), which results from concentration fluctuations during network formation.[20]
+Small-angle scattering techniques provide semi-quantitative information at this length scale (see below).[21,22]
+
+### 1-10 nm
+Dangling/unreacted strands and/or junctions, entanglements, and loops of various orders comprise the macromolecular features that dominate network structure on the length scale ranging from 1–10 nm (Figure 1). 
+
+Dangling functionalities, often referred to as “dangling chains,” occur when a reactive group from the network precursors remains unreacted after network formation. 
+
+Loops are cyclic structures defined by the number of strands and junctions that comprise the cycle. 
+Primary loops, the simplest cyclic topologies, form when both ends of one strand are attached to the same junction. 
+A secondary loop is formed from two strands connected to the same two junctions. 
+Although they contain rich topological information, conventional scattering and spectroscopic methods fail to characterize these macromolecular features.[23]
+
+### <1 nm 
+At the molecular level, network features are primarily dictated by chemistry rather than topology; branch functionality, however, is a critical molecular-scale feature that dictates network topology (Figure 1). 
+While branch functionality is difficult to characterize experimentally, it can typically be predicted based on the functionality of network precursors.
+
+To characterize the often chemically indistinguishable (macro)molecular-level topological features in amorphous regions of polymer networks (e.g., unreacted functionalities, loops of various orders), theory/ simulation, swelling experiments, and mechanical tests are often used.
+
+
+## Structual Control of Polymer Networks
+As discussed above, polymer networks can be crystalline, amorphous, or both (semicrystalline). 
+Many thermoplastics (e.g., Nylon, Kevlar, linear polyethylene, syndiotactic polystyrene) are semicrystalline or crystalline when processed using slow quenching or uniaxial stretching—conditions that maximize the reversibility of intermolecular interactions (e.g., van der Waals or hydrogen bonding interactions) and facilitate packing of polymer strands.[52] 
+As described in Section 5.2.2, the use of reversible bond formation between conformationally rigid monomers has recently enabled the synthesis of crystalline polymer networks, where the spatial distribution of junctions exhibits long-range order. 
+A common strategy to control the structure of all types of polymer networks incorporates network precursors with preexisting topological features such as a defined branch functionality and/or a unique molecular architecture. 
+Recently, methods that bias polymerization kinetics, such as semibatch monomer addition[32] and templated synthesis,[49] have also been used to manipulate polymer network topology.
+
+### Controlling Branch Funcitonality of Polymer Networks
+
+Branch functionality (f) is a theoretical value that describes the number of elastically effective strands connected to a network junction; it is equal to the monomer functionality when there are no unreacted functionalities or loops. 
+In practice, the number of elastically effective strands connected to a junction (effective branch functionality, feff) could be greatly reduced by the presence of topological defects.
+
+
+In end-linked networks, the branch functionality can be controlled by changing the functionality of the network precursors
+
+Self-assembly is often used for the construction of high f polymer networks.
+
+
+
+### Controlling Polymer-Networks Strand Topology
+
+Many topologically intriguing macromolecular architectures have been realized through the development of advanced synthetic strategies and methods.[68,69] 
+Leveraging these techniques, polymer networks with topologically unique motifs, such as 
+    cyclic polymers,[70] 
+    polyrotaxanes,[71] and 
+    polycatenanes,[72] have been reported.
+
+
+### Controlling Loops of Various Orders in Polymers Networks
+Most polymer networks are rich in elastically defective topological structures such as unreacted functionalities and loops of various orders. 
+Unreacted functionalities can be controlled by altering the reaction stoichiometry or through the deliberate doping of monofunctional network precursors.[89]
+In contrast, controlling loops in amorphous polymer networks is much more challenging.
+
+
+
+### Controlled Radical Polymerization in Polymer Network
+
+Radical polymerization involves four elementary processes: 
+    initiation, 
+    propagation, 
+    chain transfer, and 
+    termination.
+Conventional free radical polymerization suffers from a slow rate of initiation relative to propagation as well as unavoidable termination, together leading to limited control over chain length/topology. 
+In contrast, the concepts of reversible termination and degenerative chain transfer[95,96] enabled the development of modern reversible deactivation radical polymerization (RDRP) techniques that provide convenient access to polymers with predetermined molecular weights and well-defined microstructures.[97]
+
+Three major RDRP techniques are most commonly used for polymer network synthesis: 
+    nitroxide mediated polymerization (NMP),[98–100] 
+    atom transfer radical polymerization (ATRP),[53,101–103] and 
+    reversible addition-fragmentation chain transfer (RAFT) polymerization.[104–106]
+
+
+
+### Topology-Switchable Networks
+
+The critical role that topology plays in dictating the properties of materials has inspired a class of polymer networks that can interconvert between two different stable topological states.
+
+In this system, the network junctions switch from Pd3L6 (f = 6) to Pd24L48 (f = 48) upon irradiation with ultraviolet light and back with green light (Figure 6 A).[51]
+
+Large changes in the storage modulus are possible upon topology switching; 
+    perhaps more interestingly, the different ligand exchange dynamics of the two MOCs are reflected in an order of magnitude difference in the characteristic stress-relaxation times of their corresponding networks, enabling the material to be switched repeatedly between a soft and self-healing state and a stiff, dimensionallystable state. 
+For further discussion on the ramifications of network structure/topology on mechanical behaviors, see Section 4 below.
+
+[Reversible crosslinking methods]
+
+
+# Basics Properties of Polymer Networks
+
+## Elasticity
+
+
+The physical origin of rubber elasticity comes from the loss in conformational entropy that occurs as a strand in a network is stretched; this process is commonly depicted as the unwinding of flexible, random coils. 
+Once the external stretching force is removed, an elastic entropic force restores the strands to their unstretched and higher entropy state. 
+As a result, network strands can be considered as entropic molecular springs. 
+
+In this section, we introduce the two simplest theories that capture the entropic origin of rubber elasticity for nonentangled polymer networks at the molecular-level: the affine and phantom network models.
+
+### Affine network model
+
+assumes that the relative deformation experienced by each network strand is the same as the macroscopic deformation applied to the entire network. 
+When network strands are treated as Gaussian chains and the polymer network is assumed to be incompressible (i.e., Poisson s ratio is 0.5), the stress-deformation behavior of an affine network in response to a uniaxial force is expressed as [Eq. (8)]:
+
+\sigma = \upsilon_{\mathrm{eff}}RT(\lambda-\frac{1}{\lambda^2})
+
+- \sigma is the engineering stress, defined as the applied force divided by the initial cross-sectional area of the material; 
+- l is the ratio of the final length to the initial length of the material along the direction of the applied force (Note: when describing material deformation in a tensile test, engineering strain e is sometimes used in place of l. e is defined as the ratio of the total deformation to the initial length of the material along the direction of the applied force. Hence, e 1⁄4 l @ 1); 
+- neff is the density of elastically effective strands;
+- R is the gas constant; and 
+- T is the temperature. 
+
+The shear modulus G, correlates with the Young's modulus E, can be calculate from Eqn 9, where (\upsilon is Poisson's ratio)
+
+G = E/(2(1+\upsilon)) = \upsilon_{eff}RT
+
+### Phantom network
+
+assumes that network junctions can fluctuate around their average positions. 
+These fluctuations reduce the conformational restrictions experienced by strands, which, in turn, lowers the net free energy of the system relative to the affine network. 
+
+In the phantom model, the shortest-path tree of network strands connecting each junction to the network surface is simplified as an effective chain that captures the cumulative behavior of the network. 
+This simplification, which takes into consideration the network branch functionality f, leads to an expression for the phantom network modulus [Eq. (10)]:[12]
+
+G = \upsilon_{eff}RT(1-2/f)
+
+As a result, the predicted shear modulus in the phantom network model is lower than that of the affine network model.
+The engineering stress for the uniaxial deformation of a phantom network remains the same [Eq. (11)].
+
+\sigma = G(\lambda-1/\lambda^2)
+
+- E is often determined from the initial slope of the stressstrain curve under tensile force (Figure 7 A), which is measured using a tensile testing instrument (e.g., Instron).
+- On the other hand, G is typically determined from oscillatory shear rheology (Section 4.3). 
+    These methods provide seemingly simple opportunities to experimentally evaluate the affine and phantom models.
+
+This approach is complicated, however, by the presence of elastically defective structures in real polymer networks, which preclude an accurate determination of neff.
+
+|-
+Johnson, Olsen, and co-workers developed real elastic network theory (RENT), a modified phantom network model that incorporates the effect of loops of various orders to predict network elasticity.[123,124] Using accurately determined neff based on primary loop characterization data obtained through NDS and simulations, RENT precisely predicted the shear elastic moduli G of gels with f = 3 or 4 (Figure 7 B). It should be noted that in the original RENT, the predicted impact of larger loops (i.e., loops of order three or above) on network elasticity was approximated. Recently, Lang proposed an equivalent resistance method to exactly solve for the impact of finite loops on elasticity.[125] Inspired by this approach, Olsen and co-workers modified RENT and found that under classical assumptions of phantom network theory, loops with order thre
+-|
+
+----
+
+As noted above, the affine and phantom network models assume no strand entanglements. 
+
+In polymer networks made of long linear polymers, entanglements effectively serve as additional supramolecular crosslinks to increase the network modulus and toughness. 
+Stress-deformation behaviors of entangled elastomers can be phenomenologically fitted using the Mooney-Rivlin model to empirically obtain the contribution of entanglements towards elasticity.[12,29] 
+Recently, Matyjaszewski, Sheiko, and co-workers demonstrated the severe reduction of trapped entanglements in elastomers made of densely grafted bottlebrush polymers.[120,129,130] 
+In these solvent-free polymer networks, the network strands (bottlebrush backbones) are effectively swollen by the low Tg bottlebrush sidechains, leading to low moduli comparable to conventional solvent-containing gels.
+These materials demonstrate stress-strain behaviors resembling a variety of biological tissues[131] and hold great promise for biomaterial applications.[132]
+
+
+## Swelling of Polymers Networks
+
+Polymer networks constructed from strong (e.g., covalent) bonds typically do not dissolve in solvents. 
+Instead, such networks absorb solvent up to an equilibrium concentration and undergo a concomitant increase in volume. 
+
+The equilibrium degree of swelling is dictated by a balance between the free energy of polymer-solvent mixing and the free energy cost of expanding the network, which is expressed by the Flory–Rehner equation[11,133] for isotropic swelling of an affine polymer network [Eq. (12)]:
+
+\ln(1-\phi_{eq}) + \phi_eq + \xi\phi^2_{eq} = \eta_{eff}V_1(\phi_eq/2-\phi^{1/3}_{eq})
+
+where 
+- feq is the volume fraction of the polymer network in the equilibrium swollen state, 
+- c is the Flory–Huggins polymer-solvent interaction parameter, 
+- neff is the density of elastically effective strands in the unswollen network, and 
+- V1 is the molar volume of the solvent.
+
+The simple ability to control the swelling of polymer networks has recently enabled exciting new applications of these materials. 
+For example, fixing/crosslinking biological tissues onto hydrogels has been exploited to obtain highresolution optical microscopy images in a technique referred to as CLARITY.[139]
+
+## Viscoelasticity of Polymer Networks
+
+Polymeric materials exhibit both viscous and elastic characteristics upon deformation, meaning that their properties may vary with the time scale or frequency at which measurements are performed. 
+To characterize this viscoelasticity with respect to tensile, compressive, or shear deformation, several types of experimental measurements are commonly applied, such as stress relaxation, creep, and oscillatory shear tests. 
+In this section, we will focus on oscillatory shear rheology of polymer networks. 
+We refer the reader to additional literature for a comprehensive understanding of polymer viscoelasticity.[12,147,148]
+
+
+
+Oscillatory shear measurements are often performed on dynamic mechanical analyzers or rheometers, where a sample is subjected to a sinusoidal shear strain g(t) with small amplitude g0 and angular frequency w [Eq. (13)]:
+\gamma(t) = \gamma_o\sin(\omega t)
+
+The linear response of a viscoelastic material in terms of stress s(t) is sinusoidal with the same frequency w, but leads the strain by a phase angle d [Eq. (14)]:  
+\sigma(t)=\sigma_o\sin(\omega t+\delta)
+
+The stress can be separated into two components that oscillate with the same frequency w, one in phase with the strain and the other out of phase with the strain by p/2 [Eq. (15)]:  
+\sigma(t) = \gamma_o[G'(\omega)\sin(\omega t) + G''(\omega)\cos(\omega t)]
+
+Equation (15) defines the storage modulus G’(w) and the loss modulus G’’(w), the former of which describes the elastic response of the material while the latter describes the viscous response. 
+At a given frequency w, if G’(w) > G’’(w), the material response is considered to be solid-like; if G’(w) < G’’(w), the material is considered to exhibit fluid-like behavior.
+
+Oscillatory shear rheology can be applied to monitor network formation. 
+Figure 8 C shows the evolution of storage moduli and loss moduli at three frequencies during the chemical crosslinking of polybutadiene.[152] 
+As the crosslinking proceeds, the sample transitions from a viscous solution to an elastic solid, resulting in a change in viscoelasticity from G’(w) < G’’(w) to G’(w) > G’’(w). 
+The crossover point at which G’(w) = G’’(w) is commonly used to define the gel point.[153]
+
+Oscillatory shear measurements can also be performed at variable temperatures to study the temperature dependence of material properties. 
+This technique is especially useful for polymer networks containing dynamic bonds that are sensitive to temperature. 
+Figure 8 D shows the storage and loss moduli (measured at 1 rad s@1) as a function of temperature for an aqueous solution of a triblock copolymer ABA, where the terminal A blocks are thermoresponsive PNIPAm and the middle block B is hydrophilic poly(N,N-dimethylacrylamide) (PDMA).[154] 
+Above the LCST of PNIPAm, the terminal A blocks transition from hydrophilic to hydrophobic, inducing the formation of multicompartment hydrogels. 
+Gelation was evidenced by a change of material properties from G’(w) < G’’(w) to G’(w) > G’’(w) around 45 8C.
+
+Entanglements in linear polymers, which can be viewed as dynamic mechanically interlocked bonds, can be experimentally observed through analysis of the modulus as a function of either temperature or time (Figure 8 E). 
+In the classical case of amorphous, entangled polymers that lack covalent crosslinks, at temperatures below Tg a high Young s modulus is observed. 
+At intermediate temperatures above Tg, the modulus decreases, but does not drop to near zero, which occurs for non-entangled polymers. 
+This regime is referred to as the “rubbery plateau”; it represents a temperature or time regime wherein strand entanglements provide transient network junctions (mechanical crosslinks) that are elastically effective. 
+At even higher temperatures or longer times, the modulus drops precipitously, and the material behaves as a liquid.
+
+
+# Additional Example of Polymer Networks with Unique chemistry/Structure-Driven Properties
+
+[Structure/mechanical response]
+## Covalent Adaptable Polymer Networks
+
+Due to their strong bonds, covalent polymer networks possess high mechanical strength across a wide range of conditions. 
+While such mechanical stability enables their use in daily life, many emerging applications and environmental sustainability concerns demand unconventional properties of polymer networks, such as reprocessability, repairability upon damage, and adaptability to different environments.
+
+
+Several strategies have been developed to address these needs. 
+For example, polymer networks with rapid stress relaxation that can heal when damaged (“self-healing”) are often constructed from non-covalent network bonds (e.g., metal–ligand coordination, host–guest interactions, hydrogen bonding, and hydrophobic interactions) that facilitate energy dissipation and structural reorganization. 
+
+The introduction of stimuli-responsive bonds (e.g., light-cleavable o-nitrobenzyl esters, light-isomerizable azobenzenes, mechanoresponsive spiropyrans) provides an approach to imparting environmental-responsiveness to polymer networks, such as lightregulated reversible sol–gel switching,[155] controlled release of functional molecules,[156] and shear-strengthening properties.[38] 
+
+Recent reviews discuss these classes of materials in great detail.[157–160] 
+
+In this section, we focus on covalent adaptable networks (CANs), a recently popularized class of reconfigurable and responsive network systems. 
+Within the past several decades, the development of dynamic covalent chemistry has exploited various types of covalent bonds that can equilibrate under certain reaction conditions.[161] 
+CANs are produced from incorporating these bonds into covalent polymer networks, which allows for stimulus-induced reconfiguration of networks to reduce stresses or heal damage. 
+As a result, CANs not only exhibit the robust mechanical properties typical of thermosets but they can also possess the processability and relaxation behavior of thermoplastics.
+
+Depending on the exchange mechanism, CANs may be further classified into two groups: dissociative CANs and associative CANs.
+
+### Dissociative CANS 
+obtain their dynamic properties from dissociative bond exchange, where bonds are first broken and then reformed in the network (Figure 9 A, top). 
+A representative reaction used in dissociative CANs is the retro-Diels–Alder (DA) cycloaddition between furan and maleimide. 
+While the formation of DA adducts is favored at room temperature, the reaction becomes reversible at elevated temperatures.
+
+Polymer networks synthesized using furan-maleimide cycloaddition exhibit excellent mechanical properties at room temperature that slowly decay upon heating.[162] 
+At 92 8C (Tgel), the equilibrium conversion of the forward DA reaction drops to 71 %, which meets the critical gel point predicted by Flory–Stockmayer theory.[163] 
+Consequently, the material exhibits liquid-like properties at temperatures higher than Tgel, as evidenced by an abrupt decrease in modulus and viscosity (Figure 9 B). 
+The reversible nature of this process renders the material thermally remoldable. 
+In addition to this example, dissociative CANs based off a wide range of functional groups including disulfides[110] and isocyanates[164] have been extensively studied.[159,165]
+
+### Associative CANs
+operate analogously to SN2 or RAFT reactions where the main bond breaking and bond forming events occur simultaneously (Figure 9 A, bottom). 
+For associative bond exchange, which is often an energetically degenerate process (analogous to chain transfer in RAFT) in CANs, changes in temperature or other corresponding stimuli affect the exchange reaction  kinetics rather than the chemical equilibrium.
+
+----
+
+As a result, a distinguishing characteristic between dissociative and associative CANs is that associative CANs display a constant crosslinking density with respect to temperature.
+
+Since the rate of stress relaxation of these networks depends on the rate of bond rearrangement, the associative bond exchange mechanism is reflected in a viscosity with Arrhenius-like temperature dependence (Figure 9 C). 
+This behavior, typically observed in vitreous silica, led Leibler and co-workers to coin the name “vitrimers” as they studied one of the first purposefully designed associative CANs formed from epoxy/ acid polyester-based networks with zinc acetate as a transesterification catalyst.[166] 
+In contrast, the viscosity-temperature behavior of dissociative CANs or thermoplastic polymers often follows the Williams–Landel–Ferry (WLF) model (Figure 9 C), which best describes the temperature dependence of material properties that undergo an abrupt transition at a critical temperature (e.g., changes in viscosity near Tg).
+
+
+
+## Microporus Polymer Networks
+
+Microporous materials are defined as materials containing interconnected pores of less than 2 nm in diameter on average.[169a] 
+Due to their large surface area, many conventional microporous materials (e.g., zeolites, activated carbons) are widely used as catalysts, sorbents, and separation membranes. 
+
+The central design principle for introducing permanent microporosity into polymer networks involves the use of rigid building blocks. 
+Such rigidity precludes the network strands from behaving effectively as entropic molecular springs and prevents the collapse of microporous structures upon solvent removal; consequently, these materials are typically stiff yet brittle.[169b] 
+The rigidity of monomers further prevents small loop formation and, in some cases, allows for establishing long-range order in the presence of self-error-correcting mechanisms (e.g., reversible bond formation). 
+Hence, microporous polymer networks can be either amorphous or crystalline. 
+Aside from the general use of very rigid components, the basic concepts of microporous polymer network synthesis are similar to those discussed above for either covalent or physical polymer networks.
+
+
+### Amorphous Microporous Polymer Networks
+
+Amorphous microporous polymer networks of different types have been denoted by various names, such as polymers of intrinsic microporosity (PIMs),[6] porous organic polymers (POPs),[170] conjugated microporous polymers (CMPs),[171] and hypercrosslinked polymers (HCPs).[172] 
+Here, we divide these materials into two categories based on whether or not polymer strands are covalently crosslinked.
+
+### Covalently Crosslinked Microporous Polymer Networks
+
+One straightforward strategy for the synthesis of microporous end-linked polymer networks involves step-growth polymerization of rigid monomers where at least one of the monomers has a functionality greater than two. 
+
+When the polymerization reaction is irreversible, the resulting networks are often amorphous due to accumulated structural defects. 
+ 
+The obtained networks exhibited high BrunauerEmmett–Teller (BET) surface areas in the range of 9001000 m2 g@1. 
+Similar approaches were used to synthesize conjugated polymer networks with microporosity. 
+ 
+This approach enabled the synthesis of a microporous ladder polymer network with a BET surface area of 813 m2 g@1 from 1,2,4,5benzenetetrathiol and octafluoronaphthalene. 
+ the resulting amorphous microporous polymer network featured a remarkable BET surface area of 5600 m2 g@1.[176] 
+
+Covalently crosslinked microporous polymer networks can also be synthesized via vulcanization. 
+ 
+The obtained materials had BET surface areas up to 1466 m2 g@1. 
+
+In terms of applications, covalent microporous polymer networks can outperform conventional porous materials in gas storage, heterogeneous catalysis, and water purification. 
+In addition, they hold great promise in various emerging applications such as light harvesting, selective molecular capture, and organic semiconductors. The details of these applications have been extensively reviewed.[180,181]
+
+
+### Microporous Polymer Networks Without Covalent Crosslinking
+
+While polymer strands can bend and twist to pack space efficiently, thermoplastics typically possess void space (i.e., free volume) as a consequence of non-covalent intermolecular interactions and restricted chain motion below the glass transition temperature. 
+Through appropriate molecular design, polymers with enormous free volume can be synthesized where the voids become interconnected, leading to microporous materials without covalent crosslinking. 
+
+Similar to ordinary thermoplastics, this class of microporous polymer networks is rigid yet soluble in appropriate solvents, allowing for solution-based processing. 
+Here again, the key strategy to introduce porosity (free volume) into polymers involves incorporating rigid and/or bulky structural motifs. 
+
+The microporosity of these polymers was evidenced by BET surface areas of up to 720 m2 g@1.
+
+### Crystalline Microporous Polymer Networks
+
+Crystalline microporous polymer networks typically possess higher surface areas than their amorphous counterparts. 
+More importantly, their crystallinity leads to a uniform distribution of pore sizes, which facilitates many applications. 
+
+The key to the formation of crystalline networks is the use of reversible reaction conditions (conceptually analogous to physical/supramolecular networks described above) and highly rigid monomers, which allows for error corrections during network formation and produces thermodynamically stable networks with long-range order. 
+
+In this section, we briefly discuss two major types of crystalline microporous polymer networks: MOFs and COFs.
+
+### MOFs
+MOFs, sometimes referred to as porous coordination polymers (PCPs),[188] are porous polymer networks consisting of metal ions or clusters as junctions coordinated to rigid organic ligands as strands (Figure 11). 
+These materials can have two-dimensional grid structures that stack on each other through physical (e.g., van der Waals or pstacking) interactions, or they can be three-dimensional networks. 
+
+When discussing MOFs, most researchers are referring to crystalline materials; the reversible nature of metal–ligand coordination enables establishment of longrange order in these materials. 
+Nevertheless, metal–ligand coordination does not always produce crystalline materials even when rigid building blocks are applied. 
+
+In any case, MOFs, whether they are crystalline or not, are coordination polymer networks. 
+Thus, the terms “crystalline PCP” or “amorphous PCP” are also applicable. 
+
+The development of MOFs has popularized the concept that crystalline networks with given structures can be assembled from well-defined monomers of simple geometrical shapes (i.e., secondary building units (SBUs)) that are organic or metal-containing. 
+This process, referred to as “reticular synthesis” by Yaghi and O Keeffe, has facilitated the rational design of many novel MOFs and related networks.[192–196] 
+Similar concepts have been used in the design of classical polymer networks to control topological features such as f (see Section 3.3). 
+
+Here, we introduce four representative MOF structures to showcase how the achieved topology is precisely dictated by the SBUs
+
+
+### COFs 
+
+Connecting rigid organic building blocks through dynamic covalent chemistry has enabled the development of another class of crystalline polymer networks, COFs. 
+To our knowledge, the first example of COF synthesis using this approach was reported by Yaghi and co-workers in 2005.[231] 
+
+This material exhibited high thermal stability, permanent porosity, and a high BET surface area of 1590 m2 g@1. 
+
+The development of COFs has greatly enriched reticular chemistry, providing opportunities to access sophisticated polymer network topologies that are otherwise difficult to achieve.[236] 
+
+
+While dynamic covalent bonds facilitate the crystallinity of COFs, the same mechanism results in their low chemical/ hydrolytic stability and severely limits their potential applications. 
+Three strategies have been applied to increase COF stability: 
+    1) Using more stable dynamic covalent bonds. 
+        For example, hydrazone- or azine-linked COFs were shown to have a higher hydrolytic stability than imine-linked COFs;[239,240] 
+    2) Strengthening the interlayer stacking in twodimensional COFs.[241,242] 
+        For example, Jiang and co-workers developed a stable imine-linked COF by incorporating methoxy groups into the pore walls,[243] which softened interlayer charge repulsion and reinforced interlayer hydrogen bonding;[244] and 
+    3) Post-synthetic modification that converts reversible bonds to irreversible bonds while maintaining crystallinity. 
+        For example, in 2012, Banerjee and coworkers synthesized an enol-imine COF intermediate through reversible Schiff base condensation between 1,3,5triformylphloroglucinol and aromaticdiamines.[245] 
+        
+Subsequently, an irreversible tautomerization produced a b-ketoenamine linked COF that exhibited extraordinary chemical stability. 
+Recently, Yaghi and co-workers improved the stability of an imine-linked COF by converting the imines to amides via direct oxidation with retention of crystallinity and permanent porosity.[246]
+
+
+
+
+## Interpenetrating
+
+Interpenetrating polymer networks (IPNs) are typically defined as two (or more) polymer networks that are partially interlaced on a molecular scale but are not covalently bonded.[264] 
+
+Using any of the above-mentioned network forming compositions/topologies, IPNs can be synthesized in principle using either simultaneous or sequential procedures. 
+
+While discussions of IPNs are typically focused on either amorphous or crystalline networks depending on the community (polymer chemists or inorganic chemists, respectively), it should be recognized that IPNs can consist of either or both types of networks. 
+Remarkably, MOF IPNs[265] with up to 54-fold interpenetration[266] have been prepared and characterized. 
+
+IPNs provide a convenient approach to combining the desired properties of two polymer networks. 
+In addition, when appropriately designed, some IPNs exhibit entirely new properties that are not observed in the component networks alone. 
+
+“Double network” (DN) gels are an example; this special class of IPNs shows superior mechanical properties to either of their component networks.[267] 
+DN gels possess an IPN structure that combines a brittle first network with a ductile second network. 
+These materials are often synthesized via a two-step sequential free-radical polymerization process. 
+To our knowledge, the first reported DN gel consisted of densely crosslinked poly(2-acrylamido-2methylpropanesulfonic acid) (PAMPS) as the first network and sparsely crosslinked polyacrylamide (PAAm) as the second network.[268] 
+This DN gel displayed a 1000-fold increase in toughness (area under the stress-strain curve) compared to PAAm or PAMPS single network gels, which was attributed to internal fracture of the brittle first network under deformation that allowed for efficient energy dissipation.
+
+In these early examples of DN gels, damage accumulated in the brittle first network was not repairable, severely decreasing the mechanical properties after a single exposure to large stresses. 
+To address this deficiency, Suo and coworkers developed analogous gels wherein the brittle first network was a physical network made from alginate crosslinked by ionic interactions with Ca2+.[269] 
+In this case, the reversible physical interactions within the first network enabled recoverable energy dissipation following deformation. 
+Consequently, the material shows high stiffness, high toughness, and recovery of both properties upon cycling. 
+We note that some extent of covalent crosslinking was proposed to occur between the two network components;[269] hence, while the “IPN” definition may or may not fully apply to this material, the concept of embedding a supramolecular network within a covalent network paved the way for the use of reversible interactions as energy dissipation mechanisms to enhance the toughness of polymer networks, removing the necessity of a secondary interpenetrating network.[270–272] 
+For example, Gong and co-workers developed a physical hydrogel composed of polyampholytes bearing randomly dispersed cationic and anionic repeat groups.[270] 
+The randomness within this material generated ionic bonds with a wide distribution of strengths; the strong bonds served as more-permanent crosslinks to impart elasticity whereas the weak bonds reversibly exchanged to dissipate energy, resulting in high toughness and high fatigue resistance. 
+
+In the future, the merger of distinct polymer network types and formation mechanisms into IPNs of increasing compositional and topological complexity is expected to provide additional synergistic improvements in the functionality and utility of these exciting materials.
+
+
+# Summary and Outlook
+
+
+
+

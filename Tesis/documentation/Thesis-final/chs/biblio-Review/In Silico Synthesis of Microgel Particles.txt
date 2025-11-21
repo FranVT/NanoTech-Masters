@@ -1,0 +1,30 @@
+In Silico Synthesis of Microgel Particles
+
+
+@article{gnanSilicoSynthesisMicrogel2017,
+  title = {\emph{In }\emph{Silico} Synthesis of Microgel Particles},
+  author = {Gnan, Nicoletta and Rovigatti, Lorenzo and Bergman, Maxime and Zaccarelli, Emanuela},
+  year = {2017},
+  month = nov,
+  journal = {Macromolecules},
+  volume = {50},
+  number = {21},
+  pages = {8777--8786},
+  issn = {0024-9297, 1520-5835},
+  doi = {10.1021/acs.macromol.7b01600},
+  urldate = {2024-05-16},
+  abstract = {Microgels are colloidal-scale particles individually made of cross-linked polymer networks that can swell and deswell in response to external stimuli, such as changes to temperature or pH. Despite a large amount of experimental activities on microgels, a proper theoretical description based on individual particle properties is still missing due to the complexity of the particles. To go one step further, here we propose a novel methodology to assemble realistic microgel particles in silico. We exploit the self-assembly of a binary mixture composed of tetravalent (cross-linkers) and bivalent (monomer beads) patchy particles under spherical confinement in order to produce fully bonded networks. The resulting structure is then used to generate the initial microgel configuration, which is subsequently simulated with a bead-spring model complemented by a temperature-induced hydrophobic attraction. To validate our assembly protocol, we focus on a small microgel test case and show that we can reproduce the experimental swelling curve by appropriately tuning the confining sphere radius, something that would not be possible with less sophisticated assembly methodologies, e.g., in the case of networks generated from an underlying crystal structure. We further investigate the structure (in reciprocal and real space) and the swelling curves of microgels as a function of temperature, finding that our results are well described by the widely used fuzzy sphere model. This is a first step toward a realistic modeling of microgel particles, which will pave the way for a careful assessment of their elastic properties and effective interactions.},
+  copyright = {http://pubs.acs.org/page/policy/authorchoice\_termsofuse.html},
+  langid = {english},
+  file = {/home/frenour/Zotero/storage/7NUM5Z4Y/Gnan et al. - 2017 - In Silico Synthesis of Microgel Particles.pdf}
+}
+
+
+Soft colloids, combining properties of hard-sphere colloids and polymers, offer the interesting possibility to tailor their  macroscopic behavior and flow at the molecular level.
+
+Hard sphere colloids have served for decades as a reference model to shed light on many physics problems, such as the structure of  atomic liquids,2 crystal nucleation,3 and the glass transition.4−6 Recently, however, soft colloids have become even more  popular in the scientific community.7 
+Typically, soft particles have an internal polymeric architecture, which allows them to  reach the paste regime,8 where particles are in very dense, squeezed (or jammed) states.
+
+
+Since the single-particle elasticity alters the properties of the resulting macroscopic material, establishing the crucial link between microscopic properties and macroscopic response requires the knowledge of the effective interactions among particles.
+
