@@ -171,7 +171,7 @@ Once the parameters for the synthesis were set, the volume of the box was calcul
     V_{\mathrm{box}} &= \frac{N_{\mathrm{patchyA}}V_{\mathrm{patchyA}}+N_{\mathrm{patchyB}}V_{\mathrm{patchyB}}}{\phi}
 \end{align*}
 The number of patchy particles of type A is computed as $N_{\mathrm{patchyA}} = c N_p$, and the number of patchy particles of type B as $N_{\mathrm{patchyB}}= N_p - N_{\mathrm{patchyA}}= N_p(1 - c )$.
-Finally, the temperature was set to be constant through all the assembly process, $T=\num{0.05}$ in Lennard-Jones units; meanwhile, the damp parameter was set to $\mathrm{damp}=\num{0.5}$.
+Finally, the temperature was set to be constant through all the assembly process, $T=\num{0.05}$ in Lennard-Jones units; meanwhile, the damp parameter was set to \cor{$\mathrm{damp}=\num{0.1}$}.
 It is very important to note that the damp controls the viscous response caused by the interaction between the thermal bath and the particles, which symbolizes the interaction of water molecules with the polymer network. The radius of the central particle is set to $0.5$ ($\sigma=1$) and the radius of the patches at $0.2$ ($\sigma_p=0.4$).
 
 The energy of interaction between central particles is 1 $\epsilon_{i,j}=1$.
@@ -426,7 +426,9 @@ This finding served as a starting point for further investigation into yield str
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=0.75\textwidth]{figs/ComputaitonalResults/yieldStress.pdf}
-    \caption{Time average of steady-stress regime from computational results. Dashed lines represent exponential fits.}\label{fig:yieldStressResults}
+    \caption{Time average of steady-stress regime from computational results. Dashed lines represent exponential fits.
+    \cor{Quitar los puntos. La linea de ajuste no se usa, quitar. justificar }
+    }\label{fig:yieldStressResults}
 \end{figure}
 
 The Herschel-Bulkey model can quantitatively describe a ''\textit{yield stress material},'' and the high congruence between the exponential fit and the numerical results indicates that the polymeric network exhibits similar phenomena.

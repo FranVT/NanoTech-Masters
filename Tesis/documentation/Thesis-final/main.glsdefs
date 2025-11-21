@@ -1,0 +1,56 @@
+\glsdefs@newdocentry{fn}%
+{%
+name={\ensuremath {F_n}},%
+sort={fn},%
+type={symbols},%
+first={\protect \ensuremath  {F_n}},%
+firstplural={\protect \ensuremath  {F_n}s},%
+text={\protect \ensuremath  {F_n}},%
+plural={\protect \ensuremath  {F_n}s},%
+description={Empirical (sample) distribution function},%
+descriptionplural={Empirical (sample) distribution function},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+
+\glsdefs@newdocentry{fncon}%
+{%
+name={\ensuremath {F^{n^\ast }}},%
+sort={fnc},%
+type={symbols},%
+first={\protect \ensuremath  {F^{n^\ast }}},%
+firstplural={\protect \ensuremath  {F^{n^\ast }}s},%
+text={\protect \ensuremath  {F^{n^\ast }}},%
+plural={\protect \ensuremath  {F^{n^\ast }}s},%
+description={$n$-fold convolution of the distribution function/distribution $F$},%
+descriptionplural={$n$-fold convolution of the distribution function/distribution $F$},%
+symbol={\relax },%
+symbolplural={\relax },%
+user1={},%
+user2={},%
+user3={},%
+user4={},%
+user5={},%
+user6={},%
+long={},%
+longplural={},%
+short={},%
+shortplural={},%
+counter={page},%
+parent={},%
+%
+}%
+

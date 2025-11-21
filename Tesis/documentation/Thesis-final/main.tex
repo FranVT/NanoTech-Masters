@@ -15,12 +15,12 @@
 \usepackage{svg}
 
 \usepackage{algorithm2e}
+\usepackage{notoccite}
 
 \usepackage{layouts}
 
 %\bibliographystyle{abbrvnat}
 \bibliographystyle{unsrtnat}
-
 
 % Command to make clear the changes  
 \newcommand{\cor}[1]{\textcolor{blue}{#1}}
@@ -75,10 +75,19 @@ Finally, this work recieved support from Luis Aguilar, Alejandro de León, Aleja
 \listoftables
 %\listoflistings
 
-
 \mainmatter
 
-% Chapters
+\begin{align*}
+    \eta :&~\text{Viscosity} \\
+    \mu :&~\text{Friction} \\
+    \gamma :&~\text{Shear strain} \\
+    \dot{\gamma}:&~\text{Shear rate} \\
+    \bm{\sigma}:&~\text{Stress tensor} \\
+    \varepsilon :&~\text{Energy} \\
+    \epsilon :&~\text{Strain}
+\end{align*}
+
+\newpage
 
 \include{chs/ch1}      % Chapter 1 Intro
 \include{chs/ch2}      % Chapter 2 Theoretical framework
