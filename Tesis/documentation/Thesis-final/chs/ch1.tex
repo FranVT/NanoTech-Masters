@@ -6,10 +6,11 @@
 The aim of this work is to describe the mechanical response of hydrogels using first principles. 
 Conducted over a two-year period, the research lays the foundation for further investigations, such as the design of synthesis methods for hydrogels with tailored mechanical properties or the design of hydrogels to meet a desire mechanical performance. 
 The proposed methodology relies on prior research in which the polymeric network of PNIPAM microgels was replicated using patchy particles and molecular dynamics.
+\cor{Add references}
 
 A review of the literature reveals that hydrogels have a wide range of applications.
 However, the precise origin of the mechanical response in hydrogels remains a topic of debate.
-Therefore, the primary objective of this thesis is to explore a computational methodology that can identify parameters modeling the key properties of the polymeric network. 
+Therefore, the primary objective of this thesis is to explore a computational methodology that can identify parameters \cor{to model} the key properties of the polymeric network. 
 These parameters can then be coupled into a constitutive relationship to predict the mechanical response of a simplified polymeric network.
 To that end, the following specific objectives have been established:
 \begin{itemize}
@@ -19,7 +20,7 @@ To that end, the following specific objectives have been established:
     \item Visualize the network before and after shear.
     \item Analyze the strain-stress curves of the material under different shear conditions and different network parameters.
 \end{itemize}
-The analysis is expected to help select one or more parameters that can later be incorporated into a constitutive equation.
+The analysis is expected to help select one or more parameters that can later be incorporated into a constitutive equation \cor{How}.
 It is important to clarify that the explicit formulation of such an equation is not within the scope of this thesis. 
 The final goal is to identify a relation between the network characteristics and its mechanical response.
 
@@ -29,10 +30,12 @@ The last part of this document covers the analysis of the numerical results and 
 
 \section{About Hydrogels}
 
-While the numerical protocol was initially developed to simulate microgels, it was modified to represent a broader group of polymeric networks known as hydrogels.
+\cor{Start by defining what is a hydrogel}
+
+While the numerical protocol was initially developed to simulate microgels \cor{Which microgels}, it was modified to represent a broader group of polymeric networks known as hydrogels.
 Hydrogels are composed primarily of hydrophilic monomers, which are biocompatible, making them suitable for medical applications.
 In general terms, hydrogels exhibit viscoelastic and viscoplastic mechanical responses.
-The material's viscoelastic response makes it suitable for use in shock absorption, vibration damping, and biological tissue mimicry.
+The material's viscoelastic response makes it suitable for use in shock absorption, vibration damping, and biological tissue mimicry\cor{Reference.}.
 Meanwhile, viscoplasticity makes the material suitable for energy dissipation.
 In the rest of the section, it briefly exposes more specific examples of applications, and then it concludes with a general description of the mechanical response of the hydrogel as an introduction for the theoretical framework.
 
@@ -48,6 +51,7 @@ Hydrogels can effectively remove a wide range of toxic compounds, such as heavy 
 The review~\citep{randoFunctionalBioBasedPolymeric2024} discusses an increasing trend of stimuli-responsive smart hydrogels, emphasizing their potential for both adsorption and detection of water contaminants.
 One example can be found in reference~\citep{cinfrigniniGoldRushDesigning2024}, where it explores easy-to-make poly(acrylamide-co-acrylic acid) hydrogels as adsorbents for gold recovery from industrial wastewater containing other precious metals.
 In addition, reviews~\citep{darbanHydrogelBasedAdsorbentMaterial2022a,songSynthesisHydrogelsTheir2022} explain the synthesis and adsorption mechanisms, crosslinking methods, their corresponding limitations, and outstanding contributions of applications in the fields of removing environmental pollutants of hydrogel-based adsorbent materials.
+\cor{How the reological properties are related?}
 
 %\paragraph{Medical applications} 
 Moreover, hydrogels have received a lot of attention in the biomedical field because of their high water content, biocompatibility, and adaptability into biological entities.
@@ -87,13 +91,14 @@ Accurately bridging atomic-scale forces and chemical bond dynamics to bulk mecha
 Which presents a significant challenge to current theoretical and computational models.
 This thesis used patchy particles to mimic crosslink kinetics and nonlinear polymer physics, with Langevin dynamics accounting for solvent effects and the time evolution of the system.
 
-When a hydrogel is deformed, the bonds, intermolecular distances, molecular conformation, and chain orientation are modified accordingly.
+When a hydrogel is deformed, the bonds, intermolecular distances, molecular conformation, and chain orientation are modified accordingly\cor{In which sense?}.
 Also, any molecular event resulting in energy dissipation contributes to viscoelasticity, given the direct correlation between viscosity and energy dissipation.
 One such factor is the polymer molecular weight, which affects the movement of entangled polymers.
 Another factor that promotes molecular mobility is the interconnectivity and cohesion of the network.
 These processes enable network flow under an applied force, thereby inducing viscoelasticity.
 
 Viscoelastic materials have a mechanical reaction that varies between elastic and plastic deformation.
+\cor{What is the diff. between plastic and viscous.}
 Hydrogels initially respond elastically to a force before undergoing continual viscous deformation.
 The elastic response is when a constant force over the surface of a material (stress) is applied and the deformation, also known as strain, appears instantly and maintains that deformation until the load is removed and the strain goes back into its initial value. 
 In contrast, in a viscous response, the strain is no longer instantaneous; instead, it is time-dependent and undergoes continuous deformation during the applied force, and the strain remains after the force is removed.
@@ -116,10 +121,12 @@ As indicated in figure~\ref{fig:mechresponse0-a}.
 
 The time-dependent strain response is known as ``creep'' and it occurs when a constant stress is applied over a long period or the temperature is sufficiently high below the yield point~\citep{khaliliNanoindentationResponse3D2023,wangHyperelasticSwellingTough2024}.
 On the other hand, when subjected to a constant strain, viscoelastic materials experience ``stress relaxation'', whereby stress decreases over time after the yield point~\citep{chaudhuriHydrogelsTunableStress2016}.
-Delveving into more specific viscoelastic properties, figure~\ref{fig:mechresponse0-b} shows the creep and stress relaxation strain-stress relation for viscoelastic response.
+\cor{Delving} into more specific viscoelastic properties, figure~\ref{fig:mechresponse0-b} shows the creep and stress relaxation strain-stress relation for viscoelastic response.
 It is understood that a more viscoelastic response is related with an increase in the strain value at a constant applied force.
 On the other hand, when the strain is applied to the material, the stress relaxation phenomena appears as a viscoelastic response.
 That is, that the stress decreases over time as the applied deformation takes place and once the strain it is removed, the stress returns to its starting value.
+
+\cor{Talk about hysteresis to talk abput viscoelastic materials}
 
 \begin{figure}[ht!]
     \centering
@@ -144,7 +151,7 @@ This is illustrated in figure~\ref{fig:mechresponse0-c}.
         Figure retrieve from\citep{courbotRoleExtracellularMatrix2025}}\label{fig:mechresponse0-c}
 \end{figure}
 
-In hydrogels an important factor influencing viscoelastic behaviour is the strength of the crosslinking mechanisms in the network.
+In hydrogels an important factor influencing viscoelastic behaviour is the strength (\cor{Which strength.}) of the crosslinking mechanisms in the network.
 In the case of weak crosslink mechanisms, stress relaxation is observed; however, in strongly crosslinked hydrogels, this process is prevented. 
 This is due to the fact that weak bonds permit the release of energy and the separation of elements under force, thereby facilitating network relaxation or creep.
 Furthermore, weak bonds are capable of responding to force by dissociating and rebinding, which can result in plastic or permanent deformations.

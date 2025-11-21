@@ -44,10 +44,10 @@ Nevertheless, the network's topology remains intact due to the crosslink mechani
 %\paragraph{Gel point} 
 The description of a hydrogel as a gel in which the solvent is water with a hydrophilic polymer network indicates that the polymer network must form a continuous system that extends (infinitely) across the volume. 
 In other words, the polymer chains are sufficiently linked to form a macroscopic network that occupies the entire volume. 
-Also referred to as the gel point defined in the context of percolation theory. 
+Also referred to as the gel point defined in the context of percolation theory\cor{?}. 
 At this configuration of the network, the transition is characterized by the divergence of the molecule weight and the network correlation length, indicating the percolation of the polymeric network\citep{guPolymerNetworksPlastics2020}\footnote{In physics, percolation refers to the formation of large-scale connections in disordered systems. Mathematically, cluster formation in a random graph or lattice occurs when sites or bonds are occupied with a certain probability.}.
 However, not all polymer networks reach the gel point, and in order to achieve it, the network must have an adequate crosslinking density and a sufficient number of reactive sites to connect the polymers. 
-For example, polymers that are linear, unbranched, or have insufficient crosslinking are soluble and do not gel.
+For example, polymers that are linear, unbranched, or have insufficient crosslinking are soluble and do not \cor{gelate}.
 
 \subsection{Crosslinking mechanisms}
 
@@ -57,7 +57,7 @@ So far, it has been stated that the crosslinking process is responsible for main
 According to the literature, crosslinking mechanisms are generally categorized into two types: physical and covalent crosslinkers. 
 This classification is based on whether the fundamental principles of the crosslinking mechanism involve physical interactions or covalent bonds.
 However, it is essential to realize that, for example, given sufficiently strong and static physical interactions, physical networks could function similarly to covalently linked networks;
-Alternatively, the incorporation of mechanisms for covalent bond exchange can result in chemical networks that exhibit adaptable mechanical properties regulated by external stimuli~\citep{hanDynamicCovalentHydrogels2022,mariopereraDynamicCovalentBonds2020,chenCovalentAdaptablePolymer2024}, mimicking the main property of physically crosslinked networks. 
+\cor{alternatively}, the incorporation of mechanisms for covalent bond exchange can result in chemical networks that exhibit adaptable mechanical properties regulated by external stimuli~\citep{hanDynamicCovalentHydrogels2022,mariopereraDynamicCovalentBonds2020,chenCovalentAdaptablePolymer2024}, mimicking the main property of physically crosslinked networks. 
 Consequently, an emphasis on bond strengths and exchange rates provides more informative insights for accurately inferring the properties of hydrogels\citep{priyaComprehensiveReviewHydrogel2024}.
 
 Knowing this, let's try to identify the distinction between the covalent and physical interactions.
@@ -109,7 +109,7 @@ This improves toughness and elasticity by dispersing energy via chain movement a
 %\paragraph{Intro} 
 Another commonly used classification in literature is whether the polymeric network is reversible or irreversible.
 This is because it is commonly considered that networks containing physical crosslinks, such as polymer junctions, can be undone and redone more easily than junctions held together by covalent contact.
-However, research has shown that regardless of the crosslink mechanism, the network can exhibit dynamic behavior~\citep{hanDynamicCovalentHydrogels2022}. 
+However, research has shown that regardless of the crosslink mechanism, the network can exhibit dynamic behavior~\citep{hanDynamicCovalentHydrogels2022} (\cor{How?}). 
 Additionally, it is important to note that the molecular phenomena enabling changes in the topology of the networks are highly dependent on the specific type of crosslink mechanism present.
 
 %\paragraph{Physical networks} 
@@ -120,7 +120,7 @@ Understanding how to modulate physical crosslinker mechanisms is therefore cruci
 
 %\paragraph{Covalent networks} 
 In contrast, a high-energy external stimulus activates the crosslinker mechanisms for ``dynamic'' covalent bonds~\citep{shomePhotoresponsiveSmartHydrogels2024}. % such as imine, boronate ester, thioester, disulfide, and transesterification.
-This high-energy external stimulus may encourage the formation of new bonds prior to the dissolution of existing ones, or it may encourage the dissolution of existing ties prior to the formation of new ones.
+This high-energy (\cor{Add exmaples}) external stimulus may encourage the formation of new bonds prior to the dissolution of existing ones, or it may encourage the dissolution of existing ties prior to the formation of new ones.
 The associative mechanism refers to the first phenomena, whereas the dissociation process refers to the second.
 Through this process, the network can adapt while retaining its mechanical strength by switching out polymer chains. 
 Finally, it is crucial to emphasize that the energy barrier for exchange, bond stability, and stimulus reliance all affect the process's rate and reversibility.
@@ -128,6 +128,8 @@ Finally, it is crucial to emphasize that the energy barrier for exchange, bond s
 The key idea of this section is that crosslinking is crucial for maintaining hydrogel structure, affecting viscoelastic responses and achieving the gel point. 
 These mechanisms are either physical, involving non-covalent forces, or covalent, involving electron sharing.
 Physical interactions can imitate covalent networks, while dynamic covalent chemistry allows for adaptable properties. 
+
+\cor{Add specifics: Density, percentage}
 
 \section{Mechanical response}
 
@@ -149,7 +151,7 @@ These issues will be addressed in the following sections
 The first issue addressed is the mathematical tools to quantify the strain-stress relation.
 Both quantities are mathematically represented as second-rank tensors, which can be algebraically expressed as an $n\times n$ matrix where $n$ is the dimensionality of the physical space.
 In addition, it is helpfull to understand tensors as a generalization of scalars, vectors, and matrices to characterize physical variables that follow particular transformation rules under coordinate changes but depend on direction and a coordinate system, enabling the measurement of the physical quantity's orientation and how it behaves in various spatial directions in addition to its magnitude.
-In conclusion, multidirectional physical qualities that are invariant by coordinate changes can be represented through a tensor.
+In conclusion, multidirectional physical \cor{quantifies} that are invariant by coordinate changes can be represented through a tensor.
 With this in mind, let's move on into the definition of strain.
 
 %\paragraph{Strain} 
@@ -191,7 +193,7 @@ Some examples of this type of deformation are the stretching of a metal spring w
 %This establishes a connection between the stress tensor ($\sigma$), the shear modulus ($G$) of the material, the applied strain ($E$), and the Lame first parameter ($\lambda$) of the material\citep{bonyadiReviewFrictionLubrication2020}.
 
 %\paragraph{Plastic relation} 
-In contrast, a plastic deformation is when the material experiences an irreversible change in the shape or size and has a time-dependent response.
+In contrast, a plastic deformation is when the material experiences an irreversible change in the shape or size and has a time-dependent response\cor{I use the same def of viscosity.}.
 It is generally accepted that a material first enters an elastic response and then reaches a yield point. 
 After this point, the deformation is irreversible.
 Stress and plastic strain are usually linked as a function of the current stress and internal variables,
@@ -534,11 +536,11 @@ Now, let's describe in general terms the relation between the elastic, plastic, 
 In the case of an elastic deformation, the force applied to the material is largely retained due to the stretching of the distance between the particles.
 The particles' displacement is minimal, with no effect on bond integrity.
 This is generally understood to mean that the material stores potential energy that is released during unloading.
-In the context of plastic deformation, the phenomenon is often described as dislocation and crystal defects in crystalline materials.
+In the context of plastic deformation, the phenomenon is often described as dislocation and crystal defects in crystalline materials \cor{?}.
 
 However, plastic deformation is more likely to involve the rupture of crosslinks between chains and the sliding or stretching of individual chains beyond their reversible limit.
 In the scenario of networks with physical entanglements, chains have the potential to slip past one another, thereby overcoming energy barriers and irreversibly reorganizing the networks' topology.
-In the cases of bond rupture, the crosslink density can be reduced or the polymeric chain can be broken.
+In the cases of bond rupture \cor{(Which type)}, the crosslink density can be reduced or the polymeric chain can be broken.
 
 %\paragraph{Viscoelastic regime} 
 For viscoelastic deformations, the network mainly undergoes an elastic deformation.
@@ -566,7 +568,7 @@ This energy dissipation mechanism helps to reversibly recover from a mechanical 
 The energy dissipation is often achieved through the introduction of sacrificial bonds by adding a second, more brittle network within a loosely cross-linked network or by cross-links made from supramolecular transient interactions, which can be reversibly broken and reformed.
 In the first case, the material is stretched, and a share of the bonds in the more brittle network are broken, leading to an increased dissipation of the energy from mechanical impact.
 In the second case, the sacrificial bonds are non-covalent in nature and can reversibly break and reform.
-
+\cor{Link between the paragraphs}
 Metal-ligand, ionic, hydrogen bonding, microphase separation, hydrophobic, polymer-nanomaterial adsorption, host-guest complexation, and supramolecular self-assembly are a few examples of non-covalent interactions. 
 
 Some of the non-covalent interactions are metal-ligand, ionic interactions, hydrogen bonding, microphase separation and hydrophobic interactions, polymer-nanomaterial adsorption, host-guest complexation, or supramolecular self-assembly. 
@@ -584,6 +586,8 @@ This mechanical unfolding is seen in both larger proteins and smaller elastin-li
 
 The previous energy dissipation processes are represented graphically in Figure~\ref{fig:energyDissipation}.
 Considering a broad comparison with figure~\ref{fig:physicalCovalentCrossLink}, the microphase separation is associated with the strong physical crosslinks, whereas the electrostatic interaction and composites are equal to the weak physical crosslinks; subsequently, dynamic covalent crosslinks are the self-assembly process.
+
+\cor{Improve captions}
 
 \begin{figure}[ht!]
     \centering
@@ -855,7 +859,7 @@ Solid sol       & Solid  & Solid  & Coloured glass, alloys \\
 The hydrogel can be understood as a mixture of water in the liquid state and a polymer network in the solid state.
 Furthermore, the polymeric network typically exhibits a porosity ranging from 5 to 20 nanometers, however they can be tunned to reach the micron-scale size.
 This porosity enables the representation of the water as the dispersed phase, while the polymeric network is represented as the continuous phase.
-Therefore, the hydrogel can be modelled as a colloidal gel.
+\cor{Therefore, the hydrogel can be modelled as a colloidal gel.}
 
 
 \subsection{Langevin dynamics}
