@@ -19,31 +19,151 @@
 
 \usepackage{layouts}
 
-\usepackage[toc,automake,symbols,nonumberlist]{glossaries}
+\usepackage[section,toc,automake,symbols,nonumberlist]{glossaries}
 %\usepackage[automake,symbols, acronym]{glossaries-extra}   
-
+\newglossary{symbolsmech}{symm}{symn}{Mechanical Response Symbols}
+\newglossary{symbolsmd}{symd}{synd}{Molecular Dynamics Symbols}
+\newglossary{symbolsmr}{symr}{synm}{Methods and Results Symbols}
 \makeglossaries
 
-\newglossaryentry{strainTensor}{
-    name=$S_{ij}$,
-    description={Strain tensor $\left(Dimensionless\right)$}
+% Define custom glossary style with groups
+\newglossarystyle{grouped}{
+  \setglossarystyle{listgroup}%
+  \renewcommand{\glsgroupskip}{}%
 }
 
-\newglossaryentry{stressTensor}{
-    name=$\sigma_{ij}$,
-    description={Stress tensor $\left(\SI[per-mode=fraction]{}{\newton\per\meter\squared}\right)$}
+\setglossarystyle{grouped}
+
+% Mechanical Response symbols
+\newglossaryentry{epsilon-mech}{
+  type=symbolsmech,
+  name=\ensuremath{\bm{\epsilon},~\epsilon_{ij}},
+  description={Strain tensor (Dimensionless)}
+}
+\newglossaryentry{sigma-mech}{
+  type=symbolsmech,
+  name=\ensuremath{\bm{\sigma},~\sigma_{ij}},
+  description={Stress tensor (\SI{}{\pascal})}
+}
+\newglossaryentry{C-mech}{
+  type=symbolsmech,
+  name=$C_{ijkl}$,
+  description={Youn'g modulus tensor (\SI{}{\pascal})}
+}
+\newglossaryentry{dotEps-mech}{
+  type=symbolsmech,
+  name=\ensuremath{\dot{\bm{\epsilon}},~\dot{\epsilon_{ij}}},
+  description={Time derivative of the Strain tensor (\SI{}{\per\second})}
+}
+\newglossaryentry{sigsuby-mech}{
+  type=symbolsmech,
+  name=$\sigma_y$,
+  description={Yield point (\SI{}{\pascal})}
+}
+\newglossaryentry{eta-mech}{
+  type=symbolsmech,
+  name=$\eta$,
+  description={Viscosity (\SI[per-mode=fraction]{}{\kilo\gram\per\meter\per\second})}
+}
+\newglossaryentry{gamma-mech}{
+  type=symbolsmech,
+  name=$\dot{\gamma}$,
+  description={Shear rate (\SI[per-mode=fraction]{}{\per\second})}
+}
+\newglossaryentry{Gt-mech}{
+  type=symbolsmech,
+  name=$G(t)$,
+  description={Time dependent modulus (\SI[per-mode=fraction]{}{\pascal})}
+}
+\newglossaryentry{T-mech}{
+  type=symbolsmech,
+  name=$\vec{T}$,
+  description={Traction vector (\SI[per-mode=fraction]{}{\newton})}
+}
+\newglossaryentry{n-mech}{
+  type=symbolsmech,
+  name=$\vec{n}$,
+  description={Unit normal vector (Dimensionless)}
+}
+\newglossaryentry{vr-mech}{
+  type=symbolsmech,
+  name=$\vec{r}$,
+  description={Position vector (\SI{}{\meter})}
+}
+\newglossaryentry{vp-mech}{
+  type=symbolsmech,
+  name=$\vec{p}$,
+  description={Momentum vector (\SI{}{\kilo\gram\meter\per\second})}
+}
+\newglossaryentry{dvr-mech}{
+  type=symbolsmech,
+  name=$\dot{\vec{r}}$,
+  description={Time derivative of position vector (\SI{}{\meter\per\second})}
+}
+\newglossaryentry{m-mech}{
+  type=symbolsmech,
+  name=$m$,
+  description={Mass (\SI{}{\kilo\gram})}
+}
+\newglossaryentry{bW-mech}{
+  type=symbolsmech,
+  name=$\bm{W}$,
+  description={Virial stress tensor (\SI{}{\pascal})}
+}
+\newglossaryentry{bT-mech}{
+  type=symbolsmech,
+  name=$\bm{T}$,
+  description={Kinetic stress tensor (\SI{}{\pascal})}
+}
+\newglossaryentry{V-mech}{
+  type=symbolsmech,
+  name=$V$,
+  description={Volume (\SI{}{\meter\tothe{3}})}
+}
+\newglossaryentry{F-mech}{
+  type=symbolsmech,
+  name=$\vec{F}$,
+  description={Force vector (\SI{}{\newton})}
 }
 
-\newglossaryentry{youngModulus}{
-    name=$C_{ijkl}$,
-    description={Young modulus $\left(\SI[per-mode=fraction]{}{\newton\per\meter\squared}\right)$}
+% Molecular dynamics Symbols
+\newglossaryentry{r-md}{
+  type=symbolsmd,
+  name=$r$,
+  description={Distance (Dimensionless)}
+}
+\newglossaryentry{gamma-md}{
+  type=symbolsmd,
+  name=$\gamma$,
+  description={Friction constant (\SI{}{\kilo\gram\per\second})}
+}
+\newglossaryentry{kb-md}{
+  type=symbolsmd,
+  name=$\mathrm{k}_\mathrm{B}$,
+  description={Boltzmann constant (\SI[per-mode=fraction]{}{\joule\per\kelvin})}
+}
+\newglossaryentry{T-md}{
+  type=symbolsmd,
+  name=$T$,
+  description={T (\SI[per-mode=fraction]{}{\kelvin})}
+}
+\newglossaryentry{delta-md}{
+  type=symbolsmd,
+  name=$\delta$,
+  description={Dirac's delta (Dimensionless)}
+}
+\newglossaryentry{dt-md}{
+  type=symbolsmd,
+  name=$dt$,
+  description={Time diferential (\SI{}{\second})}
 }
 
-\newglossaryentry{strainTensorder}{
-    name=$\dot{S}_{ij}$,
-    description={Time derivative of the strain tensor $\left(\SI[per-mode=fraction]{}{\per\second}\right)$}
+% Methods and results
+\newglossaryentry{sigma-mr}{
+  type=symbolsmr,
+  name=$\sigma$,
+  description={Particle diameter (Dimensionless)}
 }
-
 
 %\bibliographystyle{abbrvnat}
 \bibliographystyle{unsrtnat}
@@ -101,10 +221,39 @@ Finally, this work recieved support from Luis Aguilar, Alejandro de León, Aleja
 %\listoftables
 %\listoflistings
 
+
+
+% Print glossary with custom grouping
+%\printglossary[title=List of Symbols, toctitle=List of Symbols]
+%\printglossary[type=symbolsmech]
+%\printglossary[type=symbolsmd]
+
+
+% 4. Use the entries to populate the glossaries
+%\gls{sigma-mech}, \gls{sigma-md}.
+
+
 \glsaddall
-\printglossary
+
+% 5. Print glossaries on the same page
+%\chapter*{List of Symbols}
+
+\clearpage
+%\printglossary[title=List of Symbols, toctitle=List of Symbols]
+\printglossary[type=symbolsmech]
+\printglossary[type=symbolsmd]
+\printglossary[type=symbolsmr]
+
+%\begingroup
+%\let\newpage\relax
+%\printglossary[type=symbolsmech]
+%\medskip
+%\printglossary[type=symbolsmd]
+%\endgroup
+
 
 \mainmatter
+
 
 \begin{align*}
     \epsilon_{ij} &\text{: Strain tensor} \\
