@@ -136,31 +136,108 @@ The graphical representation is shown in figure~\ref{fig:qc5}.
     \item Consider a generalization of the Deuthsch's algorithm having two registers ($n=2$).
         The correpondent circuit is essentially the same as in the one register case.
         Discuss the conditions that would determine if a function is wether balanced or constant.
-
-        Haddamard
-
-    \begin{gather*}
-        \qty(\hat{H}\otimes\hat{H}\otimes\hat{I})\qty(U_f)\qty(\hat{H}\otimes\hat{H}\otimes\hat{I})
-    \end{gather*}
-
-    The third register is the target.
-    The boolean thing is $\ket{y\oplus f(x)}$
-
     \item Analyze the case when the function $f$ is neither constant or nor balanced.
 \end{itemize}
 
+For this problem we are going to use the following equations,
+\begin{align}
+    \ket{\pm} &=\frac{1}{\sqrt{2}}\left(\ket{0}\pm\ket{1}\right)\label{eqn:hpm} \\
+    \hat{H}\ket{0} &= \ket{+}\label{eqn:hp} \\
+    \hat{H}\ket{1} &= \ket{-}\label{eqn:hm} \\
+    \hat{H}\ket{+} &= \ket{0}\label{eqn:h0} \\
+    \hat{H}\ket{-} &= \ket{1}\label{eqn:h1} \\
+    \hat{U}_f\ket{x}\ket{y} &= \ket{x}\ket{y\oplus f(x)}\label{eqn:oracle}.
+\end{align}
 
+Now, let's compute $\ket{\psi_1}$, which corresponds to the state after the Haddamard gates,
+\begin{align}
+    \ket{\psi_1} &= \left(\hat{H}\otimes\hat{H}\otimes\hat{H}\right)\ket{0}\otimes\ket{0}\otimes\ket{0} \\
+                 &= \ket{+}\ket{+}\ket{-}.
+\end{align}
+
+Now, let's compute the state after the oracle $\hat{U}_f$ $\ket{\psi_2}$,
+\begin{align}
+    \ket{\psi_2} &= \hat{U}_f\ket{\psi_1}\\
+                 &= \ket{+}\ket{+}\ket{-\oplus f(x)}\\
+                 &= \ket{+}\left(\frac{1}{\sqrt{2}}\left(\ket{0}\ket{-\oplus f(0)} + \ket{1}\ket{-\oplus f(1)}\right)\right).
+\end{align}
+
+To clarify the procedure, we are going to compute $\hat{U}_f\ket{0}\ket{-}$ and $\hat{U}_f\ket{1}\ket{-}$ for a balanced and constant functions.
+Here are the results for a balanced functions $f(0)=0\wedge f(1)=1$ ($\mathrm{Ba}$), and $f(0)=1\wedge f(1)=0$ ($\mathrm{Bb}$),
+\begin{align}
+    \ket{\mathrm{Ba}0} = \hat{U}_f\ket{0}\ket{-} &= \ket{0}\ket{-} \\
+    \ket{\mathrm{Ba}1} = \hat{U}_f\ket{1}\ket{-} &= -\ket{1}\ket{-} \\
+    \ket{\mathrm{Bb}0} = \hat{U}_f\ket{0}\ket{-} &= \ket{0}\ket{-} \\
+    \ket{\mathrm{Bb}1} = \hat{U}_f\ket{1}\ket{-} &= -\ket{1}\ket{-}. 
+\end{align}
+Now, for the constant functions $f(0)=0\wedge f(1)=0$ ($\mathrm{Ca}$), and $f(0)=1\wedge f(1)=1$ ($\mathrm{Cb}$),
+\begin{align}
+    \ket{\mathrm{Ca}0} = \hat{U}_f\ket{0}\ket{-} &= \ket{0}\ket{-} \\
+    \ket{\mathrm{Ca}1} = \hat{U}_f\ket{1}\ket{-} &= \ket{1}\ket{-} \\
+    \ket{\mathrm{Cb}0} = \hat{U}_f\ket{0}\ket{-} &= -\ket{0}\ket{-} \\
+    \ket{\mathrm{Cb}1} = \hat{U}_f\ket{1}\ket{-} &= -\ket{1}\ket{-}. 
+\end{align}
+
+Now that we compute this results, we only need to replace those results into the state $\ket{\psi_2}$.
+For the case when the function is balanced we get,
+\begin{align}
+    \hat{U}_f\ket{+}\ket{-}&\to\frac{1}{\sqrt{2}}\left(\ket{0}\ket{-} - \ket{1}\ket{-}\right) = \ket{-}\ket{-} \\
+    \hat{U}_f\ket{+}\ket{-}&\to\frac{1}{\sqrt{2}}\left(\ket{0}\ket{-} + \ket{1}\ket{-}\right) = -\ket{-}\ket{-}.
+\end{align}
+Therefore, when $f(x)$ is balanced,
+\begin{align}
+    \ket{\psi_2} &= \ket{+}\ket{+}\ket{-\oplus f(x)}\\
+                 &=\pm\ket{+}\ket{-}\ket{-}.
+\end{align}
+
+For the case of a constant function we get,
+\begin{align}
+    \hat{U}_f\ket{+}\ket{-}&\to\frac{1}{\sqrt{2}}\left(\ket{0}\ket{-} + \ket{1}\ket{-}\right) = \ket{+}\ket{-} \\
+    \hat{U}_f\ket{+}\ket{-}&\to\frac{1}{\sqrt{2}}\left(-\ket{0}\ket{-} - \ket{1}\ket{-}\right) = -\ket{+}\ket{-}.
+\end{align}
+Therefore, when $f(x)$ is constant,
+\begin{align}
+    \ket{\psi_2} &= \ket{+}\ket{+}\ket{-\oplus f(x)}\\
+                 &=\pm\ket{+}\ket{+}\ket{-}.
+\end{align}
+
+Hence,
+\begin{align}
+    \ket{\psi_2} = \left\{
+        \begin{array}{ll}
+            \pm\ket{+}\ket{-}\ket{-} &\quad f(x)\text{ is balanced} \\
+             \pm\ket{+}\ket{+}\ket{-} &\quad f(x)\text{ is constant}
+        \end{array}
+    \right.
+\end{align}
+
+To finish the gate, we apply the haddamard to the first two qubits,
+\begin{align}
+    \ket{\psi_3} &= \left(\hat{H}\otimes\hat{H}\otimes\mathbb{I}\right)\ket{\psi_2} \\
+                 &= \left\{
+        \begin{array}{ll}
+            \pm\ket{0}\ket{1}\ket{-} &\quad f(x)\text{ is balanced} \\
+             \pm\ket{0}\ket{0}\ket{-} &\quad f(x)\text{ is constant}
+        \end{array}
+    \right.
+\end{align}
 
 \section{Optional exercises}
 
+Due to time restrictions\footnote{I am a graduate candidate and was preparing for my thesis defense.} I couldn't include a more detail procedures/algebraic comprobation of the results shown in this part of the homework.
+However I search the solutions for the quantum circuits related problems and I found the webpage \href{http://twoqubits.wikidot.com/}{http://twoqubits.wikidot.com/}.
+In this webpage I found most of the solutions and explanations.
+Then I use Mathematica software to proof the answers and learn what type of gates they used.
+Since I used Mathematica, I used constantly the gate $U_3\qty(\theta,\phi,\lambda)$, which is defined as follows,
 \begin{gather*}
     U_{3}\qty(\theta,\phi,\lambda) = 
     \begin{pmatrix}
         \cos\qty(\frac{\theta}{2}) & -e^{i\lambda} \\
         e^{i\phi}\sin\qty(\frac{\theta}{2}) & e^{i\qty(\lambda+\phi)}\cos\qty(\frac{\theta}{2})
-    \end{pmatrix}
+    \end{pmatrix}.
 \end{gather*}
-
+Then I declare linear equations to find the values of the angles that match allows to match the values of operators shown at the webpage.
+Also, another gate that it was used is,
 \begin{gather*}
     T = 
     \begin{pmatrix}
@@ -169,6 +246,7 @@ The graphical representation is shown in figure~\ref{fig:qc5}.
     \end{pmatrix}
 \end{gather*}
 
+An apology for delivering this section incomplete, but I had a hard time with this section and could not dedicate much time to it.
 
 \paragraph{1} Describe the action of the phase shift gate $p(\gamma)=\dyad{0}+e^{i\gamma}\dyad{1}$ on a qubit from the geometrical point of view.
 
@@ -216,10 +294,6 @@ Design a quantum circuit that upon the initial state $\ket{0000}$ constructs $\k
 
 \paragraph{6} In the BB84 protocol, Alice create an 8-qubit string (in the conventional $X$ and $Z$ basis): \[\ket{+}\ket{1}\ket{+}\ket{-}\ket{0}\ket{-}\ket{+}\ket{-}.\]
 Use a coin to randomly determine what basis Bob uses to measure each bit, and describe the resulting bit string that Alice and Bob keep.
-
-~\citep{Twoqubits}
-\bibliographystyle{plain} % We choose the "plain" reference style
-\bibliography{refs} % Entries are in the refs.bib file
 
 
 \end{document}
