@@ -19,6 +19,32 @@
 
 \usepackage{layouts}
 
+\usepackage[toc,automake,symbols,nonumberlist]{glossaries}
+%\usepackage[automake,symbols, acronym]{glossaries-extra}   
+
+\makeglossaries
+
+\newglossaryentry{strainTensor}{
+    name=$S_{ij}$,
+    description={Strain tensor $\left(Dimensionless\right)$}
+}
+
+\newglossaryentry{stressTensor}{
+    name=$\sigma_{ij}$,
+    description={Stress tensor $\left(\SI[per-mode=fraction]{}{\newton\per\meter\squared}\right)$}
+}
+
+\newglossaryentry{youngModulus}{
+    name=$C_{ijkl}$,
+    description={Young modulus $\left(\SI[per-mode=fraction]{}{\newton\per\meter\squared}\right)$}
+}
+
+\newglossaryentry{strainTensorder}{
+    name=$\dot{S}_{ij}$,
+    description={Time derivative of the strain tensor $\left(\SI[per-mode=fraction]{}{\per\second}\right)$}
+}
+
+
 %\bibliographystyle{abbrvnat}
 \bibliographystyle{unsrtnat}
 
@@ -72,10 +98,62 @@ Finally, this work recieved support from Luis Aguilar, Alejandro de León, Aleja
 
 \tableofcontents
 \listoffigures
-\listoftables
+%\listoftables
 %\listoflistings
 
+\glsaddall
+\printglossary
+
 \mainmatter
+
+\begin{align*}
+    \epsilon_{ij} &\text{: Strain tensor} \\
+    \sigma_{ij}  &\text{: Stress tensor} \\
+    C_{ijkl} &\text{: Elastic Young's modulus} \\
+    \dot{\epsilon}_p &\text{: Time derivative of the strain after plastic limit} \\
+    \sigma_{y} &\text{: Yield point} \\
+    \eta &\text{: Constant viscosity} \\
+    \dot{\gamma} &\text{: Shear rate} \\
+    G(t) &\text{: time-dependent relaxation modulus} \\
+    \vec{T} &\text{: Traction vector} \\
+    \vec{n} &\text{: Unit normal vector} \\
+    \bm{\sigma} &\text{: Stress tensor} \\
+    \expval{s} &\text{: Expected value of variable $s$} \\
+    \vec{r} &\text{: Position vector} \\
+    \vec{p} &\text{: Momentum} \\
+    \dot{\vec{r}} &\text{: Time derivative of position vector} \\
+    m &\text{: mass} \\
+    \bar{s} &\text{: Time average of quantity $s$} \\
+    \bm{W} &\text{: Virial Tensor} \\
+    \bm{T} &\text{: Kinetic tensor} \\
+    V &\text{: Volume} \\
+    \vec{F} &\text{: Force vector} \\
+    \gamma &\text{: Viscous/friction} \\
+    \vec{R} &\text{: Random force} \\
+    k_{\mathrm{B}} &\text{: Boltzmann's constant} \\
+    T &\text{: Temperature} \\
+    \gamma &\text{: damp} \\
+    \vec{\eta} &\text{: Random force} \\
+    dt &\text{: Time diferenctial/time step} \\
+    \epsilon_{i,j} &\text{: Interaction energy} \\
+    r_{i,j} &\text{: Distance} \\
+    \sigma &\text{Diameter of the particles} \\
+    r_c &\text{: Cutt off distance} \\
+    K &\text{: energy constant} \\
+    R_o^2 & \text{: Distance} \\
+    w &\text{: Tunning parameter} \\
+    \phi &\text{: Packing fraction} \\
+    N_p &\text{: Number of particles} \\
+    c &\text{: Cl concentration} \\
+    T &\text{: Temperature} \\
+    \nabla &\text{: Gradient} \\
+    \hat{e} &\text{Basis vector} \\
+    L &\text{Box length} \\
+    S_{ab} &\text{: Stress lammps} \\
+    W_{ab} &\text{: Virial stress lammps} \\
+    \mathrm{damp} &\text{: Damp parameter} 
+\end{align*}
+
 
 \begin{align*}
     \eta :&~\text{Viscosity} \\
