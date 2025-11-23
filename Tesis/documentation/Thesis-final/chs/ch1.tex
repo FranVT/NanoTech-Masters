@@ -3,15 +3,18 @@
 %Try to describe the mechanical response of materials from first principles is an intelectual exercise that I found to be interesting enough to dedicate 2 years of my time and maybe more.
 
 % About this thesis
-The aim of this work is to describe the mechanical response of hydrogels using first principles. 
-Conducted over a two-year period, the research lays the foundation for further investigations, such as the design of synthesis methods for hydrogels with tailored mechanical properties or the design of hydrogels to meet a desire mechanical performance. 
-The proposed methodology relies on prior research in which the polymeric network of PNIPAM microgels was replicated using patchy particles and molecular dynamics.
-\cor{Add references}
+\cor{The aim of this work is to explore the patchy particle methodology for molecular simulations to approximate the mechanical response of polymeric gels under a shear deformation.}
+The research, conducted over two years, establishes a basis for further research, including the development of synthesis methods for polymeric gels, such as hydrogels, with customized mechanical properties, or the design of hydrogels to achieve specific mechanical performance requirements.
+The proposed methodology relies on prior research\citep{gnanSilicoSynthesisMicrogel2017} in which the polymeric network of PNIPAM microgels was replicated using patchy particles and molecular dynamics.
+To align with the institution's research, the computational approach was modified to simulate polymeric gels.
+This was done to facilitate the gradual modification of the methodology for hydrogels.
 
 A review of the literature reveals that hydrogels have a wide range of applications.
-However, the precise origin of the mechanical response in hydrogels remains a topic of debate.
-Therefore, the primary objective of this thesis is to explore a computational methodology that can identify parameters \cor{to model} the key properties of the polymeric network. 
-These parameters can then be coupled into a constitutive relationship to predict the mechanical response of a simplified polymeric network.
+However, the precise origin of the mechanical response in \cor{polymeric gels} remains a topic of debate.
+\cor{The major objective of this thesis is to} investigate a computational methodology \cor{to determine network characteristics that describe the mechanical response of polymeric gels.}
+\cor{The network characteristics can be expressed as parameters that can be included into a viscoelastic relationship} in order to predict the mechanical response of polymeric gels.
+It is important to clarify that the explicit formulation of such an equation is not within the scope of this thesis. 
+%The final goal is to identify a relation between the network characteristics and its mechanical response.
 To that end, the following specific objectives have been established:
 \begin{itemize}
     \item Replicate the existing numerical protocol using patchy particles proposed in reference~\citep{gnanSilicoSynthesisMicrogel2017}.
@@ -20,38 +23,37 @@ To that end, the following specific objectives have been established:
     \item Visualize the network before and after shear.
     \item Analyze the strain-stress curves of the material under different shear conditions and different network parameters.
 \end{itemize}
-The analysis is expected to help select one or more parameters that can later be incorporated into a constitutive equation \cor{How}.
-It is important to clarify that the explicit formulation of such an equation is not within the scope of this thesis. 
-The final goal is to identify a relation between the network characteristics and its mechanical response.
+\cor{The qualitative analysis of the strain-stress curves will serve as a tool for validating the methods used to approximate the mechanical response of polymeric gels.}
 
-The following section reviews the applications of hydrogels identified in the literature, followed by a discussion of their characteristic mechanical responses.
-The subsequent theoretical framework chapter begins by explaining how to quantify the properties of the material and how to apply numerical simulations to analyze the system.
-The last part of this document covers the analysis of the numerical results and the conclusions.
+The following part explores the uses of hydrogels found in the literature, followed by an analysis of their distinctive mechanical responses. 
+The subsequent chapter on the theoretical framework starts by describing the quantification of material attributes and the application of numerical simulations for system analysis. 
+The final section of this document discusses the analysis of the numerical results and the conclusions.
+
 
 \section{About Hydrogels}
 
-\cor{Start by defining what is a hydrogel}
+A hydrogel is defined as a material characterized by a three-dimensional crosslinked polymer network.
+The numerical protocol, originally designed to simulate PNIPAM microgels, was subsequently adapted to model polymeric gels.
+Microgels are colloidal-scale particles composed of cross-linked polymer networks that can swell and deswell in response to external stimuli\citep{gnanSilicoSynthesisMicrogel2017}.
+Gels are polymer networks formed through covalent or supramolecular bonds and are swollen in liquid media, including water or organic solvents\citep{guPolymerNetworksPlastics2020}.
 
-While the numerical protocol was initially developed to simulate microgels \cor{Which microgels}, it was modified to represent a broader group of polymeric networks known as hydrogels.
-Hydrogels are composed primarily of hydrophilic monomers, which are biocompatible, making them suitable for medical applications.
-In general terms, hydrogels exhibit viscoelastic and viscoplastic mechanical responses.
-The material's viscoelastic response makes it suitable for use in shock absorption, vibration damping, and biological tissue mimicry\cor{Reference.}.
-Meanwhile, viscoplasticity makes the material suitable for energy dissipation.
-In the rest of the section, it briefly exposes more specific examples of applications, and then it concludes with a general description of the mechanical response of the hydrogel as an introduction for the theoretical framework.
+Hydrogels generally demonstrate viscoelastic and viscoplastic mechanical behaviors.
+The material's viscoelastic properties enable it appropriate for shock absorption, vibration damping, and mimicking biological tissues\cor{\citep{xuRapidlyDampingHydrogels2024a}}.
+In addition, viscoplasticity allows the material appropriate for energy dissipation.
+The following part of the section briefly presents specific application examples and closes with a basic overview of the hydrogel's mechanical response, serving as an introduction to the theoretical framework.
 
 \subsection{Applications}
 
-Three primary factors guide the selection of application examples.
-First, given the immediate danger that climate change poses to the global environment, research into environmentally relevant applications is a priority.
-Second, to align with the institution's strategic research interests in biomedical applications.
-Lastly, from prior academic experience in smart materials, some examples from this sector where included.
+Three principal considerations influence the selection of application examples.
+Initially, due to the imminent threat that climate change presents to the global ecosystem, research into environmentally relevant applications is vital.
+Secondly, ought to align to the institution's strategic research priorities in biological applications.
+Finally, examples from the smart materials field were included based on previous academic experience.
 
 %\paragraph{Environmental applications} 
 Hydrogels can effectively remove a wide range of toxic compounds, such as heavy metals, organic pollutants, and pathogens from aqueous environments.
 The review~\citep{randoFunctionalBioBasedPolymeric2024} discusses an increasing trend of stimuli-responsive smart hydrogels, emphasizing their potential for both adsorption and detection of water contaminants.
 One example can be found in reference~\citep{cinfrigniniGoldRushDesigning2024}, where it explores easy-to-make poly(acrylamide-co-acrylic acid) hydrogels as adsorbents for gold recovery from industrial wastewater containing other precious metals.
 In addition, reviews~\citep{darbanHydrogelBasedAdsorbentMaterial2022a,songSynthesisHydrogelsTheir2022} explain the synthesis and adsorption mechanisms, crosslinking methods, their corresponding limitations, and outstanding contributions of applications in the fields of removing environmental pollutants of hydrogel-based adsorbent materials.
-\cor{How the reological properties are related?}
 
 %\paragraph{Medical applications} 
 Moreover, hydrogels have received a lot of attention in the biomedical field because of their high water content, biocompatibility, and adaptability into biological entities.
@@ -81,9 +83,12 @@ To close, figure~\ref{fig:applications}, retrieved from~\citep{petelinsekToughHy
 \subsection{Mechanical response}
 
 Although hydrogels have been experimentally implemented in a variety of sectors, an explanation of their properties based on first principles is still lacking due to the materials intricate multi-scale nature\citep{senffTemperatureSensitiveMicrogel1999}.
-And the relevance of having a more fundamental understanding of this material stems from the goal of adapting the hydrogel to specific applications while also taking into account the hydrogel's performance and durability during its manufacturing and processing.
-
-%The intention of this work is therefore to validate a simulation methodology with the ultimate goal of providing a basis for optimising their formulation. 
+The significance of developing a fundamental understanding of this material arises from the objective of tailoring the hydrogel for specific applications, while also considering its performance and durability throughout manufacturing and processing.
+%\cor{How the reological properties are related?}
+\cor{For instance, in \citep{townsendFlowBehaviorPrior2019}, it is highlighted that improved rheological characterisation of hydrogel precursor formulations and standardized testing for surgical application or 3D bioprinting is necessary.
+According to \citep{ghicaFlowThixotropicParameters2016}, the authors develop many sodium carboxymethylcellulose hydrogels incorporating a BCS class II model drug to evaluate their flow and thixotropic characteristics.
+According to \citep{yanRheologicalPropertiesPeptidebased2010}, the researchers discuss the literature regarding the rheological characterization of the bulk mechanical properties of peptide and polypeptide hydrogels, as these mechanical properties and their molecular mechanisms are essential in determining the suitability of these biomaterials for biotechnological applications.}
+The intention of this work is therefore to validate a simulation methodology with the ultimate goal of providing a basis for facilitating the design process. 
 %Having established this context, we now explore the mechanical properties that enable such a wide range of applications.
 
 In a more detailed description, hydrogels consist of heterogeneous, often disordered polymer networks swollen with water, where molecular interactions (covalent bonds, physical crosslinks, entanglements, and solvent–polymer interactions) collectively determine macroscopic elasticity and viscoelasticity response~\citep{sheikoArchitecturalCodeRubber2019,naritaViscoelasticPropertiesPolyvinyl2013,kongEffectCrossLinkHomogeneity2024,varela-feijooMultiscaleInvestigationViscoelastic2023}.
@@ -91,7 +96,8 @@ Accurately bridging atomic-scale forces and chemical bond dynamics to bulk mecha
 Which presents a significant challenge to current theoretical and computational models.
 This thesis used patchy particles to mimic crosslink kinetics and nonlinear polymer physics, with Langevin dynamics accounting for solvent effects and the time evolution of the system.
 
-When a hydrogel is deformed, the bonds, intermolecular distances, molecular conformation, and chain orientation are modified accordingly\cor{In which sense?}.
+\cor{Generally, the deformation of a hydrogel leads to modifications in the bonds, intermolecular distances, molecular structure, and chain orientation.}
+%When a hydrogel is deformed, the bonds, intermolecular distances, molecular conformation, and chain orientation are modified accordingly\cor{In which sense?}.
 Also, any molecular event resulting in energy dissipation contributes to viscoelasticity, given the direct correlation between viscosity and energy dissipation.
 One such factor is the polymer molecular weight, which affects the movement of entangled polymers.
 Another factor that promotes molecular mobility is the interconnectivity and cohesion of the network.
