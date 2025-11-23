@@ -162,8 +162,15 @@
 \newglossaryentry{sigma-mr}{
   type=symbolsmr,
   name=$\sigma$,
-  description={Particle diameter (Dimensionless)}
+  description={Particle diameter (Length)}
 }
+\newglossaryentry{rred-mr}{
+  type=symbolsmr,
+  name=$r^{*}$,
+  description={Reduce distance ($r/\sigma$  Adimensional)}
+}
+
+
 \newglossaryentry{r-mr}{
   type=symbolsmr,
   name=$r^{*}$,
@@ -306,70 +313,7 @@ Finally, this work recieved support from Luis Aguilar, Alejandro de León, Aleja
 
 \mainmatter
 
-
-\begin{align*}
-    \epsilon_{ij} &\text{: Strain tensor} \\
-    \sigma_{ij}  &\text{: Stress tensor} \\
-    C_{ijkl} &\text{: Elastic Young's modulus} \\
-    \dot{\epsilon}_p &\text{: Time derivative of the strain after plastic limit} \\
-    \sigma_{y} &\text{: Yield point} \\
-    \eta &\text{: Constant viscosity} \\
-    \dot{\gamma} &\text{: Shear rate} \\
-    G(t) &\text{: time-dependent relaxation modulus} \\
-    \vec{T} &\text{: Traction vector} \\
-    \vec{n} &\text{: Unit normal vector} \\
-    \bm{\sigma} &\text{: Stress tensor} \\
-    \expval{s} &\text{: Expected value of variable $s$} \\
-    \vec{r} &\text{: Position vector} \\
-    \vec{p} &\text{: Momentum} \\
-    \dot{\vec{r}} &\text{: Time derivative of position vector} \\
-    m &\text{: mass} \\
-    \bar{s} &\text{: Time average of quantity $s$} \\
-    \bm{W} &\text{: Virial Tensor} \\
-    \bm{T} &\text{: Kinetic tensor} \\
-    V &\text{: Volume} \\
-    \vec{F} &\text{: Force vector} \\
-    \gamma &\text{: Viscous/friction} \\
-    \vec{R} &\text{: Random force} \\
-    k_{\mathrm{B}} &\text{: Boltzmann's constant} \\
-    T &\text{: Temperature} \\
-    \gamma &\text{: damp} \\
-    \vec{\eta} &\text{: Random force} \\
-    dt &\text{: Time diferenctial/time step} 
-\end{align*}
-
-\begin{align*}
-    \epsilon_{i,j} &\text{: Interaction energy} \\
-    r_{i,j} &\text{: Distance} \\
-    \sigma &\text{Diameter of the particles} \\
-    r_c &\text{: Cutt off distance} \\
-    K &\text{: energy constant} \\
-    R_o^2 & \text{: Distance} \\
-    w &\text{: Tunning parameter} \\
-    \phi &\text{: Packing fraction} \\
-    N_p &\text{: Number of particles} \\
-    c &\text{: Cl concentration} \\
-    T &\text{: Temperature} \\
-    \nabla &\text{: Gradient} \\
-    \hat{e} &\text{Basis vector} \\
-    L &\text{Box length} \\
-    S_{ab} &\text{: Stress lammps} \\
-    W_{ab} &\text{: Virial stress lammps} \\
-    \mathrm{damp} &\text{: Damp parameter} 
-\end{align*}
-
-
-\begin{align*}
-    \eta :&~\text{Viscosity} \\
-    \mu :&~\text{Friction} \\
-    \gamma :&~\text{Shear strain} \\
-    \dot{\gamma}:&~\text{Shear rate} \\
-    \bm{\sigma}:&~\text{Stress tensor} \\
-    \varepsilon :&~\text{Energy} \\
-    \epsilon :&~\text{Strain}
-\end{align*}
-
-\newpage
+%\newpage
 
 \include{chs/ch1}      % Chapter 1 Intro
 \include{chs/ch2}      % Chapter 2 Theoretical framework

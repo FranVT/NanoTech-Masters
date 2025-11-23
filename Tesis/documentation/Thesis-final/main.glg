@@ -1,7 +1,7 @@
 This is makeindex, version 2.17 [TeX Live 2026/dev] (kpathsea + Thai support).
 Scanning style file ./main.ist...........................done (27 attributes redefined, 0 ignored).
-Scanning input file main.synm....done (11 entries accepted, 0 rejected).
-Sorting entries....done (40 comparisons).
-Generating output file main.symr....done (26 lines written, 0 warnings).
+Scanning input file main.synm....done (12 entries accepted, 0 rejected).
+Sorting entries....done (44 comparisons).
+Generating output file main.symr....done (28 lines written, 0 warnings).
 Output written in main.symr.
 Transcript written in main.glg.
