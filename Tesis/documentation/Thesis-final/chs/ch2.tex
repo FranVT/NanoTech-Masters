@@ -131,8 +131,6 @@ The key idea of this section is that crosslinking is crucial for maintaining hyd
 These mechanisms are either physical, involving non-covalent forces, or covalent, involving electron sharing.
 Physical interactions can imitate covalent networks, while dynamic covalent chemistry allows for adaptable properties. 
 
-\cor{Add specifics: Density, percentage}
-
 \section{Mechanical response}
 
 Now, it is time to understand in more detail what a mechanical response is and how it can be quantified.
@@ -195,7 +193,7 @@ Some examples of this type of deformation are the stretching of a metal spring w
 %This establishes a connection between the stress tensor ($\sigma$), the shear modulus ($G$) of the material, the applied strain ($E$), and the Lame first parameter ($\lambda$) of the material\citep{bonyadiReviewFrictionLubrication2020}.
 
 %\paragraph{Plastic relation} 
-In contrast, a plastic deformation is when the material experiences an irreversible change in the shape or size and has a time-dependent response\cor{I use the same def of viscosity.}.
+In contrast, a plastic deformation occurs when the material experiences an irreversible change in shape or size and has a \cor{time- independent} response.
 It is generally accepted that a material first enters an elastic response and then reaches a yield point. 
 After this point, the deformation is irreversible.
 Stress and plastic strain are usually linked as a function of the current stress and internal variables,
@@ -233,6 +231,9 @@ One of the popular yield stress models is the Herschel-Bulkey,
 \end{gather}
 where $\sigma_y$ is the yield stress (the stress at which the deformation starts to be plastic) and $K$ and $n$ are model parameters.
 
+%Although this definitions are not use to compute the yield stress of the simulated polymeric gel, are added to show that this definitions are in terms in the 
+
+
 %\paragraph{Viscous response}
 
 
@@ -240,8 +241,8 @@ where $\sigma_y$ is the yield stress (the stress at which the deformation starts
 %Furthermore, the viscoelastic response is time-dependent, combining the elastic and viscous behaviors.
 %Finally, the viscoplastic combines the irreversible plastic strain with rate-dependent viscous effects [\textbf{cite}].
 
-Lastly, a viscous response is characterized by a time dependency and irreversible deformation.
-This response describes materials that continuously deform and undergo an energy dissipation process through viscous friction.
+Lastly,\cor{a viscous response is characterized by a continuous flow under applied stress.}
+This response describes materials that continuously deform and undergo an energy dissipation process through viscous friction \cor{and does not present yield stress.}
 The constitutive equation for viscous deformation usually follows Newton’s law of viscosity,
 \begin{equation}
     \bm{\sigma} = \eta\dot{\bm{\epsilon}},\label{eqn:viscousResponse}
@@ -251,7 +252,7 @@ This linear relation indicates that stress is proportional to the rate at which 
 
 %\paragraph{Viscoelastic relation} 
 However, as it was mentioned in the introduction, the reported mechanical response of hydrogels is described as viscoelastic.
-Which can be thought of as a combination of a viscous response with a plastic response.
+Which can be thought of as a combination of a viscous response with an \cor{elastic} response.
 In more detail, a viscoelastic deformation is defined as the process by which a material partially ``stores'' elastic energy and partially dissipates energy.
 For this deformation, the quantification is done by relating the instantaneous stress, strain, and a time-dependent relaxation modulus,
 \begin{gather}
@@ -538,11 +539,10 @@ Now, let's describe in general terms the relation between the elastic, plastic, 
 In the case of an elastic deformation, the force applied to the material is largely retained due to the stretching of the distance between the particles.
 The particles' displacement is minimal, with no effect on bond integrity.
 This is generally understood to mean that the material stores potential energy that is released during unloading.
-In the context of plastic deformation, the phenomenon is often described as dislocation and crystal defects in crystalline materials \cor{?}.
 
-However, plastic deformation is more likely to involve the rupture of crosslinks between chains and the sliding or stretching of individual chains beyond their reversible limit.
+However, plastic deformation is is often described as \cor{the irreversible rupture of crosslinks or polymer chains within the network} or stretching of individual chains beyond their reversible limit.
+\cor{Compromising the integrity of the polymeric network.}
 In the scenario of networks with physical entanglements, chains have the potential to slip past one another, thereby overcoming energy barriers and irreversibly reorganizing the networks' topology.
-In the cases of bond rupture \cor{(Which type)}, the crosslink density can be reduced or the polymeric chain can be broken.
 
 %\paragraph{Viscoelastic regime} 
 For viscoelastic deformations, the network mainly undergoes an elastic deformation.
@@ -570,8 +570,9 @@ This energy dissipation mechanism helps to reversibly recover from a mechanical 
 The energy dissipation is often achieved through the introduction of sacrificial bonds by adding a second, more brittle network within a loosely cross-linked network or by cross-links made from supramolecular transient interactions, which can be reversibly broken and reformed.
 In the first case, the material is stretched, and a share of the bonds in the more brittle network are broken, leading to an increased dissipation of the energy from mechanical impact.
 In the second case, the sacrificial bonds are non-covalent in nature and can reversibly break and reform.
-\cor{Link between the paragraphs}
-Metal-ligand, ionic, hydrogen bonding, microphase separation, hydrophobic, polymer-nanomaterial adsorption, host-guest complexation, and supramolecular self-assembly are a few examples of non-covalent interactions. 
+
+%\cor{Link between the paragraphs}
+%Metal-ligand, ionic, hydrogen bonding, microphase separation, hydrophobic, polymer-nanomaterial adsorption, host-guest complexation, and supramolecular self-assembly are a few examples of non-covalent interactions. 
 
 Some of the non-covalent interactions are metal-ligand, ionic interactions, hydrogen bonding, microphase separation and hydrophobic interactions, polymer-nanomaterial adsorption, host-guest complexation, or supramolecular self-assembly. 
 Starting with the electrostatic mechanism, it can create strong, physically robust polymers by ionic attractions between oppositely charged monomers.
@@ -589,8 +590,6 @@ This mechanical unfolding is seen in both larger proteins and smaller elastin-li
 The previous energy dissipation processes are represented graphically in Figure~\ref{fig:energyDissipation}.
 Considering a broad comparison with figure~\ref{fig:physicalCovalentCrossLink}, the microphase separation is associated with the strong physical crosslinks, whereas the electrostatic interaction and composites are equal to the weak physical crosslinks; subsequently, dynamic covalent crosslinks are the self-assembly process.
 
-\cor{Improve captions}
-
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=12cm]{figs/explainMechResponse/energyDissipationMechanisms.png
@@ -600,7 +599,8 @@ Image retrieve from~\citep{petelinsekToughHydrogelsLoadBearing2024}.}\label{fig:
 \end{figure}
 
 
-%\paragraph{Stress relaxation of a dual network}
+\paragraph{\cor{Stress relaxation of a dual network}}~
+
 The stress relaxation can be explained by the dynamics of association and dissociation of chains\citep{naritaViscoelasticPropertiesPolyvinyl2013}.
 In figure~\ref{fig:hydroMechResponse1}, it is a comparison of a network with physical crosslinking mechanisms (left column) and a network with physical and chemical crosslinking mechanisms (right row).
 Taking a lot of attention into the physically elastically active and the physically elastically inactive positions, we can see the main difference is the functionality of the crosslinking.
@@ -621,9 +621,11 @@ One, the elastically active physical cross-link increases, decreasing the time o
 Second, increase the elastically inactive cross-links, which increases the time of association.
 In this hydrogel the ``competition'' of these two effects results in the increase in the time of association, which induces an incomplete relaxation, or the chain reassociates before complete stress relaxation.
 
-%\paragraph{Strain stifeening in dual networks}
+\paragraph{\cor{Strain stifeening in dual networks}}~
+
 Reference~\citep{kongEffectCrossLinkHomogeneity2024}, they create randomly cross-linked networks of poly(n-butyl acrylate) via thermally initiated free-radical polymerization and regularly cross-linked networks using thiol-bromine coupling of tetrafunctional poly(n-butyl acrylate) star polymers.
-After that, they expand both kinds of networks in a monomer and cross-linker mixture, which is then polymerized to create double networks. This is to investigate how cross-link homogeneity affects regular and random networks' strain stiffening behavior.
+After that, they expand both kinds of networks in a monomer and cross-linker mixture, which is then polymerized to create double networks. 
+This is to investigate how cross-link homogeneity affects regular and random networks' strain stiffening behavior.
 
 \begin{figure}[ht!]
     \centering
@@ -647,14 +649,14 @@ In addition, at the same crosslinker concentration ($\mathrm{RAN}_{20}$ and $\ma
 \begin{figure}[ht!]
     \centering
     \includegraphics[height=6cm]{figs/explainMechResponse/singleRANtensile.jpeg}
-    \caption{Stress-strain curves for double networks obtained from randomly (panel a) and regularly cross-linked networks (panel b).
+    \caption{Stress-strain curves for single networks obtained from \cor{randomly (panel (1a) of figure~\ref{fig:RANREGnetworks}) cross-linked networks}.
     Image retrieved from~\citep{kongEffectCrossLinkHomogeneity2024}.}\label{fig:RANnetworks}
 \end{figure}
 
 \begin{figure}[ht!]
     \centering
     \includegraphics[height=6cm]{figs/explainMechResponse/singleREGtensile.jpeg}
-    \caption{Tensile response of single (panel a) and double networks (panel b) with matched target molecular weight between crosslinks.
+    \caption{Tensile response of single networks \cor{obtained from regular (panel (1b) of figure~\ref{fig:RANREGnetworks}) cross-linked networks with matched target molecular weight between crosslinks}.
     Image retrieved from~\citep{kongEffectCrossLinkHomogeneity2024}.}\label{fig:REGnetworks}
 \end{figure}
 
@@ -669,18 +671,25 @@ Finally, all of this is summarized in the figure~\ref{fig:REGRANDNcomparison}.
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=12cm]{figs/explainMechResponse/REGRANDN.jpeg}
-    \caption{Tensile response of regular crosslink spatial distribution\citep{kongEffectCrossLinkHomogeneity2024}.}\label{fig:REGRANDNnetworks}
+    \caption{Tensile response of \cor{double network with random cross-link network (panel (a)) and regular cross-linked network (panel (b)).
+            Panel (a) is the mechanical response of panel (2a) in figure~\ref{fig:RANREGnetworks}.
+            Panel (b) is the mechanical response of panel (2b) in figure~\ref{fig:RANREGnetworks}.
+    }\citep{kongEffectCrossLinkHomogeneity2024}.}\label{fig:REGRANDNnetworks}
 \end{figure}
 
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=12cm]{figs/explainMechResponse/comparissonREGRANDN.jpeg}
-    \caption{Tensile response of random crosslink spatial distribution\citep{kongEffectCrossLinkHomogeneity2024}.}\label{fig:REGRANDNcomparison}
+    \caption{\cor{Comparisson of the mechanical response between single and double network cross-linked networks.
+        In panel (a) are shown the single network configurations, black line is the response of panel (1a) in figure~\ref{fig:RANREGnetworks}, and the red line is the response of panel (1b) in figure~\ref{fig:RANREGnetworks}.
+        In panel (b) are shown the double network configurations, where the black line is the response of panel (2a) in figure~\ref{fig:RANREGnetworks}, and the red line is the response of panel (2b) in figure~\ref{fig:RANREGnetworks}.
+        }\citep{kongEffectCrossLinkHomogeneity2024}.}\label{fig:REGRANDNcomparison}
 \end{figure}
 
 
-%\paragraph{About shear thinning}
-In reference~\citep{varela-feijooMultiscaleInvestigationViscoelastic2023} it reports that an alginate hydrogel presents shear-thinning, as shown in figure~\ref{fig:hydroMechResponse2}.
+\paragraph{\cor{About shear thinning}}~
+
+In reference~\citep{varela-feijooMultiscaleInvestigationViscoelastic2023} \cor{it is reported} that an alginate hydrogel presents shear-thinning, as shown in figure~\ref{fig:hydroMechResponse2}.
 That is, when the shear rate increases, the shear viscosity decreases.
 For low concentrations the stiffness and electrostatic repulsive interactions between chains and monomers are the main mechanisms that influence the viscosity.
 However, when salt is added to screen the electrostatic repulsions at the same low concentrations, the polymer chains contract, decreasing the volume occupied by a sodium alginate coil, causing a reduction in viscosity.
@@ -691,10 +700,12 @@ This behavior can be explained by the disentanglement and alignment of alginate 
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=12cm]{figs/explainMechResponse/alginateShearThinning.png}
-    \caption{Shear-thinning\citep{varela-feijooMultiscaleInvestigationViscoelastic2023}.}\label{fig:hydroMechResponse2}
+    \caption{\cor{Variation of stationary shear viscosity with shear rate in aqueous sodium alginate solutions across different concentrations in the semi-dilute and concentrated regimes.
+    Solid lines correspond to the fitting of experimental data by Cross model.\citep{varela-feijooMultiscaleInvestigationViscoelastic2023}.}}\label{fig:hydroMechResponse2}
 \end{figure}
 
-%\paragraph{Different monomer, different mech response}
+\paragraph{\cor{Distinct monomers yield varying mechanical responses.}}~
+
 Finally, to elucidate the importance of the crosslinking mechanism, the results of compressive measurements reported in reference~\citep{romischkeSwellingMechanicalCharacterization2022} are shown in figures~\ref{fig:mechResponseEnd} and~\ref{fig:mechResponseEnd1}.
 In that article they synthesized and intensively characterized the swelling behavior and mechanical properties of polyelectrolyte hydrogels such as $\mathrm{polyAMMPSO}_3$ and polyMATMA and compared them with ChondroFiller liquid, which is already used for the treatment of cartilage lesions.
 The crosslinker that they use is benzoylphenylalanine (BAP).
@@ -729,7 +740,7 @@ They explain that this decrease can be related to a drying effect of the hydroge
 \end{figure}
 
 As a summary of the mechanical response of hydrogels, physical crosslinking can be think as an energy dissipation process critical for robust hydrogels' recovery following mechanical impacts. 
-It was also menstioned how energy is dissipated by sacrificial connections and reversible non-covalent cross-links, which improve hydrogel toughness through microcrystallization and composite mechanisms. 
+It was also \cor{mentioned} how energy is dissipated by sacrificial connections and reversible non-covalent cross-links, which improve hydrogel toughness through microcrystallization and composite mechanisms. 
 The stress relaxation features of dual network hydrogels are reviewed, emphasizing the roles of elastically active and inactive crosslinks, with higher physical crosslinker concentrations affecting association durations and stress relaxation. 
 Furthermore, a comparison of mechanical responses under tensile deformation between randomly and regularly cross-linked networks, as well as the shear behavior of alginate hydrogels, focusing on viscosity changes caused by shear thinning was found. 
 This findings highlight the impact of monomers and crosslinking methods on hydrogel stress responses and characteristics.
@@ -820,7 +831,7 @@ This findings highlight the impact of monomers and crosslinking methods on hydro
 Now that the equivalence between the macroscopic and microscopic stress tensor is settle, let's move on into a brief introduction of molecular dynamics.
 Molecular dynamics is a widely used method for analyzing the mechanical responses of polymeric networks because it offers comprehensive information about structure-property relationships.
 This is due to its ability to represent atomic-level interactions via Newtonian mechanics, enabling the modeling of different crosslinking mechanisms, polymer chain configurations, time-dependent deformations, and others.
-In order to understand how molecular dynamics helps to simulate the mechanical response of hydrogels, it is need to intrduce the concept of colloids.
+In order to understand how molecular dynamics helps to simulate the mechanical response of hydrogels, it is need to \cor{introduce} the concept of colloids.
 After that, an explanation of Langevin dynamics it is given with an explanation of the Velocity Verlet algorithm to solve the system of differential equations.
 
 \subsection{Colloids}
@@ -861,8 +872,9 @@ Solid sol       & Solid  & Solid  & Coloured glass, alloys \\
 The hydrogel can be understood as a mixture of water in the liquid state and a polymer network in the solid state.
 Furthermore, the polymeric network typically exhibits a porosity ranging from 5 to 20 nanometers, however they can be tunned to reach the micron-scale size.
 This porosity enables the representation of the water as the dispersed phase, while the polymeric network is represented as the continuous phase.
-\cor{Therefore, the hydrogel can be modelled as a colloidal gel.}
-
+\cor{It is important to acknowledge that here, gel it is refer to as a \emph{polymeric gel} not a \emph{collidal gel}.}
+\cor{Colloidal gels are structures made up of a network of colloidal particles\citep{jiangColloidalGelationNonsticky2023,royallProbingColloidalGels2015}, meanwhile, polymeric gels are polymer networks\citep{formanekGelFormationReversibly2021b,safferSANSStudyHighly2014}.}
+ 
 
 \subsection{Langevin dynamics}
 
