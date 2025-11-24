@@ -2,7 +2,7 @@
 
 \section{Hydrogels}
 
-A hydrogel is a polymeric network capable of swelling.
+A hydrogel is a polymeric network capable of swelling, \cor{with typical density ranging from \num{1.0} to \num{1.1} \SI{}{\gram\per\centi\meter\tothe{3}} and a crosslinker percentage of \num{0.1} to \num{0.5} mol\% or around \num{0.1}-\num{1.0}\% (w/v) of precursor solution or \num{1}-\num{10}\% (w/w) relative to polymer weight\citep{nasutionHydrogelEffectsCrosslinking2022,jallohSynthesisPhotopatterningSynthetic2024,debordInfluenceParticleVolume2003,francoVolumeFractionDetermination2021}.}\footnote{weight/volume percentage (w/v) and weight/weight percentage (w/w).}
 Examples include polyacrylamide, sodium polyacrylate, polyvinyl alcohol, polyethylene glycol, polyhydroxyethyl methacrylate, agarose, alginate, gelatin, pectin, starch, cellulose-based networks, and protein networks~\citep{choiSynthesisHydrogelBasedMicrogels2025,dayTunableNetworkArchitecture2025,ahmedHydrogelPreparationCharacterization2015a,bustamante-torresHydrogelsClassificationAccording2021}.
 To better understand the characteristics of hydrogels, let's start by defining a polymeric network and the swelling capacity.
 
@@ -43,8 +43,8 @@ Nevertheless, the network's topology remains intact due to the crosslink mechani
 
 %\paragraph{Gel point} 
 The description of a hydrogel as a gel in which the solvent is water with a hydrophilic polymer network indicates that the polymer network must form a continuous system that extends (infinitely) across the volume. 
-In other words, the polymer chains are sufficiently linked to form a macroscopic network that occupies the entire volume. 
-Also referred to as the gel point defined in the context of percolation theory\cor{?}. 
+In other words, the polymer chains are interconnected enough to create a macroscopic network filling the entire volume, known as the gel point. 
+%Also referred to as the gel point defined in the context of percolation theory\cor{?}. 
 At this configuration of the network, the transition is characterized by the divergence of the molecule weight and the network correlation length, indicating the percolation of the polymeric network\citep{guPolymerNetworksPlastics2020}\footnote{In physics, percolation refers to the formation of large-scale connections in disordered systems. Mathematically, cluster formation in a random graph or lattice occurs when sites or bonds are occupied with a certain probability.}.
 However, not all polymer networks reach the gel point, and in order to achieve it, the network must have an adequate crosslinking density and a sufficient number of reactive sites to connect the polymers. 
 For example, polymers that are linear, unbranched, or have insufficient crosslinking are soluble and do not \cor{gelate}.
@@ -109,7 +109,10 @@ This improves toughness and elasticity by dispersing energy via chain movement a
 %\paragraph{Intro} 
 Another commonly used classification in literature is whether the polymeric network is reversible or irreversible.
 This is because it is commonly considered that networks containing physical crosslinks, such as polymer junctions, can be undone and redone more easily than junctions held together by covalent contact.
-However, research has shown that regardless of the crosslink mechanism, the network can exhibit dynamic behavior~\citep{hanDynamicCovalentHydrogels2022} (\cor{How?}). 
+However, research has shown that regardless of the crosslink mechanism, the network can exhibit dynamic behavior~\citep{hanDynamicCovalentHydrogels2022}. 
+\cor{The polymer chains between the crosslinks exhibit dynamic behavior, characterized by continuous Brownian motion involving flexion, extension, and relaxation.  
+This mobility facilitates energy dissipation and permits the network topology to evolve over time, despite the crosslinks remaining intact\citep{gePolymerArchitectureDictates2023}. 
+Moreover, the reversible rupture of chains, the slippage of entanglements in covalently linked polymer gels, or the reversible dissociation and reformation of cross-links in physical/dynamic covalent networks facilitate dynamic behavior\citep{cornellaControllingRelaxationDynamics2024,dolinskiConnectingMolecularExchange2024}.}
 Additionally, it is important to note that the molecular phenomena enabling changes in the topology of the networks are highly dependent on the specific type of crosslink mechanism present.
 
 %\paragraph{Physical networks} 
@@ -118,10 +121,9 @@ As a result, when external stress or energy disrupts the network, some physical 
 The network's topology fluctuates during disruption, which is commonly used to explain self-healing in materials and viscoelastic reactions.
 Understanding how to modulate physical crosslinker mechanisms is therefore crucial for customizing the equilibrium and dynamics of bond formation/dissociation.
 
-%\paragraph{Covalent networks} 
-In contrast, a high-energy external stimulus activates the crosslinker mechanisms for ``dynamic'' covalent bonds~\citep{shomePhotoresponsiveSmartHydrogels2024}. % such as imine, boronate ester, thioester, disulfide, and transesterification.
-This high-energy (\cor{Add exmaples}) external stimulus may encourage the formation of new bonds prior to the dissolution of existing ones, or it may encourage the dissolution of existing ties prior to the formation of new ones.
-The associative mechanism refers to the first phenomena, whereas the dissociation process refers to the second.
+%\paragraph{Covalent networks}
+On the other hand, an energetic external stimulus triggers the crosslinker mechanisms for "dynamic" covalent bonds~\citep{shomePhotoresponsiveSmartHydrogels2024}. 
+This energetic external stimulus\cor{, such as light\citep{liDesignApplicationsPhotoresponsive2019} or elevated temperatures (above the glass transition temperature)\citep{tanAdaptableCovalentlyCrosslinked2023},} may facilitate the formation of new bonds before the breakdown of existing ones, or it may promote the breakdown of current bonds prior to the formation of new ones.
 Through this process, the network can adapt while retaining its mechanical strength by switching out polymer chains. 
 Finally, it is crucial to emphasize that the energy barrier for exchange, bond stability, and stimulus reliance all affect the process's rate and reversibility.
 
