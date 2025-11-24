@@ -883,27 +883,27 @@ Two terms are used to create a mathematical representation of the solvent: a fri
 
 By considering newtonian mechanics and the previous discussion, the Langevin dynamics are mathematically represented by the following differential equation,
 \begin{gather}
-    m\dv{\vec{v}(t)}{t}=\vec{F}(t)-\gamma\vec{v}(t)+\vec{R}(t).\label{eqn:BrownianDyn1}
+    m\dv{\vec{v}(t)}{t}=\vec{F}(t)-\cor{\mu}\vec{v}(t)+\vec{R}(t).\label{eqn:BrownianDyn1}
 \end{gather}
 The term on the left-hand side of the equation denotes the change of momentum of the particle.
 The first term on the right-hand side of the equation represents the force due to the interaction of the particle with other particles.
 The second term couples the dissipation of energy of the particle due to its interaction with the solvent.
 Finally, the third term is a random variable that describes the exchange of momenta with the solvent.
 
-The friction constant $\gamma$ parametrizes the effect of solvent damping and activation and has units \SI{}{\kilo\gram\per\second}.
+The friction constant $\cor{\mu}$ parametrizes the effect of solvent damping and activation and has units \SI{}{\kilo\gram\per\second}.
 It is commonly referred to as the collision frequency in the simulation literature, even though formally a Langevin description implies that the solute suffers an infinite number of collisions with infinitesimally small momentum transfer.
 Furthermore, the fact that the second term is not a function of the position of any of the particles implies ignoring of hydrodynamic interaction or spatial correlation in the friction kernel\citep{pastorTechniquesApplicationsLangevin1994}.
 
 On the other hand, the term $\vec{R}(t)$ is a ``random force'' subject to the following conditions:
 \begin{gather}
     \expval{\vec{R}(t)} = 0\label{eqn:LagDynamicNoiseExpval} \\
-    \expval{\vec{R}(t)\vec{R}(t')} = 2k_{B}T\gamma\delta\qty(t-t')\label{eqn:LagDynamicNoiseCorrelation} 
+    \expval{\vec{R}(t)\vec{R}(t')} = 2k_{B}T\cor{\mu}\delta\qty(t-t')\label{eqn:LagDynamicNoiseCorrelation} 
 \end{gather}
 The lack of time correlation implies that the solvent's viscoelastic relaxation is fast in comparison to solute motions \citep{pastorTechniquesApplicationsLangevin1994}.
 
 %\footnote{Grote land Hynes [26] have investigated this assumption for motions involving barrier crossing and have found that while it is seriously in error for passage over sharp barriers (such as 12 recombination); it is quite adequate for conformational transitions such as might be found in polymer motions.}
 
-In comparing the results of Langevin dynamics with those of other stochastic methods, the relevant variable is the velocity relaxation time, $\tau_{v}$, which equals $m\gamma^{-1}$\citep{pastorTechniquesApplicationsLangevin1994}.
+In comparing the results of Langevin dynamics with those of other stochastic methods, the relevant variable is the velocity relaxation time, $\tau_{v}$, which equals $m\cor{\mu}^{-1}$\citep{pastorTechniquesApplicationsLangevin1994}.
 The Langevin equation improves conformational sampling over standard molecular dynamics\citep{paquetMolecularDynamicsMonte2015}.
 
 %    \item hablar de la ecuación de Green-Kubo: \[\eta=\frac{V}{k_B T}\int_{0}^{\infty}\expval{\sigma_{xy}(t)\sigma_{xy}(0)}\mathrm{d}t\]
@@ -946,7 +946,7 @@ To accomplish this, the equation~\eqref{eqn:BrownianDyn1} is integrated across a
     \int_{t_n}^{t_{n+1}}m\dv{\vec{v}(t)}{t}dt'
     =
     \int_{t_n}^{t_{n+1}}\vec{F}(t)dt'
-    -\int_{t_n}^{t_{n+1}}\gamma\vec{v}(t)dt'
+    -\int_{t_n}^{t_{n+1}}\cor{\mu}\vec{v}(t)dt'
     +\int_{t_n}^{t_{n+1}}\vec{R}(t')dt',
 \end{align}
 which it is equal to
@@ -954,7 +954,7 @@ which it is equal to
     m\qty(\vec{v}^{n+1} - \vec{v}^{n})
     =
     \int_{t_n}^{t_{n+1}}\vec{F}(t)dt'
-    -\gamma\qty(r^{n+1}-r^n)
+    -\cor{\mu}\qty(r^{n+1}-r^n)
     +\int_{t_n}^{t_{n+1}}\vec{R}(t')dt'\label{eqn:DerVelVerlet1}.
 \end{align}
 
@@ -973,13 +973,13 @@ The left hand side can be approximated with a trapezoidal rule,
 Solving for $\vec{v}^{n+1}$ from equation~\eqref{eqn:DerVelVerlet1} we get the following expression for the velocity,
 \begin{gather}
     \vec{v}^{n+1} = \frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{F}(t)dt'
-                     -\frac{\gamma}{m}\qty(r^{n+1}-r^n)
+                     -\frac{\cor{\mu}}{m}\qty(r^{n+1}-r^n)
                      +\frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{R}(t')dt'
                      +\vec{v}^{n}\label{eqn:DerVelVerlet3}.
 \end{gather}
 Replacing the term $\vec{v}^{n+1}$ in equation~\eqref{eqn:DerVelVerlet2} with equation~\eqref{eqn:DerVelVerlet3} and some algebraic manipulation, it goes transforms to,
 \begin{equation}
-    \vec{r}^{n+1} = \frac{m dt}{2m +\gamma dt}\left[ 
+    \vec{r}^{n+1} = \frac{m dt}{2m +\cor{\mu} dt}\left[ 
                         2\vec{v}^{n}                
                         +\frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{F}(t)dt'
                         +\frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{R}(t')dt'
@@ -990,7 +990,7 @@ Now it is time to tackle the integral of force in equations~\eqref{eqn:DerVelVer
 Since it is a deterministic force, the integral can be approximate such that both equations are correct to second order in $dt$ and have the following pair of equations:
 \begin{align}
     \vec{r}^{n+1} &= r^n
-                    +\frac{m dt}{2m +\gamma dt}\left[ 
+                    +\frac{m dt}{2m +\cor{\mu} dt}\left[ 
                         2\vec{v}^{n}                
                         +\frac{dt}{m}F^{n}
                         +\frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{R}(t')dt'
@@ -998,30 +998,30 @@ Since it is a deterministic force, the integral can be approximate such that bot
                     , \\
     \vec{v}^{n+1} &= \vec{v}^{n}
                      +\frac{1}{m}\frac{dt}{2}\qty(\vec{F}^{n} + \vec{F}^{n+1})
-                     -\gamma\qty(r^{n+1}-r^n)
+                     -\cor{\mu}\qty(r^{n+1}-r^n)
                      +\frac{1}{m}\int_{t_n}^{t_{n+1}}\vec{R}(t')dt'\label{eqn:DerVelVerlet6}.
 \end{align}
 Finally, the integral over the random force will yield another random variable with the same conditions of equations~\eqref{eqn:LagDynamicNoiseExpval} and~\eqref{eqn:LagDynamicNoiseCorrelation}, thus
 \begin{gather}
-    \vec{\eta}^{n+1}\equiv\int_{t_n}^{t_{n+1}}\vec{R}(t')dt'\label{eqn:DerVelVerlet7},
+    \vec{\cor{\rho}}^{n+1}\equiv\int_{t_n}^{t_{n+1}}\vec{R}(t')dt'\label{eqn:DerVelVerlet7},
 \end{gather}
-with $\expval{\eta^{n}}=0$ and $\expval{\eta^{n}\eta^{l}}=2k_{B}T\gamma\delta\qty(t-t')$.
+with $\expval{\cor{\rho}^{n}}=0$ and $\expval{\cor{\rho}^{n}\cor{\rho}^{l}}=2k_{B}T\cor{\mu}\delta\qty(t-t')$.
 Replacing~\eqref{eqn:DerVelVerlet7} into equations~\eqref{eqn:DerVelVerlet5} and~\eqref{eqn:DerVelVerlet6} we get the scheme to solve Langevin equation using the Velocity Verlet scheme,
 \begin{align}
     \vec{r}^{n+1} &= r^n
-                    +\frac{m dt}{2m +\gamma dt}\left[ 
+                    +\frac{m dt}{2m +\cor{\mu} dt}\left[ 
                         2\vec{v}^{n}                
                         +\frac{dt}{m}F^{n}
-                        +\frac{1}{m}\vec{\eta}^{n+1}
-                    \right]\label{eqn:DerVelVerlet7}
+                        +\frac{1}{m}\vec{\cor{\rho}}^{n+1}
+                    \right]\label{eqn:DerVelVerlet8}
                     , \\
     \vec{v}^{n+1} &= \vec{v}^{n}
                      +\frac{1}{m}\frac{dt}{2}\qty(\vec{F}^{n} + \vec{F}^{n+1})
-                     -\gamma\qty(r^{n+1}-r^n)
-                     +\frac{1}{m}\vec{\eta}^{n+1}\label{eqn:DerVelVerlet8}.
+                     -\cor{\mu}\qty(r^{n+1}-r^n)
+                     +\frac{1}{m}\vec{\cor{\rho}}^{n+1}\label{eqn:DerVelVerlet9}.
 \end{align}
 It is interesting to see that the noise is represented as a single stochastic variable for each time step, realized by a single aggregated impulse during $dt$ that influences the dynamics over the time step.
-Finally, it is important to see that $\vec{F}^{n}$, $\vec{F}^{n+1}$, and $\vec{\eta}^{n+1}$ have units of momentum \SI{}{\kilo\gram\meter\per\second} and the constant $\frac{m dt}{2m +\gamma dt}$ has units of time \SI{}{\second}.
+Finally, it is important to see that $\vec{F}^{n}$, $\vec{F}^{n+1}$, and $\vec{\cor{\rho}}^{n+1}$ have units of momentum \SI{}{\kilo\gram\meter\per\second} and the constant $\frac{m dt}{2m +\cor{\mu} dt}$ has units of time \SI{}{\second}.
 
 \begin{comment}
 \begin{gather}
@@ -1151,7 +1151,7 @@ The Langevin equation in LAMMPS is implemented as follows,
     F_r &\propto\sqrt{\frac{k_B T m}{dt\mathrm{damp}}},\label{eqn:MolDylammps2}
 \end{align}
 where $F_c$ is the conservative force computed from particle-particle interactions.
-The term $F_r$ is equivalent to $-m\gamma v$ and $F_r$ is equivalent to the term $\vec{R}(t)$ on equation~\eqref{eqn:BrownianDyn1}.
+The term $F_r$ is equivalent to $-m\cor{\mu} v$ and $F_r$ is equivalent to the term $\vec{R}(t)$ on equation~\eqref{eqn:BrownianDyn1}.
 LAMMPS implements the random numbers to randomize the direction and magnitude of this force, where a uniform random number is used (instead of a Gaussian random number) for speed.
 
 The magnitude of the random force is derived from the fluctuation/dissipation theorem, where $k_B$ is the Boltzmann constant, $T$ is the desired temperature, $m$ is the mass of the particle, $dt$ is the timestep size, and $\mathrm{damp}$ is the damping factor.

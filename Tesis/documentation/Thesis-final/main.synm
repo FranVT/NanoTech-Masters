@@ -1,6 +1,5 @@
-\glossaryentry{$"\sigma $?\glossentry{sigma-mr}|setentrycounter[]{page}"\glsnumberformat}{17}
+\glossaryentry{$"\sigma ^*$?\glossentry{sigma-mr}|setentrycounter[]{page}"\glsnumberformat}{17}
 \glossaryentry{$r^{*}$?\glossentry{rred-mr}|setentrycounter[]{page}"\glsnumberformat}{17}
-\glossaryentry{$r^{*}$?\glossentry{r-mr}|setentrycounter[]{page}"\glsnumberformat}{17}
 \glossaryentry{$"\epsilon ^{*}_{ij}$?\glossentry{e-mr}|setentrycounter[]{page}"\glsnumberformat}{17}
 \glossaryentry{$r^{*}_{c}$?\glossentry{rc-mr}|setentrycounter[]{page}"\glsnumberformat}{17}
 \glossaryentry{$K$?\glossentry{K-mr}|setentrycounter[]{page}"\glsnumberformat}{17}
@@ -10,3 +9,4 @@
 \glossaryentry{$N_p$?\glossentry{Np-mr}|setentrycounter[]{page}"\glsnumberformat}{17}
 \glossaryentry{$c$?\glossentry{c-mr}|setentrycounter[]{page}"\glsnumberformat}{17}
 \glossaryentry{$T^{*}$?\glossentry{T-mr}|setentrycounter[]{page}"\glsnumberformat}{17}
+\glossaryentry{$"\mathrm {damp}$?\glossentry{damp-mr}|setentrycounter[]{page}"\glsnumberformat}{17}

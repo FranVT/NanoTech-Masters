@@ -43,10 +43,10 @@ Finally, the particle volume fraction contributes to the ability of the particle
 Let's start by describing the interaction potentials between patchy particles.
 The interaction between the central particles is modeled using a Weeks-Chandler-Andersen repulsive potential.
 \begin{gather}
-    U_{\mathrm{WCA}}(r_{i,j}) =\left\{ 
+    U_{\mathrm{WCA}}(\cor{r^*}_{i,j}) =\left\{ 
         \begin{array}{ll}
-            4\epsilon_{i,j}\left[\qty(\frac{\sigma}{r_{i,j}})^{12}-\qty(\frac{\sigma}{r_{i,j}})^6\right]+\epsilon_{i,j}, & r_{i,j}\in[0,2^{1/6}\sigma], \\
-            0, & r_{i,j}>2^{1/6}\sigma
+            4\cor{\epsilon^*}_{i,j}\left[\qty(\frac{\cor{\sigma^*}}{\cor{r^*}_{i,j}})^{12}-\qty(\frac{\cor{\sigma^*}}{\cor{r^*}_{i,j}})^6\right]+\cor{\epsilon^*}_{i,j}, & \cor{r^*}_{i,j}\in[0,2^{1/6}\cor{\sigma^*}], \\
+            0, & \cor{r^*}_{i,j}>2^{1/6}\cor{\sigma^*}
         \end{array}
 \right.
     ,\label{eqn:CL-MO_interaction}

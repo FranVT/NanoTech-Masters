@@ -63,22 +63,22 @@
 \newglossaryentry{eta-mech}{
   type=symbolsmech,
   name=$\eta$,
-  description={Viscosity (\SI[per-mode=fraction]{}{\kilo\gram\per\meter\per\second})}
+  description={Viscosity (\SI{}{\kilo\gram\per\meter\per\second})}
 }
 \newglossaryentry{gamma-mech}{
   type=symbolsmech,
   name=$\dot{\gamma}$,
-  description={Shear rate (\SI[per-mode=fraction]{}{\per\second})}
+  description={Shear rate (\SI{}{\per\second})}
 }
 \newglossaryentry{Gt-mech}{
   type=symbolsmech,
   name=$G(t)$,
-  description={Time dependent modulus (\SI[per-mode=fraction]{}{\pascal})}
+  description={Time dependent modulus (\SI{}{\pascal})}
 }
 \newglossaryentry{T-mech}{
   type=symbolsmech,
   name=$\vec{T}$,
-  description={Traction vector (\SI[per-mode=fraction]{}{\newton})}
+  description={Traction vector (\SI{}{\newton})}
 }
 \newglossaryentry{n-mech}{
   type=symbolsmech,
@@ -130,27 +130,27 @@
 \newglossaryentry{r-md}{
   type=symbolsmd,
   name=$r$,
-  description={Distance (Dimensionless)}
+  description={Distance (\SI{}{\meter})}
 }
-\newglossaryentry{gamma-md}{
+\newglossaryentry{mu-md}{
   type=symbolsmd,
-  name=$\gamma$,
+  name=$\mu$,
   description={Friction constant (\SI{}{\kilo\gram\per\second})}
 }
 \newglossaryentry{kb-md}{
   type=symbolsmd,
   name=$\mathrm{k}_\mathrm{B}$,
-  description={Boltzmann constant (\SI[per-mode=fraction]{}{\joule\per\kelvin})}
+  description={Boltzmann constant (\SI{}{\joule\per\kelvin})}
 }
 \newglossaryentry{T-md}{
   type=symbolsmd,
   name=$T$,
-  description={T (\SI[per-mode=fraction]{}{\kelvin})}
+  description={T (\SI{}{\kelvin})}
 }
 \newglossaryentry{delta-md}{
   type=symbolsmd,
-  name=$\delta$,
-  description={Dirac's delta (Dimensionless)}
+  name=$\delta(x)$,
+  description={Dirac's delta (1/unit)}
 }
 \newglossaryentry{dt-md}{
   type=symbolsmd,
@@ -161,20 +161,13 @@
 % Methods and results
 \newglossaryentry{sigma-mr}{
   type=symbolsmr,
-  name=$\sigma$,
+  name=$\sigma^*$,
   description={Particle diameter (Length)}
 }
 \newglossaryentry{rred-mr}{
   type=symbolsmr,
   name=$r^{*}$,
-  description={Reduce distance ($r/\sigma$  Adimensional)}
-}
-
-
-\newglossaryentry{r-mr}{
-  type=symbolsmr,
-  name=$r^{*}$,
-  description={Interparticle distance (Dimensionless)}
+  description={Reduce distance ($r/\sigma^*$  Adimensional)}
 }
 \newglossaryentry{e-mr}{
   type=symbolsmr,
@@ -221,7 +214,11 @@
   name=$T^{*}$,
   description={Temperature (Dimensionless)}
 }
-
+\newglossaryentry{damp-mr}{
+  type=symbolsmr,
+  name=$\mathrm{damp}$,
+  description={Damping coefficient (1/time)}
+}
 
 
 %\bibliographystyle{abbrvnat}
