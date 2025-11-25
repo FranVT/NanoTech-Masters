@@ -99,17 +99,18 @@ This interaction is given by:
 \end{gather}
 where
 \begin{gather}
-    U_{3}\qty(r) = \left\{
+    U_{3}\qty(\cor{\alpha}) = \left\{
         \begin{array}{ll}
-            1 & r\in\qty[0,r_{\min}], \\
-            -U_{\mathrm{patchy}}\qty(r)/\epsilon_{m,n}, & r\in\qty[r_{\min},r_c]
+            1 & \cor{\alpha}\in\qty[0,\cor{\alpha}_{\min}], \\
+            -U_{\mathrm{patchy}}\qty(\cor{\alpha})/\epsilon_{m,n}, & \cor{\alpha}\in\qty[\cor{\alpha}_{\min},\cor{\alpha}_c]
         \end{array}
         \right.\label{eqn:swapmod_interaction}.
 \end{gather}
+\cor{Where $\alpha$ is the distance between the patches $r_{l,m}$ or $r_{l,n}$.}
 The sum in~\eqref{eqn:swap_interaction} runs over all triples of bonded patches (patch $l$ bonded both with $m$ and $n$).
 $r_{l,m}$ and $r_{l,n}$ are the distances between the reference patch and the other two patches.
 The parameter $\epsilon_{m,n}$ is the energy of repulsion, and $w$ is used to tune the swapping ($w=1$) and non-swapping bonds ($w\gg1$). 
-The cutoff distance $r_c$ is the same as in the potential of interaction between patches, meanwhile the minimum distance $r_{\min}$ is the distance at the minimum of~\eqref{eqn:patch-patch_interaction}, \textit{i.e.} $\epsilon_{m,n}\equiv\abs{U_{\mathrm{patchy}}(r_{\min})}$.
+The cutoff distance $\alpha_c$ is the same as in the potential of interaction between patches, meanwhile the minimum distance $\alpha_{\min}$ is the distance at the minimum of~\eqref{eqn:patch-patch_interaction}, \textit{i.e.} $\epsilon_{m,n}\equiv\abs{U_{\mathrm{patchy}}(\alpha_{\min})}$.
 
 Figure~\ref{fig:swappot} shows the patch-patch potential with the swap potential.
 The patch-patch potential in the figure is the energy of the interaction between patch $i$ and patch $k$.
@@ -183,23 +184,25 @@ Based on these characteristics, we calculate the box's volume as well as the num
 Due to limitations related to time and computing resources, the total number of particles is set to be $N_p=\num{8000}$.
 This is a lower number of particles when compared with other simulations~\citep{gnanSilicoSynthesisMicrogel2017}.
 Therefore, in order to compensate, we take the mean of five experiments.
-In addition, the timestep was set to \num{0.001}$\cor{t^{*}}$, as a rule of thumb.
+In addition the time step is set to \num{0.001}$\cor{t^{*}}$ \cor{to ensure numerical stability. 
+The stability criterion is denoted as $\mathrm{damp}^{*}dt^{*}<2$\citep{leimkuhlerContractionConvergenceRates2024}.
+Since $\mathrm{damp}^{*}dt^{*} =\num{1d-4}$, numerical stability is ensured.}
 This allow us to obtain good average observables.
-Finally, the values of $\cor{K^{*}}_r$ and $\cor{K^{*}}_\theta$ are set to \num{100} to create a strong bond and prevent stretching of monomers (patchy particles B) and crosslinkers (patchy particles A).
+Finally, the values of $\cor{K_r^{*}}$ and $\cor{K_\theta^{*}}$ are set to \num{100} to create a strong bond and prevent stretching of monomers (patchy particles B) and crosslinkers (patchy particles A).
 The value of $r_o$ is set to \num{0.45}.
 The value of $\theta_o$ is set to \SI{180}{\degree} for PB particles and \SI{109.4712}{\degree} for PA particles.
 
 Once the parameters for the synthesis were set, the volume of the box was calculated by determining the volume of the patchy particles A and B and then scaling those values by the number of particles and the desired packing fraction.
 \begin{align*}
-    \cor{V^{*}}_{\mathrm{box}} &= \frac{N_{\mathrm{patchyA}}\cor{V^{*}}_{\mathrm{patchyA}}+N_{\mathrm{patchyB}}\cor{V^{*}}_{\mathrm{patchyB}}}{\phi}
+    \cor{V_{\mathrm{box}}^{*}} &= \frac{N_{\mathrm{patchyA}}\cor{V_{\mathrm{patchyA}}^{*}}+N_{\mathrm{patchyB}}\cor{V_{\mathrm{patchyB}}^{*}}}{\phi}
 \end{align*}
 The number of patchy particles of type A is computed as $N_{\mathrm{patchyA}} = c N_p$, and the number of patchy particles of type B as $N_{\mathrm{patchyB}}= N_p - N_{\mathrm{patchyA}}= N_p(1 - c )$.
 Finally, the temperature was set to be constant through all the assembly process, $\cor{T^*}=\num{0.05}$ in Lennard-Jones units; meanwhile, the damp parameter was set to \cor{$\mathrm{damp}=\num{0.1}$}.
-It is very important to note that the damp controls the viscous response caused by the interaction between the thermal bath and the particles, which symbolizes the interaction of water molecules with the polymer network. The diameter of the central particle is set to $\cor{O^*}=1$ and the diameter of the patches at $\cor{O^*}_p=0.4$.
+It is very important to note that the damp controls the viscous response caused by the interaction between the thermal bath and the particles, which symbolizes the interaction of water molecules with the polymer network. The diameter of the central particle is set to $\cor{O^*}=1$ and the diameter of the patches at $\cor{O_p^*}=0.4$.
 
-The energy of interaction between central particles is $\cor{\epsilon^*}_{i,j}=1$.
+The energy of interaction between central particles is $\cor{\epsilon_{i,j}^*}=1$.
 In contrast, the energy of interaction between patches is defined as follows:
-The interaction of patchy particles B is set to $\cor{\epsilon^*}_{\mu,\upsilon}=1$, whereas the interaction between patchy particles A is set to \num{0} ($\cor{\epsilon^*}_{\mu,\upsilon}=0$), and the interaction between patches of patchy particles A with patchy particles B is set to \num{1} ($\cor{\epsilon^*}_{\mu,\upsilon}=1$).
+The interaction of patchy particles B is set to $\cor{\epsilon_{\mu,\upsilon}^*}=1$, whereas the interaction between patchy particles A is set to $\cor{\epsilon_{\mu,\upsilon}^*}=0$, and the interaction between patches of patchy particles A with patchy particles B is set to $\cor{\epsilon_{\mu,\upsilon}^*}=1$.
 This is to allow only crosslinker-monomer and monomer-monomer bonding.
 
 %\paragraph{Deformation protocol}
@@ -228,87 +231,88 @@ This parameter is specified in time units and determines how rapidly the tempera
 That is, if damp is set to \num{100}, the temperature will relax in a timespan of roughly \num{100} time units.
 By making dimensional analysis, the damp factor can be thought of as inversely related to the viscosity of the solvent.
 This tells us that a small damp represents a high-viscosity solvent and vice versa.
-Therefore, since the damp is set to \num{0.1}, the polymeric network is in a high-viscosity solvent.
+Therefore, since the damp is set to \cor{\num{0.1}}, the polymeric network is in a high-viscosity solvent.
 In addition it is important to mention that all the simulations are done with Lennard Jones units.
 
 %\paragraph{Three-body potential}
 In regard to the swap potential, the \verb|threebody/table| pair style command is used to implement generic tabulated three-body interactions.
-However, in LAMMPS, the tabulation is done on a three-dimensional plane of the two distances $r_{ij}$ and $r_{ik}$ with the angle $\theta_{ijk}$, where the forces on all three particles $I$, $J$, and $K$ lie within the plane defined by the three inter-particle distance vectors $\vec{r}_{IJ}$, $\vec{r}_{IK}$, and $\vec{r}_{JK}$\citep{LAMMPS}.
+However, in LAMMPS, the tabulation is done on a three-dimensional plane of the two distances $\cor{r_{ij}^*}$ and $\cor{r_{ik}^*}$ with the angle $\theta_{ijk}$, where the forces on all three particles $I$, $J$, and $K$ lie within the plane defined by the three inter-particle distance vectors $\vec{\cor{r_{IJ}^*}}$, $\vec{\cor{r_{IK}^*}}$, and $\vec{\cor{r_{JK}^*}}$\citep{LAMMPS}.
 Allowing the following property to project the forces onto the inter-particle distance vectors,
 \begin{equation}
-    \begin{pmatrix}\vec{f}_i \\ \vec{f}_j \\ \vec{f}_k\end{pmatrix}
+    \begin{pmatrix}\vec{\cor{f_i^*}} \\ \vec{\cor{f_j^*}} \\ \vec{\cor{f_k^*}}\end{pmatrix}
     =
-    \begin{pmatrix}f_{i1} & f_{i2} & 0 \\ f_{j1} & 0 & f_{j2} \\ 0 & f_{k1} & f_{k2} \end{pmatrix}
-    \begin{pmatrix}\vec{r}_{ij} \\ \vec{r}_{ik} \\ \vec{r}_{jk}\end{pmatrix}.
+    \begin{pmatrix}\cor{f_{i1}^*} & \cor{f_{i2}^*} & 0 \\ \cor{f_{j1}^*} & 0 & \cor{f_{j2}^*} \\ 0 & \cor{f_{k1}^*} & \cor{f_{k2}^*} \end{pmatrix}
+    \begin{pmatrix}\vec{\cor{r_{ij}^*}} \\ \vec{\cor{r_{ik}^*}} \\ \vec{\cor{r_{jk}^*}}\end{pmatrix}.
 \end{equation}
-And due to symmetry interactions, $f_{i1}=-f_{j1}$, $f_{i2}=-f_{k1}$, and $f_{j2}=-f_{k2}$.
+And due to symmetry interactions, $\cor{f_{i1}^*}=-\cor{f_{j1}^*}$, $\cor{f_{i2}^*}=-\cor{f_{k1}^*}$, and $\cor{f_{j2}^*}=-\cor{f_{k2}^*}$.
 
 Therefore, to have a correct tabulation, it is necessary to project the force into the inter-particle plane.
-Recalling that the force is equivalent to $-\nabla U(r)$ and the potential has only radial dependence, the force can be expressed as
+Recalling that the force is equivalent to $-\nabla \cor{U^*}(\cor{r^*})$ and the potential has only radial dependence, the force can be expressed as
 \begin{gather}
-    \vec{f}_n = -\pdv{U_{\mathrm{swap}}(r_m,r_l)}{r}\hat{e}_r,
+    \vec{\cor{f_n^*}} = -\pdv{\cor{U_{\mathrm{swap}}^{*}}(\cor{r_m^*},\cor{r_l^*})}{\cor{r^*}}\hat{e}_{\cor{r^*}},
 \end{gather}
 where $n$ represent the particle $i$, $j$ or $k$, while $m$ and $l$ are place holders for distances $ij$, $ik$ and $jk$.
 Hence, 
 \begin{align}
-    \vec{f_{i}} &= -\pdv{U_{\mathrm{swap}}(r_{ij},r_{ik})}{r}\hat{e}_r\label{eqn:3body1}, \\
-    \vec{f_{j}} &= -\pdv{U_{\mathrm{swap}}(r_{ji},r_{jk})}{r}\hat{e}_r\label{eqn:3body2}, \\
-    \vec{f_{k}} &= -\pdv{U_{\mathrm{swap}}(r_{ki},r_{kj})}{r}\hat{e}_r\label{eqn:3body3}.
+    \vec{\cor{f_{i}^*}} &= -\pdv{\cor{U_{\mathrm{swap}}^{*}}(\cor{r_{ij}^*},\cor{r_{ik}^*})}{\cor{r^*}}\hat{e}_{\cor{r^*}}\label{eqn:3body1}, \\
+    \vec{\cor{f_{j}^*}} &= -\pdv{\cor{U_{\mathrm{swap}}^{*}}(\cor{r_{ji}^*},\cor{r_{jk}^*})}{\cor{r^*}}\hat{e}_{\cor{r^*}}\label{eqn:3body2}, \\
+    \vec{\cor{f_{k}^*}} &= -\pdv{\cor{U_{\mathrm{swap}}^{*}}(\cor{r_{ki}^*},\cor{r_{kj}^*})}{\cor{r^*}}\hat{e}_{\cor{r^*}}\label{eqn:3body3}.
 \end{align}
-The projection of the force into the plane is computed via the dot product between $\hat{e}_r$ and the basis that represents the plane. 
-Which can be defined by the following 2-dimensional basis, $\hat{e}_1=\qty[1,0] $ and $\hat{e}_2=\qty[\cos\theta,\sin\theta] $, and $\theta$ is the angle between distances $\vec{r}_{ij}$ and $\vec{r}_{ik}$ since the software defines the plane using the distances between the particles.
+The projection of the force into the plane is computed via the dot product between $\hat{e}_{\cor{r^*}}$ and the basis that represents the plane. 
+Which can be defined by the following 2-dimensional basis, $\hat{e}_1=\qty[1,0] $ and $\hat{e}_2=\qty[\cos\theta,\sin\theta] $, and $\theta$ is the angle between distances $\vec{\cor{r_{ij}^*}}$ and $\vec{\cor{r_{ik}^*}}$ since the software defines the plane using the distances between the particles.
 With this we can compute the following projections:
 \begin{align}
-    \hat{e}_r \cdot \hat{e}_1 &= 1\\
-    \hat{e}_r \cdot \hat{e}_2 &= \cos\theta. 
+    \hat{e}_{\cor{r^*}} \cdot \hat{e}_1 &= 1\\
+    \hat{e}_{\cor{r^*}} \cdot \hat{e}_2 &= \cos\theta. 
 \end{align}
 Also, the following vector can be defined as $\hat{e}_3 = \hat{e}_1 - \hat{e}_2 = \qty[1-\cos\theta,-\sin\theta]$ to represent the $j-k$ distance, and the projection will be
 \begin{align}
-    \hat{e}_r \cdot \hat{e}_3 &= 1-\cos\theta.
+    \hat{e}_{\cor{r^*}} \cdot \hat{e}_3 &= 1-\cos\theta.
 \end{align}
 
 With these projections the forces can be expressed in~\eqref{eqn:3body1},~\eqref{eqn:3body2}, and~\eqref{eqn:3body3} as follows:
 \begin{align}
-    f_{i1} &= -\pdv{U_{\mathrm{swap}}(r_{ij},r_{ik})}{r}\label{eqn:3body4a}, \\
-    f_{i2} &= -\pdv{U_{\mathrm{swap}}(r_{ij},r_{ik})}{r}\cos\theta\label{eqn:3body4b}, \\
-    f_{j2} &= -\pdv{U_{\mathrm{swap}}(r_{ji},r_{jk})}{r}\qty(1-\cos\theta)\label{eqn:3body5}.
+    \cor{f_{i1}^*} &= -\pdv{\cor{U_{\mathrm{swap}}^{*}}(\cor{r_{ij}^*},\cor{r_{ik}^*})}{\cor{r^*}}\label{eqn:3body4a}, \\
+    \cor{f_{i2}^*} &= -\pdv{\cor{U_{\mathrm{swap}}^{*}}(\cor{r_{ij}^*},\cor{r_{ik}^*})}{\cor{r^*}}\cos\theta\label{eqn:3body4b}, \\
+    \cor{f_{j2}^*} &= -\pdv{\cor{U_{\mathrm{swap}}^{*}}(\cor{r_{ji}^*},\cor{r_{jk}^*})}{\cor{r^*}}\qty(1-\cos\theta)\label{eqn:3body5}.
 \end{align}
 And due to the symmetry relations, the potential can be tabulated into the LAMMPS software to introduce the one-bond-per-patch condition and mitigate numerical instability during shear deformation.
 
 The \verb|fix deform| command simulates a shear deformation on the $xy$ plane.
 It uses the engineering deformation rate (\verb|erate| style) to adjust the box's dimension at a ``constant engineering strain rate''.
-The length of the box, L, will be modified over time,
+The length of the box, $\cor{L^{*}}$, will be modified over time,
 \begin{gather}
-    L(t) = L_o\qty(1 + \mathrm{erate}~dt),
+    \cor{L^{*}}(t) = \cor{L_o^{*}}\qty(1 + \cor{\mathrm{erate}^{*}}~\cor{dt^{*}}),
 \end{gather}
-where $L_o$ is the original box length and $\mathrm{erate}$ is the shear rate in units of $1/\mathrm{time}$\citep{LAMMPS}.
+where $\cor{L_o^{*}}$ is the original box length and $\cor{\mathrm{erate}^{*}}$ is the shear rate in units of $1/\cor{t^*}$\citep{LAMMPS}.
 This deformation is applied in the $xy$ plane, and the change in length is along the $x$ direction.
 This set of parameters ensures that the volume does not change during the deformation\citep{LAMMPS}.
 In addition to the \verb|erate| style, the \verb|remap| keyword was set to \verb|x| to remap particle positions without affecting their velocities\citep{LAMMPS}.
-Setting remap to x causes the atoms to deform using an affine transformation that is identical to the box deformation.  It is important to note that, while the atoms are effectively ``moving'' with the box over time, this is due to the remapping rather than their velocity, which tracks the box's change.
+Setting remap to x causes the atoms to deform using an affine transformation that is identical to the box deformation.  
+It is important to note that, while the atoms are effectively ``moving'' with the box over time, this is due to the remapping rather than their velocity, which tracks the box's change.
 Finally, the \verb|flip| keyword is used to flip the box when the tilt factors exceed half the distance of the parallel box length to avoid computational inefficiency and errors\citep{LAMMPS}.
 
 %\paragraph{fix stress} 
 This section concludes with an explanation of how LAMMPS computes the stress tensor.
 The \verb|compute stress/atom| calculates the stress tensor for an atom $I$ using the equation \citep{thompsonGeneralFormulationPressure2009,LAMMPS},
 \begin{gather}
-    S_{ab} = -v_a v_b - W_{ab}\label{eqn:stressLAMMPS},
+    \cor{S_{ab}^{*}} = -\cor{v_a^{*}} \cor{v_b^{*}} - \cor{W_{ab}^{*}}\label{eqn:stressLAMMPS},
 \end{gather}
-where $a$ and $b$ represent the spatial coordinates $x$, $y$ and $z$, and $W_{ab}$ is the virial contribution given by
+where $a$ and $b$ represent the spatial coordinates $x$, $y$ and $z$, and $\cor{W^*}_{ab}$ is the virial contribution given by
 \begin{multline}
-    W_{ab} = \frac{1}{2}\sum_{n=1}^{N_p}\qty(r_{1a} F_{1b} + r_{2a} F_{2b})
-            +\frac{1}{2}\sum_{n=1}^{N_b}\qty(r_{1a} F_{1b} + r_{2a} F_{2b}) \\
-            +\frac{1}{3}\sum_{n=1}^{N_a}\qty(r_{1a} F_{1b} + r_{2a} F_{2b} + r_{3a} F_{3b})
-            +\frac{1}{4}\sum_{n=1}^{N_d}\qty(r_{1a} F_{1b} + r_{2a} F_{2b} + r_{3a} F_{3b} + r_{4a} F_{4b}) \\
-            +\frac{1}{4}\sum_{n=1}^{N_i}\qty(r_{1a} F_{1b} + r_{2a} F_{2b} + r_{3a} F_{3b} + r_{4a} F_{4b}) 
-            +\sum_{n=1}^{N_f}r_{ia} F_{ib}.
+    \cor{W_{ab}^{*}} = \frac{1}{2}\sum_{n=1}^{N_p}\qty(\cor{r_{1a}^*} \cor{F_{1b}^{*}} + \cor{r_{2a}^*} \cor{F_{2b}^{*}})
+    +\frac{1}{2}\sum_{n=1}^{N_b}\qty(\cor{r_{1a}^*} \cor{F_{1b}^{*}} + \cor{r_{2a}^*} \cor{F_{2b}^{*}}) \\
+            +\frac{1}{3}\sum_{n=1}^{N_a}\qty(\cor{r_{1a}^*} \cor{F_{1b}^{*}} + \cor{r_{2a}^*} \cor{F_{2b}^{*}} + \cor{r_{3a}^*} \cor{F_{3b}^{*}})
+            +\frac{1}{4}\sum_{n=1}^{N_d}\qty(\cor{r_{1a}^*} \cor{F_{1b}^{*}} + \cor{r_{2a}^*} \cor{F_{2b}^{*}} + \cor{r_{3a}^*} \cor{F_{3b}^{*}} + \cor{r_{4a}^*} \cor{F_{4b}^{*}}) \\
+            +\frac{1}{4}\sum_{n=1}^{N_i}\qty(\cor{r_{1a}^*} \cor{F_{1b}^{*}} + \cor{r_{2a}^*} \cor{F_{2b}^{*}} + \cor{r_{3a}^*} \cor{F_{3b}^{*}} + \cor{r_{4a}^*} \cor{F_{4b}^{*}}) 
+            +\sum_{n=1}^{N_f}\cor{r_{ia}^*} \cor{F_{ib}^{*}}.
 \end{multline}
 The first term accounts for pairwise interactions, the second for bond contributions, and the third, fourth, and fifth for angle-based interactions.
 Since we only declare pairwise interactions and bond and angle interactions, the virial contribution simplifies to
 \begin{multline}
-    W_{ab} = \frac{1}{2}\sum_{n=1}^{N_p}\qty(r_{1a} F_{1b} + r_{2a} F_{2b})
-            +\frac{1}{2}\sum_{n=1}^{N_b}\qty(r_{1a} F_{1b} + r_{2a} F_{2b}) \\
-            +\frac{1}{3}\sum_{n=1}^{N_a}\qty(r_{1a} F_{1b} + r_{2a} F_{2b} + r_{3a} F_{3b})\label{eqn:virialLAMMPS}.
+    \cor{W_{ab}^{*}} = \frac{1}{2}\sum_{n=1}^{N_p}\qty(\cor{r_{1a}^*} \cor{F_{1b}^{*}} + \cor{r_{2a}^*} \cor{F_{2b}^{*}})
+            +\frac{1}{2}\sum_{n=1}^{N_b}\qty(\cor{r_{1a}^*} \cor{F_{1b}^{*}} + \cor{r_{2a}^*} \cor{F_{2b}^{*}}) \\
+            +\frac{1}{3}\sum_{n=1}^{N_a}\qty(\cor{r_{1a}^*} \cor{F_{1b}^{*}} + \cor{r_{2a}^*} \cor{F_{2b}^{*}} + \cor{r_{3a}^*} \cor{F_{3b}^{*}})\label{eqn:virialLAMMPS}.
 \end{multline}
 
 Substituting the virial term~\eqref{eqn:virialLAMMPS} into the per-particle stress tensor~\eqref{eqn:stressLAMMPS} yields a similar expression for the previously derived stress~\eqref{eqn:DerVirTen23}.
@@ -320,9 +324,9 @@ As a result, in order to study the mechanical response of the Cauchy stress tens
 Now let's explain the simulation protocols for the assembly of the polymeric network and the applied deformation.
 The assembly process starts by introducing the $N_p$ patchy particles at random positions in a box with lengths that match the desired packing fraction.
 Then, the temperature is linearly increased from \num{0} to \num{0.05} in \num{500000} time steps to prevent numerical instability.
-After that, the temperature was held constant until the total energy of the system stabilized to a minimum.
+Thereafter, the temperature was held constant until the total energy of the system stabilized to a minimum.
 This process was performed by varying the number of time steps until it was found that the patchy particle network percolated and the energy of the system didn't increase.
-The number of time steps that these conditions were met is \num{8d6} time steps after the previous \num{5d5}.
+The number of time steps required to meet these conditions is \num{8d6}, which follows the previous \num{5d5} time steps.
 
 After the assembly protocol was completed, the final configuration was saved to a file before applying shear deformation.
 The patchy particle network was then subjected to a series of five deformations with matching shear rates.
@@ -330,7 +334,7 @@ For each shear deformation simulation, the system energy, stress tensor componen
 Following 5 sets of deformation with the same shear rate, a new set of deformations was performed with a different shear rate, beginning with the same initial configuration as the previous one.
 
 It is important to mention that the saved measurements are rolling mean temporal averages.
-The time average for the assembly protocol is specified in terms of the damp parameter: $100\cdot\mathrm{dt}\cdot\mathrm{damp}$, whereas for the shear deformation, the period was set to $0.05\dot{\gamma}$.
+The time average for the assembly protocol is specified in terms of the damp parameter: $100\cdot\cor{\mathrm{dt}^*}\cdot\cor{\mathrm{damp}^*}$, whereas for the shear deformation, the period was set \cor{such that in the time period the strain achieves} $0.05\cor{\zeta^{*}}$.
 This was established for the energy, temperature, and stress tensors.
 The intervals for saving the system's phase space were calculated based on the simulation time and strain for assembly and deformation.
 After saving the metrics from all of the simulations, an average of the experiments with the identical settings was computed.

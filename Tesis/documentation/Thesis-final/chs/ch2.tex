@@ -1163,7 +1163,7 @@ The Langevin equation in LAMMPS is implemented as follows,
     F_r &\propto\sqrt{\frac{k_B T m}{dt\mathrm{damp}}},\label{eqn:MolDylammps2}
 \end{align}
 where $F_c$ is the conservative force computed from particle-particle interactions.
-The term $F_r$ is equivalent to $-m\cor{\mu} v$ and $F_r$ is equivalent to the term $\vec{R}(t)$ on equation~\eqref{eqn:BrownianDyn1}.
+The \cor{second} is equivalent to $-m\cor{\mu} v$ and $F_r$ is equivalent to the term $\vec{R}(t)$ on equation~\eqref{eqn:BrownianDyn1}.
 LAMMPS implements the random numbers to randomize the direction and magnitude of this force, where a uniform random number is used (instead of a Gaussian random number) for speed.
 
 The magnitude of the random force is derived from the fluctuation/dissipation theorem, where $k_B$ is the Boltzmann constant, $T$ is the desired temperature, $m$ is the mass of the particle, $dt$ is the timestep size, and $\mathrm{damp}$ is the damping factor.
