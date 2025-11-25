@@ -43,26 +43,26 @@ Finally, the particle volume fraction contributes to the ability of the particle
 Let's start by describing the interaction potentials between patchy particles.
 The interaction between the central particles is modeled using a Weeks-Chandler-Andersen repulsive potential.
 \begin{gather}
-    U_{\mathrm{WCA}}(\cor{r^*}_{i,j}) =\left\{ 
+    U_{\mathrm{WCA}}(r_{i,j}) =\left\{ 
         \begin{array}{ll}
-            4\cor{\epsilon^*}_{i,j}\left[\qty(\frac{\cor{\sigma^*}}{\cor{r^*}_{i,j}})^{12}-\qty(\frac{\cor{\sigma^*}}{\cor{r^*}_{i,j}})^6\right]+\cor{\epsilon^*}_{i,j}, & \cor{r^*}_{i,j}\in[0,2^{1/6}\cor{\sigma^*}], \\
-            0, & \cor{r^*}_{i,j}>2^{1/6}\cor{\sigma^*}
+            4\epsilon_{i,j}\left[\qty(\frac{\cor{O}}{r_{i,j}})^{12}-\qty(\frac{\cor{O}}{r_{i,j}})^6\right]+\epsilon_{i,j}, & r_{i,j}\in[0,2^{1/6}\cor{O}], \\
+            0, & r_{i,j}>2^{1/6}\cor{O}
         \end{array}
 \right.
     ,\label{eqn:CL-MO_interaction}
 \end{gather}
-where $r_{i,j}$ is the distance between the center of the central particles, $\sigma$ is the diameter of the particles and $\epsilon_{i,j}$ is the energy of the interacton.
-It is noteworthy that the WCA potential can be understood as the Lennard-Jones potential with a vertical shift of $\epsilon$, resulting in entirely repulsive interactions.
+where $r_{i,j}$ is the distance between the center of the central particles, \cor{$O$} is the diameter of the particles and $\epsilon_{i,j}$ is the energy of the interacton.
+It is noteworthy that the WCA potential can be understood as the Lennard-Jones potential with a vertical shift of $\epsilon$ and a cutoff, resulting in entirely repulsive interactions.
 On the other hand, the patch-patch interaction is modeled with an attractive potential,
 \begin{gather}
     U_{\mathrm{patchy}}\qty(r_{\mu\upsilon}) = \left\{
         \begin{array}{ll}
-            2\epsilon_{\mu\upsilon}\left(\frac{\sigma_p^4}{2 r_{\mu\upsilon}^4}-1\right)\exp\left[\frac{\sigma_p}{\qty(r_{\mu\upsilon}-r_{c})}+2\right], & r_{\mu\upsilon}\in\qty[0,r_c], \\
+            2\epsilon_{\mu\upsilon}\left(\frac{\cor{O}^4}{2 r_{\mu\upsilon}^4}-1\right)\exp\left[\frac{\cor{O}_p}{\qty(r_{\mu\upsilon}-r_{c})}+2\right], & r_{\mu\upsilon}\in\qty[0,r_c], \\
             0, & r_{\mu,\upsilon}>r_c,
         \end{array}
             \right.\label{eqn:patch-patch_interaction}
 \end{gather}
-where $r_{\mu\upsilon}$ is the distance between two patches, $\sigma_p$ is the diameter of the patches, $r_c$ is the cut distance of interaction set to $1.5\sigma_p$ and $\epsilon_{\mu,\upsilon}$ is the interaction energy between the patches.
+where $r_{\mu\upsilon}$ is the distance between two patches, $\cor{O}_p$ is the diameter of the patches, $r_c$ is the cut distance of interaction set to $1.5\cor{O}_p$ and $\epsilon_{\mu,\upsilon}$ is the interaction energy between the patches.
 %This potential can be interpreted as a reversible interaction.
 
 In order to put in context the type of polymeric network that this potentials models, equation~\eqref{eqn:patch-patch_interaction} is compared with the FENE potential,
@@ -114,8 +114,8 @@ The cutoff distance $r_c$ is the same as in the potential of interaction between
 Figure~\ref{fig:swappot} shows the patch-patch potential with the swap potential.
 The patch-patch potential in the figure is the energy of the interaction between patch $i$ and patch $k$.
 The swap potential is the energy between patch $i$ and patch $k$, leaving the distance between patch $i$ and patch $j$ fixed.
-Taking into account this, when the patches $i$ and $j$ are at the potential well ($r_{ij}=\sigma$), the interaction between $i$ and $k$ is null.
-When the distance between patches $i$ and $j$ are bigger than the potential well but smaller than the cutoff distance ($r_{\mathrm{cut}}>r_{ij}>\sigma$), the interaction between $i-k$ is mildly attractive.
+Taking into account this, when the patches $i$ and $j$ are at the potential well ($r_{ij}=\cor{O}$), the interaction between $i$ and $k$ is null.
+When the distance between patches $i$ and $j$ are bigger than the potential well but smaller than the cutoff distance ($r_{\mathrm{cut}}>r_{ij}>\cor{O}$), the interaction between $i-k$ is mildly attractive.
 Finally, when the patches $i-j$ are bigger than the cutoff distance ($r_{\mathrm{cut}}<r_{ij}$), the interaction between $i-k$ is repulsive.
 
 \begin{figure}[ht!]
@@ -139,12 +139,6 @@ Where $r_o$ and $\theta_o$ represent the equilibrium bond distance and angle.
 Meanwhile, $K$ is equal to $K=k/2$, where $k$ is the energy of the bond.
 This allows us to create patchy particles with patches fixed at a convenient position.
 
-All of the above descriptions are summarized in figure~\ref{fig:interactionPatches}.
-Orange central particles indicate patchy particles with valence \num{2}, while red central particles indicate patchy particles with valence \num{4}, as illustrated in panels a and b.
-On panels c and d, we can see the swap dynamic enabled by the three-body potential.
-On panel C, a patchy particle approaches a pair of bonded patches.
-Because of the swap potential, instead of forming a bond between the three patches, the interaction can shift to form a bond with the incoming particle.
-
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=8cm]{figs/numerical/interactionPatches.png}
@@ -154,6 +148,33 @@ Because of the swap potential, instead of forming a bond between the three patch
     }\label{fig:interactionPatches}
 \end{figure}
 
+All of the above descriptions are summarized in figure~\ref{fig:interactionPatches}.
+Orange central particles indicate patchy particles with valence \num{2}, while red central particles indicate patchy particles with valence \num{4}, as illustrated in panels a and b.
+On panels c and d, we can see the swap dynamic enabled by the three-body potential.
+On panel C, a patchy particle approaches a pair of bonded patches.
+Because of the swap potential, instead of forming a bond between the three patches, the interaction can shift to form a bond with the incoming particle.
+
+\subsection{\cor{Reduce units}}
+
+\cor{Before moving to a more extensive description of the system, it is crucial to recognize that the numerical simulations are run using the reduced Lennard-Jones units for computational and physical convenience.
+The Lennard-Jones reduced units are achieved by rescaling the distance, energy, and mass to a characteristic quantity and setting $k_B=1$.
+The distance is rescaled by the diameter of the particle, $r^*=r/O$; the energy is rescaled by the potential well of the interaction potentials $\epsilon^{*} = E/\epsilon$; meanwhile, the mass is rescaled to a characteristic quantity of the system $m^* = m/m_{\mathrm{ref}}$.
+Finally, by setting $k_B$ to $1$ with the other quantities, the time is rescaled by $t^* = t\sqrt{\epsilon/(m_{\mathrm{ref}}O^2)}$.}
+
+\cor{Although energy is not a fundamental unit, $k_\mathrm{B}$ is selected for rescaling as it is essential for establishing the reduced unit for temperature.
+The reduced temperature is rescaled by $T^{*} = k_{\mathrm{B}}T/\epsilon$, or}
+\begin{equation}
+    \cor{\epsilon T^* = k_{\mathrm{B}}T.}
+\end{equation}
+\cor{Recognizing that $k_{\mathrm{B}}$ serves as a conversion factor between temperature and energy, this decision facilitates a straightforward comparison of thermal energy with interaction energy.
+By establishing $T^*=1$, the thermal energy is equated to the potential well depth $\epsilon$.
+Conversely, establishing $T^*=0.5$ represents a system having half the thermal energy relative to the potential well depth.}
+
+\cor{From this moment onward, all quantities are presented in reduced Lennard-Jones units.
+For clarity, quantities will be represented with an asterisk in their symbols, for example, $r \to r^{*}$ or $T \to T^{*}$, and so on.}
+
+\subsection{\cor{Parameters}}
+
 %\paragraph{Polymeric network parameters}
 Let us now move on to the simulation's parameters.
 Each system had a fixed number of patchy particles $N_p$, packing fraction $\phi$, and cross-link concentration $c$.
@@ -162,23 +183,23 @@ Based on these characteristics, we calculate the box's volume as well as the num
 Due to limitations related to time and computing resources, the total number of particles is set to be $N_p=\num{8000}$.
 This is a lower number of particles when compared with other simulations~\citep{gnanSilicoSynthesisMicrogel2017}.
 Therefore, in order to compensate, we take the mean of five experiments.
-In addition, the timestep was set to \num{0.001}, as a rule of thumb.
+In addition, the timestep was set to \num{0.001}$\cor{t^{*}}$, as a rule of thumb.
 This allow us to obtain good average observables.
-Finally, the values of $K_r$ and $K_\theta$ are set to \num{100} to create a strong bond and prevent stretching of monomers (patchy particles B) and crosslinkers (patchy particles A).
+Finally, the values of $\cor{K^{*}}_r$ and $\cor{K^{*}}_\theta$ are set to \num{100} to create a strong bond and prevent stretching of monomers (patchy particles B) and crosslinkers (patchy particles A).
 The value of $r_o$ is set to \num{0.45}.
 The value of $\theta_o$ is set to \SI{180}{\degree} for PB particles and \SI{109.4712}{\degree} for PA particles.
 
 Once the parameters for the synthesis were set, the volume of the box was calculated by determining the volume of the patchy particles A and B and then scaling those values by the number of particles and the desired packing fraction.
 \begin{align*}
-    V_{\mathrm{box}} &= \frac{N_{\mathrm{patchyA}}V_{\mathrm{patchyA}}+N_{\mathrm{patchyB}}V_{\mathrm{patchyB}}}{\phi}
+    \cor{V^{*}}_{\mathrm{box}} &= \frac{N_{\mathrm{patchyA}}\cor{V^{*}}_{\mathrm{patchyA}}+N_{\mathrm{patchyB}}\cor{V^{*}}_{\mathrm{patchyB}}}{\phi}
 \end{align*}
 The number of patchy particles of type A is computed as $N_{\mathrm{patchyA}} = c N_p$, and the number of patchy particles of type B as $N_{\mathrm{patchyB}}= N_p - N_{\mathrm{patchyA}}= N_p(1 - c )$.
-Finally, the temperature was set to be constant through all the assembly process, $T=\num{0.05}$ in Lennard-Jones units; meanwhile, the damp parameter was set to \cor{$\mathrm{damp}=\num{0.1}$}.
-It is very important to note that the damp controls the viscous response caused by the interaction between the thermal bath and the particles, which symbolizes the interaction of water molecules with the polymer network. The radius of the central particle is set to $0.5$ ($\sigma=1$) and the radius of the patches at $0.2$ ($\sigma_p=0.4$).
+Finally, the temperature was set to be constant through all the assembly process, $\cor{T^*}=\num{0.05}$ in Lennard-Jones units; meanwhile, the damp parameter was set to \cor{$\mathrm{damp}=\num{0.1}$}.
+It is very important to note that the damp controls the viscous response caused by the interaction between the thermal bath and the particles, which symbolizes the interaction of water molecules with the polymer network. The diameter of the central particle is set to $\cor{O^*}=1$ and the diameter of the patches at $\cor{O^*}_p=0.4$.
 
-The energy of interaction between central particles is 1 $\epsilon_{i,j}=1$.
+The energy of interaction between central particles is $\cor{\epsilon^*}_{i,j}=1$.
 In contrast, the energy of interaction between patches is defined as follows:
-The interaction of patchy particles B is set to 1 ($\epsilon_{\mu,\upsilon}=1$), whereas the interaction between patchy particles A is set to \num{0} ($\epsilon_{\mu,\upsilon}=0$), and the interaction between patches of patchy particles A with patchy particles B is set to \num{1} ($\epsilon_{\mu,\upsilon}=1$).
+The interaction of patchy particles B is set to $\cor{\epsilon^*}_{\mu,\upsilon}=1$, whereas the interaction between patchy particles A is set to \num{0} ($\cor{\epsilon^*}_{\mu,\upsilon}=0$), and the interaction between patches of patchy particles A with patchy particles B is set to \num{1} ($\cor{\epsilon^*}_{\mu,\upsilon}=1$).
 This is to allow only crosslinker-monomer and monomer-monomer bonding.
 
 %\paragraph{Deformation protocol}
@@ -190,7 +211,7 @@ Furthermore, shear rheometry excels at characterizing the complex viscoelastic p
 Many hydrogels exhibit shear-thinning behavior that is critical for applications like injection and 3D bioprinting. 
 The shear deformation was done at a constant shear rate in the $xy$ plane.
 
-The shear rates were in the \num{d-3} order of magnitude, and the final strain was \num{15} units.
+The shear rates were in the \num{d-3}\cor{[$1/t^*$]} order of magnitude, and the final strain was \num{15}.
 This is to characterize the mechanical response and to deform beyond the plastic deformation limit.
 Also, the variation of the shear rate was performed to see the viscoelastic response of the material.
 The temperature and dampness parameters were set to be the same as in the assembly process.
