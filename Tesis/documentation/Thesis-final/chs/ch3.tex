@@ -1,8 +1,6 @@
 \chapter{Methods and Results}
 % Patchy particle scheme for hydrophilic polymeric networks
 
-\cor{IN THIS CHAPTER TALK ABOUT REDUCE UNITS}
-
 Now that the theoretical framework was covered, lets delve into the numerical tools that will help to find relations between the polymeric network and the mechanical response. 
 First, the patchy particle scheme for simulating PNIPAM cross-linked networks is presented, detailing the numerical simulation protocol.
 Also an introduction to the LAMMPS software and how it was used to simulate this system is covered.
@@ -403,8 +401,7 @@ After briefly discussing the configurational results of the patchy particle netw
 %    \caption{Flip Bonds}\label{fig:flipBonds}
 %\end{figure}
 
-%\subsection{Mechanical response}
-
+%\subsection{Mechanical response
 %\cor{\Large\citep{argunInterplaySpatialTopological2024}}
 
 Figure~\ref{fig:stres-strainResults} shows the strain-stress curve of the patchy particle network, demonstrating the effect of different shear rates and crosslinker concentrations.
@@ -467,9 +464,25 @@ Instead, it was chosen to compute the temporal average of the final portion of t
 
 
 \begin{gather}
-    f(\zeta^{*}) = c_1 (\zeta^{*})^{c_2} + c_3\label{eqn:fit} 
+    f(\zeta^{*}) = c_1 (\zeta^{*})^{c_2}\label{eqn:fit} 
 \end{gather}
 
+
+\begin{table}[ht!]
+\centering
+\caption{Parameters of the fit model}\label{tab:fitParameters}
+\begin{tabularx}{12cm}{|>{\centering\arraybackslash\bfseries}p{2cm}|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|}
+\toprule
+\textbf{Cl~\%} & \textbf{$c_1$} & \textbf{$c_2$} \\
+\midrule
+\num{10}            & \num{7613.758267}  & \num{0.590128} \\
+\midrule
+\num{5}      & \num{5888.735284}  & \num{0.488094} \\
+\midrule
+\num{3}         & \num{5576.947312} &  \num{0.404582} \\
+\bottomrule
+\end{tabularx}
+\end{table}
 
 
 
