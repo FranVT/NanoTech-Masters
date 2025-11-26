@@ -299,22 +299,27 @@ The \verb|compute stress/atom| calculates the stress tensor for an atom $I$ usin
 where $a$ and $b$ represent the spatial coordinates $x$, $y$ and $z$, and $\cor{W^*}_{ab}$ is the virial contribution given by
 \begin{multline}
     \cor{W_{ab}^{*}} = \frac{1}{2}\sum_{n=1}^{N_p}\qty(\cor{r_{1a}^*} \cor{F_{1b}^{*}} + \cor{r_{2a}^*} \cor{F_{2b}^{*}})
+            +\frac{1}{2}\sum_{n=1}^{N_b}\qty(\cor{r_{1a}^*} \cor{F_{1b}^{*}} + \cor{r_{2a}^*} \cor{F_{2b}^{*}}) \\
+            +\frac{1}{3}\sum_{n=1}^{N_a}\qty(\cor{r_{1a}^*} \cor{F_{1b}^{*}} + \cor{r_{2a}^*} \cor{F_{2b}^{*}} + \cor{r_{3a}^*} \cor{F_{3b}^{*}})\label{eqn:virialLAMMPS}.
+\end{multline}
+\cor{The first term accounts for pairwise interactions, the second for bond contributions, and the third for the angle-based interaction.}
+%Since we only declare pairwise interactions and bond and angle interactions, the virial contribution simplifies to
+
+\begin{comment}
+\begin{multline}
+    \cor{W_{ab}^{*}} = \frac{1}{2}\sum_{n=1}^{N_p}\qty(\cor{r_{1a}^*} \cor{F_{1b}^{*}} + \cor{r_{2a}^*} \cor{F_{2b}^{*}})
     +\frac{1}{2}\sum_{n=1}^{N_b}\qty(\cor{r_{1a}^*} \cor{F_{1b}^{*}} + \cor{r_{2a}^*} \cor{F_{2b}^{*}}) \\
             +\frac{1}{3}\sum_{n=1}^{N_a}\qty(\cor{r_{1a}^*} \cor{F_{1b}^{*}} + \cor{r_{2a}^*} \cor{F_{2b}^{*}} + \cor{r_{3a}^*} \cor{F_{3b}^{*}})
             +\frac{1}{4}\sum_{n=1}^{N_d}\qty(\cor{r_{1a}^*} \cor{F_{1b}^{*}} + \cor{r_{2a}^*} \cor{F_{2b}^{*}} + \cor{r_{3a}^*} \cor{F_{3b}^{*}} + \cor{r_{4a}^*} \cor{F_{4b}^{*}}) \\
             +\frac{1}{4}\sum_{n=1}^{N_i}\qty(\cor{r_{1a}^*} \cor{F_{1b}^{*}} + \cor{r_{2a}^*} \cor{F_{2b}^{*}} + \cor{r_{3a}^*} \cor{F_{3b}^{*}} + \cor{r_{4a}^*} \cor{F_{4b}^{*}}) 
             +\sum_{n=1}^{N_f}\cor{r_{ia}^*} \cor{F_{ib}^{*}}.
 \end{multline}
-The first term accounts for pairwise interactions, the second for bond contributions, and the third, fourth, and fifth for angle-based interactions.
-Since we only declare pairwise interactions and bond and angle interactions, the virial contribution simplifies to
-\begin{multline}
-    \cor{W_{ab}^{*}} = \frac{1}{2}\sum_{n=1}^{N_p}\qty(\cor{r_{1a}^*} \cor{F_{1b}^{*}} + \cor{r_{2a}^*} \cor{F_{2b}^{*}})
-            +\frac{1}{2}\sum_{n=1}^{N_b}\qty(\cor{r_{1a}^*} \cor{F_{1b}^{*}} + \cor{r_{2a}^*} \cor{F_{2b}^{*}}) \\
-            +\frac{1}{3}\sum_{n=1}^{N_a}\qty(\cor{r_{1a}^*} \cor{F_{1b}^{*}} + \cor{r_{2a}^*} \cor{F_{2b}^{*}} + \cor{r_{3a}^*} \cor{F_{3b}^{*}})\label{eqn:virialLAMMPS}.
-\end{multline}
+\end{comment}
+
 
 Substituting the virial term~\eqref{eqn:virialLAMMPS} into the per-particle stress tensor~\eqref{eqn:stressLAMMPS} yields a similar expression for the previously derived stress~\eqref{eqn:DerVirTen23}.
 The stress tensor in equation~\eqref{eqn:DerVirTen23} is a temporal and spatial average, whereas the stress tensor in~\eqref{eqn:stressLAMMPS} is defined per particle.
+\com{What type of average?}
 As a result, in order to study the mechanical response of the Cauchy stress tensor, a suitable time average, followed by a spatial average of the per-particle stress tensor along the patchy particle network, including the patches, is required.
 
 \subsection{Assembly simulation and Shear deformation}
@@ -324,6 +329,7 @@ The assembly process starts by introducing the $N_p$ patchy particles at random 
 Then, the temperature is linearly increased from \num{0} to \num{0.05} in \num{500000} time steps to prevent numerical instability.
 Thereafter, the temperature was held constant until the total energy of the system stabilized to a minimum.
 This process was performed by varying the number of time steps until it was found that the patchy particle network percolated and the energy of the system didn't increase.
+\com{Equil? Explain more why stop there.}
 The number of time steps required to meet these conditions is \num{8d6}, which follows the previous \num{5d5} time steps.
 
 After the assembly protocol was completed, the final configuration was saved to a file before applying shear deformation.
