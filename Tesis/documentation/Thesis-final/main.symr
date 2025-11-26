@@ -5,6 +5,8 @@
 		\setentrycounter[]{page}\glsnumberformat{17}}}%
 \glossentry{Np-mr}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{17}}}%
+\glossentry{o-mr}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{17}}}%
 \glossentry{Ro-mr}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{17}}}%
 \glossentry{T-mr}{\glossaryentrynumbers{\relax 
@@ -15,13 +17,15 @@
 		\setentrycounter[]{page}\glsnumberformat{17}}}%
 \glossentry{phi-mr}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{17}}}%
-\glossentry{c-mr}{\glossaryentrynumbers{\relax 
+\glossentry{strain-mr}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{17}}}%
-\glossentry{o-mr}{\glossaryentrynumbers{\relax 
+\glossentry{c-mr}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{17}}}%
 \glossentry{rred-mr}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{17}}}%
 \glossentry{rc-mr}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{17}}}%
+\glossentry{stress-mr}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{17}}}%
 \glossentry{w-mr}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{17}}}%

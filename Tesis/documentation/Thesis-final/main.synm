@@ -1,6 +1,6 @@
-\glossaryentry{$o$?\glossentry{o-mr}|setentrycounter[]{page}"\glsnumberformat}{17}
+\glossaryentry{$O$?\glossentry{o-mr}|setentrycounter[]{page}"\glsnumberformat}{17}
 \glossaryentry{$r^{*}$?\glossentry{rred-mr}|setentrycounter[]{page}"\glsnumberformat}{17}
-\glossaryentry{$"\epsilon _{ij}$?\glossentry{e-mr}|setentrycounter[]{page}"\glsnumberformat}{17}
+\glossaryentry{$"\epsilon $?\glossentry{e-mr}|setentrycounter[]{page}"\glsnumberformat}{17}
 \glossaryentry{$r^{*}_{c}$?\glossentry{rc-mr}|setentrycounter[]{page}"\glsnumberformat}{17}
 \glossaryentry{$K$?\glossentry{K-mr}|setentrycounter[]{page}"\glsnumberformat}{17}
 \glossaryentry{$R_{o}^{2}$?\glossentry{Ro-mr}|setentrycounter[]{page}"\glsnumberformat}{17}
@@ -10,3 +10,5 @@
 \glossaryentry{$c$?\glossentry{c-mr}|setentrycounter[]{page}"\glsnumberformat}{17}
 \glossaryentry{$T^{*}$?\glossentry{T-mr}|setentrycounter[]{page}"\glsnumberformat}{17}
 \glossaryentry{$"\mathrm {damp}$?\glossentry{damp-mr}|setentrycounter[]{page}"\glsnumberformat}{17}
+\glossaryentry{$s^{*}$?\glossentry{stress-mr}|setentrycounter[]{page}"\glsnumberformat}{17}
+\glossaryentry{$"\zeta ^{*}$?\glossentry{strain-mr}|setentrycounter[]{page}"\glsnumberformat}{17}

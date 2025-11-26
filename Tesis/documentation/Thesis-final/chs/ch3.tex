@@ -417,7 +417,7 @@ When the maximum stress value is reached, the stress begins to drop until it rea
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.9\textwidth]{figs/ComputaitonalResults/stress-strain.pdf}
+    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/comp.pdf}
     \caption{Strain-stress relation for a set of 10 different shear rates applied to three different patchy particles systems with crosslinker concentration of 3, 5 and 10 percent.
         Each line represent a 5 experiments average with an assembly average and a moving time average.}\label{fig:stres-strainResults}
     %Computational results at different crosslinker concentrations. Each line reprensent the average of 5 experiments with \num{8000} patchy particles with a packing fraction of \num{0.5}, damp of \num{0.5} and the time average is in intervals of \num{5d-2}$\dot{\gamma}$.
@@ -438,7 +438,7 @@ By focusing on the same shear rate, it is clear that the crosslinker concentrati
 Furthermore, by evaluating the fluctuation in shear rate at a fixed concentration, we can better detect overshoot as the shear rate increases (same color in each panel).
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.9\textwidth]{figs/ComputaitonalResults/zoom-clResponse.pdf}
+    \includegraphics[width=\textwidth]{figs/ComputaitonalResults/compCl.pdf}
     \caption{Computational results at different crosslinker concentrations with different shear rates. Each line reprensent the average of 5 experiments with \num{8000} patchy particles with a packing fraction of \num{0.5}, damp of \num{0.5} and the time average is in intervals of \num{5d-2}$\dot{\gamma}$.}\label{fig:stress-strainCLResults}
 \end{figure}
 It is also worth noting that the peak strain value and peak height increase in proportion to the shear rate.
@@ -454,7 +454,7 @@ With exponents ($p_2$) $\{0.5901,0.4880,0.4045\}$ for the \num{10}\%, \num{5}\%,
 This finding served as a starting point for further investigation into yield stress events in polymeric networks.
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.75\textwidth]{figs/ComputaitonalResults/yieldStress.pdf}
+    \includegraphics[width=0.9\textwidth]{figs/ComputaitonalResults/yieldStress-fits.pdf}
     \caption{Time average of steady-stress regime from computational results. Dashed lines represent exponential fits.
     \cor{Quitar los puntos. La linea de ajuste no se usa, quitar. justificar }
     }\label{fig:yieldStressResults}
@@ -464,6 +464,14 @@ The Herschel-Bulkey model can quantitatively describe a ''\textit{yield stress m
 However, the yield stress $\sigma_y$ was not defined using the Tresca or Von Mises criterion.
 Instead, it was chosen to compute the temporal average of the final portion of the deformation, assuming that the system achieves plastic deformation after the overshoot.
 %\subsection{Network analysis}
+
+
+\begin{gather}
+    f(\zeta^{*}) = c_1 (\zeta^{*})^{c_2} + c_3\label{eqn:fit} 
+\end{gather}
+
+
+
 
 \begin{comment}
 In order to describe the network with a quantitative framework, on figure~\ref{fig:network2} we show a set of histograms of the metrics from the gyration tensor for the same system of figure~\ref{fig:network1} along the hole deformation at different shear rates.
