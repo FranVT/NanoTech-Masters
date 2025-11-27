@@ -8,28 +8,19 @@ To finish the chapter, the numerical results are analyzed.
 
 \section{Simulation protocol}
 
-One of the microgels that has been the focus of significant research is the type that is based on PNIPAM cross-linked networks.
-A flexible numerical portocol capable of designing these individual microgel particles has been presented in the \cor{literature}~\citep{gnanSilicoSynthesisMicrogel2017}.
-The authors introduce a flexible numerical method that can imitate \emph{individual microgel particles} made from PNIPAM crosslinked networks.
-\cor{In this work, the numerical method is modified to create a polymeric gel rather than a microgel particle.
-To achieve that, the spherical confinement and the temperature-sensitive swelling potential are removed from the methodology.}
-
-As a result, the central technique involves using a binary mixture of patchy particles to create a disordered polymeric network structure, \cor{afterwards subjected to shear deformation.} 
+\cor{The numercial techinique to create a polymeric network in silico is based on} a flexible numerical method that can imitate \emph{individual microgel particles} made from PNIPAM crosslinked networks~\citep{gnanSilicoSynthesisMicrogel2017}.
 The primary benefit of this protocol is that previous numerical efforts in \cor{polymeric networks} modeling have predominantly concentrated on unrealistic networks consisting of chains of equivalent length, frequently establishing cross-linked connections on crystalline lattice regions or where closed polymer networks are assembled by directly integrating randomly dispersed cross-linkers with polymer chains\citep{grasingerPolymerNetworksWhich2023,tobitaDesignControlPolymeric2025}.
 
-%In this project, we employ a similar protocol to explore its versatility and identify a numerical tool that can facilitate connections between network configuration and mechanical response.
+\cor{In this work, the numerical method is modified to create a polymeric gel rather than a microgel particle.
+To achieve that, the spherical confinement and the temperature-sensitive swelling potential are removed from the original protocol.}
+\cor{Consequently, the main approach involves using a binary mixture of patchy particles to construct a disordered polymeric network structure, followed by the application of shear deformation.}
+\cor{To decrease the solvent's impact on the mechanical response during shear deformation, both the temperature and the friction coefficient are held at low values throughout the assembly and shear simulations.}
 
-
-%The authors present a flexible numerical protocol capable of designing \emph{individual microgel particles} based on PNIPAM crosslinked networks\com{Why would be different for other hydrogles?}. 
-%This protocol can generate particles with properties comparable to the experimental ones.
-
-%The primary focus is on creating networks without spherical confinement and without mimicking the swelling behavior of PINIPAM microgels with temperature.
 \subsection{Patchy particles representation}
 
 A patchy particle\citep{bianchiPhaseDiagramPatchy2006,bianchiTheoreticalNumericalStudy2008} can be defined as a sphere with radius $r$ containing $n$ spheres of radius $l<r$ on its surface.
 The smaller spheres are typically referred to as ``patches,'' and the number of patches is often referred to as ``functionality''.
-The center of the patches can be placed on the surface of the central particle. 
-However, it can also be modified to be at a point inside the enclosed volume of the main particle.
+The center of the patches can be placed \cor{inside the enclosed volume} of the central particle.
 
 \cor{Making use of patchy particles as monomers and crosslinkers is an efficient approach, as it facilitates the incorporation of Langevin dynamics' infinitesimal representation with a particle possessing volume and functionality.
 The functionality is crucial since it allows the formation of the polymeric network~\citep{ramadhanEnzymaticallyPreparedDual2019}. 
@@ -37,6 +28,7 @@ In more detail, the volume of the particle is modeled with a repulsive pairwise 
 Meanwhile, the formation of the polymeric network is encouraged by a pairwise interaction between patches.
 Furthermore, the pairwise interaction between central particles and patches is null.
 The subsequent paragraphs give a detailed description of the pairwise interactions.
+After that, the selection of the numeric values of the parameters is explained.
 }
 
 %The use of patchy particles as monomers and crosslinkers is a highly effective method since it allows for the integration of Langevin dynamics' infinitesimal representation with a particle with volume and functionality.
@@ -53,6 +45,20 @@ The subsequent paragraphs give a detailed description of the pairwise interactio
 %Finally, the particle volume fraction contributes to the ability of the particles to deform or compress, in contrast to hard spheres\citep{vlassopoulosTunableRheologyDense2014}.%\footnote{The patchy particles are hard spheres, but the hydrogel network is a soft ``particle''.}
 
 \subsection{Description of the system}
+
+\cor{Let's start with the description of the patchy particles.}
+The patches and the central particles are linked by harmonic potentials.
+\begin{align}
+    E_r &= \cor{K_{br}}\qty(r-\cor{r_{bo}})^2, \\
+    E_\theta &= \cor{K_{b\theta}}\qty(\theta-\cor{\theta_{bo}})^2.
+\end{align}
+Where \cor{$r_{bo}$} and \cor{$\theta_{bo}$} represent the equilibrium bond distance and angle.
+Meanwhile, \cor{$K_{br}$} and \cor{$K_{br}$} are equal to $k/2$, where $k$ is the energy of the bond.
+\cor{This allow to placed the patches at desire positions.
+It is important to recognize that the patchy particles can also be represented through a rigid interaction between the central particle and the patch.
+As a result, to rectify the numerical problems, the central-patch interaction was modified using a bond potential, so resolving those concerns.
+Now, let us continue to describe the pairwise interactions between patchy particles.
+}
 
 %\paragraph{Interaction potentials}
 %Let's start by describing the interaction potentials between patchy particles.
@@ -83,10 +89,10 @@ where $r_{\mu\upsilon}$ is the distance between two patches, $\cor{O}_p$ is the 
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=12cm]{figs/numerical/patchpatch.png}
-    \caption{Comparisson between the potentials used in the simulation with standard potentials.
-        Orange and green line are the potentials used in the simulation for the interaction between central particles and patches, respectively.
-        While, the blue and red are the Lennard-Jones and FENE potentials, commonly used to represent interparticle interactions.
-        All distances where modifed to match the patches particles for comparison reasons.
+    \caption{\cor{Comparison between the potentials used in the simulation with standard potentials.
+        The orange and green lines are the potentials used in the simulation for the interaction between central particles and patches, respectively.
+    The blue and red lines represent the Lennard-Jones and FENE potentials, which are the commonly used to represent interparticle interactions.}
+    \cor{For comparison purposes, the parameters are set to \num{1}, $K=1$, $R_o=1$, $\epsilon=1$, $D=1$}
 }\label{fig:patchpatchpot}
 \end{figure}
 
@@ -99,24 +105,23 @@ This is more appropriately depicted in Figure~\label{fig:patchpatchpot}.
 \begin{equation}
     U_{\mathrm{FENE}}(r) = -\frac{1}{2}KR_o^2\ln\left[1-\left(\frac{r}{R_o}\right)^2\right]+U_{WCA}(r),\label{eqn:FENEpot}
 \end{equation}
-where $R_o$ is the maximum extent of the bond and $K$ is the energy of the bond and has units of energy over area.
-This potential it is used to represent covalent bonds between monomers in a polymers\citep{leRheologyStructuralProperties2008}.
-This key distinction enables us to design the patch-patch interaction as a reversible interaction rather than the FENE, which is better suited to representing non-reversible interactions.
+where $R_o$ is the maximum extent of the bond and $K$ is the energy of the bond and has units of energy over distance squared.
+This potential is commonly used to represent covalent bonds between monomers in a polymers\citep{leRheologyStructuralProperties2008}.
+\cor{This key distinction enables us to design the patch-patch interaction as a reversible interaction rather than a non-reversible interaction via the FENE potential.}
 As a result, the computational methodology simulates a polymeric network with physical crosslinkers.
 
-
-
-
-Figure~\ref{fig:patchpatchpot} compares the patch-patch interaction potential, the Lennard-Jones potential, and the FENE potential \cor{with $K=1$, $R_o=1$, $\epsilon =1$, $O=1$ in order to explore a qualitative comparisson.}\com{Poner eso en la caption}
+%Figure~\ref{fig:patchpatchpot} compares the patch-patch interaction potential, the Lennard-Jones potential, and the FENE potential \cor{with in order to explore a qualitative comparisson.}\com{Poner eso en la caption}
 %The Lennard-Jones and patch-patch potentials are qualitatively similar in that they both tend to zero after a certain cutoff distance.
 %In contrast, the FENE potential goes to infinity if the distance is too short or too wide.
 
 %The patch-patch interaction differs from the Lennard-Jones potential in that the minimum potential is horizontally translated, and the rate of change from the minimum to the cut distance is more apparent.
 %Equation
 
-However, if the simulation for the polymeric network is simply performed using the \cor{WCA} and patch-patch potentials, the patches will form interactions of more than two patches, which is undesirable.
-Hence, the interaction between patches is complemented by a three-body repulsive potential, defined in terms of~\eqref{eqn:patch-patch_interaction}, that provides an efficient bond-swapping mechanism, making it possible to easily equilibrate the system even at low temperatures, while at the same time retaining the single bond per patch condition~\citep{sciortinoThreebodyPotentialSimulating2017}.
-This interaction is given by:
+\cor{However, if the simulation of the polymeric network happens just with the WCA and patch-patch potentials, the patches will take part in interactions involving several patches, which is undesired.
+Additionally, because of the low temperature of the system, a three-body repulsive potential is introduced to promote network percolation.
+}
+This potential is defined in terms of~\eqref{eqn:patch-patch_interaction}, which facilitates an efficient bond-swapping mechanism, enabling the system to equilibrate readily even at low temperatures, while simultaneously maintaining the single bond per patch condition~\citep{sciortinoThreebodyPotentialSimulating2017}.
+The algebraic expression of the interaction is given by:
 \begin{gather}
     U_{\mathrm{swap}}(r_{l,m},r_{l,n}) = w\sum_{l,m,n}\epsilon_{m,n}U_3\qty(r_{l,m})U_3\qty(r_{l,n}),\quad r_{l,n}\in\qty[0,r_c],\label{eqn:swap_interaction}
 \end{gather}
@@ -134,10 +139,9 @@ The sum in~\eqref{eqn:swap_interaction} runs over all triples of bonded patches 
 $r_{l,m}$ and $r_{l,n}$ are the distances between the reference patch and the other two patches.
 The parameter $\epsilon_{m,n}$ is the energy of repulsion, and $w$ is used to tune the swapping ($w=1$) and non-swapping bonds ($w\gg1$). 
 The cutoff distance $\alpha_c$ is the same as in the potential of interaction between patches, meanwhile the minimum distance $\alpha_{\min}$ is the distance at the minimum of~\eqref{eqn:patch-patch_interaction}, \textit{i.e.} $\epsilon_{m,n}\equiv\abs{U_{\mathrm{patchy}}(\alpha_{\min})}$.
-\cor{In this work the parameter is set to \num{0.75}.}
 
-Figure~\ref{fig:swappot} shows the patch-patch potential with the swap potential.
-The patch-patch potential in the figure is the energy of the interaction between patch $i$ and patch $k$.
+Figure~\ref{fig:swappot} shows the patch-patch potential \cor{and} the swap potential.
+The patch-patch potentia, the blue line in the figure, is the energy of the interaction between patch $i$ and patch $k$.
 The swap potential is the energy between patch $i$ and patch $k$, leaving the distance between patch $i$ and patch $j$ fixed.
 Taking into account this, when the patches $i$ and $j$ are at the potential well ($r_{ij}=\cor{O}$), the interaction between $i$ and $k$ is null.
 When the distance between patches $i$ and $j$ are bigger than the potential well but smaller than the cutoff distance ($r_{\mathrm{cut}}>r_{ij}>\cor{O}$), the interaction between $i-k$ is mildly attractive.
@@ -154,16 +158,13 @@ Finally, when the patches $i-j$ are bigger than the cutoff distance ($r_{\mathrm
     }\label{fig:swappot}
 \end{figure}
 
-Before proceeding to the description of the parameters for the simulation, it is necessary to describe the interaction between the central particle and the patches.
-The patches and the central particles are linked by harmonic potentials.
-\begin{align}
-    E_r &= K_r\qty(r-\cor{r_{bo}})^2, \\
-    E_\theta &= K_\theta\qty(\theta-\cor{\theta_{bo}})^2.
-\end{align}
-Where \cor{$r_{bo}$} and \cor{$\theta_{bo}$} represent the equilibrium bond distance and angle.
-Meanwhile, $K$ is equal to $K=k/2$, where $k$ is the energy of the bond.
-This allows us to create patchy particles with patches fixed at a convenient position.
-\com{Why not rigid?}
+\cor{A visual representation of the specified interactions is illustrated in figure~\ref{fig:interactionPatches}.
+The irregular particles featuring an orange central particle represent monomers due to the presence of two patches.
+The irregular particle featuring a red central component indicates the crosslinker due to its four patches, indicating a valence of 4.
+Panels (a) and (b) illustrate the permitted interactions between patches throughout the simulation.
+Panels (c) and (d) illustrate the impact of the exchange mechanism.
+Rather than establishing a bond among the three patches, the interaction can change to build an interaction with the incoming particle.
+}
 
 \begin{figure}[ht!]
     \centering
@@ -174,18 +175,16 @@ This allows us to create patchy particles with patches fixed at a convenient pos
     }\label{fig:interactionPatches}
 \end{figure}
 
-All of the above descriptions are summarized in figure~\ref{fig:interactionPatches}.
-Orange central particles indicate patchy particles with valence \num{2}, while red central particles indicate patchy particles with valence \num{4}, as illustrated in panels a and b.
-On panels c and d, we can see the swap dynamic enabled by the three-body potential.
-On panel C, a patchy particle approaches a pair of bonded patches.
-Because of the swap potential, instead of forming a bond between the three patches, the interaction can shift to form a bond with the incoming particle.
+
+
+\newpage
 
 \subsection{\cor{Reduce units}}
 
-\cor{Before moving to a more extensive description of the system, it is crucial to recognize that the numerical simulations are run using the reduced Lennard-Jones units for computational and physical convenience.
+\cor{Before detailing the numerical values for the parameters, it is crucial to recognize that the numerical simulations are performed using reduced Lennard-Jones units for computational and physical efficiency.
 The Lennard-Jones reduced units are achieved by rescaling the distance, energy, and mass to a characteristic quantity and setting $k_B=1$.
 The distance is rescaled by the diameter of the particle, $r^*=r/O$; the energy is rescaled by the potential well of the interaction potentials $\epsilon^{*} = E/\epsilon$; meanwhile, the mass is rescaled to a characteristic quantity of the system $m^* = m/m_{\mathrm{ref}}$.
-Finally, by setting $k_B$ to $1$ with the other quantities, the time is rescaled by $t^* = t\sqrt{\epsilon/(m_{\mathrm{ref}}O^2)}$.}
+Finally, by setting $k_B$ to $1$ with the other quantities, the time is rescaled by $t^* = t\sqrt{\epsilon/(m_{\mathrm{ref}}D^2)}$.}
 
 \cor{Although energy is not a fundamental unit, $k_\mathrm{B}$ is selected for rescaling as it is essential for establishing the reduced unit for temperature.
 The reduced temperature is rescaled by $T^{*} = k_{\mathrm{B}}T/\epsilon$, or}
@@ -202,35 +201,60 @@ For clarity, quantities will be represented with an asterisk in their symbols, f
 \subsection{\cor{Parameters}}
 
 %\paragraph{Polymeric network parameters}
-Let us now move on to the simulation's parameters.
-Each system had a fixed number of patchy particles $N_p$, packing fraction $\phi$, and cross-link concentration $c$.
-Based on these characteristics, we calculate the box's volume as well as the number of patchy particles of functionality 2 (PB) and functionality 4 (PA).
+Each system had a fixed number of patchy particles, $N_p$, packing fraction, $\phi$, and cross-link concentration $c$.
+Based on these quantities, the box's volume and the total number of patchy particles with functionality 2 (PB) and functionality 4 (PA) were calculated.
+\cor{For the purpose of this model investigation, the total number of patchy particles is set at $N_p=\num{8000}$.
+This quantity was chosen to reduce artifical connections arising from particle interactions with their periodic pictures; also, an increased number of particles enhances averaging and reduces statistical errors.
+It is important to mention that the study initiated with a system of \num{10000} patchy particles, which was subsequently lowered for time efficiency; a configuration of \num{8000} patchy particles exhibited comparable observables to the system of \num{10000}.
+}
 
-\cor{For the patchy particles, the values of $\cor{K_r^{*}}$ and $\cor{K_\theta^{*}}$ are established at \num{100} to create a robust bond and inhibit the elongation of monomers (patchy particles B) and crosslinkers (patchy particles A).
+%\paragraph{Number of patchy particles}
+\cor{For both patchy particles, the values of $\cor{K_{br}^{*}}$ and $\cor{K_{b\theta}^{*}}$ are established at \num{100}~\cor{$\epsilon^*$} to create a robust bond and inhibit the elongation of monomers and crosslinkers.
+\cor{Meanwhile the radius of the central particle is set to \num{0.5}~$r^{*}$ and the radius of the patches is \num{0.2}~$r^*$.}
 The distance between the center of the central particle and the patches is set to \num{0.45}$r^*$.
-The value of $\theta_o$ is established at \SI{180}{\degree} for PB particles and \SI{109.4712}{\degree} for PA particles.}
+Finally, the value of $\theta_{bo}$ is established at \SI{180}{\degree} for PB particles and \SI{109.4712}{\degree} for PA particles.}
+\cor{The inter-center distance was adjusted to ensure that the centers do not coincide with the surface of the central particle.
+Meanwhile, the amount of patches and angles corresponds to that described in~\citep{gnanSilicoSynthesisMicrogel2017}.}
 
-\cor{Because of constraints concerning time and computational resources, the total patchy particle number is established at $N_p=\num{8000}$\com{Size effect.}.
-This represents a reduced quantity of particles in comparison to other simulations~\citep{gnanSilicoSynthesisMicrogel2017}.
-Consequently, to offset this, we compute the average of five simulations of the shear deformation.}
-\cor{Furthermore, the time step is established at \num{0.001}$t^{*}$ to guarantee numerical stability. 
-The stability criterion is expressed as $\mathrm{damp}^{*}dt^{*}<2$~\citep{leimkuhlerContractionConvergenceRates2024}.
-Given that $\mathrm{damp}^{*}dt^{*} = \num{1d-4}$, numerical stability is guaranteed.
-This enables us to obtain acceptable average observables.}
+%\paragraph{Packing fraction}
 
 
-Once the parameters for the synthesis were set, the volume of the box was calculated by determining the volume of the patchy particles A and B and then scaling those values by the number of particles and the desired packing fraction.
+%\paragraph{Crosslinker concentrations}
+
+%\paragraph{Box parametr}
+The volume of the box was calculated by determining the volume of the patchy particles A and B and then scaling those values by the number of particles and the desired packing fraction.
 \begin{align*}
     \cor{V_{\mathrm{box}}^{*}} &= \frac{N_{\mathrm{patchyA}}\cor{V_{\mathrm{patchyA}}^{*}}+N_{\mathrm{patchyB}}\cor{V_{\mathrm{patchyB}}^{*}}}{\phi}
 \end{align*}
 The number of patchy particles of type A is computed as $N_{\mathrm{patchyA}} = c N_p$, and the number of patchy particles of type B as $N_{\mathrm{patchyB}}= N_p - N_{\mathrm{patchyA}}= N_p(1 - c )$.
+
+
+
+%\paragraph{Langeving parameters}
+
+\cor{In order to reduce the contribution of energy dissipation in the mechanical response, the $\mathrm{damp}$ parameter is set to \num{0.1}~$[1/t^*]$.
+By setting the mass at $m^*=1$, the dissipative term can be interpreted as removing 10\% of the momenta each reduce time unit. 
+}
+\cor{Consequently, to ensure numerical stability, the time step is set at \num{0.001}$t^{*}$. 
+The stability criterion is defined as $\mathrm{damp}^{*}dt^{*}<2$~\citep{leimkuhlerContractionConvergenceRates2024}.
+Considering that $\mathrm{damp}^{*}dt^{*} = \num{1d-4}$, numerical stability is assured, allowing us to acquire acceptable average observables.}
+
+
 Finally, the temperature was set to be constant through all the assembly process, $\cor{T^*}=\num{0.05}$ in Lennard-Jones units; meanwhile, the damp parameter was set to \cor{$\mathrm{damp}=\num{0.1}$}.
-It is very important to note that the damp controls the viscous response caused by the interaction between the thermal bath and the particles, which symbolizes the interaction of water molecules with the polymer network. The diameter of the central particle is set to $\cor{O^*}=1$ and the diameter of the patches at $\cor{O_p^*}=0.4$.
+It is very important to note that the damp controls the viscous response caused by the interaction between the thermal bath and the particles, which symbolizes the interaction of water molecules with the polymer network. 
+The diameter of the central particle is set to $\cor{O^*}=1$ and the diameter of the patches at $\cor{O_p^*}=0.4$.
+
+
+
+%However, this represents a reduced quantity of particles in comparison to other simulations~\citep{gnanSilicoSynthesisMicrogel2017}.
+%\corConsequently, to offset this, we compute the average of five simulations of the shear deformation.}
+%\cor{The time step is established at  to guarantee numerical stability. 
 
 The energy of interaction between central particles is $\cor{\epsilon_{i,j}^*}=1$.
 In contrast, the energy of interaction between patches is defined as follows:
 The interaction of patchy particles B is set to $\cor{\epsilon_{\mu,\upsilon}^*}=1$, whereas the interaction between patchy particles A is set to $\cor{\epsilon_{\mu,\upsilon}^*}=0$, and the interaction between patches of patchy particles A with patchy particles B is set to $\cor{\epsilon_{\mu,\upsilon}^*}=1$.
 This is to allow only crosslinker-monomer and monomer-monomer bonding.
+\cor{In this work the parameter is set to \num{0.75}.}
 
 %\paragraph{Deformation protocol}
 Once the assembly simulation of the patchy particle network was done, we performed a shear deformation to the resulting network.
@@ -253,7 +277,7 @@ However, it is useful to explain how the simulation is defined in this software.
 In this regard, the following paragraphs briefly discuss the damp parameter, the implementation of the swap potential~\eqref{eqn:swapmod_interaction}, the shear deformation, and the calculation of the stress tensor.
 
 %\paragraph{damp}
-Comparin equation~\eqref{eqn:MolDylammps1} with equation~\eqref{eqn:MolDylammps2}, the viscosity parameter $\gamma$ of the Langevin equation~\eqref{eqn:BrownianDyn1} does not appear; instead, the $\mathrm{damp}$ parameter appears.
+Comparing equation~\eqref{eqn:MolDylammps1} with equation~\eqref{eqn:MolDylammps2}, the viscosity parameter $\gamma$ of the Langevin equation~\eqref{eqn:BrownianDyn1} does not appear; instead, the $\mathrm{damp}$ parameter appears.
 This parameter is specified in time units and determines how rapidly the temperature is relaxed so that it can be more easily used as a thermostat\citep{LAMMPS}.
 That is, if damp is set to \num{100}, the temperature will relax in a timespan of roughly \num{100} time units.
 By making dimensional analysis, the damp factor can be thought of as inversely related to the viscosity of the solvent.

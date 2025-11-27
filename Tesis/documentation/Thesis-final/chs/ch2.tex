@@ -1144,7 +1144,7 @@ A key benefit of this choice is that LAMMPS comes well-equipped with robust and 
 This pre-existing, optimized framework is crucial, as developing a parallelized numerical solver from the ground up would be prohibitively time-consuming and complex. 
 This allows us to concentrate our efforts on designing the polymer network models and analysing their resulting mechanical properties, rather than on the simulation engine itself.
 
-\subsection{LAMMPS}\footnote{Agregar la sección de variables reducidas.}
+\subsection{LAMMPS}
 
 LAMMPS (Large-scale Atomic/Molecular Massively Parallel Simulator) is a highly flexible, open-source molecular dynamics software solution used for simulating atomic, molecular, and mesoscale systems. 
 And it is widely recognized for its extensibility, complete documentation, and active support in scientific communities focused on materials modeling and molecular simulation.
@@ -1163,7 +1163,7 @@ The Langevin equation in LAMMPS is implemented as follows,
     F_r &\propto\sqrt{\frac{k_B T m}{dt\mathrm{damp}}},\label{eqn:MolDylammps2}
 \end{align}
 where $F_c$ is the conservative force computed from particle-particle interactions.
-The \cor{second} is equivalent to $-m\cor{\mu} v$ and $F_r$ is equivalent to the term $\vec{R}(t)$ on equation~\eqref{eqn:BrownianDyn1}.
+The \cor{second term} is equivalent to $-m\cor{\mu} v$ and $F_r$ is equivalent to the term $\vec{R}(t)$ on equation~\eqref{eqn:BrownianDyn1}.
 LAMMPS implements the random numbers to randomize the direction and magnitude of this force, where a uniform random number is used (instead of a Gaussian random number) for speed.
 
 The magnitude of the random force is derived from the fluctuation/dissipation theorem, where $k_B$ is the Boltzmann constant, $T$ is the desired temperature, $m$ is the mass of the particle, $dt$ is the timestep size, and $\mathrm{damp}$ is the damping factor.
