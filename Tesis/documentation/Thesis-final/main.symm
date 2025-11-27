@@ -11,8 +11,6 @@
 		\setentrycounter[]{page}\glsnumberformat{19}}}%
 \glossentry{bW-mech}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{19}}}%
-\glossentry{gamma-mech}{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{19}}}%
 \glossentry{dvr-mech}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{19}}}%
 \glossentry{eta-mech}{\glossaryentrynumbers{\relax 
@@ -31,10 +29,10 @@
 		\setentrycounter[]{page}\glsnumberformat{19}}}%
 \glossentry{m-mech}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{19}}}%
+\glossentry{gamma-mech}{\glossaryentrynumbers{\relax 
+		\setentrycounter[]{page}\glsnumberformat{19}}}%
 \glossentry{sigma-mech}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{19}}}%
-\glossentry{epsilon-mech}{\glossaryentrynumbers{\relax 
-		\setentrycounter[]{page}\glsnumberformat{19}}}%
-\glossentry{dotEps-mech}{\glossaryentrynumbers{\relax 
+\glossentry{dotGamma-mech}{\glossaryentrynumbers{\relax 
 		\setentrycounter[]{page}\glsnumberformat{19}}}%
 \end{theglossary}\glossarypostamble

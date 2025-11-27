@@ -35,9 +35,9 @@
 \setglossarystyle{grouped}
 
 % Mechanical Response symbols
-\newglossaryentry{epsilon-mech}{
+\newglossaryentry{gamma-mech}{
   type=symbolsmech,
-  name=\ensuremath{\bm{s},~s_{ij}},
+  name=\ensuremath{\bm{\gamma},~\gamma_{ij}},
   description={Strain tensor (Dimensionless)}
 }
 \newglossaryentry{sigma-mech}{
@@ -50,9 +50,9 @@
   name=$C_{ijkl}$,
   description={Youn'g modulus tensor (\SI{}{\pascal})}
 }
-\newglossaryentry{dotEps-mech}{
+\newglossaryentry{dotGamma-mech}{
   type=symbolsmech,
-  name=\ensuremath{\dot{\bm{s}},~\dot{s_{ij}}},
+  name=\ensuremath{\dot{\bm{\gamma}},~\dot{\gamma_{ij}}},
   description={Time derivative of the Strain tensor (\SI{}{\per\second})}
 }
 \newglossaryentry{sigsuby-mech}{
@@ -64,11 +64,6 @@
   type=symbolsmech,
   name=$\eta$,
   description={Viscosity (\SI{}{\kilo\gram\per\meter\per\second})}
-}
-\newglossaryentry{gamma-mech}{
-  type=symbolsmech,
-  name=$\dot{\gamma}$,
-  description={Shear rate (\SI{}{\per\second})}
 }
 \newglossaryentry{Gt-mech}{
   type=symbolsmech,
@@ -159,15 +154,15 @@
 }
 
 % Methods and results
-\newglossaryentry{o-mr}{
+\newglossaryentry{D-mr}{
   type=symbolsmr,
-  name=$O$,
+  name=$D$,
   description={Particle diameter (Distance)}
 }
 \newglossaryentry{rred-mr}{
   type=symbolsmr,
   name=$r^{*}$,
-  description={Reduce distance ($r/O$  Adimensional)}
+  description={Reduce distance ($r/D$  Adimensional)}
 }
 \newglossaryentry{e-mr}{
   type=symbolsmr,
@@ -221,12 +216,12 @@
 }
 \newglossaryentry{stress-mr}{
   type=symbolsmr,
-  name=$s^{*}$,
+  name=$\sigma^{*}$,
   description={Stress (dimensionless)}
 }
 \newglossaryentry{strain-mr}{
   type=symbolsmr,
-  name=$\zeta^{*}$,
+  name=$\gamma^{*}$,
   description={Strain (dimensionless)}
 }
 \newglossaryentry{time-mr}{
@@ -257,7 +252,7 @@
 % Insight of mechanical response of hydrogels via patchy particle methodology
 % INFO : used in the titlepage, copyright and stuff.
 \author{Francisco Javier Vazquez Tavares}
-\title{Exploration of mechanical response of \cor{polymeric gel} via \cor{molecular dynamics}}
+\title{Exploration of mechanical response of \cor{polymeric gels} via \cor{molecular dynamics}}
 %\subtitle{This is the subtitle}
 \university{Instituto Tecnológico de Estudios Superiores de Monterrey \\ Campus Monterrey}
 \lab{School of Engineering and Sciences}

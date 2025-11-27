@@ -309,9 +309,9 @@ The \verb|fix deform| command simulates a shear deformation on the $xy$ plane.
 It uses the engineering deformation rate (\verb|erate| style) to adjust the box's dimension at a ``constant engineering strain rate''.
 The length of the box, $\cor{L^{*}}$, will be modified over time,
 \begin{gather}
-    \cor{L^{*}}(t) = \cor{L_o^{*}}\qty(1 + \cor{\mathrm{erate}^{*}}~\cor{dt^{*}}),
+    \cor{L^{*}}(t) = \cor{L_o^{*}}\qty(1 + \cor{\dot{\gamma}^{*}}~\cor{dt^{*}}),
 \end{gather}
-where $\cor{L_o^{*}}$ is the original box length and $\cor{\mathrm{erate}^{*}}$ is the shear rate in units of $1/\cor{t^*}$\citep{LAMMPS}.
+where $\cor{L_o^{*}}$ is the original box length and $\cor{\dot{\gamma}^{*}}$ is the shear rate in units of $1/\cor{t^*}$\citep{LAMMPS}.
 This deformation is applied in the $xy$ plane, and the change in length is along the $x$ direction.
 This set of parameters ensures that the volume does not change during the deformation\citep{LAMMPS}.
 In addition to the \verb|erate| style, the \verb|remap| keyword was set to \verb|x| to remap particle positions without affecting their velocities\citep{LAMMPS}.
@@ -486,7 +486,7 @@ With exponents ($p_2$) $\{0.5901,0.4880,0.4045\}$ for the \num{10}\%, \num{5}\%,
 This finding served as a starting point for further investigation into yield stress events in polymeric networks.
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=0.9\textwidth]{figs/ComputaitonalResults/yieldStress-fits.pdf}
+    \includegraphics[width=0.9\textwidth]{figs/ComputaitonalResults/yieldStress.pdf}
     \caption{Time average of steady-stress regime from computational results. Dashed lines represent exponential fits.
     \cor{Quitar los puntos. La linea de ajuste no se usa, quitar. justificar }
     }\label{fig:yieldStressResults}
@@ -499,7 +499,7 @@ Instead, it was chosen to compute the temporal average of the final portion of t
 
 
 \begin{gather}
-    f(\zeta^{*}) = c_1 (\zeta^{*})^{c_2}\label{eqn:fit} 
+    f(\dot{\gamma}^{*}) = c_1 (\dot{\gamma}^{*})^{c_2}+c_3\label{eqn:fit} 
 \end{gather}
 
 
@@ -508,13 +508,13 @@ Instead, it was chosen to compute the temporal average of the final portion of t
 \caption{Parameters of the fit model}\label{tab:fitParameters}
 \begin{tabularx}{12cm}{|>{\centering\arraybackslash\bfseries}p{2cm}|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|>{\centering\arraybackslash}X|}
 \toprule
-\textbf{Cl~\%} & \textbf{$c_1$} & \textbf{$c_2$} \\
+\textbf{Cl~\%} & \textbf{$c_1$} & \textbf{$c_2$} & \textbf{$c_3$} \\
 \midrule
-\num{10}            & \num{7613.758267}  & \num{0.590128} \\
+\num{10}            & \num{129.185}  & \num{0.590128} & \num{4.358d-6} \\
 \midrule
-\num{5}      & \num{5888.735284}  & \num{0.488094} \\
+\num{5}      & \num{202.18}  & \num{0.488094} & \num{3.479d-6}\\
 \midrule
-\num{3}         & \num{5576.947312} &  \num{0.404582} \\
+\num{3}         & \num{340.918} &  \num{0.404582} & \num{8.517d-6}\\
 \bottomrule
 \end{tabularx}
 \end{table}

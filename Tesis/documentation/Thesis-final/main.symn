@@ -1,10 +1,9 @@
-\glossaryentry{"\ensuremath {"\bm {s},~s_{ij}}?\glossentry{epsilon-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
+\glossaryentry{"\ensuremath {"\bm {"\gamma },~"\gamma _{ij}}?\glossentry{gamma-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
 \glossaryentry{"\ensuremath {"\bm {"\sigma },~"\sigma _{ij}}?\glossentry{sigma-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
 \glossaryentry{$C_{ijkl}$?\glossentry{C-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
-\glossaryentry{"\ensuremath {"\dot {"\bm {s}},~"\dot {s_{ij}}}?\glossentry{dotEps-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
+\glossaryentry{"\ensuremath {"\dot {"\bm {"\gamma }},~"\dot {"\gamma _{ij}}}?\glossentry{dotGamma-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
 \glossaryentry{$"\sigma _y$?\glossentry{sigsuby-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
 \glossaryentry{$"\eta $?\glossentry{eta-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
-\glossaryentry{$"\dot {"\gamma }$?\glossentry{gamma-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
 \glossaryentry{$G(t)$?\glossentry{Gt-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
 \glossaryentry{$"\vec {T}$?\glossentry{T-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
 \glossaryentry{$"\vec {n}$?\glossentry{n-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
