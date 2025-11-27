@@ -66,24 +66,24 @@ The interaction between the central particles is modeled using a Weeks-Chandler-
 \begin{gather}
     U_{\mathrm{WCA}}(r_{i,j}) =\left\{ 
         \begin{array}{ll}
-            4\epsilon_{i,j}\left[\qty(\frac{\cor{O}}{r_{i,j}})^{12}-\qty(\frac{\cor{O}}{r_{i,j}})^6\right]+\epsilon_{i,j}, & r_{i,j}\in[0,2^{1/6}\cor{O}], \\
-            0, & r_{i,j}>2^{1/6}\cor{O}
+            4\epsilon_{i,j}\left[\qty(\frac{\cor{D}}{r_{i,j}})^{12}-\qty(\frac{\cor{D}}{r_{i,j}})^6\right]+\epsilon_{i,j}, & r_{i,j}\in[0,2^{1/6}\cor{D}], \\
+            0, & r_{i,j}>2^{1/6}\cor{D}
         \end{array}
 \right.
     ,\label{eqn:CL-MO_interaction}
 \end{gather}
-where $r_{i,j}$ is the distance between the center of the central particles, \cor{$O$} is the diameter of the particles and $\epsilon_{i,j}$ is the energy of the interacton.
+where $r_{i,j}$ is the distance between the center of the central particles, $\cor{D}$ is the diameter of the particles and $\epsilon_{i,j}$ is the energy of the interacton.
 It is noteworthy that the WCA potential can be understood as the Lennard-Jones potential with a vertical shift of $\epsilon$ \cor{and a cutoff}, resulting in entirely repulsive interactions.
 On the other hand, the patch-patch interaction is modeled with an attractive potential,
 \begin{gather}
     U_{\mathrm{patchy}}\qty(r_{\mu\upsilon}) = \left\{
         \begin{array}{ll}
-            2\epsilon_{\mu\upsilon}\left(\frac{\cor{O}^4}{2 r_{\mu\upsilon}^4}-1\right)\exp\left[\frac{\cor{O}_p}{\qty(r_{\mu\upsilon}-r_{c})}+2\right], & r_{\mu\upsilon}\in\qty[0,r_c], \\
+            2\epsilon_{\mu\upsilon}\left(\frac{\cor{D}^4}{2 r_{\mu\upsilon}^4}-1\right)\exp\left[\frac{\cor{D}_p}{\qty(r_{\mu\upsilon}-r_{c})}+2\right], & r_{\mu\upsilon}\in\qty[0,r_c], \\
             0, & r_{\mu,\upsilon}>r_c,
         \end{array}
             \right.\label{eqn:patch-patch_interaction}
 \end{gather}
-where $r_{\mu\upsilon}$ is the distance between two patches, $\cor{O}_p$ is the diameter of the patches, $r_c$ is the cut distance of interaction set to $1.5\cor{O}_p$ and $\epsilon_{\mu,\upsilon}$ is the interaction energy between the patches.
+where $r_{\mu\upsilon}$ is the distance between two patches, $\cor{D}_p$ is the diameter of the patches, $r_c$ is the cut distance of interaction set to $1.5\cor{D}_p$ and $\epsilon_{\mu,\upsilon}$ is the interaction energy between the patches.
 %This potential can be interpreted as a reversible interaction.
 
 \begin{figure}[ht!]
@@ -134,7 +134,7 @@ where
         \end{array}
         \right.\label{eqn:swapmod_interaction}.
 \end{gather}
-\cor{Where $\alpha$ is the distance between the patches $r_{l,m}$ or $r_{l,n}$.}
+\cor{Where $\alpha$ is the distance $r_{l,m}$ or $r_{l,n}$.}
 The sum in~\eqref{eqn:swap_interaction} runs over all triples of bonded patches (patch $l$ bonded both with $m$ and $n$).
 $r_{l,m}$ and $r_{l,n}$ are the distances between the reference patch and the other two patches.
 The parameter $\epsilon_{m,n}$ is the energy of repulsion, and $w$ is used to tune the swapping ($w=1$) and non-swapping bonds ($w\gg1$). 
@@ -143,8 +143,8 @@ The cutoff distance $\alpha_c$ is the same as in the potential of interaction be
 Figure~\ref{fig:swappot} shows the patch-patch potential \cor{and} the swap potential.
 The patch-patch potentia, the blue line in the figure, is the energy of the interaction between patch $i$ and patch $k$.
 The swap potential is the energy between patch $i$ and patch $k$, leaving the distance between patch $i$ and patch $j$ fixed.
-Taking into account this, when the patches $i$ and $j$ are at the potential well ($r_{ij}=\cor{O}$), the interaction between $i$ and $k$ is null.
-When the distance between patches $i$ and $j$ are bigger than the potential well but smaller than the cutoff distance ($r_{\mathrm{cut}}>r_{ij}>\cor{O}$), the interaction between $i-k$ is mildly attractive.
+Taking into account this, when the patches $i$ and $j$ are at the potential well ($r_{ij}=\cor{D}$), the interaction between $i$ and $k$ is null.
+When the distance between patches $i$ and $j$ are bigger than the potential well but smaller than the cutoff distance ($r_{\mathrm{cut}}>r_{ij}>\cor{D}$), the interaction between $i-k$ is mildly attractive.
 Finally, when the patches $i-j$ are bigger than the cutoff distance ($r_{\mathrm{cut}}<r_{ij}$), the interaction between $i-k$ is repulsive.
 
 \begin{figure}[ht!]
@@ -175,16 +175,12 @@ Rather than establishing a bond among the three patches, the interaction can cha
     }\label{fig:interactionPatches}
 \end{figure}
 
-
-
-\newpage
-
 \subsection{\cor{Reduce units}}
 
 \cor{Before detailing the numerical values for the parameters, it is crucial to recognize that the numerical simulations are performed using reduced Lennard-Jones units for computational and physical efficiency.
 The Lennard-Jones reduced units are achieved by rescaling the distance, energy, and mass to a characteristic quantity and setting $k_B=1$.
-The distance is rescaled by the diameter of the particle, $r^*=r/O$; the energy is rescaled by the potential well of the interaction potentials $\epsilon^{*} = E/\epsilon$; meanwhile, the mass is rescaled to a characteristic quantity of the system $m^* = m/m_{\mathrm{ref}}$.
-Finally, by setting $k_B$ to $1$ with the other quantities, the time is rescaled by $t^* = t\sqrt{\epsilon/(m_{\mathrm{ref}}D^2)}$.}
+The distance is rescaled by the diameter of the particle, $r^*=r/D$; the energy is rescaled by the potential well of the interaction potentials $\epsilon^{*} = E/\epsilon$; meanwhile, the mass is rescaled to a characteristic quantity of the system $m^* = m/m_{\mathrm{ref}}$.
+Finally, by setting $k_B$ to $1$ with the other quantities, the time is rescaled by $t^* = t\sqrt{\epsilon/(m_{\mathrm{ref}}O^2)}$.}
 
 \cor{Although energy is not a fundamental unit, $k_\mathrm{B}$ is selected for rescaling as it is essential for establishing the reduced unit for temperature.
 The reduced temperature is rescaled by $T^{*} = k_{\mathrm{B}}T/\epsilon$, or}
@@ -229,20 +225,34 @@ The volume of the box was calculated by determining the volume of the patchy par
 The number of patchy particles of type A is computed as $N_{\mathrm{patchyA}} = c N_p$, and the number of patchy particles of type B as $N_{\mathrm{patchyB}}= N_p - N_{\mathrm{patchyA}}= N_p(1 - c )$.
 
 
-
+the temperature was set to be constant through all the assembly process, $\cor{T^*}=\num{0.05}$
 %\paragraph{Langeving parameters}
 
-\cor{In order to reduce the contribution of energy dissipation in the mechanical response, the $\mathrm{damp}$ parameter is set to \num{0.1}~$[1/t^*]$.
-By setting the mass at $m^*=1$, the dissipative term can be interpreted as removing 10\% of the momenta each reduce time unit. 
+\cor{The $\mathrm{damp}$ parameter was fixed to a value of \num{0.1}~$[1/t^*]$ from debugging during the shear deformation simulation.
+At the begginig the parameter was set to \num{1} or slightly bigger values.
+However those values causes big fluctiations in the temperature and the relaxed temperature values was higher than the desired value.
+In order to find why that happen, the damp parameter was strongly reduce to \num{0.1} and it was found that the implementation of the threebody potential was wrongly implemented.
+This is going to be exaplained in detail in subsequent sections\ref{subsec:LammpsImplementation}.
+Once this implementation was fixed, the damp parameter wasn't changed.
 }
+\cor{This implies that the system is in a high viscosity solvent and that the system is overcontrolled and that bond-breaking events and structural rearrangements may be artificially rare.
+}
+
+%\cor{In order to achieve a fast temperature relaxation the $\mathrm{damp}$ parameter is set to \num{0.1}~$[1/t^*]$.
+%The reason of this value is due to a long process of debugging the protocol.
+%Higher values $\mathrm{1}>1$ 
+
+%By setting the mass at $m^*=1$, the dissipative term can be interpreted as removing 10\% of the momenta each reduce time unit. 
+%}
 \cor{Consequently, to ensure numerical stability, the time step is set at \num{0.001}$t^{*}$. 
 The stability criterion is defined as $\mathrm{damp}^{*}dt^{*}<2$~\citep{leimkuhlerContractionConvergenceRates2024}.
 Considering that $\mathrm{damp}^{*}dt^{*} = \num{1d-4}$, numerical stability is assured, allowing us to acquire acceptable average observables.}
 
 
-Finally, the temperature was set to be constant through all the assembly process, $\cor{T^*}=\num{0.05}$ in Lennard-Jones units; meanwhile, the damp parameter was set to \cor{$\mathrm{damp}=\num{0.1}$}.
-It is very important to note that the damp controls the viscous response caused by the interaction between the thermal bath and the particles, which symbolizes the interaction of water molecules with the polymer network. 
-The diameter of the central particle is set to $\cor{O^*}=1$ and the diameter of the patches at $\cor{O_p^*}=0.4$.
+%Finally, 
+%in Lennard-Jones units; meanwhile, the damp parameter was set to \cor{$\mathrm{damp}=\num{0.1}$}.
+%It is very important to note that the damp controls the viscous response caused by the interaction between the thermal bath and the particles, which symbolizes the interaction of water molecules with the polymer network. 
+The diameter of the central particle is set to $\cor{D^*}=1$ and the diameter of the patches at $\cor{D_p^*}=0.4$.
 
 
 
@@ -270,20 +280,20 @@ This is to characterize the mechanical response and to deform beyond the plastic
 Also, the variation of the shear rate was performed to see the viscoelastic response of the material.
 The temperature and dampness parameters were set to be the same as in the assembly process.
 
-\subsection{LAMMPS implementation}
+\subsection{LAMMPS implementation}\label{subsec:LammpsImplementation}
 
 As said before, the LAMMPS software is used to solve the Langevin equation in a many-particle system.
 However, it is useful to explain how the simulation is defined in this software.
 In this regard, the following paragraphs briefly discuss the damp parameter, the implementation of the swap potential~\eqref{eqn:swapmod_interaction}, the shear deformation, and the calculation of the stress tensor.
 
 %\paragraph{damp}
-Comparing equation~\eqref{eqn:MolDylammps1} with equation~\eqref{eqn:MolDylammps2}, the viscosity parameter $\gamma$ of the Langevin equation~\eqref{eqn:BrownianDyn1} does not appear; instead, the $\mathrm{damp}$ parameter appears.
+Comparing equation~\eqref{eqn:MolDylammps1} with equation~\eqref{eqn:MolDylammps2}, the viscosity parameter \cor{$\mu$} of the Langevin equation~\eqref{eqn:BrownianDyn1} does not appear; instead, the $\mathrm{damp}$ parameter appears.
 This parameter is specified in time units and determines how rapidly the temperature is relaxed so that it can be more easily used as a thermostat\citep{LAMMPS}.
 That is, if damp is set to \num{100}, the temperature will relax in a timespan of roughly \num{100} time units.
 By making dimensional analysis, the damp factor can be thought of as inversely related to the viscosity of the solvent.
 This tells us that a small damp represents a high-viscosity solvent and vice versa.
-Therefore, since the damp is set to \cor{\num{0.1}}, the polymeric network is in a high-viscosity solvent.
-In addition it is important to mention that all the simulations are done with Lennard Jones units.
+%In addition it is important to mention that all the simulations are done with Lennard Jones units.
+%Therefore, since the damp is set to \cor{\num{0.1}}, the polymeric network is in a high-viscosity solvent.
 
 %\paragraph{Three-body potential}
 In regard to the swap potential, the \verb|threebody/table| pair style command is used to implement generic tabulated three-body interactions.
@@ -347,9 +357,9 @@ Finally, the \verb|flip| keyword is used to flip the box when the tilt factors e
 This section concludes with an explanation of how LAMMPS computes the stress tensor.
 The \verb|compute stress/atom| calculates the stress tensor for an atom $I$ using the equation \citep{thompsonGeneralFormulationPressure2009,LAMMPS},
 \begin{gather}
-    \cor{S_{ab}^{*}} = -\cor{v_a^{*}} \cor{v_b^{*}} - \cor{W_{ab}^{*}}\label{eqn:stressLAMMPS},
+    \cor{\sigma_{ab}^{*}} = -\cor{v_a^{*}} \cor{v_b^{*}} - \cor{W_{ab}^{*}}\label{eqn:stressLAMMPS},
 \end{gather}
-where $a$ and $b$ represent the spatial coordinates $x$, $y$ and $z$, and $\cor{W^*}_{ab}$ is the virial contribution given by
+where $a$ and $b$ represent the spatial coordinates $x$, $y$ and $z$, and $\cor{W_{ab}^*}$ is the virial contribution given by
 \begin{multline}
     \cor{W_{ab}^{*}} = \frac{1}{2}\sum_{n=1}^{N_p}\qty(\cor{r_{1a}^*} \cor{F_{1b}^{*}} + \cor{r_{2a}^*} \cor{F_{2b}^{*}})
             +\frac{1}{2}\sum_{n=1}^{N_b}\qty(\cor{r_{1a}^*} \cor{F_{1b}^{*}} + \cor{r_{2a}^*} \cor{F_{2b}^{*}}) \\
@@ -372,7 +382,7 @@ where $a$ and $b$ represent the spatial coordinates $x$, $y$ and $z$, and $\cor{
 
 Substituting the virial term~\eqref{eqn:virialLAMMPS} into the per-particle stress tensor~\eqref{eqn:stressLAMMPS} yields a similar expression for the previously derived stress~\eqref{eqn:DerVirTen23}.
 The stress tensor in equation~\eqref{eqn:DerVirTen23} is a temporal and spatial average, whereas the stress tensor in~\eqref{eqn:stressLAMMPS} is defined per particle.
-\com{What type of average?}
+\cor{Spatial and time average.}\com{What type of average?}
 As a result, in order to study the mechanical response of the Cauchy stress tensor, a suitable time average, followed by a spatial average of the per-particle stress tensor along the patchy particle network, including the patches, is required.
 
 \subsection{Assembly simulation and Shear deformation}
@@ -391,7 +401,7 @@ For each shear deformation simulation, the system energy, stress tensor componen
 Following 5 sets of deformation with the same shear rate, a new set of deformations was performed with a different shear rate, beginning with the same initial configuration as the previous one.
 
 It is important to mention that the saved measurements are rolling mean temporal averages.
-The time average for the assembly protocol is specified in terms of the damp parameter: $100\cdot\cor{\mathrm{dt}^*}\cdot\cor{\mathrm{damp}^*}$, whereas for the shear deformation, the period was set \cor{such that in the time period the strain achieves} $0.05\cor{\zeta^{*}}$.
+The time average for the assembly protocol is specified in terms of the damp parameter: $100\cdot\cor{\mathrm{dt}^*}\cdot\cor{\mathrm{damp}^*}$, whereas for the shear deformation, the period was set \cor{such that in the time period the strain achieves} $0.05\cor{\gamma^{*}}$.
 This was established for the energy, temperature, and stress tensors.
 The intervals for saving the system's phase space were calculated based on the simulation time and strain for assembly and deformation.
 After saving the metrics from all of the simulations, an average of the experiments with the identical settings was computed.
@@ -405,9 +415,9 @@ Only one assembly protocol was used for each crosslinker concentration\com{What 
 
 After the assembly procedure, shear deformation in the $xy$ plane was conducted.
 Panel a of Figure~\ref{fig:flipPatches} shows the initial configuration of a shear deformation.
-Panel b of the same image pictures the deformation at a strain of $0.5L$.
-For computational stability, LAMMPS flips the deformed box to a box with a strain of $-0.5\cdot L$, as illustrated in panel c.
-Finally, this process is repeated until the deformation reaches a strain of $15~\mathrm{L}$.
+Panel b of the same image pictures the deformation at a strain of $0.5L^*$.
+For computational stability, LAMMPS flips the deformed box to a box with a strain of $-0.5\cdot L^*$, as illustrated in panel c.
+Finally, this process is repeated until the deformation reaches a strain of $15~L^*$.
 
 \begin{figure}[ht!]
     \centering

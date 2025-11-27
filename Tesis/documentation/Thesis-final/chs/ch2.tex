@@ -158,7 +158,7 @@ With this in mind, let's move on into the definition of strain.
 In physics, the deformation of a material relative to its original shape under applied forces is quantified by the relative displacement between points in the material. 
 This measure is represented by the dimensionless strain tensor,
 \begin{gather}
-    \epsilon_{ij} = \frac{1}{2}\left( \pdv{u_i}{x_j}+\pdv{u_j}{x_i} \right).\label{eqn:strainTensor}
+    \gamma_{ij} = \frac{1}{2}\left( \pdv{u_i}{x_j}+\pdv{u_j}{x_i} \right).\label{eqn:strainTensor}
 \end{gather}
 Where $u_i$ are the components of the displacement vector field and $x_j$ are the spatial coordinates.
 This mathematical representation is only valid for infinitesimally small deformations and enables the description of normal strain, such as elongation or compression, through the use of diagonal terms, and shear strain via off-diagonal terms.
@@ -184,7 +184,7 @@ Finally, the viscous response is a resistance to flow where all the energy used 
 An elastic deformation happens when a force is given to a material, and it instantly returns to its original configuration once the stress is released.
 The quantification of this response is given by a linear equation,
 \begin{gather}
-    \sigma_{ij} = C_{ijkl}\epsilon_{kl}\label{eqn:elasticEQN}
+    \sigma_{ij} = C_{ijkl}\gamma_{kl}\label{eqn:elasticEQN}
 \end{gather}
 where $C_{ijkl}$ is known as elastic modulus or Young's modulus.
 The equation~\eqref{eqn:elasticEQN} is interpreted as the stiffness, that is, how the material resists deformation.
@@ -198,9 +198,9 @@ It is generally accepted that a material first enters an elastic response and th
 After this point, the deformation is irreversible.
 Stress and plastic strain are usually linked as a function of the current stress and internal variables,
 \begin{gather}
-    \dot{\bm{\epsilon}}_{p} = f\left(\bm{\sigma},\mathrm{Internal~varaibles}\right),\quad\bm{\sigma}>\bm{\sigma}_{y}\label{eqn:plasticEQN}.
+    \dot{\bm{\gamma}}_{p} = f\left(\bm{\sigma},\mathrm{Internal~varaibles}\right),\quad\bm{\sigma}>\bm{\sigma}_{y}\label{eqn:plasticEQN}.
 \end{gather}
-$\bold{\sigma}_y$ is the yield stress, and $\dot{\bm{\epsilon}}_{p}$ is the time derivative of the strain after reaching the plastic deformation.
+$\bold{\sigma}_y$ is the yield stress, and $\dot{\bm{\gamma}}_{p}$ is the time derivative of the strain after reaching the plastic deformation.
 The specific algebraic expression of $f\left(\bm{\sigma},\mathrm{Internal~varaibles}\right)$ depends on the material and conditions in which the deformation took place.
 
 Furthermore, it is important to acknowledge that the definition of yield stress is also dependent on the material and the loading conditions \citep{bonnYieldStressMaterials2017}.
@@ -211,8 +211,8 @@ This is defined by a critical value in terms of the distortional energy or equiv
 \begin{gather}
     \sigma_y = \sqrt{\frac{3}{2}\bm{s}:\bm{s}}\label{eqn:vonMisesCriterion}
 \end{gather}
-where $\bm{s}$ is the deviatoric stress tensor\footnote{The stress tensor without the diagonal elements.} and $:$ is a tensor contraction, which maps a tensor to a scalar\footnote{The tensor contraction is defined as \[\bm{\sigma}:\bm{\epsilon}=\Tr\left(\bm{\sigma}^T\cdot\bm{\epsilon}\right).\]
-        Using the Einstein notation it can be express as \[\bm{\sigma}:\bm{\epsilon}=\sigma_{ij}\epsilon_{ij}.\]
+where $\bm{s}$ is the deviatoric stress tensor\footnote{The stress tensor without the diagonal elements.} and $:$ is a tensor contraction, which maps a tensor to a scalar\footnote{The tensor contraction is defined as \[\bm{\sigma}:\bm{\gamma}=\Tr\left(\bm{\sigma}^T\cdot\bm{\epsilon}\right).\]
+        Using the Einstein notation it can be express as \[\bm{\sigma}:\bm{\gamma}=\sigma_{ij}\epsilon_{ij}.\]
     }.
 On the other hand, the Tresca yield criterion is a max-shear-based criterion.
 It is based on the yield strength in simple tension as follows:
@@ -245,9 +245,9 @@ Lastly,\cor{a viscous response is characterized by a continuous flow under appli
 This response describes materials that continuously deform and undergo an energy dissipation process through viscous friction \cor{and does not present yield stress.}
 The constitutive equation for viscous deformation usually follows Newton’s law of viscosity,
 \begin{equation}
-    \bm{\sigma} = \eta\dot{\bm{\epsilon}},\label{eqn:viscousResponse}
+    \bm{\sigma} = \eta\dot{\bm{\gamma}},\label{eqn:viscousResponse}
 \end{equation}
-where $\eta$ is the dynamic viscosity and $\eta\dot{\bm{\epsilon}}$ is the strain rate. 
+where $\eta$ is the dynamic viscosity and $\eta\dot{\bm{\gamma}}$ is the strain rate. 
 This linear relation indicates that stress is proportional to the rate at which deformation occurs.
 
 %\paragraph{Viscoelastic relation} 
@@ -256,7 +256,7 @@ Which can be thought of as a combination of a viscous response with an \cor{elas
 In more detail, a viscoelastic deformation is defined as the process by which a material partially ``stores'' elastic energy and partially dissipates energy.
 For this deformation, the quantification is done by relating the instantaneous stress, strain, and a time-dependent relaxation modulus,
 \begin{gather}
-    \sigma(t) = \int_0^t G(t-\tau)\dv{\tau}\epsilon(\tau)d\tau\label{eqn:viscoelastiEQN}.
+    \sigma(t) = \int_0^t G(t-\tau)\dv{\tau}\gamma(\tau)d\tau\label{eqn:viscoelastiEQN}.
 \end{gather}
 Where $\tau$ is a dummy variable and $G(t)$ is the time-dependent relaxation modulus.
 This mathematical expression is also known as the generalized expression of the Maxwell or Kelvin-Voigt model.
@@ -266,7 +266,7 @@ This relationship also enables the description and modeling of memory effects an
 \begin{comment}
 Time-dependent response combining elastic and viscous behaviour.
 \begin{gather}
-    \sigma + \lambda\dv{\sigma}{t} = E\epsilon+\eta\dv{\epsilon}{t}.
+    \sigma + \lambda\dv{\sigma}{t} = E\gamma+\eta\dv{\epsilon}{t}.
 \end{gather}
 \end{comment}
 
@@ -274,7 +274,7 @@ Time-dependent response combining elastic and viscous behaviour.
 Finally, ``viscoplastic'' response appears when a material flows plastically like a viscous fluid under stress beyond the yield stress.
 The quantification is determined by a function of strain rate, stress, yield stress, and internal variables (see equation~\eqref{eqn:viscoplastiEQN}).
 \begin{gather}
-    \dot{\bm{\epsilon}}_{p} = f\left(\sigma,\sigma_y,\dot{\epsilon},\mathrm{Internal variables}\right)\label{eqn:viscoplastiEQN}.
+    \dot{\bm{\gamma}}_{p} = f\left(\sigma,\sigma_y,\dot{\gamma},\mathrm{Internal variables}\right)\label{eqn:viscoplastiEQN}.
 \end{gather}
 Similar to the plastic constitutive equation~\eqref{eqn:plasticEQN}, the specific algebraic expression for $f$ depends on the material and external conditions. 
 However, this relationship is used to describe materials that initially respond as solids below the yield stress but flow like viscous fluids once yielding occurs.
@@ -282,7 +282,7 @@ However, this relationship is used to describe materials that initially respond 
 \begin{comment}
 Combines irreversible plastic strain with rate-dependent visvous effects
 \begin{gather}
-    \sigma = \sigma_y + \eta\dot{\epsilon}\mathrm{~for~}\sigma>\sigma_y
+    \sigma = \sigma_y + \eta\dot{\gamma}\mathrm{~for~}\sigma>\sigma_y
 \end{gather}
 \end{comment}
 
