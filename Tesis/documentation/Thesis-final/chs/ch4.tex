@@ -1,104 +1,28 @@
 \chapter{Conclusion}
 
-\com{PERSPECTIVES}
+This study demonstrates that understanding a hydrogel as a polymeric gel formed by interconnected polymer chains that swell upon solvent absorption, without dissolution, facilitates the application of molecular dynamics to examine the material's mechanical reaction.
+The utilization of patchy particles to model the monomers of polymers and crosslinkers is essential for simulating the mechanical response.
+This work's implementation exclusively represent systems with physical crosslinking processes resulting from the interaction potential between patches.
 
-In this work it is shown that understanding a hydrogel as a polymeric network comprised of interconnected polymer chains that swell by absorbing solvents without dissolving allows the implementation of molecular dynamics as a tool to investigate the mechanical response of the material.
-Furthermore, the methodology of patchy particles to represent the monomers of the polymers and the crosslinkers is key to simulate the mechanical response.
-This was validated through a qualitative comparison between the numeric results and the literature.
-However, this methodology only represents systems with physical crosslinking mechanisms due to the interaction potential between patches.
+\cor{Furthermore, percolation of a network with fully reversible interactions among all patches was achieved with a packing fraction of $\phi=\num{0.5}$ and a damping parameter of $\num{0.1}[1/t^*]$ at a temperature of $T^*=\num{0.05}$ for three distinct crosslinker concentrations: 3\%, 5\%, and 10\%.}
+\cor{A viscoelastic response has been observed across all systems from the strain-stress relationships.
+ The mechanical response was qualitatively aligned with other findings in the literature.
+ One distinction is the estimated strain value at which the maximum stress occurs, which is slightly lower than those documented in the literature.}
+\cor{On the other hand, the alignment with the Herschel-Bulkley model indicates that the system is more appropriately characterized as a viscoelastic liquid rather than a viscoelastic solid.
+Nonetheless, the same fit confirms the shear-thinning behavior of the system, with the exponents being less than 1.}
 
-Although the chosen patch-patch interaction potential only represents a physical network, the patchy particles' adaptability allows us to adjust the interaction potential to a FENE or even more, allowing us to create double network systems using a combination of physical and covalent crosslinkers.
-It also makes it possible to investigate the effect of the crosslinker's valence on the mechanical response.
-However, due to time constraints, a more thorough examination of the network's structure and link to the mechanical reaction is lacking.
-Nonetheless, from a qualitative point of view, the network strands aligned with the direction of the deformation, demonstrating that this methodology replicates the anticipated behaviour of hydrogels under shear and can be used to analyse molecular phenomena and search for explanations from first principles.
-
-This numerical approach can also be used to better understand polymeric materials' viscoelastic and viscoplastic responses in terms of topology, energy of interaction, and bond exchange rate.
- And can help construct algebraic expressions or mathematical equations that model the mechanical response of these materials.
- With the main objective of predicting mechanical properties based on the molecular structure of the monomers and crosslinkers to aid in the construction of customized hydrogels.
-
-
-\begin{comment}
-In this work a hydrogel was understood as a polymeric network comprised of interconnected polymer chains that swell by absorbing solvents without dissolving. 
-Key examples include polyacrylamide and alginate. 
-Also, understanding hydrogels necessitates knowledge of polymeric networks, characterized by junctions of three or more strands linked via crosslinks, either through physical interactions or covalent bonds. 
-Hydrogels form a continuous network necessary for specific properties, achieved through adequate crosslinking density.
-
-Crosslinking is crucial for maintaining hydrogel structure, affecting viscoelastic responses and achieving the gel point. 
-These mechanisms are either physical, involving non-covalent forces, or covalent, involving electron sharing.
-Physical interactions can imitate covalent networks, while dynamic covalent chemistry allows for adaptable properties. 
-Mechanical crosslinking enhances material toughness and elasticity.
-
-Furthermore, polymeric networks can be classified as reversible or irreversible based on crosslinking mechanisms. 
-Physical crosslinks can easily reform, enabling dynamic behavior and self-healing. 
-In contrast, dynamic covalent networks require external stimuli to modify bonds.
-And understanding these crosslink mechanisms is essential for advancing polymer development and mechanical strength in hydrogels.
-
-Then, the mechanical response of materials was analyzed at macroscopic and microscopic levels.
-Macroscopically, it is considered a continuum property, while microscopically, it connects structural features to macroscopic behavior via constitutive equations. 
-Key relationships include elastic, plastic, and viscous responses. 
-The elastic response allows materials to return to original shapes post-stress (Hooke's law), while plastic deformation causes irreversible changes beyond yield stress, linked to internal variables. 
-Viscous response is time-dependent, leading to energy dissipation, with viscoelastic behavior seen in materials like hydrogels that exhibit both elastic and viscous characteristics. 
-Viscoplastic responses indicate materials that flow like fluids when stress exceeds yield yet deform plastically under other conditions.
-
-In the transition from macroscopic to microscopic frameworks in continuum mechanics, stress is defined as the internal force within materials responding to external loads, represented by a second-order tensor. 
-The macroscopic stress tensor, known as the Cauchy stress tensor, relates traction vectors on surfaces to the tensor itself. 
-On a microscopic level, the stress tensor captures local forces from atomic interactions and momentum flux, with a connection to macroscopic stress through spatial statistical averaging. 
-The document details the relationships between elastic, plastic, viscoelastic, and viscoplastic responses and their respective microscopic phenomena, such as particle displacement, crosslink rupture, and energy dissipation, especially highlighting how network topology changes affect material behavior.
-
-After that, a review of the hydrogel's mechanical response was presented.
-Where, the interpretation of physical crosslinking as an energy dissipation mechanism crucial for the recovery of tough hydrogels from mechanical impacts. 
-Energy dissipation occurs through sacrificial bonds in a brittle network or via reversibly breakable non-covalent cross-links, such as metal-ligand and hydrogen bonding. 
-Various non-covalent interactions facilitate robust polymers, enhancing energy dissipation. 
-Microcrystallization increases the stiffness and fracture energies of hydrogels, while the composite mechanism improves toughness through micellar aggregates and soft microspheres. 
-Additionally, elastomeric proteins introduce energy dissipation via mechanical unfolding under stress, highlighting the diversity of mechanisms involved in enhancing hydrogel performance.
-
-Furthermore, the stress relaxation and mechanical properties of dual network hydrogels. 
-It highlights how stress relaxation is affected by the dynamics of chain association and dissociation, where elastically active and inactive crosslinks play crucial roles. 
-Increased physical crosslinker concentration leads to competing effects that alter association times, resulting in incomplete stress relaxation. 
-The study also differentiates between randomly and regularly cross-linked networks, revealing that randomly cross-linked networks strain harden at lower extensions, while regular networks exhibit delayed strain stiffening. 
-The mechanical responses under tensile deformation of double networks are analyzed, showing variations in strain at break. 
-Additionally, the behavior of an alginate hydrogel under shear conditions is elaborated, noting that viscosity decreases with increased shear rates due to shear thinning. 
-Finally, the document compares different hydrogels, revealing distinct mechanical responses related to their respective monomers and crosslinking mechanisms, emphasizing the role of charge interactions in influencing stress response. 
-Key aspects include response, viscosity, stress, elastically active/inactive crosslinks, and hydrogel properties.
+\cor{The relationship between the mechanical response and the network remains insufficiently explored.
+Nevertheless, the literature and analysis of the results suggest that the network begins to flow upon the application of shear deformation, exhibiting minimal resistance due to the unconstrained interaction between patches.
+Meanwhile the overshoot may be attributed to the alignment of the irregular particle strands with the direction of deformation.}
 
 
+Aquí menciona explícitamente que lograste obtener un modelo de Red que que percola y en la que los enlaces son reformas, esto es importante que lo menciones en tus conclusiones también.
 
-
-\paragraph{Molecular dynamics}
-A colloid is a heterogeneous mixture of two substances in different phases, where one is the dispersed phase and the other is the continuous phase. 
-The average size of the dispersed phase ranges from 1 nanometer to 1 micrometer, with classifications including foam, aerosol, emulsion, gel, and others. 
-A hydrogel is specifically a mixture of liquid water as the dispersed phase and a polymeric network as the continuous phase, which typically has a porosity of 5 to 20 nanometers, but can be adjusted to micron-scale. 
-Thus, hydrogels can be modeled as colloidal gels.
-
-We use langevin and velocity verlet in the lammps software.
-
-\paragraph{Simulation protocol }
-Research into PNIPAM cross-linked networks has led to the development of a flexible numerical protocol for designing microgel particles, as outlined in the article \textit{In silico Synthesis of Microgel Particles}. 
-This protocol generates particles with properties that align with experimental results. 
-The project aims to assess the protocol's versatility and establish a numerical tool linking network configuration to mechanical response. 
-The focus is on constructing networks that do not rely on spherical confinement or mimic temperature-dependent swelling behavior. 
-The technique uses a binary mixture of patchy particles to create disordered polymeric networks, which are then deformed under shear forces. 
-The protocol addresses limitations in previous numerical modeling of microgels, which often centered on unrealistic networks formed from equivalent-length chains or crystallized lattice configurations.
-
-\paragraph{Results}
-The document discusses the assembly and deformation of patchy particle networks under varying crosslinker concentrations and shear rates. 
-Initially, the patchy particles assemble into clusters after a specified number of time steps, indicated by their interactions. 
-Post-assembly, shear deformation is analyzed, revealing decreases in stress at lower shear rates for networks with 3\% and 5\% crosslinker concentrations, while higher concentrations maintain increasing stress until a maximum is reached. 
-The stress-strain relationship illustrates that crosslinker concentration enhances both the overshoot response and constant stress levels during shear deformation. 
-Furthermore, the observed yield stress phenomena follow a power-law fit, with exponents indicating dependence on the crosslinker concentrations. 
-This study connects to existing literature on nonlinear rheological behavior in polymeric systems, emphasizing the role of chain orientation and the anisotropy of bond vectors in capturing stress responses under shear. 
-
-Keywords such as "crosslinker concentrations," "stress," "shear deformation," and "shear rate" are integral to understanding these dynamics.
-
-We conclude that we have a conclusion in two years.
-
-The patchy particle protocol is a vlid methodology to simulate the mechanical response of polymeric networks.
-
-In order to simulate hydrogels we need no add a FENE potential.
-
-The reverible interactions are more sutiable to model microgel particle response.
-
-For future works we can \dots analyze the following important topological measures associated with the entanglement network: the primitive path countour length, the number of entanglements per chain, the end-to-end length of an entanglement strand and the number of central particles per entanglement strand.
-
-
-\end{comment}
+En cuanto a perspectivas, pues puedes hablar un poco de qué nos faltan analizar muchas cosas, por ejemplo, 
+    los efectos que tienen al cambiar las concentraciones, 
+    menciona que la concentración usada fue solo valor elegido para probar que el modelo funcionaba, 
+    pero que aún exploraremos otros valores de concentración.
+    Más cosas que faltaron caracterizar los poros de la Red, caracterizar cómo cambian los poros durante la deformación.
+puedes también hablar de qué queríamos ver más 
+    en detalle la respuesta después de varias deformaciones sucesivas. Por ahí lo mencionas, pero ya no le exploramos tanto. 
+También otra cosa que se nos quedó pendiente y que es la inspiración, es ver qué pasa cuando le ponemos inclusiones cómo se modifica la respuesta mecánica.
