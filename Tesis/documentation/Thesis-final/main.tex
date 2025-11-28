@@ -140,7 +140,7 @@
 \newglossaryentry{T-md}{
   type=symbolsmd,
   name=$T$,
-  description={T (\SI{}{\kelvin})}
+  description={Temperature (\SI{}{\kelvin})}
 }
 \newglossaryentry{delta-md}{
   type=symbolsmd,
@@ -151,6 +151,16 @@
   type=symbolsmd,
   name=$dt$,
   description={Time diferential (\SI{}{\second})}
+}
+\newglossaryentry{R-md}{
+  type=symbolsmd,
+  name=$\vec{R}(t)$,
+  description={Stochastic force (\SI{}{\newton})}
+}
+\newglossaryentry{Rho-md}{
+  type=symbolsmd,
+  name=$\vec{\rho}^{n+1}$,
+  description={Definite integral of $\vec{R}(t)$ (\SI{}{\newton})}
 }
 
 % Methods and results
@@ -168,18 +178,18 @@
 \newglossaryentry{Dru-mr}{
   type=symbolsmr,
   name=$D^*$,
-  description={Center particle diameter (Distance)}
+  description={Center particle diameter in reduced units (Dimensionless)}
 }
 \newglossaryentry{Dpru-mr}{
   type=symbolsmr,
   name=$D^*_p$,
-  description={Patch particle diameter (Distance)}
+  description={Patch particle diameter (Dimensionless)}
 }
 
 \newglossaryentry{rred-mr}{
   type=symbolsmr,
   name=$r^{*}$,
-  description={Reduce distance ($r/D$  Adimensional)}
+  description={Reduced distance ($r/D$  Dimensionless)}
 }
 \newglossaryentry{e-mr}{
   type=symbolsmr,
@@ -195,6 +205,16 @@
   type=symbolsmr,
   name=$K$,
   description={FENE bond energy (Energy/Distance$^2$)}
+}
+\newglossaryentry{Kbr-mr}{
+  type=symbolsmr,
+  name=$K_{br}$,
+  description={Radial bond energy (Energy/Distance$^2$)}
+}
+\newglossaryentry{Kbt-mr}{
+  type=symbolsmr,
+  name=$K_{b\theta}$,
+  description={Angular bond energy (Energy/Distance$^2$)}
 }
 \newglossaryentry{Ro-mr}{
   type=symbolsmr,
@@ -234,28 +254,24 @@
 \newglossaryentry{stress-mr}{
   type=symbolsmr,
   name=$\sigma^{*}$,
-  description={Stress (dimensionless)}
+  description={Stress in reduced units (Dimensionless)}
 }
 \newglossaryentry{strain-mr}{
   type=symbolsmr,
   name=$\gamma^{*}$,
-  description={Strain (dimensionless)}
+  description={Strain in reduced units (Dimensionless)}
 }
 \newglossaryentry{time-mr}{
   type=symbolsmr,
   name=$t^{*}$,
-  description={Time ($t\sqrt{\epsilon/m O^2}$ Adimensional)}
+  description={Time in reduced units ($t\sqrt{\epsilon/m O^2}$ Dimensionless)}
 }
 \newglossaryentry{mass-mr}{
   type=symbolsmr,
   name=$m^{*}$,
-  description={Mass ($m/m_o$ Adimensional)}
+  description={Mass ($m/m_o$ Dimensionless)}
 }
-\newglossaryentry{masso-mr}{
-  type=symbolsmr,
-  name=$m_o$,
-  description={Mass of reference (Mass)}
-}
+
 
 
 
