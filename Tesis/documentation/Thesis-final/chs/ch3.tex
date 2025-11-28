@@ -387,31 +387,36 @@ where $a$ and $b$ represent the spatial coordinates $x$, $y$ and $z$, and $\cor{
 \end{comment}
 
 
-Substituting the virial term~\eqref{eqn:virialLAMMPS} into the per-particle stress tensor~\eqref{eqn:stressLAMMPS} yields a similar expression for the previously derived stress~\eqref{eqn:DerVirTen23}.
-The stress tensor in equation~\eqref{eqn:DerVirTen23} is a temporal and spatial average, whereas the stress tensor in~\eqref{eqn:stressLAMMPS} is defined per particle.
-\cor{Spatial and time average.}\com{What type of average?}
-As a result, in order to study the mechanical response of the Cauchy stress tensor, a suitable time average, followed by a spatial average of the per-particle stress tensor along the patchy particle network, including the patches, is required.
+Incorporating the virial term~\eqref{eqn:virialLAMMPS} into the per-particle stress tensor~\eqref{eqn:stressLAMMPS} produces an analogous expression to the previously established stress~\eqref{eqn:DerVirTen23}.
+The stress tensor in equation~\eqref{eqn:DerVirTen23} represents a temporal and spatial average, while the stress tensor in~\eqref{eqn:stressLAMMPS} is defined on a per-particle basis.
+\cor{The temporal average is a rolling mean, whereas the spatial average is an arithmetic mean throughout the spatial domain.}
+Consequently, to analyze the mechanical response of the Cauchy stress tensor, an appropriate temporal average, succeeded by a spatial average of the per-particle stress tensor across the patchy particle network, inclusive of the patches, is necessary.
 
 \subsection{Assembly simulation and Shear deformation}
 
-Now let's explain the simulation protocols for the assembly of the polymeric network and the applied deformation.
-The assembly process starts by introducing the $N_p$ patchy particles at random positions in a box with lengths that match the desired packing fraction.
-Then, the temperature is linearly increased from \num{0} to \num{0.05} in \num{500000} time steps to prevent numerical instability.
+The assembly method begins by placing the $N_p$ particles at random locations within a box whose dimensions correspond to the chosen packing fraction.
+The temperature is incrementally raised from \num{0} to \num{0.05} over \num{500000} time steps to avoid numerical instability.
 Thereafter, the temperature was held constant until the total energy of the system stabilized to a minimum.
-This process was performed by varying the number of time steps until it was found that the patchy particle network percolated and the energy of the system didn't increase.
-\com{Equil? Explain more why stop there.}
-The number of time steps required to meet these conditions is \num{8d6}, which follows the previous \num{5d5} time steps.
+\cor{After achieving a stable energy value, a percolation test was conducted on the network.
+A cluster with a cutoff distance of \num{0.6}~$[r^*]$ was created using OVITO.
+Subsequently, the system replicated in the directions $\pm\hat{e}_{x},~\pm\hat{e}_{y},~\pm\hat{e}_{z}$ and verified whether the largest cluster expanded in size by a factor of \num{27}.
+Through iteration, we determined that a suitable number of time steps to reliably meet these constraints was \num{8d6} time steps.
+The simulation at the LAVIS facilities required a minimum of 8 hours for execution with the specified amount of time steps.
+}
 
-After the assembly protocol was completed, the final configuration was saved to a file before applying shear deformation.
-The patchy particle network was then subjected to a series of five deformations with matching shear rates.
-For each shear deformation simulation, the system energy, stress tensor components, temperature, and phase space configurations were saved.
-Following 5 sets of deformation with the same shear rate, a new set of deformations was performed with a different shear rate, beginning with the same initial configuration as the previous one.
 
-It is important to mention that the saved measurements are rolling mean temporal averages.
-The time average for the assembly protocol is specified in terms of the damp parameter: $100\cdot\cor{\mathrm{dt}^*}\cdot\cor{\mathrm{damp}^*}$, whereas for the shear deformation, the period was set \cor{such that in the time period the strain achieves} $0.05\cor{\gamma^{*}}$.
+Following finishing the network assembly, the final configuration was stored in a file before the application of shear deformation.
+ The irregular particle network was subsequently exposed to a sequence of five deformations with corresponding shear rates.
+ For each shear deformation simulation, the system's energy, stress tensor components, temperature, and phase space configurations were captured.
+ After five sets of deformations at a consistent shear rate, a new series of deformations was conducted at a different shear rate, starting from the identical initial configuration as before.
+
+The observed measurements are rolling mean temporal averages.
+The temporal average for the assembly protocol is defined by the damping parameter: $100\cdot\cor{\mathrm{dt}^*}\cdot\cor{\mathrm{damp}^*}$, while for shear deformation, the duration was established to ensure that the strain reaches $0.05\cor{\gamma^{*}}$ within that time frame.
 This was established for the energy, temperature, and stress tensors.
-The intervals for saving the system's phase space were calculated based on the simulation time and strain for assembly and deformation.
-After saving the metrics from all of the simulations, an average of the experiments with the identical settings was computed.
+\cor{The intervals were derived by adjusting the time window to minimize noise while adequately capturing the physical response. 
+A brief time interval yields noisy measurements, while an extended time interval dampens the fundamental dynamics.}
+The intervals for preserving the system's phase space were determined based on the simulation duration and strain during assembly and deformation.
+After saving the metrics from all simulations, an average of the experiments with equal parameters was calculated.
 
 \section{Results}
 
