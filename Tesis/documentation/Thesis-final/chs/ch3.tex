@@ -573,30 +573,16 @@ Another intriguing finding is the change in the steady-stress regime after the o
 Figure~\ref{fig:yieldStressResults} illustrates the average stress throughout the strain from \num{10} to \num{15} ($\gamma^{*}\in[10,15]$) with respect to the shear rate at various crosslinker concentrations.
 \cor{Analyzing identical crosslinker concentrations at different shear rates reveals a rise in stress, indicating a decrese in viscosity.
 This phenomenon can also be referred to as \emph{shear thinning}.
-Thus, this corroborates the interpretation of network fragmentation, as systems demonstrating shear thinning are explained by network fragmentation.}
+Thus, this corroborates the interpretation of network fragmentation, as systems demonstrating shear thinning are explained by network fragmentation.
+And this response is consistent throughout all the tested concentrations.}
 
-
-The dashed lines represent a powerlaw fits $p_1\dot{\gamma}^{p_2}$, where $p_1$ and $p_2$ stands for parameter one and parameter two.
-With exponents ($p_2$) $\{0.5901,0.4880,0.4045\}$ for the \num{10}\%, \num{5}\%, and \num{3}\% crosslinker concentrations, respectively.
-This finding served as a starting point for further investigation into yield stress events in polymeric networks.
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=0.9\textwidth]{figs/ComputaitonalResults/yieldStress.pdf}
-    \caption{Time average of steady-stress regime from computational results. Dashed lines represent exponential fits.
-    }\label{fig:yieldStressResults}
-\end{figure}
-
-The Herschel-Bulkey\com{Is it?/Una mejor discusión de los resultados.} model can quantitatively describe a ''\textit{yield stress material},'' and the high congruence between the exponential fit and the numerical results indicates that the polymeric network exhibits similar phenomena.
-However, the yield stress $\sigma_y$ was not defined using the Tresca or Von Mises criterion.
-Instead, it was chosen to compute the temporal average of the final portion of the deformation, assuming that the system achieves plastic deformation after the overshoot.
-%\subsection{Network analysis}
-
-
-\begin{gather}
-    f(\dot{\gamma}^{*}) = c_1 (\dot{\gamma}^{*})^{c_2}+c_3\label{eqn:fit} 
-\end{gather}
-
-
+\cor{Finally, in order to test the viscoelastic response of the system, the steady stress values at big strains is fit with the Herschel-Bulkey model for yield stress mateirals.}
+The fit is as follows,
+\begin{equation}
+    \sigma^{*}_{xy}(\dot{\gamma}^{*}) = c_1 (\dot{\gamma}^{*})^{c_2}+c_3.\label{eqn:fit}
+\end{equation}
+\cor{The restrictions for the parameters $c_2<1$ and $c_3>0$ are established to ensure physical interpretation as suggested in~\citep{bonnYieldStressMaterials2017}.
+In table~\ref{tab:fitParameters} are reported the numeric values of the fit~\eqref{eqn:fit} for each system with different crosslinker concentration.}
 \begin{table}[ht!]
 \centering
 \caption{Parameters of the fit model}\label{tab:fitParameters}
@@ -612,6 +598,22 @@ Instead, it was chosen to compute the temporal average of the final portion of t
 \bottomrule
 \end{tabularx}
 \end{table}
+
+
+
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figs/ComputaitonalResults/yieldStress.pdf}
+    \caption{Time average of steady-stress regime from computational results. Dashed lines represent exponential fits.
+    }\label{fig:yieldStressResults}
+\end{figure}
+
+The Herschel-Bulkey\com{Is it?/Una mejor discusión de los resultados.} model can quantitatively describe a ''\textit{yield stress material},'' and the high congruence between the exponential fit and the numerical results indicates that the polymeric network exhibits similar phenomena.
+However, the yield stress $\sigma_y$ was not defined using the Tresca or Von Mises criterion.
+Instead, it was chosen to compute the temporal average of the final portion of the deformation, assuming that the system achieves plastic deformation after the overshoot.
+%\subsection{Network analysis}
+
+
 
 
 
