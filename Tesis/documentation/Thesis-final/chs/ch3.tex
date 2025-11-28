@@ -92,13 +92,13 @@ where $r_{\mu\upsilon}$ is the distance between two patches, $\cor{D}_p$ is the 
     \caption{\cor{Comparison between the potentials used in the simulation with standard potentials.
         The orange and green lines are the potentials used in the simulation for the interaction between central particles and patches, respectively.
     The blue and pink lines represent the Lennard-Jones and FENE potentials, which are the commonly used to represent interparticle interactions.}
-    \cor{For comparison purposes, the parameters are set to \num{1}, $K=1$, $R_o=1.5$, $\epsilon=1$, $D=1$}
+    \cor{For comparison purposes, the parameters are set to \num{1}, $K=1$, $R_o=1.5$, $\epsilon=1$, $D=1$.}
 }\label{fig:patchpatchpot}
 \end{figure}
 
 \cor{In contrast with the well-known Lennard-Jones potential, the potential well of the patch-patch interaction is at the distance equal to the diameter of the particle, meanwhile the Lennard-Jones potential is $0$ at that distance.
 Moreover, equation~\eqref{eqn:patch-patch_interaction} indicates a more strong interaction between the patches than a Lennard-Jones potential.
-This is more appropriately depicted in Figure~\label{fig:patchpatchpot}.
+This is more appropriately depicted in Figure~\ref{fig:patchpatchpot}.
 }
 
 \cor{In the same figure it is shown the FENE potential}
@@ -118,8 +118,7 @@ As a result, the computational methodology simulates a polymeric network with ph
 %Equation
 
 \cor{However, if the simulation of the polymeric network happens just with the WCA and patch-patch potentials, the patches will take part in interactions involving several patches, which is undesired.
-Additionally, because of the low temperature of the system, a three-body repulsive potential is introduced to promote network percolation.
-}
+Additionally, because of the low temperature of the system, a three-body repulsive potential is introduced to promote network percolation.}
 This potential is defined in terms of~\eqref{eqn:patch-patch_interaction}, which facilitates an efficient bond-swapping mechanism, enabling the system to equilibrate readily even at low temperatures, while simultaneously maintaining the single bond per patch condition~\citep{sciortinoThreebodyPotentialSimulating2017}.
 The algebraic expression of the interaction is given by:
 \begin{gather}
@@ -159,8 +158,8 @@ Finally, when the patches $i-j$ are bigger than the cutoff distance ($r_{\mathrm
 \end{figure}
 
 \cor{A visual representation of the specified interactions is illustrated in figure~\ref{fig:interactionPatches}.
-The irregular particles featuring an orange central particle represent monomers due to the presence of two patches.
-The irregular particle featuring a red central component indicates the crosslinker due to its four patches, indicating a valence of 4.
+The patchy particles featuring an orange central particle represent monomers due to the presence of two patches.
+The patchy particle featuring a red central component indicates the crosslinker due to its four patches, indicating a valence of 4.
 Panels (a) and (b) illustrate the permitted interactions between patches throughout the simulation.
 Panels (c) and (d) illustrate the impact of the exchange mechanism.
 Rather than establishing a bond among the three patches, the interaction can change to build an interaction with the incoming particle.
@@ -208,9 +207,8 @@ It is important to mention that the study initiated with a system of \num{10000}
 \cor{For both patchy particles, the values of $\cor{K_{br}^{*}}$ and $\cor{K_{b\theta}^{*}}$ are established at \num{100}~\cor{$\epsilon^*$} to create a robust bond and inhibit the elongation of monomers and crosslinkers.
 \cor{Meanwhile the radius of the central particle is set to \num{0.5}~$r^{*}$ and the radius of the patches is \num{0.2}~$r^*$.}
 The distance between the center of the central particle and the patches is set to \num{0.45}$r^*$.
-Finally, the value of $\theta_{bo}$ is established at \SI{180}{\degree} for PB particles and \SI{109.4712}{\degree} for PA particles.}
-\cor{The inter-center distance was adjusted to ensure that the centers do not coincide with the surface of the central particle.
-Meanwhile, the amount of patches and angles corresponds to that described in~\citep{gnanSilicoSynthesisMicrogel2017}.}
+Finally, the value of $\theta_{bo}$ is established at \SI{180}{\degree} for PB particles and \SI{109.4712}{\degree} for PA particles and the amount of patches and angles corresponds to that described in~\citep{gnanSilicoSynthesisMicrogel2017}.}
+\cor{The inter-center distance was adjusted to ensure that the centers do not coincide with the surface of the central particle to avoid computational artifacts and to avoid zero range molecular interactions.}
 
 %\paragraph{Packing fraction}
 %\paragraph{Crosslinker concentrations}
@@ -272,9 +270,8 @@ This is to allow only crosslinker-monomer and monomer-monomer bonding.
 \cor{Finally, the parameter that controls the swapping mechanism is set to \num{0.75} to allow swapping bonds.}
 
 \cor{The selected deformation for analyzing the mechanical response was shear deformation, as shear testing yields a more uniform stress distribution across the hydrogel sample than tensile testing~\citep{jungEvaluatingMechanicalResponse2022,bernhardt-barryAnalysisStressDistribution2021}.
-Moreover, shear rheometry is proficient in delineating the intricate viscoelastic characteristics that determine hydrogel functionality~\citep{insuaRheologicalInsight3D2025}.
-Numerous hydrogels demonstrate shear-thinning properties, which are essential for applications such as injection and 3D bioprinting~\citep{tangStimuliresponsivePentapeptideNanofiber2019,fragalMicrobialBiosurfactantHydrogels2025}.
-} 
+Moreover, shear rheometry is proficient in delineating the intricate viscoelastic characteristics that determine hydrogel functionality~%\citep{insuaRheologicalInsight3D2025}.
+Numerous hydrogels demonstrate shear-thinning properties, which are essential for applications such as injection and 3D bioprinting~%\citep{tangStimuliresponsivePentapeptideNanofiber2019,fragalMicrobialBiosurfactantHydrogels2025}.} 
 
 The shear deformation was conducted at a constant shear rate in the $xy$ plane.
 The shear rates were in the \num{d-3}\cor{[$1/t^*$]} order of magnitude, and the final strain was \num{15}.
@@ -406,7 +403,7 @@ The simulation at the LAVIS facilities required a minimum of 8 hours for executi
 
 
 Following finishing the network assembly, the final configuration was stored in a file before the application of shear deformation.
- The irregular particle network was subsequently exposed to a sequence of five deformations with corresponding shear rates.
+ The patchy particle network was subsequently exposed to a sequence of five deformations with corresponding shear rates.
  For each shear deformation simulation, the system's energy, stress tensor components, temperature, and phase space configurations were captured.
  After five sets of deformations at a consistent shear rate, a new series of deformations was conducted at a different shear rate, starting from the identical initial configuration as before.
 
