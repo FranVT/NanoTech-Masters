@@ -527,7 +527,8 @@ Nonetheless, given that the parameters of temperature (with thermal energy const
     \centering
     \includegraphics[width=\textwidth]{figs/ComputaitonalResults/comp.pdf}
     \caption{Strain-stress relation for a set of 10 different shear rates applied to three different patchy particles systems with crosslinker concentration of 3, 5 and 10 percent.
-    Each line represent a 5 experiments average with an assembly average and a moving time average.\com{Explain what happens in the overshoot.}}\label{fig:stres-strainResults}
+    Each line represent a 5 experiments average with an assembly average and a moving time average.
+    \cor{The overshoot phenomena can be potentially explained by the alignment of the patch-patch bond with the direction of the deformation.}}\label{fig:stres-strainResults}
     %Computational results at different crosslinker concentrations. Each line reprensent the average of 5 experiments with \num{8000} patchy particles with a packing fraction of \num{0.5}, damp of \num{0.5} and the time average is in intervals of \num{5d-2}$\dot{\gamma}$.
 \end{figure}
 
@@ -575,7 +576,12 @@ Figure~\ref{fig:yieldStressResults} illustrates the average stress throughout th
 This phenomenon can also be referred to as \emph{shear thinning}.
 Thus, this corroborates the interpretation of network fragmentation, as systems demonstrating shear thinning are explained by network fragmentation.
 And this response is consistent throughout all the tested concentrations.}
-
+\begin{figure}[ht!]
+    \centering
+    \includegraphics[width=0.9\textwidth]{figs/ComputaitonalResults/yieldStress.pdf}
+    \caption{Time average of steady-stress regime from computational results. Dashed lines represent exponential fits.
+    }\label{fig:yieldStressResults}
+\end{figure}
 \cor{Finally, in order to test the viscoelastic response of the system, the steady stress values at big strains is fit with the Herschel-Bulkey model for yield stress mateirals.}
 The fit is as follows,
 \begin{equation}
@@ -599,20 +605,16 @@ In table~\ref{tab:fitParameters} are reported the numeric values of the fit~\eqr
 \end{tabularx}
 \end{table}
 
+\cor{The values for $c_2$ support the interpretation of the system as a network exhibiting shear thinning.
+Conversely, the values of $c_3$ approaching \num{0} suggest the absence of a yield stress.
+Ultimately, $c_1$ is understood as the resistance to flow, signifying that the network facilitates flow easier with a larger crosslink concentration.
+}
+\cor{The close proximity of the numeric values of the yield point fit to zero suggests that the polymeric network is better characterized as a viscoelastic fluid rather than a viscoelastic solid.
+This could be explained by the patch-patch pairwise interaction.
+Due to the ability of the path-patch interaction to break and reassemble, it exhibits minimal resistance of the network to shear deformation.
+Inhibiting the yield stress phenomena.}
 
-
-\begin{figure}[ht!]
-    \centering
-    \includegraphics[width=0.9\textwidth]{figs/ComputaitonalResults/yieldStress.pdf}
-    \caption{Time average of steady-stress regime from computational results. Dashed lines represent exponential fits.
-    }\label{fig:yieldStressResults}
-\end{figure}
-
-The Herschel-Bulkey\com{Is it?/Una mejor discusión de los resultados.} model can quantitatively describe a ''\textit{yield stress material},'' and the high congruence between the exponential fit and the numerical results indicates that the polymeric network exhibits similar phenomena.
-However, the yield stress $\sigma_y$ was not defined using the Tresca or Von Mises criterion.
-Instead, it was chosen to compute the temporal average of the final portion of the deformation, assuming that the system achieves plastic deformation after the overshoot.
-%\subsection{Network analysis}
-
+%\cor{As a result }
 
 
 
