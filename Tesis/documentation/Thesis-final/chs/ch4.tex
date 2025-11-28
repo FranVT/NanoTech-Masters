@@ -10,6 +10,7 @@ This work's implementation exclusively represent systems with physical crosslink
  One distinction is the estimated strain value at which the maximum stress occurs, which is slightly lower than those documented in the literature.}
 \cor{On the other hand, the alignment with the Herschel-Bulkley model indicates that the system is more appropriately characterized as a viscoelastic liquid rather than a viscoelastic solid.
 Nonetheless, the same fit confirms the shear-thinning behavior of the system, with the exponents being less than 1.}
+\cor{These results allow the validation of the methodology as a numerical tool to explore in more detail the molecular mechanisms that contribute significantly to the mechanical response of polymeric gels.}
 
 \cor{The relationship between the mechanical response and the network remains insufficiently explored.
 Nevertheless, the literature and analysis of the results suggest that the network begins to flow upon the application of shear deformation, exhibiting minimal resistance due to the unconstrained interaction between patches.
@@ -17,14 +18,17 @@ Meanwhile the overshoot may be attributed to the alignment of the irregular part
 \cor{An other critical subject to consider is the values of the damping and packing fractions.
  The damping value results in a reduction of energy dissipation within the system; additionally, the packing percentage is excessively high for polymeric gels like hydrogels, but this value could explain the system's viscoelastic response.}
 
+\section{\cor{Future work}}
 
-Aquí menciona explícitamente que lograste obtener un modelo de Red que que percola y en la que los enlaces son reformas, esto es importante que lo menciones en tus conclusiones también.
+\cor{The short-term analysis is to characterize the network, including pore size, cluster size, strand length, percentage of dangling strands and loops, and other topological metrics.
+The radii of gyration of the network during shear deformation or an order parameter can be examined to assess the bond alignment relative to the deformation direction.}
+\cor{Also, an analysis of the patch-patch interactions can be performed to explore if the reformation of interaction can explain the overshoot phenomena.}
 
-En cuanto a perspectivas, pues puedes hablar un poco de qué nos faltan analizar muchas cosas, por ejemplo, 
-    los efectos que tienen al cambiar las concentraciones, 
-    menciona que la concentración usada fue solo valor elegido para probar que el modelo funcionaba, 
-    pero que aún exploraremos otros valores de concentración.
-    Más cosas que faltaron caracterizar los poros de la Red, caracterizar cómo cambian los poros durante la deformación.
-puedes también hablar de qué queríamos ver más 
-    en detalle la respuesta después de varias deformaciones sucesivas. Por ahí lo mencionas, pero ya no le exploramos tanto. 
-También otra cosa que se nos quedó pendiente y que es la inspiración, es ver qué pasa cuando le ponemos inclusiones cómo se modifica la respuesta mecánica.
+\cor{Additionally, it is essential to examine the time interval for the moving average to get adequate data and reduce any inaccuracies in interpretation.
+Also investigate using a larger numerical amount of damping, around \num{1}$[1/t^{*}]$, alongside a reduced packing fraction, such as \num{0.1} or \num{0.3}.
+Moreover, additional concentration values could facilitate an in-depth investigation of the different processes that are either enhanced or reduced by the crosslinkers.} 
+\cor{Furthermore, the change of the pore size inside the network can be examined by varying packing fractions and crosslinker concentrations to develop future procedures including inclusions in the network.}
+\cor{Another compelling experiment involves examining the mechanical reaction of a sequence of shear deformations alternated with relaxation intervals.
+ This may provide a deeper understanding of the viscoelastic behavior of polymeric gels.}
+
+

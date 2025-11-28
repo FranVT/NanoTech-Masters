@@ -4,9 +4,9 @@
 
 % About this thesis
 \cor{The aim of this work is to explore the patchy particle methodology for molecular simulations to approximate the mechanical response of polymeric gels under a shear deformation.}
-The research, conducted over two years, establishes a basis for further research, including \cor{the specialization of the methodology for hydrogels to aid the design of this material for a desired application with specific mechanical performance requirements.}
+\cor{This work}, conducted over two years, establishes a basis for further research, including \cor{the specialization of a methodology for hydrogels to aid the design of this material for a desired application with specific mechanical performance requirements.}
 The proposed methodology relies on prior research\citep{gnanSilicoSynthesisMicrogel2017} in which the polymeric network of PNIPAM microgels was replicated using patchy particles and molecular dynamics.
-To align with the institution's research, the computational approach was adjusted to simulate polymeric gels for gradual methodology modification for hydrogels.
+\cor{However, the computational approach was was modified to model polymeric gels in accordance with the objectives of this thesis.}
 
 A review of the literature reveals that hydrogels have a wide range of applications.
 However, the precise origin of the mechanical response in \cor{polymeric gels} remains a topic of debate.
@@ -37,7 +37,6 @@ Meanwhile, gels are polymer networks formed through covalent or supramolecular b
 \cor{This technique is flexible enough to allow for the necessary adjustments to create a polymeric network, rather than a cross-linked polymer network at the colloidal scale. 
 This is possible because it uses two types of decorated particles to build the polymeric network. 
 Additionally, the assembly environment, including confinement, temperature, packing fraction, and other factors, can be easily controlled.}
-
 Hydrogels generally demonstrate viscoelastic and viscoplastic mechanical behaviors.
 The material's viscoelastic properties enable it appropriate for shock absorption, vibration damping, and mimicking biological tissues\cor{\citep{xuRapidlyDampingHydrogels2024a}}.
 In addition, viscoplasticity allows the material appropriate for energy dissipation.
@@ -55,7 +54,7 @@ The researchers in \citep{yanRheologicalPropertiesPeptidebased2010} examine the 
 %Three principal considerations influence the selection of application examples.
 The following summary presents applications of hydrogels across three areas.
 Given the pressing threat of climate change to the global ecosystem, research into environmentally pertinent applications is essential.
-Secondly, it should conform to the institution's strategic research priorities in biological applications.
+\cor{Secondly, examples that correspond with the institution's strategic research orientation toward biological applications}.
 Ultimately, examples from the field of smart materials were incorporated, drawing upon prior academic experience.
 
 %\paragraph{Environmental applications} 
@@ -78,7 +77,7 @@ In~\citep{bishnoiCellulosebasedSmartMaterials2024}, they investigated the role a
 According to~\citep{zhaoIntelligentHydrogelActuators2021}, near infrared laser-driven intelligent hydrogel actuators with a high response rate were manufactured by three-dimensional printing and hydrothermal synthesis.
 In~\citep{shomePhotoresponsiveSmartHydrogels2024}, the basic mechanics of photo-responsiveness in hydrogels are reviewed, as well as their possible applications.
 And, reference~\citep{duttaSmartMaterialsFlexible2024}, they discuss the state-of-the-art applications of hydrogels in flexible electronics, such as energy storage, touch panels, memristor devices, and sensors like temperature, gas, humidity, chemical, strain, and textile sensors, as well as the latest hydrogel synthesis methods.
-To close, figure~\ref{fig:applications}, retrieved from~\citep{petelinsekToughHydrogelsLoadBearing2024}, presents a graphical representation of some of the prior and other applications.
+To close, figure~\ref{fig:applications}, retrieved from~\citep{petelinsekToughHydrogelsLoadBearing2024}, presents a graphical representation of \cor{some of the given examples} and other applications.
 
 % Clousure/transition paragraph
 \begin{figure}[ht!]
@@ -91,7 +90,7 @@ To close, figure~\ref{fig:applications}, retrieved from~\citep{petelinsekToughHy
 \subsection{Mechanical response}
 
 Although hydrogels have been experimentally implemented in a variety of sectors, an explanation of their properties based on first principles is still lacking due to the materials intricate multi-scale nature\citep{senffTemperatureSensitiveMicrogel1999}.
-\cor{This explanation is of great relevance; for instance, cells react to the rigidity of their surroundings by mechanotransduction, necessitating an ideal elastic modulus (G') to direct stem cell behavior and preserve distinct cell phenotypes. 
+\cor{This explanation is of great relevance; for instance, cells react to the rigidity of their surroundings by mechanotransduction, which requires an ideal elastic modulus (G') to direct stem cell behavior and preserve distinct cell phenotypes. 
 An inadequate modulus may lead to erroneous differentiation, cellular apoptosis, or scaffold malfunction\citep{holleMoreFeelingDiscovering2011,seligMechanotransductionStiffnessSensingMechanisms2020}.}
 
 \cor{Yield stress influences printability and the capacity to be injected through a needle without obstruction or harm to encapsulated cells.
@@ -138,7 +137,7 @@ As indicated in figure~\ref{fig:mechresponse0-a}.
             The elastic response is instant, and when the force is removed, the strain returns to its starting value instantly.
             The viscous response is time dependent, and the strain no longer returns to its starting value after the applied force is removed.
             Finally, the ideal viscoelastic response combines both responses: an instant strain response followed by a time-dependent relation and a time-dependent recovery to the strain starting value once the applied force is removed.
-    Figure retrieve from\citep{courbotRoleExtracellularMatrix2025}}\label{fig:mechresponse0-a}
+        Figure retrieve from\citep{courbotRoleExtracellularMatrix2025}.}\label{fig:mechresponse0-a}
 \end{figure}
 
 %An elastic responses occurs when the deformation is instantaneous and reversible in reaction to applied forces, whereas a viscous response occurs when the deformation is time-dependent and irreversible.
@@ -151,7 +150,7 @@ It is understood that a more viscoelastic response is related with an increase i
 On the other hand, when the strain is applied to the material, the stress relaxation phenomena appears as a viscoelastic response.
 That is, that the stress decreases over time as the applied deformation takes place and once the strain it is removed, the stress returns to its starting value.
 
-\cor{Talk about hysteresis to talk abput viscoelastic materials}
+%\cor{Talk about hysteresis to talk abput viscoelastic materials}
 
 \begin{figure}[ht!]
     \centering
@@ -160,7 +159,7 @@ That is, that the stress decreases over time as the applied deformation takes pl
     \caption{The time dependent strain response to an applied stress it is also kwnon as \emph{creep}.
         The viscous response can be also consider as \emph{creep} phenomena.
         On the other hand, when the strain it is applied, the stress relaxation phenomena emerges, by a decrease of the stress under a constant deformation.
-        Figure retrieve from\citep{courbotRoleExtracellularMatrix2025}}\label{fig:mechresponse0-b}
+        Figure retrieve from\citep{courbotRoleExtracellularMatrix2025}.}\label{fig:mechresponse0-b}
 \end{figure}
 
 It's essential to remember that elastic and viscoelastic responses are idealized models, and it's very uncommon to explain a material's mechanical reaction using only those responses.
@@ -171,9 +170,9 @@ This is illustrated in figure~\ref{fig:mechresponse0-c}.
 \begin{figure}[ht!]
     \centering
     \centering
-    \includegraphics[width=10cm]{figs/mechResponse/viscoElasticResponse-3.png}
+    \includegraphics[width=8cm]{figs/mechResponse/viscoElasticResponse-3.png}
     \caption{The viscoplastic response also shows the creep phenomenon; however, when the applied force is removed, the strain returns to a different value than when it began.
-        Figure retrieve from\citep{courbotRoleExtracellularMatrix2025}}\label{fig:mechresponse0-c}
+        Figure retrieve from\citep{courbotRoleExtracellularMatrix2025}.}\label{fig:mechresponse0-c}
 \end{figure}
 
 \cor{The crosslinking mechanisms within the network significantly affect the viscoelastic behavior of hydrogels.}
