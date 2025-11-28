@@ -88,11 +88,11 @@ where $r_{\mu\upsilon}$ is the distance between two patches, $\cor{D}_p$ is the 
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=12cm]{figs/numerical/patchpatch.png}
+    \includegraphics[width=12cm]{figs/numerical/patchpatch.pdf}
     \caption{\cor{Comparison between the potentials used in the simulation with standard potentials.
         The orange and green lines are the potentials used in the simulation for the interaction between central particles and patches, respectively.
-    The blue and red lines represent the Lennard-Jones and FENE potentials, which are the commonly used to represent interparticle interactions.}
-    \cor{For comparison purposes, the parameters are set to \num{1}, $K=1$, $R_o=1$, $\epsilon=1$, $D=1$}
+    The blue and pink lines represent the Lennard-Jones and FENE potentials, which are the commonly used to represent interparticle interactions.}
+    \cor{For comparison purposes, the parameters are set to \num{1}, $K=1$, $R_o=1.5$, $\epsilon=1$, $D=1$}
 }\label{fig:patchpatchpot}
 \end{figure}
 
@@ -149,11 +149,11 @@ Finally, when the patches $i-j$ are bigger than the cutoff distance ($r_{\mathrm
 
 \begin{figure}[ht!]
     \centering
-    \includegraphics[width=12cm]{figs/numerical/swapPotential.png}
+    \includegraphics[width=12cm]{figs/numerical/swapPotential.pdf}
     \caption{Swap potential for patch-patch interaction to ensure single bond per patch condition.
-        Blue line represents the patch-patch interaction potential.
-        Orange, green and red lines represent the swap potential with a fix distance between patch $i$ with patch $j$ and a free patch $k$.
-        When the patches $i$ and $j$ are at the potential well, the interaction between partches $i-k$ and $j-k$ is repulsive (orange line).
+        Dark blue line represents the patch-patch interaction potential.
+        Orange, green, pink and light blue lines represent the swap potential with a fix distance between patch $i$ with patch $j$ and a free patch $k$.
+        When the patches $i$ and $j$ are at the potential well, the interaction between patches $j-k$ is repulsive.
         However, when the distance between patches $i$ and $j$ starts to increase, the repulsive interaction with patch $k$ diminishes.
     }\label{fig:swappot}
 \end{figure}
