@@ -213,11 +213,10 @@ Finally, the value of $\theta_{bo}$ is established at \SI{180}{\degree} for PB p
 Meanwhile, the amount of patches and angles corresponds to that described in~\citep{gnanSilicoSynthesisMicrogel2017}.}
 
 %\paragraph{Packing fraction}
-
-
 %\paragraph{Crosslinker concentrations}
-
-%\paragraph{Box parametr}
+\cor{The packing fraction is set at \num{0.5} to enable the formation of a percolated network; however, it is important to note that polymeric networks are also possible at lower packing percentages~\citep{gallegosLocationGellikeBoundary2021,gimperleinStructuralDynamicalProperties2021,formanekGelFormationReversibly2021b}.
+ The concentrations of crosslinkers for testing were established according to their ratio in the hydrogels.
+}
 The volume of the box was calculated by determining the volume of the patchy particles A and B and then scaling those values by the number of particles and the desired packing fraction.
 \begin{align*}
     \cor{V_{\mathrm{box}}^{*}} &= \frac{N_{\mathrm{patchyA}}\cor{V_{\mathrm{patchyA}}^{*}}+N_{\mathrm{patchyB}}\cor{V_{\mathrm{patchyB}}^{*}}}{\phi}
@@ -225,18 +224,28 @@ The volume of the box was calculated by determining the volume of the patchy par
 The number of patchy particles of type A is computed as $N_{\mathrm{patchyA}} = c N_p$, and the number of patchy particles of type B as $N_{\mathrm{patchyB}}= N_p - N_{\mathrm{patchyA}}= N_p(1 - c )$.
 
 
-the temperature was set to be constant through all the assembly process, $\cor{T^*}=\num{0.05}$
+\cor{The temperature is established at $\cor{T^*}=\num{0.05}$.
+ The thermal energy represents only 5\% of the pairwise interactions between patchy particles.
+ Consequently, once the network is formed, it is exceedingly unlikely to reorganize spontaneously due to insufficient energy to disrupt the patch-patch interactions.
+ This scenario further reinforces the significance of incorporating the three-body potential for assisting a percolated network.}
+
 %\paragraph{Langeving parameters}
 
-\cor{The $\mathrm{damp}$ parameter was fixed to a value of \num{0.1}~$[1/t^*]$ from debugging during the shear deformation simulation.
-At the begginig the parameter was set to \num{1} or slightly bigger values.
-However those values causes big fluctiations in the temperature and the relaxed temperature values was higher than the desired value.
-In order to find why that happen, the damp parameter was strongly reduce to \num{0.1} and it was found that the implementation of the threebody potential was wrongly implemented.
-This is going to be exaplained in detail in subsequent sections\ref{subsec:LammpsImplementation}.
-Once this implementation was fixed, the damp parameter wasn't changed.
+\cor{The $\mathrm{damp}$ parameter was set to a value of \num{0.1}~$[1/t^*]$ as a remnant from a debugging stage in the shear deformation simulation.
+Initially, the parameter was established at \num{1} or marginally higher values.
+Nevertheless, those values resulted in significant temperature variations, and the adjusted temperature values exceeded the acceptable threshold.
+To determine the cause of the problem, the damping parameter was significantly decreased to \num{0.1}, revealing that the three-body potential was incorrectly implemented.
+This will be elaborated upon in  section~\ref{subsec:LammpsImplementation}.
+After rectifying the implementation, the value was kept low to achieve the appropriate temperature. 
 }
+
 \cor{This implies that the system is in a high viscosity solvent and that the system is overcontrolled and that bond-breaking events and structural rearrangements may be artificially rare.
 }
+\cor{Consequently, to ensure numerical stability, the time step is set at \num{0.001}$t^{*}$. 
+The stability criterion is defined as $\mathrm{damp}^{*}dt^{*}<2$~\citep{leimkuhlerContractionConvergenceRates2024}.
+Considering that $\mathrm{damp}^{*}dt^{*} = \num{1d-4}$, numerical stability is assured, allowing us to acquire acceptable average observables.}
+
+
 
 %\cor{In order to achieve a fast temperature relaxation the $\mathrm{damp}$ parameter is set to \num{0.1}~$[1/t^*]$.
 %The reason of this value is due to a long process of debugging the protocol.
@@ -244,15 +253,11 @@ Once this implementation was fixed, the damp parameter wasn't changed.
 
 %By setting the mass at $m^*=1$, the dissipative term can be interpreted as removing 10\% of the momenta each reduce time unit. 
 %}
-\cor{Consequently, to ensure numerical stability, the time step is set at \num{0.001}$t^{*}$. 
-The stability criterion is defined as $\mathrm{damp}^{*}dt^{*}<2$~\citep{leimkuhlerContractionConvergenceRates2024}.
-Considering that $\mathrm{damp}^{*}dt^{*} = \num{1d-4}$, numerical stability is assured, allowing us to acquire acceptable average observables.}
-
 
 %Finally, 
 %in Lennard-Jones units; meanwhile, the damp parameter was set to \cor{$\mathrm{damp}=\num{0.1}$}.
 %It is very important to note that the damp controls the viscous response caused by the interaction between the thermal bath and the particles, which symbolizes the interaction of water molecules with the polymer network. 
-The diameter of the central particle is set to $\cor{D^*}=1$ and the diameter of the patches at $\cor{D_p^*}=0.4$.
+%The diameter of the central particle is set to $\cor{D^*}=1$ and the diameter of the patches at $\cor{D_p^*}=0.4$.
 
 
 
@@ -260,25 +265,27 @@ The diameter of the central particle is set to $\cor{D^*}=1$ and the diameter of
 %\corConsequently, to offset this, we compute the average of five simulations of the shear deformation.}
 %\cor{The time step is established at  to guarantee numerical stability. 
 
-The energy of interaction between central particles is $\cor{\epsilon_{i,j}^*}=1$.
-In contrast, the energy of interaction between patches is defined as follows:
-The interaction of patchy particles B is set to $\cor{\epsilon_{\mu,\upsilon}^*}=1$, whereas the interaction between patchy particles A is set to $\cor{\epsilon_{\mu,\upsilon}^*}=0$, and the interaction between patches of patchy particles A with patchy particles B is set to $\cor{\epsilon_{\mu,\upsilon}^*}=1$.
-This is to allow only crosslinker-monomer and monomer-monomer bonding.
-\cor{In this work the parameter is set to \num{0.75}.}
+The energy of interaction between central particles is $\cor{\epsilon_{i,j}^*}=1$. 
+In contrast, the energy of interaction between patches is defined as follows: 
+The interaction of patchy particles B is set to $\cor{\epsilon_{\mu,\upsilon}^*}=1$, whereas the interaction between patchy particles A is set to $\cor{\epsilon_{\mu,\upsilon}^*}=0$, and the interaction between patches of patchy particles A with patchy particles B is set to $\cor{\epsilon_{\mu,\upsilon}^*}=1$. 
+This is to allow only crosslinker-monomer and monomer-monomer bonding. 
+\cor{Finally, the parameter that controls the swapping mechanism is set to \num{0.75} to allow swapping bonds.}
+
+\cor{The selected deformation for analyzing the mechanical response was shear deformation, as shear testing yields a more uniform stress distribution across the hydrogel sample than tensile testing~\citep{jungEvaluatingMechanicalResponse2022,bernhardt-barryAnalysisStressDistribution2021}.
+Moreover, shear rheometry is proficient in delineating the intricate viscoelastic characteristics that determine hydrogel functionality~\citep{insuaRheologicalInsight3D2025}.
+Numerous hydrogels demonstrate shear-thinning properties, which are essential for applications such as injection and 3D bioprinting~\citep{tangStimuliresponsivePentapeptideNanofiber2019,fragalMicrobialBiosurfactantHydrogels2025}.
+} 
+
+The shear deformation was conducted at a constant shear rate in the $xy$ plane.
+The shear rates were in the \num{d-3}\cor{[$1/t^*$]} order of magnitude, and the final strain was \num{15}.
+This aims to characterize the mechanical response and to deform beyond the plastic deformation threshold.
+The shear rate was varied to examine the viscoelastic response of the material.
+
+%shear forces dominate biological environments where hydrogels are typically deployed.
+%\cor{In this work the parameter is set to \num{0.75}.}
 
 %\paragraph{Deformation protocol}
-Once the assembly simulation of the patchy particle network was done, we performed a shear deformation to the resulting network.
-We select the shear deformation because shear forces dominate biological environments where hydrogels are typically deployed. 
-Also, shear testing provides a more uniform stress field throughout the hydrogel sample compared to tensile testing. 
-In rheological measurements using parallel plate or cone-and-plate geometries, the applied shear stress is distributed evenly across the sample, eliminating edge effects and stress concentrations that plague tensile testing.
-Furthermore, shear rheometry excels at characterizing the complex viscoelastic properties that define hydrogel functionality.
-Many hydrogels exhibit shear-thinning behavior that is critical for applications like injection and 3D bioprinting. 
-The shear deformation was done at a constant shear rate in the $xy$ plane.
-
-The shear rates were in the \num{d-3}\cor{[$1/t^*$]} order of magnitude, and the final strain was \num{15}.
-This is to characterize the mechanical response and to deform beyond the plastic deformation limit.
-Also, the variation of the shear rate was performed to see the viscoelastic response of the material.
-The temperature and dampness parameters were set to be the same as in the assembly process.
+%In rheological measurements using parallel plate or cone-and-plate geometries, the applied shear stress is distributed evenly across the sample, eliminating edge effects and stress concentrations that plague tensile testing.
 
 \subsection{LAMMPS implementation}\label{subsec:LammpsImplementation}
 
