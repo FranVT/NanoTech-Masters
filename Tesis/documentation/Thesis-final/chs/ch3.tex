@@ -53,8 +53,8 @@ The patches and the central particles are linked by harmonic potentials.
     E_\theta &= \cor{K_{b\theta}}\qty(\theta-\cor{\theta_{bo}})^2.
 \end{align}
 Where \cor{$r_{bo}$} and \cor{$\theta_{bo}$} represent the equilibrium bond distance and angle.
-Meanwhile, \cor{$K_{br}$} and \cor{$K_{br}$} are equal to $k/2$, where $k$ is the energy of the bond.
-\cor{This allow to placed the patches at desire positions.
+Meanwhile, \cor{$K_{br}$} and \cor{$K_{b\theta}$} are equal to $k/2$, where $k$ is the energy of the bond.
+\cor{This allows placing the patches at desired positions.
 It is important to recognize that the patchy particles can also be represented through a rigid interaction between the central particle and the patch.
 As a result, to rectify the numerical problems, the central-patch interaction was modified using a bond potential, so resolving those concerns.
 Now, let us continue to describe the pairwise interactions between patchy particles.
@@ -96,7 +96,7 @@ where $r_{\mu\upsilon}$ is the distance between two patches, $\cor{D}_p$ is the 
 }\label{fig:patchpatchpot}
 \end{figure}
 
-\cor{In contrast with the well-known Lennard-Jones potential, the potential well of the patch-patch interaction is at the distance equal to the diameter of the particle, meanwhile the Lennard-Jones potential is $0$ at that distance.
+\cor{In contrast with the well-known Lennard-Jones potential, the minimum of the patch-patch potential is at the distance equal to the diameter of the particle, meanwhile the Lennard-Jones potential is $0$ at that distance.
 Moreover, equation~\eqref{eqn:patch-patch_interaction} indicates a more strong interaction between the patches than a Lennard-Jones potential.
 This is more appropriately depicted in Figure~\ref{fig:patchpatchpot}.
 }
@@ -119,7 +119,7 @@ As a result, the computational methodology simulates a polymeric network with ph
 
 \cor{However, if the simulation of the polymeric network happens just with the WCA and patch-patch potentials, the patches will take part in interactions involving several patches, which is undesired.
 Additionally, because of the low temperature of the system, a three-body repulsive potential is introduced to promote network percolation.}
-This potential is defined in terms of~\eqref{eqn:patch-patch_interaction}, which facilitates an efficient bond-swapping mechanism, enabling the system to equilibrate readily even at low temperatures, while simultaneously maintaining the single bond per patch condition~\citep{sciortinoThreebodyPotentialSimulating2017}.
+This potential is defined in terms of the pair potential of eq.~\eqref{eqn:patch-patch_interaction}, which facilitates an efficient bond-swapping mechanism, enabling the system to equilibrate readily even at low temperatures, while simultaneously maintaining the single bond per patch condition~\citep{sciortinoThreebodyPotentialSimulating2017}.
 The algebraic expression of the interaction is given by:
 \begin{gather}
     U_{\mathrm{swap}}(r_{l,m},r_{l,n}) = w\sum_{l,m,n}\epsilon_{m,n}U_3\qty(r_{l,m})U_3\qty(r_{l,n}),\quad r_{l,n}\in\qty[0,r_c],\label{eqn:swap_interaction}
@@ -134,7 +134,7 @@ where
         \right.\label{eqn:swapmod_interaction}.
 \end{gather}
 \cor{Where $\alpha$ is the distance $r_{l,m}$ or $r_{l,n}$.}
-The sum in~\eqref{eqn:swap_interaction} runs over all triples of bonded patches (patch $l$ bonded both with $m$ and $n$).
+The sum in~\eqref{eqn:swap_interaction} runs over all triplets of bonded patches (patch $l$ bonded both with $m$ and $n$).
 $r_{l,m}$ and $r_{l,n}$ are the distances between the reference patch and the other two patches.
 The parameter $\epsilon_{m,n}$ is the energy of repulsion, and $w$ is used to tune the swapping ($w=1$) and non-swapping bonds ($w\gg1$). 
 The cutoff distance $\alpha_c$ is the same as in the potential of interaction between patches, meanwhile the minimum distance $\alpha_{\min}$ is the distance at the minimum of~\eqref{eqn:patch-patch_interaction}, \textit{i.e.} $\epsilon_{m,n}\equiv\abs{U_{\mathrm{patchy}}(\alpha_{\min})}$.
@@ -176,7 +176,7 @@ Rather than establishing a bond among the three patches, the interaction can cha
 
 \subsection{\cor{Reduce units}}
 
-\cor{Before detailing the numerical values for the parameters, it is crucial to recognize that the numerical simulations are performed using reduced Lennard-Jones units for computational and physical efficiency.
+\cor{Before detailing the numerical values for the parameters, it is crucial to explain that the numerical simulations are performed using reduced Lennard-Jones units for computational and physical efficiency.
 The Lennard-Jones reduced units are achieved by rescaling the distance, energy, and mass to a characteristic quantity and setting $k_B=1$.
 The distance is rescaled by the diameter of the particle, $r^*=r/D$; the energy is rescaled by the potential well of the interaction potentials $\epsilon^{*} = E/\epsilon$; meanwhile, the mass is rescaled to a characteristic quantity of the system $m^* = m/m_{\mathrm{ref}}$.
 Finally, by setting $k_B$ to $1$ with the other quantities, the time is rescaled by $t^* = t\sqrt{\epsilon/(m_{\mathrm{ref}}O^2)}$.}
@@ -186,7 +186,7 @@ The reduced temperature is rescaled by $T^{*} = k_{\mathrm{B}}T/\epsilon$, or}
 \begin{equation}
     \cor{\epsilon T^* = k_{\mathrm{B}}T.}
 \end{equation}
-\cor{Recognizing that $k_{\mathrm{B}}$ serves as a conversion factor between temperature and energy, this decision facilitates a straightforward comparison of thermal energy with interaction energy.
+\cor{Observing that $k_{\mathrm{B}}$ serves as a conversion factor between temperature and energy, this decision facilitates a straightforward comparison of thermal energy with interaction energy.
 By establishing $T^*=1$, the thermal energy is equated to the potential well depth $\epsilon$.
 Conversely, establishing $T^*=0.5$ represents a system having half the thermal energy relative to the potential well depth.}
 
@@ -204,7 +204,7 @@ It is important to mention that the study initiated with a system of \num{10000}
 }
 
 %\paragraph{Number of patchy particles}
-\cor{For both patchy particles, the values of $\cor{K_{br}^{*}}$ and $\cor{K_{b\theta}^{*}}$ are established at \num{100}~\cor{$\epsilon^*$} to create a robust bond and inhibit the elongation of monomers and crosslinkers.
+\cor{For both patchy particles, the values of $\cor{K_{br}^{*}}$ and $\cor{K_{b\theta}^{*}}$ are established at \num{100}~\cor{$\epsilon^*/(r^*)^2$} to create a robust bond and inhibit the elongation of monomers and crosslinkers.
 \cor{Meanwhile the radius of the central particle is set to \num{0.5}~$r^{*}$ and the radius of the patches is \num{0.2}~$r^*$.}
 The distance between the center of the central particle and the patches is set to \num{0.45}$r^*$.
 Finally, the value of $\theta_{bo}$ is established at \SI{180}{\degree} for PB particles and \SI{109.4712}{\degree} for PA particles and the amount of patches and angles corresponds to that described in~\citep{gnanSilicoSynthesisMicrogel2017}.}
@@ -224,7 +224,7 @@ The number of patchy particles of type A is computed as $N_{\mathrm{patchyA}} = 
 
 \cor{The temperature is established at $\cor{T^*}=\num{0.05}$.
  The thermal energy represents only 5\% of the pairwise interactions between patchy particles.
- Consequently, once the network is formed, it is exceedingly unlikely to reorganize spontaneously due to insufficient energy to disrupt the patch-patch interactions.
+ Consequently, once the network is formed, it is exceedingly unlikely for it to reorganize spontaneously because the energy is insufficient to disrupt the patch-patch interactions.
  This scenario further reinforces the significance of incorporating the three-body potential for assisting a percolated network.}
 
 %\paragraph{Langeving parameters}
@@ -386,8 +386,12 @@ where $a$ and $b$ represent the spatial coordinates $x$, $y$ and $z$, and $\cor{
 
 Incorporating the virial term~\eqref{eqn:virialLAMMPS} into the per-particle stress tensor~\eqref{eqn:stressLAMMPS} produces an analogous expression to the previously established stress~\eqref{eqn:DerVirTen23}.
 The stress tensor in equation~\eqref{eqn:DerVirTen23} represents a temporal and spatial average, while the stress tensor in~\eqref{eqn:stressLAMMPS} is defined on a per-particle basis.
-\cor{The temporal average is a rolling mean, whereas the spatial average is an arithmetic mean throughout the spatial domain.}
+\cor{The temporal average is a rolling mean, whereas the spatial average is an arithmetic mean throughout the spatial domain.
+The width of the time window for the assembly process is defined as $\num{100}\cdot dt\cdot\mathrm{damp}$.
+Meanwhile the width of the time window for the shear is defined as $\num{0.05}/(\dot{\gamma}^{*} dt)$.}
 Consequently, to analyze the mechanical response of the Cauchy stress tensor, an appropriate temporal average, succeeded by a spatial average of the per-particle stress tensor across the patchy particle network, inclusive of the patches, is necessary.
+
+
 
 \subsection{Assembly simulation and Shear deformation}
 
@@ -407,9 +411,8 @@ Following finishing the network assembly, the final configuration was stored in 
  For each shear deformation simulation, the system's energy, stress tensor components, temperature, and phase space configurations were captured.
  After five sets of deformations at a consistent shear rate, a new series of deformations was conducted at a different shear rate, starting from the identical initial configuration as before.
 
-The observed measurements are rolling mean temporal averages.
-The temporal average for the assembly protocol is defined by the damping parameter: $100\cdot\cor{\mathrm{dt}^*}\cdot\cor{\mathrm{damp}^*}$, while for shear deformation, the duration was established to ensure that the strain reaches $0.05\cor{\gamma^{*}}$ within that time frame.
-This was established for the energy, temperature, and stress tensors.
+The reported measurements are rolling mean temporal averages.
+The width of the time window for the rolling mean of the assembly and shear protocols regarding other observables, including energy and temperature, are identical to those established for the stress observables.
 \cor{The intervals were derived by adjusting the time window to minimize noise while adequately capturing the physical response. 
 A brief time interval yields noisy measurements, while an extended time interval dampens the fundamental dynamics.}
 The intervals for preserving the system's phase space were determined based on the simulation duration and strain during assembly and deformation.
@@ -447,7 +450,8 @@ One for the 3\%, another for the 5\%, and the final one for the 10\%.
 After the assembly procedure, shear deformation in the $xy$ plane was conducted.
 Panel (a) of Figure~\ref{fig:flipPatches} shows the initial configuration of a shear deformation.
 Panel (b) of the same image pictures the deformation at a strain of $0.5$.
-For computational stability, LAMMPS flips the deformed box to a box with a strain of $0.5$, as illustrated in panel c.
+For computational stability, LAMMPS flips the deformed box to a box with a strain of $0.5$, as illustrated in panel (c).
+Then it continous to deform until achieving a strain of \num{1}, as shown in panel (d).
 Finally, this process is repeated until the deformation reaches a strain of $15~L^*$.
 
 \begin{figure}[ht!]
@@ -457,18 +461,14 @@ Finally, this process is repeated until the deformation reaches a strain of $15~
             Panel (a) displays the initial arrangement.
             Then, in panel (b), the box achieves the maximum tilt to assure numerical stability \cor{$(\gamma^{*}=0.5)$}.
             Panel (c) then displays the flip manipulation, which continues the deformation \cor{$(\gamma^{*}=0.5)$}.
-            Finally, panel (d) shows that the box enters a configuration with no tilt but a system with strain \cor{$(\gamma^{*}=1)$}.
+            Finally, panel (d) shows that the box enters a configuration with no tilt but the system has a strain of \cor{$(\gamma^{*}=1)$}.
             Orange spheres are the central particle of monomers. 
             Red spheres represent the central particle of crosslinkers. 
             Blue spheres represent patches.
     }\label{fig:flipPatches}
 \end{figure}
 
-\newpage
-
-
-
-Furthermore, Figure~\ref{fig:shearBonds} shows the system's shear deformation after (panels (a) and (b)) and before (panels (c) and (d)).  
+\cor{Additionally, Figure~\ref{fig:shearBonds} shows the system before (panels (a) and (b)) and after the (panels (c) and (d)) shear deformation.}  
 Orange spheres are the core particles of monomers.  
 Red spheres indicate the crosslinker's core particles.  
 Blue spheres symbolize patches. 
@@ -497,7 +497,6 @@ After briefly discussing the configurational results of the patchy particle netw
 
 % divoux => carbopol
 
-\newpage
 
 \subsection{\cor{Mechanical response}}
 
@@ -507,9 +506,9 @@ Moreover, the strain-stress relation exhibit two distinct responses.
 In networks with 3\% and 5\% crosslinkers at lower shear rates, it is apparent that at a specific strain, the stress will stop increasing and ultimately reach a constant value.
 At elevated concentrations, the stress escalates until it reaches a highest level.
 Once reaching the maximum stress value, the stress then decreases until it achieves a lower stress value.
-This behavior has also been documented in the mechanical response of \cor{a polymeric gel obtained by using a custom variation of the randim Gaussian network generation algorithm\citep{argunInterplaySpatialTopological2024}} and in other polymeric systems\citep{osakiStressOvershootPolymer2000a,ravindranathUniversalScalingCharacteristics2008,boukanyUniversalScalingBehavior2009}.
+This behavior has also been documented in the mechanical response of \cor{a simulation of a polymeric gel created using a custom variation of the random Gaussian network generation algorithm\citep{argunInterplaySpatialTopological2024}} and in other polymeric systems\citep{osakiStressOvershootPolymer2000a,ravindranathUniversalScalingCharacteristics2008,boukanyUniversalScalingBehavior2009}.
 
-\cor{The sudden increase in the stress value is commonly referred to as \emph{stress overshoot}, and} the subject has been thoroughly researched, as outlined in relevant literature, including molecular dynamics simulations \citep{jeongEffectChainOrientation2017,caoSimulatingStartupShear2015,mohagheghiMolecularlyBasedCriteria2016,baigFlowEffectsMelt2010a} and an analysis in other articles by \citep{wangExploringStressOvershoot2009}.
+\cor{The sudden increase in the stress value is commonly referred to as \emph{stress overshoot}, and} has been thoroughly researched, as outlined in relevant literature, including molecular dynamics simulations \citep{jeongEffectChainOrientation2017,caoSimulatingStartupShear2015,mohagheghiMolecularlyBasedCriteria2016,baigFlowEffectsMelt2010a} and an analysis in other articles by \citep{wangExploringStressOvershoot2009}.
 According to references \citep{jeongEffectChainOrientation2017,janeschitz-krieglPolymerMeltRheology1983,pearsonFlowInducedBirefringenceConcentrated1989,masubuchiPrimitiveChainNetwork2020}, stress overshoot is one of the most significant nonlinear rheological phenomenon exhibited by polymeric liquids undergoing start-up shear above a certain flow strength.
 Furthermore, the articles clarify that the primary driver of this phenomenon is the network's chain orientation.
 This was proved by analyzing the system's birefringence, as well as the transient behavior of the order tensor of entanglement strands along the chains, as described in the tube theory for entangled polymers~\citep{jeongEffectChainOrientation2017}.
@@ -529,7 +528,6 @@ Nonetheless, given that the parameters of temperature (with thermal energy const
     %Computational results at different crosslinker concentrations. Each line reprensent the average of 5 experiments with \num{8000} patchy particles with a packing fraction of \num{0.5}, damp of \num{0.5} and the time average is in intervals of \num{5d-2}$\dot{\gamma}$.
 \end{figure}
 
-\newpage
 
 Subsequently, figure~\ref{fig:stress-strainCLResults} shows the strain-stress relationship of three systems with different crosslinker concentrations at shear rates of \num{1d-3}, \num{5d-3}, and \num{10d-3}.
 The objective of this comparative analysis is to highlight the previously mentioned qualitative differences between them.
@@ -550,7 +548,7 @@ This is consistent across all reported shear rates.
 \cor{By maintaining a constant crosslinker concentration while varying the shear rate, it is evident that an increased shear rate enhances both the overshoot and the stable stress value (same color in each panel).
 Maintaining a fixed crosslinker concentration while changing the shear rate demonstrates that a higher shear rate amplifies both the overshoot and the stable stress value (shown by the same color in each panel).
  From this point of view, the increase of the steady stress value following the overshoot can be understood as the network's reorganization and accelerated flow.
-This interpretation allow us to reconsider the breaking of pairwise interactions as a relevant phenomenon in the shear process.
+This interpretation allows us to reconsider the breaking of pairwise interactions as a relevant phenomenon in the shear process.
 }
 
 \cor{With a temperature value of $T^{*}=\num{0.05}$ and a damping factor of $\num{0.1}[1/t^*]$, the mechanical response is expected to be brittle and elastic rather than exhibiting viscous flow.
@@ -570,7 +568,7 @@ Another intriguing finding is the change in the steady-stress regime after the o
 Figure~\ref{fig:yieldStressResults} illustrates the average stress throughout the strain from \num{10} to \num{15} ($\gamma^{*}\in[10,15]$) with respect to the shear rate at various crosslinker concentrations.
 \cor{Analyzing identical crosslinker concentrations at different shear rates reveals a rise in stress, indicating a decrese in viscosity.
 This phenomenon can also be referred to as \emph{shear thinning}.
-Thus, this corroborates the interpretation of network fragmentation, as systems demonstrating shear thinning are explained by network fragmentation.
+Thus, this corroborates the interpretation of network fragmentation, as systems exhibiting shear thinning are explained by network fragmentation.
 And this response is consistent throughout all the tested concentrations.}
 \begin{figure}[ht!]
     \centering
@@ -585,7 +583,7 @@ The fit is as follows,
     \sigma^{*}_{xy}(\dot{\gamma}^{*}) = c_1 (\dot{\gamma}^{*})^{c_2}+c_3.\label{eqn:fit}
 \end{equation}
 \cor{The restrictions for the parameters $c_2<1$ and $c_3>0$ are established to ensure physical interpretation as suggested in~\citep{bonnYieldStressMaterials2017}.
-In table~\ref{tab:fitParameters} are reported the numeric values of the fit~\eqref{eqn:fit} for each system with different crosslinker concentration.}
+Table~\ref{tab:fitParameters} shows the numeric values of the fit~\eqref{eqn:fit} for each system with different crosslinker concentration.}
 \begin{table}[ht!]
 \centering
 \caption{\cor{Parameters of the fit model}}\label{tab:fitParameters}

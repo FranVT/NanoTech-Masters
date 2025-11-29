@@ -1,11 +1,11 @@
 \chapter{Conclusions}
 
-This study demonstrates that understanding a hydrogel as a polymeric gel formed by interconnected polymer chains that swell upon solvent absorption, without dissolution, facilitates the application of molecular dynamics to examine the material's mechanical reaction.
-The utilization of patchy particles to model the monomers of polymers and crosslinkers is essential for simulating the mechanical response.
-This work's implementation exclusively represent systems with physical crosslinking processes resulting from the interaction potential between patches.
+\cor{This study attempts to simulate a hydrogel, through molecular dynamics, by using patchy particles to model the polymer network of monomers and crosslinkers. 
+This work concentrates exclusively on systems with physical crosslinking by selecting a potential interaction that permits the break-up and reformation of the bonds.
+The study also demonstrates that numerical simulations are applicable for analyzing mechanical responses under substantial strains.}
 
 \cor{Furthermore, percolation of a network with fully reversible interactions among all patches was achieved with a packing fraction of $\phi=\num{0.5}$ and a damping parameter of $\num{0.1}[1/t^*]$ at a temperature of $T^*=\num{0.05}$ for three distinct crosslinker concentrations: 3\%, 5\%, and 10\%.}
-\cor{A viscoelastic response has been observed across all systems from the strain-stress relationships.
+\cor{A shear thinning response has been observed across all systems from the strain-stress relationships.
  The mechanical response was qualitatively aligned with other findings in the literature.
  One distinction is the estimated strain value at which the maximum stress occurs, which is slightly lower than those documented in the literature.}
 \cor{On the other hand, the alignment with the Herschel-Bulkley model indicates that the system is more appropriately characterized as a viscoelastic liquid rather than a viscoelastic solid.
@@ -15,12 +15,14 @@ Nonetheless, the same fit confirms the shear-thinning behavior of the system, wi
 \cor{The relationship between the mechanical response and the network remains insufficiently explored.
 Nevertheless, the literature and analysis of the results suggest that the network begins to flow upon the application of shear deformation, exhibiting minimal resistance due to the unconstrained interaction between patches.
 Meanwhile the overshoot may be attributed to the alignment of the irregular particle strands with the direction of deformation.}
-\cor{An other critical subject to consider is the values of the damping and packing fractions.
+\cor{An other critical subject to consider is the simulations were carried out at low damping and high packing fraction.
  The damping value results in a reduction of energy dissipation within the system; additionally, the packing percentage is excessively high for polymeric gels like hydrogels, but this value could explain the system's viscoelastic response.}
 
 \section{\cor{Future work}}
 
-\cor{The remanning analysis is to characterize the network, including pore size, cluster size, strand length, percentage of dangling strands and loops, and other topological metrics.
+\cor{This work establishes preiliminary steps towards the simulation of dispersed polymeric networks. 
+However, the following analysis is required to obtain definitive results. }
+\cor{Characterize the network, including pore size, cluster size, strand length, percentage of dangling strands and loops, and other topological metrics.
 The radii of gyration of the network during shear deformation or an order parameter can be examined to assess the bond alignment relative to the deformation direction.}
 \cor{Also, an analysis of the patch-patch interactions can be performed to explore if the reformation of interaction can explain the overshoot phenomena.}
 
@@ -30,5 +32,4 @@ Moreover, additional concentration values could facilitate an in-depth investiga
 \cor{Furthermore, the change of the pore size inside the network can be examined by varying packing fractions and crosslinker concentrations to develop future procedures including inclusions in the network.}
 \cor{Another compelling experiment involves examining the mechanical reaction of a sequence of shear deformations alternated with relaxation intervals.
  This may provide a deeper understanding of the viscoelastic behavior of polymeric gels.}
-
 
