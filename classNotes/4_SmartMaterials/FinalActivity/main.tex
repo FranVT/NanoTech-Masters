@@ -51,7 +51,7 @@
 %	TITLE SECTION
 %----------------------------------------------------------------------------------------
 
-\title{A tittle}
+\title{Synthesis of PNiPAAM hydrogels by ultrasound}
 
 \author{Francisco Vazquez-Tavares \\ Tecnológico de Monterrey, Escuela de Ingeniería y Ciencias \\ A00827546@tec.mx\\Thesis title: Exploration of mechanical response of polymeric gels via molecular dynamics.}
 \date{\today} % Date, use \date{} for no date
@@ -68,9 +68,17 @@
 \maketitle % Print the title section
 
 \begin{abstract}
-\noindent Here it goes the abstract. 250 word
+\noindent This study presents an alternative method for producing poly(N-isopropylacrylamide) (PNIPAM) hydrogels by ultrasound to methodically control the crosslinking process. 
+This approach overcomes traditional free-radical polymerization, which depends on chemical initiators and typically produces structurally uniform networks, by utilizing the physical effects of acoustic radiation. 
+It apply ultrasound-induced cavitation to produce free radicals without initiators, thereby removing potential harmful residues. 
+In addition, one can utilize acoustic streaming to control the spatial arrangement of crosslinkers, facilitating the production of hydrogels with programmable mechanical gradients.
 
-Keywords: smart polymers, nanomaterials, responsive materials, 
+The synthesized PNIPAM hydrogels are subjected to thorough characterization to confirm their functioning. 
+This involves examining their thermoresponsive swelling and deswelling kinetics at the lower critical solution temperature (LCST), characterizing their spatially-modulated mechanical characteristics by rheology and nanoindentation, and evaluating their biocompatibility via in vitro cytotoxicity experiments. 
+The findings suggest that ultrasonic functions as both a swift and effective polymerization initiator and a potent instrument for fabricating architecturally intricate, tissue-mimetic networks. 
+This ultrasound-assisted method represents a notable progress in smart material production, providing a flexible and eco-friendly avenue for creating high-performance hydrogels with improved functionality for biomedical uses, including tissue engineering and controlled drug delivery.
+
+Keywords: smart polymers, nanomaterials, responsive materials, ultrasound, hydrogels
 \end{abstract}
 
 \justifying
@@ -81,81 +89,81 @@ Keywords: smart polymers, nanomaterials, responsive materials,
 
 \section{Introduction}
 
-Hydrogels are crosslinked polymer networks filled with aqueous solvents, resembling biological tissues and providing adjustable mechanical properties.  
-They have extensive uses in tissue engineering, bioadhesives, tissue repair, and soft robotics.
-Numerous hydrogels exhibiting exceptional mechanical properties, including double network hydrogels, are synthesized using free radical polymerization. 
-It is generally commenced by the generation of free radicals from initiators such peroxides, ketones, and azo compounds, activated by heat or light. 
-Nonetheless, these procedures frequently exhibit slow speeds and necessitate extended curing durations in conventional batch synthesis. 
-Efforts to accelerate gelation by augmenting initiator concentrations or applying external energy often undermine the mechanical characteristics of the hydrogels\citep{chengUltrasoundCavitationEnables2025}.
 
-Ultrasound, a high-frequency acoustic wave, has been extensively employed in chemical engineering domains.
-Acoustic cavitation techniques have been extensively employed to enhance chemical reaction rates and diminish energy consumption by controlling chemical synthesis in the processing of materials including oil, food, and wastewater.
-Researchers have proposed techniques for designing useful materials by utilizing particle mobility and flow induced by ultrasound.
-Ultrasound-mediated streaming flow in a solution can facilitate quick chemical mixing for the creation of functional nanoparticles or homogenize the chemical concentration of an electrolyte to prevent precipitation~\citep{kangSpatialRegulationHydrogel2024a}.
+Hydrogels are cross-linked polymer networks that contain aqueous solvents and resemble biological tissues, allowing for customizable mechanical properties. 
+They find extensive applications in areas like tissue engineering, bioadhesives, tissue repair, and soft robotics. 
+Notable examples, such as double network hydrogels, exhibit impressive mechanical characteristics and are produced through free radical polymerization. 
+Traditional batch synthesis methods are often slow and require long curing times, while attempts to speed up gelation can negatively impact the mechanical integrity of the hydrogels~\citep{chengUltrasoundCavitationEnables2025}.
 
-Recently, an ultrasound technique has emerged as a method for fabricating tissue-like materials for biomedical engineering applications. 
-Reports indicate that spatial patterning of cells via surface sonic waves may facilitate the development of in vitro tissues with therapeutic efficacy for tissue regeneration at defect sites. 
-Replicating both the cellular architecture and the physical qualities of the tissue is essential in tissue engineering~\citep{kangSpatialRegulationHydrogel2024a}.
+One specific hydrogel, poly(N-isopropylacrylamide) (PNiPAAm), is water-soluble at ambient temperature and transforms from a hydrated coil to a dehydrated globule at its lower critical solution temperature (LCST), which is near body temperature. 
+Its thermal sensitivity and high biocompatibility render PNiPAAm suitable for drug delivery systems and temperature-specific therapies~\citep{linTemperatureUltrasoundRedox2017}.
 
+Ultrasound technology, a high-frequency sound wave, has gained traction in chemical engineering for its ability to accelerate reaction rates and decrease energy use, particularly in the synthesis of materials. 
+Through acoustic cavitation, ultrasound can enhance chemical mixing and maintain uniform concentrations in solutions, facilitating the creation of functional nanoparticles~\citep{kangSpatialRegulationHydrogel2024a}.
 
-
-
-Poly(N-isopropylacrylamide) (PNiPAAm) is soluble in water at ambient temperature but transitions from a hydrated coil to a dehydrated globule at its lower critical solution temperature (LCST) of around 32°C, which is near body temperature.  Due to their temperature sensitivity and excellent biocompatibility, PNiPAAm-containing materials have been extensively employed in drug delivery systems and temperature-targeted therapeutic applications~\citep{linTemperatureUltrasoundRedox2017}.
-
-\paragraph{Problem statement} In real context 
-
-\paragraph{State ofr the art} A brief introduction
-
-\paragraph{Justification of the proposal.}
+Recently, ultrasound techniques have emerged for fabricating tissue-like materials in biomedical engineering. 
+This approach, which utilizes surface sonic waves to spatially arrange cells, has shown promise in improving the in vitro development of tissues that can repair and regenerate in wound environments. 
+Replicating both the cellular architecture and physical properties of tissues is critical in advancing tissue engineering outcomes~\citep{kangSpatialRegulationHydrogel2024a}.
 
 \section{Proposed material}
 
-a. Polímero(s) base
-b. Nanomaterial(es) (aditivo(s) funcional(es))
-c. Mecanismo o mecanismo funcional (si aplica)
-d. Comportamiento inteligente esperado (si aplica, por ej.: sensible a estímulos, autorreparable,
-piezoeléctrico, biodegradable, memoria de forma, electroactivo)
-e. Explique la base científica del material y su propósito.
-Cuando corresponda incluya:
-• Modelo conceptual
-• Esquema del mecanismo
-• Principio de activación físico o químico
-• Figuras adaptadas o correctamente citadas
+The material system primarily consists of Poly(N-isopropylacrylamide) (PNIPAM), a basic polymer that serves as the key thermoresponsive component. 
+PNIPAM is typically crosslinked with N,N'-methylenebisacrylamide (MBAA) to create a stable three-dimensional network, which operates effectively when suspended in an aqueous solvent like water or buffer solutions~\citep{linTemperatureUltrasoundRedox2017}.
+To enhance the system, various nanomaterials can be utilized as functional additives, notably including ultrasound-responsive components such as cavitation nuclei or acoustic contrast agents that provide specific reactivity to sound waves~\citep{chengUltrasoundCavitationEnables2025}. 
+Additional optional additives may encompass drug molecules for controlled release, fluorescent markers for tracking, or reinforcing nanomaterials to improve mechanical properties.
+
+The operational mechanism of the system involves both the intrinsic thermoresponsive behavior of PNIPAM, which exhibits a reversible coil-to-globule transition at the Lower Critical Solution Temperature (LCST = 32°C), and externally applied ultrasonic control. 
+Acoustic energy plays a dual role: it initiates localized free radical production through cavitation, facilitating initiator-free polymerization, while acoustic streaming aids in the precise distribution of crosslinkers within the solution~\citep{luoFabricationThermoResponsiveControllable2022}. 
+Surface acoustic waves (SAW) enable advanced spatial control, allowing for the systematic arrangement of crosslinkers and polymer chains into specific configurations.
 
 \section{Fabrication technique}
 
-Describa la ruta prevista de manufactura, por ejemplo:
-• Electrospinning
-• Extrusión
-• Impresión 3D
-• Moldeo por solvente (solvent casting)
-• Modificación superficial
-• Polimerización in situ
-• Otra (especificar)
-• Incluya una breve justificación de la técnica seleccionada.
+The manufacturing procedure begins with solvent casting to create a homogeneous solution of monomers and additives, followed by the main fabrication utilizing ultrasound-controlled in situ polymerization. 
+This technique employs acoustic energy to initiate the development of the polymer network. 
+An optional final step may involve surface modification to add specific functional groups, enhancing the material's properties for specialized applications.
+
+Ultrasound-assisted in situ polymerization offers several notable advantages over traditional synthesis methods. 
+Primarily, it provides exceptional spatial control, enabling precise modulation of crosslink density through acoustic streaming and standing waves, which helps replicate mechanical gradients found in natural tissues. 
+This method allows for initiator-free synthesis by producing free radicals through sonic cavitation, eliminating the need for harmful chemical initiators that pose biocompatibility concerns.
+Additionally, the tunable properties of the hydrogels can be adjusted in real-time by modifying ultrasound parameters, allowing for the design of materials tailored to specific mechanical characteristics. 
+These features contribute to improved biomedical compatibility, facilitating sterilization and adaptation for minimally invasive treatments, including the possibility of direct implantation or on-site creation within the body.
 
 \section{Characterization}
 
-Identifique las evaluaciones necesarias para confirmar la funcionalidad:
-• Propiedades mecánicas
-• Estabilidad o transiciones térmicas
-• Caracterización morfológica
-• Propiedades eléctricas/ópticas (si aplica)
-• Biodegradación o estudios de envejecimiento
-• Validación de respuesta a estímulos
+Rheological study will first be performed to assess the storage (G') and loss (G") moduli, thereby verifying successful gel formation and describing the material's viscoelastic properties. 
+The overall mechanical strength will be assessed using compression testing to ascertain the Young's modulus, assuring alignment with the compliance of target biological tissues. 
+Tensile testing will be utilized to assess attributes like elongation at break and ultimate tensile strength. 
+Cyclic loading studies will be conducted to evaluate the material's durability, specifically its fatigue resistance and recovery capacity under repetitive deformation~\citep{yoonSynergisticEffectsPea2024}. 
+
+The effectiveness of spatial patterning will be directly confirmed by mapping crosslink density gradients by Fluorescence Recovery After Photobleaching (FRAP).
+Ultimately, investigations on dual-stimuli responses will be crucial, incorporating simultaneous temperature and ultrasonic applications to confirm any synergistic impacts on the material's behavior and performance~\citep{karanastasis3DMappingNanoscale2018}.
+
+The material's long-term stability and environmental compatibility will be assessed using a variety of biodegradation and aging investigations.
+This will begin with in vitro degradation profiling, assessing mass loss under simulated physiological settings (PBS at 37°C).
+Accelerated aging techniques including heat and UV exposure will be implemented to forecast its long-term stability.
+Additionally, the material's vulnerability to biological decomposition will be evaluated by enzymatic degradation experiments employing pertinent hydrolytic enzymes.
+The functional durability will be evaluated via cyclic stimulus testing, which exposes the material to numerous temperature and ultrasonic cycles~\citep{eversReactiveAcceleratedAgingBased2025}.
 
 \section{Validation of vialidad}
 
-Discuta:
-• Viabilidad económica
-• Escalabilidad y capacidad de manufactura
-• Consideraciones toxicológicas o de bioseguridad
-• Restricciones ambientales o regulatorias
-• Potenciales riesgos y debilidades
+The ultrasound-assisted synthesis of PNIPAM hydrogels is economically viable due to the elimination of expensive chemical initiators and reduced synthesis times, leading to lower energy consumption. 
+This synthesis method is highly scalable, as ultrasonic tank reactors are already employed industrially in food and chemical processing, facilitating scaling up hydrogel production. 
+From a biosafety standpoint, this technique surpasses traditional methods by avoiding residual cytotoxic impurities typically found in conventional radical polymerization processes. 
+PNIPAM is generally biocompatible; however, stringent purification protocols are required to mitigate risks from unreacted monomers~\citep{mckenzieUltrasoundSonochemistryRadical2019}.
+
+Although initial investment in ultrasound equipment is needed, it serves as a reusable asset for multiple production batches.
+The raw materials, including N-isopropylacrylamide monomers and crosslinkers like MBAA, are readily available and moderately priced, keeping costs low.
+The continuous manufacturing process, where precursor solutions are treated with ultrasound during flow, addresses manufacturing limitations but may face challenges in homogeneous distribution within large reactors, necessitating multi-transducer designs~\citep{fanucciDevelopmentLowcostHydrogel2023}.
 
 \section{Conclusion}
 
-samples\citep{gnanSilicoSynthesisMicrogel2017}.
+In conclusion, an innovative intelligent material system has been proposed that integrates thermoresponsive PNIPAM polymer with ultrasound-controlled polymerization. 
+This approach addresses limitations of traditional hydrogel synthesis, including extended curing times, potential cytotoxicity from chemical initiators, and uncontrolled microstructure. 
+The method utilizes acoustic cavitation for free radical initiation and acoustic streaming for precise control of crosslinker distribution, allowing for the creation of hydrogels with customized mechanical properties and spatial gradients, important for replicating the heterogeneity of biological tissues. 
+Characterization and viability analyses demonstrate that this strategy is scientifically, technically, and economically viable, with a favorable biosafety profile for biomedical uses. 
+Despite challenges in scalability and complexity, the advantages of faster, environmentally friendly processing and superior material performance are substantial. 
+This dual-responsive hydrogel system (temperature and ultrasound) has significant prospects for applications in tissue engineering, drug delivery, and soft robotics.
+
 
 
 \bibliography{sample}

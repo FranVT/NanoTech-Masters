@@ -168,8 +168,10 @@ It is important to keep in mind that the strain tensor is the spatial derivative
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=10cm]{figs/2D_geometric_strain.png}
-    \caption{Deformation of an infinitesimal rectangular material element. Image retrieved from\citep{StrainWikipedia}.}\label{fig:strainTensor}
+    \caption{Deformation of an infinitesimal rectangular material element. Image retrieved from~.}\label{fig:strainTensor}
 \end{figure}
+
+% \citep{StrainWikipedia}
 
 \subsection{Macroscopic description}
 
@@ -221,11 +223,11 @@ It is based on the yield strength in simple tension as follows:
 \end{gather}
 where $\sigma_1=\sigma_{11}$, $\sigma_2=\sigma_{22}$, and $\sigma_3=\sigma_{33}$ are the diagonal terms, also known as the principal stresses.
 
-However, there are materials that do not deform if the imposed stress is below a threshold value and flow rather easily after this value is exceeded, known as ``\textit{yield stress materials}''\citep{bonnYieldStressMaterials2017}.
-In these types of situations, the mechanical response depends on the rate of deformation, also known as shear rate.
-For a Newtonian fluid, these functions are linearly related $\sigma=\eta\dot{\gamma}$, where $\eta$ is a constant viscosity.
-For a yield stress material, the viscosity becomes formally a function of the shear rate, $\sigma=\eta(\dot{\gamma})\dot{\gamma}$, and the flow curve is not a simple straight line crossing the origin.
-One of the popular yield stress models is the Herschel-Bulkey, 
+Nonetheless, certain materials do not deform when subjected to stress below a specific threshold and exhibit fluidity after this barrier is surpassed, referred to as "yield stress materials" \citep{bonnYieldStressMaterials2017}.
+The mechanical reaction depends on shear rate, or deformation rate.
+A Newtonian fluid has a linear relationship between these functions: $\sigma=\eta\dot{\gamma}$, where $\eta$ represents constant viscosity.
+In yield stress materials, viscosity is a function of shear rate, $\sigma=\eta(\dot{\gamma})\dot{\gamma}$, resulting in a non-linear flow curve.
+One common yield stress model is the Herschel-Bulkley model,
 \begin{gather}
     \sigma = \sigma_y + K\dot{\gamma}^{n},\sigma\geq\sigma_y\label{eqn:herschel-bulkey},
 \end{gather}
@@ -325,8 +327,10 @@ Figure~\ref{fig:stressTensor} is a visual representation of the traction vector~
         The coordinate system represented by the red arrows has its origin in the box's center of mass.
         Finally, each component of the stress tensor is represented with black arrows on each surface of the cube.
         It is important to acknowledge that even though they appear to be representing a coordinate system, they represent the direction of the force experienced at the surface.
-        Image retrieved from~\citep{StressWikipedia}.}\label{fig:stressTensor}
+        Image retrieved from~.}\label{fig:stressTensor}
 \end{figure}
+
+%\citep{StressWikipedia}
 
 %\begin{figure}[ht!]
 %    \centering
@@ -380,9 +384,9 @@ Now we continue by computing the time derivative of tensor product $\vec{r}_\alp
         \underbrace{\vec{r}_\alpha\otimes\vec{f}_\alpha}_{\mathrm{Virial~term}},\label{eqn:DerVirTen5}
 \end{equation}
 where $\vec{f}_\alpha = \dot{\vec{p}}_\alpha$ is the force acting on particle $\alpha$.
-Equation~\eqref{eqn:DerVirTen5} is known as the \textit{dynamical tensor virial theorem} and it is simply an alternative form to express the balance of linear momentum.
-This theorem becomes useful after making the assumption that there is a time scale $\tau$, which is small relative to macroscopic processes but big relative to the characteristic time of the particles in the system, over which the particles remain close to their original positions with bounded positions and velocities.
-Taking advantage of this property we can compute the time average of~\eqref{eqn:DerVirTen5},
+Equation~\eqref{eqn:DerVirTen5} is referred to as the \textit{dynamical tensor virial theorem} and serves as an alternate representation of linear momentum equilibrium.
+This theorem is applicable upon assuming the existence of a time scale $\tau$, which is small in comparison to macroscopic processes yet substantial relative to the characteristic time of the particles in the system, during which the particles remain near their initial positions with constrained positions and velocities.
+Utilizing this characteristic, we can calculate the temporal average of~\eqref{eqn:DerVirTen5}.
 \begin{equation}
     \frac{1}{\tau}\qty(\vec{r}_\alpha\otimes\vec{p}_\alpha)\bigg|_{0}^{\tau} = 
     \overline{\vec{\upsilon}_\alpha^{\mathrm{rel}}\otimes\vec{p}_\alpha} 
@@ -433,8 +437,8 @@ Therefore we can express the following,
     +
     \int_{\Omega}\vec{\xi}\otimes\rho\vec{b}\mathrm{d}V.\label{eqn:DerVirTen13}
 \end{equation}
-Where $\vec{\xi}$ is a position vector within the domain $\Omega$ occupied by the system of particles with a continuous closed surface $\delta\Omega$.
-Assuming that $\Omega$ is large enough to express the external forces acting on it in the form of the continuum traction vector $\vec{t}$.
+Here, $\vec{\xi}$ denotes a position vector located within the domain $\Omega$ that is occupied by the system of particles, which is bounded by a continuous closed surface $\delta\Omega$.
+ Assuming that $\Omega$ is sufficiently large to represent the external forces operating onto it as the continuum traction vector $\vec{t}$.
 
 With this we can substitute the traction vector with $\vec{t}=\bm{\sigma}\vec{n}$, where $\bm{\sigma}$ represents the Cauchy stress tensor and applying the divergence theorem in~\eqref{eqn:DerVirTen13}, we have 
 \begin{equation}
@@ -566,26 +570,25 @@ Finally, similar to the plastic deformation, the viscoplastic deformation occurs
 Let's now examine the mechanical response reported for hydrogels after providing an overview of hydrogel, the relationship between some of the molecular mechanisms and the mechanical response, how this response is quantified using constitutive equations, and the mathematical representations and interpretations of the strain and stress tensor, with an emphasis on finding a link between the macroscopic hydrogel's mechanical properties and its molecular structural characteristics.
 
 Let's start with the reference\citep{petelinsekToughHydrogelsLoadBearing2024}, in which they interpret the physical crosslinking mechanism as an energy dissipation mechanism.
-This energy dissipation mechanism helps to reversibly recover from a mechanical impact, allowing the creation of stiff and tough hydrogels.
-The energy dissipation is often achieved through the introduction of sacrificial bonds by adding a second, more brittle network within a loosely cross-linked network or by cross-links made from supramolecular transient interactions, which can be reversibly broken and reformed.
-In the first case, the material is stretched, and a share of the bonds in the more brittle network are broken, leading to an increased dissipation of the energy from mechanical impact.
-In the second case, the sacrificial bonds are non-covalent in nature and can reversibly break and reform.
+This energy dissipation mechanism facilitates reversible recovery from mechanical impacts, enabling the development of rigid and resilient hydrogels.
+Energy dissipation is frequently accomplished by incorporating sacrificial connections by the addition of a secondary, more brittle network within a loosely cross-linked framework or by utilizing cross-links created from supramolecular transient interactions, which can be reversibly disrupted and reconstituted.
+In the initial scenario, the material undergoes stretching, resulting in the rupture of some links within the more fragile network, which therefore enhances the dissipation of energy from mechanical impact.
+In the second scenario, the sacrificial bonds are non-covalent and can reversibly dissociate and reconstitute.
 
 %\cor{Link between the paragraphs}
 %Metal-ligand, ionic, hydrogen bonding, microphase separation, hydrophobic, polymer-nanomaterial adsorption, host-guest complexation, and supramolecular self-assembly are a few examples of non-covalent interactions. 
 
-Some of the non-covalent interactions are metal-ligand, ionic interactions, hydrogen bonding, microphase separation and hydrophobic interactions, polymer-nanomaterial adsorption, host-guest complexation, or supramolecular self-assembly. 
-Starting with the electrostatic mechanism, it can create strong, physically robust polymers by ionic attractions between oppositely charged monomers.
-In addition, hydrogen bonds can be a powerful motif to enhance reversible interactions between polymer chains and hence, dissipate energy.
+Non-covalent interactions include metal-ligand interactions, ionic contacts, hydrogen bonding, microphase separation, hydrophobic interactions, polymer-nanomaterial adsorption, host-guest complexation, and supramolecular self-assembly. 
+The electrostatic process can produce strong, physically resilient polymers by ionic interactions between oppositely charged monomers.
+Moreover, hydrogen bonding can serve as a potent motif to augment reversible interactions among polymer chains, thereby dissipating energy.
 
 It is crucial to recognize that microcrystallization—a microphase-separated domain encircled by amorphous polymer chains—is the process by which polymer chains form submicrometer-sized crystallites.
 Because of the combined hydrophobic interactions, hydrogels produced by microcrystallization have the capacity to increase stiffness and fracture energies.
 
-According to the composite mechanism, adding micellar aggregates and soft polymer microspheres increases the hydrogel's toughness.
-Additionally, (nano)fibers can greatly enhance the fracture mechanics of strong hydrogels, but their ductility often declines, especially when macroscopic fiber mats are added.
-
-Finally, from the self-assembly mechanism, it can be said that a promising source of energy dissipation has been introduced by elastomeric proteins, which function as molecular springs and unfold once a stress is applied. 
-This mechanical unfolding is seen in both larger proteins and smaller elastin-like polypeptides.
+The composite mechanism posits that the incorporation of micellar aggregates and soft polymer microspheres enhances the toughness of the hydrogel.
+Furthermore, (nano)fibers can significantly improve the fracture mechanics of robust hydrogels; nonetheless, their ductility frequently diminishes, particularly with the incorporation of macroscopic fiber mats.
+Ultimately, the self-assembly mechanism indicates that elastomeric proteins, which operate as molecular springs, present a possible source of energy dissipation by unfolding under applied stress. 
+This mechanical unfolding occurs in both larger proteins and smaller elastin-like polypeptides.
 
 The previous energy dissipation processes are represented graphically in Figure~\ref{fig:energyDissipation}.
 Considering a broad comparison with figure~\ref{fig:physicalCovalentCrossLink}, the microphase separation is associated with the strong physical crosslinks, whereas the electrostatic interaction and composites are equal to the weak physical crosslinks; subsequently, dynamic covalent crosslinks are the self-assembly process.
@@ -623,9 +626,9 @@ In this hydrogel the ``competition'' of these two effects results in the increas
 
 \subsection{\cor{Strain stifeening in dual networks}}
 
-Reference~\citep{kongEffectCrossLinkHomogeneity2024}, they create randomly cross-linked networks of poly(n-butyl acrylate) via thermally initiated free-radical polymerization and regularly cross-linked networks using thiol-bromine coupling of tetrafunctional poly(n-butyl acrylate) star polymers.
-After that, they expand both kinds of networks in a monomer and cross-linker mixture, which is then polymerized to create double networks. 
-This is to investigate how cross-link homogeneity affects regular and random networks' strain stiffening behavior.
+According to reference~\citep{kongEffectCrossLinkHomogeneity2024}, they fabricate randomly cross-linked networks of poly(n-butyl acrylate) using thermally induced free-radical polymerization and routinely cross-linked networks via thiol-bromine coupling of tetrafunctional poly(n-butyl acrylate) star polymers.
+Subsequently, they enhance both types of networks within a monomer and cross-linker combination, which is subsequently polymerized to form double networks. 
+This study aims to examine the influence of cross-link homogeneity on the strain stiffening behavior of regular and random networks.
 
 \begin{figure}[ht!]
     \centering
@@ -635,8 +638,8 @@ This is to investigate how cross-link homogeneity affects regular and random net
         Double network corresponds to (2a) and (2b)~\citep{kongEffectCrossLinkHomogeneity2024}.}\label{fig:RANREGnetworks}
 \end{figure}
 
-In general terms, randomly cross-linked networks contain a polydisperse distribution of strand lengths with a high fraction of short strands and thus should strain harden at relatively low extensions. 
-Meanwhile, regular networks contain a much narrower distribution of predominantly higher molecular weight strands and should exhibit significantly delayed strain stiffening relative to comparable random networks.
+Randomly cross-linked networks generally display a polydisperse distribution of strand lengths, marked by a considerable fraction of short strands, resulting in strain hardening at relatively low extensions. 
+Conversely, regular networks exhibit a significantly narrower distribution of predominantly higher molecular weight strands and are anticipated to show notably delayed strain stiffening relative to comparable random networks.
 
 Figure~\ref{fig:RANnetworks} shows the strain-stress response of a single random hydrogel network with varying crosslink concentrations.
 In the mechanical response, we can identify three distinct regimes: a linear elastic regime at low strain, a plateau at intermediate strain, and then a sharp increase in force at high strain, as the samples undergo strain stiffening.
@@ -700,8 +703,7 @@ This behavior can be explained by the disentanglement and alignment of alginate 
 \begin{figure}[ht!]
     \centering
     \includegraphics[width=12cm]{figs/explainMechResponse/alginateShearThinning.png}
-    \caption{\cor{Variation of stationary shear viscosity with shear rate in aqueous sodium alginate solutions across different concentrations in the semi-dilute and concentrated regimes.
-    Solid lines correspond to the fitting of experimental data by Cross model~\citep{varela-feijooMultiscaleInvestigationViscoelastic2023}.}}\label{fig:hydroMechResponse2}
+    \caption{\cor{Variation of stationary shear viscosity with shear rate in aqueous sodium alginate solutions at various concentrations throughout the semi-dilute and concentrated regimes. Solid lines represent the fitting of experimental data according to the Cross model~\citep{varela-feijooMultiscaleInvestigationViscoelastic2023}.}}\label{fig:hydroMechResponse2}
 \end{figure}
 
 \subsection{\cor{Relevance of crosslinkers}}
@@ -721,13 +723,14 @@ The crosslinker that they use is benzoylphenylalanine (BAP).
 }\label{fig:mechResponseEnd}
 \end{figure}
 
-In both experiments, they report that for the initial deformation, up to 15\% of relative deformation, the relation is linear, and then it changes to an exponential relation.
-They explain that this response is due to the charged side chains of the hydrogel.
-The greater the strain of the polymer, the closer the equally charged functional groups are to each other.
-This repulsion leads to increased stress with increasing strain.
-However, with the same experiment but with a different monomer, they report a different response, shown in figure~\ref{fig:mechResponseEnd1}.
-After a steep increment in the stress at small strains, a sudden decrease was followed by a slighter decrease in stress.
-They explain that this decrease can be related to a drying effect of the hydrogel during the measurement.
+
+In both experiments, it is reported that for the initial deformation, up to 15\% of relative deformation, the relationship is linear, after which it transitions to an exponential relationship.
+This response is attributed to the charged side chains of the hydrogel.
+As the tension in the polymer increases, the proximity of the similarly charged functional groups intensifies.
+This aversion results in heightened stress as strain increases.
+Nonetheless, in the identical experiment utilizing an alternative monomer, they document a divergent reaction, illustrated in figure~\ref{fig:mechResponseEnd1}.
+Following a significant increase in stress at minimal stresses, a precipitous decline was succeeded by a more gradual reduction in stress.
+This reduction may be attributed to the hydrogel's desiccation during the measurement process.
 
 \begin{figure}[ht!]
     \centering
@@ -742,7 +745,7 @@ They explain that this decrease can be related to a drying effect of the hydroge
 As a summary of the mechanical response of hydrogels, physical crosslinking can be think as an energy dissipation process critical for robust hydrogels' recovery following mechanical impacts. 
 It was also \cor{mentioned} how energy is dissipated by sacrificial connections and reversible non-covalent cross-links, which improve hydrogel toughness through microcrystallization and composite mechanisms. 
 The stress relaxation features of dual network hydrogels are reviewed, emphasizing the roles of elastically active and inactive crosslinks, with higher physical crosslinker concentrations affecting association durations and stress relaxation. 
-Furthermore, a comparison of mechanical responses under tensile deformation between randomly and regularly cross-linked networks, as well as the shear behavior of alginate hydrogels, focusing on viscosity changes caused by shear thinning was found. 
+Furthermore, a comparison of mechanical responses under tensile deformation between randomly and regularly cross-linked networks, as well as the shear behavior of alginate hydrogels, focusing on viscosity changes caused by shear thinning was found.
 This findings highlight the impact of monomers and crosslinking methods on hydrogel stress responses and characteristics.
 
 \begin{comment}
@@ -885,9 +888,9 @@ Therefore, a methodology is required that couples the infinitesimal particle wit
 %From a general point of view there are two types of methods to make a quatitative description of systems: one focused on simulating dynamics at the microscale, and the other dedicated to deriving or establishing evolutionary equations at the macroscale\citep{wangMultiscaleModelingSimulation2025}.
 %At this scale there are two commonly used mathematical frameworks to model the molecular dynamics, the continuous time random walk (CTRW) model and the Langevin equation\citep{wangMultiscaleModelingSimulation2025}.
 
-Taking into account the colloidal representation of the hydrogel, the Langevin theory takes advantage of the densities of the solid and liquid phases.
-Since the solid phase of the colloid has a large mass, it will change their momenta after many collisions with the water molecules and the picture which emerges is that of the heavy particles forming a system with a much longer time scale than the solvent molecules\citep{Thijssen2007}.
-This time scale difference can be used to our favor to eliminate the details of the degrees of freedom of the solvent particles and represent their effect by stochastic and dissipative forces, allowing longer simulations that would be impossible if the solvent were explicitly included\citep{pastorTechniquesApplicationsLangevin1994}.
+The Langevin theory utilizes the densities of the liquid and solid parts, considering the colloidal representation of the hydrogel.
+Due to the substantial mass of the solid phase in the colloid, its momentum will alter after numerous collisions with water molecules, resulting in a system of heavy particles that operates on a far longer time scale than that of the solvent molecules~\citep{Thijssen2007}.
+The disparity in time scales can be advantageous for omitting the details of the solvent particles' degrees of freedom, thereby representing their influence through stochastic and dissipative forces, which facilitates longer simulations that would be unfeasible with explicit solvent inclusion~\citep{pastorTechniquesApplicationsLangevin1994}.
 
 However, the representation of the solvent by a stochastic and dissipative force introduces the problem of characterizing two very different timescales.
 One is associated with the slow relaxation of the particle's initial velocity, and another is tied to the particle's numerous collisions with particles in the bath\citep{tsl2006}. 
@@ -901,10 +904,8 @@ The term on the left-hand side of the equation denotes the change of momentum of
 The first term on the right-hand side of the equation represents the force due to the interaction of the particle with other particles.
 The second term couples the dissipation of energy of the particle due to its interaction with the solvent.
 Finally, the third term is a random variable that describes the exchange of momenta with the solvent.
-
-The friction constant $\cor{\mu}$ parametrizes the effect of solvent damping and activation and has units \SI{}{\kilo\gram\per\second}.
-It is commonly referred to as the collision frequency in the simulation literature, even though formally a Langevin description implies that the solute suffers an infinite number of collisions with infinitesimally small momentum transfer.
-Furthermore, the fact that the second term is not a function of the position of any of the particles implies ignoring of hydrodynamic interaction or spatial correlation in the friction kernel\citep{pastorTechniquesApplicationsLangevin1994}.
+\cor{In simulation literature, it is typically called collision frequency, despite the fact that a rigorous Langevin description suggests that the solute experiences an unlimited number of collisions with infinitesimal momentum transfer.{pastoral techniques applications Langevin 1994}.
+Moreover, the absence of dependence of the second term on the position of any particles indicates the neglect of hydrodynamic interactions or spatial correlations in the friction kernel~\citep{pastorTechniquesApplicationsLangevin1994}.}
 
 On the other hand, the term $\vec{R}(t)$ is a ``random force'' subject to the following conditions:
 \begin{gather}
@@ -1032,8 +1033,8 @@ Replacing~\eqref{eqn:DerVelVerlet7} into equations~\eqref{eqn:DerVelVerlet5} and
                      -\cor{\mu}\qty(r^{n+1}-r^n)
                      +\frac{1}{m}\vec{\cor{\rho}}^{n+1}\label{eqn:DerVelVerlet9}.
 \end{align}
-It is interesting to see that the noise is represented as a single stochastic variable for each time step, realized by a single aggregated impulse during $dt$ that influences the dynamics over the time step.
-Finally, it is important to see that $\vec{F}^{n}$, $\vec{F}^{n+1}$, and $\vec{\cor{\rho}}^{n+1}$ have units of momentum \SI{}{\kilo\gram\meter\per\second} and the constant $\frac{m dt}{2m +\cor{\mu} dt}$ has units of time \SI{}{\second}.
+The noise is depicted as a singular stochastic variable for each time step, manifested as a single aggregated impulse during $dt$ that affects the dynamics throughout the time step.
+Ultimately, it is crucial to recognize that $\vec{F}^{n}$, $\vec{F}^{n+1}$, and $\vec{\cor{\rho}}^{n+1}$ possess units of momentum \SI{}{\kilo\gram\meter\per\second}, while the constant $\frac{m dt}{2m +\cor{\mu} dt}$ has units of time \SI{}{\second}.
 
 \begin{comment}
 \begin{gather}
@@ -1151,11 +1152,11 @@ And it is widely recognized for its extensibility, complete documentation, and a
 It is designed to efficiently model materials science, chemistry, and physics problems by enabling large-scale simulations on parallel computing architectures.
 Furthermore, its parallelized structure allows efficient computation of large or complex systems and supports integration with other computational tools and machine learning methods.
 
-To define a simulation with this software, we need to create an input script.
-This input script is defined as a series of lines, with each line beginning with a command name and followed by one or more arguments separated by whitespace.
-The program incorporates programming commands that define variables, perform conditional tests, execute loops, or invoke shell commands to launch an external program.
-The input script is parsed and executed one line at a time. 
-This feature allows a single script to run a simulation in stages, alter one or more parameters between stages, or run a series of independent simulations where the entire system is reinitialized multiple times.
+To establish a simulation using this software, it is necessary to generate an input script.
+This input script consists of multiple lines, each commencing with a command name and succeeded by one or more arguments delineated by whitespace.
+The program includes programming commands that establish variables, conduct conditional tests, execute loops, or call shell commands to initiate an external program.
+The input script is analyzed and run sequentially, line by line. 
+This capability enables a singular script to execute a simulation in phases, modify one or more parameters between phases, or conduct a series of independent simulations wherein the complete system is reinitialized many times~\cite{LAMMPS}.
 
 The Langevin equation in LAMMPS is implemented as follows,
 \begin{align}
@@ -1166,10 +1167,10 @@ where $F_c$ is the conservative force computed from particle-particle interactio
 The \cor{second term} is equivalent to $-m\cor{\mu} v$ and $F_r$ is equivalent to the term $\vec{R}(t)$ on equation~\eqref{eqn:BrownianDyn1}.
 LAMMPS implements the random numbers to randomize the direction and magnitude of this force, where a uniform random number is used (instead of a Gaussian random number) for speed.
 
-The magnitude of the random force is derived from the fluctuation/dissipation theorem, where $k_B$ is the Boltzmann constant, $T$ is the desired temperature, $m$ is the mass of the particle, $dt$ is the timestep size, and $\mathrm{damp}$ is the damping factor.
-The damp factor can be thought of as inversely related to the viscosity of the solvent.
-That is, a small relaxation time implies a high-viscosity solvent and vice versa.
-This parameter is specified in time units and determines how rapidly the temperature is relaxed.
+The magnitude of the stochastic force is derived from the fluctuation-dissipation theorem, where $k_B$ denotes the Boltzmann constant, $T$ represents the target temperature, $m$ indicates the particle's mass, $dt$ symbolizes the timestep size, and $\mathrm{damp}$ refers to the damping coefficient.
+The damp factor is inversely related to the viscosity of the solvent.
+A short relaxation period signifies a high-viscosity solvent, and vice versa.
+This parameter is expressed in temporal units and determines the rate of temperature equilibration~\citep{LAMMPS}.
 
 On the other hand, to implement the velocity Verlet scheme previously discussed, we need to use the command \verb|fix nve|.
 Although the command makes allusion to the NVE ensemble, what it really does is to invoke the velocity form of the Stoermer-Verlet time integration algorithm (velocity-Verlet).
