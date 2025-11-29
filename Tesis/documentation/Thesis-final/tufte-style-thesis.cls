@@ -417,7 +417,7 @@ School of Engineering and Sciences Monterrey, Nuevo León, México, December 202
     \textbf{Declaration of Authorship}
 \end{center}
 
-I, Francisco Javier Vázquez Tavares, declare that this thesis titled, ``Exploration of mechanical responses of Hydrogels via numerical simulation'' and the work presented in it are my own.
+I, Francisco Javier Vázquez Tavares, declare that this thesis titled, ``\@title'' and the work presented in it are my own.
 I confirm that:
 \begin{itemize}
     \item This work was done wholly or mainly while in candidature for a research degree at
