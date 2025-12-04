@@ -1,17 +1,17 @@
-\glossaryentry{"\ensuremath {"\bm {"\gamma },~"\gamma _{ij}}?\glossentry{gamma-mech}|setentrycounter[]{page}"\glsnumberformat}{15}
-\glossaryentry{"\ensuremath {"\bm {"\sigma },~"\sigma _{ij}}?\glossentry{sigma-mech}|setentrycounter[]{page}"\glsnumberformat}{15}
-\glossaryentry{$C_{ijkl}$?\glossentry{C-mech}|setentrycounter[]{page}"\glsnumberformat}{15}
-\glossaryentry{"\ensuremath {"\dot {"\bm {"\gamma }},~"\dot {"\gamma _{ij}}}?\glossentry{dotGamma-mech}|setentrycounter[]{page}"\glsnumberformat}{15}
-\glossaryentry{$"\sigma _y$?\glossentry{sigsuby-mech}|setentrycounter[]{page}"\glsnumberformat}{15}
-\glossaryentry{$"\eta $?\glossentry{eta-mech}|setentrycounter[]{page}"\glsnumberformat}{15}
-\glossaryentry{$G(t)$?\glossentry{Gt-mech}|setentrycounter[]{page}"\glsnumberformat}{15}
-\glossaryentry{$"\vec {T}$?\glossentry{T-mech}|setentrycounter[]{page}"\glsnumberformat}{15}
-\glossaryentry{$"\vec {n}$?\glossentry{n-mech}|setentrycounter[]{page}"\glsnumberformat}{15}
-\glossaryentry{$"\vec {r}$?\glossentry{vr-mech}|setentrycounter[]{page}"\glsnumberformat}{15}
-\glossaryentry{$"\vec {p}$?\glossentry{vp-mech}|setentrycounter[]{page}"\glsnumberformat}{15}
-\glossaryentry{$"\dot {"\vec {r}}$?\glossentry{dvr-mech}|setentrycounter[]{page}"\glsnumberformat}{15}
-\glossaryentry{$m$?\glossentry{m-mech}|setentrycounter[]{page}"\glsnumberformat}{15}
-\glossaryentry{$"\bm {W}$?\glossentry{bW-mech}|setentrycounter[]{page}"\glsnumberformat}{15}
-\glossaryentry{$"\bm {T}$?\glossentry{bT-mech}|setentrycounter[]{page}"\glsnumberformat}{15}
-\glossaryentry{$V$?\glossentry{V-mech}|setentrycounter[]{page}"\glsnumberformat}{15}
-\glossaryentry{$"\vec {F}$?\glossentry{F-mech}|setentrycounter[]{page}"\glsnumberformat}{15}
+\glossaryentry{"\ensuremath {"\bm {"\gamma },~"\gamma _{ij}}?\glossentry{gamma-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
+\glossaryentry{"\ensuremath {"\bm {"\sigma },~"\sigma _{ij}}?\glossentry{sigma-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
+\glossaryentry{$C_{ijkl}$?\glossentry{C-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
+\glossaryentry{"\ensuremath {"\dot {"\bm {"\gamma }},~"\dot {"\gamma _{ij}}}?\glossentry{dotGamma-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
+\glossaryentry{$"\sigma _y$?\glossentry{sigsuby-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
+\glossaryentry{$"\eta $?\glossentry{eta-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
+\glossaryentry{$G(t)$?\glossentry{Gt-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
+\glossaryentry{$"\vec {T}$?\glossentry{T-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
+\glossaryentry{$"\vec {n}$?\glossentry{n-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
+\glossaryentry{$"\vec {r}$?\glossentry{vr-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
+\glossaryentry{$"\vec {p}$?\glossentry{vp-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
+\glossaryentry{$"\dot {"\vec {r}}$?\glossentry{dvr-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
+\glossaryentry{$m$?\glossentry{m-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
+\glossaryentry{$"\bm {W}$?\glossentry{bW-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
+\glossaryentry{$"\bm {T}$?\glossentry{bT-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
+\glossaryentry{$V$?\glossentry{V-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
+\glossaryentry{$"\vec {F}$?\glossentry{F-mech}|setentrycounter[]{page}"\glsnumberformat}{19}
