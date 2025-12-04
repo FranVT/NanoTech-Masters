@@ -372,40 +372,41 @@
     \normalsize{Campus Monterrey School of Engineering and Sciences}
 \end{center}
 
-\vspace*{0.5 cm}
+\vspace*{0.3 cm}
 
 The commitee members, hereby, certify that have read the thesis presented by Francisco Javier Vázquez Tavares and that it is fully adequate in scope and quality as a partial requirement for the degree of Master in Nanotechnology.
 
-\vspace*{0.5 cm}
+\vspace*{0.8 cm}
 
 \raggedleft{
 {---------------------------------} \\
 Antonio Ortiz Ambriz, PhD \\
 Thesis Advisor  \\
 School of Engineering and Sciences, Tecnológico de Monterrey\\
-\vspace*{0.6 cm}
+\vspace*{0.8 cm}
 {---------------------------------}\\
 Claudia Elena Ferreiro Cordova, PhD  \\
 Thesis Coadvisor  \\
 School of Engineering and Sciences, Tecnológico de Monterrey\\
-\vspace*{0.6 cm}
+\vspace*{0.8 cm}
 {---------------------------------}\\
 Susana Marin Aguilar, PhD  \\
 Commitee Member  \\
 Postdoctoral Fellow, Sapienza University of Rome\\
-\vspace*{0.6 cm}
+\vspace*{0.8 cm}
 {---------------------------------}\\
 Alejandro Martinez Borquez, PhD  \\
 Commitee Member  \\
 School of Engineering and Sciences, Tecnológico de Monterrey\\
-\vspace*{0.7 cm}
+\vspace*{0.8 cm}
 }
 
 \center{
 {--------------------------------------------------} \\
 Dr. Elisa Virginia Vazquez Lepe\\
 National Director of Graduate Studies\\
-School of Engineering and Sciences Monterrey, Nuevo León, México, December 2025}
+{\small School of Engineering and Sciences  Monterrey, Nuevo León, México, December 2025}
+}
 
 
 
